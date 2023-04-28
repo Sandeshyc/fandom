@@ -39,8 +39,8 @@ const Navbar = () => {
 
   return (
     <nav className="w-full fixed z-40">
-      <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
-        <img src="/images/logo.png" className="h-4 lg:h-7" alt="Logo" />
+      <div className={`px-4 md:px-16 py-3 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
+        <img src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" className="h-12 lg:h-24" alt="Logo" />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
           <NavbarItem label="Home" active />
           <NavbarItem label="Series" />

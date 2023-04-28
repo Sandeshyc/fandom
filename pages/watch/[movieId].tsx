@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
+import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import useMovie from '@/hooks/useMovie';
 
 const Watch = () => {
@@ -17,7 +18,9 @@ const Watch = () => {
           <span className="font-light">Watching:</span> {data?.title}
         </p>
       </nav>
-      <video className="h-full w-full" autoPlay controls src={data?.videoUrl}></video>
+      <div className="jk_jwp_full">
+        <VideoPlayer video={data?.videoUrl}/>
+      </div>
     </div>
   )
 }

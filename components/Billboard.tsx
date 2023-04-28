@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
+import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import PlayButton from '@/components/PlayButton';
 import useBillboard from '@/hooks/useBillboard';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
@@ -17,7 +18,11 @@ const Billboard: React.FC = () => {
 
   return (
     <div className="relative h-[56.25vw]">
-      <video poster={data?.thumbnailUrl} className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500" autoPlay muted loop src={data?.videoUrl}></video>
+    
+      <div className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500">
+        <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}  />
+      </div>
+
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
         <p className="text-white text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
