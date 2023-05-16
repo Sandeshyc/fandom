@@ -6,9 +6,9 @@ import PlayButton from '@/components/PlayButton';
 import useBillboard from '@/hooks/useBillboard';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 
-const Billboard: React.FC = () => {
+const Billboard: React.FC = ({data}) => {
   const { openModal } = useInfoModalStore();
-  const { data } = useBillboard();
+  // const { data } = useBillboard();
 
   const handleOpenModal = useCallback(() => {
     openModal(data?.id);

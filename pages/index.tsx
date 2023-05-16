@@ -32,14 +32,32 @@ const Home = () => {
   const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
 
+  const getBillboard = () => {
+    const rows = movies.map(movieItem => {
+      if (movieItem.displayType == 'billboard'){
+        return <Billboard data={movieItem.items[Math.floor(Math.random() * movieItem.items.length)]} />
+      }
+    })
+
+    return rows.filter(item => item)
+  }
+
+  const getRows = () => {
+    const rows = movies.map(movieItem => {
+      if (movieItem.displayType !== 'billboard'){
+        return <MovieList title={movieItem.title} data={movieItem.items} />
+      }
+    })
+
+    return rows.filter(item => item)
+  }
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
-      <Billboard />
+      {getBillboard()}
       <div className="pb-40">
-        <MovieList title="Trending Now" data={movies} />
-        <MovieList title="My List" data={favorites} />
+        {getRows()}
       </div>
     </>
   )
