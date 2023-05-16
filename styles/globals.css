@@ -16,3 +16,85 @@ html {
 .jk_jwp_full .jwplayer.jw-flag-aspect-mode{
   max-height: 100vh !important;
 }
+.mainNav{
+  background: linear-gradient(180deg,#181818,transparent 100%);
+}
+
+.slick-list{
+  overflow: visible !important;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.slick-slide {
+  min-width:11vw !important;
+  padding-left:5px;
+  padding-right:5px;
+}
+.group:hover .group-hover\:translate-x-\[2vw\]{
+  --tw-translate-x : -2vw !important;
+}
+.movieSlider{
+  position: relative;
+}
+.movieSlider:hover{
+  z-index: 1;
+}
+.movieCard{
+  width: 100%;
+  padding-bottom:56.2827%;
+  position: relative;
+}
+.movieCard>.absolute{
+  z-index: 9999;
+  width:20vw;
+}
+.movieCard>img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.movieCard .jk_player{
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.2827%;
+  overflow: hidden;
+}
+.jk_player .preview{
+  height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  background: linear-gradient(0deg,#181818,transparent 50%);
+}
+.movieCard .jk_player>div{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.movieCard .jk_player .title{
+  left:10px;
+  bottom:10px;
+  position: absolute;
+  z-index: 2;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+}
+
+.movieSlider.portrait .slick-list {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.movieSlider.portrait .slick-slide {
+  width: 13vw !important;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.movieSlider.portrait .movieCard{
+  padding-bottom: 157.7778%;
+}
+.movieSlider.portrait .group:hover .group-hover\:translate-x-\[2vw\]{
+  --tw-translate-y : -2vw !important;
+}

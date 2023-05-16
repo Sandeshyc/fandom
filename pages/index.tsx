@@ -45,7 +45,7 @@ const Home = () => {
   const getRows = () => {
     const rows = movies.map(movieItem => {
       if (movieItem.displayType !== 'billboard'){
-        return <MovieList title={movieItem.title} data={movieItem.items} />
+        return <MovieList title={movieItem.title} portrait={ movieItem.title === "Fantasy"} data={movieItem.items} />
       }
     })
 

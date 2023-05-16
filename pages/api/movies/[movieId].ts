@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import axios from 'axios';
 import prismadb from '@/libs/prismadb';
 import serverAuth from "@/libs/serverAuth";
 
@@ -10,25 +11,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await serverAuth(req, res);
 
-    const { movieId } = req.query;
-
-    if (typeof movieId !== 'string') {
-      throw new Error('Invalid Id');
-    }
-
-    if (!movieId) {
-      throw new Error('Missing Id');
-    }
-
-    const movies = await prismadb.movie.findUnique({
-      where: {
-        id: movieId
-      }
-    });
+    const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}`);
+    const movies = moviesRes.data;
 
     return res.status(200).json(movies);
   } catch (error) {
-    console.log(error);
+    console.log({ error })
     return res.status(500).end();
   }
 }

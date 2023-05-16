@@ -8,19 +8,22 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 
 const Billboard: React.FC = ({data}) => {
   const { openModal } = useInfoModalStore();
+
+  console.log('data', data);
   // const { data } = useBillboard();
 
   const handleOpenModal = useCallback(() => {
-    openModal(data?.id);
-  }, [openModal, data?.id]);
+    openModal(data?._id, data);
+  }, [openModal, data?._id, data]);
 
 
 
   return (
-    <div className="relative h-[56.25vw]">
+    <div className="relative mb-[-2vw]  ">
     
-      <div className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500">
+      <div className="w-full h-[85vh] overflow-hidden object-cover brightness-[60%] transition duration-500 jk_player">
         <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}  />
+        <div className='preview'></div>
       </div>
 
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
@@ -31,7 +34,7 @@ const Billboard: React.FC = ({data}) => {
           {data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          <PlayButton movieId={data?.id} />
+          <PlayButton movieId={data?._id} />
           <button
             onClick={handleOpenModal}
             className="

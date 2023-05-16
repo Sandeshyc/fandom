@@ -3,7 +3,8 @@ export interface MovieInterface {
   title: string;
   description: string;
   thumbnailUrl: string;
+  thumbnailPotrait: string;
   videoUrl: string;
   duration: string;
-  genre: string;
+  genre: Array<String>;
 }

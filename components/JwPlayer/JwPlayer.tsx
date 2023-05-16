@@ -1,17 +1,16 @@
-import { background } from "@chakra-ui/react";
-import React, { useEffect, useRef } from "react";
+import { set } from "lodash";
+import React, { useState, useEffect, useRef } from "react";
 
 interface VideoPlayerProps {
     image : string;
     video : string;
     control : boolean;
+    autoplay : boolean;
 }
 
-
-
-const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control}) => {
+const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay}) => {
     const playerRef = useRef(null);
-    console.log('image', image);
+    // console.log('image', image);
 
     useEffect(() => {
         if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" ) return;
@@ -22,8 +21,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control}) => {
             file: video,
             image: image,
             aspectratio: "16:9",
-            // autostart: true,
-            // mute: true,
+            // autostart: autoplay,
+            mute: true,
             controls: control,
             displaytitle: true,
             // displaydescription: true,
@@ -44,11 +43,24 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control}) => {
             
         });
 
-        player.on('ready', function() {
-            setTimeout(() => {
+        
+
+        if(autoplay === true) {
+            // player is ready 
+            player.on('ready', function() {
                 player.play();
-            }, 500);
-        });
+            });
+
+            // un mute video
+            player.on('play', function() {
+                // player.setMute(false);
+            });
+        }
+
+       /*  player.on('ready', function() {
+                
+                
+        }); */
 
         // on playing video
         player.on('play', function() {
@@ -60,7 +72,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control}) => {
             console.log('pause');
         });
 
-    }, [video]);
+    }, [video, autoplay]);
 
 
     const styling={
@@ -69,8 +81,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control}) => {
 
     return (
         <>
-            <div className="max-h-screen" style={styling}>
-                <div ref={playerRef}></div>
+            <div className="max-h-screen"  >
+                <div ref={playerRef} ></div>
             </div>
         </>
     )
@@ -78,8 +90,11 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control}) => {
 
 // default props
 VideoPlayer.defaultProps = {
-    control: true,
     image: "",
+    video: "",
+    control: true,
+    autoplay: true,
+
 };
 
 export default VideoPlayer;

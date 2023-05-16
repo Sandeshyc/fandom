@@ -15,10 +15,10 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
       className="
         bg-white 
         rounded-md 
-        py-1 md:py-2 
-        px-2 md:px-4
+        py-1 md:py-1 
+        px-3 md:px-6
         w-auto 
-        text-xs lg:text-lg 
+        text-lg lg:text-xl 
         font-semibold
         flex
         flex-row
@@ -27,7 +27,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
         transition
         "
       >
-        <PlayIcon className="w-4 md:w-7 text-black mr-1" />
+        <PlayIcon className="w-5 md:w-9 text-black mr-2" />
         Play
     </button>
   );
