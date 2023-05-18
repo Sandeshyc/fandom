@@ -8,10 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
       return res.status(405).end();
     }
-
+    
     await serverAuth(req, res);
-
-    const moviesRes = await axios.get(`${process.env.API_URL}/page/home`);
+    const region = req.query.region;
+    console.log(region)
+    const moviesRes = await axios.get(`${process.env.API_URL}/page/home?region=${req.query.region}`);
     const movies = moviesRes.data;
 
     return res.status(200).json(movies);

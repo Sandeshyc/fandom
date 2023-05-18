@@ -14,12 +14,12 @@ interface InfoModalProps {
   onClose: any;
 }
 
-const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
+const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose, region }) => {
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
 
   const { data } = useInfoModalStore();
   // const { data: demoMore = {} } = useMovie(data?._id);
-  const { data: movies = [] } = useMovieList();
+  const { data: movies = [] } = useMovieList(region);
 
   useEffect(() => {
     setIsVisible(!!visible);
