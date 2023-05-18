@@ -101,7 +101,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose, region }) => {
                 <p className="text-white text-xl font-bold">See all</p>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 overflow-x-auto px-6 pb-6">
-                {movies[0]?.items?.map((item: any) => <MovieCardSimple data={item} />)
+                {movies[2]?.items?.map((item: any) => <MovieCardSimple data={item} />)
                 }
               </div>
           </div>
