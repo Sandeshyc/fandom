@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 import AccountMenu from '@/components/AccountMenu';
@@ -8,9 +9,11 @@ import NavbarItem from '@/components/NavbarItem';
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
+  const router = useRouter();
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+
 
   useEffect(() => {
     setShowBackground(false)
@@ -40,12 +43,12 @@ const Navbar = () => {
   return (
     <nav className="w-full fixed z-40">
       <div className={`px-4 md:px-16 py-3 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
-        <img src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" className="h-12 lg:h-18" alt="Logo" />
+        <img src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" className="h-12 lg:h-18 cursor-pointer" alt="Logo" onClick={() => router.push('/') } />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
-          <NavbarItem label="Home" active />
+          <NavbarItem label="Home" active={router.pathname === '/'} onClick={() => router.push('/') }/>
           <NavbarItem label="Series" />
           <NavbarItem label="Films" />
-          <NavbarItem label="New & Popular" />
+          <NavbarItem label="New & Popular" active={router.pathname === '/popular'} onClick={() => router.push('/popular/') } />
           <NavbarItem label="My List" />
           <NavbarItem label="Browse by Languages" />
         </div>

@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
 import { isEmpty } from 'lodash';
@@ -16,22 +18,15 @@ interface MovieListProps {
 function SlickNextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
+    
+    <div className={className} onClick={onClick}><ChevronRightIcon/></div>
   );
 }
 
 function SlickPrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    />
+    <div className={className} onClick={onClick}><ChevronLeftIcon/></div>
   );
 }
 
@@ -46,7 +41,9 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     slidesToShow: 6.3,
     slidesToScroll: 6,
     swipeToSlide: true,
-    adaptiveHeight: true,
+    // adaptiveHeight: true,
+    nextArrow: <SlickNextArrow />,
+    prevArrow: <SlickPrevArrow />,
 
     responsive: [
       {
@@ -61,6 +58,20 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
         settings: {
           slidesToShow: 3.3,
           slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 2.3,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 380,
+        settings: {
+          slidesToShow: 1.2,
+          slidesToScroll: 1,
         },
       },
     ]

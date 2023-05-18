@@ -6,22 +6,26 @@ interface VideoPlayerProps {
     video : string;
     control : boolean;
     autoplay : boolean;
+    isComplited : () => void;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay}) => {
+const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited }) => {
     const playerRef = useRef(null);
-    // console.log('image', image);
 
     useEffect(() => {
         if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" ) return;
 
-        const player = window.jwplayer(playerRef.current);
+        playerRef.current.innerHTML = "<div className='h-full' />";
+        playerRef.current.style ="opacity: 0"
+
+        const player = window.jwplayer(playerRef.current.firstChild);
+
         player.setup({
 
             file: video,
             image: image,
             aspectratio: "16:9",
-            // autostart: autoplay,
+            autostart: autoplay,
             mute: true,
             controls: control,
             displaytitle: true,
@@ -29,6 +33,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             stretching: "fill",
             preload: "auto",
             responsive: true,
+            repeat: true,
 
             sharing: {
                 sites: ["facebook","twitter","email","linkedin","pinterest"]
@@ -45,7 +50,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
         
 
-        if(autoplay === true) {
+        /* if(autoplay === true) {
             // player is ready 
             player.on('ready', function() {
                 player.play();
@@ -55,7 +60,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             player.on('play', function() {
                 // player.setMute(false);
             });
-        }
+        } */
 
        /*  player.on('ready', function() {
                 
@@ -65,6 +70,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         // on playing video
         player.on('play', function() {
             console.log('play');
+            // show the player once it's ready
+            playerRef.current.style ="opacity: 1"
         });
 
         // on pause video
@@ -72,17 +79,34 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             console.log('pause');
         });
 
+        // on complete video
+        player.on('complete', function() {
+            console.log('jw video complete');
+            // if isComplited is passed as props
+            if(isComplited){
+                isComplited(true);
+            }
+        });
+
+        // clear on unmount
+        return () => {
+            player.remove();
+        };
+
     }, [video, autoplay]);
 
 
     const styling={
         backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
     }
 
     return (
         <>
-            <div className="max-h-screen"  >
-                <div ref={playerRef} ></div>
+            <div className="h-full"  style={styling}>
+                <div ref={playerRef} className="h-full" >
+                    <div className="h-full" />
+                </div>
             </div>
         </>
     )
