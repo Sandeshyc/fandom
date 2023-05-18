@@ -11,7 +11,7 @@ import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import BillboardExtended from '@/components/BillboardExtended';
-import Top10 from '@/components/Top10';
+import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -76,7 +76,7 @@ const Home = (props) => {
         case 'potrait' :
           return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} />
         case 'top10' :
-          return <Top10 title={movieItem.title} data={movieItem} />         
+          return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />         
         default:
           return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
       }

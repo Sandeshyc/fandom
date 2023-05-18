@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { MovieInterface } from '@/types';
-import MovieCard from '@/components/MovieCard';
+import MovieCardTop from '@/components/MovieCardTop';
 import { isEmpty } from 'lodash';
 
 interface MovieListProps {
@@ -38,8 +38,8 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: portrait ? 8.3 : 6.3,
-    slidesToScroll: 6,
+    slidesToShow: 5.3,
+    slidesToScroll: 4,
     swipeToSlide: true,
     // adaptiveHeight: true,
     nextArrow: <SlickNextArrow />,
@@ -76,15 +76,17 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
       },
     ]
   };
+  let i =1;
 
   return (
-    <div className={`px-4 md:px-12 mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
+    <div className={`px-4 md:px-12 mb-[3vw] movieSlider `}>
       <div>
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>
         <Slider {...settings}>
-          {data.map((movie) => (
-            <MovieCard key={movie.id} data={movie} portrait={portrait} />
+          {
+          data.map((movie) => (
+            <MovieCardTop key={movie.id} data={movie} number={i++} portrait={portrait} />
           ))}
         </Slider>
         </div>

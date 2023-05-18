@@ -8,8 +8,9 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				Modak: ["Modak", "cursive"],
-				Moonrocks: ["Rubik Moonrocks", "cursive"],
+				modak: ["Modak", "cursive"],
+				moonrocks: ["Rubik Moonrocks", "cursive"],
+				monoton: ["Monoton", "cursive"],
 			},
 		},
 	},

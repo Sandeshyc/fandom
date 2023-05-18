@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
+import SvgNumbers, {SvgNumberModak} from '@/utils/SvgNumbers';
+
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
 import { get, isEmpty } from 'lodash';
@@ -118,10 +120,12 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
    
     return (
       <div key={movie.id} data-index={i}   onClick={e => hendleSlideChange(e, movie)}>
-        <div className="flex flex-nowrap items-center px-3 group cursor-pointer"  >
-          <span className={`relative z-10 text-[8vw]  font-Modak text-white leading-[1] ${i === parseInt(current)? 'opacity-100' : 'opacity-50'}`}>{1 + i}{movie.id}</span>
+        <div className="movieListNumberCard grid grid-cols-12 items-center px-3 group cursor-pointer"  >
+          <span className={`col-span-3 relative z-10 w-auto h-[50%] flex justify-end font-monoton text-white leading-[1] ${i === parseInt(current)? 'opacity-100' : 'opacity-50'}`}>
+            <SvgNumberModak item={i + 1} />
+          </span>
 
-          <div className={`relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
+          <div className={`col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
             <img src={get(movie, 'thumbnailUrl')} className="w-full  object-cover rounded-lg" />
           </div>
         </div>

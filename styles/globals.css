@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
 body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
@@ -74,6 +75,7 @@ html {
   left:50%;
   top:50%;
   /* transform: translate(-50%,-50%); */
+  transform: translate(-50%, -50%) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .movieCard:hover>.absolute{
   transform: translate(-50%,-50%) !important;
@@ -87,6 +89,7 @@ html {
 
 .movieCard .img>img{
   position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -119,12 +122,19 @@ html {
   text-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 }
 
+/* movie list with number for the billboard */
+.movieListNumberCard svg{
+  height: 100% !important;
+  width: auto !important;
+}
+
+
 .movieSlider.portrait .slick-list {
     margin-left: -10px;
     margin-right: -10px;
 }
 .movieSlider.portrait .slick-slide {
-  width: 13vw !important;
+  /* width: 13vw !important; */
   padding-left:10px;
   padding-right:10px;
 }
@@ -153,4 +163,24 @@ html {
 /* full slider */
 .jk_player .h-full>.jwplayer{
   height: 100% !important;
+}
+
+/* movieCardTop [cards with numbers, for top items] */
+.movieCardTop{
+  position: relative;
+  width: 100%;
+  padding: 35.714285714% 0;
+}
+.movieCardTop .number, .movieCardTop>.img{
+  position: absolute;
+  width: 48%;
+  height: 100%;
+  top:0;
+  left: 0;
+}
+.movieCardTop>.img{
+  width: 52%;
+  left:auto;
+  right: 0;
+  padding:36.894273127753% 0 !important;
 }

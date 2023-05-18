@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 
 import Billboard from '@/components/Billboard';
-import MovieListNumber from '@/components/MovieListNumber';
+import MovieListTops from '@/components/MovieListTops';
+import SvgNumbers from '@/utils/SvgNumbers'
 
 const Top10: React.FC = ({data, title}) => {
   console.log('data', data);
@@ -15,11 +16,7 @@ const Top10: React.FC = ({data, title}) => {
     <>
       <div className='relative'>
         <div >
-          {title && 
-          <div className={` md:px-12  `}>
-            <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title}</p>
-            </div>}
-          <MovieListNumber title={data.title} data={data.items} setCurrentMovie={setItem} itemEnded={itemEnded} />
+          <MovieListTops title={'Top Ten Movies in Philippines' || data.title} data={data.items} portrait  />
         </div>
       </div>
     </>
