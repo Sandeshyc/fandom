@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
+import {SideBar, AnimatedRow} from 'imp-design-system';
 
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
@@ -44,9 +45,15 @@ const Home = () => {
 
   const getRows = () => {
     const rows = movies.map(movieItem => {
-      if (movieItem.displayType !== 'billboard'){
-        return <MovieList title={movieItem.title} portrait={ movieItem.title === "Fantasy"} data={movieItem.items} />
+      if (movieItem.displayType === 'billboard'){
+        return;
       }
+      if (movieItem.displayType === 'animated'){
+        return <AnimatedRow title={movieItem.title} data={movieItem.items} />
+      } 
+      
+      return <MovieList title={movieItem.title} portrait={ movieItem.title === "Fantasy"} data={movieItem.items} />
+      
     })
 
     return rows.filter(item => item)
@@ -54,7 +61,8 @@ const Home = () => {
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
+      {/* <Navbar /> */}
+      <SideBar />
       {getBillboard()}
       <div className="pb-40">
         {getRows()}
