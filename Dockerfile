@@ -11,7 +11,7 @@ COPY . /appweb
 RUN rm package-lock.json
 RUN npm cache verify
 RUN npm install --legacy-peer-deps
-RUN npm install -D @swc/cli @swc/core
+
 
 
 # Run Test Suite
