@@ -12,6 +12,7 @@ import useMovieList from '@/hooks/useMovieList';
 interface InfoModalProps {
   visible?: boolean;
   onClose: any;
+  region: string;
 }
 
 const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose, region }) => {

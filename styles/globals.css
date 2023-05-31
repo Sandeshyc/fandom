@@ -5,6 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
+*, *::after, *::before {
+  box-sizing: border-box
+}
+
 body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
   max-width: 100%;
@@ -37,11 +41,12 @@ html {
 .group:hover .group-hover\:translate-x-\[2vw\]{
   --tw-translate-x : -2vw !important;
 }
-.movieSlider{
+.layoutEdit .editItem{
   position: relative;
-}
-.movieSlider:hover{
   z-index: 1;
+}
+.layoutEdit .editItem.relative:hover{
+  z-index: 2;
 }
 .movieSlider .slick-arrow:before, .movieSlider .slick-arrow:after{display: none !important;}
 .movieSlider .slick-arrow{
@@ -183,4 +188,10 @@ html {
   left:auto;
   right: 0;
   padding:36.894273127753% 0 !important;
+}
+
+
+/*  edit screen  */
+.layoutEdit{
+  transform-origin: 50% 0;
 }

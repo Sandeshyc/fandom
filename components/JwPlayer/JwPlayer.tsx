@@ -10,7 +10,7 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited }) => {
-    const playerRef = useRef(null);
+    const playerRef = useRef();
 
     useEffect(() => {
         if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" ) return;
@@ -48,24 +48,17 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             
         });
 
-        
+        /* xx // on mouse out pause video
+        playerRef.current.addEventListener("mouseout", function() {
+            player.pause();
+        });
 
-        /* if(autoplay === true) {
-            // player is ready 
-            player.on('ready', function() {
-                player.play();
-            });
-
-            // un mute video
-            player.on('play', function() {
-                // player.setMute(false);
-            });
-        } */
-
-       /*  player.on('ready', function() {
-                
-                
+        // on mouse over play video
+        playerRef.current.addEventListener("mouseover", function() {
+            player.play();
         }); */
+
+    
 
         // on playing video
         player.on('play', function() {

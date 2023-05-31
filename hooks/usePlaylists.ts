@@ -1,8 +1,8 @@
 import useSwr from 'swr'
 import fetcher from '@/libs/fetcher';
 
-const useMovies = (region: string) => {
-  const { data, error, isLoading } = useSwr(`/api/movies?region=${region}`, fetcher, {
+const useMediaItems = () => {
+  const { data, error, isLoading } = useSwr(`/api/playlists`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -14,4 +14,4 @@ const useMovies = (region: string) => {
   }
 };
 
-export default useMovies;
+export default useMediaItems;

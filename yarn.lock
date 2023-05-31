@@ -1717,6 +1717,13 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@headlessui/react@^1.7.14":
+  version "1.7.14"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@headlessui/react/-/react-1.7.14.tgz#75f19552c535113640fe8a3a40e71474f49e89c9"
+  integrity sha1-dfGVUsU1ETZA/oo6QOcUdPSeick=
+  dependencies:
+    client-only "^0.0.1"
+
 "@heroicons/react@^2.0.16":
   version "2.0.18"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@heroicons/react/-/react-2.0.18.tgz#f80301907c243df03c7e9fd76c0286e95361f7c1"
@@ -2098,10 +2105,10 @@
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/node/-/node-20.2.0.tgz#e33da33171ac4eba79b9cfe30b68a4f1561e74ec"
   integrity sha1-4z2jMXGsTrp5uc/jC2ik8VYedOw=
 
-"@types/node@18.13.0":
-  version "18.16.12"
-  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/node/-/node-18.16.12.tgz#f11e19055c5b3daeb79dc6eb7ccdd3d036313034"
-  integrity sha1-8R4ZBVxbPa63ncbrfM3T0DYxMDQ=
+"@types/node@^18.13.0":
+  version "18.16.16"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/node/-/node-18.16.16.tgz#3b64862856c7874ccf7439e6bab872d245c86d8e"
+  integrity sha1-O2SGKFbHh0zPdDnmurhy0kXIbY4=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2113,10 +2120,10 @@
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha1-XxnSuFqY6VWANvajysyIGUIPBc8=
 
-"@types/react-dom@18.0.11":
-  version "18.0.11"
-  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/react-dom/-/react-dom-18.0.11.tgz#321351c1459bc9ca3d216aefc8a167beec334e33"
-  integrity sha1-MhNRwUWbyco9IWrvyKFnvuwzTjM=
+"@types/react-dom@^18.0.11":
+  version "18.2.4"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/react-dom/-/react-dom-18.2.4.tgz#13f25bfbf4e404d26f62ac6e406591451acba9e0"
+  integrity sha1-E/Jb+/TkBNJvYqxuQGWRRRrLqeA=
   dependencies:
     "@types/react" "*"
 
@@ -2143,10 +2150,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.0.28":
-  version "18.0.28"
-  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/react/-/react-18.0.28.tgz#accaeb8b86f4908057ad629a26635fe641480065"
-  integrity sha1-rMrri4b0kIBXrWKaJmNf5kFIAGU=
+"@types/react@^18.0.28":
+  version "18.2.7"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/react/-/react-18.2.7.tgz#dfb4518042a3117a045b8c222316f83414a783b3"
+  integrity sha1-37RRgEKjEXoEW4wiIxb4NBSng7M=
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2601,7 +2608,7 @@ classnames@^2.2.5, classnames@^2.3.2:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
   integrity sha1-NR2BO/ATf8xqdqFriCCNJWCg2SQ=
 
-client-only@0.0.1:
+client-only@0.0.1, client-only@^0.0.1:
   version "0.0.1"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/client-only/-/client-only-0.0.1.tgz#38bba5d403c41ab150bff64a95c85013cf73bca1"
   integrity sha1-OLul1APEGrFQv/ZKlchQE89zvKE=
@@ -3683,10 +3690,10 @@ ignore@^5.2.0:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/ignore/-/ignore-5.2.4.tgz#a291c0c6178ff1b960befe47fcdec301674a6324"
   integrity sha1-opHAxheP8blgvv5H/N7DAWdKYyQ=
 
-imp-design-system@0.22.010:
-  version "0.22.10"
-  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/imp-design-system/-/imp-design-system-0.22.10.tgz#4626f53de3247bfffcc109fe2ac08e21d8eb611f"
-  integrity sha1-Rib1PeMke//8wQn+KsCOIdjrYR8=
+imp-design-system@0.22.012:
+  version "0.22.12"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/imp-design-system/-/imp-design-system-0.22.12.tgz#1757253b3fe584e4826484d4941b0d01ce6b24e5"
+  integrity sha1-F1clOz/lhOSCZITUlBsNAc5rJOU=
   dependencies:
     "@emotion/react" "^11.9.0"
     "@emotion/styled" "^11.8.1"
@@ -5127,6 +5134,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.3, signal-exit@^3.0.7:
   version "3.0.7"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha1-qaF2f4r4QVURTqq9c/mSc8j1mtk=
+
+simple-zustand-devtools@^1.1.0:
+  version "1.1.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/simple-zustand-devtools/-/simple-zustand-devtools-1.1.0.tgz#bb080b30c9930d2997f33881f63d47405226fd7f"
+  integrity sha1-uwgLMMmTDSmX8ziB9j1HQFIm/X8=
 
 slash@^3.0.0:
   version "3.0.0"
