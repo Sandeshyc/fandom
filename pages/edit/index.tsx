@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import {SideBar} from 'imp-design-system';
@@ -16,10 +16,13 @@ import useEditInfoModal from '@/hooks/useEditPlaylistModal';
 import useEditChangePlaylistModal from '@/hooks/useEditChangePlaylistModal';
 import useSavedPagesStore from '@/hooks/useSavedPagesStore';
 import useCurrentPageStore, {layoutType} from '@/hooks/useCurrentPageStore';
+import useReorderLayout from '@/hooks/useReorderLayout';  
 import BillboardExtended from '@/components/BillboardExtended';
 import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
 import EditMenu from '@/components/editLayout/EditMenu';
+import ReorderLayout from '@/components/editLayout/ReorderLayout';
+
 import { stableKeys } from "@/utils/stableKeys";
 
 
@@ -52,6 +55,7 @@ const Home = (props) => {
   const {isOpen, closeModal} = useInfoModalStore();
   const {isOpen: editPlaylistIsOpen, closeModal: editPlaylistCloseModal} = useEditInfoModal();
   const {isOpen: changePlaylistIsOpen, closeModal: changePlaylistCloseModal} = useEditChangePlaylistModal();
+  const {isOpen: reorderLayoutIsOpen, closeModal: reorderLayoutCloseModal} = useReorderLayout();
 
   // const [currentLayout, setCurrentLayout] = useState(movieLists);
 
@@ -122,7 +126,7 @@ const Home = (props) => {
       }
       
       return row ? (
-        <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`} draggablex >
+        <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
           <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
             <EditMenu currentLayout={currentLayout} playlist={movieList} index={index}  />
           </div>
@@ -135,11 +139,14 @@ const Home = (props) => {
 
     return rows;
   }
+
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       <EditInfoModal visible={editPlaylistIsOpen} onClose={editPlaylistCloseModal} />
       <EditChangePlaylistModal visible={changePlaylistIsOpen} onClose={changePlaylistCloseModal} region={region}/>
+      <ReorderLayout visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} />
+
 
       {getNavBar()}
       <div className='layoutEdit pt-40 pb-40  transform origin-top-left scale-90 overflow-hidden'  >

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import useSavedPagesStore from '@/hooks/useSavedPagesStore';
 import useCurrentPageStore, {layoutType} from '@/hooks/useCurrentPageStore';
+import useReorderLayout from '@/hooks/useReorderLayout';
 
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon, PencilSquareIcon, ArrowUpTrayIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import { TfiSave } from 'react-icons/tfi';
@@ -21,6 +22,7 @@ const Navbar = () => {
   const router = useRouter();
   const {savedPages = [], setSavedPages} = useSavedPagesStore();
   const {currentLayout =  {} as layoutType, setCurrentLayout} = useCurrentPageStore();
+  const {openModal} = useReorderLayout();
 
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -70,7 +72,7 @@ const Navbar = () => {
       type: 'info',
       message: 'Layout Saved Successfully!'
     });
-    // setSavedPages(currentLayout);
+    setSavedPages(currentLayout);
   }, [currentLayout, savedPages]);
 
   const handleLayoutPublish = useCallback ((e) => {
@@ -79,7 +81,7 @@ const Navbar = () => {
       type: 'success',
       message: 'Layout Published Successfully!'
     });
-    // setSavedPages(currentLayout);
+    setSavedPages(currentLayout);
   }, [currentLayout, savedPages]);
 
   return (
@@ -138,7 +140,7 @@ const Navbar = () => {
                     </button>
                   </Tooltip>
                   <Tooltip message="Reorder layout" >
-                    <button className='editPlaylistButton text-white  bg-teal-500 px-2 py-1.5 rounded-md hover:bg-teal-600' >
+                    <button className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
                     <FaExchangeAlt className='w-7 transform rotate-90'/>
                     </button>
                   </Tooltip>
