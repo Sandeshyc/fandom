@@ -129,6 +129,11 @@ const Navbar = () => {
                 </>
               ):(
                 <>
+                  <Tooltip message="Reorder layout" >
+                    <button className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
+                    <FaExchangeAlt className='w-7 transform rotate-90'/>
+                    </button>
+                  </Tooltip>
                   <Tooltip message="Save" >
                     <button className='editPlaylistButton text-white text-2xl text-bold-700 bg-blue-400 px-2 py-1.5 rounded-md hover:bg-blue-500' onClick={handleLayoutSave}  >
                     <TfiSave/>
@@ -139,11 +144,7 @@ const Navbar = () => {
                     <ArrowUpTrayIcon className='w-7 '/>
                     </button>
                   </Tooltip>
-                  <Tooltip message="Reorder layout" >
-                    <button className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
-                    <FaExchangeAlt className='w-7 transform rotate-90'/>
-                    </button>
-                  </Tooltip>
+                  
                 </>
               )}
             </div>
