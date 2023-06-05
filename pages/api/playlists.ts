@@ -12,7 +12,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await serverAuth(req, res);
     const region = req.query.region;
     console.log(region)
-    const playlistRes = await axios.get(`${process.env.API_URL}/playlist`);
+    const playlistRes = await axios.get(`${process.env.API_URL}/page/playlist`);
+    console.log('playlistRes.data ', playlistRes.data);
     const playlists = playlistRes.data;
 
     return res.status(200).json(playlists);
