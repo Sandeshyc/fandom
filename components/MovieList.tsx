@@ -78,7 +78,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   };
 
   return (
-    <div className={`px-4 md:px-12 mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
+    <div style={{marginLeft:"5rem"}} className={`px-4 md:px-12 mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
       <div>
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>

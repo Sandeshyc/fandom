@@ -31,7 +31,7 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
   }
 
   return (
-    <div className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    <div  className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       <div className='movieCardTop'>
         <div className='number'><SvgNumbers item={number} /></div>
         <div className='img'>

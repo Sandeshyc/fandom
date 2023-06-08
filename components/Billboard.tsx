@@ -20,12 +20,14 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
   return (
     <div className={`relative   ${extended ? 'mb-[1vw]' : 'mb-[-2vw]'}`}>
     
-      <div className={`w-full overflow-hidden object-cover brightness-[60%] transition duration-500 jk_player ${extended ? 'h-[100vh]' : 'h-[85vh]'}`}>
+    <div className={`w-full overflow-hidden object-cover brightness-[60%] transition duration-500 jk_player min-h-[500px] ${extended ? 'h-[100vh] max-h-[100vh] ' : 'h-[85vh]  max-h-[85vh]'}`}>
+
+  
         <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false} isComplited={isComplited} />
         <div className='preview'></div>
       </div>
 
-      <div className={`absolute ${extended ? 'top-[20%] md:top-[30%]' : 'top-[30%] md:top-[40%]'}  ml-4 md:ml-16 transition`}>
+      <div style={{marginLeft: "8rem"}} className={`absolute ${extended ? 'top-[40%] md:top-[30%]' : 'top-[30%] md:top-[40%]'}  ml-4 md:ml-16 transition`}>
         <p className="text-white text-1xl md:text-5xl h-full w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
