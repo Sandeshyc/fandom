@@ -77,7 +77,7 @@ const EditMenu: React.FC<EditMenuProps> = ({className = '', index, playlist}) =>
                     'block px-4 py-2 text-lg w-full text-left'
                   )}
                 >
-                  Change Playlist
+                  Change Content
                 </button>
               )}
             </Menu.Item>
@@ -95,61 +95,6 @@ const EditMenu: React.FC<EditMenuProps> = ({className = '', index, playlist}) =>
                   )}
                 >
                   Change Layout
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={(e) => editPlaylistOpenModal(currentLayout, playlist, index)}
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-lg w-full text-left'
-                  )}
-                >
-                  Edit Playlist
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-lg w-full text-left'
-                  )}
-                >
-                  Style
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={e => handleDuplicatePlaylistItem(index)}
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-lg w-full text-left'
-                  )}
-                >
-                  Duplicate
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={e => handleRemovePlaylistFromLayout(index)}
-                  className={classNames(
-                    active ? 'bg-gray-100 text-red-700' : 'text-red-600',
-                    'block px-4 py-2 text-lg w-full text-left'
-                  )}
-                >
-                  Remove
                 </button>
               )}
             </Menu.Item>
