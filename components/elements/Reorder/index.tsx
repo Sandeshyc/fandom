@@ -133,6 +133,21 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
     setList(updatedList);
   };
 
+  const handleDelete = (index: number) => {
+    const updatedList = list.map((item, i) => {
+      if (i === index) {
+        return {
+          ...item,
+          visibility: !item.visibility, // Toggle the visibility state
+        };
+      }
+      return item;
+    });
+    updatedList.splice(index, 1),
+    setList(updatedList);
+    
+  };
+
   return (
     <div className="reorder-layout">
       {/* Labels */}
@@ -147,7 +162,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
         <span className="mr-6 span-1"></span>
         <span className="mr-6 span-1"></span>
       </div>
-
+      <div style={{overflow: "auto", maxHeight: "600px"}}>
       {/* Table Rows */}
       {list.map((item, index) => {
         if (
@@ -220,6 +235,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
               <DeleteIcon
                 style={{ color: 'white', cursor: 'pointer' }}
                 className="absolute right-60 top-4"
+                onClick={() => handleDelete(index)}
               />
               {!item.visibility ? (
                 <CheckIcon
@@ -239,6 +255,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
           </div>
         );
       })}
+      </div>
     </div>
   );
 };
