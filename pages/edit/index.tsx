@@ -125,7 +125,8 @@ const Home = (props) => {
         default:
           break;
       }
-      
+      if (movieList.hasOwnProperty('visibility')) {
+        if(movieList.visibility !== true){
       return row ? (
         <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
           <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
@@ -133,10 +134,20 @@ const Home = (props) => {
           </div>
           {row}
         </div>
-      ) : null;
+      ) : null;}}
+      else{
+        return row ? (
+          <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
+            <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
+              <EditMenu currentLayout={currentLayout} playlist={movieList} index={index}  />
+            </div>
+            {row}
+          </div>
+        ) : null;
+      }
       
       
-    }): null;
+    }): null
 
     return rows;
   }

@@ -4,8 +4,8 @@ import { MenuItem, Select } from '@mui/material';
 import {
   DragHandle as DragHandleIcon,
   Delete as DeleteIcon,
-  Remove as RemovedIcon,
-  Add as AddIcon
+  Check as CheckIcon,
+  Close as CloseIcon
 } from '@mui/icons-material';
 
 interface ReorderProps {
@@ -130,7 +130,6 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
       }
       return item;
     });
-
     setList(updatedList);
   };
 
@@ -223,14 +222,14 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
                 className="absolute right-60 top-4"
               />
               {!item.visibility ? (
-                <RemovedIcon
-                  style={{ color: 'red', cursor: 'pointer' }}
+                <CheckIcon
+                  style={{ color: 'green', cursor: 'pointer' }}
                   className="absolute right-32 top-4"
                   onClick={() => handleVisibilityToggle(index)}
                 />
               ) : (
-                <AddIcon
-                  style={{ color: 'white', cursor: 'pointer' }}
+                <CloseIcon
+                  style={{ color: 'red', cursor: 'pointer' }}
                   className="absolute right-32 top-4"
                   onClick={() => handleVisibilityToggle(index)}
                 />

@@ -58,7 +58,7 @@ const ReorderLayout: React.FC<InfoModalProps> = ({visible, onClose }) => {
     <div onClick={handleClose} style={{width: "1000px", top:"10%",left: "0", right:"0", marginLeft:"auto",marginRight:"auto"}} className={`fixed z-[41] left-0 top-0 p-6 rounded-md shadow-lg overflow-hidden bg-black border-2 ${isVisible ? 'scale-100' : 'scale-0'}`}>
          <div className="cursor-pointer absolute top-3 right-20" >
          
-<Button variant="contained">Cancel</Button>
+<Button variant="contained" data-button="close">Cancel</Button>
             </div>
         <div className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-white bg-opacity-70 flex items-center justify-center" >
              <XMarkIcon className="text-white w-6" data-button="close"/>
