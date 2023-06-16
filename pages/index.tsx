@@ -1,7 +1,6 @@
 import React from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
-import {SideBar} from 'imp-design-system';
 
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
@@ -13,6 +12,7 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 import BillboardExtended from '@/components/BillboardExtended';
 import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
+import SideBar from '@/components/SideBar'
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""

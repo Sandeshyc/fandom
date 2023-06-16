@@ -98,7 +98,8 @@ const Home = (props) => {
 
 
   const getRows = () => {
-    const rows = currentLayout.items.map((movieList, index) => {
+    const rows = Array.isArray(currentLayout.items)
+    ? currentLayout.items.map((movieList, index) => {
       console.log('movieList', movieList);
       let row = null;
       switch (movieList.displayType) {
@@ -135,7 +136,7 @@ const Home = (props) => {
       ) : null;
       
       
-    })
+    }): null;
 
     return rows;
   }
