@@ -1,8 +1,12 @@
 import React, { useState, DragEvent } from 'react';
 import { capFirstLetter, stableKeys } from '@/utils';
 import { MenuItem, Select } from '@mui/material';
-import { GrDrag } from 'react-icons/gr';
-import { DragHandle as DragHandleIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import {
+  DragHandle as DragHandleIcon,
+  Delete as DeleteIcon,
+  Remove as RemovedIcon,
+  Add as AddIcon
+} from '@mui/icons-material';
 
 interface ReorderProps {
   list: any[];
@@ -54,7 +58,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
       }
     }, 500);
   };
-  
+
   const getUniqueColumnValues = (columnKey: string, excludeValue?: string) => {
     const uniqueValues = new Set();
     list.forEach((item) => {
@@ -64,12 +68,11 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
     });
 
     exclude?.forEach(({ key, value }: { key: string; value: string }) => {
-        uniqueValues.delete(value);
-      });
-      uniqueValues.delete('NavBar');
+      uniqueValues.delete(value);
+    });
+    uniqueValues.delete('NavBar');
     return Array.from(uniqueValues);
   };
-  
 
   const handleSelectChange = (
     e: React.ChangeEvent<{ value: unknown }>,
@@ -86,10 +89,10 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
       }
       return item;
     });
-  
+
     // Create an array to keep track of selected values
     const selectedValues: { [key: string]: string } = {};
-  
+
     // Loop through the updated list and store the selected values for each key
     updatedList.forEach((item) => {
       Object.keys(item).forEach((k) => {
@@ -98,7 +101,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
         }
       });
     });
-  
+
     const updatedLabels = lables.map((label) => {
       if (label.key === key) {
         return {
@@ -113,19 +116,49 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
         ),
       };
     });
-  
+
     setList(updatedList);
   };
-  
-  
-  
 
-  
+  const handleVisibilityToggle = (index: number) => {
+    const updatedList = list.map((item, i) => {
+      if (i === index) {
+        return {
+          ...item,
+          visibility: !item.visibility, // Toggle the visibility state
+        };
+      }
+      return item;
+    });
+
+    setList(updatedList);
+  };
+
   return (
     <div className="reorder-layout">
+      {/* Labels */}
+      <div className="grid gap-6 grid-cols-6">
+        {lables?.map(({ key, label }: { key: string; label: string }) => (
+          <span key={key}>
+            <span style={{ color: 'white', marginLeft: "20px" }}>{label}</span>
+          </span>
+        ))}
+        <span className="mr-6 span-1"></span>
+        <span className="mr-6 span-1"></span>
+        <span className="mr-6 span-1"></span>
+        <span className="mr-6 span-1"></span>
+      </div>
+
+      {/* Table Rows */}
       {list.map((item, index) => {
-        if (exclude?.some(({ key, value }: { key: string; value: string }) => item[key].toLowerCase() === value.toLowerCase())) return null;
-  
+        if (
+          exclude?.some(
+            ({ key, value }: { key: string; value: string }) =>
+              item[key].toLowerCase() === value.toLowerCase()
+          )
+        )
+          return null;
+
         return (
           <div
             key={stableKeys[index]}
@@ -137,46 +170,71 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
             onDragEnd={handleDragEnd}
             id={index.toString()}
             className="p-3 mb-2 bg-rgb(14, 17, 23)-100 border-2 border-rgb(14, 17, 23)-200 rounded-md cursor-move relative"
-            style={{  transition: 'background 0.3s ease', backgroundColor: "rgb(14, 17, 23)" }}
+            style={{
+              transition: 'background 0.3s ease',
+              backgroundColor: 'rgb(14, 17, 23)',
+            }}
             onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgb(22, 27, 34)';
-             }}
-             onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgb(14, 17, 23)';
-             }}
+              e.currentTarget.style.background = 'rgb(22, 27, 34)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgb(14, 17, 23)';
+            }}
           >
-            <span className="grid gap-5 grid-cols-6">  
-              {lables?.map(({ key, label }: { key: string; label: string }) => {
-                if (key === "views" || key === "date") {
+            <span className="grid gap-5 grid-cols-6">
+              {lables?.map(({ key }: { key: string }) => {
+                if (key === 'views') {
                   return (
-                    <span className="mr-6 span-1" key={key}>
-                      <span style={{ color: 'white' }}>{label}</span>
+                    <span style={{ color: "white" }} className="mr-6 ml-5 span-1" key={key}>
+                      100
                     </span>
                   );
                 }
-  
+                if (key === 'date') {
+                  return (
+                    <span style={{ color: "white" }} className="mr-6 span-1" key={key}>
+                      20 Mar 2023
+                    </span>
+                  );
+                }
                 return (
                   <span className="mr-6 span-1" key={key}>
-                    <span style={{ color: 'white' }}>{label}</span>
                     <Select
                       value={item[key]}
                       onChange={(e) => handleSelectChange(e, index, key)}
                       variant="standard"
                       disableUnderline={true}
-                      style={{ color: 'white', height: '30px', width: "auto" }}
+                      style={{ color: 'white', height: '30px', width: 'auto' }}
                     >
-                      {getUniqueColumnValues(key).map((menuItem: string, menuItemIndex: number) => (
-                        <MenuItem key={menuItemIndex} value={menuItem}>
-                          {menuItem}
-                        </MenuItem>
-                      ))}
+                      {getUniqueColumnValues(key).map(
+                        (menuItem: string, menuItemIndex: number) => (
+                          <MenuItem key={menuItemIndex} value={menuItem}>
+                            {menuItem}
+                          </MenuItem>
+                        )
+                      )}
                     </Select>
                   </span>
                 );
               })}
-  
-              <DeleteIcon style={{ color: 'white', cursor: "pointer" }} className="absolute right-60 top-4" />
-              <EditIcon style={{ color: 'white', cursor: "pointer" }} className="absolute right-32 top-4" />
+
+              <DeleteIcon
+                style={{ color: 'white', cursor: 'pointer' }}
+                className="absolute right-60 top-4"
+              />
+              {!item.visibility ? (
+                <RemovedIcon
+                  style={{ color: 'red', cursor: 'pointer' }}
+                  className="absolute right-32 top-4"
+                  onClick={() => handleVisibilityToggle(index)}
+                />
+              ) : (
+                <AddIcon
+                  style={{ color: 'white', cursor: 'pointer' }}
+                  className="absolute right-32 top-4"
+                  onClick={() => handleVisibilityToggle(index)}
+                />
+              )}
               <DragHandleIcon style={{ color: 'white' }} className="absolute right-2 top-4" />
             </span>
           </div>
@@ -184,7 +242,6 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
       })}
     </div>
   );
-  
 };
 
 export default Reorder;

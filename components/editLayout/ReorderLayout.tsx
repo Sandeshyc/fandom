@@ -5,12 +5,17 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import Reorder from '@/components/elements/Reorder';
 import useCurrentPageStore, {layoutType} from '@/hooks/useCurrentPageStore';
 import {Button}  from '@mui/material';
+import {
+  Visibility as VisibilityIcon,
+  Event as EventIcon,
+} from '@mui/icons-material';
+
 
 const lableMap = [
-  { key: 'title', label: '' },
-  { key: 'displayType', label: '' },
-  { key: 'views', label: '100' },
-  { key: 'date', label: '20 Mar 2023' },
+  { key: 'title', label: 'Title' },
+  { key: 'displayType', label: 'Layout' },
+  { key: 'views', label: <VisibilityIcon style={{ color: 'white' }} /> },
+  { key: 'date', label: <EventIcon style={{ color: 'white' }} /> },
 ];
 
 const excludeItems = [
@@ -50,10 +55,10 @@ const ReorderLayout: React.FC<InfoModalProps> = ({visible, onClose }) => {
   }
 
   return (
-    <div onClick={handleClose} style={{width: "1000px", top:"15%",left: "0", right:"0", marginLeft:"auto",marginRight:"auto"}} className={`fixed z-[41] left-0 top-0 p-6 rounded-md shadow-lg overflow-hidden bg-black border-2 ${isVisible ? 'scale-100' : 'scale-0'}`}>
+    <div onClick={handleClose} style={{width: "1000px", top:"10%",left: "0", right:"0", marginLeft:"auto",marginRight:"auto"}} className={`fixed z-[41] left-0 top-0 p-6 rounded-md shadow-lg overflow-hidden bg-black border-2 ${isVisible ? 'scale-100' : 'scale-0'}`}>
          <div className="cursor-pointer absolute top-3 right-20" >
          
-<Button variant="contained">Save</Button>
+<Button variant="contained">Cancel</Button>
             </div>
         <div className="cursor-pointer absolute top-3 right-3 h-10 w-10 rounded-full bg-white bg-opacity-70 flex items-center justify-center" >
              <XMarkIcon className="text-white w-6" data-button="close"/>
