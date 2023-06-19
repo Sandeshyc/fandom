@@ -4,8 +4,8 @@ import { MenuItem, Select } from '@mui/material';
 import {
   DragHandle as DragHandleIcon,
   Delete as DeleteIcon,
-  Check as CheckIcon,
-  Close as CloseIcon
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
 } from '@mui/icons-material';
 
 interface ReorderProps {
@@ -74,6 +74,12 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
     return Array.from(uniqueValues);
   };
 
+  const styles = `
+  .MuiSelect-icon {
+    fill: white;
+  }
+`;
+
   const handleSelectChange = (
     e: React.ChangeEvent<{ value: unknown }>,
     index: number,
@@ -133,6 +139,21 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
     setList(updatedList);
   };
 
+  const handleDelete = (index: number) => {
+    const updatedList = list.map((item, i) => {
+      if (i === index) {
+        return {
+          ...item,
+          visibility: !item.visibility, // Toggle the visibility state
+        };
+      }
+      return item;
+    });
+    updatedList.splice(index, 1),
+    setList(updatedList);
+    
+  };
+
   return (
     <div className="reorder-layout">
       {/* Labels */}
@@ -147,7 +168,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
         <span className="mr-6 span-1"></span>
         <span className="mr-6 span-1"></span>
       </div>
-
+      <div style={{overflow: "auto", maxHeight: "600px"}}>
       {/* Table Rows */}
       {list.map((item, index) => {
         if (
@@ -197,13 +218,14 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
                   );
                 }
                 return (
-                  <span className="mr-6 span-1" key={key}>
+                  <span className="mr-8 span-1" key={key}>
+                    <style>{styles}</style>
                     <Select
                       value={item[key]}
                       onChange={(e) => handleSelectChange(e, index, key)}
                       variant="standard"
                       disableUnderline={true}
-                      style={{ color: 'white', height: '30px', width: 'auto' }}
+                      style={{ color: 'white', height: '30px', width: 'auto', }}
                     >
                       {getUniqueColumnValues(key).map(
                         (menuItem: string, menuItemIndex: number) => (
@@ -220,16 +242,17 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
               <DeleteIcon
                 style={{ color: 'white', cursor: 'pointer' }}
                 className="absolute right-60 top-4"
+                onClick={() => handleDelete(index)}
               />
               {!item.visibility ? (
-                <CheckIcon
-                  style={{ color: 'green', cursor: 'pointer' }}
+                <VisibilityIcon
+                  style={{ color: 'white', cursor: 'pointer' }}
                   className="absolute right-32 top-4"
                   onClick={() => handleVisibilityToggle(index)}
                 />
               ) : (
-                <CloseIcon
-                  style={{ color: 'red', cursor: 'pointer' }}
+                <VisibilityOffIcon
+                  style={{ color: 'white', cursor: 'pointer' }}
                   className="absolute right-32 top-4"
                   onClick={() => handleVisibilityToggle(index)}
                 />
@@ -239,6 +262,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
           </div>
         );
       })}
+      </div>
     </div>
   );
 };
