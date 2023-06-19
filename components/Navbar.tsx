@@ -3,9 +3,12 @@ import { useRouter } from 'next/router';
 import useSavedPagesStore from '@/hooks/useSavedPagesStore';
 import useCurrentPageStore, {layoutType} from '@/hooks/useCurrentPageStore';
 import useReorderLayout from '@/hooks/useReorderLayout';
-
+import {
+  Public,
+  Devices as Phone,
+} from '@mui/icons-material';
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon, PencilSquareIcon, ArrowUpTrayIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import { TfiSave } from 'react-icons/tfi';
+import { BsFillSaveFill } from 'react-icons/bs';
 import { FaExchangeAlt } from 'react-icons/fa';
 
 import AccountMenu from '@/components/AccountMenu';
@@ -27,6 +30,8 @@ const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+  const [showRegion, setShowRegion] = useState(false);
+  const [showDevice, setShowDevice] = useState(false);
 
   const {isOpen: toastIsOpen, closeModal: toastCloseModal, openModal: toastOpenModal} = useToast();
 
@@ -57,6 +62,13 @@ const Navbar = () => {
     setShowMobileMenu((current) => !current);
   }, []);
 
+  const toggleRegion = () => {
+    setShowRegion(!showRegion)
+  }
+
+  const toggleDevice = () => {
+    setShowDevice(!showDevice)
+  }
 
 
   // get current path name
@@ -118,6 +130,38 @@ const Navbar = () => {
               <AccountMenu visible={showAccountMenu} />
             </div>
 
+            <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative">
+              <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+              <Public style={{width:"40px", height:"40px", color:"white"}}/>
+              </div>
+              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
+              {/* <AccountMenu visible={showAccountMenu} /> */}
+             {showRegion && (
+              <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+              <div style={{color:"white",display:"flex", justifyContent:"center",}}>United States</div>
+              <hr className="bg-gray-600 border-0 h-px my-2" />
+              <div style={{color:"white",display:"flex", justifyContent:"center", }}>Filipino</div>
+              <hr className="bg-gray-600 border-0 h-px my-2" />
+              <div style={{color:"white",display:"flex", justifyContent:"center"}}>Others</div>
+            </div>
+             )}
+            </div>
+            <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative">
+              <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+              <Phone style={{width:"40px", height:"40px", color:"white"}}/>
+              </div>
+              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showDevice ? 'rotate-180' : 'rotate-0'}`} />
+              {/* <AccountMenu visible={showAccountMenu} /> */}
+             {showDevice && (
+              <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+              <div style={{color:"white",display:"flex", justifyContent:"center",}}>Mobile</div>
+              <hr className="bg-gray-600 border-0 h-px my-2" />
+              <div style={{color:"white",display:"flex", justifyContent:"center", }}>Desktop</div>
+              <hr className="bg-gray-600 border-0 h-px my-2" />
+              <div style={{color:"white",display:"flex", justifyContent:"center"}}>CTV</div>
+            </div>
+             )}
+            </div>
             <div className='editPlaylist flex flex-nowrap gap-4'>
               {!isEditScreen ? (
                 <>
@@ -136,7 +180,7 @@ const Navbar = () => {
                   </Tooltip>
                   <Tooltip message="Save" >
                     <button className='editPlaylistButton text-white text-2xl text-bold-700 bg-blue-400 px-2 py-1.5 rounded-md hover:bg-blue-500' onClick={handleLayoutSave}  >
-                    <TfiSave/>
+                    <BsFillSaveFill/>
                     </button>
                   </Tooltip>
                   <Tooltip message="Publish" >

@@ -4,8 +4,8 @@ import { MenuItem, Select } from '@mui/material';
 import {
   DragHandle as DragHandleIcon,
   Delete as DeleteIcon,
-  Check as CheckIcon,
-  Close as CloseIcon
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
 } from '@mui/icons-material';
 
 interface ReorderProps {
@@ -73,6 +73,12 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
     uniqueValues.delete('NavBar');
     return Array.from(uniqueValues);
   };
+
+  const styles = `
+  .MuiSelect-icon {
+    fill: white;
+  }
+`;
 
   const handleSelectChange = (
     e: React.ChangeEvent<{ value: unknown }>,
@@ -212,13 +218,14 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
                   );
                 }
                 return (
-                  <span className="mr-6 span-1" key={key}>
+                  <span className="mr-8 span-1" key={key}>
+                    <style>{styles}</style>
                     <Select
                       value={item[key]}
                       onChange={(e) => handleSelectChange(e, index, key)}
                       variant="standard"
                       disableUnderline={true}
-                      style={{ color: 'white', height: '30px', width: 'auto' }}
+                      style={{ color: 'white', height: '30px', width: 'auto', }}
                     >
                       {getUniqueColumnValues(key).map(
                         (menuItem: string, menuItemIndex: number) => (
@@ -238,14 +245,14 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
                 onClick={() => handleDelete(index)}
               />
               {!item.visibility ? (
-                <CheckIcon
-                  style={{ color: 'green', cursor: 'pointer' }}
+                <VisibilityIcon
+                  style={{ color: 'white', cursor: 'pointer' }}
                   className="absolute right-32 top-4"
                   onClick={() => handleVisibilityToggle(index)}
                 />
               ) : (
-                <CloseIcon
-                  style={{ color: 'red', cursor: 'pointer' }}
+                <VisibilityOffIcon
+                  style={{ color: 'white', cursor: 'pointer' }}
                   className="absolute right-32 top-4"
                   onClick={() => handleVisibilityToggle(index)}
                 />
