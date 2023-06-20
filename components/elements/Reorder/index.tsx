@@ -168,7 +168,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
         <span className="mr-6 span-1"></span>
         <span className="mr-6 span-1"></span>
       </div>
-      <div style={{overflow: "auto", maxHeight: "600px"}}>
+      <div style={{overflow: "auto", maxHeight: "500px"}}>
       {/* Table Rows */}
       {list.map((item, index) => {
         if (

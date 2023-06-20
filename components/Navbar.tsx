@@ -30,6 +30,7 @@ const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const [showRegion, setShowRegion] = useState(false);
   const [showDevice, setShowDevice] = useState(false);
 
@@ -62,12 +63,18 @@ const Navbar = () => {
     setShowMobileMenu((current) => !current);
   }, []);
 
+  const toggleOptions = () => {
+    setShowOptions(!showOptions);
+  }
+
   const toggleRegion = () => {
     setShowRegion(!showRegion)
+    setShowDevice(false)
   }
 
   const toggleDevice = () => {
     setShowDevice(!showDevice)
+    setShowRegion(false)
   }
 
 
@@ -130,36 +137,50 @@ const Navbar = () => {
               <AccountMenu visible={showAccountMenu} />
             </div>
 
-            <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative">
-              <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-              <Public style={{width:"40px", height:"40px", color:"white"}}/>
+            <div className="flex flex-row items-center gap-2 cursor-pointer relative">
+              <div onClick={ toggleOptions} className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+              <Phone style={{width:"40px", height:"40px", color:"white"}}/>
               </div>
-              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
+              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showOptions ? 'rotate-180' : 'rotate-0'}`} />
               {/* <AccountMenu visible={showAccountMenu} /> */}
-             {showRegion && (
-              <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+             {showOptions && (
+               <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+               <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
+                Region
+              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
+              {showRegion && (
+                <>
+              <div style={{marginTop:"10px"}} className="bg-black w-56 absolute top-16 right-0 py-2 flex-col border-2 border-gray-800 flex">
               <div style={{color:"white",display:"flex", justifyContent:"center",}}>United States</div>
               <hr className="bg-gray-600 border-0 h-px my-2" />
               <div style={{color:"white",display:"flex", justifyContent:"center", }}>Filipino</div>
               <hr className="bg-gray-600 border-0 h-px my-2" />
               <div style={{color:"white",display:"flex", justifyContent:"center"}}>Others</div>
             </div>
-             )}
-            </div>
-            <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative">
-              <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-              <Phone style={{width:"40px", height:"40px", color:"white"}}/>
-              </div>
+
+                
+                </>
+              )}
+               </div>
+               <hr className="bg-gray-600 border-0 h-px my-2" />
+               <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
+                Devices
               <ChevronDownIcon className={`w-4 text-white fill-white transition ${showDevice ? 'rotate-180' : 'rotate-0'}`} />
-              {/* <AccountMenu visible={showAccountMenu} /> */}
-             {showDevice && (
-              <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+              {showDevice && (
+                <>
+              <div className="bg-black w-56 absolute top-8 right-0 py-2 flex-col border-2 border-gray-800 flex">
               <div style={{color:"white",display:"flex", justifyContent:"center",}}>Mobile</div>
               <hr className="bg-gray-600 border-0 h-px my-2" />
               <div style={{color:"white",display:"flex", justifyContent:"center", }}>Desktop</div>
               <hr className="bg-gray-600 border-0 h-px my-2" />
               <div style={{color:"white",display:"flex", justifyContent:"center"}}>CTV</div>
             </div>
+
+                
+                </>
+              )}
+               </div>
+             </div>
              )}
             </div>
             <div className='editPlaylist flex flex-nowrap gap-4'>
