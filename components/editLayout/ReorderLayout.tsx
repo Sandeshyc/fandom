@@ -26,9 +26,10 @@ const excludeItems = [
 interface InfoModalProps {
     visible?: boolean;
     onClose: any;
+    title: any;
   }
 
-const ReorderLayout: React.FC<InfoModalProps> = ({visible, onClose }) => {
+const ReorderLayout: React.FC<InfoModalProps> = ({visible, onClose, title }) => {
     const [isVisible, setIsVisible] = useState<boolean>(!!visible);
 
     const {currentLayout = {} as layoutType, setCurrentLayout} = useCurrentPageStore();
@@ -57,7 +58,7 @@ const ReorderLayout: React.FC<InfoModalProps> = ({visible, onClose }) => {
 
   return (
     <div onClick={handleClose} style={{width: "1200px", top:"10%",left: "0", right:"0", marginLeft:"auto",marginRight:"auto"}} className={`fixed z-[41] left-0 top-0 p-6 rounded-md shadow-lg overflow-hidden bg-black border-2 ${isVisible ? 'scale-100' : 'scale-0'}`}>
-       <div style={{color:"white", fontSize:"20px", fontWeight:"bold"}}>  Change Layout</div>
+       <div style={{color:"white", fontSize:"20px", fontWeight:"bold"}}>{title}</div>
          <div className="cursor-pointer absolute top-6 right-20" >
        
 <Button variant="contained" data-button="close">Cancel</Button>

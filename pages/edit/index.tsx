@@ -130,7 +130,7 @@ const Home = (props) => {
       return row ? (
         <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
           <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
-            <EditMenu currentLayout={currentLayout} playlist={movieList} index={index}  />
+            <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} />
           </div>
           {row}
         </div>
@@ -139,7 +139,7 @@ const Home = (props) => {
         return row ? (
           <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
             <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
-              <EditMenu currentLayout={currentLayout} playlist={movieList} index={index}  />
+              <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} />
             </div>
             {row}
           </div>
@@ -157,7 +157,7 @@ const Home = (props) => {
       <InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       <EditInfoModal visible={editPlaylistIsOpen} onClose={editPlaylistCloseModal} />
       <EditChangePlaylistModal visible={changePlaylistIsOpen} onClose={changePlaylistCloseModal} region={region}/>
-      <ReorderLayout visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} />
+      <ReorderLayout visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} title="Change Layout"/>
 
 
       {getNavBar()}
