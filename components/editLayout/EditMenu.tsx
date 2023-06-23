@@ -1,109 +1,194 @@
-import React, { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import {EllipsisVerticalIcon} from '@heroicons/react/24/outline'
+import React, { useState } from 'react';
+import { Edit as EditIcon, Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  Event as EventIcon,
+  BarChart as ShowChartIcon,
+  Info as InfoIcon,
+  DragHandle as DragHandleIcon
+} from '@mui/icons-material';
+import { Tooltip } from '@chakra-ui/react';
 
-import useEditPlaylistModal from '@/hooks/useEditPlaylistModal';
-import useEditChangePlaylistModal from '@/hooks/useEditChangePlaylistModal';
-import useCurrentPageStore, {layoutType} from '@/hooks/useCurrentPageStore';
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+interface Row {
+  id: number;
+  showIcon: boolean;
+  headline: string;
+  description: string;
+  amount: number;
+  date: string;
 }
 
-interface EditMenuProps {
-  className?: string;
-  index: number;
-  playlist: object;
-    
-}
+const EditMenu: React.FC = () => {
+  const [isReorderModalVisible, setReorderModalVisible] = useState(false);
+  const [rows, setRows] = useState<Row[]>([
+    { id: 1, showIcon: false, headline: 'Headline 1', description: 'This is Desc 1', amount: 100, date: '20 Mar 2023' },
+    { id: 2, showIcon: false, headline: 'Headline 2', description: 'This is Desc 2', amount: 100, date: '20 Mar 2023' },
+    { id: 3, showIcon: false, headline: 'Headline 3', description: 'This is Desc 3', amount: 100, date: '20 Mar 2023' },
+  ]);
 
-const EditMenu: React.FC<EditMenuProps> = ({className = '', index, playlist}) => {
+  const lables = [
+    { key: 'title', label: 'Headline' },
+    { key: 'displayType', label: <Tooltip bg='white' color='black' label="Description">Desc</Tooltip> },
+    { key: 'views', label: <ShowChartIcon style={{ color: 'white' }} /> },
+    { key: 'date', label: <EventIcon style={{ color: 'white' }} /> },
+  ];
+  const [draggedRowIndex, setDraggedRowIndex] = useState<number | null>(null);
 
-  console.log('EditMenu index ', index);
+  const handleAddRow = (index: number): void => {
+    const newRows = [...rows];
+    const newRow = { ...newRows[index] };
+    newRow.id = newRows.length + 1;
+    newRows.splice(index + 1, 0, newRow);
+    setRows(newRows);
+  };
 
-  const {openModal: editPlaylistOpenModal} = useEditPlaylistModal();
-  const {openModal: changePlaylistOpenModal} = useEditChangePlaylistModal();
-  const {currentLayout = {} as layoutType, setCurrentLayout} = useCurrentPageStore();
-  
+  const handleDeleteRow = (index: number): void => {
+    const newRows = [...rows];
+    newRows.splice(index, 1);
+    setRows(newRows);
+  };
 
-  const handleRemovePlaylistFromLayout = (index: number) => {
-    if(index === -1) return;
+  const handleMouseEnter = (index: number): void => {
+    const newRows = [...rows];
+    newRows[index].showIcon = true;
+    setRows(newRows);
+  };
 
-    const newLayout = [...currentLayout.items];
-    // remove playlist from layout
-    newLayout.splice(index, 1);
-    setCurrentLayout({...currentLayout, items: newLayout});
-  }
+  const handleMouseLeave = (index: number): void => {
+    const newRows = [...rows];
+    newRows[index].showIcon = false;
+    setRows(newRows);
+  };
 
-  const handleDuplicatePlaylistItem = (index: number) => {
-    if(index === -1) return;
+  const handleEditClick = (): void => {
+    setReorderModalVisible(true);
+  };
 
-    const newLayout = [...currentLayout.items];
-    const laylist = newLayout[index];
-    newLayout.splice(index, 0, laylist);
-    setCurrentLayout({...currentLayout, items: newLayout});
-  }
+  const handleCloseModal = (): void => {
+    setReorderModalVisible(false);
+  };
+
+  const handleDragStart = (index: number): void => {
+    setDraggedRowIndex(index);
+  };
+
+  const handleDragOver = (index: number): void => {
+    if (draggedRowIndex !== null) {
+      const newRows = [...rows];
+      const draggedRow = newRows[draggedRowIndex];
+      newRows.splice(draggedRowIndex, 1);
+      newRows.splice(index, 0, draggedRow);
+      setRows(newRows);
+      setDraggedRowIndex(index);
+    }
+  };
+
+  const handleDragEnd = (): void => {
+    setDraggedRowIndex(null);
+  };
 
   return (
-    <Menu as="div" className={`relative z-2 inline-block text-left ${className}`}>
-      <div>
-        <Menu.Button className="gap-x-1.5 rounded-md text-white shadow-sm ring-1 ring-inset ring-transparent  hover:ring-gray-300 active:ring-gray-300">
-            <EllipsisVerticalIcon className="w-10" />
-        </Menu.Button>
-      </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="absolute right-0 z-2 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" aria-selected>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        console.log(' onclick index set to ', index);
-                      changePlaylistOpenModal(currentLayout, playlist, index, 'playlist')
-                    }}
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-lg w-full text-left'
-                  )}
-                >
-                  Change Content
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        console.log(' onclick index set to ', index);
-                      changePlaylistOpenModal(currentLayout, playlist, index, 'layout')
-                    }}
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-lg w-full text-left'
-                  )}
-                >
-                  Change Layout
-                </button>
-              )}
-            </Menu.Item>
+    <>
+      {/* Other menu content */}
+      <EditIcon onClick={handleEditClick} />
+      {isReorderModalVisible && (
+        <div
+          style={{
+            color: 'black',
+            zIndex: '99999999999999',
+            width: '1200px',
+            height: '600px',
+            background: 'black',
+            position: 'fixed',
+            left: '0',
+            right: '0',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            borderRadius: '5px',
+            borderWidth: '2px',
+            borderColor: 'white',
+          }}
+        >
+          <div style={{ height: '60px', display: 'flex', alignItems: 'end' }}>
+            <div style={{ color: 'white', marginLeft: '25px', fontSize: '20px', fontWeight: 'bold' }}>Change Content</div>
+            <div className="cursor-pointer absolute top-6 right-20">
+              <Button variant="contained" onClick={handleCloseModal} data-button="close">
+                Cancel
+              </Button>
+            </div>
+            <div className="cursor-pointer absolute top-6 right-3 h-10 w-10 rounded-full bg-white bg-opacity-70 flex items-center justify-center">
+              <XMarkIcon onClick={handleCloseModal} className="text-white w-6" data-button="close" />
+            </div>
           </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
-  )
-}
-
+          <div style={{ padding: '25px' }}>
+          <div className="grid gap-6 grid-cols-6">
+        {lables?.map(({ key, label }: { key: string; label: string }) => (
+          <span key={key}>
+            <span style={{ color: 'white', marginLeft: "20px" }}>{label}</span>
+          </span>
+        ))}
+        <span className="mr-6 span-1"></span>
+        <span className="mr-6 span-1"></span>
+        <span className="mr-6 span-1"></span>
+        <span className="mr-6 span-1"></span>
+      </div>
+            {rows.map((row, index) => (
+              <div
+                key={row.id}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+                draggable
+                onDragStart={() => handleDragStart(index)}
+                onDragOver={() => handleDragOver(index)}
+                onDragEnd={handleDragEnd}
+                style={{
+                  padding: '10px',
+                  borderColor: '#f0f0f0',
+                  marginBottom: '10px',
+                  borderWidth: '2px',
+                  color: 'white',
+                  borderRadius: '5px',
+                  cursor: 'move',
+                  opacity: draggedRowIndex === index ? 0.5 : 1,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                  <div style={{ width: '15%', marginRight: '10px' }}>{row.headline}</div>
+                  <div style={{ width: '18%', marginRight: '10px' }}>{row.description}</div>
+                  <div style={{ width: '15%', marginRight: '10px' }}>{row.amount}</div>
+                  <div style={{ width: '20%', marginRight: '10px' }}>{row.date}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+                    <DeleteIcon onClick={() => handleDeleteRow(index)} style={{ fontSize: 20, color: '#fff', marginRight: '180px', cursor: 'pointer' }} />
+                    <DragHandleIcon style={{ fontSize: 20, color: '#fff' }} />
+                  </div>
+                </div>
+                {row.showIcon && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginBottom: '5px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: 'relative',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => handleAddRow(index)}
+                    >
+                      <AddIcon style={{ fontSize: 20, color: '#fff' }} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default EditMenu;
