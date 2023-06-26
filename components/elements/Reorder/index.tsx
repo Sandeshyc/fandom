@@ -15,7 +15,7 @@ interface ReorderProps {
   exclude?: any[];
 }
 
-const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => {
+const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) => {
   const [dragId, setDragId] = useState<string>('0');
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
@@ -205,14 +205,14 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
               {lables?.map(({ key }: { key: string }) => {
                 if (key === 'views') {
                   return (
-                    <span style={{ color: "white" }} className="mr-6 ml-5 span-1" key={key}>
+                    <span style={!item.visibility ? { color: "white" }: { color: "grey" }} className="mr-6 ml-5 span-1" key={key}>
                       100
                     </span>
                   );
                 }
                 if (key === 'date') {
                   return (
-                    <span style={{ color: "white" }} className="mr-6 span-1" key={key}>
+                    <span style={!item.visibility ? { color: "white" }: { color: "grey" }} className="mr-6 span-1" key={key}>
                       20 Mar 2023
                     </span>
                   );
@@ -226,6 +226,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude }) => 
                       variant="standard"
                       disableUnderline={true}
                       style={{ color: 'white', height: '30px', width: 'auto', }}
+                      disabled = {item.visibility}
                     >
                       {getUniqueColumnValues(key).map(
                         (menuItem: string, menuItemIndex: number) => (

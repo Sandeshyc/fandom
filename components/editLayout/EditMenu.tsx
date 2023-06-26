@@ -25,6 +25,8 @@ interface Row {
 const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) => {
   const [isReorderModalVisible, setReorderModalVisible] = useState(false);
   const [hoveredRowIndex, setHoveredRowIndex] = useState<number | null>(null);
+  const [rowCount, setRowCount] = useState(currentLayout.items.length);
+
   const [rows, setRows] = useState<Row[]>(() => {
     const matchingItems = currentLayout.items.find((item) => item.displayType === playlist.displayType);
     if (matchingItems) {
@@ -52,25 +54,37 @@ const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) 
   ];
   const [draggedRowIndex, setDraggedRowIndex] = useState<number | null>(null);
 
-  const handleAddRow = (index: number): void => {
-    const newRows = [...rows];
-    const newRow = { ...newRows[index] };
-    newRow.id = newRows.length + 1;
-    newRows.splice(index + 1, 0, newRow);
+  const handleAddRow = (): void => {
+    const newRows = [
+      {
+        id: rowCount + 1,
+        showIcon: false,
+        headline: rows[0].headline,
+        description: rows[0].description,
+        duration: rows[0].duration,
+        date: rows[0].date,
+        currentLayout: currentLayout,
+        playlist: playlist
+      },
+      ...rows
+    ];
     setRows(newRows);
-
+    setRowCount(rowCount + 1);
+  
     const newLayout = { ...currentLayout };
     const matchingItems = newLayout.items.find((item) => item.displayType === playlist.displayType);
     if (matchingItems) {
-      matchingItems.items.splice(index + 1, 0, {
-        title: newRow.headline,
-        description: newRow.description,
-        duration: newRow.duration,
-        date: newRow.date
+      matchingItems.items.unshift({
+        title: rows[0].headline,
+        description: rows[0].description,
+        duration: rows[0].duration,
+        date: rows[0].date
       });
     }
     setCurrentLayout(newLayout);
   };
+  
+  
   
 
   const handleDeleteRow = (index: number): void => {
@@ -156,6 +170,11 @@ const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) 
         >
           <div style={{ height: '60px', display: 'flex', alignItems: 'end' }}>
             <div style={{ color: 'white', marginLeft: '25px', fontSize: '20px', fontWeight: 'bold' }}>Change Content</div>
+            <div style={{marginRight:"25px"}} className="cursor-pointer absolute top-6 right-40">
+              <Button variant="contained" onClick={handleAddRow}>
+                Insert
+              </Button>
+            </div>
             <div className="cursor-pointer absolute top-6 right-20">
               <Button variant="contained" onClick={handleCloseModal} data-button="close">
                 Cancel
@@ -213,15 +232,6 @@ const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) 
           </div>
         </div>
       </div>
-
-      
-      {index === hoveredRowIndex && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '5px' }}>
-          <div style={{ position: 'relative', cursor: 'pointer' }}  onClick={() => handleAddRow(index)}>
-            <AddIcon style={{ fontSize: 20, color: '#fff' }} />
-          </div>
-        </div>
-      )}
     </React.Fragment>
   ))}
   </div>
