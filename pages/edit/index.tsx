@@ -133,7 +133,7 @@ const Home = (props) => {
         if(movieList.visibility !== true){
       return row ? (
         <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
-          <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
+          <div style={{cursor: "pointer"}} className='absolute z-[2] right-2 top-1 w-100 text-white'>
             <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} setCurrentLayout={handleUpdateLayout} />
           </div>
           {row}
@@ -142,7 +142,7 @@ const Home = (props) => {
       else{
         return row ? (
           <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
-            <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
+            <div style={{cursor: "pointer"}} className='absolute z-[2] right-2 top-1 w-100 text-white'>
               <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} setCurrentLayout={handleUpdateLayout} />
             </div>
             {row}

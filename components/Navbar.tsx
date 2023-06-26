@@ -10,6 +10,7 @@ import {
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon, PencilSquareIcon, ArrowUpTrayIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import { BsFillSaveFill } from 'react-icons/bs';
 import { FaExchangeAlt } from 'react-icons/fa';
+import { Button } from '@mui/material';
 
 import AccountMenu from '@/components/AccountMenu';
 import MobileMenu from '@/components/MobileMenu';
@@ -106,7 +107,8 @@ const Navbar = () => {
   return (
     <>
       <nav className="w-full fixed z-40">
-        <div className={`px-4 md:px-16 py-3 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
+        <div style={ isEditScreen ? { justifyContent:"end"}: {}} className={`px-4 md:px-16 py-3 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
+         { !isEditScreen ? <>
           <img src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" className="h-20 lg:h-18 cursor-pointer" alt="Logo" onClick={() => router.push('/') } />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">
             <NavbarItem label="Home" active={router.pathname === '/'} onClick={() => router.push('/') }/>
@@ -136,55 +138,8 @@ const Navbar = () => {
               <ChevronDownIcon className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
               <AccountMenu visible={showAccountMenu} />
             </div>
-
-            <div className="flex flex-row items-center gap-2 cursor-pointer relative">
-              <div onClick={ toggleOptions} className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-              <Phone style={{width:"40px", height:"40px", color:"white"}}/>
-              </div>
-              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showOptions ? 'rotate-180' : 'rotate-0'}`} />
-              {/* <AccountMenu visible={showAccountMenu} /> */}
-             {showOptions && (
-               <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
-               <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
-                Region
-              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
-              {showRegion && (
-                <>
-              <div style={{marginTop:"10px"}} className="bg-black w-56 absolute top-16 right-0 py-2 flex-col border-2 border-gray-800 flex">
-              <div style={{color:"white",display:"flex", justifyContent:"center",}}>United States</div>
-              <hr className="bg-gray-600 border-0 h-px my-2" />
-              <div style={{color:"white",display:"flex", justifyContent:"center", }}>Filipino</div>
-              <hr className="bg-gray-600 border-0 h-px my-2" />
-              <div style={{color:"white",display:"flex", justifyContent:"center"}}>Others</div>
-            </div>
-
-                
-                </>
-              )}
-               </div>
-               <hr className="bg-gray-600 border-0 h-px my-2" />
-               <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
-                Devices
-              <ChevronDownIcon className={`w-4 text-white fill-white transition ${showDevice ? 'rotate-180' : 'rotate-0'}`} />
-              {showDevice && (
-                <>
-              <div className="bg-black w-56 absolute top-8 right-0 py-2 flex-col border-2 border-gray-800 flex">
-              <div style={{color:"white",display:"flex", justifyContent:"center",}}>Mobile</div>
-              <hr className="bg-gray-600 border-0 h-px my-2" />
-              <div style={{color:"white",display:"flex", justifyContent:"center", }}>Desktop</div>
-              <hr className="bg-gray-600 border-0 h-px my-2" />
-              <div style={{color:"white",display:"flex", justifyContent:"center"}}>CTV</div>
-            </div>
-
-                
-                </>
-              )}
-               </div>
-             </div>
-             )}
-            </div>
             <div className='editPlaylist flex flex-nowrap gap-4'>
-              {!isEditScreen ? (
+              {!isEditScreen && (
                 <>
                   <Tooltip message="Edit" >
                     <button className='editPlaylistButton text-white w-11 text-bold-700 bg-blue-400 px-2 py-1.5 rounded-md hover:bg-blue-500' onClick={() => router.push('/edit/' + currentPath) } >
@@ -192,28 +147,71 @@ const Navbar = () => {
                     </button>
                   </Tooltip>
                 </>
-              ):(
-                <>
-                  <Tooltip message="Reorder layout" >
-                    <button className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
-                    <FaExchangeAlt className='w-7 transform rotate-90'/>
-                    </button>
-                  </Tooltip>
-                  <Tooltip message="Save" >
-                    <button className='editPlaylistButton text-white text-2xl text-bold-700 bg-blue-400 px-2 py-1.5 rounded-md hover:bg-blue-500' onClick={handleLayoutSave}  >
-                    <BsFillSaveFill/>
-                    </button>
-                  </Tooltip>
-                  <Tooltip message="Publish" >
-                    <button className='editPlaylistButton text-white  bg-teal-500 px-2 py-1.5 rounded-md hover:bg-teal-600' onClick={handleLayoutPublish}>
-                    <ArrowUpTrayIcon className='w-7 '/>
-                    </button>
-                  </Tooltip>
-                  
-                </>
               )}
             </div>
           </div>
+          </> : 
+          <>
+        <div style={{ display:"flex", justifyContent:"end" }} className={`px-1 py-10 flex-row transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
+        <div style={{ marginRight:"20px"}} className="flex flex-row items-center gap-2 cursor-pointer relative">
+        <div onClick={ toggleOptions} className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+        <Phone style={{width:"40px", height:"40px", color:"white"}}/>
+        </div>
+        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showOptions ? 'rotate-180' : 'rotate-0'}`} />
+        {/* <AccountMenu visible={showAccountMenu} /> */}
+        {showOptions && (
+        <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+        <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
+          Region
+        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
+        {showRegion && (
+          <>
+        <div style={{marginTop:"10px"}} className="bg-black w-56 absolute top-16 right-0 py-2 flex-col border-2 border-gray-800 flex">
+        <div style={{color:"white",display:"flex", justifyContent:"center",}}>United States</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center", }}>Filipino</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center"}}>Others</div>
+        </div>
+
+          
+          </>
+        )}
+        </div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
+          Devices
+        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showDevice ? 'rotate-180' : 'rotate-0'}`} />
+        {showDevice && (
+          <>
+        <div className="bg-black w-56 absolute top-8 right-0 py-2 flex-col border-2 border-gray-800 flex">
+        <div style={{color:"white",display:"flex", justifyContent:"center",}}>Mobile</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center", }}>Desktop</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center"}}>CTV</div>
+        </div>
+
+          
+          </>
+        )}
+        </div>
+        </div>
+        )}
+        </div>
+            <Tooltip  message="Layout Management" >
+              <button style={{marginRight:"20px"}} className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
+              <FaExchangeAlt className='w-7 transform rotate-90'/>
+              </button>
+            </Tooltip>
+            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutSave}>Save</Button>
+              
+            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutPublish}>Publish</Button>
+
+            </div>
+          </>
+
+          }
         </div>
       </nav>
       <Toast visible={toastIsOpen} onClose={toastCloseModal} />
