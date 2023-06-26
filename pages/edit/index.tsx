@@ -96,6 +96,10 @@ const Home = (props) => {
     }
   }, [movieLists.length]);
 
+  const handleUpdateLayout = (newLayout) => {
+    setCurrentLayout(newLayout);
+  };
+
 
   const getRows = () => {
     const rows = Array.isArray(currentLayout.items)
@@ -130,7 +134,7 @@ const Home = (props) => {
       return row ? (
         <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
           <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
-            <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} />
+            <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} setCurrentLayout={handleUpdateLayout} />
           </div>
           {row}
         </div>
@@ -139,7 +143,7 @@ const Home = (props) => {
         return row ? (
           <div key={stableKeys[index]} className={`editItem ${movieList.displayType !== 'billboard'? 'relative' : ''}`}>
             <div className='absolute z-[2] right-2 top-1 w-100 text-white'>
-              <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} />
+              <EditMenu currentLayout={currentLayout} playlist={movieList} index={index} visible={reorderLayoutIsOpen} onClose={reorderLayoutCloseModal} setCurrentLayout={handleUpdateLayout} />
             </div>
             {row}
           </div>

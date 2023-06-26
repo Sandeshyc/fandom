@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit as EditIcon, Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -15,17 +15,34 @@ interface Row {
   showIcon: boolean;
   headline: string;
   description: string;
-  amount: number;
+  duration: number;
   date: string;
+  currentLayout: any[];
+  playlist: any;
+  setCurrentLayout: any;
 }
 
-const EditMenu: React.FC = () => {
+const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) => {
   const [isReorderModalVisible, setReorderModalVisible] = useState(false);
-  const [rows, setRows] = useState<Row[]>([
-    { id: 1, showIcon: false, headline: 'Headline 1', description: 'This is Desc 1', amount: 100, date: '20 Mar 2023' },
-    { id: 2, showIcon: false, headline: 'Headline 2', description: 'This is Desc 2', amount: 100, date: '20 Mar 2023' },
-    { id: 3, showIcon: false, headline: 'Headline 3', description: 'This is Desc 3', amount: 100, date: '20 Mar 2023' },
-  ]);
+  const [hoveredRowIndex, setHoveredRowIndex] = useState<number | null>(null);
+  const [rows, setRows] = useState<Row[]>(() => {
+    const matchingItems = currentLayout.items.find((item) => item.displayType === playlist.displayType);
+    if (matchingItems) {
+      return matchingItems.items.map((item, index) => ({
+        id: index + 1,
+        showIcon: false,
+        headline: item.title,
+        description: item.description,
+        duration: item.duration,
+        date: item.createdDate,
+        currentLayout: currentLayout,
+        playlist: playlist
+      }));
+    } else {
+      return [];
+    }
+  });
+  
 
   const lables = [
     { key: 'title', label: 'Headline' },
@@ -41,7 +58,20 @@ const EditMenu: React.FC = () => {
     newRow.id = newRows.length + 1;
     newRows.splice(index + 1, 0, newRow);
     setRows(newRows);
+
+    const newLayout = { ...currentLayout };
+    const matchingItems = newLayout.items.find((item) => item.displayType === playlist.displayType);
+    if (matchingItems) {
+      matchingItems.items.splice(index + 1, 0, {
+        title: newRow.headline,
+        description: newRow.description,
+        duration: newRow.duration,
+        date: newRow.date
+      });
+    }
+    setCurrentLayout(newLayout);
   };
+  
 
   const handleDeleteRow = (index: number): void => {
     const newRows = [...rows];
@@ -53,12 +83,14 @@ const EditMenu: React.FC = () => {
     const newRows = [...rows];
     newRows[index].showIcon = true;
     setRows(newRows);
+    setHoveredRowIndex(null);
   };
 
   const handleMouseLeave = (index: number): void => {
     const newRows = [...rows];
     newRows[index].showIcon = false;
     setRows(newRows);
+    setHoveredRowIndex(index);
   };
 
   const handleEditClick = (): void => {
@@ -86,11 +118,23 @@ const EditMenu: React.FC = () => {
 
   const handleDragEnd = (): void => {
     setDraggedRowIndex(null);
+  
+    const newLayout = { ...currentLayout };
+    const matchingItems = newLayout.items.find((item) => item.displayType === playlist.displayType);
+    if (matchingItems) {
+      matchingItems.items = rows.map((row) => ({
+        title: row.headline,
+        description: row.description,
+        duration: row.duration,
+        date: row.date
+      }));
+    }
+    setCurrentLayout(newLayout);
   };
+  
 
   return (
     <>
-      {/* Other menu content */}
       <EditIcon onClick={handleEditClick} />
       {isReorderModalVisible && (
         <div
@@ -107,7 +151,7 @@ const EditMenu: React.FC = () => {
             marginRight: 'auto',
             borderRadius: '5px',
             borderWidth: '2px',
-            borderColor: 'white',
+            borderColor: 'white'
           }}
         >
           <div style={{ height: '60px', display: 'flex', alignItems: 'end' }}>
@@ -133,57 +177,57 @@ const EditMenu: React.FC = () => {
         <span className="mr-6 span-1"></span>
         <span className="mr-6 span-1"></span>
       </div>
-            {rows.map((row, index) => (
-              <div
-                key={row.id}
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave(index)}
-                draggable
-                onDragStart={() => handleDragStart(index)}
-                onDragOver={() => handleDragOver(index)}
-                onDragEnd={handleDragEnd}
-                style={{
-                  padding: '10px',
-                  borderColor: '#f0f0f0',
-                  marginBottom: '10px',
-                  borderWidth: '2px',
-                  color: 'white',
-                  borderRadius: '5px',
-                  cursor: 'move',
-                  opacity: draggedRowIndex === index ? 0.5 : 1,
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                  <div style={{ width: '15%', marginRight: '10px' }}>{row.headline}</div>
-                  <div style={{ width: '18%', marginRight: '10px' }}>{row.description}</div>
-                  <div style={{ width: '15%', marginRight: '10px' }}>{row.amount}</div>
-                  <div style={{ width: '20%', marginRight: '10px' }}>{row.date}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
-                    <DeleteIcon onClick={() => handleDeleteRow(index)} style={{ fontSize: 20, color: '#fff', marginRight: '180px', cursor: 'pointer' }} />
-                    <DragHandleIcon style={{ fontSize: 20, color: '#fff' }} />
-                  </div>
-                </div>
-                {row.showIcon && (
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginBottom: '5px',
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: 'relative',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => handleAddRow(index)}
-                    >
-                      <AddIcon style={{ fontSize: 20, color: '#fff' }} />
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+
+<div style={{ width: '100%', maxHeight: '600px', overflowY: 'auto',height:"450px" }}>
+<div style={{ display: 'flex', flexDirection: 'column', marginBottom:"100px" }}>
+  {rows.map((row, index) => (
+    <React.Fragment key={row.id}>
+      <div
+        onMouseEnter={() => handleMouseEnter(index)}
+        onMouseLeave={() => handleMouseLeave(index)}
+        draggable
+        onDragStart={() => handleDragStart(index)}
+        onDragOver={() => handleDragOver(index)}
+        onDragEnd={handleDragEnd}
+        style={{
+          padding: '10px',
+          borderColor: '#f0f0f0',
+          marginBottom: '10px',
+          borderWidth: '2px',
+          color: 'white',
+          borderRadius: '5px',
+          cursor: 'move',
+          opacity: draggedRowIndex === index ? 0.5 : 1,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+          <div style={{ width: '15%', marginRight: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.headline}</div>
+          <div style={{ width: '18%', marginRight: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {row.description}
+          </div>
+          <div style={{ width: '15%', marginRight: '10px' }}>{row.duration}</div>
+          <div style={{ width: '20%', marginRight: '10px' }}>{row.date}</div>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+            <DeleteIcon onClick={() => handleDeleteRow(index)} style={{ fontSize: 20, color: '#fff', marginRight: '180px', cursor: 'pointer' }} />
+            <DragHandleIcon style={{ fontSize: 20, color: '#fff' }} />
+          </div>
+        </div>
+      </div>
+
+      
+      {index === hoveredRowIndex && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '5px' }}>
+          <div style={{ position: 'relative', cursor: 'pointer' }}  onClick={() => handleAddRow(index)}>
+            <AddIcon style={{ fontSize: 20, color: '#fff' }} />
+          </div>
+        </div>
+      )}
+    </React.Fragment>
+  ))}
+  </div>
+</div>
+
+
           </div>
         </div>
       )}
@@ -192,3 +236,4 @@ const EditMenu: React.FC = () => {
 };
 
 export default EditMenu;
+
