@@ -105,10 +105,75 @@ const Navbar = () => {
   }, [currentLayout, savedPages]);
 
   return (
-    <>
-      <nav className="w-full fixed z-40">
-        <div style={ isEditScreen ? { justifyContent:"end"}: {}} className={`px-4 md:px-16 py-3 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
-         { !isEditScreen ? <>
+    <div style={{position:"relative", zIndex: 999}}>
+
+<div className="w-full fixed z-40">
+    { !isEditScreen ? null :  
+        <div style={ isEditScreen ? { justifyContent:"end", height:"60px"}: {}} className={`px-4 md:px-16 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
+        <div style={{ display:"flex", justifyContent:"end" }} className={`px-1 py-10 flex-row transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
+        <div style={{ marginRight:"20px"}} className="flex flex-row items-center gap-2 cursor-pointer relative">
+        <div onClick={ toggleOptions} className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+        <Phone style={{width:"40px", height:"40px", color:"white"}}/>
+        </div>
+        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showOptions ? 'rotate-180' : 'rotate-0'}`} />
+        {/* <AccountMenu visible={showAccountMenu} /> */}
+        {showOptions && (
+        <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
+        <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
+          Region
+        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
+        {showRegion && (
+          <>
+        <div style={{ left: 220}} className="bg-black w-56 absolute top-0 right-0 py-2 flex-col border-2 border-gray-800 flex">
+        <div style={{color:"white",display:"flex", justifyContent:"center",}}>United States</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center", }}>Filipino</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center"}}>Others</div>
+        </div>
+
+          
+          </>
+        )}
+        </div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
+          Devices
+        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showDevice ? 'rotate-180' : 'rotate-0'}`} />
+        {showDevice && (
+          <>
+        <div style={{ left: 220}} className="bg-black w-56 absolute top-0 right-0 py-2 flex-col border-2 border-gray-800 flex">
+        <div style={{color:"white",display:"flex", justifyContent:"center",}}>Mobile</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center", }}>Desktop</div>
+        <hr className="bg-gray-600 border-0 h-px my-2" />
+        <div style={{color:"white",display:"flex", justifyContent:"center"}}>CTV</div>
+        </div>
+
+          
+          </>
+        )}
+        </div>
+        </div>
+        )}
+        </div>
+            <Tooltip  message="Layout Management" >
+              <button style={{marginRight:"20px",}} className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
+              <FaExchangeAlt className='w-7 transform rotate-90'/>
+              </button>
+            </Tooltip>
+            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutSave}>Save</Button>
+              
+            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutPublish}>Publish</Button>
+
+            </div>
+            </div>
+
+          }
+          </div>
+      <nav style={{top: "60px"}} className="w-full fixed z-39">
+        <div style={ isEditScreen ? { justifyContent:"end"}: {}} className={`px-4 md:px-16 py-1 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
+         <>
           <img src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" className="h-20 lg:h-18 cursor-pointer" alt="Logo" onClick={() => router.push('/') } />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">
             <NavbarItem label="Home" active={router.pathname === '/'} onClick={() => router.push('/') }/>
@@ -150,72 +215,13 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          </> : 
-          <>
-        <div style={{ display:"flex", justifyContent:"end" }} className={`px-1 py-10 flex-row transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
-        <div style={{ marginRight:"20px"}} className="flex flex-row items-center gap-2 cursor-pointer relative">
-        <div onClick={ toggleOptions} className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-        <Phone style={{width:"40px", height:"40px", color:"white"}}/>
+          </>  
         </div>
-        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showOptions ? 'rotate-180' : 'rotate-0'}`} />
-        {/* <AccountMenu visible={showAccountMenu} /> */}
-        {showOptions && (
-        <div className="bg-black w-56 absolute top-14 right-0 py-2 flex-col border-2 border-gray-800 flex">
-        <div onClick={() => toggleRegion()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
-          Region
-        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showRegion ? 'rotate-180' : 'rotate-0'}`} />
-        {showRegion && (
-          <>
-        <div style={{marginTop:"10px"}} className="bg-black w-56 absolute top-16 right-0 py-2 flex-col border-2 border-gray-800 flex">
-        <div style={{color:"white",display:"flex", justifyContent:"center",}}>United States</div>
-        <hr className="bg-gray-600 border-0 h-px my-2" />
-        <div style={{color:"white",display:"flex", justifyContent:"center", }}>Filipino</div>
-        <hr className="bg-gray-600 border-0 h-px my-2" />
-        <div style={{color:"white",display:"flex", justifyContent:"center"}}>Others</div>
-        </div>
-
-          
-          </>
-        )}
-        </div>
-        <hr className="bg-gray-600 border-0 h-px my-2" />
-        <div onClick={() => toggleDevice()} className="flex flex-row items-center gap-2 cursor-pointer relative" style={{color:"white",display:"flex", justifyContent:"center",}}>
-          Devices
-        <ChevronDownIcon className={`w-4 text-white fill-white transition ${showDevice ? 'rotate-180' : 'rotate-0'}`} />
-        {showDevice && (
-          <>
-        <div className="bg-black w-56 absolute top-8 right-0 py-2 flex-col border-2 border-gray-800 flex">
-        <div style={{color:"white",display:"flex", justifyContent:"center",}}>Mobile</div>
-        <hr className="bg-gray-600 border-0 h-px my-2" />
-        <div style={{color:"white",display:"flex", justifyContent:"center", }}>Desktop</div>
-        <hr className="bg-gray-600 border-0 h-px my-2" />
-        <div style={{color:"white",display:"flex", justifyContent:"center"}}>CTV</div>
-        </div>
-
-          
-          </>
-        )}
-        </div>
-        </div>
-        )}
-        </div>
-            <Tooltip  message="Layout Management" >
-              <button style={{marginRight:"20px"}} className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
-              <FaExchangeAlt className='w-7 transform rotate-90'/>
-              </button>
-            </Tooltip>
-            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutSave}>Save</Button>
-              
-            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutPublish}>Publish</Button>
-
-            </div>
-          </>
-
-          }
-        </div>
+        
       </nav>
+      
       <Toast visible={toastIsOpen} onClose={toastCloseModal} />
-    </>
+    </div>
   )
 }
 

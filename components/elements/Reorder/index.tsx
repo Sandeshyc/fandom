@@ -178,7 +178,6 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) =>
           )
         )
           return null;
-
         return (
           <div
             key={stableKeys[index]}
@@ -206,14 +205,14 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) =>
                 if (key === 'views') {
                   return (
                     <span style={!item.visibility ? { color: "white" }: { color: "grey" }} className="mr-6 ml-5 span-1" key={key}>
-                      100
+                   {item.title !== "" ? 100  :  ""} 
                     </span>
                   );
                 }
                 if (key === 'date') {
                   return (
                     <span style={!item.visibility ? { color: "white" }: { color: "grey" }} className="mr-6 span-1" key={key}>
-                      20 Mar 2023
+                      {item.title !== "" ? "20 Mar 2023": "" }
                     </span>
                   );
                 }
@@ -225,8 +224,7 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) =>
                       onChange={(e) => handleSelectChange(e, index, key)}
                       variant="standard"
                       disableUnderline={true}
-                      style={{ color: 'white', height: '30px', width: 'auto', }}
-                      disabled = {item.visibility}
+                      style={{ color: item.visibility ? 'grey' : 'white', height: '30px', width: 'auto', }}
                     >
                       {getUniqueColumnValues(key).map(
                         (menuItem: string, menuItemIndex: number) => (

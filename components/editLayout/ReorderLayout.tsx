@@ -27,6 +27,7 @@ const ReorderLayout: React.FC<InfoModalProps> = ({ visible, onClose, title, topD
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const { currentLayout = {} as layoutType, setCurrentLayout } = useCurrentPageStore();
   const [currentTopData, setCurrentTopData] = useState(topData);
+  const [addedItems, setAddedItems] = useState<any[]>([]); // New state to hold the added items
 
   // use a callback function to update CurrentLayout
   const updateCurrentLayout = useCallback((movieLists: any[]) => {
@@ -49,33 +50,39 @@ const ReorderLayout: React.FC<InfoModalProps> = ({ visible, onClose, title, topD
 
   const handleAdd = useCallback(() => {
     if (currentLayout.items.length > 0) {
-      const topData = currentLayout.items[1];
-      const updatedList = [topData, ...currentLayout.items];
-      updateCurrentLayout(updatedList);
+      const topData = { ...currentLayout.items[1], title: '', displayType: '' };
+      setAddedItems((prevItems) => [...prevItems, topData]);
     }
-  }, [currentLayout.items, updateCurrentLayout]);
+  }, [currentLayout.items]);
+
+  const handleCancel = useCallback(() => {
+    setAddedItems([]);
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
 
   console.log("updatedPlaylist", currentLayout.items)
-  
 
   if (!visible) {
     return null;
   }
 
   return (
-    <div style={{ width: "1200px", top: "10%", left: "0", right: "0", marginLeft: "auto", marginRight: "auto" }} className={`fixed z-[41] left-0 top-0 p-6 rounded-md shadow-lg overflow-hidden bg-black border-2 ${isVisible ? 'scale-100' : 'scale-0'}`}>
+    <div style={{ width: "1200px", top: "17%", left: "0", right: "0", marginLeft: "auto", marginRight: "auto" }} className={`fixed z-[999] left-0 top-0 p-6 rounded-md shadow-lg overflow-hidden bg-black border-2 ${isVisible ? 'scale-100' : 'scale-0'}`}>
       <div style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}>{title}</div>
       <div style={{ marginRight: "25px" }} className="cursor-pointer absolute top-6 right-40">
         <Button variant="contained" data-button="close" onClick={handleAdd}>Add</Button>
       </div>
       <div className="cursor-pointer absolute top-6 right-20">
-        <Button variant="contained" data-button="close" onClick={handleClose}>Cancel</Button>
+        <Button variant="contained" data-button="cancel" onClick={handleCancel}>Cancel</Button>
       </div>
       <div onClick={handleClose} className="cursor-pointer absolute top-6 right-3 h-10 w-10 rounded-full bg-white bg-opacity-70 flex items-center justify-center">
         <XMarkIcon className="text-white w-6" data-button="close" />
       </div>
       <div style={{ marginBottom: "40px" }}></div>
-      <Reorder lables={labelMap} exclude={excludeItems} list={currentLayout.items} setList={updateCurrentLayout} />
+      <Reorder lables={labelMap} exclude={excludeItems} list={[...currentLayout.items, ...addedItems]} setList={updateCurrentLayout} />
     </div>
   );
 };
