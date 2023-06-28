@@ -165,7 +165,7 @@ const Home = (props) => {
 
 
       {getNavBar()}
-      <div className='layoutEdit pt-40 pb-40  transform origin-top-left scale-90 overflow-hidden'  >
+      <div className='layoutEdit pt-40 pb-40  transform origin-top-left scale-100 overflow-hidden'  >
         <div className='editInnter' >
             {/* {getBillboard()} */}
             {getRows()}

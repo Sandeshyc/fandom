@@ -17,12 +17,13 @@ interface ReorderProps {
 
 const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) => {
   const [dragId, setDragId] = useState<string>('0');
-
+  const [modifiedList, setModifiedList] = useState<any[]>([]);
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = 'move';
     e.currentTarget.classList.add('jk-dragging');
     setDragId(e.currentTarget.id);
   };
+
 
   const handleOnDrop = (e: DragEvent<HTMLDivElement>) => {
     const originId = dragId ? parseInt(dragId) : 0;
@@ -80,51 +81,55 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) =>
   }
 `;
 
-  const handleSelectChange = (
-    e: React.ChangeEvent<{ value: unknown }>,
-    index: number,
-    key: string
-  ) => {
-    const value = e.target.value as string;
-    const updatedList = list.map((item, i) => {
-      if (i === index) {
-        return {
-          ...item,
-          [key]: value,
-        };
+const handleSelectChange = (
+  e: React.ChangeEvent<{ value: unknown }>,
+  index: number,
+  key: string
+) => {
+  const value = e.target.value as string;
+
+  // Create a copy of the current list
+  const updatedList = [...list];
+
+  // Update the selected item in the copied list
+  const updatedItem = {
+    ...updatedList[index],
+    [key]: value,
+  };
+  updatedList[index] = updatedItem;
+
+  // Create an array to keep track of selected values
+  const selectedValues: { [key: string]: string } = {};
+
+  // Loop through the updated list and store the selected values for each key
+  updatedList.forEach((item) => {
+    Object.keys(item).forEach((k) => {
+      if (item[k] !== '' && k !== key) {
+        selectedValues[k] = item[k];
       }
-      return item;
     });
+  });
 
-    // Create an array to keep track of selected values
-    const selectedValues: { [key: string]: string } = {};
-
-    // Loop through the updated list and store the selected values for each key
-    updatedList.forEach((item) => {
-      Object.keys(item).forEach((k) => {
-        if (item[k] !== '' && k !== key) {
-          selectedValues[k] = item[k];
-        }
-      });
-    });
-
-    const updatedLabels = lables.map((label) => {
-      if (label.key === key) {
-        return {
-          ...label,
-          options: getUniqueColumnValues(key),
-        };
-      }
+  const updatedLabels = lables.map((label) => {
+    if (label.key === key) {
       return {
         ...label,
-        options: getUniqueColumnValues(label.key).filter(
-          (menuItem: string) => !selectedValues[label.key] || menuItem === selectedValues[label.key]
-        ),
+        options: getUniqueColumnValues(key),
       };
-    });
+    }
+    return {
+      ...label,
+      options: getUniqueColumnValues(label.key).filter(
+        (menuItem: string) =>
+          !selectedValues[label.key] || menuItem === selectedValues[label.key]
+      ),
+    };
+  });
 
-    setList(updatedList);
-  };
+  setList(updatedList);
+};
+
+
 
   const handleVisibilityToggle = (index: number) => {
     const updatedList = list.map((item, i) => {
@@ -140,16 +145,10 @@ const Reorder: React.FC<ReorderProps> = ({ list, setList, lables, exclude, }) =>
   };
 
   const handleDelete = (index: number) => {
-    const updatedList = list.map((item, i) => {
-      if (i === index) {
-        return {
-          ...item,
-          visibility: !item.visibility, // Toggle the visibility state
-        };
-      }
-      return item;
-    });
-    updatedList.splice(index, 1),
+    const updatedList = list.filter((item, i) => i !== index);
+
+    setModifiedList(updatedList);
+
     setList(updatedList);
     
   };

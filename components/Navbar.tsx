@@ -109,7 +109,7 @@ const Navbar = () => {
 
 <div className="w-full fixed z-40">
     { !isEditScreen ? null :  
-        <div style={ isEditScreen ? { justifyContent:"end", height:"60px"}: {}} className={`px-4 md:px-16 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
+        <div style={ isEditScreen ? { justifyContent:"end", height:"60px"}: {}} className={`px-4 md:px-2 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
         <div style={{ display:"flex", justifyContent:"end" }} className={`px-1 py-10 flex-row transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
         <div style={{ marginRight:"20px"}} className="flex flex-row items-center gap-2 cursor-pointer relative">
         <div onClick={ toggleOptions} className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
@@ -158,21 +158,20 @@ const Navbar = () => {
         )}
         </div>
             <Tooltip  message="Layout Management" >
-              <button style={{marginRight:"20px",}} className='editPlaylistButton text-white  bg-blue-500 px-2 py-1.5 rounded-md hover:bg-blue-400' onClick={openModal} >
-              <FaExchangeAlt className='w-7 transform rotate-90'/>
-              </button>
+            <Button variant="contained" style={{marginRight:"20px", width:"100px"}} onClick={openModal}>Layout</Button>
+
             </Tooltip>
-            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutSave}>Save</Button>
+            <Button variant="contained" style={{marginRight:"20px", width:"100px"}} onClick={handleLayoutSave}>Save</Button>
               
-            <Button variant="contained" style={{marginRight:"20px"}} onClick={handleLayoutPublish}>Publish</Button>
+            <Button variant="contained" style={{marginRight:"20px", width:"100px"}} onClick={handleLayoutPublish}>Publish</Button>
 
             </div>
             </div>
 
           }
           </div>
-      <nav style={{top: "60px"}} className="w-full fixed z-39">
-        <div style={ isEditScreen ? { justifyContent:"end"}: {}} className={`px-4 md:px-16 py-1 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
+      <nav style={{top: !isEditScreen ? "0px" : "60px"}} className="w-full fixed z-39">
+        <div style={ isEditScreen ? { justifyContent:"end"}: {}} className={`px-4 md:px-2 py-1 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : 'mainNav'}`}>
          <>
           <img src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" className="h-20 lg:h-18 cursor-pointer" alt="Logo" onClick={() => router.push('/') } />
           <div className="flex-row ml-8 gap-7 hidden lg:flex">

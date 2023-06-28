@@ -6,9 +6,11 @@ import {
   Event as EventIcon,
   BarChart as ShowChartIcon,
   Info as InfoIcon,
-  DragHandle as DragHandleIcon
+  DragHandle as DragHandleIcon,
+  AccessTime as ClockIcon
 } from '@mui/icons-material';
 import { Tooltip } from '@chakra-ui/react';
+import ToolTip from '@/components/elements/Tooltip';
 
 interface Row {
   id: number;
@@ -48,9 +50,10 @@ const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) 
 
   const lables = [
     { key: 'title', label: 'Headline' },
-    { key: 'displayType', label: <Tooltip bg='white' color='black' label="Description">Desc</Tooltip> },
-    { key: 'views', label: <ShowChartIcon style={{ color: 'white' }} /> },
-    { key: 'date', label: <EventIcon style={{ color: 'white' }} /> },
+    { key: 'displayType', label: <Tooltip  bg='white' color='black' label="Description" padding = "10px" borderRadius="10px" marginLeft="20px"><div style={{display:"inline-block", marginLeft:"80px"}}> Desc </div></Tooltip> },
+    { key: 'views', label: <ClockIcon style={{ color: 'white',marginLeft:"120px" }} /> },
+    { key: 'duration', label: <EventIcon style={{ color: 'white',marginLeft:"120px" }} /> },
+    { key: 'date', label: <ShowChartIcon style={{ color: 'white',marginLeft:"80px" }} /> },
   ];
   const [draggedRowIndex, setDraggedRowIndex] = useState<number | null>(null);
 
@@ -169,14 +172,15 @@ const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) 
           }}
         >
           <div style={{ height: '60px', display: 'flex', alignItems: 'end' }}>
-            <div style={{ color: 'white', marginLeft: '25px', fontSize: '20px', fontWeight: 'bold' }}>Change Content</div>
-            <div style={{marginRight:"25px"}} className="cursor-pointer absolute top-6 right-40">
-              <Button variant="contained" onClick={handleAddRow}>
-                Insert
+            <div style={{ color: 'white', marginLeft: '25px', fontSize: '20px', fontWeight: 'bold' }}>CHANGE CONTENT</div>
+            <div style={{marginRight:"40px"}} className="cursor-pointer absolute top-6 right-40">
+              <Button style={{width:"100px"}} variant="contained" onClick={handleAddRow}>
+              <AddIcon style={{marginRight:"5px"}}/>
+                Add
               </Button>
             </div>
             <div className="cursor-pointer absolute top-6 right-20">
-              <Button variant="contained" onClick={handleCloseModal} data-button="close">
+              <Button style={{width:"100px"}} variant="contained" onClick={handleCloseModal} data-button="close">
                 Cancel
               </Button>
             </div>
@@ -220,14 +224,17 @@ const EditMenu: React.FC<Row> = ({ currentLayout, playlist, setCurrentLayout }) 
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '15%', marginRight: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.headline}</div>
-          <div style={{ width: '18%', marginRight: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ width: '18%', marginRight: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.headline}</div>
+          <Tooltip bg='white' color='black' maxWidth="400px" marginLeft="40px" padding = "10px" borderRadius="10px" label={row.description}>
+          <div style={{ maxWidth: '22%', marginRight: '50px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {row.description}
           </div>
+          </Tooltip>
           <div style={{ width: '15%', marginRight: '10px' }}>{row.duration}</div>
-          <div style={{ width: '20%', marginRight: '10px' }}>{row.date}</div>
+          <div style={{ width: '15%', marginRight: '10px' }}>{row.date}</div>
+          <div style={{ width: '5%', marginRight: '10px' }}>100</div>
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
-            <DeleteIcon onClick={() => handleDeleteRow(index)} style={{ fontSize: 20, color: '#fff', marginRight: '180px', cursor: 'pointer' }} />
+            <DeleteIcon onClick={() => handleDeleteRow(index)} style={{ fontSize: 20, color: '#fff', marginRight: '100px', cursor: 'pointer' }} />
             <DragHandleIcon style={{ fontSize: 20, color: '#fff' }} />
           </div>
         </div>
