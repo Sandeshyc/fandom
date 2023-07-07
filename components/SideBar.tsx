@@ -79,7 +79,8 @@ const SideBar: React.FC = () => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const handleIconClick = (icon: string) => {
-    setActiveIcon(icon);
+    // setActiveIcon(icon);
+    window.location.href = `/${icon}`;
   };
 
   const handleMouseEnter = () => {
@@ -102,7 +103,7 @@ const SideBar: React.FC = () => {
         position: 'fixed',
         zIndex: 999999999,
         top: '0',
-        paddingTop: "17%",
+        paddingTop: "10%",
         transition: 'background-color 0.2s ease-in-out',
         width: "auto",
         height:"100%",
@@ -116,36 +117,24 @@ const SideBar: React.FC = () => {
         isHovered={isHovered}
         icon={Home}
         label="Home"
-        handleClick={() => handleIconClick('Home')}
+        handleClick={() => handleIconClick('home')}
       />
-      <FlexContainer
-        isActive={activeIcon === 'Search'}
-        isHovered={isHovered}
-        icon={Search}
-        label="Search"
-        handleClick={() => handleIconClick('Search')}
-      />
+
       <FlexContainer
         isActive={activeIcon === 'Public'}
         isHovered={isHovered}
         icon={Public}
-        label="My Space"
-        handleClick={() => handleIconClick('Public')}
+        label="Web Series"
+        handleClick={() => handleIconClick('series')}
       />
       <FlexContainer
         isActive={activeIcon === 'TV'}
         isHovered={isHovered}
         icon={Tv}
-        label="TV"
-        handleClick={() => handleIconClick('TV')}
+        label="Live"
+        handleClick={() => handleIconClick('Live')}
       />
-      <FlexContainer
-        isActive={activeIcon === 'Radio'}
-        isHovered={isHovered}
-        icon={Radio}
-        label="Movies"
-        handleClick={() => handleIconClick('Radio')}
-      />
+
       <FlexContainer
         isActive={activeIcon === 'Sports'}
         isHovered={isHovered}
@@ -153,6 +142,15 @@ const SideBar: React.FC = () => {
         label="Sports"
         handleClick={() => handleIconClick('Sports')}
       />
+
+      <FlexContainer
+        isActive={activeIcon === 'Search'}
+        isHovered={isHovered}
+        icon={Search}
+        label="Search"
+        handleClick={() => handleIconClick('Search')}
+      />
+
     </Box>
   );
 };

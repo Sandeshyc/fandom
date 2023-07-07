@@ -202,17 +202,7 @@ const Navbar = () => {
               <ChevronDownIcon className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
               <AccountMenu visible={showAccountMenu} />
             </div>
-            <div className='editPlaylist flex flex-nowrap gap-4'>
-              {!isEditScreen && (
-                <>
-                  <Tooltip message="Edit" >
-                    <button className='editPlaylistButton text-white w-11 text-bold-700 bg-blue-400 px-2 py-1.5 rounded-md hover:bg-blue-500' onClick={() => router.push('/edit/' + currentPath) } >
-                    <PencilSquareIcon/>
-                    </button>
-                  </Tooltip>
-                </>
-              )}
-            </div>
+
           </div>
           </>  
         </div>

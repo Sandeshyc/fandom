@@ -15,7 +15,10 @@ import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
 
 export async function getServerSideProps(context: NextPageContext) {
-  const region = context.query.region || ""
+  const { region = null, product = null } = context.query;
+  
+  const sectionName = context?.params?.section || '';
+  const parts = (context.pathname) || []
   const session = await getSession(context);
 
   if (!session) {
@@ -28,13 +31,13 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 
   return {
-    props: {region}
+    props: {region, product, sectionName}
   }
 }
 
 const Home = (props) => {
-  const { region, product } =  props;
-  const { data: movies = [] } = useMovieList(region, product, 'home');
+  const {region, product, sectionName} =  props;
+  const { data: movies = [] } = useMovieList(region, product, sectionName);
   const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
 
