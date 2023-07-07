@@ -74,6 +74,10 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
   </Box>
 );
 
+const Logo = ({ src}: { src: string}) => (
+  <img src={src} className="h-20 lg:h-18 mt-3 relative left-[-15px] cursor-pointer" alt="Logo" onClick={() => navigate('/') } />
+);
+
 const SideBar: React.FC = () => {
   const [activeIcon, setActiveIcon] = useState<string>('Home');
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -96,14 +100,14 @@ const SideBar: React.FC = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'flex-start',
         paddingLeft: '30px',
         paddingRight: '20px',
         position: 'fixed',
         zIndex: 999999999,
         top: '0',
-        paddingTop: "10%",
+        // paddingTop: "10%",
         transition: 'background-color 0.2s ease-in-out',
         width: "auto",
         height:"100%",
@@ -112,45 +116,48 @@ const SideBar: React.FC = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <FlexContainer
-        isActive={activeIcon === 'Home'}
-        isHovered={isHovered}
-        icon={Home}
-        label="Home"
-        handleClick={() => handleIconClick('home')}
-      />
+      <Logo src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" />
+      <Box>
+        <FlexContainer
+          isActive={activeIcon === 'Home'}
+          isHovered={isHovered}
+          icon={Home}
+          label="Home"
+          handleClick={() => handleIconClick('home')}
+        />
 
-      <FlexContainer
-        isActive={activeIcon === 'Public'}
-        isHovered={isHovered}
-        icon={Public}
-        label="Web Series"
-        handleClick={() => handleIconClick('series')}
-      />
-      <FlexContainer
-        isActive={activeIcon === 'TV'}
-        isHovered={isHovered}
-        icon={Tv}
-        label="Live"
-        handleClick={() => handleIconClick('Live')}
-      />
+        <FlexContainer
+          isActive={activeIcon === 'Public'}
+          isHovered={isHovered}
+          icon={Public}
+          label="Web Series"
+          handleClick={() => handleIconClick('series')}
+        />
+        <FlexContainer
+          isActive={activeIcon === 'TV'}
+          isHovered={isHovered}
+          icon={Tv}
+          label="Live"
+          handleClick={() => handleIconClick('Live')}
+        />
 
-      <FlexContainer
-        isActive={activeIcon === 'Sports'}
-        isHovered={isHovered}
-        icon={SportsBaseball}
-        label="Sports"
-        handleClick={() => handleIconClick('Sports')}
-      />
+        <FlexContainer
+          isActive={activeIcon === 'Sports'}
+          isHovered={isHovered}
+          icon={SportsBaseball}
+          label="Sports"
+          handleClick={() => handleIconClick('Sports')}
+        />
 
-      <FlexContainer
-        isActive={activeIcon === 'Search'}
-        isHovered={isHovered}
-        icon={Search}
-        label="Search"
-        handleClick={() => handleIconClick('Search')}
-      />
-
+        <FlexContainer
+          isActive={activeIcon === 'Search'}
+          isHovered={isHovered}
+          icon={Search}
+          label="Search"
+          handleClick={() => handleIconClick('Search')}
+        />
+      </Box>
+      <Box></Box>
     </Box>
   );
 };
