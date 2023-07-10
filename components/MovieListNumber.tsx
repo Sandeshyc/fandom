@@ -22,14 +22,14 @@ interface MovieListNumberProps {
 function SlickNextArrow(props : object) {
   const { className, style, onClick } = props;
   return (
-    <div className="w-[40px] h-full absolute z-40 right-[-40px] top-0 flex items-center bg-gray-700   text-white  cursor-pointer bg-opacity-40 opacity-30  group-hover:opacity-100" onClick={onClick}><ChevronRightIcon/></div>
+    <div className="w-[40px] h-full absolute z-40 right-[-40px] top-0 flex items-center bg-gray-700   text-white  cursor-pointer bg-opacity-40 opacity-30  group-hover:opacity-100" onClick={onClick}><ChevronRightIcon strokeWidth={2.5}/></div>
   );
 }
 
 function SlickPrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className="w-[40px] h-full absolute z-40 right-[100%] top-0 flex items-center bg-gray-700   text-white cursor-pointer bg-opacity-40 opacity-30  group-hover:opacity-100 transition-opacity" onClick={onClick}><ChevronLeftIcon/></div>
+    <div className="w-[40px] h-full absolute z-40 right-[100%] top-0 flex items-center bg-gray-700   text-white cursor-pointer bg-opacity-40 opacity-30  group-hover:opacity-100 transition-opacity" onClick={onClick}><ChevronLeftIcon strokeWidth={2.5}/></div>
   );
 }
 

@@ -12,6 +12,7 @@
 body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
   max-width: 100%;
+  background-color: #181818;
 }
 
 #__next {
@@ -47,6 +48,13 @@ html {
 .layoutEdit .editItem.relative:hover{
 
 }
+.movieSlider{
+  position: relative;
+  z-index: 1;
+}
+.movieSlider:hover{
+  z-index: 2;
+}
 .movieSlider .slick-arrow:before, .movieSlider .slick-arrow:after{display: none !important;}
 .movieSlider .slick-arrow{
   z-index: 2;
@@ -58,6 +66,9 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.movieSlider .slick-arrow>svg{
+  width: 100%;
 }
 .movieSlider:hover .slick-arrow{
   opacity:1;
@@ -72,7 +83,7 @@ html {
   position: relative;
 }
 .movieCard>.absolute{
-  z-index: 0;
+  /* z-index: 0; */
   /* width:20vw; */
   width: 130%;
   max-width: 100vw;
@@ -110,7 +121,7 @@ html {
     position: absolute;
     top: 0;
     width: 100%;
-  background: linear-gradient(0deg,#181818,transparent 50%);
+  background: linear-gradient(0deg,#181818, transparent 50%);
 }
 .movieCard .jk_player>div{
   position: absolute;

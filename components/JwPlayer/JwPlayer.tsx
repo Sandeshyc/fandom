@@ -83,7 +83,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
         // clear on unmount
         return () => {
-            player.remove();
+            // player.remove();
+            player.stop();
         };
 
     }, [video, autoplay]);
