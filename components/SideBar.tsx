@@ -33,7 +33,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      marginBottom: '45px',
+      marginBottom: '4vh',
       transition: 'transform 0.2s ease-in-out',
       '&:hover': {
         transform: 'translateY(-5px)',
@@ -75,7 +75,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
 );
 
 const Logo = ({ src}: { src: string}) => (
-  <img src={src} className="h-20 lg:h-18 mt-3 relative left-[-15px] cursor-pointer" alt="Logo" onClick={() => navigate('/') } />
+  <img src={src} className="fixed left-0 top-2 h-20 mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" alt="Logo" onClick={() => navigate('/') } />
 );
 
 const SideBar: React.FC = () => {
@@ -100,21 +100,23 @@ const SideBar: React.FC = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'flex-start',
-        paddingLeft: '30px',
-        paddingRight: '20px',
+        // paddingLeft: '30px',
+        // paddingRight: '20px',
         position: 'fixed',
         zIndex: 999999999,
         top: '0',
         // paddingTop: "10%",
-        transition: 'background-color 0.2s ease-in-out',
+        paddingTop: '100px',
+        transition: 'all 0.2s ease-in-out',
         width: "auto",
         height:"100%",
-        backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
+        backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0) 100%)',
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className="group pl-1 pr-1 hover:pl-7 hover:pr-4"
     >
       <Logo src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" />
       <Box>
