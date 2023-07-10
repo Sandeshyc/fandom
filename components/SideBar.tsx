@@ -112,7 +112,7 @@ const SideBar: React.FC = () => {
         transition: 'all 0.2s ease-in-out',
         width: "auto",
         height:"100%",
-        backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6) 80%, rgba(0, 0, 0, 0) 100%)',
+        backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
