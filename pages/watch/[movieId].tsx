@@ -12,6 +12,9 @@ const Watch = () => {
   const { data, error } = useMovie(movieId as string);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : data?.videoUrl[0]?.url;
 
+  console.log('movie data: ', data);
+  const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;
+
   // on mouse move, show controls
   // on mouse leave, hide controls
   let timeout: NodeJS.Timeout;
@@ -34,7 +37,7 @@ const Watch = () => {
         </p>
       </nav>)}
       <div className="jk_jwp_full" onMouseMove={onMouseMove}>
-        <VideoPlayer video={videoURL}/>
+        <VideoPlayer video={videoURL} caption={captionURL}/>
       </div>
     </div>
   )
