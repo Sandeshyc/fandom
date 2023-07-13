@@ -7,13 +7,29 @@ interface VideoPlayerProps {
     control : boolean;
     autoplay : boolean;
     isComplited : () => void;
+    caption?: any,
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited }) => {
+const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption }) => {
     const playerRef = useRef();
 
     useEffect(() => {
         if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" ) return;
+
+        // make track are ready
+        let tracks: any = [];
+        if (caption) {
+            caption.forEach((track: any, index: number) => {
+                tracks.push({
+                    file: track.url,
+                    label: track.label,
+                    kind: "captions",
+                    "default": index === 0 ? true : false
+                })
+            });
+        }
+                    
+            
 
         playerRef.current.innerHTML = "<div className='h-full' />";
         playerRef.current.style ="opacity: 0"
@@ -34,6 +50,11 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             preload: "auto",
             responsive: true,
             repeat: true,
+            // multiple audio tracks
+            tracks: tracks,
+            // enable casting
+            "cast": {},
+
 
             sharing: {
                 sites: ["facebook","twitter","email","linkedin","pinterest"]

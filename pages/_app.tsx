@@ -1,4 +1,5 @@
 import { SessionProvider } from 'next-auth/react';
+import Head from 'next/head';
 import Script from "next/script";   
 import type { AppProps } from 'next/app';
 
@@ -13,6 +14,12 @@ export default function App({
 }: AppProps) {
   return (
     <>
+      <Head>
+        <title>iWantTFC Tickets</title>
+        <meta name="description" content="iWantTFC Tickets" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+      </Head>
+
       <Script 
         id="jw-player"
         strategy="beforeInteractive"
