@@ -10,9 +10,9 @@ const Watch = () => {
   const [mouseActive, setMouseActive] = React.useState(true);
   
   const { data, error } = useMovie(movieId as string);
-  const videoURL = data?.trailerUrl ? data?.trailerUrl : data?.videoUrl[0]?.url;
+  const videoURL = data?.trailerUrl ? data?.trailerUrl : data?.videoUrls[0]?.url;
 
-  console.log('movie data: ', data);
+  // console.log('Watch movie data: ', data);
   const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;
 
   // on mouse move, show controls
@@ -36,8 +36,15 @@ const Watch = () => {
           <span className="font-light">Watching:</span> {data?.title}
         </p>
       </nav>)}
-      <div className="jk_jwp_full" onMouseMove={onMouseMove}>
-        <VideoPlayer video={videoURL} caption={captionURL}/>
+      <div className="jk_jwp_full" onMouseMove={onMouseMove} style={{
+        height: "100vh",
+        width: "100vw",
+        backgroundImage: `url(${data?.thumbnailUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        }}>
+        <VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL}/>
       </div>
     </div>
   )

@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+// import 'globalStyles.scss'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
@@ -44,7 +45,6 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     // adaptiveHeight: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
-
     responsive: [
       {
         breakpoint: 1024,
@@ -79,7 +79,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
 
   return (
     <div className={`px-4 md:px-12 mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
-      <div>
+      <div className="movieSliderInner">
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>
         <Slider {...settings}>
@@ -94,3 +94,4 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
 }
 
 export default MovieList;
+

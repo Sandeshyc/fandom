@@ -1,19 +1,17 @@
 import React from 'react';
-import { PlayIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/router';
 
 interface PlayButtonProps {
   movieId: string;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
+const Buy: React.FC<PlayButtonProps> = ({ movieId }) => {
   const router = useRouter();
 
   return (
     <button 
-      onClick={() => router.push(`/watch/${movieId}`)}
       className="
-        bg-white 
+        bg-yellow-500 
         text-black
         rounded-md 
         py-1 md:py-1 
@@ -27,10 +25,9 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
         hover:bg-neutral-300
         transition
         ">
-        <PlayIcon className="w-5 md:w-9 text-black mr-2" />
-        Play
+        Buy
     </button>
   );
 }
 
-export default PlayButton;
+export default Buy;

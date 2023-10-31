@@ -71,7 +71,8 @@ const Home = (props) => {
         case 'billboard':
           return;
         case 'animated':
-          return <Animated title={movieItem.title} data={movieItem} />;
+          // return <Animated title={movieItem.title} data={movieItem} />;
+          return <p>Animated</p>
         case 'roll':
           return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
         case 'extended' :

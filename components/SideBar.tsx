@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
-  Public,
   Search,
   Home,
-  Radio,
-  Tv,
-  SportsBaseball,
+  Insights,
+  NotificationsNone,
+  Movie,
+  Category,
+  PlaylistPlay,
+  ShoppingCart,
+  HelpOutline,
+  Logout,  
 } from '@mui/icons-material';
 
 interface FlexContainerProps {
@@ -33,7 +37,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      marginBottom: '4vh',
+      marginBottom: '2vh',
       transition: 'transform 0.2s ease-in-out',
       '&:hover': {
         transform: 'translateY(-5px)',
@@ -121,42 +125,76 @@ const SideBar: React.FC = () => {
       <Logo src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" />
       <Box>
         <FlexContainer
+          isActive={activeIcon === 'Search'}
+          isHovered={isHovered}
+          icon={Search}
+          label="Search"
+          // handleClick={() => handleIconClick('Search')}
+        />
+        <FlexContainer
           isActive={activeIcon === 'Home'}
           isHovered={isHovered}
           icon={Home}
           label="Home"
           handleClick={() => handleIconClick('home')}
         />
-
         <FlexContainer
           isActive={activeIcon === 'Public'}
           isHovered={isHovered}
-          icon={Public}
-          label="Web Series"
-          handleClick={() => handleIconClick('series')}
+          icon={Insights}
+          label="Coming Soon"
+          // handleClick={() => handleIconClick('series')}
+        />
+        <FlexContainer
+          isActive={activeIcon === 'Public'}
+          isHovered={isHovered}
+          icon={Movie}
+          label="Movies"
+          // handleClick={() => handleIconClick('series')}
+        />
+        <FlexContainer
+          isActive={activeIcon === 'Public'}
+          isHovered={isHovered}
+          icon={Category}
+          label="Categories"
+          // handleClick={() => handleIconClick('series')}
+        />
+        <FlexContainer
+          isActive={activeIcon === 'Public'}
+          isHovered={isHovered}
+          icon={PlaylistPlay}
+          label="My List"
+          // handleClick={() => handleIconClick('series')}
         />
         <FlexContainer
           isActive={activeIcon === 'TV'}
           isHovered={isHovered}
-          icon={Tv}
-          label="Live"
-          handleClick={() => handleIconClick('Live')}
+          icon={ShoppingCart}
+          label="My Purchase"
+          // handleClick={() => handleIconClick('Live')}
+        />
+        <br />
+        <FlexContainer
+          isActive={activeIcon === 'TV'}
+          isHovered={isHovered}
+          icon={NotificationsNone}
+          label="Notifications"
+          // handleClick={() => handleIconClick('Live')}
+        />
+        <FlexContainer
+          isActive={activeIcon === 'TV'}
+          isHovered={isHovered}
+          icon={HelpOutline}
+          label="Get Help"
+          // handleClick={() => handleIconClick('Live')}
         />
 
         <FlexContainer
           isActive={activeIcon === 'Sports'}
           isHovered={isHovered}
-          icon={SportsBaseball}
-          label="Sports"
-          handleClick={() => handleIconClick('Sports')}
-        />
-
-        <FlexContainer
-          isActive={activeIcon === 'Search'}
-          isHovered={isHovered}
-          icon={Search}
-          label="Search"
-          handleClick={() => handleIconClick('Search')}
+          icon={Logout}
+          label="Logout"
+          // handleClick={() => handleIconClick('Sports')}
         />
       </Box>
       <Box></Box>

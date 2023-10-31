@@ -16,7 +16,7 @@ const MovieCardSimple: React.FC<MovieCardSimpleProps> = ({ data }) => {
 
   return (
     <div className=" bg-zinc-700 rounded-md shadow-md moreLike">
-      <div className="relative cursor-pointer" onClick={redirectToWatch}>
+      <div className="relative aspect-video cursor-pointer" onClick={redirectToWatch}>
         <img src={data?.thumbnailUrl} className="w-full h-full object-cover rounded-md" />
         <div className="absolute top-0 right-0 w-full h-full flex justify-center items-center overlay">
           <div className=''><PlayButtonSmall movieId={data?._id} /></div>

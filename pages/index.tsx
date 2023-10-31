@@ -52,8 +52,8 @@ const Home = (props) => {
   }
 
   const getBillboard = () => {
-    const rows = movies.map(movieItem => {
-      if (movieItem.displayType == 'billboard'){
+    const rows = movies.map(movieItem => {   
+      if (movieItem.displayType == 'billboard' && movieItem._id){
         return <Billboard data={movieItem.items[Math.floor(Math.random() * movieItem.items.length)]} />
       }
     })
@@ -63,35 +63,41 @@ const Home = (props) => {
 
   const getRows = () => {
     const rows = movies.map(movieItem => {
-
-      switch (movieItem.displayType) {
-        case 'billboard':
-          return;
-        case 'animated':
-          return <Animated title={movieItem.title} data={movieItem} />;
-        case 'roll':
-          return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
-        case 'extended' :
-          return <BillboardExtended data={movieItem} title={movieItem.title}/>
-        case 'potrait' :
-          return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} />
-        case 'top10' :
-          return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />         
-        default:
-          return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
-      }
-
-      if (movieItem.displayType === 'billboard'){
+      if(Array.isArray(movieItem?.items) && movieItem?.items?.length > 0){
+        console.log('movieItem Yes', movieItem);
+        switch (movieItem.displayType) {
+          case 'billboard':
+            return;
+          case 'animated':
+            // return <Animated title={movieItem.title} data={movieItem} />;
+            return;
+          case 'roll':
+            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
+          case 'extended' :
+            return <BillboardExtended data={movieItem} title={movieItem.title}/>
+          case 'potrait' :
+            return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} />
+          case 'top10' :
+            return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />         
+          default:
+            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
+        }
+      } else{
+        // console.log('movieItem No', movieItem);
         return;
       }
-      if (movieItem.displayType === 'animated'){
-        
-      } 
+
+        if (movieItem.displayType === 'billboard'){
+          return;
+        }
+        if (movieItem.displayType === 'animated'){
+          
+        } 
       
       
       
     })
-
+    
     return rows.filter(item => item)
   }
   return (

@@ -9,6 +9,7 @@ import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import { MovieInterface } from '@/types';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
+import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 
 interface MovieCardTopProps {
   data: MovieInterface;
@@ -91,9 +92,7 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
               <PlayIcon className="text-black w-4 lg:w-6" />
             </div>
             <FavoriteButton movieId={data._id} />
-            <div onClick={() => openModal(data?._id, data)} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
-              <ChevronDownIcon className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
-            </div>
+            <ViewDetailsBtn movieId={data._id} />
           </div>
 
           <div className="flex flex-row items-center gap-2 mt-2 text-white ">

@@ -3,7 +3,7 @@ import fetcher from '@/libs/fetcher';
 
 const useMovies = (region?: string, product?: string, sectionName?: string) => {
   const { data, error, isLoading } = 
-    useSwr(`/api/movies?region=${region}&product=${product}&sectionName=${sectionName}`, 
+    useSwr(`/api/movies?region=${region}&product=${product}&sectionName=${sectionName}&userId=151937500`, 
     fetcher, {
       revalidateIfStale: false,
       revalidateOnFocus: false,

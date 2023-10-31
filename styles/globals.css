@@ -244,3 +244,7 @@ html {
   -webkit-animation: zoomout 0.4s;
           animation: zoomout 0.4s;
 }
+
+.movieSliderInner .slick-track{
+  margin-left: 0px; 
+}
