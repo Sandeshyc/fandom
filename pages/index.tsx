@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
-
+import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
@@ -14,29 +14,48 @@ import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
 
-export async function getServerSideProps(context: NextPageContext) {
-  const region = context.query.region || ""
-  const session = await getSession(context);
+// export async function getServerSideProps(context: NextPageContext) {
+//   const region = context.query.region || ""
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      }
-    }
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: '/popular',
+//         permanent: false,
+//       }
+//     }
+//   }
 
-  return {
-    props: {region}
-  }
-}
+//   return {
+//     props: {region}
+//   }
+// }
 
 const Home = (props) => {
+  const router = useRouter();
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    // console.log('userInfo: ', userInfo);
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj.sub) {
+        router.push('/');
+      }else{
+        router.push('/auth');
+      }
+    }else{
+      router.push('/auth');
+    }
+  }, []);
+ 
+
   const { region, product } =  props;
   const { data: movies = [] } = useMovieList(region, product, 'home');
-  const { data: favorites = [] } = useFavorites();
+  // const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
+
+  
 
   const getNavBar = () => {
     const rows = movies.map(movieItem => {
@@ -61,10 +80,11 @@ const Home = (props) => {
     return rows.filter(item => item)
   }
 
-  const getRows = () => {
+  const getRows = () => {    
+
     const rows = movies.map(movieItem => {
       if(Array.isArray(movieItem?.items) && movieItem?.items?.length > 0){
-        console.log('movieItem Yes', movieItem);
+        // console.log('movieItem Yes', movieItem);
         switch (movieItem.displayType) {
           case 'billboard':
             return;
@@ -100,6 +120,7 @@ const Home = (props) => {
     
     return rows.filter(item => item)
   }
+
   return (
     <>
       <InfoModal visible={isOpen} onClose={closeModal} region={region}/>

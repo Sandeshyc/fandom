@@ -17,18 +17,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     // await serverAuth(req, res);
-    
+
     const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
-    let sectionName = getValue(req.query.sectionName as string);
-    console.log(region, product, sectionName)
+    let userID = getValue(req.query.userID as string);
+    // console.log(region, product, userID)
     
-    if (sectionName === 'NA') sectionName = 'home';
-    let url = `${process.env.API_URL}/page/${sectionName}?1=1`;
+    if (userID === 'NA') userID = '0';
+    // let url = `${process.env.API_URL}/content/user/${userID}/watchlist?`;
+    let url = `${process.env.API_URL}/user/151937500/watchlist/?`;
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
     
-    // console.log(region, product, sectionName, url)
+    // console.log(region, product, userID, url)
     const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
 

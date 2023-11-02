@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 
@@ -16,22 +16,22 @@ interface UserCardProps {
   name: string;
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+// export async function getServerSideProps(context: NextPageContext) {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      }
-    }
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: '/auth',
+//         permanent: false,
+//       }
+//     }
+//   }
 
-  return {
-    props: {}
-  }
-}
+//   return {
+//     props: {}
+//   }
+// }
 
 const UserCard: React.FC<UserCardProps> = ({ name }) => {
   const imgSrc = images[Math.floor(Math.random() * 4)];
@@ -49,6 +49,21 @@ const UserCard: React.FC<UserCardProps> = ({ name }) => {
 const App = () => {
   const router = useRouter();
   const { data: currentUser } = useCurrentUser();
+  
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    // console.log('userInfo: ', userInfo);
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj.sub) {
+        // router.push('/');
+      }else{
+        router.push('/auth');
+      }
+    }else{
+      router.push('/auth');
+    }
+  }, []);
 
   const selectProfile = useCallback(() => {
     router.push('/');

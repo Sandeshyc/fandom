@@ -2,8 +2,6 @@ import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
-import SvgNumbers from '@/utils/SvgNumbers'
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import { MovieInterface } from '@/types';
@@ -11,14 +9,14 @@ import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
+import { ClockIcon } from '@heroicons/react/24/outline';
 
-interface MovieCardTopProps {
+interface MovieCardProps {
   data: MovieInterface;
-  number?: number;
   portrait?: boolean;
 }
 
-const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) => {
+const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
@@ -31,29 +29,38 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
   const onMouseLeave = () => {
     setAutoplay(false);
   }
+  // console.log('data', data);
+  const publishDate = data?.publishSchedule;
+  const publishDatex = new Date(publishDate).toLocaleDateString('en-US', { 
+    hour: 'numeric',
+    minute: 'numeric',
+    weekday: 'short', 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric'
+   });
 
   return (
-    <div  className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
-      <div className='movieCardTop'>
+    <div className="group bg-zinc-900 col-span relative aspect-[9/16] min-w-[250px] w-[250px] sm:w-[300px] " onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(true)?<Locked/>:null}
-        <div className='number'><SvgNumbers item={number} /></div>
-        <div className='img'>
-          <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
-            cursor-pointer
-            object-cover
-            transition
-            duration
-            shadow-xl
-            rounded-md
-            group-hover:opacity-90
-            sm:group-hover:opacity-0
-            delay-300
-            w-full
-            h-[12vw]
-          " />
-        </div>
+      <p
+        className='flex items-center absolute bottom-4 left-4 text-white text-xs sm:text-sm p-1 bg-black bg-opacity-60 rounded-md'
+      ><ClockIcon className='text-white w-[16px] h-[16px] mr-1'/><span>{publishDatex}</span></p>
+      <div className='img h-full w-full'>
+        <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
+          cursor-pointer
+          object-cover
+          transition
+          duration
+          shadow-xl
+          rounded-md
+          group-hover:opacity-90
+          sm:group-hover:opacity-0
+          delay-300
+          w-full
+          h-full
+        " />
       </div>
-
       <div className="
         opacity-0
         absolute
@@ -67,11 +74,9 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
         w-full
         scale-0
         group-hover:scale-100
-        
-        group-hover:opacity-100
-        
-      ">
-        <div className="bg-zinc-800 shadow-md
+        xl:group-hover:opacity-180        
+        group-hover:opacity-100">
+        <div className=" shadow-md
         rounded-t-lg jk_player " >
           {autoplay && (
           <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)}
@@ -81,10 +86,8 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
         </div>
         <div className="
           z-10
-          bg-zinc-800
           p-2
-          lg:p-4
-          
+          lg:p-4          
           transition
           shadow-md
           rounded-b-lg
@@ -120,4 +123,4 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
   )
 }
 
-export default MovieCardTop;
+export default MovieCardUpcoming;

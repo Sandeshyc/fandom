@@ -1,0 +1,39 @@
+import queryString from "query-string";
+
+// Static oidc params for a single provider
+const domain = "http://localhost:3000";
+const authority = "https://abs-cbn.onelogin.com/oidc/2";
+const client_id = "113a6e50-f6b7-013b-cef6-0275aa241761192696";
+const post_logout_redirect_uri = `${domain}/`;
+const redirect_uri = `${domain}/auth`;
+const response_type = "id_token token";
+const scope = "openid profile";
+
+export const beginAuth = ({ state, nonce }) => {
+  // Generate authentication URL
+  const params = queryString.stringify({
+    client_id,
+    redirect_uri,
+    response_type,
+    scope,
+    state,
+    nonce,
+  });
+  const authUrl = `${authority}/auth?${params}`;
+
+  // Attempt login by navigating to authUrl
+  window.location.assign(authUrl);
+};
+
+export const logoutAuth = () => window.location.assign(`${authority}/logout`);
+export const logoutAuthToken = ({ id_token_hint }) => {
+  // Generate authentication URL
+  const params = queryString.stringify({
+    post_logout_redirect_uri,
+    id_token_hint
+  });
+  const authUrl = `${authority}/logout?${params}`;
+
+  // Attempt login by navigating to authUrl
+  window.location.assign(authUrl);
+};

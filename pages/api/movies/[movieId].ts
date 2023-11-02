@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
 
     const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}`);
     const movies = moviesRes.data;

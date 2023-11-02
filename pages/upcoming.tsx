@@ -2,13 +2,15 @@ import React, { use, useEffect } from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import SideBar from '@/components/SideBar'
 import Navbar from '@/components/Navbar';
 import BillboardExtended from '@/components/BillboardExtended';
-import MovieList from '@/components/MovieList';
 import InfoModal from '@/components/InfoModal';
-import useMovieList from '@/hooks/useMovieList';
+import MovieList from '@/components/MovieList';
+import useUpcomingMovies from '@/hooks/useUpcomingMovies';
 import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
+import MovieCardUpcoming from '@/components/MovieCardUpcoming';
 
 // export async function getServerSideProps(context: NextPageContext) {
 //   const session = await getSession(context);
@@ -45,19 +47,11 @@ const Home = () => {
     }
   }, []);
 
-  const { data: movies = [] } = useMovieList();
+  const { data: movies = [] } = useUpcomingMovies();
   const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
 
-  const getBillboard = () => {
-    const rows = movies.map(movieItem => {
-      if (movieItem.displayType == 'billboard'){
-        return <BillboardExtended data={movieItem} />
-      }
-    })
-
-    return rows.filter(item => item)
-  }
+  
 
   const getRows = () => {
     let i = 0;
@@ -69,13 +63,21 @@ const Home = () => {
     return rows.filter(item => item)
   }
 
+  useEffect(() => {
+    console.log('Movies: ', movies);
+  }, [movies])
   return (
     <>
-      <InfoModal visible={isOpen} onClose={closeModal} />
-      <Navbar />
-      {getBillboard()}
-      <div className="pb-40">
-        {getRows()}
+      <SideBar />
+      <div className="py-16">
+        <div className={`px-4 md:px-12 mb-[3vw]`}>
+          <div className="movieSliderInner">
+            <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">Up coming Movie</p>
+            <div className="flex sm:flex-wrap gap-5 lg:px-6 pb-6 overflow-x-auto">
+            {(Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardUpcoming data={item} portrait={ true} />)):null}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )

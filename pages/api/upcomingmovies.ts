@@ -23,8 +23,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let sectionName = getValue(req.query.sectionName as string);
     console.log(region, product, sectionName)
     
-    if (sectionName === 'NA') sectionName = 'home';
-    let url = `${process.env.API_URL}/page/${sectionName}?1=1`;
+    if (sectionName === 'NA') sectionName = 'upcoming';
+    let url = `${process.env.API_URL}/content/${sectionName}?1=1`;
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
     

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-
+import { BanknotesIcon } from '@heroicons/react/24/outline';
 interface PlayButtonProps {
   movieId: string;
 }
@@ -17,7 +17,7 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId }) => {
         py-1 md:py-1 
         px-3 md:px-6
         w-auto 
-        text-lg lg:text-xl 
+        text-base lg:text-xl 
         font-semibold
         flex
         flex-row
@@ -25,7 +25,8 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId }) => {
         hover:bg-neutral-300
         transition
         ">
-        Buy
+          <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
+        Buy / Rent
     </button>
   );
 }

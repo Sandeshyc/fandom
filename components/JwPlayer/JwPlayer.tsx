@@ -8,9 +8,10 @@ interface VideoPlayerProps {
     autoplay : boolean;
     isComplited : () => void;
     caption?: any,
+    pictureInPicture: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption }) => {
+const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture }) => {
     const playerRef = useRef();
 
     useEffect(() => {
@@ -54,7 +55,10 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             tracks: tracks,
             // enable casting
             "cast": {},
-
+            // enable picture in picture
+            "pip": {
+                "enabled": pictureInPicture
+            },
 
             sharing: {
                 sites: ["facebook","twitter","email","linkedin","pinterest"]
@@ -133,7 +137,7 @@ VideoPlayer.defaultProps = {
     video: "",
     control: true,
     autoplay: true,
-
+    pictureInPicture: false,
 };
 
 export default VideoPlayer;

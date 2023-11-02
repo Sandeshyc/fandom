@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
@@ -26,6 +26,21 @@ const Watch = () => {
         setMouseActive(false);
       }, 3000);
   }
+
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    // console.log('userInfo: ', userInfo);
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj.sub) {
+        // router.push('/');
+      }else{
+        router.push('/auth');
+      }
+    }else{
+      router.push('/auth');
+    }
+  }, []);
 
   
   return (

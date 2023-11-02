@@ -2872,6 +2872,11 @@ debug@^3.2.7:
   dependencies:
     ms "^2.1.1"
 
+decode-uri-component@^0.4.1:
+  version "0.4.1"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/decode-uri-component/-/decode-uri-component-0.4.1.tgz#2ac4859663c704be22bf7db760a1494a49ab2cc5"
+  integrity sha1-KsSFlmPHBL4iv323YKFJSkmrLMU=
+
 deep-is@^0.1.3:
   version "0.1.4"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/deep-is/-/deep-is-0.1.4.tgz#a6f2dce612fadd2ef1f519b73551f17e85199831"
@@ -3376,6 +3381,11 @@ fill-range@^7.0.1:
   integrity sha1-GRmmp8df44ssfHflGYU12prN2kA=
   dependencies:
     to-regex-range "^5.0.1"
+
+filter-obj@^5.1.0:
+  version "5.1.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/filter-obj/-/filter-obj-5.1.0.tgz#5bd89676000a713d7db2e197f660274428e524ed"
+  integrity sha1-W9iWdgAKcT19suGX9mAnRCjlJO0=
 
 find-root@^1.1.0:
   version "1.1.0"
@@ -4279,6 +4289,11 @@ nanoid@^3.3.6:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/nanoid/-/nanoid-3.3.6.tgz#443380c856d6e9f9824267d960b4236ad583ea4c"
   integrity sha1-RDOAyFbW6fmCQmfZYLQjatWD6kw=
 
+nanoid@^5.0.2:
+  version "5.0.2"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/nanoid/-/nanoid-5.0.2.tgz#97588ebc70166d0feaf73ccd2799bb4ceaebf692"
+  integrity sha1-l1iOvHAWbQ/q9zzNJ5m7TOrr9pI=
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -4662,6 +4677,15 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha1-AnQi4vrsCyXhVJw+G9gwm5EztuU=
 
+query-string@^8.1.0:
+  version "8.1.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/query-string/-/query-string-8.1.0.tgz#e7f95367737219544cd360a11a4f4ca03836e115"
+  integrity sha1-5/lTZ3NyGVRM02ChGk9MoDg24RU=
+  dependencies:
+    decode-uri-component "^0.4.1"
+    filter-obj "^5.1.0"
+    split-on-first "^3.0.0"
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -5023,6 +5047,11 @@ sparse-bitfield@^3.0.3:
   integrity sha1-/0rm5oZWBWuks+eSqzM004JzyhE=
   dependencies:
     memory-pager "^1.0.2"
+
+split-on-first@^3.0.0:
+  version "3.0.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/split-on-first/-/split-on-first-3.0.0.tgz#f04959c9ea8101b9b0bbf35a61b9ebea784a23e7"
+  integrity sha1-8ElZyeqBAbmwu/NaYbnr6nhKI+c=
 
 streamsearch@^1.1.0:
   version "1.1.0"

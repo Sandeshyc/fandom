@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import { MovieInterface } from '@/types';
 import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
+import Locked from '@/components/Locked';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -31,6 +31,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   // console.log('data', data);
   return (
     <div className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+      {(true)?<Locked/>:null}
       <div className='img'>
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer

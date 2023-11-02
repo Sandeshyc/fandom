@@ -12,23 +12,7 @@ const ViewDetailsButton: React.FC<PlayButtonProps> = ({ movieId }) => {
   return (
     <button 
       onClick={() => router.push(`/details/${movieId}`)}
-      className="
-      bg-white
-      text-white
-        bg-opacity-30 
-        rounded-md 
-        py-1 md:py-2 
-        px-2 md:px-4
-        w-auto 
-        text-xs lg:text-lg 
-        font-semibold
-        flex
-        flex-row
-        items-center
-        hover:bg-opacity-20
-        transition
-        "
-      >
+      className=" bg-gray-200  text-black rounded-md  py-1 md:py-2  px-3 md:px-6 w-auto  text-lg lg:text-xl  font-semibold flex flex-row items-center hover:bg-neutral-300 transition ">
         <InformationCircleIcon className="w-4 md:w-7 mr-1" />
         More Info
     </button>

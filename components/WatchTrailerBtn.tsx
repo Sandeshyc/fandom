@@ -19,7 +19,7 @@ const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         py-1 md:py-1 
         px-3 md:px-6
         w-auto 
-        text-lg lg:text-xl 
+        text-base lg:text-xl 
         font-semibold
         flex
         flex-row
