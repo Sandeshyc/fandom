@@ -11,7 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // await serverAuth(req, res);
 
-    const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}`);
+    // const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}/?userId=${req.query.userID}`);
+    const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}/?userId=151937500`);
     const movies = moviesRes.data;
 
     return res.status(200).json(movies);

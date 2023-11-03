@@ -18,6 +18,8 @@ import useMovieList from '@/hooks/useMovieList';
 
 const Details = () => {
   const router = useRouter();
+  const [userIdToken, setUserIdToken] = React.useState('');
+  
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -26,6 +28,7 @@ const Details = () => {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
         // router.push('/');
+        setUserIdToken(userInfoObj.sub);
       }else{
         router.push('/auth');
       }
@@ -38,14 +41,14 @@ const Details = () => {
   const [mouseActive, setMouseActive] = React.useState(true);
   
   const { data, error } = useMovie(movieId as string);
-  console.log('movie data: ', data);
+  console.log('movie data:dd ', data);
   let relMovies = [];
-  if(0 && Array.isArray(data?.relatedVideos) && data?.relatedVideos.length > 0 ) {
+  if(Array.isArray(data?.relatedVideos) && data?.relatedVideos.length > 0 ) {
     relMovies = data?.relatedVideos;
   }
   const { data: movies = [] } = useMovieList('');
   // console.log('movies data: ', movies);
-  const videoURL = data?.trailerUrl ? data?.trailerUrl : data?.videoUrls[0]?.url;
+  const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
   // const videoURL = data?.videoUrls[0]?.url;
 
   // console.log('movie data: ', data);
@@ -62,7 +65,7 @@ const Details = () => {
 
       <div className="relative">
         <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%] md:max-h-[80%]" >
-          <VideoPlayer video={videoURL} caption={captionURL}/>
+          {(videoURL)?(<VideoPlayer video={videoURL} caption={captionURL}/>):null}
           <div className='preview'/>
         </div>
         <div className="absolute bottom-[0] left-0 w-[100%] bg-gradient-to-t from-black to-transparent py-[10px] lg:py-[30px] pt-[200px]">

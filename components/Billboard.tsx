@@ -6,6 +6,8 @@ import PlayButton from '@/components/PlayButton';
 import ViewDetailsButton from '@/components/ViewDetailsButton';
 import useBillboard from '@/hooks/useBillboard';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
+import Locked from '@/components/Locked';
+import Buy from '@/components/Buy';
 
 const Billboard: React.FC = ({data, extended, isComplited}) => {
   const { openModal } = useInfoModalStore();
@@ -18,6 +20,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
   }, [openModal, data?._id, data]);
   return (
     <div className={`relative`}>    
+      {(!data?.allowed)?<Locked/>:null}
       <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] ${extended ? 'h-[100vh] max-h-[100vh] ' : 'h-[250px] sm:h-[300px] md:h-[85vh] max-h-[85vh]'}`}>
         <div className='brightness-[60%] h-full'>
           <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false} isComplited={isComplited} pictureInPicture={false} />
@@ -32,7 +35,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
           {data?.description?.substring(0, 260)}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          <PlayButton movieId={data?._id} />
+          {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<Buy movieId={data?._id} />)}
           <ViewDetailsButton movieId={data?._id} />
         </div>
       </div>

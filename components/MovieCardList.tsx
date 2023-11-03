@@ -16,7 +16,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
 
-  const redirectToWatch = useCallback(() => router.push(`/watch/${data._id}`), [router, data._id]);
+  const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
   // console.log('data', data);
   const publishDate = data?.publishSchedule;
   const publishDatex = new Date(publishDate).toLocaleDateString('en-US', { 
@@ -35,11 +35,13 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           cursor-pointer
           object-cover
           rounded-md
+          w-full
           aspect-[16/9]" />
         {(true)?<Locked/>:null}
       </div>
       <div className="w-[180px] grow pt-4">
         <p
+          onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"
         >{data.title}</p>    
         <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>

@@ -31,7 +31,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   // console.log('data', data);
   return (
     <div className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
-      {(true)?<Locked/>:null}
+      {(!data?.allowed)?<Locked/>:null}
       <div className='img'>
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer

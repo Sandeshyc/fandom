@@ -5,9 +5,11 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
+import MovieListPurchase from '@/components/MovieListPurchase';
 import InfoModal from '@/components/InfoModal';
 import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
+import usePurchaseMovies from '@/hooks/usePurchaseMovies';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import BillboardExtended from '@/components/BillboardExtended';
 import MovieListTops from '@/components/MovieListTops';
@@ -33,6 +35,7 @@ import SideBar from '@/components/SideBar'
 // }
 
 const Home = (props) => {
+  const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -41,6 +44,7 @@ const Home = (props) => {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
         router.push('/');
+        setUserIdToken(userInfoObj.sub);
       }else{
         router.push('/auth');
       }
@@ -52,6 +56,8 @@ const Home = (props) => {
 
   const { region, product } =  props;
   const { data: movies = [] } = useMovieList(region, product, 'home');
+  const { data: myPurchaseLayout = [] } = usePurchaseMovies(region, 'web', userIdToken );
+  console.log('movies: d', movies);
   // const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
 
@@ -83,7 +89,7 @@ const Home = (props) => {
   const getRows = () => {    
 
     const rows = movies.map(movieItem => {
-      if(Array.isArray(movieItem?.items) && movieItem?.items?.length > 0){
+      if(Array.isArray(movieItem?.items) && (movieItem?.items?.length > 0 || movieItem.displayType === 'myPurchase')){
         // console.log('movieItem Yes', movieItem);
         switch (movieItem.displayType) {
           case 'billboard':
@@ -98,7 +104,9 @@ const Home = (props) => {
           case 'potrait' :
             return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} />
           case 'top10' :
-            return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />         
+            return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />  
+          case 'myPurchase' :    
+            return <MovieListPurchase title={"My Purchases"} data={myPurchaseLayout}  />    
           default:
             return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
         }

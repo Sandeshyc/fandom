@@ -10,7 +10,17 @@ const Watch = () => {
   const [mouseActive, setMouseActive] = React.useState(true);
   
   const { data, error } = useMovie(movieId as string);
-  const videoURL = data?.trailerUrl ? data?.trailerUrl : data?.videoUrls[0]?.url;
+  console.log('movie data: ', data)
+  let videoURL = '';
+  if(data?.allowed){
+    if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
+      videoURL = data?.videoUrls[0]?.url;
+    }else{
+      videoURL = data?.trailerUrl ? data?.trailerUrl : '';
+    }
+  }else{
+    videoURL = data?.trailerUrl ? data?.trailerUrl : '';
+  }
 
   // console.log('Watch movie data: ', data);
   const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;

@@ -19,7 +19,7 @@ const MovieCardSimple: React.FC<MovieCardSimpleProps> = ({ data }) => {
     <div className="bg-zinc-700 rounded-md shadow-md moreLike min-w-[290px] min-w-[290px] mr-[10px] lg:mr-0">
       <div className="relative aspect-video cursor-pointer" onClick={redirectToWatch}>
         <img src={data?.thumbnailUrl} className="w-full h-full object-cover rounded-md" />
-        {(true)?<Locked/>:null}
+        {(!data?.allowed)?<Locked/>:null}
         <div className="absolute top-0 right-0 w-full h-full flex justify-center items-center overlay">
           <div className=''><PlayButtonSmall movieId={data?._id} /></div>
         </div>

@@ -20,7 +20,7 @@ interface EnititlementEndDateProps  {
 }
 
 const EnititlementEndDate = ({endDate, short = true, base = 0.5} : EnititlementEndDateProps) => {
-    console.log('endDate', endDate);
+    // console.log('endDate', endDate);
     const {day, hour, minute} = dateToDay(endDate); // Day Hour Minute
 
     let Print  = <></>;

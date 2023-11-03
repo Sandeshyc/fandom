@@ -27,8 +27,8 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
 
   return (
-    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm mr-4">
-      <div className="w-[140px] sm:w-[260px] md:w-[360px] mr-2 sm:mr-6 relative">
+    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white w-full rounded-sm">
+      <div className="w-full relative">
         <img onClick={redirectToWatch} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
@@ -36,15 +36,11 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
           w-full
           aspect-[16/9]" />
         {(!data?.allowed)?<Locked/>:null}
+        <div className="absolute top-2 right-2 p-1 flex flex-wrap bg-black bg-opacity-50 rounded-md">
+          <EnititlementEndDate endDate={data?.endTime} short={true} />  
+        </div>
       </div>
-      <div className="w-[180px] grow pt-4">
-        <p
-          onClick={redirectToWatch}
-          className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"
-        >{data.title}</p>    
-        <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>
-        <EnititlementEndDate endDate={data?.endTime} short={false} />  
-      </div>
+      
     </div>
   )
 }
