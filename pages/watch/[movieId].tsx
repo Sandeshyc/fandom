@@ -5,11 +5,12 @@ import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import useMovie from '@/hooks/useMovie';
 
 const Watch = () => {
+  const [userId, setUserId] = React.useState('');
   const router = useRouter();
   const { movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);
   
-  const { data, error } = useMovie(movieId as string);
+  const { data, error } = useMovie(movieId as string, userId as string);
   console.log('movie data: ', data)
   let videoURL = '';
   if(data?.allowed){
@@ -43,6 +44,7 @@ const Watch = () => {
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
+        setUserId(userInfoObj.sub);
         // router.push('/');
       }else{
         router.push('/auth');

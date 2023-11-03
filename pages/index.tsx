@@ -55,7 +55,7 @@ const Home = (props) => {
  
 
   const { region, product } =  props;
-  const { data: movies = [] } = useMovieList(region, product, 'home');
+  const { data: movies = [] } = useMovieList(region, product, 'home', userIdToken);
   const { data: myPurchaseLayout = [] } = usePurchaseMovies(region, 'web', userIdToken );
   console.log('movies: d', movies);
   // const { data: favorites = [] } = useFavorites();

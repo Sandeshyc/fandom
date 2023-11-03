@@ -16,7 +16,8 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import useMovieList from '@/hooks/useMovieList';
 
 
-const Details = () => {
+const Details = (props) => {
+  const { region, product } =  props;
   const router = useRouter();
   const [userIdToken, setUserIdToken] = React.useState('');
   
@@ -40,14 +41,14 @@ const Details = () => {
   const { movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);
   
-  const { data, error } = useMovie(movieId as string);
+  const { data, error } = useMovie(movieId as string, userIdToken);
   console.log('movie data:dd ', data);
   let relMovies = [];
   if(Array.isArray(data?.relatedVideos) && data?.relatedVideos.length > 0 ) {
     relMovies = data?.relatedVideos;
   }
-  const { data: movies = [] } = useMovieList('');
-  // console.log('movies data: ', movies);
+  const { data: movies = [] } = useMovieList(region, product, 'home', userIdToken);
+  console.log('movies data: ', movies);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
   // const videoURL = data?.videoUrls[0]?.url;
 
