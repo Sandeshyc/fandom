@@ -17,6 +17,7 @@ export default function App({
       <Head>
         <title>iWantTFC Tickets</title>
         <meta name="description" content="iWantTFC Tickets" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
@@ -25,9 +26,9 @@ export default function App({
         strategy="beforeInteractive"
         src="https://cdn.jwplayer.com/libraries/kLxY4wBD.js" />
 
-      <SessionProvider session={session}>
+      {/* <SessionProvider session={session}> */}
           <Component {...pageProps} />
-      </SessionProvider>
+      {/* </SessionProvider> */}
     </>
   )
 }

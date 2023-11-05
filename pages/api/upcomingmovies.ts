@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios';
 import prismadb from '@/libs/prismadb';
 import serverAuth from "@/libs/serverAuth";
+
 const getValue = (sourceVal: string) => {
   if (sourceVal && sourceVal !== '' && sourceVal !== null && sourceVal !== 'null' 
     && sourceVal !== undefined && sourceVal !== 'undefined') {
@@ -14,12 +15,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
       return res.status(405).end();
     }
-    const { movieId } = req.query;
-    let userId = getValue(req.query.userId as string);
+    
     // await serverAuth(req, res);
-
-    const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}/?userId=${userId}`);
-    // const moviesRes = await axios.get(`${process.env.API_URL}/content/item/${req.query.movieId}/?userId=151937500`);
+    
+    const region = getValue(req.query.region as string);
+    const product = getValue(req.query.product as string);
+    let sectionName = getValue(req.query.sectionName as string);
+    console.log(region, product, sectionName)
+    
+    if (sectionName === 'NA') sectionName = 'upcoming';
+    let url = `${process.env.API_URL}/content/${sectionName}?1=1`;
+    if (region !== 'NA') url = `${url}&region=${region}`;
+    if (product !== 'NA') url = `${url}&product=${product}`;
+    
+    // console.log(region, product, sectionName, url)
+    const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
 
     return res.status(200).json(movies);

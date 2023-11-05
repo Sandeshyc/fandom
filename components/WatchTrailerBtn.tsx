@@ -6,12 +6,12 @@ interface PlayButtonProps {
   movieId: string;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
+const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
   const router = useRouter();
 
   return (
     <button 
-      onClick={() => router.push(`/watch/${movieId}`)}
+      onClick={() => router.push(`/watch/${movieId}?trailer=true`)}
       className="
         bg-white 
         text-black
@@ -19,7 +19,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
         py-1 md:py-1 
         px-3 md:px-6
         w-auto 
-        text-lg lg:text-xl 
+        text-base lg:text-xl 
         font-semibold
         flex
         flex-row
@@ -28,9 +28,9 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
         transition
         ">
         <PlayIcon className="w-5 md:w-9 text-black mr-2" />
-        Play
+        Watch Trailer
     </button>
   );
 }
 
-export default PlayButton;
+export default WatchTrailerBtn;

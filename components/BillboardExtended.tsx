@@ -4,7 +4,7 @@ import Billboard from '@/components/Billboard';
 import MovieListNumber from '@/components/MovieListNumber';
 
 const BillboardExtended: React.FC = ({data, title}) => {
-  console.log('data', data);
+  // console.log('data BillboardExtended', data);
   const [item, setItem] = React.useState(data?.items[0] || {}); 
 
   const [itemEnded, setItemEnded] = React.useState(1);
@@ -21,8 +21,7 @@ const BillboardExtended: React.FC = ({data, title}) => {
   console.log('jw video completed 3', itemEnded);
 
   return (
-
-    <div className={`px-4 md:px-12 mb-[3vw] `} >
+    (item?.videoUrl)?<div className={`px-4 md:px-12 mb-[3vw] `} >
     <div>
       <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
       <div className={`gap-2  `}>
@@ -34,8 +33,7 @@ const BillboardExtended: React.FC = ({data, title}) => {
       </div>
       </div>
     </div>
-  </div>
-  
+  </div>:null  
   )
 }
 export default BillboardExtended;

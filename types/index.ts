@@ -7,4 +7,5 @@ export interface MovieInterface {
   videoUrl: string;
   duration: string;
   genre: Array<String>;
+  publishSchedule?: string;
 }

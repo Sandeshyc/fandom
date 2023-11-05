@@ -21,7 +21,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose, region }) => {
   const { data } = useInfoModalStore();
   // const { data: demoMore = {} } = useMovie(data?._id);
   const { data: movies = [] } = useMovieList(region);
-
+  // console.log('region', region);
   useEffect(() => {
     setIsVisible(!!visible);
   }, [visible]);

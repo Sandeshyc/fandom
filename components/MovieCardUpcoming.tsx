@@ -9,13 +9,14 @@ import FavoriteButton from '@/components/FavoriteButton';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
+import { ClockIcon } from '@heroicons/react/24/outline';
 
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
+const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
@@ -29,10 +30,23 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
     setAutoplay(false);
   }
   // console.log('data', data);
+  const publishDate = data?.publishSchedule;
+  const publishDatex = new Date(publishDate).toLocaleDateString('en-US', { 
+    hour: 'numeric',
+    minute: 'numeric',
+    weekday: 'short', 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric'
+   });
+
   return (
-    <div className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
-      {(!data?.allowed)?<Locked/>:null}
-      <div className='img'>
+    <div className="group bg-zinc-900 col-span relative aspect-[9/16] min-w-[250px] w-[250px] sm:w-[300px] " onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+      {(true)?<Locked/>:null}
+      <p
+        className='flex items-center absolute bottom-4 left-4 text-white text-xs sm:text-sm p-1 bg-black bg-opacity-60 rounded-md'
+      ><ClockIcon className='text-white w-[16px] h-[16px] mr-1'/><span>{publishDatex}</span></p>
+      <div className='img h-full w-full'>
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
@@ -44,7 +58,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
           sm:group-hover:opacity-0
           delay-300
           w-full
-          h-[12vw]
+          h-full
         " />
       </div>
       <div className="
@@ -60,11 +74,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
         w-full
         scale-0
         group-hover:scale-100
-        
-        group-hover:opacity-100
-        
-      ">
-        <div className="bg-zinc-800 shadow-md
+        xl:group-hover:opacity-180        
+        group-hover:opacity-100">
+        <div className=" shadow-md
         rounded-t-lg jk_player " >
           {autoplay && (
           <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)}
@@ -74,10 +86,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
         </div>
         <div className="
           z-10
-          bg-zinc-800
           p-2
-          lg:p-4
-          
+          lg:p-4          
           transition
           shadow-md
           rounded-b-lg
@@ -113,4 +123,4 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   )
 }
 
-export default MovieCard;
+export default MovieCardUpcoming;

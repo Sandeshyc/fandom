@@ -10,6 +10,7 @@ import SvgNumbers, {SvgNumberModak} from '@/utils/SvgNumbers';
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
 import { get, isEmpty } from 'lodash';
+import Locked from '@/components/Locked';
 
 interface MovieListNumberProps {
   data: MovieInterface[];
@@ -126,6 +127,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
           </span>
 
           <div className={`col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
+          {(!data?.allowed)?<Locked/>:null}
             <img src={get(movie, 'thumbnailUrl')} className="w-full  object-cover rounded-lg" />
           </div>
         </div>

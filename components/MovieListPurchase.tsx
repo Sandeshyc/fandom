@@ -8,6 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
+import MovieCardPurchase2 from '@/components/MovieCardPurchase2';
 import { isEmpty } from 'lodash';
 
 interface MovieListProps {
@@ -84,7 +85,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
         <div className={`gap-2  `}>
         <Slider {...settings}>
           {data.map((movie) => (
-            <MovieCard key={movie.id} data={movie} portrait={portrait} />
+            <MovieCardPurchase2 key={movie.id} data={movie} portrait={portrait} />
           ))}
         </Slider>
         </div>

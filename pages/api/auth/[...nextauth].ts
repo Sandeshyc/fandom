@@ -2,6 +2,7 @@ import NextAuth, { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
+import OneLoginProvider from "next-auth/providers/onelogin";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcrypt';
 import prismadb from '@/libs/prismadb';
@@ -50,6 +51,11 @@ export const authOptions: AuthOptions = {
 
         return user;
       }
+    }),
+    OneLoginProvider({
+      clientId: process.env.ONELOGIN_CLIENT_ID,
+      clientSecret: process.env.ONELOGIN_CLIENT_SECRET,
+      issuer: process.env.ONELOGIN_ISSUER
     })
   ],
   pages: {
