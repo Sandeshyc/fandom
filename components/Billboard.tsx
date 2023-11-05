@@ -21,13 +21,13 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
   return (
     <div className={`relative`}>    
       {(!data?.allowed)?<Locked/>:null}
-      <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] ${extended ? 'h-[100vh] max-h-[100vh] ' : 'h-[250px] sm:h-[300px] md:h-[85vh] max-h-[85vh]'}`}>
+      <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] ${extended ? 'h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh] ' : 'h-[250px] sm:h-[300px] md:h-[85vh] max-h-[85vh]'}`}>
         <div className='brightness-[60%] h-full'>
           <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false} isComplited={isComplited} pictureInPicture={false} />
         </div>
         <div className='preview'></div>
       </div>
-      <div className={`absolute ${extended ? 'top-[40%] md:top-[30%]' : 'bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25'} ml-4 md:ml-16 lg:ml-24 xl:ml-36 transition`}>
+      <div className={`absolute ${extended ? 'bottom-[160px] sm:bottom-auto sm:top-[20%] xl:top-[40%] xxl:top-[60%]' : 'bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25'} ml-4 md:ml-16 lg:ml-24 xl:ml-36 transition`}>
         <p className="text-white text-2xl md:text-5xl h-full w-[85%] md:w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
         </p>

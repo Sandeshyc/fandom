@@ -12,8 +12,8 @@ interface MovieCardSimpleProps {
 
 const MovieCardSimple: React.FC<MovieCardSimpleProps> = ({ data }) => {
   const router = useRouter();
-
-  const redirectToWatch = useCallback(() => router.push(`/watch/${data._id}`), [router, data._id]);
+  if (!data) return null;
+  const redirectToWatch = useCallback(() => router.push(`/watch/${data?._id}`), [router, data?._id]);
 
   return (
     <div className="bg-zinc-700 rounded-md shadow-md moreLike min-w-[290px] min-w-[290px] mr-[10px] lg:mr-0">
