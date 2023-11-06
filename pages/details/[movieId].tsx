@@ -54,7 +54,10 @@ const Details = (props) => {
 
   // console.log('movie data: ', data);
   const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;
-  
+  let thumb = '';
+  if( data?.thumbnailUrl ){
+    thumb = data?.thumbnailUrl;
+  }
   return (
     <div className="h-screen w-screen bg-black text-white" >
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
@@ -65,7 +68,7 @@ const Details = (props) => {
       </nav>)}
 
       <div className="relative">
-        <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%] md:max-h-[80%]" >
+        <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%] md:max-h-[80%]"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
           {(videoURL)?(<VideoPlayer video={videoURL} caption={captionURL}/>):null}
           <div className='preview'/>
         </div>
@@ -98,9 +101,9 @@ const Details = (props) => {
                     <p className="border-gray-500 border px-1 text-xs">HD</p>
                     <p className="border-gray-500 border px-1 text-xs">16+</p>
                   </div>
-                  <div className="flex flex-row items-center mb-4 text-white text-xs text-gray-500">
-                    <p className="mb-3">{(Array.isArray(data?.tags) && data?.tags?.lenght > 0)?capFirstLetter(data?.tags?.join(", ")):null}</p>
-                    {(data?.contentPrivider)?(<p className="mb-3"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
+                  <div className="mb-4 text-white text-xs text-gray-500">
+                    {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
+                    {(Array.isArray(data?.tags))?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
                   </div>  
                 </div>  
                 <div className="md:grid md:grid-cols-12 md:gap-4">            
@@ -141,9 +144,9 @@ const Details = (props) => {
                     <p className="border-gray-500 border px-1 text-xs">HD</p>
                     <p className="border-gray-500 border px-1 text-xs">16+</p>
                   </div>
-                  <div className="flex flex-row items-center mb-4 text-white text-xs text-gray-500">
-                    <p className="mb-3">{(Array.isArray(data?.tags) && data?.tags?.lenght > 0)?capFirstLetter(data?.tags?.join(", ")):null}</p>
-                    {(data?.contentPrivider)?(<p className="mb-3"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
+                  <div className="mb-4 text-white text-xs text-gray-500">
+                    {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
+                    {(Array.isArray(data?.tags))?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
                   </div>  
                 </div>  
                 <div className="md:grid md:grid-cols-12 md:gap-4">            

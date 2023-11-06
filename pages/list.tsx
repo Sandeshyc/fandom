@@ -13,23 +13,6 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 import MovieCardList from '@/components/MovieCardList';
 import { Info } from '@mui/icons-material';
 
-// export async function getServerSideProps(context: NextPageContext) {
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/auth',
-//         permanent: false,
-//       }
-//     }
-//   }
-
-//   return {
-//     props: {}
-//   }
-// }
-
 const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
@@ -52,20 +35,7 @@ const Home = (props) => {
   }, []);
 
   const { data: movies = [] } = useListMovies(region, 'web', userIdToken);
-  const { data: favorites = [] } = useFavorites();
-  const {isOpen, closeModal} = useInfoModalStore();
 
-  
-
-  const getRows = () => {
-    let i = 0;
-    const rows = movies.map(movieItem => {
-      if (movieItem.displayType !== 'billboard'){
-        return <MovieList title={movieItem.title} portrait={ movieItem.title === "Fantasy"} data={movieItem.items} />
-      }
-    })
-    return rows.filter(item => item)
-  }
 
   useEffect(() => {
     console.log('Movies: ', movies);
