@@ -33,9 +33,10 @@ const Auth = () => {
 
   useEffect(() => {
     // Parse the token from the URL.
+    console.log('window.location.hash',  window.location.hash)
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
     const getAccessToken = async (token:string) => {
-      const userInfo = await fetch(`${process.env.NEXT_PUBLIC_AUTHORITY}/me`, {
+      const userInfo = await fetch(`${process.env.NEXT_PUBLIC_SSO_AUTHORITY}/me`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -43,7 +44,6 @@ const Auth = () => {
       })
       .then(response => response.json())
       .then(data => {
-          // console.log('user info', data);
           window.localStorage.setItem('oneLogInAccessToken', token);
           window.localStorage.setItem('userInfo', JSON.stringify(data)); 
           router.push('/');
@@ -59,6 +59,7 @@ const Auth = () => {
     const userInfo = localStorage.getItem('userInfo');
     console.log('userInfo: ', userInfo);
   }, []);
+
   function LoginPage() {
     const nonce = nanoid();
     const state = nonce+'153';

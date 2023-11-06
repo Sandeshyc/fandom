@@ -53,9 +53,9 @@ export const authOptions: AuthOptions = {
       }
     }),
     OneLoginProvider({
-      clientId: process.env.ONELOGIN_CLIENT_ID,
-      clientSecret: process.env.ONELOGIN_CLIENT_SECRET,
-      issuer: process.env.ONELOGIN_ISSUER
+      clientId: process.env.NEXT_PUBLIC_ONELOGIN_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_ONELOGIN_CLIENT_SECRET,
+      issuer: process.env.NEXT_PUBLIC_ONELOGIN_ISSUER
     })
   ],
   pages: {
