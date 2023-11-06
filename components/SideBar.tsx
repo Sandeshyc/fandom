@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
+import * as oidcApi from 'pages/api/auth/oidcApi';
 import {
   Search,
   Home,
@@ -155,9 +156,14 @@ const SideBar: React.FC = () => {
   };
 
   const logoutFnc = () => {
+    const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
     localStorage.removeItem('userInfo');
-    
-    window.location.href = '/auth';
+    localStorage.removeItem('oneLogInAccessToken');
+    if(oneLogInAccessToken){
+      oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
+    }else{
+      oidcApi.logoutAuth();
+    }
   } 
 
   const router = useRouter();

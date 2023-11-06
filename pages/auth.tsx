@@ -34,8 +34,8 @@ const Auth = () => {
   useEffect(() => {
     // Parse the token from the URL.
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
-    const getAccessToken = async () => {
-      const userInfo = await fetch('https://abs-cbn.onelogin.com/oidc/2/me', {
+    const getAccessToken = async (token:string) => {
+      const userInfo = await fetch(`${process.env.NEXT_PUBLIC_AUTHORITY}/me`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -44,22 +44,15 @@ const Auth = () => {
       .then(response => response.json())
       .then(data => {
           // console.log('user info', data);
+          window.localStorage.setItem('oneLogInAccessToken', token);
           window.localStorage.setItem('userInfo', JSON.stringify(data)); 
           router.push('/');
-          // sessionStorage.setItem("lastname", "Smith"); 
-          // useSession(data); 
-          // signIn('credentials', {
-          //   email: data.email,
-          //   subID: data.sub,
-          //   redirect: false,
-          //   callbackUrl: '/'
-          //   });
           return data;
       })
       .catch(error => console.log('user info error', error));
     }
     if (token) {
-      getAccessToken();    
+      getAccessToken(token);    
     }
 
     // get localStorage data 

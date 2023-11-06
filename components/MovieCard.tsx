@@ -76,8 +76,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
           z-10
           bg-zinc-800
           p-2
-          lg:p-4
-          
+          lg:p-4          
           transition
           shadow-md
           rounded-b-lg

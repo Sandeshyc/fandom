@@ -4,7 +4,7 @@ import queryString from "query-string";
 const domain = process.env.NEXT_PUBLIC_SITE_URL;
 const authority = process.env.NEXT_PUBLIC_AUTHORITY;
 const client_id = process.env.NEXT_PUBLIC_ONELOG_CLIENT_ID;
-const post_logout_redirect_uri = `${domain}/`;
+const post_logout_redirect_uri = `${domain}/logout`;
 const redirect_uri = `${domain}/auth`;
 const response_type = "id_token token";
 const scope = "openid profile";
@@ -33,7 +33,6 @@ export const logoutAuthToken = ({ id_token_hint }) => {
     id_token_hint
   });
   const authUrl = `${authority}/logout?${params}`;
-
   // Attempt login by navigating to authUrl
   window.location.assign(authUrl);
 };
