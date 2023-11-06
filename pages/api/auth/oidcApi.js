@@ -1,10 +1,10 @@
 import queryString from "query-string";
 
-const { REACT_APP_SSO_AUTHORITY, REACT_APP_SSO_DOMAIN, REACT_APP_SSO_CLIENT_ID } = process.env;
+
 // Static oidc params for a single provider
-const domain = REACT_APP_SSO_DOMAIN;
-const authority = REACT_APP_SSO_AUTHORITY;
-const client_id = REACT_APP_SSO_CLIENT_ID;
+const domain = process.env.REACT_APP_SSO_DOMAIN;
+const authority = process.env.REACT_APP_SSO_AUTHORITY;
+const client_id = process.env.REACT_APP_SSO_CLIENT_ID;
 const post_logout_redirect_uri = `${domain}/`;
 const redirect_uri = `${domain}/auth`;
 const response_type = "id_token token";
