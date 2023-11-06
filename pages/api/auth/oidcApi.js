@@ -1,9 +1,9 @@
 import queryString from "query-string";
 
 // Static oidc params for a single provider
-const domain = "http://localhost:3000";
-const authority = "https://abs-cbn.onelogin.com/oidc/2";
-const client_id = "113a6e50-f6b7-013b-cef6-0275aa241761192696";
+const domain = process.env.NEXT_PUBLIC_SITE_URL;
+const authority = process.env.NEXT_PUBLIC_AUTHORITY;
+const client_id = process.env.NEXT_PUBLIC_ONELOG_CLIENT_ID;
 const post_logout_redirect_uri = `${domain}/`;
 const redirect_uri = `${domain}/auth`;
 const response_type = "id_token token";

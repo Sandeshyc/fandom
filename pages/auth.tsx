@@ -11,26 +11,10 @@ import Input from '@/components/Input';
 
 const imgOneLogin = '/images/onelogin.png';
 
-// export async function getServerSideProps(context: NextPageContext) {
-//   const session = await getSession(context);
-
-//   // get localStorage userInfo and set to session
-//   if (session) {
-//     // console.log('session: saim ', session);
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       }
-//     }
-//   }
-//   return {
-//     props: {}
-//   }
-// }
-
 const Auth = () => {
   const router = useRouter();
+
+  
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -82,7 +66,6 @@ const Auth = () => {
     const userInfo = localStorage.getItem('userInfo');
     console.log('userInfo: ', userInfo);
   }, []);
-
   function LoginPage() {
     const nonce = nanoid();
     const state = nonce+'153';
@@ -97,7 +80,7 @@ const Auth = () => {
             <button 
             className="bg-white py-3 text-black rounded-md w-full mt-10 hover:bg-gray-200 transition"
             onClick={() => LoginPage()}>
-              Login with 
+              Login with
               <img src={imgOneLogin} className="h-6 inline-block ml-2" alt="OneLogin" />
             </button>           
           </div>

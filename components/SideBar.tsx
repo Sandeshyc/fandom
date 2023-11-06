@@ -373,7 +373,7 @@ const SideBar: React.FC = () => {
           // handleClick={() => handleIconClick('series')}
         />
         <FlexContainer
-          isActive={activeIcon === 'Public'}
+          isActive={activeIcon === 'list'}
           isHovered={isHovered}
           icon={PlaylistPlay}
           label="My List"
