@@ -1,9 +1,10 @@
 import queryString from "query-string";
 
+const { REACT_APP_SSO_AUTHORITY, REACT_APP_SSO_DOMAIN, REACT_APP_SSO_CLIENT_ID } = process.env;
 // Static oidc params for a single provider
-const domain = "http://localhost:3000";
-const authority = "https://abs-cbn.onelogin.com/oidc/2";
-const client_id = "113a6e50-f6b7-013b-cef6-0275aa241761192696";
+const domain = REACT_APP_SSO_DOMAIN;
+const authority = REACT_APP_SSO_AUTHORITY;
+const client_id = REACT_APP_SSO_CLIENT_ID;
 const post_logout_redirect_uri = `${domain}/`;
 const redirect_uri = `${domain}/auth`;
 const response_type = "id_token token";

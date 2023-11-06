@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
-import {SideBar} from 'imp-design-system';
+// import {SideBar} from 'imp-design-system';
 
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
@@ -66,7 +66,8 @@ const Home = (props) => {
     const rows = movieLists.map((movieList: any[]) => {
       if (movieList.displayType == 'navigation'){
         if (movieList.title === 'SideBar')
-          return <SideBar />
+          // return <SideBar />
+        return < >{""}</>
         else
           return <Navbar />
       }
