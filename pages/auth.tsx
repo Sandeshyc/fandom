@@ -49,6 +49,7 @@ const Auth = () => {
 
   useEffect(() => {
     // Parse the token from the URL.
+    console.log('window.location.hash',  window.location.hash)
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
     const getAccessToken = async () => {
       const userInfo = await fetch('https://abs-cbn.onelogin.com/oidc/2/me', {
@@ -59,7 +60,7 @@ const Auth = () => {
       })
       .then(response => response.json())
       .then(data => {
-          // console.log('user info', data);
+          console.log('user info', data);
           window.localStorage.setItem('userInfo', JSON.stringify(data)); 
           router.push('/');
           // sessionStorage.setItem("lastname", "Smith"); 
