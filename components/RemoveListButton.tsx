@@ -4,9 +4,10 @@ import {Close} from '@mui/icons-material';
 
 interface PlayButtonProps {
   movieId: string;
+  isRemoveHandler?: any;
 }
 
-const RemoveListBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
+const RemoveListBtn: React.FC<PlayButtonProps> = ({ movieId, isRemoveHandler }) => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const [isRemove, setIsRemove] = React.useState(false);
   useEffect(() => {
@@ -33,6 +34,7 @@ const RemoveListBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         console.log('response: ', response);
         if(response.status === 200) {
           setIsRemove(true);
+          isRemoveHandler(true);
           console.log('response.data: ', response.data);
           result = response.data;
         }
