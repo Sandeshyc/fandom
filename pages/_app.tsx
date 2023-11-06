@@ -3,7 +3,10 @@ import Head from 'next/head';
 import Script from "next/script";   
 import type { AppProps } from 'next/app';
 
+import useWishListStore from '@/hooks/useWishListStore';
+
 import '../styles/globals.css';
+import { use, useEffect } from 'react';
 
 export default function App({ 
   Component, 
@@ -12,6 +15,13 @@ export default function App({
     ...pageProps
   }
 }: AppProps) {
+  
+  // const {list, get_list} = useWishListStore();
+  
+  // useEffect(() => {
+  //   get_list();
+  // }, []);
+
   return (
     <>
       <Head>

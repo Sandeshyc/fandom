@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // console.log(region, product, userID)
     
     if (userID === 'NA') userID = '0';
-    let url = `${process.env.API_URL}/content/user/${userID}/watchlist?`;
+    let url = `${process.env.API_URL}/user/${userID}/watchlist?`;
     // let url = `${process.env.API_URL}/user/151937500/watchlist/?`;
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
