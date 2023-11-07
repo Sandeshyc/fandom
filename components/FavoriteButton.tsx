@@ -10,7 +10,7 @@ interface FavoriteButtonProps {
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   let tempUserId = '';
-  const userInfo = window.localStorage.getItem('userInfo');
+  const userInfo = ""; // window.localStorage.getItem('userInfo');
   if(userInfo) {
     const userInfoObj = JSON.parse(userInfo);
     if(userInfoObj.sub) {
