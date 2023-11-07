@@ -17,12 +17,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     // await serverAuth(req, res);
-    
+    const ipAddress = req.headers["x-forwarded-for"] as string;
     const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
     let userID = getValue(req.query.userId as string);
-    console.log(region, product, sectionName)
+    console.log('ipAddress ', ipAddress)
     
     if (sectionName === 'NA') sectionName = 'home';
     // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;
