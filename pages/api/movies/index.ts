@@ -21,15 +21,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
-    let userID = getValue(req.query.userID as string);
+    let userID = getValue(req.query.userId as string);
     console.log(region, product, sectionName)
     
     if (sectionName === 'NA') sectionName = 'home';
     // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;
+    
     let url = `${process.env.API_URL}/page/${sectionName}/?userId=${userID}`;
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
-    
+    console.log(url)
     // console.log(region, product, sectionName, url)
     const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
