@@ -30,11 +30,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let url = `${process.env.API_URL}/page/${sectionName}/?userId=${userID}`;
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
-    console.log(url)
-    // console.log(region, product, sectionName, url)
+    
+    // console.log('Home', region, product, sectionName, url)
+    if( !userID ){
+      return res.status(200).json([]);
+    }
     const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
-
     return res.status(200).json(movies);
   } catch (error) {
     console.log({ error })

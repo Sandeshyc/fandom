@@ -28,6 +28,7 @@
     "bcrypt": "^5.1.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "firebase": "^10.5.2",
     "formik": "^2.2.9",
     "framer-motion": "^9.0.4",
     "lodash": "^4.17.21",
