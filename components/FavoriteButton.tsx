@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { PlusIcon, CheckIcon, MinusIcon } from '@heroicons/react/24/outline';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useFavorites from '@/hooks/useFavorites';
@@ -9,31 +9,41 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
-  const [userIdToken, setUserIdToken] = React.useState('');
+  let tempUserId = '';
+  const userInfo = window.localStorage.getItem('userInfo');
+  if(userInfo) {
+    const userInfoObj = JSON.parse(userInfo);
+    if(userInfoObj.sub) {
+      tempUserId = userInfoObj.sub;
+    }
+  }
+  const [userId, setUserId] = React.useState(tempUserId);
   const [isInLish, setIsInLish] = React.useState(false);
   
-  const { mutate: mutateFavorites } = useFavorites();
+  // const { mutate: mutateFavorites } = useFavorites();
 
-  const { data: currentUser, mutate } = useCurrentUser();
+  // const { data: currentUser, mutate } = useCurrentUser();
 
-
-  const isFavorite = useMemo(() => {
-    const list = currentUser?.favoriteIds || [];
-
-    return list.includes(movieId);
-  }, [currentUser, movieId]);
-
-  const toggleFavorites = useCallback(async () => {
-    let response;
+  useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if(userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
-        setUserIdToken(userInfoObj.sub);
+        setUserId(userInfoObj.sub);
       }
     }
+  }, []);
 
+  // const isFavorite = useMemo(() => {
+  //   const list = currentUser?.favoriteIds || [];
+
+  //   return list.includes(movieId);
+  // }, [currentUser, movieId]);
+
+  const toggleFavorites = useCallback(async () => {
+    let response;
     if (isInLish) {
+      console.log('remove from list');
       const headers = {
         'Content-Type': 'application/json',
       };
@@ -41,7 +51,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
         watchList: [movieId],
       };
       let result;
-      axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userIdToken}/watchlist`, { headers, data })
+      axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, { headers, data })
         .then(response => {
           console.log('response: ', response);
           if(response.status === 200) {
@@ -54,6 +64,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
           console.error('Error:', error);
         });
     }else{
+      console.log('add to list');
       const headers = {
         'Content-Type': 'application/json',
       };      
@@ -61,7 +72,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
         watchList: [movieId],
       };
       let result;
-      axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userIdToken}/watchlist`, data, { headers })
+      axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, data, { headers })
         .then(response => {
           console.log('response: ', response);
           if(response.status === 200) {
@@ -78,19 +89,16 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
 
     const updatedFavoriteIds = response?.data?.favoriteIds;
 
-    mutate({ 
-      ...currentUser, 
-      favoriteIds: updatedFavoriteIds,
-    });
-    mutateFavorites();
-  }, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);
+    // mutate({ 
+    //   ...currentUser, 
+    //   favoriteIds: updatedFavoriteIds,
+    // });
+    // mutateFavorites();
+  }, [movieId, isInLish]);
   
-  const Icon = isFavorite ? CheckIcon : PlusIcon;
+  const Icon = isInLish ? CheckIcon : PlusIcon;
 
-  return (
-    isInLish?<div onClick={toggleFavorites} className="cursor-pointer group/item w-8 h-8 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
-    <MinusIcon className="text-white group-hover/item:text-neutral-300 w-6" />
-  </div>:<div onClick={toggleFavorites} className="cursor-pointer group/item w-8 h-8 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
+  return (<div onClick={toggleFavorites} className="cursor-pointer group/item w-8 h-8 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
   <Icon className="text-white group-hover/item:text-neutral-300 w-6" />
 </div>
   )

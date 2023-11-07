@@ -6,7 +6,10 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  // env:{
+  //   MY_DOMAIN: process.env.MY_DOMAIN,
+  // }
 }
 
 module.exports = nextConfig

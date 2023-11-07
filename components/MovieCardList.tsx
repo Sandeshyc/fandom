@@ -48,7 +48,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"
         >{data.title}</p>    
-        <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>
+        <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>{data?.contentPrivider}</p>
         <RemoveListBtn movieId={data?._id} isRemoveHandler={isRemoveHandler} />
       </div>
     </div>:null

@@ -11,26 +11,10 @@ import Input from '@/components/Input';
 
 const imgOneLogin = '/images/onelogin.png';
 
-// export async function getServerSideProps(context: NextPageContext) {
-//   const session = await getSession(context);
-
-//   // get localStorage userInfo and set to session
-//   if (session) {
-//     // console.log('session: saim ', session);
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       }
-//     }
-//   }
-//   return {
-//     props: {}
-//   }
-// }
-
 const Auth = () => {
   const router = useRouter();
+
+  
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -51,8 +35,8 @@ const Auth = () => {
     // Parse the token from the URL.
     console.log('window.location.hash',  window.location.hash)
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
-    const getAccessToken = async () => {
-      const userInfo = await fetch('https://abs-cbn.onelogin.com/oidc/2/me', {
+    const getAccessToken = async (token:string) => {
+      const userInfo = await fetch(`${process.env.NEXT_PUBLIC_SSO_AUTHORITY}/me`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -60,23 +44,15 @@ const Auth = () => {
       })
       .then(response => response.json())
       .then(data => {
-          console.log('user info', data);
+          window.localStorage.setItem('oneLogInAccessToken', token);
           window.localStorage.setItem('userInfo', JSON.stringify(data)); 
           router.push('/');
-          // sessionStorage.setItem("lastname", "Smith"); 
-          // useSession(data); 
-          // signIn('credentials', {
-          //   email: data.email,
-          //   subID: data.sub,
-          //   redirect: false,
-          //   callbackUrl: '/'
-          //   });
           return data;
       })
       .catch(error => console.log('user info error', error));
     }
     if (token) {
-      getAccessToken();    
+      getAccessToken(token);    
     }
 
     // get localStorage data 
@@ -98,7 +74,7 @@ const Auth = () => {
             <button 
             className="bg-white py-3 text-black rounded-md w-full mt-10 hover:bg-gray-200 transition"
             onClick={() => LoginPage()}>
-              Login with 
+              Login with
               <img src={imgOneLogin} className="h-6 inline-block ml-2" alt="OneLogin" />
             </button>           
           </div>
