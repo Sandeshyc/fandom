@@ -19,6 +19,7 @@ const GoogleIdentitySignIn = () => {
   const [isLoginFail, setIsLoginFail] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');  
+  const [onSubmit, setOnSubmit] = useState(false);
 
   const isEmailValid = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -29,6 +30,7 @@ const GoogleIdentitySignIn = () => {
     if(!email || !password || !isEmailValid(email)) {
       return;
     }
+    setOnSubmit(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         getAuth(),
@@ -47,9 +49,11 @@ const GoogleIdentitySignIn = () => {
       window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
       window.localStorage.setItem('googleIndentityAccessToken', user.accessToken);
       window.location.href = '/';
+      setOnSubmit(false);
     } catch (err) {
       // console.log('Error', err);
       setIsLoginFail(true);
+      setOnSubmit(false);
     }
   };
 
@@ -75,7 +79,7 @@ const GoogleIdentitySignIn = () => {
         />
         {(isSubmitting && !password) && <p className='text-red-500 w-full'>Password is required</p>}
       </div>
-      <button onClick={handleSignIn} className='bg-white py-3 text-black rounded-md w-full hover:bg-gray-200 transition'>Sign In</button>
+      <button onClick={handleSignIn} className='bg-white py-3 text-black rounded-md w-full hover:bg-gray-200 transition'>{(onSubmit)?'Loading...':'Sign In'}</button>
       {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-sm mt-4 p-2 w-full text-center'>Email Or Password is incorrect</p>}
     </div>
   );

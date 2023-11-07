@@ -10,13 +10,13 @@ interface FavoriteButtonProps {
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   let tempUserId = '';
-  const userInfo = window.localStorage.getItem('userInfo');
-  if(userInfo) {
-    const userInfoObj = JSON.parse(userInfo);
-    if(userInfoObj.sub) {
-      tempUserId = userInfoObj.sub;
-    }
-  }
+  // const userInfo = window?.localStorage?.getItem('userInfo');
+  // if(userInfo) {
+  //   const userInfoObj = JSON.parse(userInfo);
+  //   if(userInfoObj.sub) {
+  //     tempUserId = userInfoObj.sub;
+  //   }
+  // }
   const [userId, setUserId] = React.useState(tempUserId);
   const [isInLish, setIsInLish] = React.useState(false);
   
@@ -32,7 +32,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
         setUserId(userInfoObj.sub);
       }
     }
-  }, []);
+  }, [movieId]);
 
   // const isFavorite = useMemo(() => {
   //   const list = currentUser?.favoriteIds || [];
@@ -41,6 +41,15 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   // }, [currentUser, movieId]);
 
   const toggleFavorites = useCallback(async () => {
+    if(!userId) {
+      const userInfo = window.localStorage.getItem('userInfo');
+      if(userInfo) {
+        const userInfoObj = JSON.parse(userInfo);
+        if(userInfoObj.sub) {
+          setUserId(userInfoObj.sub);
+        }
+      }
+    }
     let response;
     if (isInLish) {
       console.log('remove from list');

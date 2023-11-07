@@ -132,9 +132,6 @@ const Home = (props) => {
         if (movieItem.displayType === 'animated'){
           
         } 
-      
-      
-      
     })
     
     return rows?.filter(item => item)
