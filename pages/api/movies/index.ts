@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
-    let userID = getValue(req.query.userID as string);
+    let userID = getValue(req.query.userId as string);
     console.log(region, product, sectionName)
     
     if (sectionName === 'NA') sectionName = 'home';
@@ -30,10 +30,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
     
-    // console.log(region, product, sectionName, url)
+    // console.log('Home', region, product, sectionName, url)
+    if( !userID ){
+      return res.status(200).json([]);
+    }
     const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
-
     return res.status(200).json(movies);
   } catch (error) {
     console.log({ error })

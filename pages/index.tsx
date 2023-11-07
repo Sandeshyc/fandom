@@ -16,29 +16,34 @@ import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
 
-// export async function getServerSideProps(context: NextPageContext) {
-//   const region = context.query.region || ""
-//   const session = await getSession(context);
+export async function getServerSideProps(context: NextPageContext) {
+  const region = context.query.region || ""
+  const session = await getSession(context);
+  const product = context.query.product || "web"
 
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/popular',
-//         permanent: false,
-//       }
-//     }
-//   }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: '/popular',
+  //       permanent: false,
+  //     }
+  //   }
+  // }
 
-//   return {
-//     props: {region}
-//   }
-// }
+  return {
+    props: {region}
+  }
+}
 
 const Home = (props) => {
-  const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
+  const { region, product } =  props;
+  // console.log('props: ', props);
+  // console.log('region: ', region);
+  // console.log('product: ', product);
+  const [userIdToken, setUserIdToken] = React.useState('');
   useEffect(() => {
-    const userInfo = window.localStorage.getItem('userInfo');
+    const userInfo = window.localStorage.getItem('userInfo');    
     // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
@@ -52,11 +57,17 @@ const Home = (props) => {
       router.push('/auth');
     }
   }, []);
- 
 
-  const { region, product } =  props;
-  const { data: movies = [] } = useMovieList(region, product, 'home', userIdToken);
+  // const movies = [];
+  // const myPurchaseLayout = [];
+  const { data: movies = [] } = useMovieList(region, 'web', 'home', userIdToken);
   const { data: myPurchaseLayout = [] } = usePurchaseMovies(region, 'web', userIdToken );
+  // if(userIdToken){
+  //   const { data: movies } = useMovieList(region, product, 'home', userIdToken);
+  //   const { data: myPurchaseLayout } = usePurchaseMovies(region, 'web', userIdToken );
+  // }else{
+    
+  // }
   console.log('movies: d', movies);
   // const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
@@ -64,41 +75,41 @@ const Home = (props) => {
   
 
   const getNavBar = () => {
-    const rows = movies.map(movieItem => {
-      if (movieItem.displayType == 'navigation'){
-        if (movieItem.title === 'SideBar')
+    const rows = movies?.map(movieItem => {
+      if (movieItem?.displayType == 'navigation'){
+        if (movieItem?.title === 'SideBar')
           return <SideBar />
         else
           return <Navbar />
       }
     })
 
-    return rows.filter(item => item)
+    return rows?.filter(item => item)
   }
 
   const getBillboard = () => {
-    const rows = movies.map(movieItem => {   
-      if (movieItem.displayType == 'billboard' && movieItem._id){
-        return <Billboard data={movieItem.items[Math.floor(Math.random() * movieItem.items.length)]} />
+    const rows = movies?.map(movieItem => {   
+      if (movieItem?.displayType == 'billboard' && movieItem?._id){
+        return <Billboard data={movieItem?.items[Math.floor(Math.random() * movieItem?.items?.length)]} />
       }
     })
 
-    return rows.filter(item => item)
+    return rows?.filter(item => item)
   }
 
   const getRows = () => {    
 
-    const rows = movies.map(movieItem => {
-      if(Array.isArray(movieItem?.items) && (movieItem?.items?.length > 0 || movieItem.displayType === 'myPurchase')){
+    const rows = movies?.map(movieItem => {
+      if(Array.isArray(movieItem?.items) && (movieItem?.items?.length > 0 || movieItem?.displayType === 'myPurchase')){
         // console.log('movieItem Yes', movieItem);
-        switch (movieItem.displayType) {
+        switch (movieItem?.displayType) {
           case 'billboard':
             return;
           case 'animated':
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
           case 'roll':
-            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
+            return <MovieList title={movieItem?.title} portrait={ false} data={movieItem.items} />
           case 'extended' :
             return <BillboardExtended data={movieItem} title={movieItem.title}/>
           case 'potrait' :
@@ -126,7 +137,7 @@ const Home = (props) => {
       
     })
     
-    return rows.filter(item => item)
+    return rows?.filter(item => item)
   }
 
   return (
