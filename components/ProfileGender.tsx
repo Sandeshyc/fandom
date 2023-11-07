@@ -17,7 +17,9 @@ const ProfileGender = (
         <div className="w-full">
             <label className='w-full text-[14px] text-[#FFFFFFB8]'>Gender</label>
             {(isUpdateMode)?<select
-                        className='w-full text-[14px] px-2 py-1 bg-transparent border rounded-md border-[#C6BCC6] h-[34px]' defaultValue={gender}>
+                        className='w-full text-[14px] px-2 py-1 bg-transparent border rounded-md border-[#C6BCC6] h-[34px]' 
+                        onChange={(e) => setGender(e.target.value)}
+                        defaultValue={gender}>
                         <option value={''}>-- select --</option>
                         <option value={'Male'}>Male</option>
                         <option value={'Female'}>Female</option>

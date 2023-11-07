@@ -19,7 +19,7 @@ const ProfileBirthday = (
             {(isUpdateMode)?<input 
             value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
-            type="text" 
+            type="date" 
             className='w-full text-[14px] px-2 py-1 bg-transparent border rounded-md border-[#C6BCC6] h-[34px]'/>:<p className='text-[14px] text-[#fff] py-1 h-[34px]'>{(birthday)?birthday:'_'}</p>}
         </div>
     );

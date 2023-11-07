@@ -34,7 +34,7 @@ const MovieCardSimple: React.FC<MovieCardSimpleProps> = ({ data }) => {
           <p className="border-gray-500 border px-1 text-xs">16+</p>
         </div>
         <div>
-          <FavoriteButton movieId={data?._id} />
+          <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
         </div>
       </div>
       <div className='p-3 pt-0 lg:pt-3 text-sm lg:text-lg text-gray-200'>

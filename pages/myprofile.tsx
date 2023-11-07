@@ -2,23 +2,28 @@ import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
 import ProfileHead from '@/components/ProfileHead'
-import ProfileName from './ProfileName';
-import ProfileEmail from './ProfileEmail';
-import ProfileMobile from './ProfileMobile';
-import ProfileGender from './ProfileGender';
-import ProfileBirthday from './ProfileBirthday';
-const MyProfile = (props) => {
+import ProfileName from '@/components/ProfileName';
+import ProfileEmail from '@/components//ProfileEmail';
+import ProfileMobile from '@/components/ProfileMobile';
+import ProfileGender from '@/components/ProfileGender';
+import ProfileBirthday from '@/components/ProfileBirthday';
+const MyProfile = () => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
   const [isUpdateMode, setIsUpdateMode] = React.useState(false);
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('john.dalwan@email.com');
   const [mobile, setMobile] = React.useState('');
-  const [gender, setGender] = React.useState('');
+  const [gender, setGender] = React.useState('Male');
   const [dob, setDob] = React.useState('');
+  const [profileExpanded, setProfileExpanded] = React.useState(true);
 
   const updateProfile = () => {
     setIsUpdateMode(!isUpdateMode);  
+  }
+
+  const toggleProfile = () => {
+    setProfileExpanded(!profileExpanded);
   }
 
   useEffect(() => {
@@ -47,9 +52,12 @@ const MyProfile = (props) => {
             <div className="lg:pl-6">
               <div className={`text-white max-w-[996px]`}>
                 <h4 className="text-white text-[18px] mb-2">Profile</h4>
-                <div className={`p-4 border border-[#C6BCC6] rounded-md`}>                
-                  <ProfileHead/>
-                  <div className="mt-2 flex flex-wrap">
+                <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[12%]`}>                
+                  <ProfileHead
+                    profileExpanded={profileExpanded}
+                    toggleProfile={toggleProfile}
+                  />
+                  <div className={`mt-2 flex flex-wrap ${(!profileExpanded)?'hidden':'flex'}`}>
                     <div className="mb-3 md:w-[33%] w-full  md:pr-2">
                       <ProfileName 
                         isUpdateMode={isUpdateMode}
@@ -83,11 +91,11 @@ const MyProfile = (props) => {
                         birthday={dob}
                         setBirthday={setDob}/>
                     </div>
-                  </div>
-                  <div className='mt-4'>
-                    <button  
-                      onClick={updateProfile}
-                      className="bg-[#2D45F2] text-white w-full px-4 py-3 rounded-[50px]">{(isUpdateMode?'Update':'Edit')} Profile</button>
+                    <div className='mt-4 w-full'>
+                      <button  
+                        onClick={updateProfile}
+                        className="bg-[#2D45F2] text-white w-full sm:w-auto px-4 sm:px-12 py-3 rounded-[50px]">{(isUpdateMode?'Update':'Edit')} Profile</button>
+                    </div>
                   </div>
                 </div>
               </div>
