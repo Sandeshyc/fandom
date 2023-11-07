@@ -37,9 +37,9 @@ const Home = (props) => {
   const { data: movies = [] } = useListMovies(region, 'web', userIdToken);
 
 
-  useEffect(() => {
-    console.log('Movies: ', movies);
-  }, [movies])
+  // useEffect(() => {
+  //   console.log('Movies: ', movies);
+  // }, [movies])
   return (
     <>
       <SideBar />

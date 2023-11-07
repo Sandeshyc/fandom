@@ -21,6 +21,7 @@ export const beginAuth = ({ state, nonce }) => {
     nonce,
   });
   const authUrl = `${authority}/auth?${params}`;
+  // console.log("authUrl", authUrl);
   
 
   // Attempt login by navigating to authUrl

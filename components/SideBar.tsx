@@ -41,7 +41,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      marginBottom: '2vh',
+      marginBottom: '1vh',
       transition: 'transform 0.2s ease-in-out',
       '&:hover': {
         transform: 'translateY(-5px)',
@@ -157,13 +157,19 @@ const SideBar: React.FC = () => {
 
   const logoutFnc = () => {
     const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
+    const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('oneLogInAccessToken');
-    if(oneLogInAccessToken){
-      oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
+    if(googleIndentityAccessToken){
+      localStorage.removeItem('googleIndentityAccessToken');
+      router.push('/auth');
     }else{
-      oidcApi.logoutAuth();
-    }
+      if(oneLogInAccessToken){
+        oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
+      }else{
+        oidcApi.logoutAuth();
+      }
+    }    
   } 
 
   const router = useRouter();

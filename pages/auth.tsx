@@ -5,6 +5,7 @@ import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
+import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 
 
 import Input from '@/components/Input';
@@ -13,9 +14,10 @@ const imgOneLogin = '/images/onelogin.png';
 
 const Auth = () => {
   const router = useRouter();
-
-  
-
+  const [isGoogleSignIn, setIsGoogleSignIn] = useState(false);
+  const GoogleIndentityHandler = () => {
+    setIsGoogleSignIn(true);
+  }
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     // console.log('userInfo: ', userInfo);
@@ -74,9 +76,14 @@ const Auth = () => {
             <button 
             className="bg-white py-3 text-black rounded-md w-full mt-10 hover:bg-gray-200 transition"
             onClick={() => LoginPage()}>
-              Login with
+              Employee Login
               <img src={imgOneLogin} className="h-6 inline-block ml-2" alt="OneLogin" />
-            </button>           
+            </button> 
+            {(isGoogleSignIn)?<GoogleIdentitySignIn />:<button 
+            className="bg-white py-3 text-black rounded-md w-full mt-6 hover:bg-gray-200 transition"
+            onClick={() => GoogleIndentityHandler()}>
+              Ticket Login
+            </button>}       
           </div>
         </div>
       </div>

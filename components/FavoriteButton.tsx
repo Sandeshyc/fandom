@@ -10,13 +10,13 @@ interface FavoriteButtonProps {
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   let tempUserId = '';
-  const userInfo = ""; // window.localStorage.getItem('userInfo');
-  if(userInfo) {
-    const userInfoObj = JSON.parse(userInfo);
-    if(userInfoObj.sub) {
-      tempUserId = userInfoObj.sub;
-    }
-  }
+  // const userInfo = window?.localStorage?.getItem('userInfo');
+  // if(userInfo) {
+  //   const userInfoObj = JSON.parse(userInfo);
+  //   if(userInfoObj.sub) {
+  //     tempUserId = userInfoObj.sub;
+  //   }
+  // }
   const [userId, setUserId] = React.useState(tempUserId);
   const [isInLish, setIsInLish] = React.useState(false);
   
@@ -32,7 +32,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
         setUserId(userInfoObj.sub);
       }
     }
-  }, []);
+  }, [movieId]);
 
   // const isFavorite = useMemo(() => {
   //   const list = currentUser?.favoriteIds || [];
@@ -40,7 +40,19 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   //   return list.includes(movieId);
   // }, [currentUser, movieId]);
 
-  const toggleFavorites = useCallback(async () => {
+  const toggleFavorites = async () => {
+    const checkUserID = async () => {
+      if(!userId) {
+        const userInfo = window.localStorage.getItem('userInfo');
+        if(userInfo) {
+          const userInfoObj = JSON.parse(userInfo);
+          if(userInfoObj.sub) {
+            setUserId(userInfoObj.sub);
+          }
+        }
+      }
+    }
+    await checkUserID();
     let response;
     if (isInLish) {
       console.log('remove from list');
@@ -85,16 +97,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
           console.error('Error:', error);
         });      
     }
-
-
-    const updatedFavoriteIds = response?.data?.favoriteIds;
-
-    // mutate({ 
-    //   ...currentUser, 
-    //   favoriteIds: updatedFavoriteIds,
-    // });
-    // mutateFavorites();
-  }, [movieId, isInLish]);
+  }
   
   const Icon = isInLish ? CheckIcon : PlusIcon;
 
