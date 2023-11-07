@@ -40,16 +40,19 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   //   return list.includes(movieId);
   // }, [currentUser, movieId]);
 
-  const toggleFavorites = useCallback(async () => {
-    if(!userId) {
-      const userInfo = window.localStorage.getItem('userInfo');
-      if(userInfo) {
-        const userInfoObj = JSON.parse(userInfo);
-        if(userInfoObj.sub) {
-          setUserId(userInfoObj.sub);
+  const toggleFavorites = async () => {
+    const checkUserID = async () => {
+      if(!userId) {
+        const userInfo = window.localStorage.getItem('userInfo');
+        if(userInfo) {
+          const userInfoObj = JSON.parse(userInfo);
+          if(userInfoObj.sub) {
+            setUserId(userInfoObj.sub);
+          }
         }
       }
     }
+    await checkUserID();
     let response;
     if (isInLish) {
       console.log('remove from list');
@@ -94,16 +97,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
           console.error('Error:', error);
         });      
     }
-
-
-    const updatedFavoriteIds = response?.data?.favoriteIds;
-
-    // mutate({ 
-    //   ...currentUser, 
-    //   favoriteIds: updatedFavoriteIds,
-    // });
-    // mutateFavorites();
-  }, [movieId, isInLish]);
+  }
   
   const Icon = isInLish ? CheckIcon : PlusIcon;
 
