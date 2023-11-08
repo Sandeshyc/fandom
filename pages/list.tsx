@@ -12,9 +12,11 @@ import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import MovieCardList from '@/components/MovieCardList';
 import { Info } from '@mui/icons-material';
+import { stableKeys } from '@/utils/stableKeys';
 
 const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
   const router = useRouter();
   const { region, product } =  props; 
 
@@ -37,9 +39,11 @@ const Home = (props) => {
   const { data: movies = [] } = useListMovies(region, 'web', userIdToken);
 
 
-  // useEffect(() => {
-  //   console.log('Movies: ', movies);
-  // }, [movies])
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 700);
+  }, [movies])
   return (
     <>
       <SideBar />
@@ -48,7 +52,10 @@ const Home = (props) => {
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">My List</p>
             <div className="lg:px-6 pb-6 flex flex-wrap">
-            {(Array.isArray(movies?.watchList) && movies?.watchList.length > 0)?(movies?.watchList.map((item: any) => <MovieCardList data={item} portrait={ true} />)):<NoMovies/>}
+            {(!isLoading)?((Array.isArray(movies?.watchList) && movies?.watchList.length > 0)?(movies?.watchList.map((item: any, index) => <MovieCardList 
+            data={item} 
+            key={stableKeys[index]}
+            portrait={ true} />)):<NoMovies/>):null}
             </div>
           </div>
         </div>

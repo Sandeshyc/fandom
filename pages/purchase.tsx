@@ -32,6 +32,7 @@ import { Info } from '@mui/icons-material';
 // }
 
 const Home = (props) => {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
   const { region, product } =  props; 
@@ -51,16 +52,15 @@ const Home = (props) => {
     }
   }, []);
   const { data: movies = [] } = usePurchaseMovies(region, 'web', userIdToken );
-  console.log('movies: ', movies);
+  // console.log('movies: ', movies);
   const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
 
-  
-
-  
-
   useEffect(() => {
-    console.log('Movies: ', movies);
+    // console.log('Movies: ', movies);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 700);
   }, [movies])
   return (
     <>
@@ -70,7 +70,7 @@ const Home = (props) => {
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">My Purchase</p>
             <div className="lg:px-6 pb-6 flex flex-wrap">
-            {(Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardPurchase data={item} portrait={ true} />)):<NoMovies/>}
+            {(!isLoading)?((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardPurchase data={item} portrait={ true} />)):<NoMovies/>):null}
             </div>
           </div>
         </div>

@@ -138,11 +138,23 @@ html {
 }
 
 /* movie list with number for the billboard */
-.movieListNumberCard svg{
+.movieListNumberCard .font-monoton svg{
   height: 100% !important;
   width: auto !important;
 }
 
+.mobileCardsSlide{
+  padding-bottom: 5px;
+}
+.mobileCardsSlide > .movieCard{
+  min-width: 220px !important;
+  margin-right: 10px !important;
+}
+.mobileCardsSlide > .movieCardNumber{
+  min-width: 180px !important;
+  margin-right: 10px !important;
+
+}
 
 .movieSlider.portrait .slick-list {
     margin-left: -10px;

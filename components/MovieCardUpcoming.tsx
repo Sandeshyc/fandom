@@ -10,6 +10,7 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
 import { ClockIcon } from '@heroicons/react/24/outline';
+import { stableKeys } from '@/utils/stableKeys';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -113,7 +114,9 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
           </div>
 
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            {data.genre?.map(item => <span className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
+            {data.genre?.map((item, index) => <span 
+            key={stableKeys[index]}
+            className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
             {capFirstLetter(item)}
       </span>)}
           </div>

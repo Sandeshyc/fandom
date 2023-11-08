@@ -14,6 +14,7 @@ import MovieCardSimple from '@/components/MovieCardSimple';
 import useMovie from '@/hooks/useMovie';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import useMovieList from '@/hooks/useMovieList';
+import { stableKeys } from '@/utils/stableKeys';
 
 
 const Details = (props) => {
@@ -24,7 +25,7 @@ const Details = (props) => {
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
-    console.log('userInfo: ', userInfo);
+    // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
@@ -42,13 +43,13 @@ const Details = (props) => {
   const [mouseActive, setMouseActive] = React.useState(true);
   
   const { data, error } = useMovie(movieId as string, userIdToken);
-  console.log('movie data:dd ', data);
+  // console.log('movie data:dd ', data);
   let relMovies = [];
   if(Array.isArray(data?.relatedVideos) && data?.relatedVideos.length > 0 ) {
     relMovies = data?.relatedVideos;
   }
   const { data: movies = [] } = useMovieList(region, product, 'home', userIdToken);
-  console.log('movies data: ', movies);
+  // console.log('movies data: ', movies);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
   // const videoURL = data?.videoUrls[0]?.url;
 
@@ -106,7 +107,7 @@ const Details = (props) => {
                   </div>
                   <div className="mb-4 text-white text-xs text-gray-500">
                     {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
-                    {(Array.isArray(data?.tags))?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
+                    {(Array.isArray(data?.tags) && data?.tags.length > 0)?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
                   </div>  
                 </div>  
                 <div className="md:grid md:grid-cols-12 md:gap-4">            
@@ -149,7 +150,7 @@ const Details = (props) => {
                   </div>
                   <div className="mb-4 text-white text-xs text-gray-500">
                     {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
-                    {(Array.isArray(data?.tags))?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
+                    {(Array.isArray(data?.tags) && data?.tags.length > 0)?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
                   </div>  
                 </div>  
                 <div className="md:grid md:grid-cols-12 md:gap-4">            
@@ -183,7 +184,13 @@ const Details = (props) => {
                 </div>
                 <div className="flex lg:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-5 overflow-x-auto lg:px-6 pb-6">
                   {
-                    (Array.isArray(relMovies) && relMovies.length > 0) ? relMovies.map((item: any) => <MovieCardSimple data={item} />) : (movies[2]?.items?.map((item: any) => <MovieCardSimple data={item} />))
+                    (Array.isArray(relMovies) && relMovies.length > 0) ? relMovies.map((item: any, index) => <MovieCardSimple 
+                    data={item}
+                    key={stableKeys[index]}
+                    />) : (movies[2]?.items?.map((item: any, index) => <MovieCardSimple 
+                    data={item} 
+                    key={stableKeys[index]}
+                    />))
                   }
                 </div>
             </div>

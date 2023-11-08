@@ -134,13 +134,16 @@ const FlexContainerMobile: React.FC<FlexContainerProps> = ({
   </Box>
 );
 
-const Logo = ({ src}: { src: string}) => (
-  <img 
-  src={src} 
-  className="fixed left-0 top-2 h-20 mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" 
-  alt="Logo" 
-  onClick={() => router.push('/')} />
-);
+const Logo = ({ src}: { src: string}) => {
+  const router = useRouter();
+  return(
+    <img 
+    src={src} 
+    className="fixed left-0 top-2 h-20 mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" 
+    alt="Logo" 
+    onClick={() => router.push('/')} />
+  );
+}
 
 const SideBar: React.FC = () => {
   const [activeIcon, setActiveIcon] = useState<string>('Home');
@@ -242,7 +245,7 @@ const SideBar: React.FC = () => {
             <img 
             src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" 
             className="w-[50px]" 
-            alt="Logo" onClick={() => nrouter.push('/')} />
+            alt="Logo" onClick={() => router.push('/')} />
             <p
               className="text-1xl font-bold"
             >Tickets</p>

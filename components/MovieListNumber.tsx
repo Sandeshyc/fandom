@@ -120,7 +120,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
     return data.map((movie) => {
    
     return (
-      <div key={movie.id} data-index={i}   onClick={e => hendleSlideChange(e, movie)}>
+      <div key={movie.id} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber'>
         <div className="movieListNumberCard grid grid-cols-12 items-center px-3 group cursor-pointer"  >
           <span className={`col-span-3 relative z-10 w-auto h-[50%] flex justify-end font-monoton text-white leading-[1] ${i === parseInt(current)? 'opacity-100' : 'opacity-50'}`}>
             <SvgNumberModak item={i + 1} />
@@ -144,11 +144,17 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
           {current > 0 && <SlickPrevArrow onClick={hendlePrev} />}
 
           <div className='relative z-10'>
-            <Slider {...settings} ref={sliderRef} >
-              {getSlides()}
-            </Slider>
-          </div>
-          
+            <div className="block lg:hidden">
+              <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+                {getSlides()}
+              </div>
+            </div>
+            <div className="hidden lg:block">
+              <Slider {...settings} ref={sliderRef} >
+                {getSlides()}
+              </Slider>
+            </div> 
+          </div>          
           {current < data.length -1 && <SlickNextArrow onClick={hendleNext} />}
 
         </div>

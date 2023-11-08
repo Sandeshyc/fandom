@@ -76,19 +76,27 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
       },
     ]
   };
-  let i =1;
-
+  let i = 1;
+  let j = 1;
   return (
     <div className={`px-4 md:px-12 mb-[3vw] movieSlider `}>
       <div>
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>
-        <Slider {...settings}>
-          {
-          data.map((movie) => (
-            <MovieCardTop key={movie.id} data={movie} number={i++} portrait={portrait} />
-          ))}
-        </Slider>
+        <div className="block lg:hidden">
+            <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+              {data?.map((movie) => (
+                <MovieCardTop key={movie?.id} data={movie} number={i++} portrait={portrait} />
+              ))}
+            </div>
+          </div>
+          <div className="hidden lg:block">
+            <Slider {...settings}>
+              {data?.map((movie) => (
+                <MovieCardTop key={movie?.id} data={movie} number={j++} portrait={portrait} />
+              ))}
+            </Slider>  
+          </div> 
         </div>
       </div>
     </div>

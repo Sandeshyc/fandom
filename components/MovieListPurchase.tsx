@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { stableKeys } from '@/utils/stableKeys';
 // import 'globalStyles.scss'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
@@ -83,12 +84,21 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
       <div className="movieSliderInner">
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>
-        <Slider {...settings}>
-          {data.map((movie) => (
-            <MovieCardPurchase2 key={movie.id} data={movie} portrait={portrait} />
-          ))}
-        </Slider>
-        </div>
+          <div className="block lg:hidden">
+            <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+              {data?.map((movie, index) => (
+                <MovieCardPurchase2 key={stableKeys[index]} data={movie} portrait={portrait} />
+              ))}
+            </div>
+          </div>
+          <div className="hidden lg:block">
+            <Slider {...settings}>
+              {data?.map((movie, index) => (
+                <MovieCardPurchase2 key={stableKeys[index]} data={movie} portrait={portrait} />
+              ))}
+            </Slider>  
+          </div> 
+        </div> 
       </div>
     </div>
   );

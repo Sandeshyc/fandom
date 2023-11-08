@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
-
+import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import PlayButton from '@/components/PlayButton';
 import ViewDetailsButton from '@/components/ViewDetailsButton';
 import useBillboard from '@/hooks/useBillboard';
+import { BanknotesIcon } from '@heroicons/react/24/outline';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import Locked from '@/components/Locked';
 import Buy from '@/components/Buy';
@@ -35,7 +36,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
           {data?.description?.substring(0, 260)}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<Buy movieId={data?._id} allowedPlans={data?.allowedPlans}/>)}
+          {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<GoBuy movieId={data?._id}/>)}
           <ViewDetailsButton movieId={data?._id} />
         </div>
       </div>
@@ -43,3 +44,37 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
   )
 }
 export default Billboard;
+
+interface GoBuyProps {
+  movieId: string;
+}
+const GoBuy = (
+  {movieId}:GoBuyProps
+) => {
+  const router = useRouter();
+  return (
+    <button 
+        onClick={() => {
+          router.push(`/details/${movieId}/?viewPlan=true`)
+        
+        }}
+        className="
+        bg-yellow-500 
+        text-black
+        rounded-md 
+        py-1 md:py-1 
+        px-3 md:px-6
+        w-auto 
+        text-base lg:text-xl 
+        font-semibold
+        flex
+        flex-row
+        items-center
+        hover:bg-neutral-300
+        transition
+        ">
+            <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
+          Buy / Rent
+        </button>
+  )
+}
