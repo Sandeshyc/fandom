@@ -24,7 +24,7 @@ const Watch = () => {
   }
 
   // console.log('Watch movie data: ', data);
-  const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;
+  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
 
   // on mouse move, show controls
   // on mouse leave, hide controls

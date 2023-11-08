@@ -53,7 +53,7 @@ const Details = (props) => {
   // const videoURL = data?.videoUrls[0]?.url;
 
   // console.log('movie data: ', data);
-  const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;
+  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
   let thumb = '';
   if( data?.thumbnailUrl ){
     thumb = data?.thumbnailUrl;
