@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -12,7 +12,7 @@ interface PlayButtonProps {
 const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('s');
-
+  // const myElementRef = useRef();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -21,6 +21,13 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
     setOpen(false);
     setSelectedValue(value);
   };
+
+  // useEffect(() =>{
+  //   const clientHeight = myElementRef.current.clientHeight;
+  //   console.log('Client Height:', clientHeight);
+  // }, []);
+
+
   return (
     <div>
       <button 
@@ -43,18 +50,13 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
             <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
           Buy / Rent
         </button>
-        {/* <SimpleDialog
-          selectedValue={selectedValue}
-          open={open}
-          onClose={handleClose}
-        /> */}
 <Modal
   open={open}
   aria-labelledby="simple-modal-title"
   aria-describedby="simple-modal-description"
   onClose={handleClose}
   className='flex justify-center items-center'>
-    <div className='border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[12%] w-[90%] max-w-[1200px] bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-20% to-[#210424] to-55% px-[20px] py-[30px] relative'>
+    <div className='border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[12%] w-[90%] max-w-[1200px] bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-20% to-[#210424] to-55% px-[20px] py-[30px] relative max-h-[90%]'>
       <button
       onClick={handleClose}
       className='absolute top-0 right-0 text-white text-2xl px-2 py-1'>
@@ -80,8 +82,8 @@ return (<>
     <h3 className='text-xl md:text-2xl font-semibold'>Select a plan</h3>
     <p className='text-sm'>Choose from the plans below</p>
   </div>
-  <div className='flex justify-center  text-center w-full'>
-    {items?.map(item=>{
+  <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[70vh]'>
+    {items?.map((item)=>{
       return (<PlanCard item={item}/>)
     })}
   </div>
@@ -89,21 +91,33 @@ return (<>
 }
 
 const PlanCard = ({item}:any) => {
-  console.log('item', item);
+  // console.log('item', item);
+  let descriptions = [];
+  if(item?.description){
+    // replace all , with <li>
+    descriptions = [...item?.description?.split(',')];
+  }
   return (
     <div className='
       w-[280px]
+      max-w-full
       border border-blue-500
       bg-blue-500
       bg-opacity-10
       rounded-md
-      mx-2
+      m-2
       py-4
       px-2
+      pb-20
+      relative
       '>
         <div className='text-white text-xl font-semibold mb-4'>{item?.name}</div>
-        <div className='text-white text-base mb-8'>{item?.description}</div>
-        <div className='w-full'>
+        <div className='text-white text-base mb-8  text-left ml-6'><ul className='list-disc list-inside'>{
+        descriptions?.map((desc)=>{
+          return (<li>{desc}</li>)
+        })
+        }</ul></div>
+        <div className='w-full absolute bottom-0 left-0 pb-5'>
         <button 
           className="
           bg-yellow-500 
