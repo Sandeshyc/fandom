@@ -42,7 +42,6 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     slidesToShow: portrait ? 8.3 : 6.3,
     slidesToScroll: 6,
     swipeToSlide: true,
-    // adaptiveHeight: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
     responsive: [
@@ -76,17 +75,27 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
       },
     ]
   };
+  
 
   return (
     <div className={`px-4 md:px-12 mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
       <div className="movieSliderInner">
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>
-        <Slider {...settings}>
-          {data.map((movie) => (
-            <MovieCard key={movie.id} data={movie} portrait={portrait} />
-          ))}
-        </Slider>
+          <div className="block lg:hidden">
+            <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+              {data?.map((movie) => (
+                <MovieCard key={movie?.id} data={movie} portrait={portrait} />
+              ))}
+            </div>
+          </div>
+          <div className="hidden lg:block">
+            <Slider {...settings}>
+              {data?.map((movie) => (
+                <MovieCard key={movie?.id} data={movie} portrait={portrait} />
+              ))}
+            </Slider>  
+          </div>  
         </div>
       </div>
     </div>

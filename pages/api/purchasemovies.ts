@@ -32,7 +32,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // console.log(region, product, userID, url)
     const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
-
     return res.status(200).json(movies);
   } catch (error) {
     console.log({ error })

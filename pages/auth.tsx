@@ -10,7 +10,7 @@ import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 
 import Input from '@/components/Input';
 
-const imgOneLogin = '/images/onelogin.png';
+const imgOneLogin = '/images/oneloginlogo.png';
 
 const Auth = () => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const Auth = () => {
 
     // get localStorage data 
     const userInfo = localStorage.getItem('userInfo');
-    console.log('userInfo: ', userInfo);
+    // console.log('userInfo: ', userInfo);
   }, []);
 
   function LoginPage() {
@@ -68,8 +68,8 @@ const Auth = () => {
     oidcApi.beginAuth({ state, nonce });
   }
   return (
-    <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
-      <div className="bg-black w-full h-full lg:bg-opacity-50">
+    <div className="relative h-full w-full bg-[url('/images/loginbg.png')] bg-no-repeat bg-center bg-fixed bg-cover">
+      <div className="bg-black w-full h-full lg:bg-opacity-70">
         <div className="flex justify-center align-middle h-full">
           <div className="bg-black text-center bg-opacity-70 px-16 py-16 self-center lg:w-2/5 lg:max-w-md rounded-md w-full">
             <img src="/images/logo.png" className="h-32 mx-auto" alt="Logo" />

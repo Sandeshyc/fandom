@@ -8,6 +8,7 @@ import FavoriteButton from '@/components/FavoriteButton';
 import MovieCardSimple from '@/components/MovieCardSimple';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import useMovieList from '@/hooks/useMovieList';
+import { stableKeys } from '@/utils/stableKeys';
 
 interface InfoModalProps {
   visible?: boolean;
@@ -104,7 +105,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose, region }) => {
                 <p className="text-white text-xl font-bold">See all</p>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 overflow-x-auto px-6 pb-6">
-                {movies[2]?.items?.map((item: any) => <MovieCardSimple data={item} />)
+                {movies[2]?.items?.map((item: any, index) => <MovieCardSimple 
+                data={item} 
+                key={stableKeys[index]}
+                />)
                 }
               </div>
           </div>

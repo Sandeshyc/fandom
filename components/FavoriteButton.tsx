@@ -57,7 +57,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = (
     await checkUserID();
     let response;
     if (isInLish) {
-      console.log('remove from list');
+      // console.log('remove from list');
       const headers = {
         'Content-Type': 'application/json',
       };
@@ -67,10 +67,10 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = (
       let result;
       axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, { headers, data })
         .then(response => {
-          console.log('response: ', response);
+          // console.log('response: ', response);
           if(response.status === 200) {
             setIsInLish(false);
-            console.log('response.data: ', response.data);
+            // console.log('response.data: ', response.data);
             result = response.data;
           }
         })
@@ -78,7 +78,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = (
           console.error('Error:', error);
         });
     }else{
-      console.log('add to list');
+      // console.log('add to list');
       const headers = {
         'Content-Type': 'application/json',
       };      
@@ -88,10 +88,10 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = (
       let result;
       axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, data, { headers })
         .then(response => {
-          console.log('response: ', response);
+          // console.log('response: ', response);
           if(response.status === 200) {
             setIsInLish(true);
-            console.log('response.data: ', response.data);
+            // console.log('response.data: ', response.data);
             result = response.data;
           }
         })

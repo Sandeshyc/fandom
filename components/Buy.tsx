@@ -4,6 +4,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { DialogContent } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import { stableKeys } from '@/utils/stableKeys';
 interface PlayButtonProps {
   movieId: string;
   allowedPlans: any;
@@ -16,6 +17,14 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    // URLSearchParams perchasePlan 
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams?.get('viewPlan') === 'true'){
+      setOpen(true);
+    }
+  }, []);
 
   const handleClose = (value: string) => {
     setOpen(false);
@@ -83,8 +92,11 @@ return (<>
     <p className='text-sm'>Choose from the plans below</p>
   </div>
   <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[70vh]'>
-    {items?.map((item)=>{
-      return (<PlanCard item={item}/>)
+    {items?.map((item, index)=>{
+      return (<PlanCard 
+        item={item}
+        key={stableKeys[index]}
+        />)
     })}
   </div>
   </>)
@@ -113,8 +125,8 @@ const PlanCard = ({item}:any) => {
       '>
         <div className='text-white text-xl font-semibold mb-4'>{item?.name}</div>
         <div className='text-white text-base mb-8  text-left ml-6'><ul className='list-disc list-inside'>{
-        descriptions?.map((desc)=>{
-          return (<li>{desc}</li>)
+        descriptions?.map((desc, index)=>{
+          return (<li key={stableKeys[index]}>{desc}</li>)
         })
         }</ul></div>
         <div className='w-full absolute bottom-0 left-0 pb-5'>
@@ -163,7 +175,7 @@ const NoPlanFound = () => {
       bg-opacity-10
       rounded-md
       '>
-      No Plan Found!
+      Payment is not allowed...
     </div>
   )
 }

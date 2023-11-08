@@ -9,12 +9,13 @@ import MovieListPurchase from '@/components/MovieListPurchase';
 import InfoModal from '@/components/InfoModal';
 import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
-import usePurchaseMovies from '@/hooks/usePurchaseMovies';
+import useActivePurchaseMovies from '@/hooks/useActivePurchaseMovies';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import BillboardExtended from '@/components/BillboardExtended';
 import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
+import { stableKeys } from '@/utils/stableKeys';
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
@@ -61,26 +62,26 @@ const Home = (props) => {
   // const movies = [];
   // const myPurchaseLayout = [];
   const { data: movies = [] } = useMovieList(region, 'web', 'home', userIdToken);
-  const { data: myPurchaseLayout = [] } = usePurchaseMovies(region, 'web', userIdToken );
+  const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
   // if(userIdToken){
   //   const { data: movies } = useMovieList(region, product, 'home', userIdToken);
   //   const { data: myPurchaseLayout } = usePurchaseMovies(region, 'web', userIdToken );
   // }else{
     
   // }
-  console.log('movies: d', movies);
+  // console.log('movies: d', movies);
   // const { data: favorites = [] } = useFavorites();
   const {isOpen, closeModal} = useInfoModalStore();
 
   
 
   const getNavBar = () => {
-    const rows = movies?.map(movieItem => {
+    const rows = movies?.map((movieItem, index) => {
       if (movieItem?.displayType == 'navigation'){
         if (movieItem?.title === 'SideBar')
-          return <SideBar />
+          return <SideBar key={stableKeys[index]}/>
         else
-          return <Navbar />
+          return <Navbar key={stableKeys[index]}/>
       }
     })
 
@@ -88,9 +89,12 @@ const Home = (props) => {
   }
 
   const getBillboard = () => {
-    const rows = movies?.map(movieItem => {   
+    const rows = movies?.map((movieItem, index) => {   
       if (movieItem?.displayType == 'billboard' && movieItem?._id){
-        return <Billboard data={movieItem?.items[Math.floor(Math.random() * movieItem?.items?.length)]} />
+        return <Billboard 
+          data={movieItem?.items[Math.floor(Math.random() * movieItem?.items?.length)]} 
+          key={stableKeys[index]}
+          />
       }
     })
 
@@ -99,7 +103,7 @@ const Home = (props) => {
 
   const getRows = () => {    
 
-    const rows = movies?.map(movieItem => {
+    const rows = movies?.map((movieItem, index) => {
       if(Array.isArray(movieItem?.items) && (movieItem?.items?.length > 0 || movieItem?.displayType === 'myPurchase')){
         // console.log('movieItem Yes', movieItem);
         switch (movieItem?.displayType) {
@@ -109,17 +113,17 @@ const Home = (props) => {
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
           case 'roll':
-            return <MovieList title={movieItem?.title} portrait={ false} data={movieItem.items} />
+            return <MovieList title={movieItem?.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
           case 'extended' :
-            return <BillboardExtended data={movieItem} title={movieItem.title}/>
+            return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
           case 'potrait' :
-            return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} />
+            return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} key={stableKeys[index]}/>
           case 'top10' :
-            return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />  
+            return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
-            return <MovieListPurchase title={"My Purchases"} data={myPurchaseLayout}  />    
+            return <MovieListPurchase title={"My Purchases"} data={myPurchaseLayout} key={stableKeys[index]}/>    
           default:
-            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
+            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
         }
       } else{
         // console.log('movieItem No', movieItem);
@@ -142,7 +146,7 @@ const Home = (props) => {
       <InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       {getNavBar()}
       {getBillboard()}
-      <div className="pb-40">
+      <div className="pb-40 overflow-hidden">
         {getRows()}
       </div>
     </>

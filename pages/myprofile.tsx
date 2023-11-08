@@ -13,10 +13,10 @@ const MyProfile = () => {
   const [isUpdateMode, setIsUpdateMode] = React.useState(false);
   const [name, setName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
-  const [email, setEmail] = React.useState('john.dalwan@email.com');
+  const [email, setEmail] = React.useState('');
   const [mobile, setMobile] = React.useState('');
   const [countryCode, setCountryCode] = React.useState('+91');
-  const [gender, setGender] = React.useState('Male');
+  const [gender, setGender] = React.useState('');
   const [birthday, setBirthday] = React.useState(new Date())
   const [profileExpanded, setProfileExpanded] = React.useState(true);
 
@@ -33,9 +33,11 @@ const MyProfile = () => {
     // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
+      // console.log('userInfoObj: ', userInfoObj);
       if(userInfoObj.sub) {
         // router.push('/');
         setUserIdToken(userInfoObj.sub);
+        setEmail(userInfoObj.email);
       }else{
         router.push('/auth');
       }
@@ -49,7 +51,7 @@ const MyProfile = () => {
       <SideBar />
       <div className="py-16 bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-30% to-[#271055] to-85% min-h-full">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
-          <div className="container mx-auto">
+          <div className="container mx-auto max-w-[996px]">
             <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">My Account</p>
             <div className="lg:pl-6">
               <div className={`text-white max-w-[996px]`}>
@@ -98,10 +100,10 @@ const MyProfile = () => {
                     <div className={`mt-4 w-full flex flex-wrap ${(isUpdateMode)?'justify-end':null}`}>
                       {(isUpdateMode)?<button  
                         onClick={updateProfile}
-                        className="bg-transparent border text-white w-[48%] sm:w-auto min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px] mr-[2%] sm:mr-[10px]">Cancel</button>:null}
+                        className="bg-transparent border text-white w-[48%] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px] mr-[2%] sm:mr-[10px]">Cancel</button>:null}
                       <button 
                         onClick={updateProfile} 
-                        className={`bg-[#2D45F2] text-white ${(isUpdateMode?'w-[48%] ml-[2%] sl:ml-[0px]':'w-full')} sm:w-auto min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>{(isUpdateMode?'Save':'Edit Profile')}</button>
+                        className={`bg-[#2D45F2] text-white ${(isUpdateMode?'w-[48%] ml-[2%] sl:ml-[0px]':'w-full')} sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>{(isUpdateMode?'Save':'Edit Profile')}</button>
                     </div>
                   </div>
                 </div>
