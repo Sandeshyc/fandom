@@ -144,12 +144,12 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
           {current > 0 && <SlickPrevArrow onClick={hendlePrev} />}
 
           <div className='relative z-10'>
-            <div className="block lg:hidden">
+            <div className="block xl:hidden">
               <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
                 {getSlides()}
               </div>
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <Slider {...settings} ref={sliderRef} >
                 {getSlides()}
               </Slider>

@@ -20,11 +20,11 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
 
   useEffect(() => {
     // URLSearchParams perchasePlan 
-    const urlParams = new URLSearchParams(window.location.search);
-    if(urlParams?.get('viewPlan') === 'true'){
+    const urlParams = new URLSearchParams(window?.location?.search);
+    if(urlParams?.get('viewPlan') === 'true' && (Array.isArray(allowedPlans) && allowedPlans.length > 0)){
       setOpen(true);
     }
-  }, []);
+  }, [allowedPlans]);
 
   const handleClose = (value: string) => {
     setOpen(false);
@@ -55,6 +55,9 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
         items-center
         hover:bg-neutral-300
         transition
+        h-[36px]
+        xl:h-[42px]
+        xxl:h-[48px]
         ">
             <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
           Buy / Rent
@@ -91,7 +94,9 @@ return (<>
     <h3 className='text-xl md:text-2xl font-semibold'>Select a plan</h3>
     <p className='text-sm'>Choose from the plans below</p>
   </div>
-  <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[70vh]'>
+  <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[60vh]
+  h-full
+  '>
     {items?.map((item, index)=>{
       return (<PlanCard 
         item={item}

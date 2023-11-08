@@ -3363,6 +3363,11 @@ deepmerge@^2.1.1:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
   integrity sha1-XT/yKgHAD2RUBaL7wX0HeKGAEXA=
 
+deepmerge@^4.0.0:
+  version "4.3.1"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/deepmerge/-/deepmerge-4.3.1.tgz#44b5f2147cd3b00d4b56137685966f26fd25dd4a"
+  integrity sha1-RLXyFHzTsA1LVhN2hZZvJv0l3Uo=
+
 define-data-property@^1.0.1, define-data-property@^1.1.1:
   version "1.1.1"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/define-data-property/-/define-data-property-1.1.1.tgz#c35f7cd0ab09883480d12ac5cb213715587800b3"
@@ -4642,6 +4647,11 @@ lines-and-columns@^1.1.6:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha1-7KKE910pZQeTCdwK2SVauy68FjI=
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+  integrity sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=
+
 locate-path@^6.0.0:
   version "6.0.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/locate-path/-/locate-path-6.0.0.tgz#55321eb309febbc59c4801d931a72452a681d286"
@@ -4704,6 +4714,11 @@ make-dir@^3.1.0:
   integrity sha1-QV6WcEazp/HRhSd9hKpYIDcmoT8=
   dependencies:
     semver "^6.0.0"
+
+memoize-one@^5.1.1:
+  version "5.2.1"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/memoize-one/-/memoize-one-5.2.1.tgz#8337aa3c4335581839ec01c3d594090cebe8f00e"
+  integrity sha1-gzeqPEM1WBg57AHD1ZQJDOvo8A4=
 
 memory-pager@^1.0.2:
   version "1.5.0"
@@ -5348,6 +5363,17 @@ react-onclickoutside@^6.13.0:
   version "6.13.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-onclickoutside/-/react-onclickoutside-6.13.0.tgz#e165ea4e5157f3da94f4376a3ab3e22a565f4ffc"
   integrity sha1-4WXqTlFX89qU9DdqOrPiKlZfT/w=
+
+react-player@^2.13.0:
+  version "2.13.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-player/-/react-player-2.13.0.tgz#b6fb252bf70574608ac711f6c83d7057c8fb0c14"
+  integrity sha1-tvslK/cFdGCKxxH2yD1wV8j7DBQ=
+  dependencies:
+    deepmerge "^4.0.0"
+    load-script "^1.0.0"
+    memoize-one "^5.1.1"
+    prop-types "^15.7.2"
+    react-fast-compare "^3.0.1"
 
 react-popper@^2.2.5, react-popper@^2.3.0:
   version "2.3.0"

@@ -42,7 +42,7 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
    });
 
   return (
-    <div className="group bg-zinc-900 col-span relative aspect-[9/16] min-w-[250px] w-[250px] sm:w-[300px] " onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    <div className="group bg-zinc-900 col-span relative aspect-[9/16] min-w-[230px] w-[230px] sm:w-[300px] " onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(true)?<Locked/>:null}
       <p
         className='flex items-center absolute bottom-4 left-4 text-white text-xs sm:text-sm p-1 bg-black bg-opacity-60 rounded-md'
