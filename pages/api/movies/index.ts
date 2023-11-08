@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const ipURL = `https://geoip.kapamilya.com/api/location/${ipAdds[0]}?api-version=1.0`
         const {data} = await axios.get(ipURL);
         region = data?.data?.country?.isoCode;
-        console.log('IP DATA **************** ', data, region);
+        console.log('IP DATA **************** ', region);
       } catch (e) {
         console.log(e)
       }
@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;
     
     let url = `${process.env.API_URL}/page/${sectionName}/?userId=${userID}`;
-    // if (region !== '' && region !== 'NA') url = `${url}&region=${region}`;
+    if (region !== '' && region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
     
     // console.log('Home', region, product, sectionName, url)
