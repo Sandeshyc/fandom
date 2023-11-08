@@ -27,12 +27,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (ipAddress) {
       try {
         const ipAdds = ipAddress.split(',')
-        const ipURL = `https://geoip.kapamilya.com/api/location/${ipAddress[0]}?api-version=1.0`
+        const ipURL = `https://geoip.kapamilya.com/api/location/${ipAdds[0]}?api-version=1.0`
         const {data} = await axios.get(ipURL);
         region = data?.data?.country?.isoCode;
         console.log('IP DATA **************** ', data, region);
       } catch (e) {
-        // console.log(e)
+        console.log(e)
       }
     }
     if (sectionName === 'NA') sectionName = 'home';
