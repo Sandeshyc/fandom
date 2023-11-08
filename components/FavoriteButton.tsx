@@ -5,10 +5,12 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import useFavorites from '@/hooks/useFavorites';
 
 interface FavoriteButtonProps {
-  movieId: string
+  movieId: string;
+  isInWatchList?: boolean;
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = (
+  { movieId, isInWatchList }:FavoriteButtonProps) => {
   let tempUserId = '';
   // const userInfo = window?.localStorage?.getItem('userInfo');
   // if(userInfo) {
@@ -18,7 +20,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId }) => {
   //   }
   // }
   const [userId, setUserId] = React.useState(tempUserId);
-  const [isInLish, setIsInLish] = React.useState(false);
+  const [isInLish, setIsInLish] = React.useState(isInWatchList);
   
   // const { mutate: mutateFavorites } = useFavorites();
 

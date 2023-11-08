@@ -78,10 +78,13 @@ const Details = (props) => {
               {data?.title}
             </p>
             <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
-              {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<Buy movieId={data?._id} />)}
+              {(data?.allowed)?(<PlayButton 
+              movieId={data?._id}/>):(<Buy 
+                movieId={data?._id} 
+                allowedPlans={data?.allowedPlans}/>)}
               <WatchTrailerBtn movieId={data?._id} />
               <div className='flex flex-row gap-8 items-center mb-0 flex-wrap sm:pl-6'>
-                <FavoriteButton movieId={data?._id} />
+                <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
                 <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">
                   <ThumbUp className="text-white group-hover/item:text-neutral-300 w-6" />
                 </div>

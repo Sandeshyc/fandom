@@ -96,7 +96,7 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
             <div onClick={redirectToWatch} className="cursor-pointer w-8 h-8 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               <PlayIcon className="text-black w-4 lg:w-6" />
             </div>
-            <FavoriteButton movieId={data._id} />
+            <FavoriteButton movieId={data._id} isInWatchList={data?.isInWatchList}/>
             <ViewDetailsBtn movieId={data._id} />
           </div>
 

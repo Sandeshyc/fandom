@@ -35,7 +35,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
           {data?.description?.substring(0, 260)}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<Buy movieId={data?._id} />)}
+          {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<Buy movieId={data?._id} allowedPlans={data?.allowedPlans}/>)}
           <ViewDetailsButton movieId={data?._id} />
         </div>
       </div>

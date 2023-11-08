@@ -15,6 +15,7 @@ import {
   Logout,  
   Close,
   Menu,
+  AccountCircle
 } from '@mui/icons-material';
 
 interface FlexContainerProps {
@@ -134,7 +135,11 @@ const FlexContainerMobile: React.FC<FlexContainerProps> = ({
 );
 
 const Logo = ({ src}: { src: string}) => (
-  <img src={src} className="fixed left-0 top-2 h-20 mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" alt="Logo" onClick={() => navigate('/') } />
+  <img 
+  src={src} 
+  className="fixed left-0 top-2 h-20 mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" 
+  alt="Logo" 
+  onClick={() => router.push('/')} />
 );
 
 const SideBar: React.FC = () => {
@@ -202,7 +207,7 @@ const SideBar: React.FC = () => {
           <img 
           src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" 
           className="w-[50px]" 
-          alt="Logo" onClick={() => navigate('/') } />
+          alt="Logo" onClick={() => router.push('/')} />
           <p
             className="text-1xl font-bold"
           >Tickets</p>
@@ -237,7 +242,7 @@ const SideBar: React.FC = () => {
             <img 
             src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" 
             className="w-[50px]" 
-            alt="Logo" onClick={() => navigate('/') } />
+            alt="Logo" onClick={() => nrouter.push('/')} />
             <p
               className="text-1xl font-bold"
             >Tickets</p>
@@ -313,8 +318,14 @@ const SideBar: React.FC = () => {
           icon={HelpOutline}
           label="Get Help"
           // handleClick={() => handleIconClick('Live')}
+          />
+        <FlexContainerMobile
+          isActive={activeIcon === 'Sports'}
+          isHovered={isHovered}
+          icon={AccountCircle}
+          label="My Profile"
+          handleClick={() => handleIconClick('myprofile')}
         />
-
         <FlexContainerMobile
           isActive={activeIcon === 'Sports'}
           isHovered={isHovered}
@@ -413,7 +424,13 @@ const SideBar: React.FC = () => {
           label="Get Help"
           // handleClick={() => handleIconClick('Live')}
         />
-
+        <FlexContainer
+          isActive={activeIcon === 'TV'}
+          isHovered={isHovered}
+          icon={AccountCircle}
+          label="My Profile"
+          handleClick={() => handleIconClick('myprofile')}
+        />
         <FlexContainer
           isActive={activeIcon === 'Sports'}
           isHovered={isHovered}
