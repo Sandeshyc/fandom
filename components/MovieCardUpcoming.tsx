@@ -22,7 +22,7 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
 
-  const redirectToWatch = useCallback(() => router.push(`/watch/${data._id}`), [router, data._id]);
+  const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
 
   const onHoverHandler = () => {
     setAutoplay(true);
@@ -102,8 +102,8 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
           </div>
 
           <div className="flex flex-row items-center gap-2 mt-2 text-white ">
-            <p className="text-green-400">85% Match</p>
-            <p className="">
+            {/* <p className="text-green-400">85% Match</p> */}
+            <p className="text-green-400">
               {data?.duration}
             </p>
             <p className="border-gray-500 border px-1 text-xs">HD</p>

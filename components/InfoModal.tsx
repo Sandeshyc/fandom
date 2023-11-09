@@ -70,8 +70,8 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose, region }) => {
           <div className='grid grid-cols-12 gap-3 px-6 text-white'>
             <div className="col-span-8 px-6 py-8">
               <div className="flex flex-row items-center gap-2 mb-3 ">
-                <p className="text-green-400">85% Match</p>
-                <p className="">
+                {/* <p className="text-green-400">85% Match</p> */}
+                <p className="text-green-400">
                   {data?.duration}
                 </p>
                 <p className="border-gray-500 border px-1 text-xs">HD</p>

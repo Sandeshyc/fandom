@@ -35,7 +35,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             }
 
             playerRef.current.innerHTML = "<div className='h-full' />";
-            playerRef.current.style ="opacity: 0"
+            playerRef.current.style ="opacity: 0.5"
 
             const player = window.jwplayer(playerRef.current.firstChild);
             player.setup({

@@ -260,3 +260,25 @@ html {
 .movieSliderInner .slick-track{
   margin-left: 0px; 
 }
+
+
+/* if landscape mode */
+@media (orientation: portrait) {
+  .jk_jwp_full{
+    height: auto !important;
+    aspect-ratio: 16/9;
+  }
+}
+
+/* .jk_jwp_full>.h-full>.h-full{
+  opacity: 0.5 !important;
+
+
+} */
+/* 
+.jwplayer.jw-flag-aspect-mode{
+  max-height: 100vh !important;
+}
+.jk_jwp_full .jwplayer{
+  height: 100vh !important;
+} */
