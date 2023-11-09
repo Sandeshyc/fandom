@@ -37,7 +37,7 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
           aspect-[16/9]" />
         {(!data?.allowed)?<Locked/>:null}
       </div>
-      <div className="w-[100px] grow pt-1">
+      <div className="w-[58%] pt-1">
         <p
           onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 md:mb-2 cursor-pointer"

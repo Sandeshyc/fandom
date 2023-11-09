@@ -13,10 +13,10 @@ interface MovieCardSimpleProps {
 const MovieCardSimple: React.FC<MovieCardSimpleProps> = ({ data }) => {
   const router = useRouter();
   if (!data) return null;
-  const redirectToWatch = useCallback(() => router.push(`/watch/${data?._id}`), [router, data?._id]);
+  const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
 
   return (
-    <div className="bg-zinc-700 rounded-md shadow-md moreLike min-w-[290px] min-w-[290px] mr-[10px] lg:mr-0">
+    <div className="bg-zinc-700 rounded-md shadow-md moreLike min-w-[230px] min-w-[290px] mr-[10px] lg:mr-0">
       <div className="relative aspect-video cursor-pointer" onClick={redirectToWatch}>
         <img src={data?.thumbnailUrl} className="w-full h-full object-cover rounded-md" />
         {(!data?.allowed)?<Locked/>:null}
@@ -26,8 +26,8 @@ const MovieCardSimple: React.FC<MovieCardSimpleProps> = ({ data }) => {
       </div>
       <div className="flex flex-row justify-between p-3">
         <div className="flex flex-row flex-wrap items-center gap-2 mr-2">
-          <p className="text-green-400 text-sm lg:text-base">85% Match</p>
-          <p className=" text-sm lg:text-base">
+          {/* <p className="text-green-400 text-sm lg:text-base">85% Match</p> */}
+          <p className="text-green-400 text-sm lg:text-base">
             {data?.duration}
           </p>
           <p className="border-gray-500 border px-1 text-xs">HD</p>

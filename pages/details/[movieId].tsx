@@ -45,7 +45,7 @@ const Details = (props) => {
   const { data, error } = useMovie(movieId as string, userIdToken);
   // console.log('movie data:dd ', data);
   let relMovies = [];
-  if(Array.isArray(data?.relatedVideos) && data?.relatedVideos.length > 0 ) {
+  if(Array.isArray(data?.relatedVideos) && data?.relatedVideos?.length > 0 ) {
     relMovies = data?.relatedVideos;
   }
   const { data: movies = [] } = useMovieList(region, product, 'home', userIdToken);
@@ -106,8 +106,8 @@ const Details = (props) => {
               <div className='text-white mb-0'>
                 <div className="col-span-12">
                   <div className="flex flex-row items-center">
-                    <p className="text-green-400 pr-1">85% Match</p>
-                    <p className="pr-1">
+                    {/* <p className="text-green-400 pr-1">85% Match</p> */}
+                    <p className="pr-1 text-green-400">
                       {data?.duration}
                     </p>
                     <p className="border-gray-500 border px-1 mr-1 text-xs">HD</p>
@@ -149,8 +149,8 @@ const Details = (props) => {
               <div className='text-white mb-0'>
                 <div className="col-span-12">
                   <div className="flex flex-row items-center">
-                    <p className="text-green-400 pr-1">85% Match</p>
-                    <p className="pr-1">
+                    {/* <p className="text-green-400 pr-1">85% Match</p> */}
+                    <p className="pr-1 text-green-400">
                       {data?.duration}
                     </p>
                     <p className="border-gray-500 border px-1 text-xs">HD</p>
