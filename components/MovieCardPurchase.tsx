@@ -27,8 +27,8 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
 
   return (
-    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm sm:mr-4">
-      <div className="w-[40%] sm:w-[260px] md:w-[360px] mr-2 sm:mr-6 relative">
+    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm sm:mr-4 justify-between">
+      <div className="w-[40%] relative">
         <img onClick={redirectToWatch} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
