@@ -34,7 +34,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
 
   return (!isRemove?
     <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm sm:mr-4">
-      <div className="w-[100px] sm:w-[260px] md:w-[360px] mr-2 sm:mr-6 relative">
+      <div className="w-[40%] sm:w-[260px] md:w-[360px] mr-2 sm:mr-6 relative">
         <img onClick={redirectToWatch} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
@@ -48,7 +48,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"
         >{data.title}</p>    
-        <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>{data?.contentPrivider}</p>
+        <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>{data?.contentPrivider}</p>
         <RemoveListBtn movieId={data?._id} isRemoveHandler={isRemoveHandler} />
       </div>
     </div>:null
