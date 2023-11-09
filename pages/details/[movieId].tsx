@@ -79,11 +79,19 @@ const Details = (props) => {
               {data?.title}
             </p>
             <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
-              {(data?.allowed)?(<PlayButton 
-              movieId={data?._id}/>):(<Buy 
-                movieId={data?._id} 
-                allowedPlans={data?.allowedPlans}/>)}
-              <WatchTrailerBtn movieId={data?._id} />
+              {(data?.allowed)?(
+              <>
+                {data?.isPackage ? null : (<PlayButton movieId={data?._id}/>)}
+              </>
+              ):(
+                <Buy 
+                  movieId={data?._id} 
+                  allowedPlans={data?.allowedPlans}/>
+              )}
+
+                {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}
+              
+
               <div className='flex flex-row gap-8 items-center mb-0 flex-wrap sm:pl-6'>
                 <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
                 <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">
@@ -102,8 +110,8 @@ const Details = (props) => {
                     <p className="pr-1 text-green-400">
                       {data?.duration}
                     </p>
-                    <p className="border-gray-500 border px-1 text-xs">HD</p>
-                    <p className="border-gray-500 border px-1 text-xs">16+</p>
+                    <p className="border-gray-500 border px-1 mr-1 text-xs">HD</p>
+                    <p className="border-gray-500 border px-1 mr-1 text-xs">16+</p>
                   </div>
                   <div className="mb-4 text-white text-xs text-gray-500">
                     {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
@@ -177,10 +185,12 @@ const Details = (props) => {
             </div>
             <div className="text-white bg-zinc-800 shadow-md rounded-b-lg mt-6">
                 <div className="flex flex-row items-center justify-between px-2 lg:px-6 py-4">
-                  <h3 className=" text-xl font-bold mb-2">More like this</h3>
-                  <button 
+                  <h3 className=" text-xl font-bold mb-2">{data?.isPackage ? 'Movie list' : 'More like this'}</h3>
+                  
+                  {data?.isPackage ? null : (<button 
                   onClick={() => router.push(`/`)}
-                  className="text-white text-xl font-bold">See all</button>
+                  className="text-white text-xl font-bold">See all</button>)}
+                  
                 </div>
                 <div className="flex lg:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-5 overflow-x-auto lg:px-6 pb-6">
                   {

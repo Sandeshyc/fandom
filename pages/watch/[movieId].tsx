@@ -24,7 +24,7 @@ const Watch = () => {
   }
 
   // console.log('Watch movie data: ', data);
-  const captionURL = data?.captionsUrl.length > 0 ? data?.captionsUrl : null;
+  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
 
   // on mouse move, show controls
   // on mouse leave, hide controls
@@ -56,16 +56,17 @@ const Watch = () => {
 
   
   return (
-    <div className="h-screen w-screen bg-black" >
-      {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
+    <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
+      {mouseActive && (<nav className="fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav"
+      >
         <ArrowLeftIcon onClick={() => router.back() } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
         <p className="text-white text-1xl md:text-3xl font-bold">
           <span className="font-light">Watching:</span> {data?.title}
         </p>
       </nav>)}
-      <div className="jk_jwp_full" onMouseMove={onMouseMove} style={{
-        height: "100vh",
+      <div className="jk_jwp_full"  style={{
         width: "100vw",
+        height: "100vh",
         backgroundImage: `url(${data?.thumbnailUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
