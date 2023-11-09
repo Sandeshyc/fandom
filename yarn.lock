@@ -5359,6 +5359,11 @@ react-is@^18.2.0:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha1-GZQx7qqi4J+GQn77tPFHPttHYJs=
 
+react-loading-skeleton@^3.3.1:
+  version "3.3.1"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-loading-skeleton/-/react-loading-skeleton-3.3.1.tgz#cd6e3a626ee86c76a46c14e2379243f2f8834e1b"
+  integrity sha1-zW46Ym7obHakbBTiN5JD8viDThs=
+
 react-onclickoutside@^6.13.0:
   version "6.13.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-onclickoutside/-/react-onclickoutside-6.13.0.tgz#e165ea4e5157f3da94f4376a3ab3e22a565f4ffc"

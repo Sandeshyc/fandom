@@ -15,6 +15,7 @@ import BillboardExtended from '@/components/BillboardExtended';
 import MovieListTops from '@/components/MovieListTops';
 import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
+import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import { stableKeys } from '@/utils/stableKeys';
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -39,10 +40,12 @@ export async function getServerSideProps(context: NextPageContext) {
 const Home = (props) => {
   const router = useRouter();
   const { region, product } =  props;
-  // console.log('props: ', props);
-  // console.log('region: ', region);
-  // console.log('product: ', product);
+  const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
+
+  const { data: movies = [], isLoading } = useMovieList(region, 'web', 'home', userIdToken);
+  const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
+
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');    
     // console.log('userInfo: ', userInfo);
@@ -57,12 +60,12 @@ const Home = (props) => {
     }else{
       router.push('/auth');
     }
+    setIsReady(true);
   }, []);
 
   // const movies = [];
   // const myPurchaseLayout = [];
-  const { data: movies = [] } = useMovieList(region, 'web', 'home', userIdToken);
-  const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
+  
   // if(userIdToken){
   //   const { data: movies } = useMovieList(region, product, 'home', userIdToken);
   //   const { data: myPurchaseLayout } = usePurchaseMovies(region, 'web', userIdToken );
@@ -143,12 +146,12 @@ const Home = (props) => {
 
   return (
     <>
-      <InfoModal visible={isOpen} onClose={closeModal} region={region}/>
+    {(!isLoading && isReady)? <><InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       {getNavBar()}
       {getBillboard()}
       <div className="pb-40 overflow-hidden">
         {getRows()}
-      </div>
+      </div></> : (<SkeletonHome/>)}
     </>
   )
 }
