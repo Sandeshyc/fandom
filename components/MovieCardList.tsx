@@ -33,8 +33,8 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   }
 
   return (!isRemove?
-    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm sm:mr-4">
-      <div className="w-[100px] sm:w-[260px] md:w-[360px] mr-2 sm:mr-6 relative">
+    <div className="group bg-gray-800 relative mb-4 flex flex-wrap justify-between text-white max-w-[780px] w-full rounded-sm sm:mr-4">
+      <div className="w-[40%] relative">
         <img onClick={redirectToWatch} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
@@ -43,7 +43,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           aspect-[16/9]" />
         {(true)?<Locked/>:null}
       </div>
-      <div className="w-[120px] grow pt-1">
+      <div className="w-[58%] pt-1">
         <p
           onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"

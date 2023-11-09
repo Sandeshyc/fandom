@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
@@ -113,14 +113,14 @@ const FlexContainerMobile: React.FC<FlexContainerProps> = ({
         fontSize: '15px',
         width: '30px',
         height: '40px',
-        color: 'white',
+        color: isActive ?'white':'#bbb',
         filter: isActive ? 'drop-shadow(5px 5px 20px rgba(255, 255, 255, 0.9))' : 'none',
         transition: 'transform 0.2s ease-in-out, color 0.2s ease-in-out, font-size 0.2s ease-in-out',
       }}
     />
     <Box
         sx={{
-          color: 'white',
+          color: isActive ?'white':'#bbb',
           fontWeight: 'bold',
           marginLeft: '10px',
           filter: isActive ? 'drop-shadow(5px 5px 20px rgba(255, 255, 255, 0.9))' : 'none',
@@ -149,7 +149,7 @@ const SideBar: React.FC = () => {
   const [activeIcon, setActiveIcon] = useState<string>('Home');
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false);
-
+  console.log('activeIcon', activeIcon)
   const handleIconClick = (icon: string) => {
     setActiveIcon(icon);
     window.location.href = `/${icon}`;
@@ -179,6 +179,23 @@ const SideBar: React.FC = () => {
       }
     }    
   } 
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path === '/') {
+      setActiveIcon('Home');
+    } else if (path === '/upcoming') {
+      setActiveIcon('Upcoming');
+    } else if (path === '/list') {
+      setActiveIcon('list');
+    } else if (path === '/myprofile') {
+      setActiveIcon('myprofile');
+    } else if (path === '/purchase') {
+      setActiveIcon('purchase');
+    } else {
+      setActiveIcon('Home');
+    }
+  }, []);
 
   const router = useRouter();
   return (
@@ -294,7 +311,7 @@ const SideBar: React.FC = () => {
           // handleClick={() => handleIconClick('series')}
         />
         <FlexContainerMobile
-          isActive={activeIcon === 'Public'}
+          isActive={activeIcon === 'list'}
           isHovered={isHovered}
           icon={PlaylistPlay}
           label="My List"
@@ -402,11 +419,11 @@ const SideBar: React.FC = () => {
           isActive={activeIcon === 'list'}
           isHovered={isHovered}
           icon={PlaylistPlay}
-          label="My List"
+          label={"My List "+ activeIcon}
           handleClick={() => handleIconClick('list')}
         />
         <FlexContainer
-          isActive={activeIcon === 'TV'}
+          isActive={activeIcon === 'purchase'}
           isHovered={isHovered}
           icon={ShoppingCart}
           label="My Purchase"
@@ -428,7 +445,7 @@ const SideBar: React.FC = () => {
           // handleClick={() => handleIconClick('Live')}
         />
         <FlexContainer
-          isActive={activeIcon === 'TV'}
+          isActive={activeIcon === 'myprofile'}
           isHovered={isHovered}
           icon={AccountCircle}
           label="My Profile"
