@@ -1,32 +1,24 @@
 import React, { use, useEffect } from 'react';
-import { NextPageContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
-import Navbar from '@/components/Navbar';
-import BillboardExtended from '@/components/BillboardExtended';
-import InfoModal from '@/components/InfoModal';
-import MovieList from '@/components/MovieList';
 import useListMovies from '@/hooks/useListMovies';
-import useFavorites from '@/hooks/useFavorites';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
 import MovieCardList from '@/components/MovieCardList';
 import { Info } from '@mui/icons-material';
 import { stableKeys } from '@/utils/stableKeys';
+import SkeletonList from '@/components/Skeleton/SkeletonList';
 
 const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();
   const { region, product } =  props; 
+  const { data: movies = [], isLoading } = useListMovies(region, 'web', userIdToken);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
-    // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
-        // router.push('/');
         setUserIdToken(userInfoObj.sub);
       }else{
         router.push('/auth');
@@ -36,17 +28,14 @@ const Home = (props) => {
     }
   }, []);
 
-  const { data: movies = [] } = useListMovies(region, 'web', userIdToken);
 
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 700);
-  }, [movies])
+    setIsReady(true);
+  }, [])
   return (
     <>
-      <SideBar />
+      {(isReady && !isLoading) ? (<><SideBar />
       <div className="py-16">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
@@ -59,7 +48,7 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div></>):(<SkeletonList/>)}
     </>
   )
 }

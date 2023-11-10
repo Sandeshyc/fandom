@@ -42,11 +42,11 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
    });
 
   return (
-    <div className="group bg-zinc-900 col-span relative aspect-[9/16] min-w-[230px] w-[230px] sm:w-[300px] " onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    <div className="group bg-zinc-900 col-span relative aspect-[9/16] min-w-[210px] w-[210px] sm:w-[230px] " onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(true)?<Locked/>:null}
       <p
-        className='flex items-center absolute bottom-4 left-4 text-white text-xs sm:text-sm p-1 bg-black bg-opacity-60 rounded-md'
-      ><ClockIcon className='text-white w-[16px] h-[16px] mr-1'/><span>{publishDatex}</span></p>
+        className='flex items-center absolute bottom-2 left-2 text-white text-[12px] p-1 bg-black bg-opacity-70 rounded-md'
+      ><ClockIcon className='text-white text-[12px] w-[16px] h-[16px] mr-1'/><span>{publishDatex}</span></p>
       <div className='img h-full w-full'>
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
@@ -116,7 +116,7 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
             {data.genre?.map((item, index) => <span 
             key={stableKeys[index]}
-            className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
+            className={`inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1`}>
             {capFirstLetter(item)}
       </span>)}
           </div>

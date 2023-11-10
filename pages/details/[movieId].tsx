@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
-
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import PlayButton from '@/components/PlayButton';
 import WatchTrailerBtn from '@/components/WatchTrailerBtn';
@@ -15,21 +14,36 @@ import useMovie from '@/hooks/useMovie';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import useMovieList from '@/hooks/useMovieList';
 import { stableKeys } from '@/utils/stableKeys';
+import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 
 
 const Details = (props) => {
+  const [isReady, setIsReady] = React.useState(false);
+  const [userIdToken, setUserIdToken] = React.useState('');
   const { region, product } =  props;
   const router = useRouter();
-  const [userIdToken, setUserIdToken] = React.useState('');
+
+  const { movieId } = router.query;
+  const [mouseActive, setMouseActive] = React.useState(true);  
+  const { data, error } = useMovie(movieId as string, userIdToken);
+  let relMovies = [];
+  if(Array.isArray(data?.relatedVideos) && data?.relatedVideos?.length > 0 ) {
+    relMovies = data?.relatedVideos;
+  }
+  const { data: movies = [], isLoading } = useMovieList(region, product, 'home', userIdToken);
+  const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
+  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
+  let thumb = '';
+  if( data?.thumbnailUrl ){
+    thumb = data?.thumbnailUrl;
+  }
   
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
-    // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
-        // router.push('/');
         setUserIdToken(userInfoObj.sub);
       }else{
         router.push('/auth');
@@ -39,27 +53,14 @@ const Details = (props) => {
     }
   }, []);
 
-  const { movieId } = router.query;
-  const [mouseActive, setMouseActive] = React.useState(true);
-  
-  const { data, error } = useMovie(movieId as string, userIdToken);
-  // console.log('movie data:dd ', data);
-  let relMovies = [];
-  if(Array.isArray(data?.relatedVideos) && data?.relatedVideos?.length > 0 ) {
-    relMovies = data?.relatedVideos;
-  }
-  const { data: movies = [] } = useMovieList(region, product, 'home', userIdToken);
-  // console.log('movies data: ', movies);
-  const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
-  // const videoURL = data?.videoUrls[0]?.url;
+  useEffect(() => {
+    setIsReady(true);
+  }, []);
 
-  // console.log('movie data: ', data);
-  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
-  let thumb = '';
-  if( data?.thumbnailUrl ){
-    thumb = data?.thumbnailUrl;
-  }
+
   return (
+    <>
+    {(isReady && !isLoading)?
     <div className="h-screen w-screen bg-black text-white" >
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
         <ArrowLeftIcon onClick={() => router.back() } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
@@ -67,7 +68,6 @@ const Details = (props) => {
           <span className="font-light">Back</span>
         </p>
       </nav>)}
-
       <div className="relative">
         <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%] md:max-h-[80%]"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
           {(videoURL)?(<VideoPlayer video={videoURL} caption={captionURL}/>):null}
@@ -206,8 +206,8 @@ const Details = (props) => {
             </div>
           </div>
         </div>
-
-    </div>
+    </div>:<SkeletonDetails/>}
+    </>
   )
 }
 

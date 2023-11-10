@@ -38,13 +38,13 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
         {(!data?.allowed)?<Locked/>:null}
       </div>
       <div className="w-[58%] pt-1">
-        <p
+        {(data?.title)?<p
           onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 md:mb-2 cursor-pointer"
-        >{data.title}</p>    
-        <p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><Check className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.planDescription}</p>
-        <p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivism className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>
-        <EnititlementEndDate endDate={data?.endTime} short={true} />  
+        >{data.title}</p>:null}
+        {(data?.planDescription)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><Check className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.planDescription}</p>:null}          
+        {(data?.contentPrivider)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivism className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>:null}
+        {(data?.endTime)?<EnititlementEndDate endDate={data?.endTime} short={true} />:null}
       </div>
     </div>
   )

@@ -139,8 +139,7 @@ const Home = (props) => {
         if (movieItem.displayType === 'animated'){
           
         } 
-    })
-    
+    })    
     return rows?.filter(item => item)
   }
 
@@ -153,7 +152,7 @@ const Home = (props) => {
         {getRows()}
       </div></> : (<SkeletonHome/>)}
     </>
-  )
+  ) 
 }
 
 export default Home;

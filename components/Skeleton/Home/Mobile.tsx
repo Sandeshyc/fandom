@@ -7,7 +7,7 @@ const SkeletonHomeMobile = () => {
         <div className="pt-2 px-4 flex flex-wrap justify-between">
             <div className='flex flex-wrap items-center pr-4'>
                 <div className="w-[50px] mr-2">
-                    <Skeleton baseColor='#aaa' highlightColor='#eee' className='h-[50px]' />
+                    <Skeleton baseColor='#aaa' highlightColor='#eee' className='h-[50px]'/>
                 </div>
                 <div className="w-[80px]">
                     <Skeleton baseColor='#aaa' highlightColor='#eee' className='h-[20px]' />
@@ -108,7 +108,7 @@ const SkeletonHomeMobile = () => {
                     <Skeleton baseColor='#aaa' highlightColor='#eee' className='aspect-[9/16] w-full' /> 
                 </div>
                 <div className="w-[24%]">
-                    <Skeleton baseColor='#aaa' highlightColor='#eee' className='aspect-[9/16] w-full' /> 
+                    <Skeleton baseColor='#aaa' highlightColor='#eee' className='aspect-[9/16]'/> 
                 </div>
             </div>
         </div>

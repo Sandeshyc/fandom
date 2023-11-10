@@ -3,15 +3,17 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import useMovie from '@/hooks/useMovie';
+import SkeletonWatch from '@/components/Skeleton/SkeletonWatch';
+import { set } from 'lodash';
 
 const Watch = () => {
   const [userId, setUserId] = React.useState('');
   const router = useRouter();
   const { movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);
+  const [isReady, setIsReady] = React.useState(false);
   
-  const { data, error } = useMovie(movieId as string, userId as string);
-  // console.log('movie data: ', data)
+  const { data, error, isLoading } = useMovie(movieId as string, userId as string);
   let videoURL = '';
   if(data?.allowed){
     if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
@@ -23,11 +25,8 @@ const Watch = () => {
     videoURL = data?.trailerUrl ? data?.trailerUrl : '';
   }
 
-  // console.log('Watch movie data: ', data);
   const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
 
-  // on mouse move, show controls
-  // on mouse leave, hide controls
   let timeout: NodeJS.Timeout;
   const onMouseMove = () => {
     clearTimeout(timeout);
@@ -52,13 +51,14 @@ const Watch = () => {
     }else{
       router.push('/auth');
     }
+    setIsReady(true);
   }, []);
 
   
   return (
-    <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
-      {mouseActive && (<nav className="fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav"
-      >
+    <>
+    {(isReady && !isLoading)?(<><div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
+      {mouseActive && (<nav className="fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
         <ArrowLeftIcon onClick={() => router.back() } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
         <p className="text-white text-1xl md:text-3xl font-bold">
           <span className="font-light">Watching:</span> {data?.title}
@@ -74,7 +74,8 @@ const Watch = () => {
         }}>
         <VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL}/>
       </div>
-    </div>
+    </div></>):(<SkeletonWatch/>)}
+    </>
   )
 }
 
