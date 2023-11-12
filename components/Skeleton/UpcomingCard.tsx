@@ -12,7 +12,7 @@ const SkeletonUpcomingCard = ({
         <>
         {(Array.from(Array(count).keys()))?.map((index) => (
             <div className="mr-4 mb-3 min-w-[210px] w-[210px] sm:w-[230px]" key={stableKeys[index]}>
-                <Skeleton baseColor='#aaa' highlightColor='#eee' className='aspect-[9/16] w-full rounded-md' />
+                <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full rounded-md' />
             </div>
         ))}
         </>
