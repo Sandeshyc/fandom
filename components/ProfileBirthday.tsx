@@ -16,7 +16,7 @@ const ProfileBirthday = (
     return(
         <div className="w-full">
             {(!isUpdateMode)?<label className='w-full text-[14px] text-[#FFFFFFB8]'>Birthday</label>:null}
-            {(isUpdateMode)?<div className="flex flex-wrap items-center text-[14px] px-2 py-1 bg-transparent border rounded-md border-[#C6BCC6] h-[48px]">
+            {(isUpdateMode)?<div className="flex flex-wrap items-center text-[14px] px-2 py-1 bg-[#767680] bg-opacity-[22%] border rounded-md border-[#C6BCC6] h-[48px]">
             <CalendarIcon/>
             <div className="relative grow w-[80px]">
                 <DatePicker

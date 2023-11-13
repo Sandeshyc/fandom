@@ -7,7 +7,10 @@ import ProfileEmail from '@/components//ProfileEmail';
 import ProfileMobile from '@/components/ProfileMobile';
 import ProfileGender from '@/components/ProfileGender';
 import ProfileBirthday from '@/components/ProfileBirthday';
+import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 const MyProfile = () => {
+  const [isReady, setIsReady] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
   const [isUpdateMode, setIsUpdateMode] = React.useState(false);
@@ -30,12 +33,9 @@ const MyProfile = () => {
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
-    // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
-      // console.log('userInfoObj: ', userInfoObj);
       if(userInfoObj.sub) {
-        // router.push('/');
         setUserIdToken(userInfoObj.sub);
         setEmail(userInfoObj.email);
       }else{
@@ -44,10 +44,14 @@ const MyProfile = () => {
     }else{
       router.push('/auth');
     }
+    setIsReady(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
-  return (
-    <>
+  return (<>
+      {(isReady && !isLoading)?<>
       <SideBar />
       <div className="py-16 bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-30% to-[#271055] to-85% min-h-full">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
@@ -111,9 +115,8 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
-      </div>
-    </>
-  )
+      </div></>:<SkeletonMyProfile/>}
+  </>)
 }
 
 export default MyProfile;

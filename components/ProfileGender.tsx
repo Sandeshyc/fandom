@@ -37,7 +37,7 @@ const ProfileGenderField = (
     }: ProfileGenderFiledProps
 ) => {
     return(
-        <div className="flex flex-wrap items-center text-[14px] px-2 py-1 bg-transparent border rounded-md border-[#C6BCC6] h-[48px]">
+        <div className="flex flex-wrap items-center text-[14px] px-2 py-1 bg-[#767680] bg-opacity-[22%] border rounded-md border-[#C6BCC6] h-[48px]">
             <UserIcon/>
             <div className="relative grow w-[80px]">
                 <select

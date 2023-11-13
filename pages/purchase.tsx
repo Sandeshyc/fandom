@@ -1,48 +1,22 @@
 import React, { use, useEffect } from 'react';
-import { NextPageContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
-import Navbar from '@/components/Navbar';
-import BillboardExtended from '@/components/BillboardExtended';
-import InfoModal from '@/components/InfoModal';
-import MovieList from '@/components/MovieList';
-import useUpcomingMovies from '@/hooks/useUpcomingMovies';
 import usePurchaseMovies from '@/hooks/usePurchaseMovies';
-import useFavorites from '@/hooks/useFavorites';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
 import MovieCardPurchase from '@/components/MovieCardPurchase';
 import { Info } from '@mui/icons-material';
-
-// export async function getServerSideProps(context: NextPageContext) {
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/auth',
-//         permanent: false,
-//       }
-//     }
-//   }
-
-//   return {
-//     props: {}
-//   }
-// }
+import SkeletonPurchase from '@/components/Skeleton/SkeletonPurchase';
 
 const Home = (props) => {
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
   const { region, product } =  props; 
+  const { data: movies = [], isLoading } = usePurchaseMovies(region, 'web', userIdToken );
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
-    // console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
-        // router.push('/');
         setUserIdToken(userInfoObj.sub);
       }else{
         router.push('/auth');
@@ -51,34 +25,28 @@ const Home = (props) => {
       router.push('/auth');
     }
   }, []);
-  // let movies = [];
-  const { data: movies = [] } = usePurchaseMovies(region, 'web', userIdToken );
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, [movies]);
+    setIsReady(true);
+  }, []);
   
   return (
     <>
-      <SideBar />
+      {(!isLoading && isReady) ? (<><SideBar />
       <div className="py-16">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">My Purchase</p>
             <div className="lg:px-6 pb-6 flex flex-wrap">
-            {(isLoading)?(<p className='text-white'>Loading...</p>):((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardPurchase data={item} portrait={ true} />)):<NoMovies/>)}
+            {((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardPurchase data={item} portrait={ true} />)):<NoMovies/>)}
             </div>
           </div>
         </div>
-      </div>
+      </div></>) : (<SkeletonPurchase/>)}
     </>
   )
 }
 
 export default Home;
-
-
 
 const NoMovies = () => {
   return (
