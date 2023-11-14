@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
+import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import {
@@ -27,7 +28,54 @@ interface FlexContainerProps {
   handleMouseEnter: () => void;
   handleMouseLeave: () => void;
 }
-
+const SearchBox = (
+  {isShow}: {isShow: boolean}
+  ) => {
+  const router = useRouter();
+  const inputRef = useRef(null);
+  const [isInvalid, setIsInvalid] = React.useState(false);
+  const [title, setTitle] = React.useState('');
+  const [page, setPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(24);
+  const [pageSize, setPageSize] = React.useState(24);
+  const [offset, setOffset] = React.useState(0);  
+  const submitSearch = (e) => {
+    e.preventDefault();
+    if(title === '' || title === undefined || title === null) {
+      setIsInvalid(true);    
+    }else{
+      setIsInvalid(false);
+      router.push(`/search?title=${title}&page=${page}&limit=${limit}&pageSize=${pageSize}&offset=${offset}`);
+    }
+  }
+  return(<>
+    {(isShow)?
+    <div className="mb-6 mt-[-15px]">
+      <div
+        className='w-[250px]'>
+        <form 
+          className={`w-full bg-gray-600 text-white rounded-md focus:outline-none flex ${(isInvalid && !title)?'border-red-800 border shadow  shadow-orange-700':''}`}>
+          <input 
+            type="text" 
+            className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px]" 
+            placeholder="Search title here" 
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            />
+          <button
+            type='submit'
+            className="w-[50px]"
+            onClick={submitSearch}>
+              <SearchIcon className="text-gray-400 w-6 h-6" />
+            </button>
+        </form>
+      </div>
+    </div>:null
+    }
+    </>
+  );
+}
 const FlexContainer: React.FC<FlexContainerProps> = ({
   isActive,
   isHovered,
@@ -146,20 +194,31 @@ const Logo = ({ src}: { src: string}) => {
 }
 
 const SideBar: React.FC = () => {
+  const router = useRouter();
   const [activeIcon, setActiveIcon] = useState<string>('Home');
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isMobileMenu, setIsMobileMenu] = useState<boolean>(false);
-  console.log('activeIcon', activeIcon)
+  const [isSearchBox, setIsSearchBox] = useState<boolean>(false);
+  // console.log('activeIcon', activeIcon)
   const handleIconClick = (icon: string) => {
     setActiveIcon(icon);
     window.location.href = `/${icon}`;
+  };
+
+  const handleSearchExpand = () => {
+    const currentPath = router.pathname;
+    if(currentPath === '/search'){
+      setIsSearchBox(false);
+    }else{
+      setIsSearchBox(true);
+    }
   };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = () => {    
     setIsHovered(false);
   };
 
@@ -192,14 +251,16 @@ const SideBar: React.FC = () => {
       setActiveIcon('myprofile');
     } else if (path === '/purchase') {
       setActiveIcon('purchase');
+    } else if (path === '/search') {
+      setActiveIcon('search');
     } else {
       setActiveIcon('Home');
     }
   }, []);
 
-  const router = useRouter();
   return (
     <>
+    {/* <SearchBox/> */}
     <Box
       className="
       lg:hidden
@@ -276,12 +337,13 @@ const SideBar: React.FC = () => {
       </Box>
       <Box className="overflow-y-auto h-full">
         <FlexContainerMobile
-          isActive={activeIcon === 'Search'}
+          isActive={activeIcon === 'search'}
           isHovered={isHovered}
           icon={Search}
-          label="Search"
-          // handleClick={() => handleIconClick('Search')}
+          label={'Search'}
+          handleClick={() => handleSearchExpand()}
         />
+        <SearchBox isShow={isSearchBox}/>
         <FlexContainerMobile
           isActive={activeIcon === 'Home'}
           isHovered={isHovered}
@@ -381,12 +443,13 @@ const SideBar: React.FC = () => {
       <Logo src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" />
       <Box>
         <FlexContainer
-          isActive={activeIcon === 'Search'}
+          isActive={activeIcon === 'search'}
           isHovered={isHovered}
           icon={Search}
-          label="Search"
-          // handleClick={() => handleIconClick('Search')}
+          label={'Search'}
+          handleClick={() => handleSearchExpand()}
         />
+        <SearchBox isShow={isSearchBox}/>
         <FlexContainer
           isActive={activeIcon === 'Home'}
           isHovered={isHovered}
