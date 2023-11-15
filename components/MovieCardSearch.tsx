@@ -12,6 +12,7 @@ import Locked from '@/components/Locked';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import EnititlementEndDate from '@/components/Expair';
 import { VolunteerActivism, Check } from '@mui/icons-material';
+import { stableKeys } from '@/utils/stableKeys';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -106,7 +107,7 @@ const MovieCardSearch: React.FC<MovieCardProps> = ({ data }) => {
           </div>
 
           <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            {data.genre?.map(item => <span className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
+            {data.genre?.map((item, index) => <span key={stableKeys[index]} className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
             {capFirstLetter(item)}
       </span>)}
           </div>
