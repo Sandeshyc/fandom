@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import SvgNumbers, {SvgNumberModak} from '@/utils/SvgNumbers';
+import { stableKeys } from '@/utils/stableKeys';
 
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
@@ -117,10 +118,10 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
 
   const getSlides = () => { 
     let i = 0;
-    return data.map((movie) => {
+    return data.map((movie, index) => {
    
     return (
-      <div key={movie.id} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber'>
+      <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber'>
         <div className="movieListNumberCard grid grid-cols-12 items-center px-3 group cursor-pointer"  >
           <span className={`col-span-3 relative z-10 w-auto h-[50%] flex justify-end font-monoton text-white leading-[1] ${i === parseInt(current)? 'opacity-100' : 'opacity-50'}`}>
             <SvgNumberModak item={i + 1} />
