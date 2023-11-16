@@ -5,12 +5,12 @@ import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
-import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
+import GoogleIdentitySignUp from 'components/GoogleIdentitySignUp';
 
 const imgOneLogin = '/images/onelogsmall.png';
-const imgLogBG = '/images/loginbgnew.png';
+const imgLogBG = '/images/registationbg.png';
 
-const Auth = () => {
+const Registration = () => {
   const router = useRouter();
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -20,12 +20,16 @@ const Auth = () => {
       if(userInfoObj.sub) {
         router.push('/');
       }else{
-        router.push('/auth');
+        router.push('/registration');
       }
     }else{
-      router.push('/auth');
+      router.push('/registration');
     }
   }, []);
+
+  const goBackLogin = () => {
+    router.push('/auth');
+  }
 
   useEffect(() => {
     // Parse the token from the URL.
@@ -55,9 +59,7 @@ const Auth = () => {
     const userInfo = localStorage.getItem('userInfo');
     // console.log('userInfo: ', userInfo);
   }, []);
-  const goRegistration = () => {
-    router.push('/registration');
-  }
+
   function LoginPage() {
     const nonce = nanoid();
     const state = nonce+'153';
@@ -65,6 +67,9 @@ const Auth = () => {
   }
   return (
     <div className="relative h-full w-full bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">
+      <div className='hidden xl:block xl:w-1/2 h-full'>
+          <img src={imgLogBG} className="h-full w-full object-cover object-right-top" alt="all Movies" />
+      </div>
       <div className="w-full xl:w-1/2 h-full ">
         <div className="w-full p-2 fixed left-0 top-0 flex items-center">
           <img src="/images/logo.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
@@ -72,8 +77,8 @@ const Auth = () => {
         </div>
         <div className="flex flex-wrap justify-center h-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
-            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to iWantTFC Ticket</h1>
-            <GoogleIdentitySignIn />
+            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Create an Account</h1>
+            <GoogleIdentitySignUp />
             <div className='my-4'>
               <p className='text-center text-white/80 text-sm'>or</p>
             </div>
@@ -85,30 +90,17 @@ const Auth = () => {
             </button> 
             <div className='w-full flex justify-center text-white mt-4 mb-2'>
               <p className='text-sm m-0'>
-                <span className='text-white/60 text-sm mr-2'>New here?</span>
+                <span className='text-white/60 text-sm mr-2'>Already Have?</span>
                 <span 
-                  onClick={() => goRegistration()}
-                className='text-white text-sm cursor-pointer hover:underline'>Create Account</span>
+                  onClick={() => goBackLogin()}                
+                  className='text-white text-sm cursor-pointer hover:underline'>Login</span>
               </p>
             </div> 
-            {/* <div className='w-full flex justify-center text-white mt-4 mb-2'>
-              <p className='text-sm m-0'>
-                <span className='text-white text-sm cursor-pointer hover:underline'>Skip Login for Now</span>
-              </p>
-            </div>  */}
-            {/* <div className='w-full flex justify-center text-white mt-4 mb-2'>
-              <p className='text-[10px] lg:text-[12px] m-0 text-white/60'>
-                This page is <span className='text-white/80'>protected by Google reCAPTCHA</span> to ensure you're not a bot. Learn More
-              </p>
-            </div>  */}
           </div>
         </div>
-      </div>
-      <div className='hidden xl:block xl:w-1/2 h-full'>
-            <img src={imgLogBG} className="h-full w-full object-cover object-left-bottom" alt="Logo" />
       </div>
     </div>
   );
 }
 
-export default Auth;
+export default Registration;
