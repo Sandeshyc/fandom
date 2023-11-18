@@ -61,9 +61,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
         w-full
         scale-0
         group-hover:scale-100
-        
-        group-hover:opacity-100
-        
+        group-hover:opacity-100        
       ">
         <div className="bg-zinc-800 shadow-md
         rounded-t-lg jk_player " >

@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   sendSignInLinkToEmail,
   getAuth, 
+  signInWithEmailLink,
   signOut,
   GoogleAuthProvider,
   getAdditionalUserInfo,
@@ -25,6 +26,18 @@ import {
   reauthenticateWithCredential,
   reauthenticateWithPopup,
   reauthenticateWithRedirect,
+  sendPasswordResetEmail,
+  confirmPasswordReset,
+  applyActionCode,
+  checkActionCode,
+  verifyPasswordResetCode,
+  User,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  indexedDBLocalPersistence,
+  inMemoryPersistence,
+  setPersistence,
+
 } from 'firebase/auth';
 
 import { useFormik } from "formik";
@@ -40,6 +53,7 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// const auth = getAuth(app);
 
 const GoogleIdentitySignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -134,6 +148,28 @@ const GoogleIdentitySignUp = () => {
       // Make a request to your backend to store the data
       setIsSubmitting(true);
       setOnSubmit(true);
+      
+      // await sendEmailVerification(auth.currentUser, {
+      //   url: 'http://localhost:3000/',
+      //   handleCodeInApp: true,
+      // });
+      // await sendPasswordResetEmail(getAuth(), email, {
+      //   url: 'http://localhost:3000/',
+      //   handleCodeInApp: true,
+      // })
+      // .then(() => {
+      //   // Password reset email sent!
+      //   // ..
+      //   console.log('Password reset email sent!');
+      // })
+      // .catch((error) => {
+      //   const errorCode = error.code;
+      //   const errorMessage = error.message;
+      //   console.log('errorCode ', errorCode);
+      //   console.log('errorMessage ', errorMessage);
+      // });
+
+
       const userCredential = await createUserWithEmailAndPassword(
         getAuth(),
         email,
@@ -141,7 +177,7 @@ const GoogleIdentitySignUp = () => {
       )
       .then((userCredential) => {
         // Signed up 
-        const user = userCredential.user;
+      const user = userCredential.user;
         // is created user 
         console.log('user ', user);
         if(user) {
@@ -179,6 +215,8 @@ const GoogleIdentitySignUp = () => {
         setIsLoginFail(true);
         setOnSubmit(false);
       });
+
+
     },
   });
 
