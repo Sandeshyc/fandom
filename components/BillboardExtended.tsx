@@ -21,7 +21,7 @@ const BillboardExtended: React.FC = ({data, title}) => {
   console.log('jw video completed 3', itemEnded);
 
   return (
-    (item?.videoUrl)?<div className={`px-4 md:px-12 mb-[3vw] `} >
+    (item?.videoUrl)?<div className={`px-4 md:px-16 mb-[3vw] `} >
     <div>
       <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
       <div className={`gap-2  `}>

@@ -28,7 +28,11 @@ const Details = (props) => {
   const { data, error } = useMovie(movieId as string, userIdToken);
   let relMovies = [];
   if(Array.isArray(data?.relatedVideos) && data?.relatedVideos?.length > 0 ) {
-    relMovies = data?.relatedVideos;
+    // relMovies = data?.relatedVideos;
+    // console.log('relMovies', relMovies);
+    // is all relMovies Not Null
+    relMovies = data?.relatedVideos.filter((item: any) => item !== null);
+    // console.log('relMoviesxxx', relMovies);
   }
   const { data: movies = [], isLoading } = useMovieList(region, product, 'home', userIdToken);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
@@ -183,7 +187,7 @@ const Details = (props) => {
                 </div>
               </div>
             </div>
-            <div className="text-white bg-zinc-800 shadow-md rounded-b-lg mt-6">
+            {(Array.isArray(relMovies) && relMovies.length > 0)?<><div className="text-white bg-zinc-800 shadow-md rounded-b-lg mt-6">
                 <div className="flex flex-row items-center justify-between px-2 lg:px-6 py-4">
                   <h3 className=" text-xl font-bold mb-2">{data?.isPackage ? 'Movie list' : 'More like this'}</h3>
                   
@@ -203,7 +207,7 @@ const Details = (props) => {
                     />))
                   }
                 </div>
-            </div>
+            </div></>:null}
           </div>
         </div>
     </div>:<SkeletonDetails/>}

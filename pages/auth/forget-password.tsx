@@ -24,6 +24,7 @@ const ForgetPassword = () => {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [isEmailSent, setIsEmailSent] = useState(false);
+    const [isEmailSentError, setIsEmailSentError] = useState(false);
     const [onSubmit, setOnSubmit] = useState(false);
     const schema = Yup.object().shape({
         email: Yup.string().required('Email is required').email('Email is invalid'),
@@ -44,11 +45,13 @@ const ForgetPassword = () => {
                 console.log('email verification sent');
                 setOnSubmit(false);
                 setIsEmailSent(true);
+                setIsEmailSentError(false);
             })
             .catch((error) => {
                 console.log('error: ', error);
                 setOnSubmit(false);
                 setIsEmailSent(false);
+                setIsEmailSentError(true);
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log('errorCode: ', errorCode);
@@ -88,7 +91,8 @@ const ForgetPassword = () => {
                             {errors.email && touched.email && <span className='text-red-500 w-full text-xs text-left block'>{errors.email}</span>}
                         </div>
                         <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-md w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Send...':'Continue'}</button>
-                        {(isEmailSent)?<p className='text-white text-[14px] sm:text-[16px] xl:text-[18px] mt-4'>We have sent an email to your email address. Please verify your email to continue.</p>:''}
+                        {(isEmailSent)?<p className='text-green-400 leading-6 text-[14px] sm:text-[16px] xl:text-[18px] mt-4'>We have sent an email to your email address. Please verify your email to continue.</p>:''}
+                        {(isEmailSentError)?<p className='text-red-400 leading-6 text-[14px] sm:text-[16px] xl:text-[18px] mt-4'>Sorry, we couldn't find an account with that email address. Please try again or create a new account.</p>:''}
                     </form>
                     <p className="flex flex-wrap justify-center text-white mt-8">
                         <span
