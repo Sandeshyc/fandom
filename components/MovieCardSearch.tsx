@@ -13,6 +13,7 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import EnititlementEndDate from '@/components/Expair';
 import { VolunteerActivism, Check } from '@mui/icons-material';
 import { stableKeys } from '@/utils/stableKeys';
+import ReactVideoPlayer from '@/components/ReactPlayer';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -71,8 +72,8 @@ const MovieCardSearch: React.FC<MovieCardProps> = ({ data }) => {
         group-hover:opacity-100">
         <div className="bg-zinc-800 shadow-md
         rounded-t-lg jk_player w-full aspect-video" >
-          {autoplay && (
-          <VideoPlayer image={data?.thumbnailUrl} video={videoURL} control={false}   />)}
+          {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={videoURL} control={false}   />)} */}
+          {autoplay && (<ReactVideoPlayer videoURL={videoURL} control={false} poster={data?.thumbnailUrl} />)}
           <p className="text-green-400 font-semibold mt-4 title">
             {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
           </p>

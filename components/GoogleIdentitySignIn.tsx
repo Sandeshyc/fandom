@@ -62,6 +62,7 @@ const GoogleIdentitySignIn = () => {
           uid: user?.uid,
           emailVerified: user?.emailVerified,
         };    
+        window.localStorage.setItem('provider', 'firebase');
         window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
         window.localStorage.setItem('googleIndentityAccessToken', user?.accessToken);
         if(user?.emailVerified) {

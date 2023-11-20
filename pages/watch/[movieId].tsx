@@ -5,6 +5,7 @@ import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import useMovie from '@/hooks/useMovie';
 import SkeletonWatch from '@/components/Skeleton/SkeletonWatch';
 import { set } from 'lodash';
+import ReactMainVideoPlayer from '@/components/ReactMainPlayer';
 
 const Watch = () => {
   const [userId, setUserId] = React.useState('');
@@ -12,12 +13,14 @@ const Watch = () => {
   const { movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);
   const [isReady, setIsReady] = React.useState(false);
+  const [isTrailer, setIsTrailer] = React.useState(true);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string);
   let videoURL = '';
   if(data?.allowed){
     if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
       videoURL = data?.videoUrls[0]?.url;
+      setIsTrailer(false);
     }else{
       videoURL = data?.trailerUrl ? data?.trailerUrl : '';
     }
@@ -72,7 +75,8 @@ const Watch = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         }}>
-        <VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL}/>
+        {(isTrailer)?(<ReactMainVideoPlayer videoURL={videoURL} poster={data?.thumbnailUrl} control={true}/>):<VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL}/>}
+        
       </div>
     </div></>):(<SkeletonWatch/>)}
     </>

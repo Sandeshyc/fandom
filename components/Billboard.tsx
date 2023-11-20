@@ -9,6 +9,7 @@ import { BanknotesIcon } from '@heroicons/react/24/outline';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import Locked from '@/components/Locked';
 import Buy from '@/components/Buy';
+import ReactVideoPlayer from '@/components/ReactPlayer';
 
 const Billboard: React.FC = ({data, extended, isComplited}) => {
   const { openModal } = useInfoModalStore();
@@ -24,7 +25,8 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
       {(!data?.allowed)?<Locked/>:null}
       <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] ${extended ? 'h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh] ' : 'h-[250px] sm:h-[300px] md:h-[85vh] max-h-[85vh]'}`}>
         <div className='brightness-[60%] h-full'>
-          <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false} isComplited={isComplited} pictureInPicture={false} />
+          {/* <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false} isComplited={isComplited} pictureInPicture={false} /> */}
+          <ReactVideoPlayer videoURL={data?.videoUrl} />
         </div>
         <div className='preview'></div>
       </div>

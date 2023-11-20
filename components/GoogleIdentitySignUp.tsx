@@ -188,10 +188,10 @@ const GoogleIdentitySignUp = () => {
             name: user.displayName,
             uid: user.uid,
           };
-
+          window.localStorage.setItem('provider', 'firebaseEmailPassword');
           window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
           window.localStorage.setItem('googleIndentityAccessToken', user?.accessToken);
-          router.push('/');
+          router.push('/auth/verify-email');
         }
 
       })

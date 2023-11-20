@@ -1,5 +1,12 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  UserInfo,
+  UserProfile,
+  updateProfile, 
+} from 'firebase/auth';
 import SideBar from '@/components/SideBar'
 import ProfileHead from '@/components/ProfileHead'
 import ProfileName from '@/components/ProfileName';
@@ -8,6 +15,15 @@ import ProfileMobile from '@/components/ProfileMobile';
 import ProfileGender from '@/components/ProfileGender';
 import ProfileBirthday from '@/components/ProfileBirthday';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
+
+// const firebaseConfig = {
+//   apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
+//   authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
+// };
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+
+
 const MyProfile = () => {
   const [isReady, setIsReady] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -23,6 +39,8 @@ const MyProfile = () => {
   const [birthday, setBirthday] = React.useState(new Date())
   const [profileExpanded, setProfileExpanded] = React.useState(true);
 
+  // const currentUser = getAuth().currentUser;
+
   const updateProfile = () => {
     setIsUpdateMode(!isUpdateMode);  
   }
@@ -31,6 +49,7 @@ const MyProfile = () => {
     setProfileExpanded(!profileExpanded);
   }
 
+  
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
