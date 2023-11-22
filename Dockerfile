@@ -1,5 +1,5 @@
 #  Official Node.js Base Image (https://hub.docker.com/_/node/)
-FROM public.ecr.aws/docker/library/node:16.20.0-alpine
+FROM public.ecr.aws/docker/library/node:18-alpine
 
 
 # Create App Directory
