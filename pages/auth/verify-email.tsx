@@ -24,14 +24,14 @@ onAuthStateChanged(auth, (user) => {
     if(user?.emailVerified) {
         // console.log('email verified', user?.emailVerified);
         // redirect to home page
-        window.location.href = '/';
+        if (window) window.location.href = '/';
     }else{
         // console.log('email not verified', user?.emailVerified);
         sendEmailVerificationFunc(auth);
     }
   } else {
     // User is signed out
-    window.location.href = '/';
+    if (window) window.location.href = '/';
   }
 });
 const sendEmailVerificationFunc = async (auth:any) => {
@@ -58,7 +58,7 @@ export default EmailVerified;
 const EmailVerifyModal = (auth:any) => {
     const [email, setEmail] = useState((auth?.currentUser?.email)?auth?.currentUser?.email:'');
     useEffect(() => {
-        const userInfo = window.localStorage.getItem('userInfo');
+        const userInfo = window?.localStorage?.getItem('userInfo');
         if (userInfo) {
             const userInfoObj = JSON.parse(userInfo);
             if(userInfoObj.sub) {
