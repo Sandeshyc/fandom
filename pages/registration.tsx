@@ -72,8 +72,8 @@ const Registration = () => {
       </div>
       <div className="w-full xl:w-1/2 h-full ">
         <div className="w-full p-2 fixed left-0 top-0 flex items-center xl:justify-end">
-          <img src="/images/logo.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2 xl:order-[2]" alt="Logo" />
-          <p className='text-white font-semibold text-xl xl:text-2xl xl:order-[3]'>Ticket</p>
+          <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2 xl:order-[2]" alt="Logo" />
+          <p className='text-white font-semibold text-xl xl:text-2xl xl:order-[3]'>iWantTFC Tickets</p>
         </div>
         <div className="flex flex-wrap justify-center h-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
@@ -90,7 +90,7 @@ const Registration = () => {
             </button> 
             <div className='w-full flex justify-center text-white mt-4 mb-2'>
               <p className='text-sm m-0'>
-                <span className='text-white/60 text-sm mr-2'>Already Have?</span>
+                <span className='text-white/60 text-sm mr-2'>Already Have an Account?</span>
                 <span 
                   onClick={() => goBackLogin()}                
                   className='text-white text-sm cursor-pointer hover:underline'>Login</span>

@@ -229,9 +229,9 @@ const GoogleIdentitySignUp = () => {
     <form onSubmit={handleSubmit} method="POST" className="text-left">
       <div className='mb-4'>
         <div className="relative">
-          <input 
+          <input
             placeholder="Email Address"
-            type="text" 
+            type="text"
             name='email'
             value={values.email}
             onChange={handleChange}

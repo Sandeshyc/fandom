@@ -4,48 +4,55 @@ import {UserIcon} from "@/utils/CustomSVGs";
 
 type ProfileNameProps = {
     isUpdateMode: boolean;
-    name: string;
-    lastName: string;
-    setName: (name: string) => void;
-    setLastName: (lastName: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileName = (
     {
         isUpdateMode,
-        name,
-        lastName,
-        setName,
-        setLastName
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileNameProps
 ) => {
 
     return(
         <div className="w-full md:flex md:flex-wrap">
             {(!isUpdateMode)?<label className='w-full text-[14px] text-[#FFFFFFB8]'>Name</label>:null}
-
             {(isUpdateMode)?<><div className="mb-3 md:w-[50%] w-full  md:pr-2"><ProfileNameField
-                name={name}
-                setName={setName}
+                errors={errors}
+                touched={touched}
+                values={values}
+                handleChange={handleChange} 
             /></div>
             <div className="mb-3 md:w-[50%] w-full md:pl-2">
             <ProfileLastNameField
-                lastName={lastName}
-                setLastName={setLastName}
+                errors={errors}
+                touched={touched}
+                values={values}
+                handleChange={handleChange}
             /></div>
-            </>:<p className='text-[14px] text-[#fff] py-1'>{(name || lastName)?name+' '+lastName:'_'}</p>}
+            </>:<p className='text-[14px] text-[#fff] py-1'>{(values.firstName || values.lastName)?values.firstName+' '+values.lastName:'_'}</p>}
         </div>
     );
 }
 export default ProfileName;
 
 type ProfileFirstNameProps = {
-    name: string;
-    setName: (name: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileNameField = (
     {
-        name,
-        setName,
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileFirstNameProps
 ) => {
 
@@ -53,27 +60,33 @@ const ProfileNameField = (
         <div className="w-full">
             <div className="relative">
                 <input 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name='firstName'
+                    value={values.firstName}
+                    onChange={handleChange}
                     placeholder="First Name"
                     type="text" 
                     className='w-full text-[14px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%]'/><div className="absolute top-0 left-2 flex justify-center items-center h-full">
                     <UserIcon/>
                 </div>
             </div>
+            {(errors.firstName && touched.firstName)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.firstName}</p>:null}
         </div>
     );
 }
 
 type ProfileLastNameProps = {
-    lastName: string;
-    setLastName: (lastName: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 
 const ProfileLastNameField = (
     {
-        lastName,
-        setLastName,
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileLastNameProps
 ) => {
 
@@ -81,8 +94,9 @@ const ProfileLastNameField = (
         <div className="w-full">
             <div className="relative">
                 <input 
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    name='lastName'
+                    value={values.lastName}
+                    onChange={handleChange}
                     placeholder="Last Name"
                     type="text" 
                     className='w-full text-[14px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%]'/><div className="absolute top-0 left-2 flex justify-center items-center h-full">

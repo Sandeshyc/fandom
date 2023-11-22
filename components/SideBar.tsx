@@ -66,7 +66,7 @@ const SearchBox = (
             />
           <button
             type='submit'
-            className="w-[50px]"
+            className="h-[50px]"
             onClick={submitSearch}>
               <SearchIcon className="text-gray-400 w-6 h-6" />
             </button>
@@ -289,8 +289,8 @@ const SideBar: React.FC = () => {
           justify-start
           w-full">
           <img 
-          src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" 
-          className="w-[50px]" 
+          src="/images/logonew.png" 
+          className="h-[50px]" 
           alt="Logo" onClick={() => router.push('/')} />
           <p
             className="text-1xl font-bold"
@@ -324,8 +324,8 @@ const SideBar: React.FC = () => {
             justify-start
             w-full">
             <img 
-            src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" 
-            className="w-[50px]" 
+            src="/images/logonew.png" 
+            className="h-[50px]" 
             alt="Logo" onClick={() => router.push('/')} />
             <p
               className="text-1xl font-bold"
@@ -434,14 +434,16 @@ const SideBar: React.FC = () => {
         paddingTop: '100px',
         transition: 'all 0.2s ease-in-out',
         width: "auto",
-        backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
+        // backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
       }}
 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={ `group pl-1 pr-1 fixed w-auto h-screen hover:pl-7 hover:pr-1 z-40 hidden lg:block
-      bg-black` }>
-      <Logo src={"https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png"} />
+      className={`
+      group pl-1 pr-1 fixed w-auto h-screen hover:pl-7 hover:pr-1 z-40 hidden lg:block
+      bg-gradient-to-r from-black from-80% to-transparent to-100%`}
+      >
+      <Logo src={"/images/logonew.png"} />
       <Box className="overflow-y-auto h-full overflow-x-hidden">
         <FlexContainer
           isActive={activeIcon === 'search'}
