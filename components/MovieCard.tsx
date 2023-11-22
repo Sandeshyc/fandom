@@ -10,6 +10,7 @@ import useInfoModalStore from '@/hooks/useInfoModalStore';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
 import { stableKeys } from '@/utils/stableKeys';
+import ReactVideoPlayer from '@/components/ReactPlayer';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -61,14 +62,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
         w-full
         scale-0
         group-hover:scale-100
-        
-        group-hover:opacity-100
-        
+        group-hover:opacity-100        
       ">
         <div className="bg-zinc-800 shadow-md
         rounded-t-lg jk_player " >
-          {autoplay && (
-          <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)}
+          {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}/>)} */}
+          {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}
           <p className="text-green-400 font-semibold mt-4 title">
             {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
           </p>

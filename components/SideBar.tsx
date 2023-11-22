@@ -19,6 +19,7 @@ import {
   AccountCircle
 } from '@mui/icons-material';
 
+const logoSrc = '/images/logonew.png';
 interface FlexContainerProps {
   isActive: boolean;
   isHovered: boolean;
@@ -90,10 +91,11 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      marginBottom: '1vh',
+      marginBottom: '2vh',
       transition: 'transform 0.2s ease-in-out',
+      color: isActive || isHovered ? 'white' : '#ddd',
       '&:hover': {
-        transform: 'translateY(-5px)',
+        transform: 'translateY(-3px)',
         color: 'white',
         fontSize: '20px',
       },
@@ -107,7 +109,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
         fontSize: '15px',
         width: '30px',
         height: '40px',
-        color: isActive || isHovered ? 'white' : 'gray',
+        color: 'inherit',
         filter: isActive ? 'drop-shadow(5px 5px 20px rgba(255, 255, 255, 0.9))' : 'none',
         transition: 'transform 0.2s ease-in-out, color 0.2s ease-in-out, font-size 0.2s ease-in-out',
       }}
@@ -115,13 +117,14 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
     {isHovered && (
       <Box
         sx={{
-          color: 'white',
+          color: isActive? 'white' : '#ddd',
           fontWeight: 'bold',
           marginLeft: '10px',
+          fontSize: '2vh',
           filter: isActive ? 'drop-shadow(5px 5px 20px rgba(255, 255, 255, 0.9))' : 'none',
           transition: 'transform 0.2s ease-in-out, font-size 0.2s ease-in-out',
           '&:hover': {
-            fontSize: '20px',
+            color: '#fff',
           },
         }}>
         {label}
@@ -436,12 +439,10 @@ const SideBar: React.FC = () => {
 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={ `group pl-1 pr-1 fixed bg-opacity-90 w-auto h-screen hover:pl-7 hover:pr-4 z-40 hidden lg:block bg-opacity-50 
-      bg-gradient-to
-      from-black
-      to-transparent` }>
-      <Logo src="https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png" />
-      <Box>
+      className={ `group pl-1 pr-1 fixed w-auto h-screen hover:pl-7 hover:pr-1 z-40 hidden lg:block
+      bg-black` }>
+      <Logo src={"https://d348f57gkrlrz4.cloudfront.net/c/4/images/qTu5vfhisol9Lt3n8WyoMw.png"} />
+      <Box className="overflow-y-auto h-full overflow-x-hidden">
         <FlexContainer
           isActive={activeIcon === 'search'}
           isHovered={isHovered}

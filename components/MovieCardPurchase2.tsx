@@ -12,6 +12,7 @@ import Locked from '@/components/Locked';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import EnititlementEndDate from '@/components/Expair';
 import { VolunteerActivism } from '@mui/icons-material';
+import ReactVideoPlayer from '@/components/ReactPlayer';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -58,15 +59,13 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
         delay-300
         w-full
         scale-0
-        group-hover:scale-100
-        
-        group-hover:opacity-100
-        
+        group-hover:scale-100        
+        group-hover:opacity-100        
       ">
         <div className="bg-zinc-800 shadow-md
         rounded-t-lg jk_player " >
-          {autoplay && (
-          <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)}
+          {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)} */}
+          {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl} />)}
           <p className="text-green-400 font-semibold mt-4 title">
             {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
           </p>

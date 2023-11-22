@@ -8,6 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { MovieInterface } from '@/types';
 import MovieCardTop from '@/components/MovieCardTop';
 import { isEmpty } from 'lodash';
+import { stableKeys } from '@/utils/stableKeys';
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -79,21 +80,21 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   let i = 1;
   let j = 1;
   return (
-    <div className={`px-4 md:px-12 mb-[3vw] movieSlider `}>
+    <div className={`px-4 md:px-16 mb-[3vw] movieSlider `}>
       <div>
         <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4">{title}</p>
         <div className={`gap-2  `}>
         <div className="block xl:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-              {data?.map((movie) => (
-                <MovieCardTop key={movie?.id} data={movie} number={i++} portrait={portrait} />
+              {data?.map((movie, index) => (
+                <MovieCardTop key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />
               ))}
             </div>
           </div>
           <div className="hidden xl:block">
             <Slider {...settings}>
-              {data?.map((movie) => (
-                <MovieCardTop key={movie?.id} data={movie} number={j++} portrait={portrait} />
+              {data?.map((movie, index) => (
+                <MovieCardTop key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />
               ))}
             </Slider>  
           </div> 

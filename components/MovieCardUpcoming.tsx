@@ -11,6 +11,7 @@ import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { stableKeys } from '@/utils/stableKeys';
+import ReactVideoPlayer from '@/components/ReactPlayer';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -79,8 +80,8 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
         group-hover:opacity-100">
         <div className=" shadow-md
         rounded-t-lg jk_player " >
-          {autoplay && (
-          <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)}
+          {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)} */}
+          {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl} />)}
           <p className="text-green-400 font-semibold mt-4 title">
             {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
           </p>

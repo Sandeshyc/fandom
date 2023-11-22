@@ -10,6 +10,7 @@ import { EmailIcon, LockIcon, EyeSlashIcon } from "@/utils/CustomSVGs";
 import {
   EyeIcon
 } from '@heroicons/react/20/solid';
+import { useRouter } from "next/router";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
@@ -18,7 +19,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+
+
 const GoogleIdentitySignIn = () => {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
   const [email, setEmail] = useState('');
@@ -31,6 +35,9 @@ const GoogleIdentitySignIn = () => {
   }
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);
+  }
+  const goForgetPassword = () => {
+    router.push('/auth/forget-password');
   }
 
   const handleSignIn = async () => {
@@ -46,20 +53,28 @@ const GoogleIdentitySignIn = () => {
         password
       );
       const user = userCredential.user;
-      // console.log('Success ',user);
-      const userInfo = {
-        sub: user.uid,
-        email: user.email,
-        preferred_username: user.email,
-        name: user.displayName,
-        uid: user.uid,
-      };    
-      window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-      window.localStorage.setItem('googleIndentityAccessToken', user?.accessToken);
-      window.location.href = '/';
+      if(user !== null) {
+        const userInfo = {
+          sub: user?.uid,
+          email: user?.email,
+          preferred_username: user?.email,
+          name: user?.displayName,
+          uid: user?.uid,
+          emailVerified: user?.emailVerified,
+        };    
+        window.localStorage.setItem('provider', 'firebase');
+        window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        window.localStorage.setItem('googleIndentityAccessToken', user?.accessToken);
+        if(user?.emailVerified) {
+          window.location.href = '/';
+        }else{
+          window.location.href = '/auth/verify-email';
+        }
+        // window.location.href = '/';
+      }
       // setOnSubmit(false);
     } catch (err) {
-      // console.log('Error', err);
+      console.log('Error', err);
       setIsLoginFail(true);
       setOnSubmit(false);
     }
@@ -106,7 +121,13 @@ const GoogleIdentitySignIn = () => {
         </div>
         {(isSubmitting && !password) && <p className='text-red-500 w-full text-xs'>Password is required</p>}
         <div className='w-full flex justify-end text-white my-1'>
-          <p className='text-white text-sm cursor-pointer hover:underline'>Forgot Password?</p>
+          <p className='text-white text-sm cursor-pointer hover:underline'>
+            <span
+            onClick={() => goForgetPassword()}
+            >
+              Forgot Password?
+            </span>
+          </p>
         </div>
       </div>
       {(isEmailValid(email) && password)?<>{(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>Incorrect Email Or Password</p>}<button onClick={handleSignIn} className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':'Continue'}</button></>:<><button className='bg-transparent h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#F6F6F6]/50 border-2 border-[#F6F6F6]/40 rounded-[50px] w-full cursor-not-allowed' disabled>Continue</button></>}

@@ -7,6 +7,8 @@ import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
 import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 
+import OpuAccrodion from 'components/TestAccroding';
+
 const imgOneLogin = '/images/onelogsmall.png';
 const imgLogBG = '/images/loginbgnew.png';
 
@@ -58,6 +60,9 @@ const Auth = () => {
   const goRegistration = () => {
     router.push('/registration');
   }
+  const goForgetPassword = () => {
+    router.push('/auth/forget-password');
+  }
   function LoginPage() {
     const nonce = nanoid();
     const state = nonce+'153';
@@ -65,10 +70,11 @@ const Auth = () => {
   }
   return (
     <div className="relative h-full w-full bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">
+      
       <div className="w-full xl:w-1/2 h-full ">
         <div className="w-full p-2 fixed left-0 top-0 flex items-center">
-          <img src="/images/logo.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
-          <p className='text-white font-semibold text-xl xl:text-2xl'>Ticket</p>
+          <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
+          <p className='text-white font-semibold text-xl xl:text-2xl'>iWantTFC Tickets</p>
         </div>
         <div className="flex flex-wrap justify-center h-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
