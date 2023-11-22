@@ -35,7 +35,7 @@ const Home = (props) => {
       <div className="py-16">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
-            <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">My Purchase</p>
+            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My Purchase</p>
             <div className="lg:px-6 pb-6 flex flex-wrap">
             {((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardPurchase data={item} portrait={ true} />)):<NoMovies/>)}
             </div>

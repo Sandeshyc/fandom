@@ -20,12 +20,16 @@ const ProfileMobile = (
     return(
         <div className="w-full">
             {(!isUpdateMode)?<label className='w-full text-[14px] text-[#FFFFFFB8]'>Mobile</label>:null}
-            {(isUpdateMode)?<><ProfileMobileGroup
+            {(isUpdateMode)?<>
+            <ProfileMobileGroup
                 errors={errors}
                 touched={touched}
                 values={values}
                 handleChange={handleChange}
-            />{(errors.userPhone && touched.userPhone)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPhone}</p>:null}</>:<p className='text-[14px] text-[#fff] py-1'>{(values.userPhone)?values.userPhone:'_'}</p>}
+            />
+            {(errors.userCountryCode && touched.userCountryCode)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userCountryCode}</p>:null}
+            {(errors.userPhone && touched.userPhone)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPhone}</p>:null}
+            </>:<p className='text-[14px] text-[#fff] py-1'>{(values.userPhone)?values.userPhone:'_'}</p>}
         </div>
     );
 }
@@ -90,6 +94,7 @@ const ProfileCountryCode = (
             value={values.userCountryCode}
             onChange={handleChange}
             className='w-full text-[14px] bg-transparent pl-2'>
+            <option value="+00">+00</option>
             <option value="+91">+91</option>
             <option value="+92">+92</option>
             <option value="+88">+88</option>

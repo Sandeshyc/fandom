@@ -440,11 +440,11 @@ const SideBar: React.FC = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`
-      group pl-1 pr-1 fixed w-auto h-screen hover:pl-7 hover:pr-1 z-40 hidden lg:block
-      bg-gradient-to-r from-black from-80% to-transparent to-100%`}
+      group pl-1 pr-1 fixed w-auto h-screen hover:pl-7 z-40 hidden lg:block
+      bg-gradient-to-r from-black from-80% to-transparent to-95%`}
       >
       <Logo src={"/images/logonew.png"} />
-      <Box className="overflow-y-auto h-full overflow-x-hidden">
+      <Box className="h-full">
         <FlexContainer
           isActive={activeIcon === 'search'}
           isHovered={isHovered}

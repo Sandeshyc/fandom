@@ -48,7 +48,7 @@ const ProfileGenderField = (
                     className={`bg-transparent w-full text-[14px] text-[#fff] pl-2 appearance-none outline-none before:content-["${UserIcon}"] z-10 relative`}
                     name='userGender'
                     id="userGender"
-                    value={values.userGender}
+                    defaultValue={values.userGender}
                     onChange={handleChange}    
                 >
                     <option value={''}>Gender</option>
