@@ -431,7 +431,7 @@ const SideBar: React.FC = () => {
         zIndex: 999999999,
         top: '0',
         // paddingTop: "10%",
-        paddingTop: '100px',
+        // paddingTop: '100px',
         transition: 'all 0.2s ease-in-out',
         width: "auto",
         // backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%)',
@@ -440,11 +440,16 @@ const SideBar: React.FC = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`
-      group pl-1 pr-1 fixed w-auto h-screen hover:pl-7 z-40 hidden lg:block
-      bg-gradient-to-r from-black from-80% to-transparent to-95%`}
+      group pl-1 pr-4 fixed w-auto h-screen hover:pl-7 hover:pr-7 z-40 hidden lg:block
+      bg-gradient-to-r from-black from-80% to-transparent to-95% pt-[80px] hover:pt-[110px] transition-all`}
       >
-      <Logo src={"/images/logonew.png"} />
-      <Box className="h-full">
+      {/* <Logo src={"/images/logonew.png"} /> */}
+      <img 
+      src={"/images/logonew.png"} 
+      className="fixed left-0 top-2 h-[50px] group-hover:h-[90px] mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" 
+      alt="Logo" 
+      onClick={() => router.push('/')} />
+      <Box className="h-full mt-4">
         <FlexContainer
           isActive={activeIcon === 'search'}
           isHovered={isHovered}

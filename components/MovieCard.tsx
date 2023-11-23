@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
@@ -23,6 +23,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
 
+
+  const elementRef = useRef(null);
+  const elementRef2 = useRef(null);
+
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
   const onHoverHandler = () => {
     setAutoplay(true);
@@ -30,12 +34,36 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const onMouseLeave = () => {
     setAutoplay(false);
   }
+  useEffect(() => {
+    const element = elementRef.current;
+    const element2 = elementRef2.current;
+    if (element2 && autoplay) {
+      const boundingBox = element2.getBoundingClientRect();
+      const boundingBox1 = element.getBoundingClientRect();
+      const leftOffset = boundingBox.left;
+      const rightOffset = boundingBox.right;
+
+      console.log('Left Offset:', leftOffset);
+      console.log('Right Offset:', rightOffset);
+      console.log('===|||||===', boundingBox.width);
+      // if(leftOffset < 100 ){
+      //   element.style.left = `${0}%`;
+      //   element.style.transfrom = `translateX(-${0}%)`;
+      // }
+      // if(rightOffset < 100 ){
+      //   element.style.right = `${0}%`;
+      //   element.style.transfrom = `translateX(-${0}%)`;
+      // }
+    }
+  }, [autoplay]);
   // console.log('data', data);
   return (
-    <div className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    <div 
+    ref={elementRef2}
+    className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(!data?.allowed)?<Locked/>:null}      
       <div className='img relative'>
-        {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-10 text-white bg-black bg-opacity-80 px-2 py-1 rounded-sm'><EnititlementEndDate endDate={data?.publishSchedule} short={true} /></div>:null}
+        {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-sm'><EnititlementEndDate endDate={data?.publishSchedule} short={true} /></div>:null}
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover
@@ -50,7 +78,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
           h-[12vw]
         " />
       </div>
-      <div className="
+      <div 
+      ref={elementRef}
+      className="
         opacity-0
         absolute
         top-0

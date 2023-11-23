@@ -36,6 +36,7 @@ const Details = (props) => {
     // console.log('relMoviesxxx', relMovies);
   }
   const { data: movies = [], isLoading } = useMovieList(region, product, 'home', userIdToken);
+  console.log('data movie', data);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
   const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
   let thumb = '';
