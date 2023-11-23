@@ -78,7 +78,7 @@ const Auth = () => {
         </div>
         <div className="flex flex-wrap justify-center h-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
-            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to iWantTFC Ticket</h1>
+            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to iWantTFC Tickets</h1>
             <GoogleIdentitySignIn />
             <div className='my-4'>
               <p className='text-center text-white/80 text-sm'>or</p>

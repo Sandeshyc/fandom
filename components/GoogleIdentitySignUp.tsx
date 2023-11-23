@@ -148,27 +148,6 @@ const GoogleIdentitySignUp = () => {
       // Make a request to your backend to store the data
       setIsSubmitting(true);
       setOnSubmit(true);
-      
-      // await sendEmailVerification(auth.currentUser, {
-      //   url: 'http://localhost:3000/',
-      //   handleCodeInApp: true,
-      // });
-      // await sendPasswordResetEmail(getAuth(), email, {
-      //   url: 'http://localhost:3000/',
-      //   handleCodeInApp: true,
-      // })
-      // .then(() => {
-      //   // Password reset email sent!
-      //   // ..
-      //   console.log('Password reset email sent!');
-      // })
-      // .catch((error) => {
-      //   const errorCode = error.code;
-      //   const errorMessage = error.message;
-      //   console.log('errorCode ', errorCode);
-      //   console.log('errorMessage ', errorMessage);
-      // });
-
 
       const userCredential = await createUserWithEmailAndPassword(
         getAuth(),

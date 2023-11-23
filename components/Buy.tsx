@@ -10,9 +10,16 @@ import { stableKeys } from '@/utils/stableKeys';
 interface PlayButtonProps {
   movieId: string;
   allowedPlans: any;
+  messages?: any;
+  allowed?: boolean;
 }
 
-const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProps) => {
+const Buy: React.FC<PlayButtonProps> = ({ 
+  movieId, 
+  allowedPlans,
+  messages,
+  allowed
+}:PlayButtonProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('s');
   // const myElementRef = useRef();
@@ -41,7 +48,30 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
 
   return (
     <div>
-      <button 
+      
+        {(allowed !== true && Array.isArray(messages) && messages?.length) ?  (<button
+        disabled={true}
+        className="
+        bg-yellow-500 
+        text-black
+        rounded-md 
+        py-1 md:py-1 
+        px-3 md:px-6
+        cursor-not-allowed
+        w-auto 
+        text-base lg:text-xl 
+        font-semibold
+        flex
+        flex-row
+        items-center
+        transition
+        h-[36px]
+        xl:h-[42px]
+        xxl:h-[48px]
+        ">
+            <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
+          Buy / Rent
+        </button>): <button 
         onClick={handleClickOpen}
         className="
         bg-yellow-500 
@@ -63,7 +93,7 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
         ">
             <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
           Buy / Rent
-        </button>
+        </button>}
 <Modal
   open={open}
   aria-labelledby="simple-modal-title"

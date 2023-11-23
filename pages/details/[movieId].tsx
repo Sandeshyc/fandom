@@ -16,6 +16,7 @@ import useMovieList from '@/hooks/useMovieList';
 import { stableKeys } from '@/utils/stableKeys';
 import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 import ReactVideoPlayer from '@/components/ReactPlayer';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
 
 const Details = (props) => {
@@ -85,6 +86,23 @@ const Details = (props) => {
             <p className="text-white text-2xl md:text-4xl h-full lg:text-5xl font-bold mb-4 lg:mb-8">
               {data?.title}
             </p>
+            {(data?.allowed !== true && Array.isArray(data?.messages) && data?.messages.length) ?  (<>
+              <div className='border border-yellow-500 p-2 flex flex-wrap mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px]'>
+              <div
+                className='w-[30px]'
+              >
+              <ReportProblemIcon
+                sx={{ 
+                  color: '#EAB307',
+                  fontSize: '24px',
+                  marginRight: '10px',                  
+                }}
+                />
+              </div>
+              <div className='w-[180px] flex-grow'>
+                {data.messages.map((message : string, index : number) => <p key={stableKeys[index]}>{message}</p>)}
+                </div>
+            </div></>): null}
             <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
               {(data?.allowed)?(
               <>
@@ -93,7 +111,10 @@ const Details = (props) => {
               ):(
                 <Buy 
                   movieId={data?._id} 
-                  allowedPlans={data?.allowedPlans}/>
+                  allowedPlans={data?.allowedPlans}
+                  messages={data?.messages}
+                  allowed={data?.allowed}
+                  />
               )}
 
                 {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}

@@ -37,8 +37,13 @@ const MyProfile = () => {
                     if(response.status === 200) {
                         setIsSuccess(true);
                         setSuccessMessage('Payment successfull.');
+
+                        console.log('Success:', response?.data?.createRes?.itemCode);
+                        const movieID = response?.data?.createRes?.itemCode;
+                        setTimeout(() => {
+                            router.push(`/details/${movieID}`);        
+                        }, 3000);
                     }
-                    console.log('Success:', response);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -51,9 +56,9 @@ const MyProfile = () => {
             setIsError(true);
             setErrorMessage('Payment failed. Please try again later.');
         }
-        setTimeout(() => {
-            router.push(`/details/${transactionId}`);        
-        }, 3000);
+        // setTimeout(() => {
+        //     router.push(`/details/${transactionId}`);        
+        // }, 3000);
     }
   }, [paymentStatus]);
   useEffect(() => {
