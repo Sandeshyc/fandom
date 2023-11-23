@@ -45,7 +45,14 @@ const ProfileBirthday = (
         setBirthday(date);
         setSelectDate = date;  
         // set select date to values.userBirthday
-        values.userBirthday = date;
+        // newDate format is YYYY-MM-DD
+        const newDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        handleChange({
+            target: {
+              name: 'userBirthday',
+              value: newDate,
+            },
+        });
         
     }  
     return(
@@ -55,6 +62,7 @@ const ProfileBirthday = (
             <CalendarIcon/>
             <div className="relative grow w-[80px]">
                 <DatePicker
+                name="userBirthday"
                 showYearDropdown
                 showMonthDropdown
                 dropdownMode="select"
@@ -68,6 +76,7 @@ const ProfileBirthday = (
             </div>
         </div>
         {(errors.userBirthday && touched.userBirthday)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userBirthday}</p>:null}
+        {/* {(1)?<p className='text-[#090] text-[14px] py-1'>{values.userBirthday.toString()}</p>:null} */}
         </>:<p className='text-[14px] text-[#fff] py-1 h-[34px]'>
             {(birthday && (birthday !== null))?showDate(birthday):'_'}
             </p>}

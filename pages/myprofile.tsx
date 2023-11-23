@@ -96,7 +96,7 @@ const MyProfile = () => {
     userPhone: Yup.string().required("Mobile is required"),
     userCountryCode: Yup.string(),
     userGender: Yup.string(),
-    userBirthday: Yup.string(),
+    userBirthday: Yup.string() || Yup.date(),
     userEmail: Yup.string().email("Invalid email").required("Email is required"),
   });
   const formiks = useFormik({
@@ -137,9 +137,11 @@ const MyProfile = () => {
         "lastName":lastName,
         "gender":userGender,
         "phone":userPhone,
-        "birthday":userBirthday, 
-        };
-        await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/profile`, data, { headers })
+        "birthday":userBirthday?.split('T')[0], 
+      };
+      // console.log('data: ', data);
+      // setIsUpdating(false);
+      await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/profile`, data, { headers })
           .then(response => {
           if(response.status === 200) {
             setIsSuccess(true);
@@ -158,7 +160,7 @@ const MyProfile = () => {
           setTimeout(() => {
             setIsError(false);
           }, 3000);
-        }); 
+      }); 
       
     },
     enableReinitialize: true,

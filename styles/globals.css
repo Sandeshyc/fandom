@@ -170,9 +170,9 @@ html {
 .movieSlider.portrait .movieCard .img{
   padding-bottom: 157.7778%;
 }
-/* .movieSlider.portrait .movieCard>.absolute{
+.movieSlider.portrait .movieCard>.absolute{
   width: 220%;
-} */
+}
 .movieSlider.portrait .group:hover .group-hover\:translate-x-\[2vw\]{
   --tw-translate-y : -2vw !important;
 }

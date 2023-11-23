@@ -26,7 +26,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
       <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] ${extended ? 'h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh] ' : 'h-[250px] sm:h-[300px] md:h-[85vh] max-h-[85vh]'}`}>
         <div className='brightness-[60%] h-full'>
           {/* <VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false} isComplited={isComplited} pictureInPicture={false} /> */}
-          <ReactVideoPlayer videoURL={data?.videoUrl} />
+          <ReactVideoPlayer videoURL={data?.videoUrl} poster={data?.thumbnailUrl} />
         </div>
         <div className='preview'></div>
       </div>

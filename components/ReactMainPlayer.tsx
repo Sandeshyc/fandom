@@ -15,6 +15,7 @@ const ReactMainVideoPlayer = (
     }: Props
 ) => {
     return (
+        <>
         <div 
             className={`w-screen h-screen`} 
             style={{
@@ -33,9 +34,11 @@ const ReactMainVideoPlayer = (
             controls={control}
             style={{
                 backgroundColor: 'black',
+                
             }}
             />):null}
         </div>
+        </>
     )
 }
 

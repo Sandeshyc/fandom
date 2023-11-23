@@ -4,13 +4,22 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { DialogContent } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
 interface PlayButtonProps {
   movieId: string;
   allowedPlans: any;
+  messages?: any;
+  allowed?: boolean;
 }
 
-const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProps) => {
+const Buy: React.FC<PlayButtonProps> = ({ 
+  movieId, 
+  allowedPlans,
+  messages,
+  allowed
+}:PlayButtonProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('s');
   // const myElementRef = useRef();
@@ -39,7 +48,30 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
 
   return (
     <div>
-      <button 
+      
+        {(allowed !== true && Array.isArray(messages) && messages?.length) ?  (<button
+        disabled={true}
+        className="
+        bg-yellow-500 
+        text-black
+        rounded-md 
+        py-1 md:py-1 
+        px-3 md:px-6
+        cursor-not-allowed
+        w-auto 
+        text-base lg:text-xl 
+        font-semibold
+        flex
+        flex-row
+        items-center
+        transition
+        h-[36px]
+        xl:h-[42px]
+        xxl:h-[48px]
+        ">
+            <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
+          Buy / Rent
+        </button>): <button 
         onClick={handleClickOpen}
         className="
         bg-yellow-500 
@@ -61,7 +93,7 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
         ">
             <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
           Buy / Rent
-        </button>
+        </button>}
 <Modal
   open={open}
   aria-labelledby="simple-modal-title"
@@ -74,7 +106,8 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
       className='absolute top-0 right-0 text-white text-2xl px-2 py-1'>
         &times;
       </button>
-      {(Array.isArray(allowedPlans) && allowedPlans.length > 0) ? (<PlanItems 
+      {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<PlanItems 
+        movieId={movieId}
         items={allowedPlans}/>):(<NoPlanFound/>)}
   </div>
 </Modal>
@@ -83,7 +116,10 @@ const Buy: React.FC<PlayButtonProps> = ({ movieId, allowedPlans }:PlayButtonProp
 }
 export default Buy;
 
-const PlanItems = ({items}:any) => {
+const PlanItems = ({
+  items,
+  movieId
+}:any) => {
 return (<>
   <div 
     className='
@@ -100,6 +136,7 @@ return (<>
     {items?.map((item, index)=>{
       return (<PlanCard 
         item={item}
+        movieId={movieId}
         key={stableKeys[index]}
         />)
     })}
@@ -107,12 +144,56 @@ return (<>
   </>)
 }
 
-const PlanCard = ({item}:any) => {
+const PlanCard = ({
+  item,
+  movieId
+}:any) => {
   // console.log('item', item);
   let descriptions = [];
   if(item?.description){
     // replace all , with <li>
     descriptions = [...item?.description?.split(',')];
+  }
+  const goPurchase = (productId:string) => {
+    const userInfor = localStorage.getItem('userInfo');
+    if(userInfor){
+      const userInfo = JSON.parse(userInfor);
+      const {sub} = userInfo;
+      if(sub){
+        // const forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_PAYMENT_URI}?userid=${sub}&productId=${productId}`;
+        // check if env is production Or development
+        const entitleCall = async () => {
+          const transactionId = uuidv4();
+          const headers = {
+              'Content-Type': 'application/json',
+          };      
+          const data = {
+              "userID": sub,
+              "itemCode": movieId,
+              "pricePlan": productId,
+              "transactionId": transactionId
+          };
+          console.log('Data:', data);
+          await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/entitlement/audit/`, data, { headers })
+              .then(response => {
+              if(response.status === 200) {
+                if(process.env.NODE_ENV === 'production'){
+                  window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
+                }
+                if(process.env.NODE_ENV === 'development'){
+                  window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`, '_blank');
+                }
+              }
+              console.log('Success:', response);
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          }); 
+      }
+      entitleCall();
+        
+      }
+    }
   }
   return (
     <div className='
@@ -136,6 +217,9 @@ const PlanCard = ({item}:any) => {
         }</ul></div>
         <div className='w-full absolute bottom-0 left-0 pb-5'>
         <button 
+          onClick={
+            ()=>goPurchase(item?.priceSKU)
+          }
           className="
           bg-yellow-500 
           text-black
