@@ -36,7 +36,7 @@ const Home = () => {
       <div className="py-16">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
-            <p className="text-white text-xl md:text-2xl lg:text-4xl font-semibold mb-4 lg:pl-6">Up coming Movie</p>
+            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">Up coming Movie</p>
             <div className="flex sm:flex-wrap gap-5 lg:px-6 pb-6 overflow-x-auto">
             {(Array.isArray(movies) && movies?.length > 0)?(movies?.map((item: any, index) => <MovieCardUpcoming 
             data={item} 

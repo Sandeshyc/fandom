@@ -3,37 +3,41 @@ import React, {useEffect} from "react";
 import { UserIcon, DropDownIcon } from "@/utils/CustomSVGs";
 type ProfileGendereProps = {
     isUpdateMode: boolean;
-    gender: string;
-    setGender: (gender: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileGender = (
     {
         isUpdateMode,
-        gender,
-        setGender
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileGendereProps
 ) => {
 
     return(
         <div className="w-full">
             {(!isUpdateMode)?<label className='w-full text-[14px] text-[#FFFFFFB8]'>Gender</label>:null}
-            {(isUpdateMode)?<ProfileGenderField 
-                gender={gender}
-                setGender={setGender}
-            />:<p className='text-[14px] text-[#fff] py-1'>{(gender)?gender:'_'}</p>}
+            {(isUpdateMode)?<><ProfileGenderField
+                values={values}
+                handleChange={handleChange} 
+            />{(errors.userGender && touched.userGender)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userGender}</p>:null}</>:<p className='text-[14px] text-[#fff] py-1'>{(values.userGender)?values.userGender:'_'}</p>}
         </div>
     );
 }
 export default ProfileGender;
 
 type ProfileGenderFiledProps = {
-    gender: string;
-    setGender: (gender: string) => void;
+    values: any;
+    handleChange: any;
 }
 const ProfileGenderField = (
     {
-        gender,
-        setGender
+        values,
+        handleChange,
     }: ProfileGenderFiledProps
 ) => {
     return(
@@ -42,8 +46,11 @@ const ProfileGenderField = (
             <div className="relative grow w-[80px]">
                 <select
                     className={`bg-transparent w-full text-[14px] text-[#fff] pl-2 appearance-none outline-none before:content-["${UserIcon}"] z-10 relative`}
-                    onChange={(e) => setGender(e.target.value)}
-                    defaultValue={gender}>
+                    name='userGender'
+                    id="userGender"
+                    defaultValue={values.userGender}
+                    onChange={handleChange}    
+                >
                     <option value={''}>Gender</option>
                     <option value={'Male'}>Male</option>
                     <option value={'Female'}>Female</option>

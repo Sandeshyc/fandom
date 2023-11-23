@@ -11,6 +11,7 @@ import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
 import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
+import EnititlementEndDate from '@/components/Expair';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -23,7 +24,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const [autoplay, setAutoplay] = React.useState(false);
 
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
-
   const onHoverHandler = () => {
     setAutoplay(true);
   }
@@ -33,8 +33,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
   // console.log('data', data);
   return (
     <div className="group bg-zinc-900 col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
-      {(!data?.allowed)?<Locked/>:null}
-      <div className='img'>
+      {(!data?.allowed)?<Locked/>:null}      
+      <div className='img relative'>
+        {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-10 text-white bg-black bg-opacity-80 px-2 py-1 rounded-sm'><EnititlementEndDate endDate={data?.publishSchedule} short={true} /></div>:null}
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
           object-cover

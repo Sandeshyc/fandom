@@ -3,46 +3,50 @@ import React, {useEffect} from "react";
 import { MobileIcon } from "@/utils/CustomSVGs";
 type ProfileMobileProps = {
     isUpdateMode: boolean;
-    mobile: string;
-    countryCode: string;
-    setCountryCode: (countryCode: string) => void;
-    setMobile: (mobile: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileMobile = (
     {
         isUpdateMode,
-        mobile,
-        setMobile,
-        countryCode,
-        setCountryCode
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileMobileProps
 ) => {
     return(
         <div className="w-full">
             {(!isUpdateMode)?<label className='w-full text-[14px] text-[#FFFFFFB8]'>Mobile</label>:null}
-            {(isUpdateMode)?<ProfileMobileGroup
-                mobile={mobile}
-                setMobile={setMobile}
-                countryCode={countryCode}
-                setCountryCode={setCountryCode}
-            />:<p className='text-[14px] text-[#fff] py-1'>{(mobile)?countryCode+' '+mobile:'_'}</p>}
+            {(isUpdateMode)?<>
+            <ProfileMobileGroup
+                errors={errors}
+                touched={touched}
+                values={values}
+                handleChange={handleChange}
+            />
+            {(errors.userCountryCode && touched.userCountryCode)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userCountryCode}</p>:null}
+            {(errors.userPhone && touched.userPhone)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPhone}</p>:null}
+            </>:<p className='text-[14px] text-[#fff] py-1'>{(values.userPhone)?values.userPhone:'_'}</p>}
         </div>
     );
 }
 export default ProfileMobile;
 
 type ProfileMobileGroupProps = {
-    mobile: string;
-    countryCode: string;
-    setCountryCode: (countryCode: string) => void;
-    setMobile: (mobile: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileMobileGroup = (
     {
-        mobile,
-        setMobile,
-        countryCode,
-        setCountryCode
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileMobileGroupProps
 ) => {
     return(
@@ -51,14 +55,18 @@ const ProfileMobileGroup = (
                 <div className="flex">
                     <MobileIcon/>
                     <ProfileCountryCode
-                        countryCode={countryCode}
-                        setCountryCode={setCountryCode}/>
+                        errors={errors}
+                        touched={touched}
+                        values={values}
+                        handleChange={handleChange}/>
                 </div>
                 <div className="mx-2 text-[#CCCCCD]">|</div>
                 <div className="grow w-[150px] bg-red">
                     <ProfileMobileField
-                    mobile={mobile}
-                    setMobile={setMobile}/>
+                    errors={errors}
+                    touched={touched}
+                    values={values}
+                    handleChange={handleChange} />
                 </div>
             </div>
         </div>
@@ -66,20 +74,27 @@ const ProfileMobileGroup = (
 }
 
 type ProfileCountryCodeProps = {
-    countryCode: string;
-    setCountryCode: (countryCode: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileCountryCode = (
     {
-        countryCode,
-        setCountryCode
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileCountryCodeProps
 ) => {
     return(
         <select 
-            value={countryCode}
-            onChange={(e) => setCountryCode(e.target.value)}
+            name="userCountryCode"
+            id="userCountryCode"
+            value={values.userCountryCode}
+            onChange={handleChange}
             className='w-full text-[14px] bg-transparent pl-2'>
+            <option value="+00">+00</option>
             <option value="+91">+91</option>
             <option value="+92">+92</option>
             <option value="+88">+88</option>
@@ -89,20 +104,26 @@ const ProfileCountryCode = (
 }
 
 type ProfileMobileFieldProps = {
-    mobile: string;
-    setMobile: (mobile: string) => void;
+    errors: any; 
+    touched: any;
+    values: any;
+    handleChange: any;
 }
 const ProfileMobileField = (
     {
-        mobile,
-        setMobile
+        errors,
+        touched,
+        values,
+        handleChange,
     }: ProfileMobileFieldProps
 ) => {
     return(
         <div className="w-full">
             <input 
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            name="userPhone"
+            id="userPhone"
+            value={values.userPhone}
+            onChange={handleChange}
             placeholder="e.g. 012340 56789"
             type="text" 
             className='w-full text-[14px] bg-transparent focus:outline-none'/>
