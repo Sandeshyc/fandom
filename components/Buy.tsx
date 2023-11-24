@@ -178,10 +178,12 @@ const PlanCard = ({
               .then(response => {
               if(response.status === 200) {
                 if(process.env.NODE_ENV === 'production'){
-                  window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
+                  // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
+                  window.location.href = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
                 }
                 if(process.env.NODE_ENV === 'development'){
-                  window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`, '_blank');
+                  // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`, '_blank');
+                  window.location.href = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`;
                 }
               }
               console.log('Success:', response);
@@ -214,8 +216,12 @@ const PlanCard = ({
         descriptions?.map((desc, index)=>{
           return (<li key={stableKeys[index]}>{desc}</li>)
         })
-        }</ul></div>
+        }</ul></div>        
         <div className='w-full absolute bottom-0 left-0 pb-5'>
+        <p className='mb-2'>
+          <span className='text-white text-xl font-semibold'>Price: </span>
+          <span className='text-white text-xl font-semibold'>${item?.price}</span>
+        </p>
         <button 
           onClick={
             ()=>goPurchase(item?.priceSKU)

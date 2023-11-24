@@ -71,7 +71,7 @@ const Details = (props) => {
     <div className="h-screen w-screen bg-black text-white" >
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
         <ArrowLeftIcon onClick={() => router.back() } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
-        <p className="text-white text-1xl md:text-3xl font-bold">
+        <p className="text-white text-1xl md:text-3xl font-bold" onClick={() => router.push('/') }>
           <span className="font-light">Back</span>
         </p>
       </nav>)}
@@ -142,7 +142,7 @@ const Details = (props) => {
                     <p className="border-gray-500 border px-1 mr-1 text-xs">16+</p>
                   </div>
                   <div className="mb-4 text-white text-xs text-gray-500">
-                    {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
+                    {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Provider:</span> {data?.contentPrivider}</p>):null}
                     {(Array.isArray(data?.tags) && data?.tags.length > 0)?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
                   </div>  
                 </div>  
@@ -184,7 +184,7 @@ const Details = (props) => {
                 <p className="border-gray-500 border px-1 text-xs">16+</p>
               </div>
               <div className="mb-4 text-white text-xs text-gray-500">
-                {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Privider:</span> {data?.contentPrivider}</p>):null}
+                {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Provider:</span> {data?.contentPrivider}</p>):null}
                 {(Array.isArray(data?.tags) && data?.tags.length > 0)?(<p className="mb-1"><span className="text-gray-300">Tags:</span> {capFirstLetter(data?.tags?.join(", "))}</p>):null}
               </div>  
             </div>  
