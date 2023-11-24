@@ -68,7 +68,8 @@ const GoogleIdentitySignIn = () => {
         if(user?.emailVerified) {
           window.location.href = '/';
         }else{
-          window.location.href = '/auth/verify-email';
+          // window.location.href = '/auth/verify-email';
+          window.location.href = '/';
         }
         // window.location.href = '/';
       }
