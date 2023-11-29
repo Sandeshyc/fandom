@@ -31,7 +31,9 @@ const Buy: React.FC<PlayButtonProps> = ({
     // URLSearchParams perchasePlan 
     const urlParams = new URLSearchParams(window?.location?.search);
     if(urlParams?.get('viewPlan') === 'true' && (Array.isArray(allowedPlans) && allowedPlans.length > 0)){
-      setOpen(true);
+      setTimeout(() => {
+        setOpen(true);
+      }, 1000);
     }
   }, [allowedPlans]);
 
@@ -100,10 +102,10 @@ const Buy: React.FC<PlayButtonProps> = ({
   aria-describedby="simple-modal-description"
   onClose={handleClose}
   className='flex justify-center items-center'>
-    <div className='border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[12%] w-[90%] max-w-[1200px] bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-20% to-[#210424] to-55% px-[20px] py-[30px] relative max-h-[90%]'>
+    <div className='border-[3px] border-[#767680] rounded-md bg-[#767680] bg-opacity-[12%] w-[90%] max-w-[1200px] bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-20% to-[#210424] to-55% px-[20px] py-[30px] relative max-h-[90%]'>
       <button
       onClick={handleClose}
-      className='absolute top-0 right-0 text-white text-2xl px-2 py-1'>
+      className='absolute top-0 right-0 text-white text-4xl px-2 py-1'>
         &times;
       </button>
       {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<PlanItems 
@@ -127,12 +129,11 @@ return (<>
     text-center
     mb-6
     w-full'>
-    <h3 className='text-xl md:text-2xl font-semibold'>Select a plan</h3>
+    <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Select a plan</h3>
     <p className='text-sm'>Choose from the plans below</p>
   </div>
   <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[60vh]
-  h-full
-  '>
+  h-full planListsWrapper'>
     {items?.map((item, index)=>{
       return (<PlanCard 
         item={item}
@@ -201,49 +202,73 @@ const PlanCard = ({
     <div className='
       w-[280px]
       max-w-full
-      border border-blue-500
-      bg-blue-500
-      bg-opacity-10
-      rounded-md
       m-2
-      py-4
+      py-8
       px-2
       pb-20
       relative
+      font-poppins
       '>
-        <div className='text-white text-xl font-semibold mb-4'>{item?.name}</div>
-        <div className='text-white text-base mb-8  text-left ml-6'><ul className='list-disc list-inside'>{
-        descriptions?.map((desc, index)=>{
-          return (<li key={stableKeys[index]}>{desc}</li>)
-        })
-        }</ul></div>        
-        <div className='w-full absolute bottom-0 left-0 pb-5'>
-        <p className='mb-2'>
-          <span className='text-white text-xl font-semibold'>Price: </span>
-          <span className='text-white text-xl font-semibold'>${item?.price}</span>
+        <div className='text-blue-500 text-[20px] mb-0'>{item?.name}</div>
+        <p className='mb-6'>
+          {/* <span className='text-white text-xl font-semibold'>Price: </span> */}
+          <span className='text-white text-[32px] font-medium'
+          >${item?.price}</span>
         </p>
-        <button 
+        <div className='text-white text-base mb-8  text-left ml-6'>
+          <ul className='list-none text-center m-0 p-0'>{
+            descriptions?.map((desc, index)=>{
+              return (<li key={stableKeys[index]}
+                className='text-[16px] mb-3 font-light'
+              >{desc}</li>)
+            })
+            }</ul>
+        </div>        
+        <div className='w-full absolute bottom-0 left-0 pb-8'>
+        
+          {(item?.bought)?(<><button
+          className="
+          bg-transparent
+          border border-blue-500
+          text-white
+          rounded-[10px] 
+          cursor-not-allowed
+          flex
+          flex-row
+          justify-center
+          items-center
+          py-2 
+          px-3 md:px-6
+          mx-auto
+          w-auto 
+          font-light
+          min-w-[160px]
+          text-[16px]">
+            Purchased           
+          </button></>):(<><button 
           onClick={
             ()=>goPurchase(item?.priceSKU)
           }
           className="
-          bg-yellow-500 
-          text-black
-          rounded-md 
-          py-1 md:py-1 
-          px-3 md:px-6
-          mx-auto
-          w-auto 
-          text-base lg:text-xl 
-          font-semibold
+          bg-gradient-to-r from-[#1E80FC] from-10%  to-[#2D45F2] to-55%
+          text-white
+          rounded-[50px] 
           flex
           flex-row
+          justify-center
           items-center
-          hover:bg-neutral-300
-          transition">
-              <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
-            Buy / Rent
-          </button>
+          py-2 
+          px-3 md:px-6
+          mx-auto
+          font-light
+          w-auto 
+          min-w-[180px]
+          text-[16px]">
+            <BanknotesIcon 
+              className="w-6 text-white mr-2"
+              />
+            Buy / Rent            
+          </button></>)}
         </div>
     </div>
   )

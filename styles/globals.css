@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 *, *::after, *::before {
   box-sizing: border-box
@@ -271,6 +272,7 @@ html {
   }
 }
 
+
 /* .jk_jwp_full>.h-full>.h-full{
   opacity: 0.5 !important;
 
@@ -283,3 +285,37 @@ html {
 .jk_jwp_full .jwplayer{
   height: 100vh !important;
 } */
+
+.planListsWrapper > div{
+  position: relative;  
+}
+
+@media screen and (min-width: 705px) {
+  .planListsWrapper > div::after{
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    top:0;
+    left:0;
+    background: linear-gradient(
+      transparent 15%,
+      rgba(255,255,255,0.3) 35%,
+      rgba(255,255,255,0.3) 55%,
+      transparent 85%
+    );
+    z-index: 1;
+    display: none;
+  } 
+  .planListsWrapper > div:nth-child(even):after{
+    display: block;
+  } 
+}
+@media screen and (min-width: 1035px) {
+  .planListsWrapper > div::after{
+    display: block;
+  } 
+  .planListsWrapper > div:nth-child(3n+1):after{
+    display: none;
+  } 
+}

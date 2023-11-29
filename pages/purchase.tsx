@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
 import usePurchaseMovies from '@/hooks/usePurchaseMovies';
 import MovieCardPurchase from '@/components/MovieCardPurchase';
+import { stableKeys } from '@/utils/stableKeys';
 import { Info } from '@mui/icons-material';
 import SkeletonPurchase from '@/components/Skeleton/SkeletonPurchase';
 
@@ -12,6 +13,7 @@ const Home = (props) => {
   const router = useRouter();
   const { region, product } =  props; 
   const { data: movies = [], isLoading } = usePurchaseMovies(region, 'web', userIdToken );
+  console.log('Movies:', movies);
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
@@ -37,7 +39,7 @@ const Home = (props) => {
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My Purchase</p>
             <div className="lg:px-6 pb-6 flex flex-wrap">
-            {((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any) => <MovieCardPurchase data={item} portrait={ true} />)):<NoMovies/>)}
+            {((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any, index) => <MovieCardPurchase data={item} portrait={ true} key={stableKeys[index]} />)):<NoMovies/>)}
             </div>
           </div>
         </div>

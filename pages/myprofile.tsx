@@ -93,7 +93,7 @@ const MyProfile = () => {
   const schema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string(),
-    userPhone: Yup.string().required("Mobile is required"),
+    userPhone: Yup.string(),
     userCountryCode: Yup.string(),
     userGender: Yup.string(),
     userBirthday: Yup.string() || Yup.date(),
@@ -239,7 +239,7 @@ const MyProfile = () => {
                       {(isUpdateMode)?<><button type='submit' 
                         disabled={isUpdating}
                         onClick={()=>handleSubmit()}
-                        className={`bg-[#2D45F2] ${(isUpdating)?'cursor-not-allow':''} text-white w-[48%] ml-[2%] sl:ml-[0px] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>{(isUpdating)?'Updaing...':'Save'}</button></>:<><span onClick={()=>updateProfile(true)}
+                        className={`bg-[#2D45F2] ${(isUpdating)?'cursor-not-allow':''} text-white w-[48%] ml-[2%] sl:ml-[0px] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>{(isUpdating)?'Updating...':'Save'}</button></>:<><span onClick={()=>updateProfile(true)}
                         className={`bg-[#2D45F2] text-white cursor-pointer w-full sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>Edit Profile</span></>}
                     </div>
                     {
