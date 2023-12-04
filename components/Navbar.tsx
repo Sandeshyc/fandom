@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import NavItem from '@/components/navbar/NavItem';
 import ProfileDropDown from '@/components/navbar/ProfileDropDown';
-import {Notifications} from '@mui/icons-material';
+import {Notifications, Search} from '@mui/icons-material';
 
 const logoSrc = '/images/logonew.png';
 const Navbar = () => {
@@ -35,6 +35,14 @@ const Navbar = () => {
               <div className='flex items-center justify-end'>
                   <div className=''>
                     <div className='flex flex-row items-center'>
+                      <div className='mr-6'>
+                        <Search
+                        sx={{
+                          fontSize: 30,
+                          color: '#fff',
+                          cursor: 'pointer'
+                        }}/>
+                      </div>
                       <div className='flex items-center px-4 py-1 border-2 border-blue-500 rounded-[20px] mr-6'>
                         <Notifications
                         sx={{

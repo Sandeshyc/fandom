@@ -18,6 +18,7 @@ import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import { stableKeys } from '@/utils/stableKeys';
+import { url } from 'inspector';
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
@@ -37,6 +38,8 @@ export async function getServerSideProps(context: NextPageContext) {
     props: {region}
   }
 }
+
+const bgImage = 'url("images/new-bg.png")';
 
 const Home = (props) => {
   const router = useRouter();
@@ -117,7 +120,7 @@ const Home = (props) => {
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
           case 'roll':
-            return <MovieListReel title={movieItem?.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
+            return <MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items} key={stableKeys[index]}/>
           case 'extended' :
             return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
           case 'potrait' :
@@ -151,7 +154,14 @@ const Home = (props) => {
     {(!isLoading && isReady)? <><InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       {getNavBar()}
       {getBillboard()}
-      <div className="pb-40 overflow-hidden">
+      <div className={`pb-40 overflow-hidden`}
+      style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 60 + '%' + ' auto',
+        backgroundPosition: 'right '+ 25 + '%',
+      }}
+      >
         {getRows()}
       </div></> : (<SkeletonHome/>)}
     </div>

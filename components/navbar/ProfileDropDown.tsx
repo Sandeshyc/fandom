@@ -6,7 +6,7 @@ import {ArrowDropDown, ArrowDropUp} from '@mui/icons-material';
 
 const ProfileDropDown = () => {
     return (
-        <Menu as="div" className="relative inline-block text-left">
+        <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
                 <div className='transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
                     <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
