@@ -67,11 +67,11 @@ const Details = (props) => {
 
   return (
     <>
-    {(isReady && !isLoading)?
+    {(isReady && !isLoading && data)?
     <div className="h-screen w-screen bg-black text-white" >
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
-        <ArrowLeftIcon onClick={() => router.back() } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
-        <p className="text-white text-1xl md:text-3xl font-bold" onClick={() => router.push('/') }>
+        <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
+        <p className="text-white text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
           <span className="font-light">Back</span>
         </p>
       </nav>)}
@@ -104,7 +104,7 @@ const Details = (props) => {
                 </div>
             </div></>): null}
             <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
-              {(data?.allowed)?(
+              {(data)?<>{(data?.allowed)?(
               <>
                 {data?.isPackage ? null : (<PlayButton movieId={data?._id}/>)}
               </>
@@ -115,9 +115,8 @@ const Details = (props) => {
                   messages={data?.messages}
                   allowed={data?.allowed}
                   />
-              )}
-
-                {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}
+              )}              
+              {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}</>:null}
               
 
               <div className='flex flex-row gap-8 items-center mb-0 flex-wrap sm:pl-6'>

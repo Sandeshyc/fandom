@@ -11,6 +11,7 @@ module.exports = {
 				modak: ["Modak", "cursive"],
 				moonrocks: ["Rubik Moonrocks", "cursive"],
 				monoton: ["Monoton", "cursive"],
+				poppins: ["Poppins", "sans-serif"],
 			},
 		},
 	},

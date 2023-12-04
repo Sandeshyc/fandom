@@ -2,10 +2,19 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import SkeletonSimpleCard from './SkeletonSimpleCard';
 import {FilmReel} from '../../utils/CustomSVGs';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/router';
 
 const SkeletonDetails = () => {
+  const router = useRouter();
   return (
     <>
+      {/* <nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
+        <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
+        <p className="text-white text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
+          <span className="font-light">Back</span>
+        </p>
+      </nav> */}
       <div className="movieSliderInner">
         <div className="w-full p-4 flex flex-wrap justify-center bg-gradient-to-b to-black from-gray-500">
           <div className='w-[200px] sm:w-[350px] xl:w-[450px] opacity-20'>
