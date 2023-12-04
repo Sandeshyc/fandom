@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
+import MovieListReel from '@/components/MovieListReel';
 import MovieListPurchase from '@/components/MovieListPurchase';
 import InfoModal from '@/components/InfoModal';
 import useMovieList from '@/hooks/useMovieList';
@@ -81,7 +82,7 @@ const Home = (props) => {
   const getNavBar = () => {
     const rows = movies?.map((movieItem, index) => {
       if (movieItem?.displayType == 'navigation'){
-        if (movieItem?.title === 'SideBar')
+        if (movieItem?.title === 'SideBar' && 0)
           return <SideBar key={stableKeys[index]}/>
         else
           return <Navbar key={stableKeys[index]}/>
@@ -116,7 +117,7 @@ const Home = (props) => {
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
           case 'roll':
-            return <MovieList title={movieItem?.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
+            return <MovieListReel title={movieItem?.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
           case 'extended' :
             return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
           case 'potrait' :
@@ -145,12 +146,15 @@ const Home = (props) => {
 
   return (
     <>
+    <div
+    className='bg-[#000000] text-white font-poppins'>
     {(!isLoading && isReady)? <><InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       {getNavBar()}
       {getBillboard()}
       <div className="pb-40 overflow-hidden">
         {getRows()}
       </div></> : (<SkeletonHome/>)}
+    </div>
     </>
   ) 
 }
