@@ -203,8 +203,8 @@ html {
 .movieCardTop .number, .movieCardTop>.img{
   position: absolute;
   width: 48%;
-  height: 60%;
-  bottom:0;
+  height: 100%;
+  top:0;
   left: 0;
 }
 .movieCardTop>.img{
@@ -212,6 +212,26 @@ html {
   left:auto;
   right: 0;
   padding:36.894273127753% 0 !important;
+}
+
+
+.movieCardTopV2{
+  padding: 46.784922394678% 0;
+}
+.movieCardTopV2 .number, .movieCardTopV2>.img{
+  position: absolute;
+  width: 32%;
+  height: 60%;
+  bottom:0;
+  top: auto;
+  left: 0;
+}
+.movieCardTopV2>.img{
+  width: 65%;
+  left:auto;
+  right: 0;
+  aspect-ratio: 6/9;
+  padding: 46.784922394678% 0 !important;
 }
 
 
@@ -318,4 +338,25 @@ html {
   .planListsWrapper > div:nth-child(3n+1):after{
     display: none;
   } 
+}
+
+.asDivider{
+  width: 100%;
+  height: 1px;
+  background-image: linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+  background-image: -o-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+  background-image: -moz-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+  background-image: -webkit-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+  background-image: -ms-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+  background-image: -webkit-gradient( linear, left bottom, right bottom, color-stop(0.02, white), color-stop(0.5, gray), color-stop(0.98, white) );
+}
+
+.asFooterMenuWrap > div:not(:first-child)::before{
+  display: inline-block;
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 10px;
 }

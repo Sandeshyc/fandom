@@ -2,13 +2,11 @@ import React from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import 'globalStyles.scss'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { MovieInterface } from '@/types';
-import MovieCard from '@/components/MovieCard';
-import MovieCardReel from '@/components/MovieCardReel';
+import MovieCardTop from '@/components/MovieCardTopV2';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 
@@ -33,7 +31,7 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
+const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -41,12 +39,13 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: portrait ? 8.3 : 6.3,
-    slidesToScroll: 8,
+    slidesToShow: 5.3,
+    slidesToScroll: 4,
     swipeToSlide: true,
+    // adaptiveHeight: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
-    // variableWidth: true,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -78,36 +77,33 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
       },
     ]
   };
-  
-
+  let i = 1;
+  let j = 1;
   return (
-    <div className={`px-4 md:px-16 mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
-      <div className="movieSliderInner font-poppins">
+    <div className={`px-4 md:px-16 mb-[3vw] movieSlider `}>
+      <div>
         <div className='flex items-center'>
           <p className="text-white text-[24px] font-medium mb-4 mr-2">{title}</p>
-          <p className="text-[#0094FF] text-[16px] font-regular mb-4">Explore All <ChevronRightIcon
-            className="inline-block w-4 h-4 text-[16px]" /></p>
         </div>
-        <div className={`gap-2`}>
-          <div className="block xl:hidden">
+        <div className={`gap-2  `}>
+        <div className="block xl:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
               {data?.map((movie, index) => (
-                <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
+                <MovieCardTop key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />
               ))}
             </div>
           </div>
           <div className="hidden xl:block">
             <Slider {...settings}>
               {data?.map((movie, index) => (
-                <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
+                <MovieCardTop key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />
               ))}
             </Slider>  
-          </div>  
+          </div> 
         </div>
       </div>
     </div>
   );
 }
 
-export default MovieListReel;
-
+export default MovieList;

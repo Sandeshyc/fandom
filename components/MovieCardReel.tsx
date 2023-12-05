@@ -69,7 +69,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
   return (
     <div 
     // ref={elementRef2}
-    className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}] max-w-[240px]`} onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}]`} onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(!data?.allowed)?<Locked/>:null}      
       <div className='img relative h-full w-full'>
         {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-sm'><EnititlementEndDate endDate={data?.publishSchedule} short={true} /></div>:null}
