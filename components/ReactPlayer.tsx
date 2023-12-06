@@ -35,6 +35,7 @@ const ReactVideoPlayer = (
                     muted={true}
                     loop={true}
                     controls={control}
+                    delay={500}
                     style={{
                         backgroundColor: 'black',
                         backgroundImage: `url(${poster})`,
