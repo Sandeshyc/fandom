@@ -5,18 +5,21 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
+import MovieListReel from '@/components/MovieListReel';
 import MovieListPurchase from '@/components/MovieListPurchase';
 import InfoModal from '@/components/InfoModal';
+import Footer from '@/components/Footer';
 import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
 import useActivePurchaseMovies from '@/hooks/useActivePurchaseMovies';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import BillboardExtended from '@/components/BillboardExtended';
-import MovieListTops from '@/components/MovieListTops';
+import MovieListTops from '@/components/MovieListTopsV2';
 import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import { stableKeys } from '@/utils/stableKeys';
+import { url } from 'inspector';
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
@@ -36,6 +39,8 @@ export async function getServerSideProps(context: NextPageContext) {
     props: {region}
   }
 }
+
+const bgImage = 'url("images/new-bg.png")';
 
 const Home = (props) => {
   const router = useRouter();
@@ -81,7 +86,7 @@ const Home = (props) => {
   const getNavBar = () => {
     const rows = movies?.map((movieItem, index) => {
       if (movieItem?.displayType == 'navigation'){
-        if (movieItem?.title === 'SideBar')
+        if (movieItem?.title === 'SideBar' && 0)
           return <SideBar key={stableKeys[index]}/>
         else
           return <Navbar key={stableKeys[index]}/>
@@ -116,11 +121,11 @@ const Home = (props) => {
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
           case 'roll':
-            return <MovieList title={movieItem?.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
+            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
           case 'extended' :
             return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
           case 'potrait' :
-            return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} key={stableKeys[index]}/>
+            return <MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items} key={stableKeys[index]}/>
           case 'top10' :
             return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
@@ -145,12 +150,23 @@ const Home = (props) => {
 
   return (
     <>
+    <div
+    className='bg-[#000000] text-white font-poppins'>
     {(!isLoading && isReady)? <><InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       {getNavBar()}
       {getBillboard()}
-      <div className="pb-40 overflow-hidden">
+      <div className={`overflow-hidden`}
+      style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 60 + '%' + ' auto',
+        backgroundPosition: 'right '+ 30 + '%',
+      }}
+      >
         {getRows()}
+        <Footer/>
       </div></> : (<SkeletonHome/>)}
+    </div>
     </>
   ) 
 }
