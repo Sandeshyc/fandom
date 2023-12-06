@@ -72,13 +72,13 @@ const Details = (props) => {
   return (
     <>
     {(isReady && !isLoading && data)?
-    <div className="h-screen w-screen text-white bg-[#000]" 
-    style={{
-      backgroundImage: bgImage,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'auto',
-      backgroundPosition: 'right '+ 70 + 'vh',
-    }}>
+    <div className="text-white" 
+      style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '45% auto',
+        backgroundPosition: 'right '+ 50 + 'vh',
+      }}>
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
         <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
         <p className="text-white text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
@@ -86,10 +86,8 @@ const Details = (props) => {
         </p>
       </nav>)}
       <div className="relative z-0">
-        <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%] md:max-h-[80%]"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-          {/* {(videoURL)?(<VideoPlayer video={videoURL} caption={captionURL}/>):null} */}
+        <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%]"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
           {(videoURL)?(<ReactVideoPlayer videoURL={videoURL} control={false} poster={thumb}/>):null}
-          <div className='preview'/>
         </div>
         <div className="absolute bottom-[0] left-0 w-[100%] bg-gradient-to-t from-black to-transparent py-[10px] lg:py-[30px] pt-[200px]">
           <div className="max-w-[1600px] mx-auto px-[15px]">
@@ -99,8 +97,7 @@ const Details = (props) => {
             {(data?.allowed !== true && Array.isArray(data?.messages) && data?.messages.length) ?  (<>
               <div className='border border-yellow-500 p-2 flex flex-wrap mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px]'>
               <div
-                className='w-[30px]'
-              >
+                className='w-[30px]'>
               <ReportProblemIcon
                 sx={{ 
                   color: '#EAB307',
