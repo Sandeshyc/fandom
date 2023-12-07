@@ -46,9 +46,7 @@ html {
 .layoutEdit .editItem{
   position: relative;
 }
-.layoutEdit .editItem.relative:hover{
 
-}
 .movieSlider{
   position: relative;
   z-index: 1;

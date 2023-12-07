@@ -1,5 +1,5 @@
 import React from "react";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 type Props = {
     label: string;
@@ -8,10 +8,10 @@ type Props = {
 };
 
 const NavItem: React.FC<Props> = ({ label, route, activeRoute }) => {
+    const router = useRouter();
     return (
         <div
-            className={`relative text-[16px] cursor-pointer ${
-                activeRoute === router.pathname ? "font-semibold" : ''}`}
+            className={`relative text-[16px] cursor-pointer text-white ${(activeRoute === router.pathname)?'font-semibold':''}`}
             onClick={() => router.push(route)}>
             <span className="block">{label}</span>
             

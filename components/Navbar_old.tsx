@@ -178,7 +178,7 @@ const Navbar = () => {
             <NavbarItem label="Home" active={router.pathname === '/'} onClick={() => router.push('/') }/>
             <NavbarItem label="Series" />
             <NavbarItem label="Films" />
-            <NavbarItem label="New & Popular" active={router.pathname === '/popular'} onClick={() => router.push('/popular/') } />
+            {/* <NavbarItem label="New & Popular" active={router.pathname === '/popular'} onClick={() => router.push('/popular/') } /> */}
             <NavbarItem label="My List" />
             <NavbarItem label="Browse by Languages" />
           </div>

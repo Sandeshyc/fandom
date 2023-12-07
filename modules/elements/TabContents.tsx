@@ -1,5 +1,5 @@
 import React from "react";
-import { type } from "os";
+import { stableKeys } from "@/utils/stableKeys";
 import {capFirstLetter} from '@/utils/capFirstLetter';
 
 type tabArgsProps = {
@@ -15,7 +15,7 @@ const TabContents = ({
             <div className="tab-content">
                 {tabArgs.map((tab:any, index:number) => {
                     return (
-                        <div className={openTab === index ? "block" : "hidden"} id={"link" + index}>
+                        <div className={openTab === index ? "block" : "hidden"} id={"link" + index} key={stableKeys[index]}>
                             {(tab.type === 'text') && (
                                 <p className="mb-0">
                                     {tab.content}
@@ -25,7 +25,7 @@ const TabContents = ({
                                 <div className="">
                                     {tab.content.map((item:any, index:number) => {
                                         return (
-                                            <>
+                                            <div key={stableKeys[index]}>
                                             {(item.type === 'text') && (
                                                 <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
                                                 <span className="text-white">{item.label}: </span>
@@ -38,7 +38,7 @@ const TabContents = ({
                                                     {capFirstLetter(item.content.join(", "))}
                                                 </p>
                                             )}
-                                            </>
+                                            </div>
                                         )
                                     })}
                                 </div>

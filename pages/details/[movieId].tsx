@@ -173,7 +173,7 @@ const Details = (props) => {
           </div>         
         </div>
       </div>
-      <div className='mb-6'>
+      <div className='my-6'>
         <div className="max-w-[1600px] mx-auto px-[15px]">
           <div
             className='rounded-md bg-black p-4 border border-gray-800'>

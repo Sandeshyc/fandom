@@ -125,7 +125,7 @@ const Home = (props) => {
           case 'extended' :
             return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
           case 'potrait' :
-            return <><div className='pl-4 md:pl-16'><MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items} key={stableKeys[index]}/></div></>
+            return <div className='pl-4 md:pl-16' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items}/></div>
           case 'top10' :
             return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
