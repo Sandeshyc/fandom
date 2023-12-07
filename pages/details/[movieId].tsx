@@ -121,6 +121,7 @@ const Details = (props) => {
                   allowedPlans={data?.allowedPlans}
                   messages={data?.messages}
                   allowed={data?.allowed}
+                  data={data}
                   />
               )}              
               {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}</>:null}

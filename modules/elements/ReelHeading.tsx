@@ -11,7 +11,7 @@ const ReelHeading: React.FC<Props> = ({ title, link, linkText }) => {
     const router = useRouter();
     return (
         <div className='flex items-center font-poppins'>
-          <p className="text-white text-[24px] font-medium mb-4 mr-2">{title}</p>
+          <p className="text-white text-2xl	font-medium mb-4 mr-2">{title}</p>
           {(link)?<p className="text-[#0094FF] text-[16px] font-regular mb-4 cursor-pointer"
             onClick={() => router.push(link)}
           >{(linkText)?linkText:'Explore All'} <ChevronRightIcon

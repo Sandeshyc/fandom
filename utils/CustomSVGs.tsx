@@ -229,3 +229,9 @@ export const YoutubeIcon = () => {
     </svg>
     )
 }
+
+export const PurchaseCardCurveIcon = () => {
+    return (<svg width="100%" viewBox="0 0 300 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M-4 6L2.16 1L8.32 6L14.48 1L20.64 6L26.8 1L32.96 6L39.12 1L45.28 6L51.44 1L57.6 6L63.76 1L69.92 6L76.08 1L82.24 6L88.4 1L94.56 6L100.72 1L106.88 6L113.04 1L119.2 6L125.36 1L131.52 6L137.68 1L143.84 6L150 1L156.16 6L162.32 1L168.48 6L174.64 1L180.8 6L186.96 1L193.12 6L199.28 1L205.44 6L211.6 1L217.76 6L223.92 1L230.08 6L236.24 1L242.4 6L248.56 1L254.72 6L260.88 1L267.04 6L273.2 1L279.36 6L285.52 1L291.68 6L297.84 1L304 6" stroke="#262626" strokeWidth="2" strokeLinejoin="round"/>
+</svg>);
+}
