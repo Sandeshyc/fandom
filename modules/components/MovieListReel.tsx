@@ -9,7 +9,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
-import MovieCardReel from '@/components/MovieCardReel';
+import MovieCardReel from '@/modules/elements/MovieCardReel';
+import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 
@@ -45,6 +46,7 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     speed: 500,
     slidesToShow: 6.3,
     slidesToScroll: 6,
+    centerPadding: '100px',
     swipeToSlide: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
@@ -83,30 +85,26 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
 
   return (
     <div className={`mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
-      <div className="movieSliderInner font-poppins">
-        <div className='flex items-center'>
-          <p className="text-white text-[24px] font-medium mb-4 mr-2">{title}</p>
-          <p className="text-[#0094FF] text-[16px] font-regular mb-4 cursor-pointer"
-            onClick={() => router.push('/')}
-          >Explore All <ChevronRightIcon
-            className="inline-block w-4 h-4 text-[16px]" /></p>
-        </div>
-        <div className={`gap-2`}>
-          <div className="block xl:hidden">
-            <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-              {data?.map((movie, index) => (
-                <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
-              ))}
-            </div>
+      <div className="movieSliderInner">
+        <ReelHeading 
+          title={title} 
+          link={'/'}
+          linkText={'Explore All'}
+          />
+        <div className="block xl:hidden">
+          <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+            {data?.map((movie, index) => (
+              <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
+            ))}
           </div>
-          <div className="hidden xl:block">
-            <Slider {...settings}>
-              {data?.map((movie, index) => (
-                <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
-              ))}
-            </Slider>  
-          </div>  
         </div>
+        <div className="hidden xl:block movieSliderReel">
+          <Slider {...settings}>
+            {data?.map((movie, index) => (
+              <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
+            ))}
+          </Slider>  
+        </div> 
       </div>
     </div>
   );

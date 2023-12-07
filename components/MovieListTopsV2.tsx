@@ -9,6 +9,7 @@ import { MovieInterface } from '@/types';
 import MovieCardTop from '@/components/MovieCardTopV2';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
+import ReelHeading from '@/modules/elements/ReelHeading';
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -82,9 +83,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   return (
     <div className={`px-4 md:px-16 mb-[3vw] movieSlider `}>
       <div>
-        <div className='flex items-center'>
-          <p className="text-white text-[24px] font-medium mb-4 mr-2">{title}</p>
-        </div>
+        <ReelHeading title={title} />
         <div className={`gap-2  `}>
         <div className="block xl:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>

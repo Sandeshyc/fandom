@@ -340,12 +340,7 @@ html {
 
 .asDivider{
   width: 100%;
-  height: 1px;
-  background-image: linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
-  background-image: -o-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
-  background-image: -moz-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
-  background-image: -webkit-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
-  background-image: -ms-linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+  height: 1px;  
   background-image: -webkit-gradient( linear, left bottom, right bottom, color-stop(0.02, white), color-stop(0.5, gray), color-stop(0.98, white) );
 }
 
@@ -357,4 +352,62 @@ html {
   border-radius: 50%;
   background-color: #fff;
   margin-right: 10px;
+}
+
+
+/* Movie List Reel */
+.movieSliderReel .slick-slide {
+  padding: 0 25px !important;
+}
+.movieSliderReel .slick-list {
+  margin: 0 -25px !important;
+}
+.popUpGenre > span:not(:first-child)::before{
+  margin-right: 8px;
+  content: '';
+  display: inline-block;
+  width: 6px;  
+  height: 6px;
+  border-radius: 50%;
+  background-color: #1D55CA;
+}
+
+/* New purchase Pan */
+.g-container {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden; /* Ensure the overflow is hidden to hide the circles outside the container */
+  /* border: 1px solid red; */
+}
+.g-container .g-content {
+  height: 80px;
+}
+
+.g-container .g-content .g-filter {
+  height: 80px;
+  background: radial-gradient(circle at 0% 50%, transparent 0, transparent 39px, #0F0F0F 40px, #0F0F0F) left,
+              radial-gradient(circle at 100% 50%, transparent 0, transparent 39px, #0F0F0F 40px, #0F0F0F) right;
+  background-size: 50% 100%; /* Adjust the size of each circle to cover 50% of the container */
+  background-repeat: no-repeat; /* Prevent the gradient from repeating */
+}
+
+.g-container2 {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden; /* Ensure the overflow is hidden to hide the circles outside the container */
+  border: solid transparent;
+  border-width: 0 1px;
+}
+.g-container2 .g-content2 {
+  height: 80px;
+}
+
+.g-container2 .g-content2 .g-filter2 {
+  height: 80px;
+  background: radial-gradient(circle at 0% 50%, transparent 0, transparent 39px, #000 40px, #000) left,
+              radial-gradient(circle at 100% 50%, transparent 0, transparent 39px, #000 40px, #000) right;
+  background-size: 50% 100%; /* Adjust the size of each circle to cover 50% of the container */
+  background-repeat: no-repeat; /* Prevent the gradient from repeating */
 }

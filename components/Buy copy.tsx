@@ -198,32 +198,34 @@ const PlanCard = ({
       }
     }
   }
-  return (<>
-    <div className='text-white'>
-      <div className='bg-[#0F0F0F] w-[280px] rounded-md overflow-hidden'>
+  return (
+    <div className='
+      w-[280px]
+      max-w-full
+      m-2
+      py-8
+      px-2
+      pb-20
+      relative
+      font-poppins
+      '>
         <div className='text-blue-500 text-[20px] mb-0'>{item?.name}</div>
-        <div className='text-white text-base text-left ml-6'>
-          <ul className='m-0 p-0'>{
+        <p className='mb-6'>
+          {/* <span className='text-white text-xl font-semibold'>Price: </span> */}
+          <span className='text-white text-[32px] font-medium'
+          >${item?.price}</span>
+        </p>
+        <div className='text-white text-base mb-8  text-left ml-6'>
+          <ul className='list-none text-center m-0 p-0'>{
             descriptions?.map((desc, index)=>{
               return (<li key={stableKeys[index]}
-                className='text-[16px] mb-3 last:mb-0 font-light'
+                className='text-[16px] mb-3 font-light'
               >{desc}</li>)
             })
             }</ul>
-        </div>  
-      </div>
-      <div className="g-container">
-        <div className="g-content">
-            <div className="g-filter">
-            </div>
-        </div>
-      </div>
-      <div className='bg-[#0F0F0F] w-[280px] overflow-hidden rounded-md '>
-        <p>Price</p>
-        <p className='mb-6'>
-            <span className='text-white text-[32px] font-medium'
-            >${item?.price}</span>
-          </p>
+        </div>        
+        <div className='w-full absolute bottom-0 left-0 pb-8'>
+        
           {(item?.bought)?(<><button
           className="
           bg-transparent
@@ -267,8 +269,8 @@ const PlanCard = ({
               />
             Buy / Rent            
           </button></>)}
-      </div>
-    </div></>
+        </div>
+    </div>
   )
 }
 
@@ -299,3 +301,29 @@ const NoPlanFound = () => {
 }
 
 
+export interface SimpleDialogProps {
+  open: boolean;
+  selectedValue: string;
+  onClose: (value: string) => void;
+}
+
+function SimpleDialog(props: SimpleDialogProps) {
+  const { onClose, selectedValue, open } = props;
+
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value: string) => {
+    onClose(value);
+  };
+
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>Sorry, currently purchase only avilable on mobile App!</DialogTitle>    
+      <DialogContent>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus vitae consequatur fugit possimus ipsum obcaecati assumenda reiciendis. Repellendus inventore modi voluptatum aliquid ipsa molestiae, recusandae ex expedita, ab voluptate ipsam!
+      </DialogContent>  
+    </Dialog>
+  );
+}

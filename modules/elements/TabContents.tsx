@@ -35,7 +35,7 @@ const TabContents = ({
                                             {(item.type === 'array') && (
                                                 <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
                                                 <span className="text-white">{item.label}: </span>
-                                                    {capFirstLetter(item.content.join(", "))}
+                                                    {capFirstLetter(item?.content?.join(", "))}
                                                 </p>
                                             )}
                                             </div>

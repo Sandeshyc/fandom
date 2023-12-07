@@ -19,7 +19,7 @@ import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import DetailsTab from '@/components/DetailsTab';
-import MovieListReel from '@/components/MovieListReel';
+import MovieListReel from '@/modules/components/MovieListReel';
 
 const bgImage = 'url("/images/new-bg.png")';
 

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
-import MovieListReel from '@/components/MovieListReel';
+import MovieListReel from '@/modules/components/MovieListReel';
 import MovieListPurchase from '@/components/MovieListPurchase';
 import InfoModal from '@/components/InfoModal';
 import Footer from '@/components/Footer';

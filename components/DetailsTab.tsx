@@ -20,7 +20,13 @@ const DetailsTab = ({data}:{data:any}) => {
                     label:'Cast',
                     type:'array',
                     content:data?.cast
+                },
+                {
+                    label:'Director',
+                    type:'text',
+                    content:data?.author
                 }
+
             ]
         });
         tempTabArgs.push({
@@ -36,11 +42,6 @@ const DetailsTab = ({data}:{data:any}) => {
                     label:'Genres',
                     type:'array',
                     content:data?.genre
-                },
-                {
-                    label:'Director',
-                    type:'text',
-                    content:data?.author
                 }
             ]
         });
