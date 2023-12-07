@@ -7,7 +7,7 @@ import {
     TwitterIcon,
     YoutubeIcon
 } from '@/utils/CustomSVGs';
-const bgImage = 'url("images/footer-bg.png")';
+const bgImage = 'url("/images/footer-bg.png")';
 const logoSrc = '/images/logonew.png';
 const Footer = () => {
     const router = useRouter();
@@ -36,19 +36,19 @@ const Footer = () => {
                             </p>
                             <div>
                                 <div className="flex space-x-4 mt-4">
-                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border-2 border-white flex items-center justify-center">
+                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border border-white flex items-center justify-center">
                                         <FacebookIcon/>
                                     </div>
-                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border-2 border-white flex items-center justify-center">
+                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border border-white flex items-center justify-center">
                                         <InstagramIcon/>
                                     </div>
-                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border-2 border-white flex items-center justify-center">
+                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border border-white flex items-center justify-center">
                                         <TiktokIcon/>
                                     </div>
-                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border-2 border-white flex items-center justify-center">
+                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border border-white flex items-center justify-center">
                                         <TwitterIcon/>
                                     </div>
-                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border-2 border-white flex items-center justify-center">
+                                    <div className="cursor-pointer w-[40px] h-[40px] rounded-full border border-white flex items-center justify-center">
                                         <YoutubeIcon/>
                                     </div>
                                 </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from "react-slick";
+import { useRouter } from 'next/router';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import 'globalStyles.scss'
@@ -34,6 +35,7 @@ function SlickPrevArrow(props) {
 }
 
 const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
+  const router = useRouter();
   if (isEmpty(data)) {
     return null;
   }
@@ -41,12 +43,11 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: portrait ? 8.3 : 6.3,
-    slidesToScroll: 8,
+    slidesToShow: 6.3,
+    slidesToScroll: 6,
     swipeToSlide: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
-    // variableWidth: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -81,11 +82,13 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   
 
   return (
-    <div className={`px-4 md:px-16 mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
+    <div className={`mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
       <div className="movieSliderInner font-poppins">
         <div className='flex items-center'>
           <p className="text-white text-[24px] font-medium mb-4 mr-2">{title}</p>
-          <p className="text-[#0094FF] text-[16px] font-regular mb-4">Explore All <ChevronRightIcon
+          <p className="text-[#0094FF] text-[16px] font-regular mb-4 cursor-pointer"
+            onClick={() => router.push('/')}
+          >Explore All <ChevronRightIcon
             className="inline-block w-4 h-4 text-[16px]" /></p>
         </div>
         <div className={`gap-2`}>

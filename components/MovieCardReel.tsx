@@ -24,10 +24,21 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
   const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
+  let isMouseActive = false;
+  let timer: any = 0;
   const onHoverHandler = () => {
-    setAutoplay(true);
+    console.log('onHoverHandler', isMouseActive.toString());
+    clearTimeout(timer);
+    isMouseActive = true;
+    timer = setTimeout(() => {
+      if(isMouseActive){
+        setAutoplay(true);
+        console.log('timer', timer);
+      }
+    }, 1500);
   }
   const onMouseLeave = () => {
+    isMouseActive = false;
     setAutoplay(false);
   }
   let thumbURl = '';

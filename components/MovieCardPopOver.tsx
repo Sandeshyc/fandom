@@ -35,7 +35,9 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay }) => {
         group-hover:opacity-100        
       ">
         <div className="bg-zinc-800 shadow-md
-        rounded-t-lg jk_player ">
+        rounded-t-lg jk_player"
+        style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+        >
           {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}
           <p className="text-green-400 font-semibold mt-4 title">
             {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
@@ -55,7 +57,6 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay }) => {
             <FavoriteButton movieId={data._id} isInWatchList={data?.isInWatchList}/>
             <ViewDetailsBtn movieId={data._id} />
           </div>
-
           <div className="flex flex-row items-center gap-2 mt-2 text-white ">
             {/* <p className="text-green-400">85% Match</p> */}
             <p className="text-green-400">
