@@ -174,17 +174,17 @@ const Details = (props) => {
           </div>         
         </div>
       </div>
-      <div className='my-6'>
+      <div className='mt-6 mb-16'>
         <div className="max-w-[1600px] mx-auto px-[15px]">
           <div
-            className='rounded-md bg-black p-4 border border-gray-800'>
+            className='rounded-md bg-black p-4 pb-8 border border-gray-800'>
             <DetailsTab data={data}/>
           </div>
         </div>
       </div>
       <div className='w-full'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Some Related'} portrait={true} data={relMovies}/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Some Related'} portrait={true} data={relMovies} link='/' linkText='Explore All'/>:null}
         </div>
       </div>
       <Footer/>

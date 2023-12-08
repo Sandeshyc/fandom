@@ -12,7 +12,7 @@ import Locked from '@/components/Locked';
 import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import EnititlementEndDate from '@/components/Expair';
-import MovieCardPopOver from '@/components/MovieCardPopOver';
+import MovieCardPopOver from '@/modules/elements/MovieCardPopOver';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -24,62 +24,45 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
   const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
-  let isMouseActive = false;
+
+  const thumbOuterRef = useRef(null);
+  const thumbOuter = thumbOuterRef.current;
+  const [isMouseActive, setIsMouseActive] = React.useState(false);
+  // let isMouseActive = false;
   let timer: any = 0;
   const onHoverHandler = () => {
-    console.log('onHoverHandler', isMouseActive.toString());
+    // console.log('Width:', thumbOuter?.getBoundingClientRect()?.width, 'Left:', thumbOuter?.getBoundingClientRect()?.left, 'Top:', thumbOuter?.getBoundingClientRect()?.top, 'left offset:', thumbOuter?.offsetLeft, 'Top offset:', thumbOuter?.offsetTop);
+
+    
+
+
     clearTimeout(timer);
-    isMouseActive = true;
+    setIsMouseActive(true);
     timer = setTimeout(() => {
       if(isMouseActive){
         setAutoplay(true);
-        console.log('timer', timer);
+        // console.log('timer', timer);
       }
     }, 1500);
   }
   const onMouseLeave = () => {
-    isMouseActive = false;
+    setIsMouseActive(false);
     setAutoplay(false);
   }
   let thumbURl = '';
-  let aspectRatio = '16/9';
+  let aspectRatio = '384/216';
   if(portrait){
     thumbURl = data?.thumbnailPotrait;
     aspectRatio = '6/9';
   }else{
     thumbURl = data?.thumbnailUrl;
   }
-
-  // const elementRef = useRef(null);
-  // const elementRef2 = useRef(null);
-
   
-  // useEffect(() => {
-  //   const element = elementRef.current;
-  //   const element2 = elementRef2.current;
-  //   if (element2 && autoplay) {
-  //     const boundingBox = element2.getBoundingClientRect();
-  //     const boundingBox1 = element.getBoundingClientRect();
-  //     const leftOffset = boundingBox.left;
-  //     const rightOffset = boundingBox.right;
 
-  //     console.log('Left Offset:', leftOffset);
-  //     console.log('Right Offset:', rightOffset);
-  //     console.log('===|||||===', boundingBox.width);
-  //     // if(leftOffset < 100 ){
-  //     //   element.style.left = `${0}%`;
-  //     //   element.style.transfrom = `translateX(-${0}%)`;
-  //     // }
-  //     // if(rightOffset < 100 ){
-  //     //   element.style.right = `${0}%`;
-  //     //   element.style.transfrom = `translateX(-${0}%)`;
-  //     // }
-  //   }
-  // }, [autoplay]);
-  // console.log('data', data);
+
   return (
     <div 
-    // ref={elementRef2}
+    ref={thumbOuterRef}
     className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}]`} onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(!data?.allowed)?<Locked/>:null}      
       <div className='img relative h-full w-full'>
@@ -98,7 +81,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
       </div>
       <MovieCardPopOver
         data={data}
-        autoplay={autoplay}/>
+        autoplay={autoplay}
+        parentRef={thumbOuter}
+        isMouseActive={isMouseActive}
+        />
     </div>
   )
 }
