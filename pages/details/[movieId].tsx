@@ -19,7 +19,7 @@ import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import DetailsTab from '@/components/DetailsTab';
-import MovieListReel from '@/components/MovieListReel';
+import MovieListReel from '@/modules/components/MovieListReel';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -121,6 +121,7 @@ const Details = (props) => {
                   allowedPlans={data?.allowedPlans}
                   messages={data?.messages}
                   allowed={data?.allowed}
+                  data={data}
                   />
               )}              
               {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}</>:null}
@@ -173,7 +174,7 @@ const Details = (props) => {
           </div>         
         </div>
       </div>
-      <div className='mb-6'>
+      <div className='my-6'>
         <div className="max-w-[1600px] mx-auto px-[15px]">
           <div
             className='rounded-md bg-black p-4 border border-gray-800'>

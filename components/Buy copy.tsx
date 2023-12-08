@@ -7,25 +7,18 @@ import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
-import { capFirstLetter } from '@/utils/capFirstLetter';
-import {
-  PurchaseCardCurveIcon
-} from '@/utils/CustomSVGs';
-
 interface PlayButtonProps {
   movieId: string;
   allowedPlans: any;
   messages?: any;
   allowed?: boolean;
-  data: any;
 }
 
 const Buy: React.FC<PlayButtonProps> = ({ 
   movieId, 
   allowedPlans,
   messages,
-  allowed,
-  data
+  allowed
 }:PlayButtonProps) => {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('s');
@@ -109,7 +102,7 @@ const Buy: React.FC<PlayButtonProps> = ({
   aria-describedby="simple-modal-description"
   onClose={handleClose}
   className='flex justify-center items-center'>
-    <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative max-h-[90%]'>
+    <div className='border-[3px] border-[#767680] rounded-md bg-[#767680] bg-opacity-[12%] w-[90%] max-w-[1200px] bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-20% to-[#210424] to-55% px-[20px] py-[30px] relative max-h-[90%]'>
       <button
       onClick={handleClose}
       className='absolute top-0 right-0 text-white text-4xl px-2 py-1'>
@@ -117,9 +110,7 @@ const Buy: React.FC<PlayButtonProps> = ({
       </button>
       {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<PlanItems 
         movieId={movieId}
-        items={allowedPlans}
-        data={data}
-        />):(<NoPlanFound/>)}
+        items={allowedPlans}/>):(<NoPlanFound/>)}
   </div>
 </Modal>
     </div>
@@ -129,44 +120,19 @@ export default Buy;
 
 const PlanItems = ({
   items,
-  movieId,
-  data
+  movieId
 }:any) => {
-  let thumbURl = data?.thumbnailPotrait;
-  if(!thumbURl){
-    thumbURl = data?.thumbnailUrl;
-  }
 return (<>
   <div 
     className='
     text-white
-    mb-2
+    text-center
+    mb-6
     w-full'>
-    <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Choose Your Plan</h3>
+    <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Select a plan</h3>
+    <p className='text-sm'>Choose from the plans below</p>
   </div>
-  <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
-    <div className='mr-2 w-[80px]'>
-      <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9]'/>
-    </div>
-    <div className='flex-grow flex flex-wrap w-[200px]'>
-      <div className='w-full flex'>
-        <div className='mr-6'>
-          <p className="font-medium text-3xl">{data?.title || "upcoming..."}</p>
-        </div>
-        <div className='flex flex-row items-center gap-2 mr-6'>
-          <p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">U/A</p>
-          <p className="text-sm font-medium text-white/80">{data?.duration} </p>
-        </div>
-        {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
-          {capFirstLetter(itemTxt)}
-        </span>)}</div>:null} 
-      </div>
-      <div className='w-full'>
-        {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
-      </div>
-    </div>
-  </div>
-  <div className='flex flex-wrap justify-center  w-full overflow-y-auto overflow-x-hidden max-h-[60vh]
+  <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[60vh]
   h-full planListsWrapper'>
     {items?.map((item, index)=>{
       return (<PlanCard 
@@ -176,7 +142,6 @@ return (<>
         />)
     })}
   </div>
-  <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p>
   </>)
 }
 
@@ -233,32 +198,34 @@ const PlanCard = ({
       }
     }
   }
-  return (<>
-    <div className='text-white px-6 flex flex-col flex-wrap'>
-      <div className='bg-[#0F0F0F] flex-grow w-[280px] rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
-        <div className='text-xl font-semibold mb-4'>{item?.name}</div>
-        <div className='text-white text-base text-left'>
-          <p className='mb-1 text-white/60 text-sm'>Ticket Details:</p>
-          <ul className='list-disc list-inside ml-2'>{
+  return (
+    <div className='
+      w-[280px]
+      max-w-full
+      m-2
+      py-8
+      px-2
+      pb-20
+      relative
+      font-poppins
+      '>
+        <div className='text-blue-500 text-[20px] mb-0'>{item?.name}</div>
+        <p className='mb-6'>
+          {/* <span className='text-white text-xl font-semibold'>Price: </span> */}
+          <span className='text-white text-[32px] font-medium'
+          >${item?.price}</span>
+        </p>
+        <div className='text-white text-base mb-8  text-left ml-6'>
+          <ul className='list-none text-center m-0 p-0'>{
             descriptions?.map((desc, index)=>{
               return (<li key={stableKeys[index]}
-                className='text-sm mb-1 last:mb-0 font-light'
+                className='text-[16px] mb-3 font-light'
               >{desc}</li>)
             })
             }</ul>
-        </div>  
-      </div>
-      <div className="g-container">
-          <div className='g-containerInner'>
-          <img src={'/images/purchaseCurve.png'} alt={'Plan'} className="w-[270px]"/>
-          </div>
-      </div>
-      <div className='bg-[#0F0F0F] w-[280px] overflow-hidden rounded-md  py-4 px-2 border-2 border-t-0 border-[#262626]'>
-        <p className='mb-0 text-white/60 text-sm'>Price:</p>
-        <p className='mb-4'>
-            <span className='text-white text-[32px] font-medium'
-            >${item?.price}</span>
-          </p>
+        </div>        
+        <div className='w-full absolute bottom-0 left-0 pb-8'>
+        
           {(item?.bought)?(<><button
           className="
           bg-transparent
@@ -272,8 +239,10 @@ const PlanCard = ({
           items-center
           py-2 
           px-3 md:px-6
-          w-full 
+          mx-auto
+          w-auto 
           font-light
+          min-w-[160px]
           text-[16px]">
             Purchased           
           </button></>):(<><button 
@@ -290,16 +259,18 @@ const PlanCard = ({
           items-center
           py-2 
           px-3 md:px-6
+          mx-auto
           font-light
-          w-full 
+          w-auto 
+          min-w-[180px]
           text-[16px]">
             <BanknotesIcon 
               className="w-6 text-white mr-2"
               />
             Buy / Rent            
           </button></>)}
-      </div>
-    </div></>
+        </div>
+    </div>
   )
 }
 
@@ -330,3 +301,29 @@ const NoPlanFound = () => {
 }
 
 
+export interface SimpleDialogProps {
+  open: boolean;
+  selectedValue: string;
+  onClose: (value: string) => void;
+}
+
+function SimpleDialog(props: SimpleDialogProps) {
+  const { onClose, selectedValue, open } = props;
+
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value: string) => {
+    onClose(value);
+  };
+
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle>Sorry, currently purchase only avilable on mobile App!</DialogTitle>    
+      <DialogContent>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus vitae consequatur fugit possimus ipsum obcaecati assumenda reiciendis. Repellendus inventore modi voluptatum aliquid ipsa molestiae, recusandae ex expedita, ab voluptate ipsam!
+      </DialogContent>  
+    </Dialog>
+  );
+}

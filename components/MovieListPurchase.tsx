@@ -10,6 +10,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
 import MovieCardPurchase2 from '@/components/MovieCardPurchase2';
+import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 
 interface MovieListProps {
@@ -82,7 +83,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   return (
     <div className={`px-4 md:px-16 mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
       <div className="movieSliderInner">
-        <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4">{title}</p>
+        <ReelHeading title={title} />
         <div className={`gap-2`}>
           <div className="block xl:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>

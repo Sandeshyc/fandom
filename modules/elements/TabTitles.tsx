@@ -1,5 +1,5 @@
 import React from "react";
-
+import { stableKeys } from "@/utils/stableKeys";
 type tabArgsProps = {
     tabArgs:any[],
     openTab:number,
@@ -14,7 +14,7 @@ const TabTitles = ({
                 role="tablist">
             {tabArgs.map((tab:any, index:number) => {
                 return (
-                    <li className={`mr-4 last:mr-0`}>
+                    <li className={`mr-4 last:mr-0`} key={stableKeys[index]}>
                         <a
                             className={`text-base block pb-4 px-1 min-w-full border-b ${(openTab === index) ? 'border-white' : 'border-transparent'}`}
                             onClick={e => {

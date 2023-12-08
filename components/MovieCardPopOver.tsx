@@ -16,7 +16,7 @@ interface MovieCardProps {
 const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay }) => {
   const router = useRouter();
   const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
-
+  console.log('data', data);
   return (
     <div 
       className="
@@ -38,11 +38,8 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay }) => {
         rounded-t-lg jk_player"
         style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
         >
-          {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}
-          <p className="text-green-400 font-semibold mt-4 title">
-            {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
-          </p>
-        </div>
+          {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}          
+        </div>        
         <div className="z-10
           bg-zinc-800
           p-2
@@ -50,29 +47,24 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay }) => {
           transition
           shadow-md
           rounded-b-lg">
-          <div className="flex flex-row items-center gap-3">
-            <div onClick={redirectToWatch} className="cursor-pointer w-8 h-8 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-              <PlayIcon className="text-black w-4 lg:w-6" />
+          <div className='mb-4'>
+            <p className="font-medium text-3xl mb-2">{data?.title || "upcoming..."}</p>
+            {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
+          </div>
+          <div className='flex justify-between items-center'>
+            <div>
+              <div className='flex flex-row items-center gap-2 mb-2'>
+                <p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">U/A</p>
+                <p className="text-sm font-medium text-white/80">{data?.duration}</p>
+              </div>
+              {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+                {capFirstLetter(itemTxt)}
+              </span>)}</div>:null}              
             </div>
-            <FavoriteButton movieId={data._id} isInWatchList={data?.isInWatchList}/>
-            <ViewDetailsBtn movieId={data._id} />
-          </div>
-          <div className="flex flex-row items-center gap-2 mt-2 text-white ">
-            {/* <p className="text-green-400">85% Match</p> */}
-            <p className="text-green-400">
-              {data?.duration}
-            </p>
-            <p className="border-gray-500 border px-1 text-xs">HD</p>
-            <p className="border-gray-500 border px-1 text-xs">16+</p>
-          </div>
-          <div className="flex flex-row items-center gap-2 mt-2 text-white text-xs text-gray-500">
-            <p>language, violence, suicide</p>
-          </div>
-
-          <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            {data.genre?.map((item, index) => <span key={stableKeys[index]} className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
-            {capFirstLetter(item)}
-      </span>)}
+            <div className='flex flex-row items-center gap-2'>
+              <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
+              <div onClick={redirectToWatch} className="cursor-pointer bg-gradient-to-br to-blue-700 from-blue-500 bg-white rounded-md flex justify-center items-center py-1 px-4">Buy</div>
+            </div>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const logoSrc = '/images/logonew.png';
 const Footer = () => {
     const router = useRouter();
     return(<>
-        <div className="py-8"
+        <div className="py-8 bg-black"
         style={{
             backgroundImage: bgImage,
             backgroundRepeat: 'no-repeat',

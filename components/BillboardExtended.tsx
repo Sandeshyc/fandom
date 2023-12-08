@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import Billboard from '@/components/Billboard';
 import MovieListNumber from '@/components/MovieListNumber';
+import ReelHeading from '@/modules/elements/ReelHeading';
 
 const BillboardExtended: React.FC = ({data, title}) => {
   // console.log('data BillboardExtended', data);
@@ -23,7 +24,7 @@ const BillboardExtended: React.FC = ({data, title}) => {
   return (
     (item?.videoUrl)?<div className={`px-4 md:px-16 mb-[3vw] `} >
     <div>
-      <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4">{title}</p>
+      <ReelHeading title={title} />
       <div className={`gap-2  `}>
       <div className='relative'>
         <Billboard data={item} extended isComplited={onVideoCompleted} />
