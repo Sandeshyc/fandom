@@ -25,7 +25,7 @@ const EnititlementEndDate = ({endDate, short = true, base = 0.5} : EnititlementE
 
     let Print  = <></>;
     if(day === 0 && hour === 0 && minute === 0){
-        Print = <><span className="text-red-500 font-bold">Expired!</span></>
+        Print = <><span className="text-red-500 font-bold"> Expired!</span></>
     }else if(short){
         if(day === 0 && hour === 0){
             Print = <><TxtHL>{minute}</TxtHL> minutes left to watch!</>
@@ -40,7 +40,7 @@ const EnititlementEndDate = ({endDate, short = true, base = 0.5} : EnititlementE
 
     return (
         <p className="flex flex-wrap items-center text-sm">
-            <ClockIcon className="text-white w-[16px] h-[16px]"/>{Print}
+            <ClockIcon className="text-white w-[16px] h-[16px] mr-1"/> {Print}
         </p>
     )
 }

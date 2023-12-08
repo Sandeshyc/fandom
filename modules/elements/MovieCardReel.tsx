@@ -84,6 +84,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
         autoplay={autoplay}
         parentRef={thumbOuter}
         isMouseActive={isMouseActive}
+        popScale={(portrait)?1:0.2}
         />
     </div>
   )

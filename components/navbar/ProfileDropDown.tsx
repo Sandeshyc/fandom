@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import * as oidcApi from 'pages/api/auth/oidcApi';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react';
 import {ArrowDropDown, ArrowDropUp} from '@mui/icons-material';
@@ -14,6 +15,23 @@ import {
 } from '@/utils/CustomSVGs';
 
 const ProfileDropDown = () => {
+    const router = useRouter();
+    const logoutFnc = () => {
+        const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
+        const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
+        localStorage.removeItem('userInfo');
+        localStorage.removeItem('oneLogInAccessToken');
+        if(googleIndentityAccessToken){
+          localStorage.removeItem('googleIndentityAccessToken');
+          router.push('/auth');
+        }else{
+          if(oneLogInAccessToken){
+            oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
+          }else{
+            oidcApi.logoutAuth();
+          }
+        }    
+    }
     return (
         <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
@@ -44,7 +62,13 @@ const ProfileDropDown = () => {
                             <div>
                                 <h3
                                 className='font-semibold text-[18px] m-0'>Jhon Dalwan</h3>
-                                <p className='text-[14px] text-[#0094FF]'>Edit Profile</p>
+                                <p className='text-[14px] text-[#0094FF]'>
+                                    <span
+                                    className='cursor-pointer hover:underline'
+                                    onClick={
+                                        () => router.push('/myprofile')
+                                    }>Edit Profile</span>
+                                </p>
                             </div>
                         </div>                        
                         <div className='my-[20px] asDivider'></div>
@@ -55,7 +79,10 @@ const ProfileDropDown = () => {
                             </div>  
                         </div> 
                         <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
+                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            onClick={
+                                () => router.push('/list')
+                            }>
                                 <span className='mr-2'><MyListIcon/></span>
                                 <p>My List</p>
                             </div>  
@@ -88,7 +115,11 @@ const ProfileDropDown = () => {
                         <div className='my-[10px] asDivider'></div> 
                         <div>
                             <div 
-                                className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
+                                className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                                onClick={
+                                    () => logoutFnc()
+                                }
+                                >
                                 <span className='mr-2'><LogoutIcon/></span>
                                 <p>Logout</p>
                             </div>

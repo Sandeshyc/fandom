@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, {useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
@@ -13,6 +13,7 @@ import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
 import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
+import MovieCardPopOver from '@/modules/elements/MovieCardPopOver';
 
 interface MovieCardTopProps {
   data: MovieInterface;
@@ -24,18 +25,31 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
   const router = useRouter();
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
-
+  const [isMouseActive, setIsMouseActive] = React.useState(false);
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
+  const thumbOuterRef = useRef(null);
+  const thumbOuter = thumbOuterRef.current;
 
+  let timer: any = 0;
   const onHoverHandler = () => {
-    setAutoplay(true);
+    clearTimeout(timer);
+    setIsMouseActive(true);
+    timer = setTimeout(() => {
+      if(isMouseActive){
+        setAutoplay(true);
+        // console.log('timer', timer);
+      }
+    }, 1500);
   }
   const onMouseLeave = () => {
+    setIsMouseActive(false);
     setAutoplay(false);
   }
 
   return (
-    <div  className="group col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    <div  
+    ref={thumbOuterRef}
+    className="group col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       <div className='movieCardTop movieCardTopV2'>
       {(!data?.allowed)?<Locked/>:null}
         <div className='number'><SvgNumbers item={number} /></div>
@@ -55,69 +69,13 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
           " />
         </div>
       </div>
-
-      <div className="
-        opacity-0
-        absolute
-        top-0
-        transition
-        duration-200
-        z-10
-        invisible
-        sm:visible
-        delay-300
-        w-full
-        scale-0
-        group-hover:scale-100
-        
-        group-hover:opacity-100
-        
-      ">
-        <div className="bg-zinc-800 shadow-md
-        rounded-t-lg jk_player " >
-          {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)} */}
-          {autoplay && (<ReactVideoPlayer control={false} poster={data?.thumbnailUrl} videoURL={data?.videoUrl} />)}
-          <p className="text-green-400 font-semibold mt-4 title">
-            {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
-          </p>
-        </div>
-        <div className="
-          z-10
-          bg-zinc-800
-          p-2
-          lg:p-4
-          
-          transition
-          shadow-md
-          rounded-b-lg
-          ">
-          <div className="flex flex-row items-center gap-3">
-            <div onClick={redirectToWatch} className="cursor-pointer w-8 h-8 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-              <PlayIcon className="text-black w-4 lg:w-6" />
-            </div>
-            <FavoriteButton movieId={data._id} isInWatchList={data?.isInWatchList}/>
-            <ViewDetailsBtn movieId={data._id} />
-          </div>
-
-          <div className="flex flex-row items-center gap-2 mt-2 text-white ">
-            {/* <p className="text-green-400">85% Match</p> */}
-            <p className="text-green-400">
-              {data?.duration}
-            </p>
-            <p className="border-gray-500 border px-1 text-xs">HD</p>
-            <p className="border-gray-500 border px-1 text-xs">16+</p>
-          </div>
-          <div className="flex flex-row items-center gap-2 mt-2 text-white text-xs text-gray-500">
-            <p>language, violence, suicide</p>
-          </div>
-
-          <div className="flex flex-row items-center gap-2 mt-4 text-[8px] text-white lg:text-sm">
-            {data?.genre?.map((item, index) => <span key={stableKeys[index]} className="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-100 ring-1 ring-inset ring-gray-100/1">
-            {capFirstLetter(item)}
-      </span>)}
-          </div>
-        </div>
-      </div>
+      <MovieCardPopOver
+        data={data}
+        autoplay={autoplay}
+        parentRef={thumbOuter}
+        isMouseActive={isMouseActive}
+        popScale={(portrait)?0.2:0.2}
+        />
     </div>
   )
 }

@@ -14,8 +14,9 @@ interface MovieCardProps {
   autoplay?: boolean;
   parentRef?: any;
   isMouseActive?: boolean;
+  popScale: number;
 }
-const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef, isMouseActive }) => {
+const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef, isMouseActive, popScale }) => {
   const router = useRouter();
   const [popOverLeft, setPopOverLeft] = React.useState('');
   const [popOverRight, setPopOverRight] = React.useState('');
@@ -27,33 +28,42 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
     let width = parentRef?.getBoundingClientRect()?.width;
     let left = parentRef?.getBoundingClientRect()?.left;
     let right = window.innerWidth - (left + width);
-    let popOverHalfWidth = width / 2;
+    let popOverHalfWidth = (width * popScale) / 2;
 
-    console.log('Width:', width, 'Left:', left, 'Right:', right, 'popOverHalfWidth:', popOverHalfWidth);
-    if(left < popOverHalfWidth && right > popOverHalfWidth){
-      setPopOverLeft('0px');
-      setPopOverRight('auto');
-    }else if(left > popOverHalfWidth && right < popOverHalfWidth){
-      setPopOverLeft('auto');
-      setPopOverRight('0px');
-    }else{
-      setPopOverLeft('0px');
-      setPopOverRight('auto');
-    }
+    // console.log('Width:', width, 'Left:', left, 'Right:', right, 'popOverHalfWidth:', popOverHalfWidth);
+    if(left <= popOverHalfWidth){
+      if(left < 0){
+        setPopOverLeft(-left+'px');
+        setPopOverRight('auto');
+      }else{
+        setPopOverLeft('0px');
+        setPopOverRight('auto');
+      }
       
-    
-
-    // console.log('Width:', parentRef?.getBoundingClientRect()?.width, 'Left:', parentRef?.getBoundingClientRect()?.left, 'Top:', parentRef?.getBoundingClientRect()?.top, 'left offset:', parentRef?.offsetLeft, 'Top offset:', parentRef?.offsetTop);
+    }else{
+      if(right < 0){
+        setPopOverLeft('auto');
+        setPopOverRight(-right+'px');
+      }else if(right <= popOverHalfWidth){
+        setPopOverLeft('auto');
+        setPopOverRight('0px');
+      }else{
+        setPopOverLeft(-(Math.round(popOverHalfWidth))+'px');
+        // setPopOverLeft('10px');
+        setPopOverRight('auto');
+      }
+    }
   }, [isMouseActive]);
-  // console.log('MovieCardPopOver: ', data);
   return (
     <div 
-      className={`asPopOver absolute top-0 transition duration-200 z-10 invisible sm:visible w-full ${(isMouseActive)?'scale-100 opacity-100':'scale-0 opacity-0'}`}
+      className={`asPopOver absolute transition duration-200 delay-300 ease-in-out z-50 invisible sm:visible w-full 
+      ${(isMouseActive)?'scale-100 opacity-100':'scale-0 opacity-0'}`}
         style={{
+          top: '-50px',
           left: popOverLeft,
           right: popOverRight,
         }}>
-        <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player"
+        <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
         style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
         onClick={redirectToWatch}>
           {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}          
@@ -81,7 +91,7 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
             </div>
             <div className='flex flex-row items-center gap-2'>
               <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
-              <div onClick={redirectToWatch} className="text-white text-center rounded-full py-2 px-3 text-base w-[150px] h-[40px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r">Buy</div>
+              <div onClick={redirectToWatch} className="text-white text-center rounded-full py-2 px-3 text-base w-[150px] h-[40px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r cursor-pointer">Buy</div>
             </div>
           </div>
         </div>

@@ -5,8 +5,10 @@ import usePurchaseMovies from '@/hooks/usePurchaseMovies';
 import MovieCardPurchase from '@/components/MovieCardPurchase';
 import { stableKeys } from '@/utils/stableKeys';
 import { Info } from '@mui/icons-material';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import SkeletonPurchase from '@/components/Skeleton/SkeletonPurchase';
-
+const bgImage = 'url("/images/new-bg.png")';
 const Home = (props) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
@@ -33,8 +35,13 @@ const Home = (props) => {
   
   return (
     <>
-      {(!isLoading && isReady) ? (<><SideBar />
-      <div className="py-16">
+      {(!isLoading && isReady) ? (<><Navbar/>
+      <div className="py-16" style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: ' auto',
+        backgroundPosition: 'right '+ 30 + '%',
+      }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My Purchase</p>
@@ -43,7 +50,7 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-      </div></>) : (<SkeletonPurchase/>)}
+      </div><Footer/></>) : (<SkeletonPurchase/>)}
     </>
   )
 }

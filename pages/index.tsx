@@ -160,7 +160,7 @@ const Home = (props) => {
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 60 + '%' + ' auto',
+        backgroundSize: 'auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}
       >
