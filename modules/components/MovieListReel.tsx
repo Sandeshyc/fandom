@@ -18,6 +18,8 @@ interface MovieListProps {
   data: MovieInterface[];
   title: string;
   portrait: boolean;
+  link?: string;
+  linkText?: string;
 }
 
 function SlickNextArrow(props) {
@@ -35,7 +37,7 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
+const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText }) => {
   const router = useRouter();
   if (isEmpty(data)) {
     return null;
@@ -44,9 +46,8 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 6.3,
-    slidesToScroll: 6,
-    centerPadding: '100px',
+    slidesToShow: portrait ? 6.3 : 4.2,
+    slidesToScroll: portrait ? 6 : 4,
     swipeToSlide: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
@@ -80,28 +81,27 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait }) => {
         },
       },
     ]
-  };
-  
+  }; 
 
   return (
     <div className={`mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
       <div className="movieSliderInner">
         <ReelHeading 
           title={title} 
-          link={'/'}
-          linkText={'Explore All'}
+          link={link}
+          linkText={linkText}
           />
         <div className="block xl:hidden">
           <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
             {data?.map((movie, index) => (
-              <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
+              <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} />
             ))}
           </div>
         </div>
         <div className="hidden xl:block movieSliderReel">
           <Slider {...settings}>
             {data?.map((movie, index) => (
-              <MovieCardReel key={stableKeys[index]} data={movie} portrait={true} />
+              <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} />
             ))}
           </Slider>  
         </div> 

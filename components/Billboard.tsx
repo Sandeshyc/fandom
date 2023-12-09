@@ -3,7 +3,7 @@ import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import PlayButton from '@/components/PlayButton';
-import ViewDetailsButton from '@/components/ViewDetailsButton';
+import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
 import useBillboard from '@/hooks/useBillboard';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
@@ -34,7 +34,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
         <p className="text-white text-2xl md:text-5xl h-full w-[85%] md:w-[50%] lg:text-6xl font-bold drop-shadow-xl">
           {data?.title}
         </p>
-        <p className="text-white text-[12px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
+        <p className="text-white text-[12px] md:text-lg mt-2 mb-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
           {data?.description?.substring(0, 260)}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
@@ -56,27 +56,9 @@ const GoBuy = (
   const router = useRouter();
   return (
     <button 
-        onClick={() => {
-          router.push(`/details/${movieId}/?viewPlan=true`)
-        
-        }}
-        className="
-        bg-yellow-500 
-        text-black
-        rounded-md 
-        py-1 md:py-1 
-        px-3 md:px-6
-        w-auto 
-        text-base lg:text-xl 
-        font-semibold
-        flex
-        flex-row
-        items-center
-        hover:bg-neutral-300
-        transition
-        ">
-            <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
-          Buy / Rent
-        </button>
+      onClick={() => {
+        router.push(`/details/${movieId}/?viewPlan=true`);
+      }}
+      className="text-white rounded-full py-2 px-3 text-base min-w-[180px] h-[44px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r">Rent</button>
   )
 }

@@ -40,7 +40,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5.3,
+    slidesToShow: 5,
     slidesToScroll: 4,
     swipeToSlide: true,
     // adaptiveHeight: true,

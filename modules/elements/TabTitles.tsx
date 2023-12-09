@@ -10,7 +10,7 @@ const TabTitles = ({
     openTab,
     setOpenTab,
 }:tabArgsProps) => {
-    return (<ul className="flex items-center justify-start flex-wrap border-b border-white"
+    return (<ul className="flex items-center justify-start flex-wrap border-b border-white/60"
                 role="tablist">
             {tabArgs.map((tab:any, index:number) => {
                 return (

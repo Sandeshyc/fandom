@@ -40,7 +40,7 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 }
 
-const bgImage = 'url("images/new-bg.png")';
+const bgImage = 'url("/images/new-bg.png")';
 
 const Home = (props) => {
   const router = useRouter();
@@ -121,11 +121,12 @@ const Home = (props) => {
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
           case 'roll':
-            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
+            // return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={false} data={movieItem.items}/></div>
           case 'extended' :
             return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
           case 'potrait' :
-            return <div className='pl-4 md:pl-16' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items}/></div>
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items}/></div>
           case 'top10' :
             return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
@@ -159,7 +160,7 @@ const Home = (props) => {
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 60 + '%' + ' auto',
+        backgroundSize: 'auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}
       >

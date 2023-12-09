@@ -81,7 +81,7 @@ const Details = (props) => {
       }}>
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
         <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
-        <p className="text-white text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
+        <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
           <span className="font-light">Back</span>
         </p>
       </nav>)}
@@ -174,17 +174,17 @@ const Details = (props) => {
           </div>         
         </div>
       </div>
-      <div className='my-6'>
+      <div className='mt-6 mb-16'>
         <div className="max-w-[1600px] mx-auto px-[15px]">
           <div
-            className='rounded-md bg-black p-4 border border-gray-800'>
+            className='rounded-md bg-black p-4 pb-8 border border-gray-800'>
             <DetailsTab data={data}/>
           </div>
         </div>
       </div>
       <div className='w-full'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Some Related'} portrait={true} data={relMovies}/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Some Related'} portrait={true} data={relMovies} link='/' linkText='Explore All'/>:null}
         </div>
       </div>
       <Footer/>

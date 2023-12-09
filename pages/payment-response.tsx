@@ -2,6 +2,8 @@ import React, { use, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import { set } from 'lodash';
 import {
@@ -75,7 +77,7 @@ const MyProfile = () => {
   }, []);
 
   return (<>
-      {(isReady) && (<><SideBar />
+      {(isReady) && (<><Navbar />
       <div className="py-16 bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-30% to-[#271055] to-85% min-h-full">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner max-w-[1200px] mx-auto mt-8">
@@ -95,7 +97,7 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
-      </div></>)}
+      </div><Footer/></>)}
   </>)
 }
 

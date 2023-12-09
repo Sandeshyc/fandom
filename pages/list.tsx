@@ -5,8 +5,10 @@ import useListMovies from '@/hooks/useListMovies';
 import MovieCardList from '@/components/MovieCardList';
 import { Info } from '@mui/icons-material';
 import { stableKeys } from '@/utils/stableKeys';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import SkeletonList from '@/components/Skeleton/SkeletonList';
-
+const bgImage = 'url("/images/new-bg.png")';
 const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const [isReady, setIsReady] = React.useState(false);
@@ -35,8 +37,14 @@ const Home = (props) => {
   }, [])
   return (
     <>
-      {(isReady && !isLoading) ? (<><SideBar />
-      <div className="py-16">
+      {(isReady && !isLoading) ? (<><Navbar />
+      <div className="py-16"
+      style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: ' auto',
+        backgroundPosition: 'right '+ 30 + '%',
+      }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My List</p>
@@ -48,7 +56,9 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-      </div></>):(<SkeletonList/>)}
+      </div>
+      <Footer/>
+      </>):(<SkeletonList/>)}
     </>
   )
 }

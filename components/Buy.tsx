@@ -37,7 +37,7 @@ const Buy: React.FC<PlayButtonProps> = ({
   useEffect(() => {
     // URLSearchParams perchasePlan 
     const urlParams = new URLSearchParams(window?.location?.search);
-    if(urlParams?.get('viewPlan') === 'true' && (Array.isArray(allowedPlans) && allowedPlans.length > 0)){
+    if(urlParams?.get('viewPlan') === 'true' && (Array.isArray(allowedPlans) && allowedPlans.length > 0 && !(Array.isArray(messages) && messages?.length))){
       setTimeout(() => {
         setOpen(true);
       }, 1000);
@@ -56,53 +56,40 @@ const Buy: React.FC<PlayButtonProps> = ({
 
 
   return (
-    <div>
-      
+    <div>      
         {(allowed !== true && Array.isArray(messages) && messages?.length) ?  (<button
         disabled={true}
-        className="
-        bg-yellow-500 
-        text-black
-        rounded-md 
-        py-1 md:py-1 
-        px-3 md:px-6
-        cursor-not-allowed
-        w-auto 
-        text-base lg:text-xl 
-        font-semibold
+        className=" cursor-not-allowed bg-gradient-to-r from-blue-700 to-blue-500
+        text-white
+        rounded-full 
+        py-1
+        px-3
+        w-[220px]
+        text-base
         flex
         flex-row
+        justify-center
         items-center
         transition
-        h-[36px]
-        xl:h-[42px]
-        xxl:h-[48px]
-        ">
-            <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
-          Buy / Rent
+        h-[44px]">
+          Rent
         </button>): <button 
         onClick={handleClickOpen}
         className="
-        bg-yellow-500 
-        text-black
-        rounded-md 
-        py-1 md:py-1 
-        px-3 md:px-6
-        w-auto 
-        text-base lg:text-xl 
-        font-semibold
+        bg-gradient-to-r from-blue-700 to-blue-500
+        text-white
+        rounded-full 
+        py-1
+        px-3
+        w-[220px]
+        text-base
         flex
         flex-row
+        justify-center
         items-center
-        hover:bg-neutral-300
         transition
-        h-[36px]
-        xl:h-[42px]
-        xxl:h-[48px]
-        ">
-            <BanknotesIcon className="w-5 md:w-9 text-black mr-2" />
-          Buy / Rent
-        </button>}
+        h-[44px]
+        ">Rent</button>}
 <Modal
   open={open}
   aria-labelledby="simple-modal-title"
@@ -146,7 +133,7 @@ return (<>
   </div>
   <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
     <div className='mr-2 w-[80px]'>
-      <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9]'/>
+      <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9] object-cover'/>
     </div>
     <div className='flex-grow flex flex-wrap w-[200px]'>
       <div className='w-full flex'>
@@ -176,7 +163,7 @@ return (<>
         />)
     })}
   </div>
-  <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p>
+  {/* <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p> */}
   </>)
 }
 
@@ -238,7 +225,7 @@ const PlanCard = ({
       <div className='bg-[#0F0F0F] flex-grow w-[280px] rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
         <div className='text-xl font-semibold mb-4'>{item?.name}</div>
         <div className='text-white text-base text-left'>
-          <p className='mb-1 text-white/60 text-sm'>Ticket Details:</p>
+          {/* <p className='mb-1 text-white/60 text-sm'>Ticket Details:</p> */}
           <ul className='list-disc list-inside ml-2'>{
             descriptions?.map((desc, index)=>{
               return (<li key={stableKeys[index]}
@@ -257,7 +244,7 @@ const PlanCard = ({
         <p className='mb-0 text-white/60 text-sm'>Price:</p>
         <p className='mb-4'>
             <span className='text-white text-[32px] font-medium'
-            >${item?.price}</span>
+            >{item?.price}</span>
           </p>
           {(item?.bought)?(<><button
           className="
@@ -292,11 +279,7 @@ const PlanCard = ({
           px-3 md:px-6
           font-light
           w-full 
-          text-[16px]">
-            <BanknotesIcon 
-              className="w-6 text-white mr-2"
-              />
-            Buy / Rent            
+          text-[16px]">Rent            
           </button></>)}
       </div>
     </div></>

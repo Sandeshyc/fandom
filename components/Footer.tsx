@@ -20,13 +20,13 @@ const Footer = () => {
             backgroundPosition: 'right bottom',
           }}>
             <div className="mx-auto max-w-[1600px] px-2">
-                <div className="border-b border-blue-500 pb-8">
+                <div className="border-b border-[#0245F2] pb-8">
                     <div className="flex justify-between">
                         <div>
                             <div className='mr-8'>
                                 <img 
                                 src={logoSrc} 
-                                className="h-[60px] cursor-pointer" 
+                                className="h-[92px] cursor-pointer" 
                                 alt="Logo" onClick={() => router.push('/')} />
                             </div>
                         </div>

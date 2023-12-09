@@ -15,19 +15,21 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
       className="
         bg-white 
         text-black
-        rounded-md 
-        py-1 md:py-1 
-        px-3 md:px-6
+        rounded-full
+        py-1 
+        px-3
         w-auto 
-        text-lg lg:text-xl 
-        font-semibold
+        text-base
         flex
         flex-row
+        justify-center
         items-center
         hover:bg-neutral-300
         transition
+        h-[44px]
+        min-w-[180px]
         ">
-        <PlayIcon className="w-5 md:w-9 text-black mr-2" />
+        <PlayIcon className="w-6 text-black mr-2" />
         Play
     </button>
   );
