@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
     let userID = getValue(req.query.userId as string);
-    console.log('ipAddress ', ipAddress)
+    // console.log('ipAddress ', ipAddress)
     let region = '';
     if (ipAddress) {
       try {

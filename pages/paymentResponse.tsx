@@ -37,7 +37,7 @@ const MyProfile = () => {
                     "transactionId": transactionId
                 };
                 console.log('Data:', data);
-                await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/entitlement/user/${userid}`, data, { headers })
+                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
                     if(response.status === 200) {
                         setIsSuccess(true);
@@ -47,7 +47,7 @@ const MyProfile = () => {
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
                             router.push(`/details/${movieID}`);        
-                        }, 1000);
+                        }, 2000);
                     }
                 })
                 .catch(error => {
@@ -56,7 +56,7 @@ const MyProfile = () => {
                     setErrorMessage('Something went wrong. Please try again later.');
                     setTimeout(() => {
                         router.push(`/`);        
-                    }, 1000);
+                    }, 5000);
                 }); 
             }
             entitleCall();

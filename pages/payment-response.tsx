@@ -37,7 +37,7 @@ const MyProfile = () => {
                     "transactionId": transactionId
                 };
                 console.log('Data:', data);
-                await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/entitlement/user/${userid}`, data, { headers })
+                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
                     if(response.status === 200) {
                         setIsSuccess(true);

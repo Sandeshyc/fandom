@@ -16,6 +16,7 @@ const ProfileHead = (
                 <p className='text-[16px] text-[#DACFDA] font-medium'>Details</p>
             </div>
             <button 
+                type="button"
                 onClick={toggleProfile}
                 className="w-[25px]">
                 <ChevronDownIcon 

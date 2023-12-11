@@ -91,7 +91,7 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
             </div>
             <div className='flex flex-row items-center gap-2'>
               <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
-              <div onClick={redirectToWatch} className="text-white text-center rounded-full py-2 px-3 text-base w-[150px] h-[40px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r cursor-pointer">Buy</div>
+              <div onClick={redirectToWatch} className="text-white text-center rounded-full py-2 px-3 text-base w-[150px] h-[40px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r cursor-pointer">Rent</div>
             </div>
           </div>
         </div>
