@@ -199,10 +199,11 @@ const PlanCard = ({
               "isPackage": isPackage,
               "transactionId": transactionId
           };
-          console.log('Data:', data);
+          // console.log('Data:', data);
           await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/audit/`, data, { headers })
               .then(response => {
               if(response.status === 200) {
+                window.localStorage.setItem('itemCode', movieId);
                 if(process.env.NODE_ENV === 'production'){
                   // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
                   window.location.href = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;

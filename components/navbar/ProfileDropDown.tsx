@@ -35,8 +35,8 @@ const ProfileDropDown = () => {
         const userInfo = window.localStorage.getItem('userInfo');
         if (userInfo) {
           const userInfoObj = JSON.parse(userInfo);
-          if(userInfoObj?.email) {
-            setDisplayName(userInfoObj?.email);
+          if(userInfoObj?.name) {
+            setDisplayName(userInfoObj?.name);
           }
         }
     }, []);
@@ -85,6 +85,7 @@ const ProfileDropDown = () => {
                                 <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                             </div>
                             <div>
+                                {/* Need to update */}
                                 <h3
                                 className='font-semibold text-[18px] m-0'>{( displayName )??(displayName)}</h3>
                                 <p className='text-[14px] text-[#0094FF]'>

@@ -24,6 +24,7 @@ const MyProfile = () => {
     if(paymentStatus){
         if(paymentStatus === 'success'){
             const entitleCall = async () => {
+                const itemCode = window.localStorage.getItem('itemCode');
                 const headers = {
                     'Content-Type': 'application/json',
                 };      
@@ -31,12 +32,13 @@ const MyProfile = () => {
                     "userID": userid,
                     "receipt": paymentId,
                     "sourcePlatform": "web",
-                    "itemCode": transactionId,
+                    "itemCode": itemCode,
                     "priceSKU": productId,
                     "pricePlan": productId,
                     "transactionId": transactionId
                 };
                 console.log('Data:', data);
+                // console.log('URL:', `${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`)
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
                     if(response.status === 200) {
@@ -46,7 +48,7 @@ const MyProfile = () => {
                         console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
-                            router.push(`/details/${movieID}`);        
+                            router.push(`/details/${movieID}`);
                         }, 2000);
                     }
                 })
@@ -55,7 +57,7 @@ const MyProfile = () => {
                     setIsError(true);
                     setErrorMessage('Something went wrong. Please try again later.');
                     setTimeout(() => {
-                        router.push(`/`);        
+                        router.push(`/`);
                     }, 5000);
                 }); 
             }

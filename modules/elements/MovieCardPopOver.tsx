@@ -18,6 +18,7 @@ interface MovieCardProps {
 }
 const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef, isMouseActive, popScale }) => {
   const router = useRouter();
+  // console.log('MovieCardPopOver: ', data);
   const [popOverLeft, setPopOverLeft] = React.useState('');
   const [popOverRight, setPopOverRight] = React.useState('');
   const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
@@ -79,17 +80,17 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
             <p className="font-medium text-3xl mb-2 cursor-pointer" onClick={redirectToWatch}>{data?.title || "upcoming..."}</p>
             {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
           </div>
-          <div className='flex justify-between items-center'>
-            <div>              
-              {(data?.duration)&&(<div className='flex flex-row items-center gap-2 mb-2'>
+          <div className='flex flex-wrap justify-between items-center'>
+            <div className=' mb-1'>              
+              <div className='flex flex-row items-center gap-2 mb-2'>
                 <p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">U/A</p>
                 <p className="text-sm font-medium text-white/80">{data?.duration}</p>
-              </div>)}
+              </div>
               {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
                 {capFirstLetter(itemTxt)}
               </span>)}</div>:null}              
             </div>
-            <div className='flex flex-row items-center gap-2'>
+            <div className='flex flex-row items-center gap-2 mb-1'>
               <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
               <div onClick={redirectToWatch} className="text-white text-center rounded-full py-2 px-3 text-base w-[150px] h-[40px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r cursor-pointer">Rent</div>
             </div>
