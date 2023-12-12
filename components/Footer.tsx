@@ -19,7 +19,7 @@ const Footer = () => {
             backgroundSize: 'auto 100%',
             backgroundPosition: 'right bottom',
           }}>
-            <div className="mx-auto max-w-[1600px] px-2">
+            <div className="px-4">
                 <div className="border-b border-[#0245F2] pb-8">
                     <div className="flex justify-between">
                         <div>

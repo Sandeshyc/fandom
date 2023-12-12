@@ -173,11 +173,11 @@ const MyProfile = () => {
   return (<>
       {(isReady && !isLoading)?<>
       <Navbar />
-      <div className="py-16"
+      <div className="py-16 pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: ' auto',
+        backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
         <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[3vw]`}>

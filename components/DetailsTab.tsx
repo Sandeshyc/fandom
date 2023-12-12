@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import TabTitles from '@/modules/elements/TabTitles';
 import TabContents from '@/modules/elements/TabContents';
 const DetailsTab = ({data}:{data:any}) => {
+    // console.log('DetailsTab: ', data);
     const [openTab, setOpenTab] = React.useState(0);
     const [tabArgs, setTabArgs] = React.useState([]); 
     // push tab args label and content
@@ -47,7 +48,7 @@ const DetailsTab = ({data}:{data:any}) => {
         });
         setTabArgs(tempTabArgs as any);
     }, [data]);
-
+    // console.log('tabArgs', tabArgs);
   return (
     <>
       <div className="w-full">

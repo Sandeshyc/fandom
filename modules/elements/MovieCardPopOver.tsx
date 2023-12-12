@@ -65,8 +65,7 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
           right: popOverRight,
         }}>
         <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
-        style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-        onClick={redirectToWatch}>
+        style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
           {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}          
         </div>        
         <div className="z-10
@@ -83,8 +82,8 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
           <div className='flex flex-wrap justify-between items-center'>
             <div className=' mb-1'>              
               <div className='flex flex-row items-center gap-2 mb-2'>
-                <p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">U/A</p>
-                <p className="text-sm font-medium text-white/80">{data?.duration}</p>
+                {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
+                {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
               </div>
               {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
                 {capFirstLetter(itemTxt)}

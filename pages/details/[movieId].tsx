@@ -38,7 +38,7 @@ const Details = (props) => {
     // console.log('relMovies', relMovies);
     // is all relMovies Not Null
     relMovies = data?.relatedVideos.filter((item: any) => item !== null);
-    // console.log('relMoviesxxx', relMovies);
+    // console.log('relMovies', relMovies);
   }
   const { data: movies = [], isLoading } = useMovieList(region, product, 'home', userIdToken);
   console.log('data movie', data);
@@ -76,7 +76,7 @@ const Details = (props) => {
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '45% auto',
+        backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 50 + 'vh',
       }}>
       {mouseActive && (<nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
@@ -125,7 +125,7 @@ const Details = (props) => {
                   />
               )}              
               {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}</>:null}
-              <div className='flex flex-row gap-8 items-center mb-0 flex-wrap sm:pl-6'>
+              <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
                 <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
                 <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">
                   <ThumbUp className="text-white group-hover/item:text-neutral-300 w-6" />
@@ -143,8 +143,8 @@ const Details = (props) => {
                     <p className="pr-1 text-green-400">
                       {data?.duration}
                     </p>
-                    <p className="border-gray-500 border px-1 mr-1 text-xs">HD</p>
-                    <p className="border-gray-500 border px-1 mr-1 text-xs">16+</p>
+                    {(data?.quality)?(<p className="border-gray-500 border px-1 mr-1 text-xs">{data?.quality}</p>):null}
+                    {(data?.contentRating)?(<p className="border-gray-500 border px-1 mr-1 text-xs">{data?.contentRating}</p>):null}
                   </div>
                   <div className="mb-4 text-white text-xs text-gray-500">
                     {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Provider:</span> {data?.contentPrivider}</p>):null}                    
@@ -184,7 +184,7 @@ const Details = (props) => {
       </div>
       <div className='w-full'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Some Related'} portrait={true} data={relMovies} link='/' linkText='Explore All'/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={(data?.isPackage)?'Movie Lists':'Some Related'} portrait={true} data={relMovies}/>:null}
         </div>
       </div>
       <Footer/>

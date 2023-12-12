@@ -124,7 +124,7 @@ html {
     position: absolute;
     top: 0;
     width: 100%;
-  background: linear-gradient(0deg,#181818, transparent 50%);
+  background: linear-gradient(0deg,#000, transparent 50%);
 }
 .movieCard .jk_player>div{
   position: absolute;
@@ -482,4 +482,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.detailsPageTabContent{
+  min-height: 150px;
 }

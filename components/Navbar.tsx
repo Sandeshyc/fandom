@@ -11,9 +11,9 @@ const Navbar = () => {
 
   return (
     <div 
-      className='w-full py-4 border-b border-white/40'>
+      className='w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b from-black/40 from-70% to-transparent to-100%'>
         <div
-        className='mx-auto max-w-[1680px] px-2'>
+        className='px-4'>
             <div className='flex items-center justify-between flex-wrap'>
               <div className='flex items-center'>
                 <div className='mr-8'>
@@ -26,10 +26,10 @@ const Navbar = () => {
                   <div className='flex flex-row items-center gap-7'>
                     <NavItem label="Home" route="/" activeRoute={'/'} />
                     <NavItem label="Movies" route="/" activeRoute={''} />
-                    <NavItem label="Events" route="/" activeRoute={''} />
+                    {/* <NavItem label="Events" route="/" activeRoute={''} /> */}
                     <NavItem label="My Tickets" route="/purchase" activeRoute={'/purchase'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />
-                    <NavItem label="Partner With Us" route="/" activeRoute={''} />
+                    {/* <NavItem label="Partner With Us" route="/" activeRoute={''} /> */}
                   </div>
                 </div>
               </div>

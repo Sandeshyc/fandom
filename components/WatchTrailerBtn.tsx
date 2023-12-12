@@ -24,6 +24,7 @@ const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         flex-row
         justify-center
         items-center
+        mr-4
         h-[44px]">
         <PlayIcon className="w-6 text-black mr-2" />
         Watch Trailer
