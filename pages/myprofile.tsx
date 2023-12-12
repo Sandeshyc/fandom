@@ -173,7 +173,7 @@ const MyProfile = () => {
   return (<>
       {(isReady && !isLoading)?<>
       <Navbar />
-      <div className="py-16 min-h-[80vh]"
+      <div className="py-16 pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
