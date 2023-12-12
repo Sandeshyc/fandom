@@ -24,6 +24,7 @@ const MyProfile = () => {
     if(paymentStatus){
         if(paymentStatus === 'success'){
             const entitleCall = async () => {
+                const itemCode = window.localStorage.getItem('itemCode');
                 const headers = {
                     'Content-Type': 'application/json',
                 };      
@@ -31,29 +32,30 @@ const MyProfile = () => {
                     "userID": userid,
                     "receipt": paymentId,
                     "sourcePlatform": "web",
-                    "itemCode": transactionId,
-                    "priceSKU": productId,
-                    "pricePlan": productId,
-                    "transactionId": transactionId
+                    "transactionId": transactionId,
                 };
-                console.log('Data:', data);
+                // console.log('Data:', data);
+                // console.log('URL:', `${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`)
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
                     if(response.status === 200) {
                         setIsSuccess(true);
                         setSuccessMessage('Payment successfull.');
 
-                        console.log('Success:', response?.data?.createRes?.itemCode);
+                        // console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
-                            router.push(`/details/${movieID}`);        
-                        }, 1000);
+                            router.push(`/details/${movieID}`);
+                        }, 2000);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     setIsError(true);
                     setErrorMessage('Something went wrong. Please try again later.');
+                    setTimeout(() => {
+                        router.push(`/`);
+                    }, 4000);
                 }); 
             }
             entitleCall();
@@ -78,7 +80,7 @@ const MyProfile = () => {
 
   return (<>
       {(isReady) && (<><Navbar />
-      <div className="py-16 bg-gradient-to-r from-[#210424] from-10% via-[#4B0F5A] via-30% to-[#271055] to-85% min-h-full">
+      <div className="py-16  min-h-[80vh]">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner max-w-[1200px] mx-auto mt-8">
             <h1 className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">

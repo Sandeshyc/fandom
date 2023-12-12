@@ -49,7 +49,7 @@ const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
 
   const { data: movies = [], isLoading } = useMovieList(region, 'web', 'home', userIdToken);
-  console.log('movies: ', movies);
+  // console.log('movies: ', movies);
   const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
 
   useEffect(() => {
@@ -131,9 +131,9 @@ const Home = (props) => {
           case 'top10' :
             return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
-            return <MovieListPurchase title={"My Purchases"} data={myPurchaseLayout} key={stableKeys[index]}/>    
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={"My Purchases"} portrait={false} data={myPurchaseLayout}/></div>   
           default:
-            return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/></div>
         }
       } else{
         // console.log('movieItem No', movieItem);
@@ -161,7 +161,7 @@ const Home = (props) => {
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 'auto',
+        backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}
       >

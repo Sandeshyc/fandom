@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import { set } from 'lodash';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import {
   DataUsage
 } from '@mui/icons-material';
@@ -24,19 +25,26 @@ const MyProfile = () => {
 
   return (<>
       <Navbar />
-      <div className="py-16 min-h-full"
+      <div className="pt-28 min-h-full"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: ' auto',
+        backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
-      }}
-      >
+      }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
             <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">
                 Payment 
             </p>
+            <div className="flex flex-row items-center gap-8">
+              <ArrowLeftIcon onClick={
+                () => router.back()
+              } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
+              <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
+                <span className="font-light">Back</span>
+              </p>
+            </div> 
             <div className="lg:px-6 pb-6 flex flex-wrap">
               {(!iframeLoaded)?(<div className='text-white w-full h-screen flex justify-center p-8'>
                 <div className='flex flex-col items-center'>

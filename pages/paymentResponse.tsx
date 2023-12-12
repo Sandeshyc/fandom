@@ -32,12 +32,9 @@ const MyProfile = () => {
                     "userID": userid,
                     "receipt": paymentId,
                     "sourcePlatform": "web",
-                    "itemCode": itemCode,
-                    "priceSKU": productId,
-                    "pricePlan": productId,
-                    "transactionId": transactionId
+                    "transactionId": transactionId,
                 };
-                console.log('Data:', data);
+                // console.log('Data:', data);
                 // console.log('URL:', `${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`)
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
@@ -45,7 +42,7 @@ const MyProfile = () => {
                         setIsSuccess(true);
                         setSuccessMessage('Payment successfull.');
 
-                        console.log('Success:', response?.data?.createRes?.itemCode);
+                        // console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
                             router.push(`/details/${movieID}`);
@@ -58,7 +55,7 @@ const MyProfile = () => {
                     setErrorMessage('Something went wrong. Please try again later.');
                     setTimeout(() => {
                         router.push(`/`);
-                    }, 5000);
+                    }, 4000);
                 }); 
             }
             entitleCall();
@@ -83,7 +80,7 @@ const MyProfile = () => {
 
   return (<>
       {(isReady) && (<><Navbar />
-      <div className="py-16 ">
+      <div className="py-16  min-h-[80vh]">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner max-w-[1200px] mx-auto mt-8">
             <h1 className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">

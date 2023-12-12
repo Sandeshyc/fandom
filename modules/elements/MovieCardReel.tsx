@@ -1,7 +1,9 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
-import { yearFromDate } from '@/utils/yearFromDate';
+import { 
+  yearFromDate, dateToDay  
+} from '@/utils/yearFromDate';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import { MovieInterface } from '@/types';
@@ -12,6 +14,8 @@ import Locked from '@/components/Locked';
 import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import EnititlementEndDate from '@/components/Expair';
+import PublishDate from '@/modules/Identities/PublishDate';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import MovieCardPopOver from '@/modules/elements/MovieCardPopOver';
 
 interface MovieCardProps {
@@ -20,6 +24,7 @@ interface MovieCardProps {
 }
 
 const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
+  console.log('MovieCardReel: ', data);
   const router = useRouter();
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
@@ -66,7 +71,8 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
     className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}]`} onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(!data?.allowed)?<Locked/>:null}      
       <div className='img relative h-full w-full'>
-        {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-sm'><EnititlementEndDate endDate={data?.publishSchedule} short={true} /></div>:null}
+        {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-md'><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
+        {(data?.endTime)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-md'><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
         <img onClick={redirectToWatch} src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer
           object-cover
           transition

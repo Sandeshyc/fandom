@@ -1,5 +1,9 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
+import {
+    VolumeOff,
+    VolumeUp,
+} from '@mui/icons-material';
 
 type Props = {
     videoURL: string, 
@@ -15,10 +19,20 @@ const ReactVideoPlayer = (
     }: Props
 ) => {
     const { innerWidth: width, innerHeight: height } = window;
+    const [isMute, setIsMute] = React.useState(true);
+    const tooggleMute = () => {
+        setIsMute(!isMute);
+    }
     return (
         <>
         <div className='w-full h-full overflow-hidden'>
             <div className='relative h-0 pt-[56.2%]'>
+                <div className='absolute bottom-2 right-2 w-[40px] rounded-full h-[40px] z-50 bg-black flex justify-center items-center'
+                    onClick={tooggleMute}
+                    >
+                    {(!isMute)?(<VolumeUp className='w-[20px] h-[20px] m-auto text-white'/>):(<VolumeOff className='w-[20px] h-[20px] m-auto text-white'/>)}
+                    
+                </div>
                 <div 
                     className={`absolute top-0 left-0 w-full h-full z-0 hidden sm:block`} 
                     style={{
@@ -32,7 +46,7 @@ const ReactVideoPlayer = (
                     width='100%'
                     height='100%'
                     playing={true}
-                    muted={true}
+                    muted={isMute}
                     loop={true}
                     controls={control}
                     delay={500}

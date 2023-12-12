@@ -195,9 +195,9 @@ const PlanCard = ({
           const data = {
               "userID": sub,
               "itemCode": movieId,
-              "pricePlan": productId,
+              "priceSKU": productId,
               "isPackage": isPackage,
-              "transactionId": transactionId
+              "transactionId": transactionId,
           };
           // console.log('Data:', data);
           await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/audit/`, data, { headers })

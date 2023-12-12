@@ -15,7 +15,7 @@ const Home = (props) => {
   const router = useRouter();
   const { region, product } =  props; 
   const { data: movies = [], isLoading } = usePurchaseMovies(region, 'web', userIdToken );
-  console.log('Movies:', movies);
+  // console.log('Movies:', movies);
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
@@ -36,10 +36,10 @@ const Home = (props) => {
   return (
     <>
       {(!isLoading && isReady) ? (<><Navbar/>
-      <div className="py-16" style={{
+      <div className="py-16 pt-28 min-h-[80vh]" style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: ' auto',
+        backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>

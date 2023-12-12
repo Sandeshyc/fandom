@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { use, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
@@ -17,26 +17,38 @@ import {
 
 const ProfileDropDown = () => {
     const router = useRouter();
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setLastName] = React.useState('');
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
 
-    // const { data: profile, isLoading } = useProfile(userid);
-    // console.log('profile', profile);
+    const { data: profile, isLoading } = useProfile(userid);
+    // console.log('profile', profile, isLoading);
 
-    // if(profile?.hasOwnProperty('firstName')){
-    //     setFirstName(profile?.firstName);    
-    // }
-    // if(profile?.hasOwnProperty('lastName')){
-    //     setLastName(profile?.lastName);    
-    // }
+    
+    useEffect(() => {
+        if(!isLoading) {
+            if( profile?.hasOwnProperty('firstName') || profile?.hasOwnProperty('lastName')) {
+                if(profile?.hasOwnProperty('firstName')){
+                    setDisplayName(profile?.firstName);
+                }
+                if(profile?.hasOwnProperty('lastName')){
+                    setDisplayName(profile?.firstName+' '+profile?.lastName);    
+                }
+            }else if(profile?.hasOwnProperty('email')) {
+                const email = profile?.email;
+                // before @
+                const emailName = email?.split('@')[0];
+                setDisplayName(emailName);
+            }else{
+                setDisplayName('Your Name');
+            }            
+        }
+    }, [profile]);
     useEffect(() => {
         const userInfo = window.localStorage.getItem('userInfo');
         if (userInfo) {
           const userInfoObj = JSON.parse(userInfo);
-          if(userInfoObj?.name) {
-            setDisplayName(userInfoObj?.name);
+          if(userInfoObj?.sub) {
+            setUserid(userInfoObj?.sub);
           }
         }
     }, []);
@@ -85,7 +97,6 @@ const ProfileDropDown = () => {
                                 <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                             </div>
                             <div>
-                                {/* Need to update */}
                                 <h3
                                 className='font-semibold text-[18px] m-0'>{( displayName )??(displayName)}</h3>
                                 <p className='text-[14px] text-[#0094FF]'>
@@ -98,8 +109,15 @@ const ProfileDropDown = () => {
                             </div>
                         </div>                        
                         <div className='my-[20px] asDivider'></div>
+                        <div className='mb-2'>
+                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
+                                <span className='mr-2'><MyAccountIcon/></span>
+                                <p>Manage Account</p>
+                            </div>  
+                        </div>
                         <div className='mb-1'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            <div 
+                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/purchase') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/purchase')
                             }>
@@ -108,7 +126,7 @@ const ProfileDropDown = () => {
                             </div>  
                         </div> 
                         <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            <div className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/list') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/list')
                             }>
@@ -116,25 +134,19 @@ const ProfileDropDown = () => {
                                 <p>My List</p>
                             </div>  
                         </div>
-                        <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
-                                <span className='mr-2'><MyAccountIcon/></span>
-                                <p>Manage Account</p>
-                            </div>  
-                        </div>
-                        <div className='mb-2'>
+                        {/* <div className='mb-2'>
                             <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
                                 <span className='mr-2'><PurchaseGiftCardIcon/></span>
                                 <p>Purchase a Gift</p>
                             </div>  
-                        </div>
+                        </div> */}
                         <div className='my-[15px] asDivider'></div> 
-                        <div className='mb-2'>
+                        {/* <div className='mb-2'>
                             <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
                                 <span className='mr-2'><MyPartnerIcon/></span>
                                 <p>Partner with Us</p>
                             </div>  
-                        </div> 
+                        </div>  */}
                         <div className='mb-2'>
                             <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
                                 <span className='mr-2'><HelpCenterIcon/></span>

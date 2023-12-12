@@ -11,7 +11,7 @@ const TabContents = ({
     openTab
 }:tabArgsProps) => {
     return (
-        <div className="pt-6 flex-auto text-base">
+        <div className="pt-6 flex-auto text-base detailsPageTabContent">
             <div className="tab-content">
                 {tabArgs.map((tab:any, index:number) => {
                     return (
@@ -22,17 +22,18 @@ const TabContents = ({
                                 </p>
                             )}
                             {(tab.type === 'arrays') && (
-                                <div className="">
-                                    {tab.content.map((item:any, index:number) => {
+                                <>                                
+                                <div className="ddd">
+                                    {tab?.content.map((item:any, index:number) => {
                                         return (
                                             <div key={stableKeys[index]}>
-                                            {(item.type === 'text') && (
+                                            {(item.type === 'text' && (item?.content)) && (
                                                 <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
                                                 <span className="text-white">{item.label}: </span>
                                                     {item.content}
                                                 </p>
                                             )}
-                                            {(item.type === 'array') && (
+                                            {(item.type === 'array' && Array.isArray(item?.content) && item?.content?.length > 0) && (
                                                 <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
                                                 <span className="text-white">{item.label}: </span>
                                                     {capFirstLetter(item?.content?.join(", "))}
@@ -41,7 +42,8 @@ const TabContents = ({
                                             </div>
                                         )
                                     })}
-                                </div>
+                                </div>                                
+                                </>
                             )}
                         </div>
                     )
