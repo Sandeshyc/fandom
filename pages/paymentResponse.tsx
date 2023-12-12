@@ -24,6 +24,7 @@ const MyProfile = () => {
     if(paymentStatus){
         if(paymentStatus === 'success'){
             const entitleCall = async () => {
+                const itemCode = window.localStorage.getItem('itemCode');
                 const headers = {
                     'Content-Type': 'application/json',
                 };      
@@ -31,13 +32,14 @@ const MyProfile = () => {
                     "userID": userid,
                     "receipt": paymentId,
                     "sourcePlatform": "web",
-                    "itemCode": transactionId,
+                    "itemCode": itemCode,
                     "priceSKU": productId,
                     "pricePlan": productId,
                     "transactionId": transactionId
                 };
                 console.log('Data:', data);
-                await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/entitlement/user/${userid}`, data, { headers })
+                // console.log('URL:', `${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`)
+                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
                     if(response.status === 200) {
                         setIsSuccess(true);
@@ -46,8 +48,8 @@ const MyProfile = () => {
                         console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
-                            router.push(`/details/${movieID}`);        
-                        }, 1000);
+                            router.push(`/details/${movieID}`);
+                        }, 2000);
                     }
                 })
                 .catch(error => {
@@ -55,8 +57,8 @@ const MyProfile = () => {
                     setIsError(true);
                     setErrorMessage('Something went wrong. Please try again later.');
                     setTimeout(() => {
-                        router.push(`/`);        
-                    }, 1000);
+                        router.push(`/`);
+                    }, 5000);
                 }); 
             }
             entitleCall();

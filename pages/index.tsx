@@ -49,6 +49,7 @@ const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
 
   const { data: movies = [], isLoading } = useMovieList(region, 'web', 'home', userIdToken);
+  console.log('movies: ', movies);
   const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
 
   useEffect(() => {

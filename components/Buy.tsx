@@ -159,6 +159,7 @@ return (<>
       return (<PlanCard 
         item={item}
         movieId={movieId}
+        isPackage={data?.isPackage}
         key={stableKeys[index]}
         />)
     })}
@@ -169,9 +170,10 @@ return (<>
 
 const PlanCard = ({
   item,
-  movieId
+  movieId,
+  isPackage
 }:any) => {
-  // console.log('item', item);
+  console.log('item', item);
   let descriptions = [];
   if(item?.description){
     // replace all , with <li>
@@ -194,12 +196,14 @@ const PlanCard = ({
               "userID": sub,
               "itemCode": movieId,
               "pricePlan": productId,
+              "isPackage": isPackage,
               "transactionId": transactionId
           };
-          console.log('Data:', data);
-          await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/entitlement/audit/`, data, { headers })
+          // console.log('Data:', data);
+          await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/audit/`, data, { headers })
               .then(response => {
               if(response.status === 200) {
+                window.localStorage.setItem('itemCode', movieId);
                 if(process.env.NODE_ENV === 'production'){
                   // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
                   window.location.href = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;

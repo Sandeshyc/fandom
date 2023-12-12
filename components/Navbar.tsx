@@ -27,7 +27,7 @@ const Navbar = () => {
                     <NavItem label="Home" route="/" activeRoute={'/'} />
                     <NavItem label="Movies" route="/" activeRoute={''} />
                     <NavItem label="Events" route="/" activeRoute={''} />
-                    <NavItem label="My Tickets" route="/" activeRoute={''} />
+                    <NavItem label="My Tickets" route="/purchase" activeRoute={'/purchase'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />
                     <NavItem label="Partner With Us" route="/" activeRoute={''} />
                   </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
                           marginRight: '10px'
                         }}/>
                         <span
-                        className='font-semibold'>
+                        className='font-semibold text-white'>
                           0                          
                         </span>
                       </div>

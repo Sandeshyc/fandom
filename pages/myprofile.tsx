@@ -143,7 +143,7 @@ const MyProfile = () => {
       };
       // console.log('data: ', data);
       // setIsUpdating(false);
-      await axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/profile`, data, { headers })
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, data, { headers })
           .then(response => {
           if(response.status === 200) {
             setIsSuccess(true);

@@ -137,7 +137,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
   }) };
 
   return (
-    <div className={`group px-4 md:px-16 mb-[3vw] movieSlider ${className} ${portrait ? 'portrait': ""}`}>
+    <div className={`group px-4 md:px-16 mb-[2vw] movieSlider ${className} ${portrait ? 'portrait': ""}`}>
       <div>
         {/* <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title} x</p> */}
         <div className={`gap-2 relative`}>
