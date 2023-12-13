@@ -174,6 +174,11 @@ const Details = (props) => {
           </div>         
         </div>
       </div>
+      {(data?.isPackage)?(<div className='w-full'>
+        <div className='max-w-[1600px] mx-auto px-[15px]'>
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={(data?.isPackage)?'Movie Lists':'Some Related'} portrait={true} data={relMovies}/>:null}
+        </div>
+      </div>):null}
       <div className='mt-6 mb-16'>
         <div className="max-w-[1600px] mx-auto px-[15px]">
           <div
@@ -182,11 +187,11 @@ const Details = (props) => {
           </div>
         </div>
       </div>
-      <div className='w-full'>
+      {(!data.isPackage)?(<div className='w-full'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
           {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={(data?.isPackage)?'Movie Lists':'Some Related'} portrait={true} data={relMovies}/>:null}
         </div>
-      </div>
+      </div>):null}
       <Footer/>
     </div>:<SkeletonDetails/>}
     </>

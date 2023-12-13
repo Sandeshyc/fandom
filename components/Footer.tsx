@@ -56,7 +56,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className="my-8 flex asFooterMenuWrap">
+                <div className="my-8 flex flex-wrap asFooterMenuWrap">
                     <NavItem label="Partner With Us" route="/" activeRoute={''} />
                     <NavItem label="Privacy Policy" route="/" activeRoute={''} />
                     <NavItem label="Help and Support" route="/" activeRoute={''} />
@@ -81,7 +81,7 @@ const NavItem = ({label, route, activeRoute}:NavItemProps) => {
     return(<>
         
         {(route)?<div 
-        className={`flex items-center font-medium text-base mr-4 cursor-pointer ${router.pathname === activeRoute ? 'text-blue-500' : 'text-white'}`}
+        className={`flex items-center font-medium text-base mr-4 cursor-pointer whitespace-nowrap ${router.pathname === activeRoute ? 'text-blue-500' : 'text-white'}`}
         onClick={() => router.push(route)}>
             {label}
         </div>:<div 

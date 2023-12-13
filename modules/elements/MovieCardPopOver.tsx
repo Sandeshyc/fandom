@@ -73,9 +73,10 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
       className={`asPopOver absolute transition duration-200 delay-300 ease-in-out z-50 invisible sm:visible w-full 
       ${(isMouseActive)?'scale-100 opacity-100':'scale-0 opacity-0'}`}
         style={{
-          top: '-50px',
+          top: '50%',
           left: popOverLeft,
           right: popOverRight,
+          transform: 'translatey(-50%)',
         }}>            
         <div className='relative'>
           {autoplay && (<AudioMute 
@@ -101,16 +102,16 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
           transition
           shadow-md
           rounded-b-lg">
-          <div className='mb-4'>
-            <p className="font-medium text-3xl mb-1 cursor-pointer">{data?.title || "upcoming..."}</p>
+          <div className='mb'>
+            <p className="font-medium text-3xl mb-1">{data?.title || "upcoming..."}</p>
             {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
                 {capFirstLetter(itemTxt)}
               </span>)}</div>:null}
             {(data?.description) && <p className="font-normal	text-sm mt-2 mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
           </div>
           <div className='flex flex-wrap justify-between items-center'>
-            <div className=' mb-1'>              
-              <div className='flex flex-row items-center gap-2 mb-2'>
+            <div className='mb-1'>              
+              <div className='flex flex-row items-center gap-2'>
                 {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
                 {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
               </div>           
