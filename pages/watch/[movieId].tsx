@@ -75,7 +75,7 @@ const Watch = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         }}>
-        {(isTrailer)?(<ReactMainVideoPlayer videoURL={videoURL} poster={data?.thumbnailUrl} control={true}/>):<VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL}/>}
+        {(isTrailer)?(<ReactMainVideoPlayer videoURL={videoURL} poster={data?.thumbnailUrl} control={true}/>):<VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL} data={data} />}
         
       </div>
     </div></>):(<SkeletonWatch/>)}

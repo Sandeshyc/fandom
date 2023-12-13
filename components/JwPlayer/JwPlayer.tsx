@@ -1,6 +1,8 @@
 import { set } from "lodash";
 import React, { useState, useEffect, useRef } from "react";
 
+import usePlayerEvent from "@/hooks/usePlayerEvent";
+
 interface VideoPlayerProps {
     image : string;
     video : string;
@@ -9,10 +11,12 @@ interface VideoPlayerProps {
     isComplited : () => void;
     caption?: any,
     pictureInPicture: boolean;
+    data : any;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture }) => {
+const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data }) => {
     const playerRef = useRef();
+    const {logPlayerEvent} = usePlayerEvent();
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -87,6 +91,13 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on playing video
             player.on('play', function() {
+                logPlayerEvent({
+                    "eventType": "player",
+                    "eventName": "play",
+                    "meta": {
+                        "itemCode": data?._id,
+                    }
+                });
                 console.log('play');
                 // show the player once it's ready
                 playerRef.current.style ="opacity: 1"
@@ -95,15 +106,43 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             // on pause video
             player.on('pause', function() {
                 console.log('pause');
+                logPlayerEvent({
+                    "eventType": "player",
+                    "eventName": "pause",
+                    "meta": {
+                        "itemCode": data?._id,
+                    }
+                });
             });
 
             // on complete video
             player.on('complete', function() {
+                logPlayerEvent({
+                    "eventType": "player",
+                    "eventName": "completed",
+                    "meta": {
+                        "itemCode": data?._id,
+                    }
+                });
                 console.log('jw video complete');
                 // if isComplited is passed as props
                 if(isComplited){
                     isComplited(true);
                 }
+            });
+
+            player.on('error', function(error : any) {
+                logPlayerEvent({
+                    "eventType": "player",
+                    "eventName": "error",
+                    "meta": {
+                        "itemCode": data?._id,
+                        "errorCode": error?.code,
+                        "errorType": error?.type,
+                        "error": error?.message,
+                    }
+                });
+                console.log('error');
             });
 
             // clear on unmount
