@@ -8,8 +8,8 @@ const usePlayerEvent = () => {
     const logPlayerEvent = async (data: any) => {
         const userId = getUserId();
         console.log('savePlayerEvent', data);
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}`, data);
-        console.log('savePlayerEvent res', res);
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, data);
+        // console.log('savePlayerEvent res', res);
         return res;
     };
     return {

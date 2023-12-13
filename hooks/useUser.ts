@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 
 const useUser = () => {
-    const [user, setUser] = useState({} as any);
-
-    useEffect(() => {
-        const userInfo = window.localStorage.getItem('userInfo');
-        setUser(JSON.parse(userInfo || '{}'));
-    }, [window.localStorage]);
-
     const gerUser = () => {
-        return user;
+        const userInfo = window.localStorage.getItem('userInfo');
+        return JSON.parse(userInfo || '{}');
     }
     const getUserId = () => {
+        const userInfo = window.localStorage.getItem('userInfo');
+        const user = JSON.parse(userInfo || '{}');
         return user?.sub || 0;
     }
     return {

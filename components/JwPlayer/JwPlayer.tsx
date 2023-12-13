@@ -17,6 +17,7 @@ interface VideoPlayerProps {
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data }) => {
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
+    console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -105,12 +106,16 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on pause video
             player.on('pause', function() {
+                const currentTime = player.getPosition();
+                const duration = player.getDuration();
                 console.log('pause');
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "pause",
                     "meta": {
                         "itemCode": data?._id,
+                        "currentTime": currentTime,
+                        "duration": duration,
                     }
                 });
             });
