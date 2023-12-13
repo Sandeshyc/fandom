@@ -96,6 +96,11 @@ const MyProfile = () => {
                         {errorMessage}
                 </h2></>:null
                 }
+                {(isSuccess)?<>
+                    <h2 className='text-xl mb-4 text-green-800 bg-green-100 py-2 px-4 rounded-md'>
+                        {successMessage}
+                </h2></>:null
+                }
             </div>
           </div>
         </div>

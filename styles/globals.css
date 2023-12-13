@@ -126,7 +126,7 @@ html {
     width: 100%;
   background: linear-gradient(0deg,#000, transparent 50%);
 }
-.movieCard .jk_player>div{
+.movieCard .jk_player>.w-full.h-full{
   position: absolute;
   width: 100%;
   height: 100%;

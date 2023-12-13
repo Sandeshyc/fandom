@@ -8,25 +8,33 @@ import { set } from 'lodash';
 import ReactMainVideoPlayer from '@/components/ReactMainPlayer';
 
 const Watch = () => {
-  const [userId, setUserId] = React.useState('');
   const router = useRouter();
-  const { movieId } = router.query;
+  const [userId, setUserId] = React.useState('');
+  const {movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);
   const [isReady, setIsReady] = React.useState(false);
   const [isTrailer, setIsTrailer] = React.useState(true);
+  const [trailerUrl, setTrailerUrl] = React.useState('');
+  const [videoURL, setVideoURL] = React.useState('');
+  const [videoReady, setVideoReady] = React.useState(false);
   
-  const { data, error, isLoading } = useMovie(movieId as string, userId as string);
-  let videoURL = '';
-  if(data?.allowed){
-    if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
-      videoURL = data?.videoUrls[0]?.url;
-      setIsTrailer(false);
-    }else{
-      videoURL = data?.trailerUrl ? data?.trailerUrl : '';
+  const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
+  console.log('Watch data: ', data, isLoading, isReady);
+
+  useEffect(() => {
+    if(data?._id){
+      setVideoReady(true);
     }
-  }else{
-    videoURL = data?.trailerUrl ? data?.trailerUrl : '';
-  }
+    if(data?.allowed){
+      setIsTrailer(false);
+      if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
+        setVideoURL(data?.videoUrls[0]?.url);
+      }
+    }else{
+      setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
+    }
+    // console.log('videoURL: ', videoURL);
+  }, [data]);
 
   const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
 
@@ -75,8 +83,18 @@ const Watch = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         }}>
-        {(isTrailer)?(<ReactMainVideoPlayer videoURL={videoURL} poster={data?.thumbnailUrl} control={true}/>):<VideoPlayer image={data?.thumbnailUrl} video={videoURL} caption={captionURL}/>}
-        
+
+        {(videoReady)?((isTrailer)?((trailerUrl)?(<ReactMainVideoPlayer 
+        videoURL={trailerUrl}
+        poster={data?.thumbnailUrl}
+        control={true}/>):(<NotFount/>)):((videoURL)?(<VideoPlayer 
+          image={data?.thumbnailUrl}
+          video={videoURL} 
+          caption={captionURL}
+          control={true}
+          autoplay={true}
+          isComplited={() => {}}
+          pictureInPicture={true}/>):(<NotFount/>))):null}
       </div>
     </div></>):(<SkeletonWatch/>)}
     </>
@@ -84,3 +102,11 @@ const Watch = () => {
 }
 
 export default Watch;
+
+const NotFount = () => {
+  return (
+    <div className="flex items-center justify-center h-full w-full absolute bg-black/80">
+      <p className='text-white text-4xl'>No video found!</p>
+    </div>
+  )
+}
