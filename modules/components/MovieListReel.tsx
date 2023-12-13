@@ -91,14 +91,14 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
           link={link}
           linkText={linkText}
           />
-        <div className="block xl:hidden">
+        <div className="block lg:hidden">
           <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
             {data?.map((movie, index) => (
               <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} />
             ))}
           </div>
         </div>
-        <div className="hidden xl:block movieSliderReel">
+        <div className="hidden lg:block movieSliderReel">
           <Slider {...settings}>
             {data?.map((movie, index) => (
               <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} />

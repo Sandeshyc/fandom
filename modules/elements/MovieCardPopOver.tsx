@@ -8,6 +8,8 @@ import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import { MovieInterface } from '@/types';
+import AudioMute from '@/modules/elements/AudioMute';
+
 
 interface MovieCardProps {
   data?: MovieInterface;
@@ -18,6 +20,7 @@ interface MovieCardProps {
 }
 const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef, isMouseActive, popScale }) => {
   const router = useRouter();
+  const [isMute, setIsMute] = React.useState(true);
   // console.log('MovieCardPopOver: ', data);
   const [popOverLeft, setPopOverLeft] = React.useState('');
   const [popOverRight, setPopOverRight] = React.useState('');
@@ -25,6 +28,9 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
   // console.log('Width:', parentRef?.getBoundingClientRect()?.width, 'Left:', parentRef?.getBoundingClientRect()?.left, 'Top:', parentRef?.getBoundingClientRect()?.top, 'left offset:', parentRef?.offsetLeft, 'Top offset:', parentRef?.offsetTop);
   // console.log('MovieCardPopOver: ', parentRef);
   useEffect(() => {
+    if(!isMouseActive){
+      setIsMute(true);
+    }
     // console.log('log ', isMouseActive?.toString());
     let width = parentRef?.getBoundingClientRect()?.width;
     let left = parentRef?.getBoundingClientRect()?.left;
@@ -55,6 +61,13 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
       }
     }
   }, [isMouseActive]);
+
+  
+
+  const toggleMute = () => {
+    setIsMute(!isMute);
+  }
+
   return (
     <div 
       className={`asPopOver absolute transition duration-200 delay-300 ease-in-out z-50 invisible sm:visible w-full 
@@ -63,11 +76,24 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
           top: '-50px',
           left: popOverLeft,
           right: popOverRight,
-        }}>
-        <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
-        style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-          {autoplay && (<ReactVideoPlayer videoURL={data?.videoUrl} control={false} poster={data?.thumbnailUrl}/>)}          
-        </div>        
+        }}>            
+        <div className='relative'>
+          {autoplay && (<AudioMute 
+          isMute={isMute}
+          toggleMute={toggleMute}
+          />)} 
+          <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
+          style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+          onClick={redirectToWatch}>
+            {autoplay && (<ReactVideoPlayer 
+            videoURL={data?.videoUrl} 
+            control={false} 
+            poster={data?.thumbnailUrl}
+            isMute={isMute}
+            play={autoplay}
+            />)}                   
+          </div> 
+        </div>     
         <div className="z-10
           bg-zinc-800
           p-2
@@ -76,18 +102,18 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
           shadow-md
           rounded-b-lg">
           <div className='mb-4'>
-            <p className="font-medium text-3xl mb-2 cursor-pointer" onClick={redirectToWatch}>{data?.title || "upcoming..."}</p>
-            {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
+            <p className="font-medium text-3xl mb-1 cursor-pointer">{data?.title || "upcoming..."}</p>
+            {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+                {capFirstLetter(itemTxt)}
+              </span>)}</div>:null}
+            {(data?.description) && <p className="font-normal	text-sm mt-2 mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
           </div>
           <div className='flex flex-wrap justify-between items-center'>
             <div className=' mb-1'>              
               <div className='flex flex-row items-center gap-2 mb-2'>
-                {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
+                {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
                 {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
-              </div>
-              {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
-                {capFirstLetter(itemTxt)}
-              </span>)}</div>:null}              
+              </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
               <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
