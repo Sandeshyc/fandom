@@ -24,7 +24,7 @@ interface MovieCardProps {
 }
 
 const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
-  console.log('MovieCardReel: ', data);
+  // console.log('MovieCardReel: ', data);
   const router = useRouter();
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);

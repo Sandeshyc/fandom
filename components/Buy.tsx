@@ -96,7 +96,7 @@ const Buy: React.FC<PlayButtonProps> = ({
   aria-describedby="simple-modal-description"
   onClose={handleClose}
   className='flex justify-center items-center'>
-    <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative max-h-[90%]'>
+    <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative max-h-[95%]'>
       <button
       onClick={handleClose}
       className='absolute top-0 right-0 text-white text-4xl px-2 py-1'>
@@ -131,38 +131,39 @@ return (<>
     w-full'>
     <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Choose Your Plan</h3>
   </div>
-  <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
-    <div className='mr-2 w-[80px]'>
-      <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9] object-cover'/>
-    </div>
-    <div className='flex-grow flex flex-wrap w-[200px]'>
-      <div className='w-full flex'>
-        <div className='mr-6'>
-          <p className="font-medium text-3xl">{data?.title || "upcoming..."}</p>
-        </div>
-        <div className='flex flex-row items-center gap-2 mr-6'>
-          {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-sm font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
-          {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
-        </div>
-        {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
-          {capFirstLetter(itemTxt)}
-        </span>)}</div>:null} 
+  <div className='overflow-y-auto overflow-x-hidden max-h-[80vh]'>
+    <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
+      <div className='mr-2 w-[80px]'>
+        <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9] object-cover'/>
       </div>
-      <div className='w-full'>
-        {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
+      <div className='flex-grow flex flex-wrap w-[200px]'>
+        <div className='w-full flex flex-wrap'>
+          <div className='mr-6'>
+            <p className="font-medium text-3xl">{data?.title || "upcoming..."}</p>
+          </div>
+          <div className='flex flex-row items-center gap-2 mr-6'>
+            {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
+            {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
+          </div>
+          {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+            {capFirstLetter(itemTxt)}
+          </span>)}</div>:null} 
+        </div>
+        <div className='w-full mt-2'>
+          {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
+        </div>
       </div>
     </div>
-  </div>
-  <div className='flex flex-wrap justify-center  w-full overflow-y-auto overflow-x-hidden max-h-[60vh]
-  h-full planListsWrapper'>
-    {items?.map((item, index)=>{
-      return (<PlanCard 
-        item={item}
-        movieId={movieId}
-        isPackage={data?.isPackage}
-        key={stableKeys[index]}
-        />)
-    })}
+    <div className='flex flex-wrap justify-center w-full planListsWrapper'>
+      {items?.map((item, index)=>{
+        return (<PlanCard 
+          item={item}
+          movieId={movieId}
+          isPackage={data?.isPackage}
+          key={stableKeys[index]}
+          />)
+      })}
+    </div>
   </div>
   {/* <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p> */}
   </>)
@@ -225,7 +226,7 @@ const PlanCard = ({
     }
   }
   return (<>
-    <div className='text-white px-6 flex flex-col flex-wrap'>
+    <div className='text-white px-6 flex flex-col flex-wrap mb-4'>
       <div className='bg-[#0F0F0F] flex-grow w-[280px] rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
         <div className='text-xl font-semibold mb-4'>{item?.name}</div>
         <div className='text-white text-base text-left'>
