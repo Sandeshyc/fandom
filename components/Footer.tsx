@@ -1,5 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
+
+import useMoviePopupStore from '@/hooks/useMoviePopupStore';
+import MovieSmallModal from '@/components/MovieSmallModal';
+
 import {
     FacebookIcon,
     InstagramIcon,
@@ -11,6 +15,9 @@ const bgImage = 'url("/images/footer-bg.png")';
 const logoSrc = '/images/logonew.png';
 const Footer = () => {
     const router = useRouter();
+
+    const {isOpen, closeModal} = useMoviePopupStore();
+
     return(<>
         <div className="py-8 bg-black"
         style={{
@@ -66,6 +73,7 @@ const Footer = () => {
                 </div>
             </div>
         </div>
+        <MovieSmallModal visible={isOpen} onClose={closeModal} />
     </>);
 }
 
