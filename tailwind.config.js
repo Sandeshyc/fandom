@@ -13,6 +13,9 @@ module.exports = {
 				monoton: ["Monoton", "cursive"],
 				poppins: ["Poppins", "sans-serif"],
 			},
+			screens: {
+				'lg': '960px',
+			},
 		},
 	},
 	plugins: [],

@@ -11,7 +11,7 @@ import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import ReelHeading from '@/modules/elements/ReelHeading';
 
-interface MovieListProps {
+interface MovieListTopsV2Props {
   data: MovieInterface[];
   title: string;
   portrait: boolean;
@@ -32,7 +32,7 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
+const MovieListTopsV2: React.FC<MovieListTopsV2Props> = ({ data, title, portrait }) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -81,18 +81,18 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   let i = 1;
   let j = 1;
   return (
-    <div className={`px-4 md:px-16 mb-[3vw] movieSlider `}>
+    <div className={`pl-4 md:pl-16 mb-[3vw] movieSlider `}>
       <div>
         <ReelHeading title={title} />
         <div className={`gap-2  `}>
-        <div className="block xl:hidden">
+        <div className="block lg:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
               {data?.map((movie, index) => (
                 <MovieCardTop key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />
               ))}
             </div>
           </div>
-          <div className="hidden xl:block">
+          <div className="hidden lg:block">
             <Slider {...settings}>
               {data?.map((movie, index) => (
                 <MovieCardTop key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />
@@ -105,4 +105,4 @@ const MovieList: React.FC<MovieListProps> = ({ data, title, portrait }) => {
   );
 }
 
-export default MovieList;
+export default MovieListTopsV2;
