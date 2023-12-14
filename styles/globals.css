@@ -314,18 +314,21 @@ html {
   height: 100vh !important;
 } */
 
+.planListsWrapper{
+  font-size: 0;
+}
 .planListsWrapper > div{
   position: relative;  
 }
 
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 100px) {
   .planListsWrapper > div::after{
     content: '';
     position: absolute;
     width: 1px;
     height: 100%;
     top:0;
-    left:0;
+    right:-2px;
     background: linear-gradient(
       transparent 15%,
       rgba(255,255,255,0.3) 35%,
@@ -333,19 +336,37 @@ html {
       transparent 85%
     );
     z-index: 1;
+    /* display: none; */
+  } 
+  .planListsWrapper > div:last-child::after{
     display: none;
   } 
-  .planListsWrapper > div:nth-child(even):after{
-    display: block;
-  } 
 }
-@media screen and (min-width: 1144px) {
+/* @media screen and (min-width: 1144px) {
   .planListsWrapper > div::after{
     display: block;
   } 
   .planListsWrapper > div:nth-child(3n+1):after{
     display: none;
   } 
+} */
+
+@media screen and (max-width: 960px) {
+  .planListsWrapper{
+    justify-content: flex-start !important;
+  } 
+}
+
+.jkBuyModal{
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  align-items: flex-start;
+}
+
+@media screen and (min-height: 1000px){
+  .jkBuyModal{
+    align-items: center;
+  }
 }
 
 .asDivider{

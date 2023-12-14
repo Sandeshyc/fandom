@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
 import { PlayIcon } from '@heroicons/react/24/solid';
+import Buttons from '@/components/identites/Buttons';
 import FavoriteButton from '@/components/FavoriteButton';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import { stableKeys } from '@/utils/stableKeys';
@@ -118,7 +119,14 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
               <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
-              <div onClick={redirectToWatch} className="text-white text-center rounded-full py-2 px-3 text-base w-[150px] h-[40px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r cursor-pointer">Rent</div>
+              
+              
+              {data?.allowed? (
+                <Buttons onClick={redirectToWatch} type='white'>Play Now</Buttons>
+              ) : (
+                <Buttons onClick={redirectToWatch}>Rent</Buttons>
+              )}
+
             </div>
           </div>
         </div>

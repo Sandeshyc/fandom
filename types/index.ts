@@ -8,4 +8,5 @@ export interface MovieInterface {
   duration: string;
   genre: Array<String>;
   publishSchedule?: string;
+  allowed? : boolean;
 }

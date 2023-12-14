@@ -69,12 +69,16 @@ const Watch = () => {
     setIsReady(true);
   }, []);
 
+  const handleBack = () => {
+    router.back();
+  }
+
   
   return (
     <>
     {(isReady && !isLoading)?(<><div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
       {mouseActive && (<nav className="fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
-        <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
+        <ArrowLeftIcon onClick={handleBack} className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
         <p className="text-white text-1xl md:text-3xl font-bold">
           <span className="font-light">Watching:</span> {data?.title}
         </p>
