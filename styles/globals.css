@@ -318,7 +318,7 @@ html {
   position: relative;  
 }
 
-@media screen and (min-width: 705px) {
+@media screen and (min-width: 780px) {
   .planListsWrapper > div::after{
     content: '';
     position: absolute;
@@ -339,7 +339,7 @@ html {
     display: block;
   } 
 }
-@media screen and (min-width: 1035px) {
+@media screen and (min-width: 1144px) {
   .planListsWrapper > div::after{
     display: block;
   } 

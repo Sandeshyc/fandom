@@ -10,7 +10,7 @@ import ReactMainVideoPlayer from '@/components/ReactMainPlayer';
 const Watch = () => {
   const router = useRouter();
   const [userId, setUserId] = React.useState('');
-  const {movieId } = router.query;
+  const {movieId, trailer } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);
   const [isReady, setIsReady] = React.useState(false);
   const [isTrailer, setIsTrailer] = React.useState(true);
@@ -34,6 +34,10 @@ const Watch = () => {
       setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
     }
     // console.log('videoURL: ', videoURL);
+    if(trailer === 'true'){
+      setIsTrailer(true);
+      setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
+    }
   }, [data]);
 
   const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
