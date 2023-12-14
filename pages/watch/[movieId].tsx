@@ -98,6 +98,7 @@ const Watch = () => {
           control={true}
           autoplay={true}
           isComplited={() => {}}
+          data={data}
           pictureInPicture={true}/>):(<NotFount/>))):null}
       </div>
     </div></>):(<SkeletonWatch/>)}
