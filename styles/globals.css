@@ -1,10 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 *, *::after, *::before {
   box-sizing: border-box
@@ -14,6 +16,7 @@ body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
   max-width: 100%;
   background-color: #000;
+  /* font-family: 'Poppins', sans-serif; */
 }
 
 #__next {
@@ -509,4 +512,15 @@ html {
 }
 .detailsPageTabContent{
   min-height: 150px;
+}
+
+.jkGradient{
+  border-radius: 6px;
+  background: #1624FF;
+  background: linear-gradient(180deg, rgba(22, 56, 255, 0) 50%, #1624FF 85.4%);
+}
+.jkGradient-black{
+  border-radius: 6px;
+  background: #000;
+  background: linear-gradient(180deg, rgba(0,0,0, 0) 50%, #000 85.4%);
 }

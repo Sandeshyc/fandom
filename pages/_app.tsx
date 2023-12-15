@@ -2,11 +2,17 @@ import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import Script from "next/script";   
 import type { AppProps } from 'next/app';
+import { Poppins } from 'next/font/google';
 
 import useWishListStore from '@/hooks/useWishListStore';
 
 import '../styles/globals.css';
 import { use, useEffect } from 'react';
+
+const poppins = Poppins({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin']
+});
 
 export default function App({ 
   Component, 
@@ -37,7 +43,9 @@ export default function App({
         src="https://cdn.jwplayer.com/libraries/kLxY4wBD.js" />
 
       {/* <SessionProvider session={session}> */}
-          <Component {...pageProps} />
+          <main className={poppins.className}>
+            <Component {...pageProps} />
+          </main>
       {/* </SessionProvider> */}
     </>
   )

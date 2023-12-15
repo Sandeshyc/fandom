@@ -130,7 +130,7 @@ return (<>
     text-white
     mb-2
     w-full'>
-    <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Choose Your Plan</h3>
+    <h3 className='text-xl md:text-2xl font-semibold '>Choose Your Plan</h3>
   </div>
   <div className=''>
     <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>

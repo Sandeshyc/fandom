@@ -129,7 +129,7 @@ return (<>
     text-center
     mb-6
     w-full'>
-    <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Select a plan</h3>
+    <h3 className='text-xl md:text-2xl font-semibold'>Select a plan</h3>
     <p className='text-sm'>Choose from the plans below</p>
   </div>
   <div className='flex flex-wrap justify-center text-center w-full overflow-y-auto overflow-x-hidden max-h-[60vh]
@@ -207,7 +207,6 @@ const PlanCard = ({
       px-2
       pb-20
       relative
-      font-poppins
       '>
         <div className='text-blue-500 text-[20px] mb-0'>{item?.name}</div>
         <p className='mb-6'>

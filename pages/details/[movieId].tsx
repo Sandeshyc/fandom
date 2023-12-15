@@ -91,7 +91,7 @@ const Details = (props) => {
         </div>
         <div className="absolute bottom-[0] left-0 w-[100%] bg-gradient-to-t from-black to-transparent py-[10px] lg:py-[30px] pt-[200px]">
           <div className="max-w-[1600px] mx-auto px-[15px]">
-            <p className="text-white text-2xl md:text-4xl h-full lg:text-5xl font-bold mb-4 lg:mb-8">
+            <p className="text-white text-2xl md:text-4xl h-full lg:text-5xl mb-4 lg:mb-8">
               {data?.title}
             </p>
             {(data?.allowed !== true && Array.isArray(data?.messages) && data?.messages.length) ?  (<>

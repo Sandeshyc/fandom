@@ -70,7 +70,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
       }
     }>
       <div className="relative w-full ">
-        <div className={`${isVisible ? 'scale-100' : 'scale-0'} rounded-md  overflow-hidden transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
+        <div className={`${isVisible ? 'scale-100 opacity-100 ' : 'scale-50 opacity-0'} rounded-md  overflow-hidden transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
 
         <div className='relative'>
           <AudioMute 
@@ -86,7 +86,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               poster={data?.thumbnailUrl}
               isMute={isMute}
               play={true}
-            /> : null}             
+            /> : <div className='aspect-[16/9]'></div>}             
           </div> 
         </div>     
         <div className="z-10
@@ -97,8 +97,8 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
           shadow-md
           rounded-b-lg">
           <div className='mb'>
-            <p className="font-medium text-3xl mb-1">{data?.title || "upcoming..."}</p>
-            {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+            <p className="text-3xl mb-1">{data?.title || "upcoming..."}</p>
+            {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0 text-white/80">
                 {capFirstLetter(itemTxt)}
               </span>)}</div>:null}
             {(data?.description) && <p className="font-normal	text-sm mt-2 mb-2 text-white/80 line-clamp-2">{data?.description}</p>}

@@ -17,6 +17,7 @@ import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import EnititlementEndDate from '@/components/Expair';
 import PublishDate from '@/modules/Identities/PublishDate';
+import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import MovieCardPopOver from '@/modules/elements/MovieCardPopOver';
 import ProgressBar from '@/components/elements/ProgressBar';
@@ -25,9 +26,10 @@ import ProgressBar from '@/components/elements/ProgressBar';
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
+  gradient?: boolean;
 }
 
-const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
+const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) => {
   // console.log('MovieCardReel: ', data);
   const router = useRouter();
   const { openModal, closeModal} = useMoviePopupStore();
@@ -107,27 +109,36 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
     router.push(`/details/${data?._id}`)
   }, [router, data?._id]);
   
+  const noGradientClass = gradient ? '' : ' bg-black py-1 ';
 
 
   return (
     <div 
     ref={thumbOuterRef}
-    className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}]`} onMouseEnter={onHoverHandler} onMouseLeave={onMouseLeave}>
+    className={`group bg-zinc-900 col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
+    onMouseEnter={onHoverHandler} 
+    onMouseLeave={onMouseLeave}
+    onClick={redirectToWatch}
+    >
       {(!data?.allowed)?<Locked/>:null}      
       <div className='img relative h-full w-full'>
-        {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-md'><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
-        {(data?.endTime)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-md'><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
-        <img onClick={redirectToWatch} src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer
-          object-cover
-          transition
-          duration
-          shadow-xl
-          rounded-md
+        
+        <div className='absolute z-30 bottom-0 left-0 w-full '>
           
-          delay-300
-          w-full
-          h-[12vw]`}/>
-          {data?.currentTime ? <ProgressBar done={progress} /> : null}
+          
+          {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
+
+          {(data?.publishSchedule && !gradient)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 py-1 rounded-md ${noGradientClass}`}><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
+
+          {(data?.publishSchedule && gradient)?<div className={`mb-2 mx-2 text-gray-100 px-2 rounded-md ${noGradientClass}`}><PublishDateDetails publishDate={data?.publishSchedule} short={true} /></div>:null}
+
+          {data?.currentTime ? <div className='m-2 mt-0'><ProgressBar done={progress} /></div> : null}
+        </div>
+        
+        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-cover shadow-xl rounded-md w-full h-[12vw] z-10`}/>
+        
+        {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
+
       </div>
       {/* <MovieCardPopOver
         data={data}
