@@ -26,10 +26,10 @@ interface MovieCardTopProps {
 const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) => {
   const router = useRouter();
   // const { openModal } = useInfoModalStore();
-  const { openModal} = useMoviePopupStore();
+  const { openModal, closeModal} = useMoviePopupStore();
   const [autoplay, setAutoplay] = React.useState(false);
   const [isMouseActive, setIsMouseActive] = React.useState(false);
-  const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
+  
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
   const x = useRef(false);
@@ -76,16 +76,21 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
     }, 700);
   }
   const onMouseLeave = () => {
-    // closeModal && closeModal();
-    setIsMouseActive(false);
     x.current = false;
-    // setAutoplay(false);
+    clearTimeout(timer);
   }
+
+  const redirectToWatch = useCallback(() => {
+    x.current = false;
+    clearTimeout(timer);
+    closeModal();
+    router.push(`/details/${data?._id}`)
+  }, [router, data?._id]);
 
   return (
     <div  
     ref={thumbOuterRef}
-    className="group col-span relative movieCard" onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    className="group col-span relative movieCard" onMouseEnter={onHoverHandler} onMouseLeave={onMouseLeave}>
       <div className='movieCardTop movieCardTopV2'>
       {(!data?.allowed)?<Locked/>:null}
         <div className='number'><SvgNumbers item={number} /></div>

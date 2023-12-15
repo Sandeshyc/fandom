@@ -27,7 +27,10 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   const [boxHeight , setBoxHeight] = useState(0);
   
   const { data } = useMoviePopupStore();
-  const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
+  const redirectToWatch = useCallback(() => {
+    handleClose(null);
+    router.push(`/details/${data?._id}`);
+  }, [router, data?._id]);
 
   // console.log('region', region);
   useEffect(() => {
