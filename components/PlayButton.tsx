@@ -30,7 +30,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
         min-w-[180px]
         ">
         <PlayIcon className="w-6 text-black mr-2" />
-        Play
+        Play Now
     </button>
   );
 }

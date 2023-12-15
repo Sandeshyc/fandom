@@ -95,8 +95,8 @@ const Buy: React.FC<PlayButtonProps> = ({
   aria-labelledby="simple-modal-title"
   aria-describedby="simple-modal-description"
   onClose={handleClose}
-  className='flex justify-center items-center'>
-    <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative max-h-[95%]'>
+  className='flex justify-center  jkBuyModal'>
+    <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative '>
       <button
       onClick={handleClose}
       className='absolute top-0 right-0 text-white text-4xl px-2 py-1'>
@@ -123,6 +123,7 @@ const PlanItems = ({
   if(!thumbURl){
     thumbURl = data?.thumbnailUrl;
   }
+
 return (<>
   <div 
     className='
@@ -131,7 +132,7 @@ return (<>
     w-full'>
     <h3 className='text-xl md:text-2xl font-semibold font-poppins'>Choose Your Plan</h3>
   </div>
-  <div className='overflow-y-auto overflow-x-hidden max-h-[80vh]'>
+  <div className=''>
     <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
       <div className='mr-2 w-[80px]'>
         <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9] object-cover'/>
@@ -154,16 +155,19 @@ return (<>
         </div>
       </div>
     </div>
-    <div className='flex flex-wrap justify-center w-full planListsWrapper'>
-      {items?.map((item, index)=>{
-        return (<PlanCard 
-          item={item}
-          movieId={movieId}
-          isPackage={data?.isPackage}
-          key={stableKeys[index]}
-          />)
-      })}
-    </div>
+    {/* <div className='flex flex-wrap justify-center planListsWrapper'> */}
+    
+        <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
+          {items?.map((item, index)=>{
+            return (<PlanCard 
+              item={item}
+              movieId={movieId}
+              isPackage={data?.isPackage}
+              key={stableKeys[index]}
+              />)
+          })}
+        </div>
+    
   </div>
   {/* <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p> */}
   </>)
@@ -226,12 +230,13 @@ const PlanCard = ({
     }
   }
   return (<>
-    <div className='text-white px-6 flex flex-col flex-wrap mb-4'>
-      <div className='bg-[#0F0F0F] flex-grow w-[280px] rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
+    <div className='text-white px-6 mb-4 w-[280px] min-w-[260px]'>
+      <div className=''>
+      <div className='bg-[#0F0F0F] flex-grow w-full rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
         <div className='text-xl font-semibold mb-4'>{item?.name}</div>
         <div className='text-white text-base text-left'>
           {/* <p className='mb-1 text-white/60 text-sm'>Ticket Details:</p> */}
-          <ul className='list-disc list-inside ml-2'>{
+          <ul className='list-disc list-inside ml-2 min-h-[100px]'>{
             descriptions?.map((desc, index)=>{
               return (<li key={stableKeys[index]}
                 className='text-sm mb-1 last:mb-0 font-light'
@@ -242,10 +247,10 @@ const PlanCard = ({
       </div>
       <div className="g-container">
           <div className='g-containerInner'>
-          <img src={'/images/purchaseCurve.png'} alt={'Plan'} className="w-[270px]"/>
+          <img src={'/images/purchaseCurve.png'} alt={'Plan'} className="w-[-96.4%]"/>
           </div>
       </div>
-      <div className='bg-[#0F0F0F] w-[280px] overflow-hidden rounded-md  py-4 px-2 border-2 border-t-0 border-[#262626]'>
+      <div className='bg-[#0F0F0F] w-full overflow-hidden rounded-md  py-4 px-2 border-2 border-t-0 border-[#262626]'>
         <p className='mb-0 text-white/60 text-sm'>Price:</p>
         <p className='mb-4'>
             <span className='text-white text-[32px] font-medium'
@@ -286,6 +291,7 @@ const PlanCard = ({
           w-full 
           text-[16px]">Rent            
           </button></>)}
+      </div>
       </div>
     </div></>
   )

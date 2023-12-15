@@ -17,11 +17,14 @@ interface VideoPlayerProps {
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data }) => {
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
+    const [firstPlay, setFirstPlay] = useState(true);
+    const x = useRef(0);
     console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
     }
+
     useEffect(() => {
         try{ 
 
@@ -102,6 +105,13 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 console.log('play');
                 // show the player once it's ready
                 playerRef.current.style ="opacity: 1"
+                if(x && x.current === 0){
+                    setTimeout(() => {
+                        console.log('set volume', x.current);
+                        player.setVolume(50);
+                        x.current = 1;
+                    }, 500);
+                }
             });
 
             // on pause video

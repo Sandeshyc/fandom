@@ -1,11 +1,31 @@
 export interface MovieInterface {
+  publishSchedule?: string;
+  allowed?: boolean;
   id: string;
+  _id: string;
   title: string;
   description: string;
   thumbnailUrl: string;
   thumbnailPotrait: string;
   videoUrl: string;
-  duration: string;
-  genre: Array<String>;
-  publishSchedule?: string;
+  duration: string | number;
+  genre: string[];
+  endTime : string;
+  startTime : string;
+  status: string;
+  planDescription?: string;
+  contentPrivider?: string;
+  trailerUrl?: string;
+  quality?: string;
+  contentRating?: string;
+  canBuy?: boolean;
+  isPackage?: boolean;
+  category?: string;
+  cast?: string[];
+  tags?: string[];
+  messages?: string[];
+  allowedPlans?: any[];
+  isInWatchList?: boolean;
+  xy?: {x: number, y: number, width: number};
+  currentTime?: number;
 }

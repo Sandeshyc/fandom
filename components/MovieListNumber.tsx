@@ -24,14 +24,14 @@ interface MovieListNumberProps {
 function SlickNextArrow(props : object) {
   const { className, style, onClick } = props;
   return (
-    <div className="w-[40px] h-full absolute z-40 right-[-40px] top-0 flex items-center bg-gray-700   text-white  cursor-pointer bg-opacity-40 opacity-30  group-hover:opacity-100" onClick={onClick}><ChevronRightIcon strokeWidth={2.5}/></div>
+    <div className="slick-arrow slick-next " onClick={onClick}><ChevronRightIcon strokeWidth={2.5}/></div>
   );
 }
 
 function SlickPrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className="w-[40px] h-full absolute z-40 right-[100%] top-0 flex items-center bg-gray-700   text-white cursor-pointer bg-opacity-40 opacity-30  group-hover:opacity-100 transition-opacity" onClick={onClick}><ChevronLeftIcon strokeWidth={2.5}/></div>
+    <div className="slick-arrow slick-prev" onClick={onClick}><ChevronLeftIcon strokeWidth={2.5}/></div>
   );
 }
 
@@ -137,7 +137,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
   }) };
 
   return (
-    <div className={`group px-4 md:px-16 mb-[2vw] movieSlider ${className} ${portrait ? 'portrait': ""}`}>
+    <div className={`group mb-[2vw] movieSlider ${className} ${portrait ? 'portrait': ""}`}>
       <div>
         {/* <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title} x</p> */}
         <div className={`gap-2 relative`}>
@@ -145,12 +145,12 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
           {current > 0 && <SlickPrevArrow onClick={hendlePrev} />}
 
           <div className='relative z-10'>
-            <div className="block xl:hidden">
+            <div className="block lg:hidden">
               <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
                 {getSlides()}
               </div>
             </div>
-            <div className="hidden xl:block">
+            <div className="hidden lg:block">
               <Slider {...settings} ref={sliderRef} >
                 {getSlides()}
               </Slider>
