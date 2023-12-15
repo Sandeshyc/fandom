@@ -30,9 +30,9 @@ interface MovieCardProps {
 const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
   // console.log('MovieCardReel: ', data);
   const router = useRouter();
-  const { openModal} = useMoviePopupStore();
+  const { openModal, closeModal} = useMoviePopupStore();
   const [autoplay, setAutoplay] = React.useState(false);
-  const redirectToWatch = useCallback(() => router.push(`/details/${data?._id}`), [router, data?._id]);
+  
 
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
@@ -69,10 +69,11 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
       ...data
     }
 
-    clearTimeout(timer);
-    setIsMouseActive(true);
+    // clearTimeout(timer);
+    // setIsMouseActive(true);
     x.current = true;
     timer = setTimeout(() => {
+      console.log('timer', timer, x.current);
       if(x.current && openModal){
         openModal(dataExtend);
         // setAutoplay(true);
@@ -82,10 +83,8 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
     }, 700);
   }
   const onMouseLeave = () => {
-    // closeModal && closeModal();
-    setIsMouseActive(false);
     x.current = false;
-    // setAutoplay(false);
+    clearTimeout(timer);
   }
   let thumbURl = '';
   let aspectRatio = '384/216';
@@ -100,13 +99,20 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait }) => {
   if(data?.currentTime && data?.duration){
     progress =  data?.duration / data?.currentTime;
   }
+
+  const redirectToWatch = useCallback(() => {
+    x.current = false;
+    clearTimeout(timer);
+    closeModal();
+    router.push(`/details/${data?._id}`)
+  }, [router, data?._id]);
   
 
 
   return (
     <div 
     ref={thumbOuterRef}
-    className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}]`} onMouseOver={onHoverHandler} onMouseLeave={onMouseLeave}>
+    className={`group bg-zinc-900 col-span relative movieCard aspect-[${aspectRatio}]`} onMouseEnter={onHoverHandler} onMouseLeave={onMouseLeave}>
       {(!data?.allowed)?<Locked/>:null}      
       <div className='img relative h-full w-full'>
         {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-md'><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
