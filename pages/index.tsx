@@ -7,6 +7,7 @@ import Billboard from '@/components/Billboard';
 import MovieList from '@/components/MovieList';
 import MovieListReel from '@/modules/components/MovieListReel';
 import MovieListPurchase from '@/components/MovieListPurchase';
+import MovieListReelBorderd from '@/modules/components/MovieListReelBorderd';
 import InfoModal from '@/components/InfoModal';
 import Footer from '@/components/Footer';
 import useMovieList from '@/hooks/useMovieList';
@@ -133,6 +134,10 @@ const Home = (props) => {
             return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
             return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={"My Purchases"} portrait={false} data={myPurchaseLayout}/></div>   
+          case 'gradient' : 
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} data={movieItem.items} portrait={ false}  gradient={true}/></div>
+          case 'rollBordered' : 
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReelBorderd title={movieItem?.title} data={movieItem.items} portrait={ false}  gradient={true}/></div>
           default:
             return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/></div>
         }
@@ -154,7 +159,7 @@ const Home = (props) => {
   return (
     <>
     <div
-    className='bg-[#000000] text-white font-poppins'>
+    className='bg-[#000000] text-white '>
     {(!isLoading && isReady)? <><InfoModal visible={isOpen} onClose={closeModal} region={region}/>
       {getNavBar()}
       {getBillboard()}

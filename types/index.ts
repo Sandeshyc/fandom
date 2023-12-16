@@ -26,6 +26,6 @@ export interface MovieInterface {
   messages?: string[];
   allowedPlans?: any[];
   isInWatchList?: boolean;
-  xy?: {x: number, y: number, width: number};
+  xy?: {x: number, y: number, width: number, thumbW: number};
   currentTime?: number;
 }

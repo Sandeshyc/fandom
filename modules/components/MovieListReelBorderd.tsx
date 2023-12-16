@@ -9,7 +9,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
-import MovieCardReel from '@/modules/elements/MovieCardReel';
+import MovieCardReelBorderd from '@/modules/elements/MovieCardReelBorderd';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
@@ -95,14 +95,14 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
         <div className="block lg:hidden">
           <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
             {data?.map((movie, index) => (
-              <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+              <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
             ))}
           </div>
         </div>
         <div className="hidden lg:block movieSliderReel">
           <Slider {...settings}>
             {data?.map((movie, index) => (
-              <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+              <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
             ))}
           </Slider>  
         </div> 
