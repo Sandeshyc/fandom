@@ -21,7 +21,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
     openModal(data?._id, data);
   }, [openModal, data?._id, data]);
   return (
-    <div className={`relative`}>    
+    <div className={`relative billboardSec`}>    
       {(!data?.allowed)?<Locked/>:null}
       <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] ${extended ? 'h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh] ' : 'h-[250px] sm:h-[300px] md:h-[85vh] max-h-[85vh]'}`}>
         <div className='brightness-[60%] h-full'>
@@ -30,7 +30,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
         </div>
         <div className='preview'></div>
       </div>
-      <div className={`absolute ${extended ? 'bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw]' : 'bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25'} ml-4 md:ml-16 lg:ml-24 xl:ml-36 transition`}>
+      <div className={`absolute ${extended ? 'bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw]' : 'bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25'} pl-4 md:pl-16 transition`}>
         <p className="text-white text-2xl md:text-5xl h-full w-[85%] md:w-[50%] lg:text-6xl drop-shadow-xl">
           {data?.title}
         </p>

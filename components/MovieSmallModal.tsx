@@ -32,6 +32,12 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     router.push(`/details/${data?._id}`);
   }, [router, data?._id]);
 
+  let zoomScale = 1;
+  if(data?.xy?.width && data?.xy?.thumbW && data?.xy?.width>0 && data?.xy?.thumbW > 0){
+    zoomScale = data?.xy?.thumbW / data?.xy?.width;
+  }
+  console.log('zoomScale', zoomScale);
+
   // console.log('region', region);
   useEffect(() => {
     setIsVisible(!!visible);
@@ -59,18 +65,22 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     return null;
   }
   
+  
 
   return (
-    <div ref={thumbRef} onMouseLeave={handleClose} className={`movieSmallModal z-50 transition duration-300 absolute inset-0`} data-button="close" style={
+    <div ref={thumbRef} onMouseLeave={handleClose} className={`movieSmallModal group z-50 transition duration-300 absolute inset-0`} data-button="close" style={
       {
-        width: data?.xy?.width || 400, 
-        left: data?.xy?.x || 20, 
-        top: data?.xy?.y || 20,
+        left: data?.xy?.x ?? 20, 
+        top: data?.xy?.y ?? 20,
+        width: data?.xy?.width ?? 400,
         transition: 'all 0.3s ease-in-out',
       }
     }>
       <div className="relative w-full ">
-        <div className={`${isVisible ? 'scale-100 opacity-100 ' : 'scale-50 opacity-0'} rounded-md  overflow-hidden transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
+        <div className={`opacity-0 rounded-md  overflow-hidden transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md hover:!scale-100 hover:opacity-100`} 
+        style={{
+          transform: `scale(${zoomScale})`,
+        }}>
 
         <div className='relative'>
           <AudioMute 
@@ -86,6 +96,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               poster={data?.thumbnailUrl}
               isMute={isMute}
               play={true}
+              className='opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000'
             /> : <div className='aspect-[16/9]'></div>}             
           </div> 
         </div>     

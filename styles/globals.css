@@ -524,3 +524,6 @@ html {
   background: #000;
   background: linear-gradient(180deg, rgba(0,0,0, 0) 50%, #000 85.4%);
 }
+.billboardSec .lockedIcon{
+  display: none;
+}

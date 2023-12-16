@@ -36,21 +36,20 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
 
   let timer: any = 0;
   const onHoverHandler = () => {
-    // console.log('Width:', thumbOuter?.getBoundingClientRect()?.width, 'Left:', thumbOuter?.getBoundingClientRect()?.left, 'Top:', thumbOuter?.getBoundingClientRect()?.top, 'left offset:', thumbOuter?.offsetLeft, 'Top offset:', thumbOuter?.offsetTop);
     let unit = window.innerWidth / 100;
     const widthUnit = 30;
-    let width = thumbOuter?.getBoundingClientRect()?.width;
-    let height = thumbOuter?.getBoundingClientRect()?.height;
-    let top = thumbOuter?.getBoundingClientRect()?.top + window.scrollY + (height / 2);
-    let left = thumbOuter?.getBoundingClientRect()?.left + (width / 2);
+    let thumbW = thumbOuter?.getBoundingClientRect()?.width;
+    let thumbH = thumbOuter?.getBoundingClientRect()?.height;
+    let top = thumbOuter?.getBoundingClientRect()?.top + window.scrollY + (thumbH / 2);
+    let left = thumbOuter?.getBoundingClientRect()?.left + (thumbW / 2);
 
     let popWidth = unit * widthUnit;
     popWidth = (popWidth < 400)? 400 : popWidth;
-    const widthUnitHalf = popWidth / 2;
+    const popWidthHalf = popWidth / 2;
 
-    top = round(top - widthUnitHalf);
+    top = round(top - popWidthHalf);
 
-    left = round(left - widthUnitHalf);
+    left = round(left - popWidthHalf);
     left = (left < 0)? 20 : left;
     left = (left > (window.innerWidth - popWidth - 20))? (window.innerWidth - popWidth - 40) : left;
 
@@ -59,21 +58,18 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
         x: left,
         y: round(top),
         width: popWidth,
+        thumbW: thumbW > thumbH ? thumbW : thumbH,
       },
       ...data
     }
 
-    clearTimeout(timer);
-    setIsMouseActive(true);
     x.current = true;
     timer = setTimeout(() => {
+      console.log('timer', timer, x.current);
       if(x.current && openModal){
         openModal(dataExtend);
-        // setAutoplay(true);
-        
-        // console.log('timer', timer);
       }
-    }, 700);
+    }, 400);
   }
   const onMouseLeave = () => {
     x.current = false;
@@ -81,9 +77,6 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
   }
 
   const redirectToWatch = useCallback(() => {
-    x.current = false;
-    clearTimeout(timer);
-    closeModal();
     router.push(`/details/${data?._id}`)
   }, [router, data?._id]);
 

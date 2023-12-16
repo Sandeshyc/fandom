@@ -7,6 +7,7 @@ type Props = {
     poster?: string, 
     isMute?: boolean,
     play?: boolean,
+    className?: string,
 }
 
 const ReactVideoPlayer = (
@@ -16,12 +17,13 @@ const ReactVideoPlayer = (
         poster = '',
         isMute = true,
         play = true,
+        className = '',
     }: Props
 ) => {
     const { innerWidth: width, innerHeight: height } = window;
     return (
         <>
-        <div className='w-full h-full overflow-hidden'>
+        <div className={`w-full h-full overflow-hidden ${className}`}>
             <div className='relative h-0 pt-[56.2%]'>
                 <div 
                     className={`absolute top-0 left-0 w-full h-full z-0 hidden sm:block`} 
