@@ -27,14 +27,14 @@ function SlickNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     
-    <div className={className} onClick={onClick}><ChevronRightIcon strokeWidth={2.5}/></div>
+    <div className={className} onClick={onClick}><ChevronRightIcon strokeWidth={1.5}/></div>
   );
 }
 
 function SlickPrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className={className} onClick={onClick}><ChevronLeftIcon strokeWidth={2.5}/></div>
+    <div className={className} onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
   );
 }
 

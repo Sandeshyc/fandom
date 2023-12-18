@@ -24,14 +24,14 @@ interface MovieListNumberProps {
 function SlickNextArrow(props : object) {
   const { className, style, onClick } = props;
   return (
-    <div className="slick-arrow slick-next " onClick={onClick}><ChevronRightIcon strokeWidth={2.5}/></div>
+    <div className="slick-arrow slick-next " onClick={onClick}><ChevronRightIcon strokeWidth={1.5}/></div>
   );
 }
 
 function SlickPrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className="slick-arrow slick-prev" onClick={onClick}><ChevronLeftIcon strokeWidth={2.5}/></div>
+    <div className="slick-arrow slick-prev" onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
   );
 }
 
