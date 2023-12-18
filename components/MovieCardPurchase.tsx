@@ -22,7 +22,7 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
   const [autoplay, setAutoplay] = React.useState(false);
-  // console.log('data', data);
+  // console.log('Purchase Card data', data);
   // const redirectToWatch = useCallback(() => router.push(`/watch/${data._id}`), [router, data._id]);
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
 

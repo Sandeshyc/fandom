@@ -13,7 +13,7 @@ const ProfileHead = (
     return (
         <div className="flex justify-between">
             <div className="pr-2">
-                <p className='text-[16px] text-[#DACFDA] font-medium'>Details</p>
+                <p className='text-[16px] text-[#DACFDA] font-medium'>Profile Details</p>
             </div>
             <button 
                 type="button"

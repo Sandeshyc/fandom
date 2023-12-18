@@ -182,10 +182,10 @@ const MyProfile = () => {
       }}>
         <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="container mx-auto max-w-[996px]">
-            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My Account</p>
+            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-6 lg:pl-6">My Account</p>
             <div className="lg:pl-6">
               <div className={`text-white max-w-[996px]`}>
-                <h4 className="text-white text-[18px] mb-2">Profile</h4>
+                {/* <h4 className="text-white text-[18px] mb-2">Profile</h4> */}
                 <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[22%]`}>                
                   <ProfileHead
                     profileExpanded={profileExpanded}

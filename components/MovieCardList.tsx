@@ -4,6 +4,7 @@ import { MovieInterface } from '@/types';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import RemoveListBtn from '@/components/RemoveListButton';
 import Locked from '@/components/Locked';
+import Buttons from '@/components/identites/Buttons';
 import { VolunteerActivism } from '@mui/icons-material';
 
 interface MovieCardProps {
@@ -41,7 +42,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           rounded-md
           w-full
           aspect-[16/9]" />
-        {(true)?<Locked/>:null}
+        {(!data?.allowed)?<Locked/>:null}
       </div>
       <div className="w-[58%] pt-1">
         <p
@@ -50,6 +51,18 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
         >{data.title}</p>    
         {(data?.contentPrivider)?<p className="text-xs sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivism className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>{data?.contentPrivider}</p>:null}
         <RemoveListBtn movieId={data?._id} isRemoveHandler={isRemoveHandler} />
+        {data?.allowed? (
+          <Buttons 
+            onClick={redirectToWatch} 
+            type='white'
+            className="mt-4"           
+            styles={{width: 'fit-content'}} >Play Now</Buttons>
+        ) : (
+          <Buttons 
+            onClick={redirectToWatch}
+            className="mt-4"           
+            styles={{width: 'fit-content'}}>Rent</Buttons>
+        )}
       </div>
     </div>:null
   )

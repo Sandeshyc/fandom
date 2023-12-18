@@ -95,6 +95,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
 
   let progress = 0;
   if(data?.currentTime && data?.duration){
+    // console.log('data?.currentTime', data?.currentTime, data);
     progress =  data?.duration / data?.currentTime;
   }
 
