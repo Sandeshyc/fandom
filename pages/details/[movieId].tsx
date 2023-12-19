@@ -41,12 +41,16 @@ const Details = (props) => {
     // console.log('relMovies', relMovies);
   }
   const { data: movies = [], isLoading } = useMovieList(region, product, 'home', userIdToken);
-  console.log('data movie', data);
+  // console.log('data movie', data);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
   const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
   let thumb = '';
   if( data?.thumbnailUrl ){
     thumb = data?.thumbnailUrl;
+  }
+
+  const backBtn = () => {
+    window.location.href = '/';
   }
   
 
@@ -80,8 +84,8 @@ const Details = (props) => {
         backgroundPosition: 'right '+ 50 + 'vh',
       }}>
       {mouseActive && (<nav className="absolute w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
-        <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
-        <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
+        <ArrowLeftIcon onClick={backBtn} className="w-4 md:w-10 text-blue-500 cursor-pointer hover:opacity-80 transition" />
+        <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={backBtn}>
           <span className="font-light">Back</span>
         </p>
       </nav>)}
@@ -176,7 +180,7 @@ const Details = (props) => {
       </div>
       {(data?.isPackage)?(<div className='w-full'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={(data?.isPackage)?'Movie Lists':'Some Related'} portrait={true} data={relMovies}/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Movie Lists'} portrait={true} data={relMovies}/>:null}
         </div>
       </div>):null}
       <div className='mt-6 mb-16'>
@@ -189,7 +193,7 @@ const Details = (props) => {
       </div>
       {(!data.isPackage)?(<div className='w-full overflow-hidden'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={(data?.isPackage)?'Movie Lists':'Some Related'} portrait={true} data={relMovies}/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'More Like This'} portrait={true} data={relMovies}/>:null}
         </div>
       </div>):null}
       <Footer/>

@@ -8,13 +8,22 @@ const btnClass ={
 interface ButtonsProps {
     children: React.ReactNode
     onClick : () => void
-    type?: 'white' | 'blue'
+    type?: 'white' | 'blue',
+    className?: string,
+    styles?: React.CSSProperties
 }
 
-const Buttons = ({children, onClick, type='blue'} : ButtonsProps) => {
+const Buttons = ({children, onClick, type='blue', className, styles} : ButtonsProps) => {
   return (
-    <div onClick={onClick} className={btnClass[type]}>{children}</div>
+    <div 
+      onClick={onClick} 
+      className={`${btnClass[type]} ${className}`}
+      style={styles}
+      >{children}</div>
   )
 }
 
 export default Buttons
+
+
+

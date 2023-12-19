@@ -39,9 +39,7 @@ const MyProfile = () => {
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
             <div className="flex flex-row items-center gap-8 mb-6">
-              <ArrowLeftIcon onClick={
-                () => router.back()
-              } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
+              <ArrowLeftIcon onClick={handleBackBtn} className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
               <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={handleBackBtn}>
                 <span className="font-light">Back</span>
               </p>

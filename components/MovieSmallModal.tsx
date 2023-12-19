@@ -36,20 +36,20 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   if(data?.xy?.width && data?.xy?.thumbW && data?.xy?.width>0 && data?.xy?.thumbW > 0){
     zoomScale = data?.xy?.thumbW / data?.xy?.width;
   }
-  console.log('zoomScale', zoomScale);
+  // console.log('zoomScale', zoomScale);
 
   // console.log('region', region);
   useEffect(() => {
     setIsVisible(!!visible);
   }, [visible]);
 
-  console.log('xy ', data?.xy);
+  // console.log('xy ', data?.xy);
  
 
   const handleClose = useCallback((e) => {
     // if(e.target.dataset?.button !== 'close') return;
 
-    console.log('close');
+    // console.log('close');
 
     setIsVisible(false);
     setTimeout(() => {

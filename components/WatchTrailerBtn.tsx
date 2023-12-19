@@ -1,5 +1,7 @@
 import React from 'react';
-import { PlayIcon } from '@heroicons/react/24/solid';
+import {
+  TrailerIcon
+} from '@/utils/CustomSVGs';
 import { useRouter } from 'next/router';
 
 interface PlayButtonProps {
@@ -29,8 +31,8 @@ const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         transition-opacity
         hover:opacity-90
         ">
-        <PlayIcon className="w-6 text-black mr-2" />
-        Play Trailer
+        <TrailerIcon/>
+        <span className='ml-2'>Watch Trailer</span>
     </button>
   );
 }
