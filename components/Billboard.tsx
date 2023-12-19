@@ -34,8 +34,8 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
         <p className="text-white text-2xl md:text-5xl h-full w-[85%] md:w-[50%] lg:text-6xl drop-shadow-xl">
           {data?.title}
         </p>
-        <p className="text-white text-[12px] md:text-lg mt-2 mb-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
-          {data?.description?.substring(0, 260)}
+        <p className="text-white text-[12px] md:text-lg mt-2 mb-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl line-clamp-4">
+          {data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
           {(data?.allowed)?(<PlayButton movieId={data?._id} />):(<GoBuy movieId={data?._id}/>)}

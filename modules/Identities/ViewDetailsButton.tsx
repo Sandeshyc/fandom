@@ -12,8 +12,8 @@ const ViewDetailsButton: React.FC<PlayButtonProps> = ({ movieId }) => {
   return (
     <button 
       onClick={() => router.push(`/details/${movieId}`)}
-      className="text-white py-1 text-base flex flex-row items-center justify-center transition min-w-[160px] h-[44px]rounded-full">
-        Know More <ChevronRightIcon className="w-5 h-5 ml-2 text-white/80"/>
+      className="text-white py-1 text-base flex flex-row items-center justify-center transition min-w-[160px] h-[44px] border border-transparent rounded-full hover:border-white/40">
+        Know More <ChevronRightIcon className="w-5 h-5 ml-2 text-white/80" />
     </button>
   );
 }

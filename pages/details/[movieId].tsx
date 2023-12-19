@@ -50,7 +50,7 @@ const Details = (props) => {
   }
 
   const backBtn = () => {
-    window.location.href = '/';
+    window.history.back();
   }
   
 
@@ -84,7 +84,7 @@ const Details = (props) => {
         backgroundPosition: 'right '+ 50 + 'vh',
       }}>
       {mouseActive && (<nav className="absolute w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
-        <ArrowLeftIcon onClick={backBtn} className="w-4 md:w-10 text-blue-500 cursor-pointer hover:opacity-80 transition" />
+        <ArrowLeftIcon onClick={backBtn} className="w-8 md:w-12 text-white cursor-pointer hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1" />
         <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={backBtn}>
           <span className="font-light">Back</span>
         </p>

@@ -45,7 +45,7 @@ const MyProfile = () => {
                         // console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
-                            router.push(`/details/${movieID}`);
+                            router.push(`/details/${itemCode}`);
                         }, 2000);
                     }
                 })
