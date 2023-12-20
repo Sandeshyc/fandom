@@ -12,9 +12,10 @@ interface VideoPlayerProps {
     caption?: any,
     pictureInPicture: boolean;
     data : any;
+    isRestart?: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data }) => {
+const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data, isRestart }) => {
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
@@ -82,6 +83,12 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 
             });
 
+            // on ready video
+            player.on('ready', function() {
+                if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
+                    player.seek(data?.currentTime);
+                }
+            });
             /* xx // on mouse out pause video
             playerRef.current.addEventListener("mouseout", function() {
                 player.pause();

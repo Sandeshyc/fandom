@@ -94,9 +94,9 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
   }
 
   let progress = 0;
-  if(data?.currentTime && data?.duration){
+  if(data?.currentTime && data?.videoDuration){
     // console.log('data?.currentTime', data?.currentTime, data);
-    progress =  data?.duration / data?.currentTime;
+    progress =  data?.videoDuration / data?.currentTime;
   }
 
   const redirectToWatch = useCallback(() => {

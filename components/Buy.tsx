@@ -178,7 +178,7 @@ const PlanCard = ({
   movieId,
   isPackage
 }:any) => {
-  console.log('item', item);
+  // console.log('item', item);
   let descriptions = [];
   if(item?.description){
     // replace all , with <li>

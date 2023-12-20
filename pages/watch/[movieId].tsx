@@ -19,8 +19,9 @@ const Watch = () => {
   const [videoReady, setVideoReady] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
-  // console.log('Watch data: ', data, isLoading, isReady);
-
+  console.log('Watch data: ', data, isLoading, isReady);
+  const {t} = router.query;
+  const isRestart = t === 'restart' ? true : false;
   useEffect(() => {
     if(data?._id){
       setVideoReady(true);
@@ -53,7 +54,7 @@ const Watch = () => {
   }
 
   useEffect(() => {
-    console.log('History: ', window.history.state);
+    // console.log('History: ', window.history.state);
     const userInfo = window.localStorage.getItem('userInfo');
     // console.log('userInfo: ', userInfo);
     if (userInfo) {
@@ -68,11 +69,12 @@ const Watch = () => {
       router.push('/auth');
     }
     setIsReady(true);
+    // console.log('history: ', window.history.state);
   }, []);
 
   const handleBack = () => {
-    // router.back();
-    window.history.back();
+    router.back();
+    // window.history.back();
   }
 
   
@@ -108,6 +110,7 @@ const Watch = () => {
           autoplay={true}
           isComplited={() => {}}
           data={data}
+          isRestart={isRestart}
           pictureInPicture={true}/>):(<NotFount/>))):null}
       </div>
     </div></>):(<SkeletonWatch/>)}
