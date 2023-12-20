@@ -85,9 +85,9 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
     ref={thumbOuterRef}
     className="group col-span relative movieCard" onMouseEnter={onHoverHandler} onMouseLeave={onMouseLeave}>
       <div className='movieCardTop movieCardTopV2'>
-      {(!data?.allowed)?<Locked/>:null}
         <div className='number'><SvgNumbers item={number} /></div>
-        <div className='img'>
+        <div className='img relative'>
+          {(!data?.allowed)?<Locked/>:null}
           <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
             cursor-pointer
             object-cover

@@ -70,6 +70,14 @@ html {
   justify-content: center;
   background: linear-gradient(-90deg, rgba(0,0,0, 0) 0%, #000 100%) !important;
 }
+.movieSlider .slick-arrow svg{
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition: all 0.4s;
+}
+.movieSlider .slick-arrow svg:hover{
+  border-color: #fff;
+}
 .movieSlider .slick-arrow.slick-next{
   right:0;
   background: linear-gradient(90deg, rgba(0,0,0, 0) 0%, #000 100%) !important;

@@ -6,7 +6,7 @@ const useMovies = (region?: string, product?: string, sectionName?: string, user
     // useSwr(`/api/movies?region=${region}&product=${product}&sectionName=${sectionName}&userId=151937500`, 
     useSwr(`/api/movies?region=${region}&product=${product}&sectionName=${sectionName}&userId=${userID}`, 
     fetcher, {
-      revalidateIfStale: false,
+      revalidateIfStale: true,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     });

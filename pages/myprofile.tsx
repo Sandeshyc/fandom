@@ -191,7 +191,7 @@ const MyProfile = () => {
                     profileExpanded={profileExpanded}
                     toggleProfile={toggleProfile}
                   />
-                  <div className={`mt-2 flex flex-wrap ${(!profileExpanded)?'hidden':'flex'}`}>
+                  <div className={`mt-8 flex flex-wrap ${(!profileExpanded)?'hidden':'flex'}`}>
                     <div className={`${(isUpdateMode)?'md:w-[100%] lg:w-[66%]':'md:w-[33%]'} w-full  md:pr-2`}>
                       <ProfileName 
                         isUpdateMode={isUpdateMode}

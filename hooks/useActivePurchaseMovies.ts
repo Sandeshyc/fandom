@@ -5,7 +5,7 @@ const useActivePurchaseMovies = (region?: string, product?: string, userID?: str
   const { data, error, isLoading } = 
     useSwr(`/api/activepurchasemovies?region=${region}&product=${product}&userID=${userID}&activeonly=${activeonly}`, 
     fetcher, {
-      revalidateIfStale: false,
+      revalidateIfStale: true,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     });
