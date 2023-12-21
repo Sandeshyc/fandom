@@ -46,7 +46,7 @@ const Navbar = () => {
                   <div className='flex flex-row items-center gap-7'>
                     <NavItem label="Home" route="/" activeRoute={'/'} />
                     <NavItem label="Movies" route="/" activeRoute={''} />
-                    {/* <NavItem label="Events" route="/" activeRoute={''} /> */}
+                    <NavItem label="Events" route="/" activeRoute={''} />
                     <NavItem label="My Tickets" route="/purchase" activeRoute={'/purchase'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />
                     {/* <NavItem label="Partner With Us" route="/" activeRoute={''} /> */}

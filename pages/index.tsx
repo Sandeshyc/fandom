@@ -16,6 +16,7 @@ import useActivePurchaseMovies from '@/hooks/useActivePurchaseMovies';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import BillboardExtended from '@/components/BillboardExtended';
 import MovieListTops from '@/components/MovieListTopsV2';
+import AmazingDeals from '@/modules/components/AmazingDeals';
 import Animated from '@/components/Animated';
 import SideBar from '@/components/SideBar'
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
@@ -52,7 +53,7 @@ const Home = (props) => {
   const { data: movies = [], isLoading } = useMovieList(region, 'web', 'home', userIdToken);
   // console.log('movies: ', movies);
   const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
-  console.log('myPurchaseLayout: ', myPurchaseLayout);
+  // console.log('myPurchaseLayout: ', myPurchaseLayout);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');    
@@ -172,6 +173,7 @@ const Home = (props) => {
       }}
       >
         {getRows()}
+        <AmazingDeals/>
         <Footer/>
       </div></> : (<SkeletonHome/>)}
     </div>

@@ -5,11 +5,12 @@ import {capFirstLetter} from '@/utils/capFirstLetter';
 import PlayButton from '@/components/PlayButton';
 import WatchTrailerBtn from '@/components/WatchTrailerBtn';
 import Buy from '@/components/Buy';
-import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import FavoriteButton from '@/components/FavoriteButton';
 import { ThumbUp } from '@mui/icons-material';
 import { ShareIcon } from '@heroicons/react/24/solid';
-import MovieCardSimple from '@/components/MovieCardSimple';
+import RestartBtn from '@/modules/elements/RestartBtn';
+import ResumeBtn from '@/modules/elements/ResumeBtn';
+import Buttons from '@/components/identites/Buttons';
 import useMovie from '@/hooks/useMovie';
 import Footer from '@/components/Footer';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -20,6 +21,7 @@ import ReactVideoPlayer from '@/components/ReactPlayer';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import DetailsTab from '@/components/DetailsTab';
 import MovieListReel from '@/modules/components/MovieListReel';
+import { PlayIcon } from '@heroicons/react/24/solid';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -115,11 +117,9 @@ const Details = (props) => {
                 </div>
             </div></>): null}
             <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
-              {(data)?<>{(data?.allowed)?(
-              <>
-                {data?.isPackage ? null : (<PlayButton movieId={data?._id}/>)}
-              </>
-              ):(
+              {(data)?<>{(data?.allowed)?(<>{data?.isPackage ? null : (data?.currentTime)?(<Buttons
+                onClick={() => router.push(`/watch/${data?._id}`)} 
+              type='white'><PlayIcon className="w-6 text-black mr-2" /> Resume</Buttons>):(<PlayButton movieId={data?._id}/>)}</>):(
                 <Buy 
                   movieId={data?._id} 
                   allowedPlans={data?.allowedPlans}
@@ -128,7 +128,9 @@ const Details = (props) => {
                   data={data}
                   />
               )}              
-              {data?.isPackage ? null : (<WatchTrailerBtn movieId={data?._id} />)}</>:null}
+              {data?.isPackage ? null : (data?.allowed && data?.currentTime)?(<Buttons
+                onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
+              type='white'>Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}</>:null}
               <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
                 <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
                 <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">
