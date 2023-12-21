@@ -117,9 +117,9 @@ const ProfileDropDown = () => {
                         </div>
                         <div className='mb-1'>
                             <div 
-                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/purchase') && 'bg-[#F5F5F5]'}`}
+                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mytickets') && 'bg-[#F5F5F5]'}`}
                             onClick={
-                                () => router.push('/purchase')
+                                () => router.push('/mytickets')
                             }>
                                 <span className='mr-2'><MyTicketsIcon/></span>
                                 <p>My Tickets</p>

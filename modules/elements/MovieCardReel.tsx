@@ -21,6 +21,7 @@ import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import MovieCardPopOver from '@/modules/elements/MovieCardPopOver';
 import ProgressBar from '@/components/elements/ProgressBar';
+import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 
 
 interface MovieCardProps {
@@ -114,12 +115,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {(!data?.allowed)?<Locked/>:null}      
-      <div className='img relative h-full w-full'>
-        
+      {/* {(!data?.allowed)?<Locked/>:null}   */}
+      {(data?.allowed)?<PurchaseBadge data={data}/>:null}  
+      <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
-          
-          
           {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
 
           {(data?.publishSchedule && !gradient)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 py-1 rounded-md ${noGradientClass}`}><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}

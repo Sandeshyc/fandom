@@ -45,7 +45,12 @@ const MyProfile = () => {
                         // console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
-                            router.push(`/details/${itemCode}`);
+                            // remove browser history /payment/
+                            // window.history.pushState(null, '', `/details/${itemCode}`);                            
+
+                            // router.push(`/details/${itemCode}`);
+                            // router.replace(`/details/${itemCode}`);
+                            router.replace(`/details/${itemCode}`, undefined, { shallow: true });
                         }, 2000);
                     }
                 })
@@ -54,7 +59,7 @@ const MyProfile = () => {
                     setIsError(true);
                     setErrorMessage('Something went wrong. Please try again later.');
                     setTimeout(() => {
-                        router.push(`/`);
+                        router.replace(`/`);
                     }, 4000);
                 }); 
             }
