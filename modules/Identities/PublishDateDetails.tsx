@@ -17,8 +17,10 @@ const PublishDateDetails = ({publishDate, short = true} : PublishDateDetailsProp
     return (
         <p className='text-sm tracking-wider'>
             <Image src={CelendarIcon} alt="Calendar" width={20} height={20} className="!inline-block mr-1"/> Starting From<br/>
-            <span className='font-medium text-white'>
-                {localDate} &#x2022; <span className='whitespace-nowrap'>{localTime} Onwards</span></span>
+            <span className='font-medium text-white'>{localDate} &#x2022; 
+                <span className='whitespace-nowrap'>{localTime}</span>
+                {/* <span className='whitespace-nowrap'>{localTime} Onwards</span> */}
+            </span>
         </p>
     )
 }

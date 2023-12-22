@@ -21,6 +21,7 @@ interface MovieListProps {
   link?: string;
   linkText?: string;
   gradient?: boolean;
+  isSquare?: boolean;
 }
 
 function SlickNextArrow(props) {
@@ -38,7 +39,7 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false }) => {
+const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isSquare }) => {
   const router = useRouter();
   if (isEmpty(data)) {
     return null;
@@ -95,14 +96,14 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
         <div className="block lg:hidden">
           <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
             {data?.map((movie, index) => (
-              <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+              <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} isSquare={isSquare}/>
             ))}
           </div>
         </div>
         <div className="hidden lg:block movieSliderReel">
           <Slider {...settings}>
             {data?.map((movie, index) => (
-              <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+              <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} isSquare={isSquare}/>
             ))}
           </Slider>  
         </div> 

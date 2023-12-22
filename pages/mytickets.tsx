@@ -1,6 +1,5 @@
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import SideBar from '@/components/SideBar'
 import usePurchaseMovies from '@/hooks/usePurchaseMovies';
 import MovieCardPurchase from '@/components/MovieCardPurchase';
 import { stableKeys } from '@/utils/stableKeys';
@@ -12,10 +11,14 @@ const bgImage = 'url("/images/new-bg.png")';
 const Home = (props) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
+  const [openTab, setOpenTab] = React.useState(0);
   const router = useRouter();
   const { region, product } =  props; 
   const { data: movies = [], isLoading } = usePurchaseMovies(region, 'web', userIdToken );
-  // console.log('Movies:', movies);
+  // movie sort by title
+  const moviesSort = movies?.sort((a, b) => (a.title < b.title) ? 1 : -1);
+  console.log('Movies:', movies);
+  console.log('Movies new:', moviesSort);
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
@@ -44,8 +47,19 @@ const Home = (props) => {
       }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
-            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My Tickets</p>
-            <div className="lg:px-6 pb-6 flex flex-wrap">
+            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4">My Tickets</p>
+            <ul className='text-white flex flex-wrap text-center my-8'>
+              <li className={`text-white border-2 flex justify-center items-center ${(openTab === 0)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-8 min-w-[160px] cursor-pointer hover:border-white/80`}
+              onClick={() => setOpenTab(0)}
+              >Active</li>
+              <li className={`text-white border-2 flex justify-center items-center ${(openTab === 1)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-2 min-w-[160px] cursor-pointer hover:border-white/80`}
+              onClick={() => setOpenTab(1)}
+              >Expired</li>
+            </ul>
+            <div className={`pb-6 ${(openTab === 0)?'flex flex-wrap':'hidden'}`}>
+            {((Array.isArray(moviesSort) && moviesSort.length > 0)?(moviesSort.map((item: any, index) => <MovieCardPurchase data={item} portrait={ true} key={stableKeys[index]} />)):<NoMovies/>)}
+            </div>
+            <div className={`pb-6  ${(openTab === 1)?'flex flex-wrap flex-row-reverse justify-end':'hidden'}`}>
             {((Array.isArray(movies) && movies.length > 0)?(movies.map((item: any, index) => <MovieCardPurchase data={item} portrait={ true} key={stableKeys[index]} />)):<NoMovies/>)}
             </div>
           </div>

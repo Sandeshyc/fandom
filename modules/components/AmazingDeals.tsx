@@ -37,10 +37,10 @@ const AmazingDeals: React.FC<MovieListProps> = () => {
                     <Buttons
                         onClick={ () => router.push('/')}
                         type='white'
-                        className='w-[240px] h-[48px] text-[#0245F2] hover:bg-[#eee]'
+                        className='min-w-[240px] h-[48px] text-[#0245F2] hover:bg-[#eee]'
                         >
                         <OffersIcon/>
-                        <span className='ml-2'>See All Offers </span>   
+                        <span className='ml-2 text-[#0245F2]'>See All Offers </span>   
                     </Buttons>
                 </div>
             </div>

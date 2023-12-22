@@ -12,6 +12,7 @@ import { MovieInterface } from '@/types';
 import MovieCard from '@/components/MovieCard';
 import { get, isEmpty } from 'lodash';
 import Locked from '@/components/Locked';
+import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 
 interface MovieListNumberProps {
   data: MovieInterface[];
@@ -41,7 +42,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
   }
   const [current, setCurrent] = React.useState(0);
   const sliderRef = useRef(null);
-
+  // console.log('itemEnded',title, data);
   let settings = {
     arrows: false,
     dots: false,
@@ -128,7 +129,8 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
           </span>
 
           <div className={`col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
-          {(!movie?.allowed)?<Locked/>:null}
+            {/* {(!movie?.allowed)?<Locked/>:null} */}
+            {(movie?.allowed)?<PurchaseBadge data={movie}/>:null}
             <img src={get(movie, 'thumbnailUrl')} className="w-full  object-cover rounded-lg" />
           </div>
         </div>

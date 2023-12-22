@@ -192,6 +192,9 @@ html {
 .movieSlider.portrait .movieCard .img{
   padding-bottom: 157.7778%;
 }
+.movieSlider .movieCard.aspect-square .img{
+  padding-bottom: 100%;
+}
 /* .movieSlider.portrait .movieCard>.absolute{
   width: 170%;
 } */

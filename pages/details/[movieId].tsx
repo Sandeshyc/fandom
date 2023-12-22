@@ -6,7 +6,7 @@ import PlayButton from '@/components/PlayButton';
 import WatchTrailerBtn from '@/components/WatchTrailerBtn';
 import Buy from '@/components/Buy';
 import FavoriteButton from '@/components/FavoriteButton';
-import { ThumbUp } from '@mui/icons-material';
+import { ThumbUp, RestartAlt } from '@mui/icons-material';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import RestartBtn from '@/modules/elements/RestartBtn';
 import ResumeBtn from '@/modules/elements/ResumeBtn';
@@ -30,6 +30,8 @@ const Details = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const { region, product } =  props;
   const router = useRouter();
+  // console.log('router: ', router);
+  
 
   const { movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);  
@@ -52,11 +54,27 @@ const Details = (props) => {
   }
 
   const backBtn = () => {
-    window.history.back();
+    console.log('backBtn: ', window.history.state);
+    // check the last history 
+    if(window.history.state === null){
+      // router.back();
+    }else{
+      // router.push('/');
+    }
+    // 
+    router.back();
   }
   
 
   useEffect(() => {
+    // Clear history state 
+    // window.history.pushState(null, '');
+    // console.log('window.location.href: ', window.location.href);
+    // console.log('history: ', history);
+    // window.onpopstate = function(event) {
+    //   history.go(1);
+    // };
+
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
@@ -130,7 +148,7 @@ const Details = (props) => {
               )}              
               {data?.isPackage ? null : (data?.allowed && data?.currentTime)?(<Buttons
                 onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
-              type='white'>Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}</>:null}
+              type='white'><RestartAlt className="w-6 text-black mr-2" /> Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}</>:null}
               <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
                 <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
                 <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">

@@ -16,6 +16,7 @@ import Locked from '@/components/Locked';
 import { stableKeys } from '@/utils/stableKeys';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import MovieCardPopOver from '@/modules/elements/MovieCardPopOver';
+import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 
 interface MovieCardTopProps {
   data: MovieInterface;
@@ -87,7 +88,8 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
       <div className='movieCardTop movieCardTopV2'>
         <div className='number'><SvgNumbers item={number} /></div>
         <div className='img relative'>
-          {(!data?.allowed)?<Locked/>:null}
+          {/* {(!data?.allowed)?<Locked/>:null} */}
+          {(data?.allowed)?<PurchaseBadge data={data}/>:null} 
           <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
             cursor-pointer
             object-cover

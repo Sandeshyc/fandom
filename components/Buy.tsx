@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
+import { useRouter } from 'next/router';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -184,6 +185,7 @@ const PlanCard = ({
     // replace all , with <li>
     descriptions = [...item?.description?.split(',')];
   }
+  const router = useRouter();
   const goPurchase = (productId:string) => {
     const userInfor = localStorage.getItem('userInfo');
     if(userInfor){
@@ -211,11 +213,15 @@ const PlanCard = ({
                 window.localStorage.setItem('itemCode', movieId);
                 if(process.env.NODE_ENV === 'production'){
                   // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
-                  window.location.href = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
+                  let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
+                  // router.replace(forwordPurchaseUrl);
+                  router.push(forwordPurchaseUrl);
+
                 }
                 if(process.env.NODE_ENV === 'development'){
                   // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`, '_blank');
-                  window.location.href = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`;
+                  let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`;
+                  router.push(forwordPurchaseUrl);
                 }
               }
               console.log('Success:', response);
