@@ -45,7 +45,12 @@ const MyProfile = () => {
                         // console.log('Success:', response?.data?.createRes?.itemCode);
                         const movieID = response?.data?.createRes?.itemCode;
                         setTimeout(() => {
-                            router.push(`/details/${itemCode}`);
+                            // remove browser history /payment/
+                            // window.history.pushState(null, '', `/details/${itemCode}`);                            
+
+                            // router.push(`/details/${itemCode}`);
+                            // router.replace(`/details/${itemCode}`);
+                            router.replace(`/details/${itemCode}`);
                         }, 2000);
                     }
                 })
@@ -54,7 +59,7 @@ const MyProfile = () => {
                     setIsError(true);
                     setErrorMessage('Something went wrong. Please try again later.');
                     setTimeout(() => {
-                        router.push(`/`);
+                        router.replace(`/`);
                     }, 4000);
                 }); 
             }
@@ -72,7 +77,7 @@ const MyProfile = () => {
   useEffect(() => {
     // is not parent window
     if (window.self !== window.top) {
-        window.parent.location.href = window.location.href;       
+        window.parent.location.replace(window.location.href);       
         // return; 
     }
     setIsReady(true);
@@ -82,7 +87,7 @@ const MyProfile = () => {
       {(isReady) && (<><Navbar />
       <div className="py-16  min-h-[80vh]">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
-          <div className="movieSliderInner max-w-[1200px] mx-auto mt-8">
+          <div className="movieSliderInner max-w-[1200px] mx-auto mt-16">
             <h1 className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">
             <Loop className='animate-spin'
             /> Redirecting... 
@@ -94,6 +99,11 @@ const MyProfile = () => {
                 {(isError)?<>
                     <h2 className='text-xl mb-4 text-red-800 bg-red-100 py-2 px-4 rounded-md'>
                         {errorMessage}
+                </h2></>:null
+                }
+                {(isSuccess)?<>
+                    <h2 className='text-xl mb-4 text-green-800 bg-green-100 py-2 px-4 rounded-md'>
+                        {successMessage}
                 </h2></>:null
                 }
             </div>

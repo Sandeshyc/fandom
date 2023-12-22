@@ -215,13 +215,13 @@ const PlanCard = ({
                   // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
                   let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
                   // router.replace(forwordPurchaseUrl);
-                  router.push(forwordPurchaseUrl);
+                  router.replace(forwordPurchaseUrl);
 
                 }
                 if(process.env.NODE_ENV === 'development'){
                   // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`, '_blank');
                   let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`;
-                  router.push(forwordPurchaseUrl);
+                  router.replace(forwordPurchaseUrl);
                 }
               }
               console.log('Success:', response);

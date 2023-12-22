@@ -35,6 +35,10 @@ export default function App({
         <meta name="description" content="iWantTFC Tickets" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         {/* <link rel="icon" href="/favicon.ico" /> */}
+
+        {/* <Script>
+          window.onbeforeunload = function() { return "sorry, Your some work will be lost - really sorry."; };
+        </Script> */}
       </Head>
 
       <Script 

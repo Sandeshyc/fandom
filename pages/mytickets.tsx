@@ -51,10 +51,10 @@ const Home = (props) => {
             <ul className='text-white flex flex-wrap text-center my-8'>
               <li className={`text-white border-2 flex justify-center items-center ${(openTab === 0)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-8 min-w-[160px] cursor-pointer hover:border-white/80`}
               onClick={() => setOpenTab(0)}
-              >Active</li>
+              >All</li>
               <li className={`text-white border-2 flex justify-center items-center ${(openTab === 1)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-2 min-w-[160px] cursor-pointer hover:border-white/80`}
               onClick={() => setOpenTab(1)}
-              >Expired</li>
+              >Active</li>
             </ul>
             <div className={`pb-6 ${(openTab === 0)?'flex flex-wrap':'hidden'}`}>
             {((Array.isArray(moviesSort) && moviesSort.length > 0)?(moviesSort.map((item: any, index) => <MovieCardPurchase data={item} portrait={ true} key={stableKeys[index]} />)):<NoMovies/>)}
