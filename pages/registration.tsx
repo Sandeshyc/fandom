@@ -70,11 +70,12 @@ const Registration = () => {
       <div className='hidden xl:block xl:w-1/2 h-full'>
           <img src={imgLogBG} className="h-full w-full object-cover object-right-top" alt="all Movies" />
       </div>
-      <div className="w-full xl:w-1/2 h-full ">
-        <div className="w-full p-2 fixed left-0 top-0 flex items-center xl:justify-end">
+      <div className="w-full p-2 fixed left-0 top-0 flex items-center xl:justify-end">
           <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2 xl:order-[2]" alt="Logo" />
           <p className='text-white font-semibold text-xl xl:text-2xl xl:order-[3]'>iWantTFC Tickets</p>
         </div>
+      <div className="w-full xl:w-1/2 h-srceen">
+        
         <div className="flex flex-wrap justify-center h-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
             <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Create an Account</h1>

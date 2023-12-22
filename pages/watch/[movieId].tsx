@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
@@ -19,7 +19,7 @@ const Watch = () => {
   const [videoReady, setVideoReady] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
-  console.log('Watch data: ', data, isLoading, isReady);
+  // console.log('Watch data: ', data, isLoading, isReady);
   const {t} = router.query;
   const isRestart = t === 'restart' ? true : false;
   useEffect(() => {
@@ -73,11 +73,11 @@ const Watch = () => {
   }, []);
 
   const handleBack = () => {
+    // setIsPause(true);
     router.back();
     // window.history.back();
   }
 
-  
   return (
     <>
     {(isReady && !isLoading)?(<><div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>

@@ -50,7 +50,7 @@ const MyProfile = () => {
 
                             // router.push(`/details/${itemCode}`);
                             // router.replace(`/details/${itemCode}`);
-                            router.replace(`/details/${itemCode}`, undefined, { shallow: true });
+                            router.replace(`/details/${itemCode}`);
                         }, 2000);
                     }
                 })
@@ -77,7 +77,7 @@ const MyProfile = () => {
   useEffect(() => {
     // is not parent window
     if (window.self !== window.top) {
-        window.parent.location.href = window.location.href;       
+        window.parent.location.replace(window.location.href);       
         // return; 
     }
     setIsReady(true);
@@ -87,7 +87,7 @@ const MyProfile = () => {
       {(isReady) && (<><Navbar />
       <div className="py-16  min-h-[80vh]">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
-          <div className="movieSliderInner max-w-[1200px] mx-auto mt-8">
+          <div className="movieSliderInner max-w-[1200px] mx-auto mt-16">
             <h1 className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">
             <Loop className='animate-spin'
             /> Redirecting... 

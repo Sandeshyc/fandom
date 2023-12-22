@@ -54,26 +54,11 @@ const Details = (props) => {
   }
 
   const backBtn = () => {
-    console.log('backBtn: ', window.history.state);
-    // check the last history 
-    if(window.history.state === null){
-      // router.back();
-    }else{
-      // router.push('/');
-    }
-    // 
     router.back();
   }
   
 
   useEffect(() => {
-    // Clear history state 
-    // window.history.pushState(null, '');
-    // console.log('window.location.href: ', window.location.href);
-    // console.log('history: ', history);
-    // window.onpopstate = function(event) {
-    //   history.go(1);
-    // };
 
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {

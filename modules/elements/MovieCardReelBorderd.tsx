@@ -35,7 +35,7 @@ const MovieCardReelBorderd: React.FC<MovieCardProps> = ({ data, portrait, gradie
   return (
     <button 
     onClick={redirectToWatch}
-    className={`group col-span relative movieCard aspect-${aspectRatio} border-blue-700 border p-[1.8vw] rounded-xl w-full transition-all duration-500 hover:border-white `} >
+    className={`group col-span relative movieCard aspect-${aspectRatio} border-blue-700 border p-[1.8vw] rounded-xl w-full transition-all duration-500 hover:border-white min-w-[312px]`} >
       {/* {(!data?.allowed)?<Locked/>:null}   */}
       <div className={`img relative h-full w-full`}>
         {(data?.allowed)?<PurchaseBadge data={data}/>:null}     

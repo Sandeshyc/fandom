@@ -20,7 +20,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
     const x = useRef(0);
-    console.log('video: ', video);
+    // console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -83,6 +83,15 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 
             });
 
+            // setTimeout(() => {
+            //     console.log('Vidoe is Paused');
+            //     player.pause();
+            // }, 10000);
+            // if(isPause){
+            //     console.log('Vidoe is Paused inside');
+            //     player.pause();
+            // }
+
             // on ready video
             player.on('ready', function() {
                 if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
@@ -109,12 +118,12 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                         "itemCode": data?._id,
                     }
                 });
-                console.log('play');
+                // console.log('play');
                 // show the player once it's ready
                 playerRef.current.style ="opacity: 1"
                 if(x && x.current === 0){
                     setTimeout(() => {
-                        console.log('set volume', x.current);
+                        // console.log('set volume', x.current);
                         player.setVolume(50);
                         x.current = 1;
                     }, 500);
@@ -125,7 +134,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             player.on('pause', function() {
                 const currentTime = player.getPosition();
                 const duration = player.getDuration();
-                console.log('pause');
+                console.log('Video Pause');
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "pause",
@@ -170,7 +179,10 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             // clear on unmount
             return () => {
                 // player.remove();
-                player.stop();
+                player.pause();
+                // setTimeout(() => {-
+                //     player.stop();
+                // }, 1000);                
             };
         } catch(e){ console.error(e); }
 
