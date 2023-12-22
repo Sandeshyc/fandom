@@ -6,6 +6,7 @@ import RemoveListBtn from '@/components/RemoveListButton';
 import Locked from '@/components/Locked';
 import Buttons from '@/components/identites/Buttons';
 import { VolunteerActivism } from '@mui/icons-material';
+import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -42,7 +43,8 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           rounded-md
           w-full
           aspect-[16/9]" />
-        {(!data?.allowed)?<Locked/>:null}
+        {/* {(!data?.allowed)?<Locked/>:null} */}
+        {(data?.allowed)?<PurchaseBadge data={data}/>:null}
       </div>
       <div className="w-[58%] pt-1">
         <p

@@ -138,7 +138,7 @@ const Home = (props) => {
           case 'gradient' : 
             return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} data={movieItem.items} portrait={ false}  gradient={true}/></div>
           case 'rollBordered' : 
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReelBorderd title={movieItem?.title} data={movieItem.items} portrait={true} isSquare={true} gradient={true}/></div>
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReelBorderd title={movieItem?.title} data={movieItem.items} portrait={true} isSquare={false} gradient={true}/></div>
           default:
             return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/></div>
         }
