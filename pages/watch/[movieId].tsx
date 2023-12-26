@@ -17,6 +17,7 @@ const Watch = () => {
   const [trailerUrl, setTrailerUrl] = React.useState('');
   const [videoURL, setVideoURL] = React.useState('');
   const [videoReady, setVideoReady] = React.useState(false);
+  const [backBtnActive, setBackBtnActive] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
   // console.log('Watch data: ', data, isLoading, isReady);
@@ -73,18 +74,20 @@ const Watch = () => {
   }, []);
 
   const handleBack = () => {
-    // setIsPause(true);
-    router.back();
-    // window.history.back();
+    if(!backBtnActive){
+      // console.log('backBtnActive: ', backBtnActive);
+      router.back();
+      setBackBtnActive(true);
+    }
   }
 
   return (
     <>
     {(isReady && !isLoading)?(<><div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
-      {mouseActive && (<nav className="fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
+      {mouseActive && (<nav className={`fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}>
         <ArrowLeftIcon 
           onClick={handleBack} 
-          className="w-8 md:w-12 text-white cursor-pointer hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1" 
+          className={`w-8 md:w-12 text-white ${(backBtnActive)?'cursor-wait':'cursor-pointer'} hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1`} 
           />
         <p className="text-white text-1xl md:text-3xl font-bold">
           <span className="font-light">Watching:</span> {data?.title}

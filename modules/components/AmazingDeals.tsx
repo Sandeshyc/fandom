@@ -13,7 +13,7 @@ const AmazingDeals: React.FC<MovieListProps> = () => {
   const router = useRouter();
 
   return (
-    <div className={`my-[4vw]`}>
+    <div className={`my-[4vw] px-3`}>
         <div className='container mx-auto max-w-[1680px] border border-[#262626] rounded-md'
         style={{
             backgroundImage: `url(${bgImage})`,

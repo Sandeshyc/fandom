@@ -128,10 +128,10 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
             <SvgNumberModak item={i + 1} />
           </span>
 
-          <div className={`col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
+          <div className={`bg-zinc-900/80 rounded-md col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
             {/* {(!movie?.allowed)?<Locked/>:null} */}
             {(movie?.allowed)?<PurchaseBadge data={movie}/>:null}
-            <img src={get(movie, 'thumbnailUrl')} className="w-full  object-cover rounded-lg" />
+            <img src={get(movie, 'thumbnailUrl')} className="w-full  object-contain rounded-lg" />
           </div>
         </div>
       </div>

@@ -66,7 +66,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
         {(data?.publishSchedule)?<div className='absolute bottom-[10px] left-[10px] z-[1] text-white bg-black bg-opacity-80 px-2 py-1 rounded-sm'><EnititlementEndDate endDate={data?.publishSchedule} short={true} /></div>:null}
         <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
-          object-cover
+          object-contain
           transition
           duration
           shadow-xl
