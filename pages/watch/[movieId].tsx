@@ -70,6 +70,7 @@ const Watch = () => {
       router.push('/auth');
     }
     setIsReady(true);
+    setBackBtnActive(false);
     // console.log('history: ', window.history.state);
   }, []);
 
@@ -80,6 +81,10 @@ const Watch = () => {
       setBackBtnActive(true);
     }
   }
+
+  useEffect(() => {
+    setBackBtnActive(false);
+  }, [router.query]);
 
   return (
     <>

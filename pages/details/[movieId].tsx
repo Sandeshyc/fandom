@@ -65,7 +65,7 @@ const Details = (props) => {
   
 
   useEffect(() => {
-
+    
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
@@ -80,9 +80,14 @@ const Details = (props) => {
   }, []);
 
   useEffect(() => {
+    setBackBtnActive(false);
     setIsReady(true);
   }, []);
 
+  // setBackBtnActive(false); make it false when back to this page by back Button 
+  useEffect(() => {
+    setBackBtnActive(false);
+  }, [router.query]);  
 
   return (
     <>
