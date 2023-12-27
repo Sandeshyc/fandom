@@ -23,6 +23,7 @@ import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import { stableKeys } from '@/utils/stableKeys';
 import { url } from 'inspector';
 import useIsMobile from '@/hooks/useIsMobile';
+import Carousel from '@/modules/components/Carousel';
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
@@ -54,10 +55,10 @@ const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
 
   const isMobile = useIsMobile();
-  console.log('productPlatform: ', isMobile);
+  // console.log('productPlatform: ', isMobile);
 
   const { data: movies = [], isLoading } = useMovieList(region, (isMobile)?'mobile':'web', 'home', userIdToken);
-  console.log('movies: ', movies);
+  // console.log('movies: ', movies);
   const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
   // console.log('myPurchaseLayout: ', myPurchaseLayout);
 
@@ -130,6 +131,8 @@ const Home = (props) => {
           case 'animated':
             // return <Animated title={movieItem.title} data={movieItem} />;
             return;
+          case 'carousel':
+            return <Carousel items={movieItem.items} key={stableKeys[index]}/>;
           case 'roll':
             // return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
             return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={false} data={movieItem.items}/></div>

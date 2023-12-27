@@ -39,6 +39,7 @@ const ReactVideoPlayer = (
                     height='100%'
                     playing={play}
                     muted={isMute}
+                    pip={false}
                     loop={true}
                     controls={control}
                     delay={500}

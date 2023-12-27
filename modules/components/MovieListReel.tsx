@@ -21,6 +21,7 @@ interface MovieListProps {
   link?: string;
   linkText?: string;
   gradient?: boolean;
+  isBoxesLayout?: boolean;
 }
 
 function SlickNextArrow(props) {
@@ -38,7 +39,7 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false }) => {
+const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false }) => {
   const router = useRouter();
   if (isEmpty(data)) {
     return null;
@@ -83,31 +84,36 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
       },
     ]
   }; 
-
-  return (
-    <div className={`mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
-      <div className="movieSliderInner">
-        <ReelHeading 
-          title={title} 
-          link={link}
-          linkText={linkText}
-          />
-        <div className="block lg:hidden">
-          <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-            {data?.map((movie, index) => (
-              <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
-            ))}
-          </div>
+  if(Array.isArray(data) && data?.length > 0 ) {
+    data = data.filter((item: any) => item !== null);
+  }
+  const ReelContent = ()=> (<div className={`mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
+    <div className="movieSliderInner">
+      <ReelHeading 
+        title={title} 
+        link={link}
+        linkText={linkText}
+        />
+      <div className="block lg:hidden">
+        <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+          {data?.map((movie, index) => (
+            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+          ))}
         </div>
-        <div className="hidden lg:block movieSliderReel">
-          <Slider {...settings}>
-            {data?.map((movie, index) => (
-              <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
-            ))}
-          </Slider>  
-        </div> 
       </div>
+      <div className="hidden lg:block movieSliderReel">
+        <Slider {...settings}>
+          {data?.map((movie, index) => (
+            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+          ))}
+        </Slider>  
+      </div> 
     </div>
+  </div>);
+
+  return (<>
+    {(Array.isArray(data) && data.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:ReelContent():null}
+    </>
   );
 }
 

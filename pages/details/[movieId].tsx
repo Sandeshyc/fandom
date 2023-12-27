@@ -12,6 +12,7 @@ import RestartBtn from '@/modules/elements/RestartBtn';
 import ResumeBtn from '@/modules/elements/ResumeBtn';
 import Buttons from '@/components/identites/Buttons';
 import useMovie from '@/hooks/useMovie';
+
 import Footer from '@/components/Footer';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import useMovieList from '@/hooks/useMovieList';
@@ -23,6 +24,9 @@ import DetailsTab from '@/components/DetailsTab';
 import MovieListReel from '@/modules/components/MovieListReel';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { set } from 'lodash';
+
+import NewDetails from '@/modules/components/NewDetails';
+
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -38,6 +42,10 @@ const Details = (props) => {
   const { movieId } = router.query;
   const [mouseActive, setMouseActive] = React.useState(true);  
   const { data, error } = useMovie(movieId as string, userIdToken);
+
+  
+
+
   let relMovies = [];
   if(Array.isArray(data?.relatedVideos) && data?.relatedVideos?.length > 0 ) {
     // relMovies = data?.relatedVideos;
@@ -46,6 +54,8 @@ const Details = (props) => {
     relMovies = data?.relatedVideos.filter((item: any) => item !== null);
     // console.log('relMovies', relMovies);
   }
+
+
   const { data: movies = [], isLoading } = useMovieList(region, product, 'home', userIdToken);
   // console.log('data movie', data);
   const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
@@ -105,6 +115,7 @@ const Details = (props) => {
           <span className="font-light">Back</span>
         </p>
       </nav>)}
+      <NewDetails/>
       <div className="relative z-0">
         <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[70vh] max-h-[100%]"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
           {(videoURL)?(<ReactVideoPlayer videoURL={videoURL} control={false} poster={thumb}/>):null}
