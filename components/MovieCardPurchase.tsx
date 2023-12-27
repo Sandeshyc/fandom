@@ -11,7 +11,7 @@ import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import Locked from '@/components/Locked';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import EnititlementEndDate from '@/components/Expair';
-import { VolunteerActivism, Check } from '@mui/icons-material';
+import { VolunteerActivism, Check, ShoppingBag } from '@mui/icons-material';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -44,8 +44,8 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
         >{data.title}</p>:null}
         {(data?.planDescription)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><Check className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.planDescription}</p>:null}          
         {(data?.contentPrivider)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivism className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>:null}
+        {(data?.sourcePlatform)?<p className="text-sm mb-2 flex items-center"><ShoppingBag className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{capFirstLetter(data?.sourcePlatform)}</p>:null}
         {(data?.endTime)?<EnititlementEndDate endDate={data?.endTime} short={true} />:null}
-        {(data?.sourcePlatform)?<p className="text-sm mt-1 flex items-center">Source: {capFirstLetter(data?.sourcePlatform)}</p>:null}
       </div>
     </div>
   )

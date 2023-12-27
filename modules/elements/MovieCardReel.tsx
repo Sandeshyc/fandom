@@ -89,7 +89,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
   let aspectRatio = '384/216';
   if(portrait){
     thumbURl = data?.thumbnailPotrait;
-    aspectRatio = '6/9';
+    aspectRatio = '240/360';
   }else{
     thumbURl = data?.thumbnailUrl;
   }
@@ -99,7 +99,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
     const duration = parseInt(data?.videoDuration).toFixed(0);
     const current = parseInt(data?.currentTime).toFixed(0);
     progress =  (current / duration) * 100;
-    console.log(data?.title, duration, current, progress);
+    // console.log(data?.title, duration, current, progress);
   }
 
   const redirectToWatch = useCallback(() => {
@@ -112,7 +112,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
   return (
     <div 
     ref={thumbOuterRef}
-    className={`group bg-zinc-900 col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
+    className={`group bg-zinc-900/80 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
     onMouseEnter={onHoverHandler} 
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
@@ -130,7 +130,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
           {data?.currentTime ? <div className='m-2 mt-0'><ProgressBar done={progress} /></div> : null}
         </div>
         
-        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-cover shadow-xl rounded-md w-full h-[12vw] z-10`}/>
+        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
         
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -22,11 +22,14 @@ import SideBar from '@/components/SideBar'
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import { stableKeys } from '@/utils/stableKeys';
 import { url } from 'inspector';
+import useIsMobile from '@/hooks/useIsMobile';
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
   const session = await getSession(context);
   const product = context.query.product || "web"
+
+  
 
   // if (!session) {
   //   return {
@@ -50,8 +53,11 @@ const Home = (props) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
 
-  const { data: movies = [], isLoading } = useMovieList(region, 'web', 'home', userIdToken);
-  // console.log('movies: ', movies);
+  const isMobile = useIsMobile();
+  console.log('productPlatform: ', isMobile);
+
+  const { data: movies = [], isLoading } = useMovieList(region, (isMobile)?'mobile':'web', 'home', userIdToken);
+  console.log('movies: ', movies);
   const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
   // console.log('myPurchaseLayout: ', myPurchaseLayout);
 
@@ -134,7 +140,7 @@ const Home = (props) => {
           case 'top10' :
             return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
           case 'myPurchase' :    
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={"My Purchases"} portrait={false} data={myPurchaseLayout}/></div>   
+            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={false} data={myPurchaseLayout}/></div>   
           case 'gradient' : 
             return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} data={movieItem.items} portrait={ false}  gradient={true}/></div>
           case 'rollBordered' : 

@@ -22,6 +22,7 @@ import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import DetailsTab from '@/components/DetailsTab';
 import MovieListReel from '@/modules/components/MovieListReel';
 import { PlayIcon } from '@heroicons/react/24/solid';
+import { set } from 'lodash';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -29,6 +30,7 @@ const Details = (props) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
   const { region, product } =  props;
+  const [backBtnActive, setBackBtnActive] = React.useState(false);
   const router = useRouter();
   // console.log('router: ', router);
   
@@ -54,12 +56,16 @@ const Details = (props) => {
   }
 
   const backBtn = () => {
-    router.back();
+    if(!backBtnActive){
+      // console.log('backBtnActive', backBtnActive);
+      router.back();
+      setBackBtnActive(true);
+    }
   }
   
 
   useEffect(() => {
-
+    
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
@@ -74,9 +80,14 @@ const Details = (props) => {
   }, []);
 
   useEffect(() => {
+    setBackBtnActive(false);
     setIsReady(true);
   }, []);
 
+  // setBackBtnActive(false); make it false when back to this page by back Button 
+  useEffect(() => {
+    setBackBtnActive(false);
+  }, [router.query]);  
 
   return (
     <>
@@ -88,9 +99,9 @@ const Details = (props) => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 50 + 'vh',
       }}>
-      {mouseActive && (<nav className="absolute w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
-        <ArrowLeftIcon onClick={backBtn} className="w-8 md:w-12 text-white cursor-pointer hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1" />
-        <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={backBtn}>
+      {mouseActive && (<nav className={`absolute w-full p-4 z-10 flex flex-row items-center gap-8 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50 cursor-wait':'opacity-100'} videoPageNav`}>
+        <ArrowLeftIcon onClick={backBtn} className={`w-8 md:w-12 text-white ${(backBtnActive)?'cursor-wait':'cursor-pointer'} hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1`} />
+        <p className={`text-white/80 text-1xl md:text-3xl font-bold ${(backBtnActive)?'cursor-wait':'cursor-pointer'}`} onClick={backBtn}>
           <span className="font-light">Back</span>
         </p>
       </nav>)}
@@ -173,8 +184,8 @@ const Details = (props) => {
                 <p className="pr-1 text-green-400">
                   {data?.duration}
                 </p>
-                <p className="border-gray-500 border px-1 text-xs">HD</p>
-                <p className="border-gray-500 border px-1 text-xs">16+</p>
+                {(data?.quality)?(<p className="border-gray-500 border px-1 text-xs">{data?.quality}</p>):null}
+                {(data?.contentRating)?(<p className="border-gray-500 border px-1 text-xs">{data?.contentRating}</p>):null}
               </div>
               <div className="mb-4 text-white text-xs text-gray-500">
                 {(data?.contentPrivider)?(<p className="mb-1"><span className="text-gray-300">Content Provider:</span> {data?.contentPrivider}</p>):null}
@@ -185,7 +196,7 @@ const Details = (props) => {
       </div>
       {(data?.isPackage)?(<div className='w-full'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'Movie Lists'} portrait={true} data={relMovies}/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<div className='overflow-hidden movieBoxsInside'><MovieListReel title={'Movie Lists'} portrait={true} data={relMovies}/></div>:null}
         </div>
       </div>):null}
       <div className='mt-6 mb-16'>
@@ -198,7 +209,7 @@ const Details = (props) => {
       </div>
       {(!data.isPackage)?(<div className='w-full overflow-hidden'>
         <div className='max-w-[1600px] mx-auto px-[15px]'>
-          {(Array.isArray(relMovies) && relMovies.length > 0)?<MovieListReel title={'More Like This'} portrait={true} data={relMovies}/>:null}
+          {(Array.isArray(relMovies) && relMovies.length > 0)?<div className='overflow-hidden movieBoxsInside'><MovieListReel title={'More Like This'} portrait={true} data={relMovies}/></div>:null}
         </div>
       </div>):null}
       <Footer/>
