@@ -24,9 +24,8 @@ const ReactVideoPlayer = (
     return (
         <>
         <div className={`w-full h-full overflow-hidden ${className}`}>
-            <div className='relative h-0 pt-[56.2%]'>
-                <div 
-                    className={`absolute top-0 left-0 w-full h-full z-0 hidden sm:block`} 
+            <div className='relative h-full w-full ReactPlayerVideoCover'>
+                <div className={`absolute top-0 left-0 w-full h-full z-0 hidden sm:block`} 
                     style={{
                         backgroundImage: `url(${poster})`,
                         backgroundSize: "cover",

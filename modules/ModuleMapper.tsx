@@ -16,7 +16,14 @@ export default function ModuleMapper ({
 } : ModuleWrapperProps) {
     return modules?.map((module:any, moduleIndex:number) => {
         const extraProps = {};
-        if(module.displayType == 'roll' ){
+        if(module?.displayType === 'potrait' || module?.displayType === 'top10'){
+            extraProps.portrait = true;
+        }
+        if(module?.displayType == 'gradient' ){
+            extraProps.gradient = true;
+        }
+        if(module?.displayType == 'rollBordered' ){
+            extraProps.isSquare = false;
             extraProps.portrait = true;
         }
         const Component = getComponent(module?.displayType || "");

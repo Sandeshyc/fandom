@@ -48,7 +48,6 @@ const DetailsTab = ({data}:{data:any}) => {
         });
         setTabArgs(tempTabArgs as any);
     }, [data]);
-    // console.log('tabArgs', tabArgs);
   return (
     <>
       <div className="w-full ">

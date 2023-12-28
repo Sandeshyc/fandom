@@ -9,7 +9,7 @@ import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 
 const bgImage = 'url("/images/new-bg.png")';
 
-const Details = (props) => {
+const Details = () => {
   const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();  
   const { movieId } = router.query;

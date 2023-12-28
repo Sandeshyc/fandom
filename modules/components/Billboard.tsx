@@ -13,9 +13,7 @@ import ReactVideoPlayer from '@/components/ReactPlayer';
 
 const Billboard: React.FC = ({data, extended, isComplited}) => {
   const { openModal } = useInfoModalStore();
-  data = data[0]
-  console.log('dataxd', data);
-  // const { data } = useBillboard();
+  data = data[(Math.floor(Math.random() * data?.length))]
 
   const handleOpenModal = useCallback(() => {
     openModal(data?._id, data);
