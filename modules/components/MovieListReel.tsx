@@ -87,7 +87,7 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
   if(Array.isArray(data) && data?.length > 0 ) {
     data = data.filter((item: any) => item !== null);
   }
-  const ReelContent = ()=> (<div className={`mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
+  const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
     <div className="movieSliderInner">
       <ReelHeading 
         title={title} 
