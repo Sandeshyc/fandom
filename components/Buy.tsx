@@ -96,7 +96,7 @@ const Buy: React.FC<PlayButtonProps> = ({
   aria-labelledby="simple-modal-title"
   aria-describedby="simple-modal-description"
   onClose={handleClose}
-  className='flex justify-center  jkBuyModal'>
+  className='flex justify-center jkBuyModal'>
     <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative '>
       <button
       onClick={handleClose}
@@ -135,9 +135,9 @@ return (<>
   </div>
   <div className=''>
     <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
-      <div className='mr-2 w-[80px]'>
+      {(thumbURl)?(<div className='mr-2 w-[80px]'>
         <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9] object-cover'/>
-      </div>
+      </div>):null}
       <div className='flex-grow flex flex-wrap w-[200px]'>
         <div className='w-full flex flex-wrap'>
           <div className='mr-6'>

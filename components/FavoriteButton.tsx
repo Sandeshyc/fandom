@@ -7,18 +7,19 @@ import useFavorites from '@/hooks/useFavorites';
 interface FavoriteButtonProps {
   movieId: string;
   isInWatchList?: boolean;
+  classes?: string;
+  style?: React.CSSProperties;
+  innerClass?: string; 
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = (
-  { movieId, isInWatchList }:FavoriteButtonProps) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ 
+  movieId, 
+  isInWatchList,
+  classes = '',
+  style = {},
+  innerClass = '',
+ }:FavoriteButtonProps) => {
   let tempUserId = '';
-  // const userInfo = window?.localStorage?.getItem('userInfo');
-  // if(userInfo) {
-  //   const userInfoObj = JSON.parse(userInfo);
-  //   if(userInfoObj.sub) {
-  //     tempUserId = userInfoObj.sub;
-  //   }
-  // }
   const [userId, setUserId] = React.useState(tempUserId);
   const [isInLish, setIsInLish] = React.useState(isInWatchList);
   
@@ -103,8 +104,8 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = (
   
   const Icon = isInLish ? CheckIcon : PlusIcon;
 
-  return (<div onClick={toggleFavorites} className={`cursor-pointer group/item w-8 h-8 ${(isInLish)?'border-white':'border-white/60'}  border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
-  <Icon className="text-white group-hover/item:text-neutral-300 w-6" />
+  return (<div onClick={toggleFavorites} className={`cursor-pointer group/item w-8 h-8 ${(isInLish)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 ${classes}`} style={style}>
+  <Icon className={`text-white group-hover/item:text-neutral-300 w-6 ${innerClass}`} />
 </div>
   )
 }

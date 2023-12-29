@@ -90,14 +90,18 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
           <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
           style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
           onClick={redirectToWatch}>
-            {data?.videoUrl ? <ReactVideoPlayer 
-              videoURL={data?.videoUrl} 
-              control={false} 
-              poster={data?.thumbnailUrl}
-              isMute={isMute}
-              play={true}
-              className='opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000'
-            /> : <div className='aspect-[16/9]'></div>}             
+            {data?.videoUrl ? <div className='relative h-0 w-full pt-[56.56%]'>
+              <div className='absolute top-0 left-0 w-full h-full'>
+                <ReactVideoPlayer 
+                videoURL={data?.videoUrl} 
+                control={false} 
+                poster={data?.thumbnailUrl}
+                isMute={isMute}
+                play={true}
+                className='opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000'
+              />
+              </div>
+            </div> : <div className='aspect-[16/9]'></div>}             
           </div> 
         </div>     
         <div className="z-10

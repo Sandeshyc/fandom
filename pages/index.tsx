@@ -2,34 +2,19 @@ import React, {useEffect, useState} from 'react';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import Navbar from '@/components/Navbar';
-import Billboard from '@/components/Billboard';
-import MovieList from '@/components/MovieList';
-import MovieListReel from '@/modules/components/MovieListReel';
-import MovieListPurchase from '@/components/MovieListPurchase';
-import MovieListReelBorderd from '@/modules/components/MovieListReelBorderd';
-import InfoModal from '@/components/InfoModal';
 import Footer from '@/components/Footer';
 import useMovieList from '@/hooks/useMovieList';
-import useFavorites from '@/hooks/useFavorites';
-import useActivePurchaseMovies from '@/hooks/useActivePurchaseMovies';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
-import BillboardExtended from '@/components/BillboardExtended';
-import MovieListTops from '@/components/MovieListTopsV2';
 import AmazingDeals from '@/modules/components/AmazingDeals';
-import Animated from '@/components/Animated';
-import SideBar from '@/components/SideBar'
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
-import { stableKeys } from '@/utils/stableKeys';
-import { url } from 'inspector';
 import useIsMobile from '@/hooks/useIsMobile';
+
+import Mapper from '@/modules/ModuleMapper';
+import {getComponent} from '@/modules';
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
   const session = await getSession(context);
-  const product = context.query.product || "web"
-
-  
+  const product = context.query.product || "web" 
 
   // if (!session) {
   //   return {
@@ -54,12 +39,9 @@ const Home = (props) => {
   const [userIdToken, setUserIdToken] = React.useState('');
 
   const isMobile = useIsMobile();
-  console.log('productPlatform: ', isMobile);
+  // console.log('productPlatform: ', isMobile);
 
   const { data: movies = [], isLoading } = useMovieList(region, (isMobile)?'mobile':'web', 'home', userIdToken);
-  console.log('movies: ', movies);
-  const { data: myPurchaseLayout = [] } = useActivePurchaseMovies(region, 'web', userIdToken, '1' );
-  // console.log('myPurchaseLayout: ', myPurchaseLayout);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');    
@@ -78,113 +60,24 @@ const Home = (props) => {
     setIsReady(true);
   }, []);
 
-  // const movies = [];
-  // const myPurchaseLayout = [];
-  
-  // if(userIdToken){
-  //   const { data: movies } = useMovieList(region, product, 'home', userIdToken);
-  //   const { data: myPurchaseLayout } = usePurchaseMovies(region, 'web', userIdToken );
-  // }else{
-    
-  // }
-  // console.log('movies: d', movies);
-  // const { data: favorites = [] } = useFavorites();
-  const {isOpen, closeModal} = useInfoModalStore();
-
-  
-
-  const getNavBar = () => {
-    const rows = movies?.map((movieItem, index) => {
-      if (movieItem?.displayType == 'navigation'){
-        if (movieItem?.title === 'SideBar' && 0)
-          return <SideBar key={stableKeys[index]}/>
-        else
-          return <Navbar key={stableKeys[index]}/>
-      }
-    })
-
-    return rows?.filter(item => item)
-  }
-
-  const getBillboard = () => {
-    const rows = movies?.map((movieItem, index) => {   
-      if (movieItem?.displayType == 'billboard' && movieItem?._id){
-        return <Billboard 
-          data={movieItem?.items[Math.floor(Math.random() * movieItem?.items?.length)]} 
-          key={stableKeys[index]}
-          />
-      }
-    })
-
-    return rows?.filter(item => item)
-  }
-
-  const getRows = () => {    
-
-    const rows = movies?.map((movieItem, index) => {
-      if(Array.isArray(movieItem?.items) && (movieItem?.items?.length > 0 || movieItem?.displayType === 'myPurchase')){
-        // console.log('movieItem Yes', movieItem);
-        switch (movieItem?.displayType) {
-          case 'billboard':
-            return;
-          case 'animated':
-            // return <Animated title={movieItem.title} data={movieItem} />;
-            return;
-          case 'roll':
-            // return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/>
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={false} data={movieItem.items}/></div>
-          case 'extended' :
-            return <BillboardExtended data={movieItem} title={movieItem.title} key={stableKeys[index]}/>
-          case 'potrait' :
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={true} data={movieItem.items}/></div>
-          case 'top10' :
-            return <MovieListTops title={movieItem.title} data={movieItem.items} portrait key={stableKeys[index]}/>  
-          case 'myPurchase' :    
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} portrait={false} data={myPurchaseLayout}/></div>   
-          case 'gradient' : 
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem?.title} data={movieItem.items} portrait={ false}  gradient={true}/></div>
-          case 'rollBordered' : 
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReelBorderd title={movieItem?.title} data={movieItem.items} portrait={true} isSquare={false} gradient={true}/></div>
-          default:
-            return <div className='pl-4 md:pl-16 mt-2' key={stableKeys[index]}><MovieListReel title={movieItem.title} portrait={ false} data={movieItem.items} key={stableKeys[index]}/></div>
-        }
-      } else{
-        // console.log('movieItem No', movieItem);
-        return;
-      }
-
-        if (movieItem.displayType === 'billboard'){
-          return;
-        }
-        if (movieItem.displayType === 'animated'){
-          
-        } 
-    })    
-    return rows?.filter(item => item)
-  }
-
-  return (
-    <>
+  return (<>
     <div
-    className='bg-[#000000] text-white '>
-    {(!isLoading && isReady)? <><InfoModal visible={isOpen} onClose={closeModal} region={region}/>
-      {getNavBar()}
-      {getBillboard()}
-      <div className={`overflow-hidden`}
-      style={{
-        backgroundImage: bgImage,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '100% auto',
-        backgroundPosition: 'right '+ 30 + '%',
-      }}
-      >
-        {getRows()}
+    className='bg-[#000000] text-white'
+    style={{
+      backgroundImage: bgImage,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: '100% auto',
+      backgroundPosition: 'right '+ 30 + '%',
+    }}>
+    {(!isLoading && isReady && movies)?<>
+      <Mapper
+        modules={movies}
+        getComponent = {getComponent}
+        isLoading = {isLoading}/>
         <AmazingDeals/>
-        <Footer/>
-      </div></> : (<SkeletonHome/>)}
+        <Footer/></> : (<SkeletonHome/>)}
     </div>
-    </>
-  ) 
+    </>) 
 }
 
 export default Home;

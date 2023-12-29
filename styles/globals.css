@@ -33,15 +33,18 @@ html {
   background: linear-gradient(180deg,#181818,transparent 100%);
 }
 
-.slick-list{
-  overflow: visible !important;
-  margin-left: -5px;
-  margin-right: -5px;
-}
-.slick-slide {
-  /* min-width:11vw !important; */
-  padding-left:5px;
-  padding-right:5px;
+
+@media screen and (min-width: 960px) {
+  .slick-list{
+    overflow: visible !important;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  .slick-slide {
+    /* min-width:11vw !important; */
+    padding-left:5px;
+    padding-right:5px;
+  }  
 }
 .group:hover .group-hover\:translate-x-\[2vw\]{
   --tw-translate-x : -2vw !important;
@@ -547,4 +550,23 @@ html {
 }
 .billboardSec .lockedIcon{
   display: none;
+}
+
+
+.mobileCarousel .slick-list{
+  overflow: visible !important;
+}
+.mobileCarousel .slick-slide {
+  transition: all 0.4s;
+}
+.mobileCarousel .slick-active{
+  scale: 1.2;
+  z-index: 2;
+  position: relative;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+}
+
+
+.ReactPlayerVideoCover video{
+  object-fit: cover;
 }

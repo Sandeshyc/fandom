@@ -51,7 +51,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
     let thumbH = thumbOuter?.getBoundingClientRect()?.height;
     let top = thumbOuter?.getBoundingClientRect()?.top + window.scrollY + (thumbH / 2);
     let left = thumbOuter?.getBoundingClientRect()?.left + (thumbW / 2);
-
+    // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
     popWidth = (popWidth < 400)? 400 : popWidth;
     const popWidthHalf = popWidth / 2;
@@ -112,7 +112,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
   return (
     <div 
     ref={thumbOuterRef}
-    className={`group bg-zinc-900/80 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
+    className={`group bg-zinc-900 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
     onMouseEnter={onHoverHandler} 
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
