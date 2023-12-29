@@ -9,6 +9,8 @@ import MovieDetails from "@/modules/components/MovieDetails";
 import Billboard from "@/modules/components/Billboard";
 import BillboardExtended from '@/components/BillboardExtended';
 import Carousel from '@/modules/components/Carousel';
+import BillboardExtended2 from '@/modules/components/BillboardExtended2';
+import ImageGalleryReel from "@/modules/components/ImageGalleryReel";
 
 const comps = {
     navigation : Navigation,
@@ -21,11 +23,12 @@ const comps = {
     animated : null,
     detailsHeroImage : DetailsHeroBanner, 
     movieSummary : MovieSummary, 
-    watchAndshare : WatchAndShare,
+    watchAndshare : null,
     movieDetails : MovieDetails,
     billboard : Billboard,
-    extended : BillboardExtended,
+    extended : BillboardExtended2,
     carousel : Carousel,
+    imageHorizontalRail : null,
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

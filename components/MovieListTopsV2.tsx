@@ -88,14 +88,14 @@ const MovieListTopsV2: React.FC<MovieListTopsV2Props> = ({ data, title, portrait
         <div className="block lg:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
               {data?.map((movie, index) => (
-                <MovieCardTop key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />
+                (i<=10)?<MovieCardTop key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />:null
               ))}
             </div>
           </div>
           <div className="hidden lg:block">
             <Slider {...settings}>
-              {data?.map((movie, index) => (
-                <MovieCardTop key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />
+              {data?.map((movie, index) => (                
+                (j<=10)?<MovieCardTop key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />:null
               ))}
             </Slider>  
           </div> 

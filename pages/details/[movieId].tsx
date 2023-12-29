@@ -6,6 +6,8 @@ import useMovieDetails from '@/hooks/useMovieDetails';
 import Footer from '@/components/Footer';
 import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 
+import PackageDetailsHeroBanner from '@/modules/components/PackageDetailsHeroBanner';
+
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -51,6 +53,7 @@ const Details = () => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 50 + 'vh',
       }}>
+        <PackageDetailsHeroBanner/>
         <Mapper
         modules={movieDetails}
         getComponent = {getComponent}

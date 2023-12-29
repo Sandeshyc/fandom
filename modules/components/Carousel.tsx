@@ -23,7 +23,7 @@ type CarouselProps = {
 
 const Carousel = ({items}:CarouselProps) => {
     // console.log('items: ', items);
-    return (<div className='my-4'>
+    return (<div className='py-4 bg-gradient-to-t from-black from-50% to-gray-800 to-100%'>
         <div className='mx-[4vw] mobileCarousel scale-[0.8]'>
             <Slider {...settings}>
                 {items?.map((item, index) => {
@@ -47,12 +47,12 @@ const CarouselItem = ({item}:CarouselItemProps) => {
             <div className='flex justify-center'>
                 <PlayButtonSmall 
                     movieId={item?._id}
-                    classes='mr-4 bg-[#fff]/30 hover:bg-[#fff]/40'
+                    classes='mr-4 bg-white/40 hover:bg-white/50'
                     innerClass='text-white'
                 />
                 <FavoriteButton 
                     movieId={item?._id}
-                    classes='mr-4 bg-[#fff]/30 hover:bg-[#fff]/40'
+                    classes='mr-4 bg-white/40 hover:bg-white/50'
                     style={{
                         borderWidth: 0,
                     }}

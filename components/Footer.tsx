@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import FooterMobile from "@/modules/components/Footer/FooterMobile";
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import MovieSmallModal from '@/components/MovieSmallModal';
 
@@ -19,6 +20,7 @@ const Footer = () => {
     const {isOpen, closeModal} = useMoviePopupStore();
 
     return(<>
+        <FooterMobile/>
         <div className="py-8 bg-black"
         style={{
             backgroundImage: bgImage,
