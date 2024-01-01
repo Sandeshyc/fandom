@@ -267,7 +267,7 @@ const PlanCard = ({
           bg-transparent
           border border-blue-500
           text-white
-          rounded-[10px] 
+          rounded-full
           cursor-not-allowed
           flex
           flex-row

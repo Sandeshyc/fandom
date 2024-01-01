@@ -41,6 +41,7 @@ function SlickPrevArrow(props) {
 
 const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false }) => {
   const router = useRouter();
+  console.log("data", data);
   if (isEmpty(data)) {
     return null;
   }

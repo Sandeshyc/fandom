@@ -4,15 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-
-import SvgNumbers, {SvgNumberModak} from '@/utils/SvgNumbers';
 import { stableKeys } from '@/utils/stableKeys';
 
 import { MovieInterface } from '@/types';
-import MovieCard from '@/components/MovieCard';
 import { get, isEmpty } from 'lodash';
-import Locked from '@/components/Locked';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import NotAllowed from '@/modules/Identities/NotAllowed';
 
 interface MovieListNumberProps {
   data: MovieInterface[];
@@ -36,7 +33,7 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieListNumber2: React.FC<MovieListNumberProps> = ({ data, title, portrait, setCurrentMovie, className, itemEnded }) => {
+const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, className, itemEnded }) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -50,8 +47,7 @@ const MovieListNumber2: React.FC<MovieListNumberProps> = ({ data, title, portrai
     swipeToSlide :false,
     speed: 500,
     slidesToScroll: 1,
-    slidesToShow: 4,
-    
+    slidesToShow: 4,    
     responsive: [
       {
         breakpoint: 1024,
@@ -112,11 +108,6 @@ const MovieListNumber2: React.FC<MovieListNumberProps> = ({ data, title, portrai
     }
   }, [itemEnded]);
 
-
-
-  // on click slide change to current slide
-
-
   const getSlides = () => { 
     let i = 0;
     return data.map((movie, index) => {
@@ -124,10 +115,11 @@ const MovieListNumber2: React.FC<MovieListNumberProps> = ({ data, title, portrai
     return (
       <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber'>
         <div className="w-full aspect-video cursor-pointer">
-          <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl':'z-20 shadow-lg'}`}>
-            {(movie?.allowed)?<PurchaseBadge data={movie}/>:null}
+          <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
+            {(movie?.allowed)?<PurchaseBadge/>:
+            (movie?.canBuy === false)?<NotAllowed/>:
+            null}
             <img src={get(movie, 'thumbnailUrl')} className="w-full h-full object-contain rounded-lg" />
-            {/* {(i++ === parseInt(current))?<div className='bg-black/50 absolute top-0 left-0 w-full h-full cursor-not-allowed'/>:null} */}
           </div>
         </div>
       </div>
@@ -137,29 +129,25 @@ const MovieListNumber2: React.FC<MovieListNumberProps> = ({ data, title, portrai
   return (
     <div className={`group movieSlider ${className} ${portrait ? 'portrait': ""}`}>
       <div>
-        {/* <p className="text-white text-md md:text-xl lg:text-2xl font-semibold mb-4">{title} x</p> */}
         <div className={`gap-2 relative`}>
-
           {current > 0 && <SlickPrevArrow onClick={hendlePrev} />}
-
           <div className='relative z-10'>
             <div className="block lg:hidden">
               <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
                 {getSlides()}
               </div>
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden lg:block movieSliderReel">
               <Slider {...settings} ref={sliderRef} >
                 {getSlides()}
               </Slider>
             </div> 
           </div>          
           {current < data.length -1 && <SlickNextArrow onClick={hendleNext} />}
-
         </div>
       </div>
     </div>
   );
 }
 
-export default MovieListNumber2;
+export default MovieListHeroBannerItems;
