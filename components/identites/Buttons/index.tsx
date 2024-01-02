@@ -15,11 +15,11 @@ interface ButtonsProps {
 
 const Buttons = ({children, onClick, type='blue', className, styles} : ButtonsProps) => {
   return (
-    <div 
+    <button 
       onClick={onClick} 
       className={`${btnClass[type]} ${className}`}
       style={styles}
-      >{children}</div>
+      >{children}</button>
   )
 }
 

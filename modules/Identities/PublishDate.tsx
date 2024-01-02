@@ -12,7 +12,8 @@ const PublishDate = ({publishDate, short = true} : PublishDateProps) => {
     const localDate = date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     const localTime = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     return (
-        <p className='flex items-center text-sm'><ClockIcon className="text-white w-[16px] h-[16px] mr-1"/>
+        <p className='flex items-center text-sm'>
+            <ClockIcon className="text-white w-[16px] h-[16px] mr-1"/>
             {localDate}
             {short ? ("\n") : (" - ")}
             {localTime}

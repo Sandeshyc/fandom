@@ -16,7 +16,7 @@ export default function ModuleMapper ({
 } : ModuleWrapperProps) {
     return modules?.map((module:any, moduleIndex:number) => {
         const extraProps = {};
-        if(module?.displayType === 'potrait' || module?.displayType === 'top10'){
+        if(module?.displayType === 'potrait' || module?.displayType === 'top10' || module?.displayType === 'portrait'){
             extraProps.portrait = true;
         }
         if(module?.displayType == 'gradient' ){
@@ -34,6 +34,7 @@ export default function ModuleMapper ({
                 module={module}
                 id={moduleIndex}
                 data={module.items || null}
+                items={module.items || null}
                 isLoading={isLoading}
                 {...module}
                 {...extraProps}

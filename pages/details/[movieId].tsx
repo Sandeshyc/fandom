@@ -6,7 +6,6 @@ import useMovieDetails from '@/hooks/useMovieDetails';
 import Footer from '@/components/Footer';
 import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 
-
 const bgImage = 'url("/images/new-bg.png")';
 
 const Details = () => {

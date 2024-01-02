@@ -3,13 +3,10 @@ import Slider from "react-slick";
 import { useRouter } from 'next/router';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import 'globalStyles.scss'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { MovieInterface } from '@/types';
-import MovieCard from '@/components/MovieCard';
-import MovieCardReel from '@/modules/elements/MovieCardReel';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
@@ -39,9 +36,10 @@ function SlickPrevArrow(props) {
   );
 }
 
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false }) => {
+const ImageGalleryReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false }) => {
+  console.log(data?.title, data?.imageGalleryUrls);
   const router = useRouter();
-  console.log("data", data);
+  let items = [];
   if (isEmpty(data)) {
     return null;
   }
@@ -85,8 +83,8 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
       },
     ]
   }; 
-  if(Array.isArray(data) && data?.length > 0 ) {
-    data = data.filter((item: any) => item !== null);
+  if(Array.isArray(data?.imageGalleryUrls) && data?.imageGalleryUrls?.length > 0 ) {
+    items = data?.imageGalleryUrls.filter((item: any) => item !== null);
   }
   const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
     <div className="movieSliderInner">
@@ -97,26 +95,28 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
         />
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-          {data?.map((movie, index) => (
-            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
-          ))}
+          {/* {items?.map((movie, index) => (
+            <p>Need to Update</p>
+          ))} */}
+          <p>Need to Update</p>
         </div>
       </div>
       <div className="hidden lg:block movieSliderReel">
-        <Slider {...settings}>
-          {data?.map((movie, index) => (
-            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+      <p>Need to Update</p>
+        {/* <Slider {...settings}>
+          {items?.map((movie, index) => (
+            
           ))}
-        </Slider>  
+        </Slider>   */}
       </div> 
     </div>
   </div>);
 
   return (<>
-    {(Array.isArray(data) && data.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 md:pl-16 mt-2'>{ReelContent()}</div>:null}
+    {(Array.isArray(items) && items.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 md:pl-16 mt-2'>{ReelContent()}</div>:null}
     </>
   );
 }
 
-export default MovieListReel;
+export default ImageGalleryReel;
 
