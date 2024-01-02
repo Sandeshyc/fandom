@@ -14,6 +14,7 @@ import WatchAndShare from "@/modules/components/WatchAndShare";
 import MovieDetails from "@/modules/components/MovieDetails";
 import Carousel from '@/modules/components/Carousel';
 import PackageMovielist from '@/modules/components/PackageMovielist';
+import MovieListVertical from '@/modules/components/MovieListVertical';
 
 const comps = {
     navigation : NavigationHome,
@@ -34,6 +35,7 @@ const comps = {
     packageDetailsHeroImage : PackageDetailsHeroImage, 
     packageMovielist : PackageMovielist, 
     carousel : Carousel,
+    movieListVertical : MovieListVertical,
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

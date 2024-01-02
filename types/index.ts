@@ -29,4 +29,5 @@ export interface MovieInterface {
   isInWatchList?: boolean;
   xy?: {x: number, y: number, width: number, thumbW: number};
   currentTime?: number;
+  sourcePlatform?: string;
 }
