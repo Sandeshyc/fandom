@@ -5,21 +5,19 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
-import SvgNumbers, {SvgNumberModak} from '@/utils/SvgNumbers';
+import {SvgNumberModak} from '@/utils/SvgNumbers';
 import { stableKeys } from '@/utils/stableKeys';
 
 import { MovieInterface } from '@/types';
-import MovieCard from '@/components/MovieCard';
 import { get, isEmpty } from 'lodash';
-import Locked from '@/components/Locked';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 
-interface MovieListNumberProps {
+type Props = {
   data: MovieInterface[];
-  title: string;
   portrait: boolean;
   setCurrentMovie: Function;
   className : string;
+  itemEnded: number;
 }
 
 function SlickNextArrow(props : object) {
@@ -29,20 +27,19 @@ function SlickNextArrow(props : object) {
   );
 }
 
-function SlickPrevArrow(props) {
+function SlickPrevArrow(props: object) {
   const { className, style, onClick } = props;
   return (
     <div className="slick-arrow slick-prev" onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
   );
 }
 
-const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait, setCurrentMovie, className, itemEnded }) => {
+const ExtendedBillboardRoll = ({ data, portrait, setCurrentMovie, className, itemEnded }:Props) => {
   if (isEmpty(data)) {
     return null;
   }
   const [current, setCurrent] = React.useState(0);
   const sliderRef = useRef(null);
-  // console.log('itemEnded',title, data);
   let settings = {
     arrows: false,
     dots: false,
@@ -50,8 +47,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
     swipeToSlide :false,
     speed: 500,
     slidesToScroll: 1,
-    slidesToShow: 4,
-    
+    slidesToShow: 4,    
     responsive: [
       {
         breakpoint: 1024,
@@ -127,9 +123,7 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
           <span className={`col-span-3 relative z-10 w-auto h-[50%] flex justify-end font-monoton text-white leading-[1] ${i === parseInt(current)? 'opacity-100' : 'opacity-50'}`}>
             <SvgNumberModak item={i + 1} />
           </span>
-
           <div className={`bg-zinc-900/80 rounded-md col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
-            {/* {(!movie?.allowed)?<Locked/>:null} */}
             {(movie?.allowed)?<PurchaseBadge data={movie}/>:null}
             <img src={get(movie, 'thumbnailUrl')} className="w-full  object-contain rounded-lg" />
           </div>
@@ -159,11 +153,10 @@ const MovieListNumber: React.FC<MovieListNumberProps> = ({ data, title, portrait
             </div> 
           </div>          
           {current < data.length -1 && <SlickNextArrow onClick={hendleNext} />}
-
         </div>
       </div>
     </div>
   );
 }
 
-export default MovieListNumber;
+export default ExtendedBillboardRoll;

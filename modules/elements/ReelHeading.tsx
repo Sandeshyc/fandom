@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 type Props = {
-    title: string;
+    title?: string;
     link?: string;
     linkText?: string;
 };

@@ -8,10 +8,14 @@ const NavigationBack = () => {
   const router = useRouter();
 
   const backBtn = () => {
-      if(!backBtnActive){
+    if(!backBtnActive){
+      if(window?.history?.length > 2){
         router.back();
-        setBackBtnActive(true);
+      }else{
+        router.push('/');
       }
+      setBackBtnActive(true);
+    }
   }
   useEffect(() => {
       setBackBtnActive(false);

@@ -1,40 +1,39 @@
-import MovieListReel from "@/modules/components/MovieListReel";
-import MovieListTops from '@/components/MovieListTopsV2';
-import MovieListReelBorderd from '@/modules/components/MovieListReelBorderd';
+import Billboard from "@/modules/components/Billboard";
+import Extended from '@/modules/components/Extended';
+import Roll from "@/modules/components/Roll";
+import Gradient from "@/modules/components/Gradient";
+import Portrait from "@/modules/components/Portrait";
+import Top10 from "@/modules/components/Top10";
+import RollBordered from "@/modules/components/RollBordered";
 import NavigationHome from "@/modules/components/Navigation";
-import DetailsHeroBanner from "@/modules/components/DetailsHeroBanner";
-import PackageDetailsHeroBanner from '@/modules/components/PackageDetailsHeroBanner';
+import NavigationBack from '@/modules/elements/NavigationBack';
+import DetailsHeroImage from "@/modules/components/DetailsHeroImage";
+import PackageDetailsHeroImage from '@/modules/components/PackageDetailsHeroImage';
 import MovieSummary from "@/modules/components/MovieSummary";
 import WatchAndShare from "@/modules/components/WatchAndShare";
 import MovieDetails from "@/modules/components/MovieDetails";
-import Billboard from "@/modules/components/Billboard";
-import BillboardExtended from '@/components/BillboardExtended';
 import Carousel from '@/modules/components/Carousel';
 import PackageMovielist from '@/modules/components/PackageMovielist';
-import ImageGalleryReel from "@/modules/components/ImageGalleryReel";
-import NavigationBack from '@/modules/elements/NavigationBack';
 
 const comps = {
     navigation : NavigationHome,
     backNavigation : NavigationBack,
-    roll : MovieListReel,
-    myPurchase : MovieListReel,
-    gradient : MovieListReel,
-    potrait : MovieListReel,
-    portrait : MovieListReel,
-    top10 : MovieListTops,
-    rollBordered : MovieListReelBorderd,
-    animated : null,
-    packageDetailsHeroImage : PackageDetailsHeroBanner, 
-    packageMovielist : PackageMovielist, 
-    detailsHeroImage : DetailsHeroBanner, 
+    roll : Roll,
+    myPurchase : Roll,
+    gradient : Gradient,
+    potrait : Portrait,
+    portrait : Portrait,
+    top10 : Top10,
+    rollBordered : RollBordered,
+    billboard : Billboard,
+    extended : Extended,
+    detailsHeroImage : DetailsHeroImage, 
     movieSummary : MovieSummary, 
     watchAndshare : WatchAndShare,
     movieDetails : MovieDetails,
-    billboard : Billboard,
-    extended : BillboardExtended,
+    packageDetailsHeroImage : PackageDetailsHeroImage, 
+    packageMovielist : PackageMovielist, 
     carousel : Carousel,
-    imageHorizontalRail : null,
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

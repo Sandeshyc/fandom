@@ -94,7 +94,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
   }
   const hendleNext = () => {
     const index = ((current < data?.length - 1)  ? current  + 1 : data?.length - 1);
-    console.log('index - ', index)
+    // console.log('index - ', index)
     setCurrent(parseInt(index));
     setCurrentMovie(data[index]);
     sliderRef.current.slickGoTo(index);
@@ -102,7 +102,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
 
   // if itemEnded is true then change slide to next slide
   React.useEffect(() => {
-    console.log('itemEnded', itemEnded);
+    // console.log('itemEnded', itemEnded);
     if(itemEnded !== 1){
       hendleNext();
     }
@@ -113,7 +113,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
     return data.map((movie, index) => {
    
     return (
-      <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber'>
+      <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
         <div className="w-full aspect-video cursor-pointer">
           <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
             {(movie?.allowed)?<PurchaseBadge/>:

@@ -32,7 +32,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 const bgImage = 'url("/images/new-bg.png")';
 
-const Home = (props) => {
+const Home = (props:any) => {
   const router = useRouter();
   const { region, product } =  props;
   const [isReady, setIsReady] = React.useState(false);

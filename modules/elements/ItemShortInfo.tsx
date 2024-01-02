@@ -1,6 +1,7 @@
 import React from 'react';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
+import WarningMessage from '@/modules/Identities/WarningMessage';
 type Props = {
     data: any;
 }
@@ -27,6 +28,15 @@ const ItemShortInfo = ({data}:Props) => {
             {capFirstLetter(itemTxt)}
           </span>)}</div>:null} 
         </div>
+        {
+          (data?.noOfNotAllowed > 0)?(<WarningMessage 
+            message={`${data?.noOfNotAllowed} out of ${data?.noOfMovie} not allowed in your region`}
+            iconColor={'#EAB307'}
+            textColor={'#fff'}
+            className='w-full mt-2'
+        />):
+        null}
+        
         <div className='w-full mt-2'>
           {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
         </div>

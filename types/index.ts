@@ -9,6 +9,7 @@ export interface MovieInterface {
   thumbnailPotrait: string;
   videoUrl: string;
   duration: string | number;
+  videoDuration?: number;
   genre: string[];
   endTime : string;
   startTime : string;

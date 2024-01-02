@@ -1,10 +1,10 @@
-import React, { useEffect, } from 'react';
+import React from 'react';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 
 type dataProps = {
     data: any;
 }
-const DetailsHeroBanner = ({data}:dataProps) => {
+const DetailsHeroImage = ({data}:dataProps) => {
     const videoURL = data?.trailerUrl ? data?.trailerUrl : '';
     let thumb = '';
     if( data?.thumbnailUrl ){
@@ -18,4 +18,4 @@ const DetailsHeroBanner = ({data}:dataProps) => {
     </div>);
   
 }
-export default DetailsHeroBanner;
+export default DetailsHeroImage;

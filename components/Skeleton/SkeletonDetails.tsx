@@ -2,19 +2,13 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import SkeletonSimpleCard from './SkeletonSimpleCard';
 import {FilmReel} from '../../utils/CustomSVGs';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import MovieDetails from '@/components/Skeleton/MovieDetails';
 import { useRouter } from 'next/router';
 
 const SkeletonDetails = () => {
   const router = useRouter();
   return (
     <>
-      {/* <nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700  opacity-100 videoPageNav">
-        <ArrowLeftIcon onClick={() => router.push('/') } className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
-        <p className="text-white text-1xl md:text-3xl font-bold cursor-pointer" onClick={() => router.push('/') }>
-          <span className="font-light">Back</span>
-        </p>
-      </nav> */}
       <div className="movieSliderInner">
         <div className="w-full p-4 flex flex-wrap justify-center bg-gradient-to-b to-black from-gray-500">
           <div className='w-[200px] sm:w-[350px] xl:w-[450px] opacity-20'>
@@ -22,60 +16,48 @@ const SkeletonDetails = () => {
           </div>
           <div className='w-full pt-16'>
             <div className='container mx-auto'>
-              <div className='max-w-[350px] w-[75%] mb-2'>
+              <div className='max-w-[400px] w-[75%] mb-4'>
                 <Skeleton baseColor='#333' highlightColor='#666' height={50}/>
               </div>
-              <div className='flex flex-wrap mb-2'>
-                <div className='w-[120px] mr-2'>
-                  <Skeleton baseColor='#333' highlightColor='#666' height={40}/>
+              <div className='w-full'>
+                <div className='w-[280px] max-w-[70%] mr-2 mb-2'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
                 </div>
-                <div className='w-[120px] mr-2'>
-                  <Skeleton baseColor='#333' highlightColor='#666' height={40}/>
+                <div className='w-[200px] max-w-[50%] mr-2 mb-2'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
                 </div>
-                <div className='w-[300px] flex flex-wrap'>
-                  <div className='w-[40px] mr-2'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
-                  </div>
-                  <div className='w-[40px] mr-2'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
-                  </div>
-                  <div className='w-[40px] mr-2'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
-                  </div>
+                <div className='w-[330px] max-w-[70%] mr-2 mb-2'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
                 </div>
               </div>
-              <div className='flex flex-wrap'>
-                <div className='w-full sm:w-[65%]'>
-                  <div className='w-[300px] max-w-[70%] mr-2'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={18}/>
-                  </div>
-                  <div className='w-[350px] max-w-[70%] mr-4'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={14}/>
-                  </div>
-                  <div className='w-[700px] max-w-full mr-2'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={14} count={3}/>
-                  </div>
+              <div className='flex flex-wrap mb-2 mt-8'>
+                <div className='w-[150px] mr-2'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
                 </div>
-                <div className='w-[60%] sm:w-[35%] flex items-end sm:pl-8'>
-                  <div className='w-[700px] max-w-full mr-2'>
-                    <Skeleton baseColor='#333' highlightColor='#666' height={14} count={3}/>
+                <div className='w-[150px] mr-8'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
+                </div>
+                <div className='w-[300px] flex flex-wrap'>
+                  <div className='w-[40px] mr-4'>
+                    <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
+                  </div>
+                  <div className='w-[40px] mr-4'>
+                    <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
+                  </div>
+                  <div className='w-[40px] mr-4'>
+                    <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
-        <div className="shadow-md rounded-b-lg my-6 px-4">
+        <MovieDetails/>
+        <div className="shadow-md rounded-b-lg mt-16 my-6 px-4">
           <div className='container mx-auto'>
             <div className="flex flex-wrap justify-between mb-4">
               <div className='w-[60%] max-w-[300px] mr-2'>
-                <Skeleton baseColor='#333' highlightColor='#666' height={30}/>
-              </div>
-              <div className='w-[40%] max-w-[200px] ml-2'>
-                <Skeleton baseColor='#333' highlightColor='#666' height={30}
-                  style={{marginLeft: 'auto', marginRight: 'auto'}}
-                />
+                <Skeleton baseColor='#333' highlightColor='#666' height={40}/>
               </div>
             </div>
             <div 

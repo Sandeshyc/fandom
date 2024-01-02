@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import Billboard from '@/components/Billboard';
-import MovieListNumber from '@/components/MovieListNumber';
+import MovieListNumber from '@/modules/elements/ExtendedBillboardRoll';
 import ReelHeading from '@/modules/elements/ReelHeading';
 
 const BillboardExtended: React.FC = ({data, title}) => {
