@@ -1,15 +1,7 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
-import { yearFromDate } from '@/utils/yearFromDate';
-import { PlayIcon } from '@heroicons/react/24/solid';
-import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import { MovieInterface } from '@/types';
-import FavoriteButton from '@/components/FavoriteButton';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
-import ViewDetailsBtn from '@/components/ViewDetailsBtn';
-import Locked from '@/components/Locked';
-import { ClockIcon } from '@heroicons/react/24/outline';
 import EnititlementEndDate from '@/components/Expair';
 import { VolunteerActivism, Check, ShoppingBag } from '@mui/icons-material';
 
@@ -20,22 +12,17 @@ interface MovieCardProps {
 
 const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
-  const { openModal } = useInfoModalStore();
-  const [autoplay, setAutoplay] = React.useState(false);
-  // console.log('Purchase Card data', data);
-  // const redirectToWatch = useCallback(() => router.push(`/watch/${data._id}`), [router, data._id]);
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
-
   return (
-    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm sm:mr-4 justify-between">
-      <div className="w-[40%] relative">
+    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white w-full rounded-sm sm:mr-4 justify-between h-full">
+      <div className="w-[40%] relative bg-gray-600 rounded-md">
         <img onClick={redirectToWatch} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
-          object-cover
+          object-contain
           rounded-md
           w-full
+          h-full
           aspect-[16/9]" />
-        {(!data?.allowed)?<Locked/>:null}
       </div>
       <div className="w-[58%] pt-1">
         {(data?.title)?<p

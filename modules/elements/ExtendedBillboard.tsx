@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import PlayButton from '@/components/PlayButton';
 import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
+import useInfoModalStore from '@/hooks/useInfoModalStore';
+import Locked from '@/components/Locked';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 type Props = {
-  data: any;
-};
-const Billboard = ({data}:Props) => {
-  data = data[(Math.floor(Math.random() * data?.length))]
+    data: any;
+    isComplited: any;
+}
+const ExtendedBillboard = ({data, isComplited}:Props) => {
+  const { openModal } = useInfoModalStore();
+  const handleOpenModal = useCallback(() => {
+    openModal(data?._id, data);
+  }, [openModal, data?._id, data]);
   return (
-    <div className={`relative billboardSec`}>   
-      <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[250px] sm:h-[300px] md:h-[85vh] md:min-h-[700px] max-h-[85vh]`}>
+    <div className={`relative billboardSec`}>    
+      {(!data?.allowed)?<Locked/>:null}
+      <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[450px] sm:h-[550px] md:min-h-[700px] lg:h-[650px] xl:h-[100vh]`}>
         <div className='brightness-[60%] h-full'>
           <ReactVideoPlayer videoURL={data?.videoUrl} poster={data?.thumbnailUrl} />
         </div>
         <div className='preview'></div>
       </div>
-      <div className={`absolute bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25 pl-4 md:pl-16 transition`}>
+      <div className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition`}>
         <p className="text-white text-2xl md:text-5xl h-full w-[85%] md:w-[50%] lg:text-6xl drop-shadow-xl">
           {data?.title}
         </p>
@@ -31,7 +38,7 @@ const Billboard = ({data}:Props) => {
     </div>
   )
 }
-export default Billboard;
+export default ExtendedBillboard;
 
 interface GoBuyProps {
   movieId: string;

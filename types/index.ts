@@ -9,6 +9,7 @@ export interface MovieInterface {
   thumbnailPotrait: string;
   videoUrl: string;
   duration: string | number;
+  videoDuration?: number;
   genre: string[];
   endTime : string;
   startTime : string;
@@ -28,4 +29,5 @@ export interface MovieInterface {
   isInWatchList?: boolean;
   xy?: {x: number, y: number, width: number, thumbW: number};
   currentTime?: number;
+  sourcePlatform?: string;
 }

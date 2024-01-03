@@ -2,37 +2,34 @@ import React from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-
 import { MovieInterface } from '@/types';
-import MovieCardTop from '@/components/MovieCardTop10';
+import MovieCardTop10 from '@/components/MovieCardTop10';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import ReelHeading from '@/modules/elements/ReelHeading';
 
-interface MovieListTopsV2Props {
+type Props = {
   data: MovieInterface[];
   title: string;
   portrait: boolean;
 }
 
-function SlickNextArrow(props) {
+function SlickNextArrow(props:any) {
   const { className, style, onClick } = props;
-  return (
-    
+  return (    
     <div className={className} onClick={onClick}><ChevronRightIcon strokeWidth={1.5}/></div>
   );
 }
 
-function SlickPrevArrow(props) {
+function SlickPrevArrow(props:any) {
   const { className, style, onClick } = props;
   return (
     <div className={className} onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
   );
 }
 
-const MovieListTopsV2: React.FC<MovieListTopsV2Props> = ({ data, title, portrait }) => {
+const Top10 = ({ data, title, portrait }:Props) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -43,7 +40,6 @@ const MovieListTopsV2: React.FC<MovieListTopsV2Props> = ({ data, title, portrait
     slidesToShow: 5,
     slidesToScroll: 4,
     swipeToSlide: true,
-    // adaptiveHeight: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
 
@@ -81,28 +77,26 @@ const MovieListTopsV2: React.FC<MovieListTopsV2Props> = ({ data, title, portrait
   let i = 1;
   let j = 1;
   return (
-    <div className={`pl-4 md:pl-16 mb-[3vw] movieSlider `}>
-      <div>
+    <div className={`pl-4 md:pl-16 mb-[3vw] movieSlider`}>
         <ReelHeading title={title} />
-        <div className={`gap-2  `}>
-        <div className="block lg:hidden">
-            <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-              {data?.map((movie, index) => (
-                (i<=10)?<MovieCardTop key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />:null
-              ))}
+        <div className={`gap-2`}>
+            <div className="block lg:hidden">
+                <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+                {data?.map((movie, index) => (
+                    (i<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />:null
+                ))}
+                </div>
             </div>
-          </div>
-          <div className="hidden lg:block">
-            <Slider {...settings}>
-              {data?.map((movie, index) => (                
-                (j<=10)?<MovieCardTop key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />:null
-              ))}
-            </Slider>  
-          </div> 
+            <div className="hidden lg:block">
+                <Slider {...settings}>
+                {data?.map((movie, index) => (                
+                    (j<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />:null
+                ))}
+                </Slider>  
+            </div> 
         </div>
-      </div>
     </div>
   );
 }
 
-export default MovieListTopsV2;
+export default Top10;

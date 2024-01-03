@@ -5,7 +5,7 @@ import MovieListTops from '@/components/MovieListTops';
 import SvgNumbers from '@/utils/SvgNumbers'
 
 const Top10: React.FC = ({data, title}) => {
-  console.log('data', data);
+  // console.log('data', data);
   const [item, setItem] = React.useState(data?.items[0] || {}); 
 
   const [itemEnded, setItemEnded] = React.useState(1);

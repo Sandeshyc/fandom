@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 // import {AnimatedRow} from 'imp-design-system';
 
 import Billboard from '@/components/Billboard';
-import MovieListNumber from '@/components/MovieListNumber';
+import MovieListNumber from '@/modules/elements/ExtendedBillboardRoll';
 
 const Animated: React.FC = ({data, title}) => {
   console.log('data', data);

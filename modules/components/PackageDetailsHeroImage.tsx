@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react';
 import FavoriteButton from '@/components/FavoriteButton';
 import PackageRentButton from '@/modules/Identities/PackageRentButton';
-import Buttons from '@/components/identites/Buttons';
-import Buy from '@/components/Buy';
-import { ThumbUp, Shop, ReportProblem } from '@mui/icons-material';
+import { ThumbUp } from '@mui/icons-material';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { yearFromDate } from '@/utils/yearFromDate';
@@ -11,7 +9,7 @@ import WarningMessage from '@/modules/Identities/WarningMessage';
 type Props = {
     data: any;
 }
-const PackageDetailsHeroBanner = ({data}:Props) => {
+const PackageDetailsHeroImage = ({data}:Props) => {
     const [hasMovieList, setHasMovieList] = React.useState(false);
     const [movieListOfset, setMovieListOfset] = React.useState(0);
     const movieId = data?._id || '';
@@ -21,10 +19,10 @@ const PackageDetailsHeroBanner = ({data}:Props) => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
         if(movieListHeroBanner !== null || movieListHeroBanner !== undefined || movieListHeroBanner !== ''){
             setHasMovieList(true);
-            setMovieListOfset(movieListHeroBanner?.getBoundingClientRect()?.top + window.scrollY);
+            setMovieListOfset((movieListHeroBanner?.getBoundingClientRect()?.top || 0) + window.scrollY);
         }
     }, []);
-    console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
+    // console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
     return (<div className="relative z-0 mb-16">
         <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[80vh] max-h-[100%]"
         style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center'}}></div>
@@ -57,7 +55,7 @@ const PackageDetailsHeroBanner = ({data}:Props) => {
                 />):
                 null}
                 <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap"> 
-                    {(data?.canBuy === true)?(<PackageRentButton 
+                    {(data?.canBuy === true || 1)?(<PackageRentButton 
                     data={data}/>):
                     (<button className={`cursor-not-allowed opacity-60 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-full py-1 px-3 w-[180px] text-base  h-[44px]`}>Rent</button>)}
                     {(hasMovieList)?<>
@@ -85,4 +83,4 @@ const PackageDetailsHeroBanner = ({data}:Props) => {
         </div>    
     </div>);  
 }
-export default PackageDetailsHeroBanner;
+export default PackageDetailsHeroImage;
