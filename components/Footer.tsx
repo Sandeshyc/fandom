@@ -76,6 +76,7 @@ const Footer = () => {
             </div>
         </div>
         <MovieSmallModal visible={isOpen} onClose={closeModal} />
+        {/* <MovieSmallModal visible={isOpen}/> */}
     </>);
 }
 

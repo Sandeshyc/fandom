@@ -7,6 +7,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* zoom animation */
+@-webkit-keyframes zoom {
+  0% {
+    opacity: 0;
+    transform: scale3d(.8, .8, .8);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes zoom {
+  0% {
+    opacity: 0;
+    transform: scale3d(.8, .8, .8);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 
 *, *::after, *::before {
   box-sizing: border-box
@@ -569,4 +589,8 @@ html {
 
 .ReactPlayerVideoCover video{
   object-fit: cover;
+}
+
+.movieSmallModal{
+  animation: zoom 0.4s;
 }

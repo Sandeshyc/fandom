@@ -52,11 +52,12 @@ const PackageRentButton = ({
                     <h3 className='text-xl md:text-2xl font-semibold'>Choose Your Plan</h3>
                 </div>
                 <ItemShortInfo data={data}/>
-                <PlanItemsList 
+                {(data?.canBuy === true)?(<PlanItemsList 
                     allowedPlans={data?.allowedPlans}
                     isPackage={true}
                     movieId={data?._id}
-                />
+                />):
+                null}
             </div>
         </Modal>
         </>
