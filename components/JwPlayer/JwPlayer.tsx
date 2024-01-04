@@ -1,5 +1,5 @@
 import { set } from "lodash";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 
 import usePlayerEvent from "@/hooks/usePlayerEvent";
 
@@ -15,16 +15,21 @@ interface VideoPlayerProps {
     isRestart?: boolean;
 }
 
+
+
+
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data, isRestart }) => {
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
     const x = useRef(0);
+
     // console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
     }
+
 
     useEffect(() => {
         try{ 
@@ -48,7 +53,6 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             const player = window.jwplayer(playerRef.current.firstChild);
             player.setup({
-
                 file: video,
                 image: image,
                 aspectratio: "16:9",
@@ -191,7 +195,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
     return (
         <>
             <div className="h-full"  style={styling}>
-                <div ref={playerRef} className="h-full" >
+                <div ref={playerRef} className="h-full" id="jwplayer-container">
                     <div className="h-full" />
                 </div>
             </div>

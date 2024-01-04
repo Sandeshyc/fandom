@@ -2,6 +2,7 @@ import { type } from "os";
 import React, {useEffect} from "react";
 import { MobileIcon } from "@/utils/CustomSVGs";
 import CountryData from "modules/data/countries.json";
+import Select from 'react-select';
 type ProfileMobileProps = {
     isUpdateMode: boolean;
     errors: any; 
@@ -53,7 +54,7 @@ const ProfileMobileGroup = (
     return(
         <div className="w-full">
             <div className="flex flex-wrap w-full items-center text-[14px] px-2 py-1 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%]">
-                <div className="flex">
+                <div className="flex items-center">
                     <MobileIcon/>
                     <ProfileCountryCode
                         errors={errors}
@@ -61,7 +62,7 @@ const ProfileMobileGroup = (
                         values={values}
                         handleChange={handleChange}/>
                 </div>
-                <div className="mx-2 text-[#CCCCCD]">|</div>
+                <div className="mr-2 text-[#CCCCCD]">|</div>
                 <div className="grow w-[100px] bg-red">
                     <ProfileMobileField
                     errors={errors}
@@ -88,27 +89,93 @@ const ProfileCountryCode = (
         handleChange,
     }: ProfileCountryCodeProps
 ) => {
+    const [selectedOptionddd, setSelectedOptionddd] = React.useState(null);
+    const handleChangeddd = (selectedOptionddd:any) => {
+        setSelectedOptionddd(selectedOptionddd);
+        handleChange({
+            target: {
+              name: 'userCountryCode',
+              value: selectedOptionddd.value,
+            },
+        });
+        console.log(`Option selected:`, selectedOptionddd);
+    };
+    const optionsddd = CountryData.map((country, index) => {
+        return{
+            value: country?.dialCode,
+            label: country?.dialCode,
+        }
+    });
     return(
         <>
-        <select 
+        {(errors.userCountryCode && touched.userCountryCode)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userCountryCode}</p>:null}
+        <Select
             name="userCountryCode"
             id="userCountryCode"
-            value={values.userCountryCode}
-            onChange={handleChange}
-            className='w-full text-[14px] bg-transparent pl-2'>
-            {(Array.isArray(CountryData))?CountryData.map((country, index) => {
-                return(
-                    <option 
-                        key={country?.dialCode} 
-                        value={country?.dialCode} 
-                        selected={(country?.dialCode == values.userCountryCode)? true : false}>
-                            <img src={country?.flag} alt={country?.isoCode}
-                            className="w-[20px] h-[20px] mr-2"/>
-                            <span>{country?.dialCode}</span>
-                    </option>
-                );
-            }):null}
-        </select>
+            defaultInputValue={values.userCountryCode}
+            value={selectedOptionddd}
+            onChange={handleChangeddd}
+            options={optionsddd}
+            placeholder="+1"
+            styles={{
+                control: (provided, state) => ({
+                    ...provided,
+                    border: 'none',
+                    boxShadow: 'none',
+                    padding: '0px',
+                    margin: '0px',
+                    minHeight: '0px',
+                    backgroundColor: 'transparent',
+                }),
+                menu: (provided, state) => ({
+                    ...provided,
+                    marginTop: 0,
+                }),
+                menuList: (provided, state) => ({
+                    ...provided,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                    overflowX: 'hidden',
+                    overflowY: 'auto',
+                    maxHeight: '250px',
+                    width: '120px',
+                }),
+                option: (provided, state) => ({
+                    ...provided,
+                    padding: '10px',
+                    fontSize: '14px',
+                    color: '#000',
+                    backgroundColor: (state.isSelected) ? '#aaa' : '#fff',
+                    '&:hover': {
+                        backgroundColor: '#eee',
+                    },
+                }),
+                singleValue: (provided, state) => ({
+                    ...provided,
+                    color: '#ddd',
+                }),
+                placeholder: (provided, state) => ({
+                    ...provided,
+                    color: '#aaa',
+                }),
+                input: (provided, state) => ({
+                    ...provided,
+                    color: '#fff',
+                }),
+                valueContainer: (provided, state) => ({
+                    ...provided,
+                    padding: '0px',
+                }),
+                indicatorsContainer: (provided, state) => ({
+                    ...provided,
+                    padding: '0px',
+                }),
+                indicatorSeparator: (provided, state) => ({
+                    ...provided,
+                    display: 'none',
+                }),
+            }}
+        />
         </>
     );
 }
