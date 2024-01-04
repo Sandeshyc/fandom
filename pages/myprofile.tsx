@@ -95,8 +95,8 @@ const MyProfile = () => {
   const schema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string(),
-    userPhone: Yup.string(),
-    userCountryCode: Yup.string(),
+    userPhone: Yup.number().typeError("Phone number must be a number"),
+    userCountryCode: Yup.string().required("Country code is required"),
     userGender: Yup.string(),
     userBirthday: Yup.string() || Yup.date(),
     userEmail: Yup.string().email("Invalid email").required("Email is required"),
@@ -107,7 +107,7 @@ const MyProfile = () => {
       lastName: profile?.lastName || '',
       userEmail: profile?.email || email || '',      
       userPhone: profile?.phone || '',      
-      userCountryCode: '',      
+      userCountryCode: profile?.countryCode || '',      
       // userPhone: (profile?.phone?.length > 3)?profile?.phone?.slice(3) || '' : '',
       // userCountryCode: (profile?.phone?.length > 3)?profile?.phone?.substr(0, 3) || '' : '',    
       userGender: profile?.gender || '',
@@ -139,6 +139,7 @@ const MyProfile = () => {
         "lastName":lastName,
         "gender":userGender,
         "phone":userPhone,
+        "countryCode":userCountryCode,
         "birthday":userBirthday?.split('T')[0], 
       };
       // console.log('data: ', data);

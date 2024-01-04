@@ -10,27 +10,29 @@ const SkeletonDetails = () => {
   return (
     <>
       <div className="movieSliderInner">
-        <div className="w-full p-4 flex flex-wrap justify-center bg-gradient-to-b to-black from-gray-500">
-          <div className='w-[200px] sm:w-[350px] xl:w-[450px] opacity-20'>
-            <FilmReel/>
+        <div className="w-full p-4 flex flex-wrap flex-col justify-between bg-gradient-to-b to-black from-gray-500 h-[350px] md:h-[75vh] max-h-[100%] min-h-[400px] md:min-h-[700px]">
+          <div className='flex justify-center grow h-[150px]'>
+            <div className='w-[200px] sm:w-[350px] xl:w-[450px] opacity-20 flex justify-center items-center'>
+              <FilmReel/>
+            </div>
           </div>
-          <div className='w-full pt-16'>
-            <div className='container mx-auto'>
+          <div className='w-full pt-16 mb-[-15px]'>
+            <div className='max-w-[1600px] mx-auto'>
               <div className='max-w-[400px] w-[75%] mb-4'>
-                <Skeleton baseColor='#333' highlightColor='#666' height={50}/>
+                <Skeleton baseColor='#333' highlightColor='#666' height={40}/>
               </div>
               <div className='w-full'>
-                <div className='w-[280px] max-w-[70%] mr-2 mb-2'>
-                  <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
+                <div className='w-[280px] max-w-[70%] mr-2 mb-1'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={16}/>
                 </div>
-                <div className='w-[200px] max-w-[50%] mr-2 mb-2'>
-                  <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
+                <div className='w-[200px] max-w-[50%] mr-2 mb-1'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={16}/>
                 </div>
-                <div className='w-[330px] max-w-[70%] mr-2 mb-2'>
-                  <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
+                <div className='w-[330px] max-w-[70%] mr-2 mb-0'>
+                  <Skeleton baseColor='#333' highlightColor='#666' height={16}/>
                 </div>
               </div>
-              <div className='flex flex-wrap mb-2 mt-8'>
+              <div className='flex flex-wrap mt-4'>
                 <div className='w-[150px] mr-2'>
                   <Skeleton baseColor='#333' highlightColor='#666' height={40} borderRadius={50}/>
                 </div>

@@ -20,11 +20,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
-    let userID = getValue(req.query.userID as string);
+    let userId = getValue(req.query.userId as string);
     // console.log(region, product, userID)
     
-    if (userID === 'NA') userID = '0';
-    let url = `${process.env.API_URL}/user/${userID}/watchlist?`;
+    if (userId === 'NA') userId = '0';
+    let url = `${process.env.API_URL}/page/list?userId=${userId}`;
     // let url = `${process.env.API_URL}/user/151937500/watchlist/?`;
     if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&product=${product}`;

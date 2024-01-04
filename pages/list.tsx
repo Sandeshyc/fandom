@@ -8,8 +8,10 @@ import { stableKeys } from '@/utils/stableKeys';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SkeletonList from '@/components/Skeleton/SkeletonList';
+import Mapper from '@/modules/ModuleMapper';
+import {getComponent} from '@/modules';
 const bgImage = 'url("/images/new-bg.png")';
-const Home = (props) => {
+const Home = (props:any) => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();
@@ -37,7 +39,7 @@ const Home = (props) => {
   }, [])
   return (
     <>
-      {(isReady && !isLoading) ? (<><Navbar />
+      {(isReady && !isLoading) ? (<>
       <div className="py-16 pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
@@ -45,17 +47,10 @@ const Home = (props) => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <div className={`px-4 md:px-12 mb-[3vw]`}>
-          <div className="movieSliderInner">
-            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">My List</p>
-            <div className="lg:px-6 pb-6 flex flex-wrap">
-            {(!isLoading)?((Array.isArray(movies?.watchList) && movies?.watchList.length > 0)?(movies?.watchList.map((item: any, index) => <MovieCardList 
-            data={item} 
-            key={stableKeys[index]}
-            portrait={ true} />)):<NoMovies/>):null}
-            </div>
-          </div>
-        </div>
+        <Mapper
+          modules={movies}
+          getComponent = {getComponent}
+          isLoading = {isLoading}/> 
       </div>
       <Footer/>
       </>):(<SkeletonList/>)}

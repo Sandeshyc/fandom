@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { MovieInterface } from '@/types';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
 import RemoveListBtn from '@/components/RemoveListButton';
-import Locked from '@/components/Locked';
 import Buttons from '@/components/identites/Buttons';
 import { VolunteerActivism } from '@mui/icons-material';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
@@ -15,38 +13,26 @@ interface MovieCardProps {
 
 const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
-  const { openModal } = useInfoModalStore();
-  const [autoplay, setAutoplay] = React.useState(false);
   const [isRemove, setIsRemove] = React.useState(false);
 
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
-  // console.log('data', data);
-  const publishDate = data?.publishSchedule;
-  const publishDatex = new Date(publishDate).toLocaleDateString('en-US', { 
-    hour: 'numeric',
-    minute: 'numeric',
-    weekday: 'short', 
-    year: 'numeric', 
-    month: 'short', 
-    day: 'numeric'
-   });
   const isRemoveHandler = (isRemove: boolean) => {
     setIsRemove(isRemove);
   }
 
   return (!isRemove?
-    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white max-w-[780px] w-full rounded-sm sm:mr-4 justify-between">
-      <div className="w-[40%] relative">
+    <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4'>
+    <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white rounded-md sm:mr-4 justify-between h-full w-full">
+      <div className="w-[40%] relative bg-gray-600 rounded-md">
         <img onClick={redirectToWatch} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
           cursor-pointer
-          object-cover
+          object-contain
           rounded-md
           w-full
-          aspect-[16/9]" />
-        {/* {(!data?.allowed)?<Locked/>:null} */}
-        {(data?.allowed)?<PurchaseBadge data={data}/>:null}
+          h-full" />
+        {(data?.allowed)?<PurchaseBadge/>:null}
       </div>
-      <div className="w-[58%] pt-1">
+      <div className="w-[58%] py-1">
         <p
           onClick={redirectToWatch}
           className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"
@@ -66,7 +52,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
             styles={{width: 'fit-content'}}>Rent</Buttons>
         )}
       </div>
-    </div>:null
+    </div></div>:null
   )
 }
 

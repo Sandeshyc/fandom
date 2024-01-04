@@ -31,7 +31,7 @@ const Billboard: React.FC = ({data, extended, isComplited}) => {
         <div className='preview'></div>
       </div>
       <div className={`absolute ${extended ? 'bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw]' : 'bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25'} pl-4 md:pl-16 transition`}>
-        <p className="text-white text-2xl md:text-5xl h-full w-[85%] md:w-[50%] lg:text-6xl drop-shadow-xl">
+        <p className="text-white text-2xl md:text-5xl h-full w-[85%] lg:w-[50%] lg:text-6xl drop-shadow-xl">
           {data?.title}
         </p>
         <p className="text-white text-[12px] md:text-lg mt-2 mb-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl line-clamp-4">

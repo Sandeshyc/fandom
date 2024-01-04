@@ -110,7 +110,11 @@ const ProfileDropDown = () => {
                         </div>                        
                         <div className='my-[20px] asDivider'></div>
                         <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
+                            <div 
+                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/myprofile') && 'bg-[#F5F5F5]'}`}
+                            onClick={
+                                () => router.push('/myprofile')
+                            }>
                                 <span className='mr-2'><MyAccountIcon/></span>
                                 <p>Manage Account</p>
                             </div>  
@@ -148,7 +152,12 @@ const ProfileDropDown = () => {
                             </div>  
                         </div>  */}
                         <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
+                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            onClick={
+                                () => {
+                                    window.open('https://tickets.iwanttfc.com/support', '_blank');
+                                }
+                            }>
                                 <span className='mr-2'><HelpCenterIcon/></span>
                                 <p>Help Centre</p>
                             </div>  

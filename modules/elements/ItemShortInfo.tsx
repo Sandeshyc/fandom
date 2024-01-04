@@ -28,12 +28,15 @@ const ItemShortInfo = ({data}:Props) => {
             {capFirstLetter(itemTxt)}
           </span>)}</div>:null} 
         </div>
-        {
-          (data?.noOfNotAllowed > 0)?(<WarningMessage 
+        {(data?.canBuy !== true)?(<WarningMessage 
+            message={`This content is not allowed in your region`}
+            iconColor={'#EAB307'}
+            textColor={'#fff'}
+        />):
+        (data?.noOfNotAllowed > 0)?(<WarningMessage 
             message={`${data?.noOfNotAllowed} out of ${data?.noOfMovie} not allowed in your region`}
             iconColor={'#EAB307'}
             textColor={'#fff'}
-            className='w-full mt-2'
         />):
         null}
         

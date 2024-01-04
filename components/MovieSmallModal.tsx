@@ -43,6 +43,26 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     setIsVisible(!!visible);
   }, [visible]);
 
+  useEffect(() => {
+    const moveLayers = (e) => {
+      if(isVisible){
+        if(e.target.closest('.movieSmallModal') || e.target.classList.contains('movieSmallModal')){
+          console.log('This is ');
+        }else{
+          console.log('This is not');
+          setIsVisible(false);
+          setTimeout(() => {
+            onClose();
+          }, 10);
+        }
+      }
+      
+    }
+    window.addEventListener('mousemove', moveLayers);
+    return () => {
+      window.removeEventListener('mousemove', moveLayers);
+    }
+  }, [isVisible]);
   // console.log('xy ', data?.xy);
  
 
@@ -54,7 +74,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     setIsVisible(false);
     setTimeout(() => {
       onClose();
-    }, 300);
+    }, 10);
   }, [onClose]);
 
   const toggleMute = () => {
@@ -68,18 +88,18 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   
 
   return (
-    <div ref={thumbRef} onMouseLeave={handleClose} className={`movieSmallModal group z-50 transition duration-300 absolute inset-0`} data-button="close" style={
+    <div ref={thumbRef} onMouseLeave={handleClose} className={`movieSmallModal group z-50 transition-all duration-300 absolute inset-0`} data-button="close" style={
       {
         left: data?.xy?.x ?? 20, 
         top: data?.xy?.y ?? 20,
         width: data?.xy?.width ?? 400,
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 1.3s ease-in-out',
       }
     }>
       <div className="relative w-full ">
-        <div className={`opacity-0 rounded-md  overflow-hidden transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md hover:!scale-100 hover:opacity-100`} 
+        <div className={`rounded-md overflow-hidden transition-all relative flex-auto bg-zinc-900 drop-shadow-md !scale-100 opacity-100 ${isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
         style={{
-          transform: `scale(${zoomScale})`,
+          // transform: `scale(${zoomScale})`,
         }}>
 
         <div className='relative'>

@@ -1,6 +1,7 @@
 import { type } from "os";
 import React, {useEffect} from "react";
 import { MobileIcon } from "@/utils/CustomSVGs";
+import CountryData from "modules/data/countries.json";
 type ProfileMobileProps = {
     isUpdateMode: boolean;
     errors: any; 
@@ -29,7 +30,7 @@ const ProfileMobile = (
             />
             {(errors.userCountryCode && touched.userCountryCode)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userCountryCode}</p>:null}
             {(errors.userPhone && touched.userPhone)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPhone}</p>:null}
-            </>:<p className='text-[14px] text-[#fff] py-1'>{(values.userPhone)?values.userPhone:'_'}</p>}
+            </>:<p className='text-[14px] text-[#fff] py-1'>{(values.userPhone)?((values.userCountryCode)?values.userCountryCode+' ':'')+''+values.userPhone:'_'}</p>}
         </div>
     );
 }
@@ -61,7 +62,7 @@ const ProfileMobileGroup = (
                         handleChange={handleChange}/>
                 </div>
                 <div className="mx-2 text-[#CCCCCD]">|</div>
-                <div className="grow w-[150px] bg-red">
+                <div className="grow w-[100px] bg-red">
                     <ProfileMobileField
                     errors={errors}
                     touched={touched}
@@ -88,18 +89,27 @@ const ProfileCountryCode = (
     }: ProfileCountryCodeProps
 ) => {
     return(
+        <>
         <select 
             name="userCountryCode"
             id="userCountryCode"
             value={values.userCountryCode}
             onChange={handleChange}
             className='w-full text-[14px] bg-transparent pl-2'>
-            <option value="+00">+00</option>
-            <option value="+91">+91</option>
-            <option value="+92">+92</option>
-            <option value="+88">+88</option>
-            <option value="+02">+02</option>
+            {(Array.isArray(CountryData))?CountryData.map((country, index) => {
+                return(
+                    <option 
+                        key={country?.dialCode} 
+                        value={country?.dialCode} 
+                        selected={(country?.dialCode == values.userCountryCode)? true : false}>
+                            <img src={country?.flag} alt={country?.isoCode}
+                            className="w-[20px] h-[20px] mr-2"/>
+                            <span>{country?.dialCode}</span>
+                    </option>
+                );
+            }):null}
         </select>
+        </>
     );
 }
 
