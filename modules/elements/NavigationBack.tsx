@@ -9,6 +9,7 @@ const NavigationBack = () => {
 
   const backBtn = () => {
     if(!backBtnActive){
+      router.back();
       if(window?.history?.length > 2){
         router.back();
       }else{

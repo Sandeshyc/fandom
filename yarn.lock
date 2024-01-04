@@ -541,6 +541,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.12.0":
+  version "7.23.7"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@babel/runtime/-/runtime-7.23.7.tgz#dd7c88deeb218a0f8bd34d5db1aa242e0f203193"
+  integrity sha1-3XyI3ushig+L001dsaokLg8gMZM=
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/types@^7.22.15":
   version "7.23.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@babel/types/-/types-7.23.0.tgz#8c1f020c9df0e737e4e247c0619f58c68458aaeb"
@@ -1373,7 +1380,7 @@
     source-map "^0.5.7"
     stylis "4.2.0"
 
-"@emotion/cache@^11.11.0":
+"@emotion/cache@^11.11.0", "@emotion/cache@^11.4.0":
   version "11.11.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@emotion/cache/-/cache-11.11.0.tgz#809b33ee6b1cb1a625fef7a45bc568ccd9b8f3ff"
   integrity sha1-gJsz7mscsaYl/vekW8VozNm48/8=
@@ -1427,10 +1434,35 @@
     "@emotion/weak-memoize" "^0.3.1"
     hoist-non-react-statics "^3.3.1"
 
+"@emotion/react@^11.8.1":
+  version "11.11.3"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@emotion/react/-/react-11.11.3.tgz#96b855dc40a2a55f52a72f518a41db4f69c31a25"
+  integrity sha1-lrhV3ECipV9Spy9RikHbT2nDGiU=
+  dependencies:
+    "@babel/runtime" "^7.18.3"
+    "@emotion/babel-plugin" "^11.11.0"
+    "@emotion/cache" "^11.11.0"
+    "@emotion/serialize" "^1.1.3"
+    "@emotion/use-insertion-effect-with-fallbacks" "^1.0.1"
+    "@emotion/utils" "^1.2.1"
+    "@emotion/weak-memoize" "^0.3.1"
+    hoist-non-react-statics "^3.3.1"
+
 "@emotion/serialize@^1.1.2":
   version "1.1.2"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@emotion/serialize/-/serialize-1.1.2.tgz#017a6e4c9b8a803bd576ff3d52a0ea6fa5a62b51"
   integrity sha1-AXpuTJuKgDvVdv89UqDqb6WmK1E=
+  dependencies:
+    "@emotion/hash" "^0.9.1"
+    "@emotion/memoize" "^0.8.1"
+    "@emotion/unitless" "^0.8.1"
+    "@emotion/utils" "^1.2.1"
+    csstype "^3.0.2"
+
+"@emotion/serialize@^1.1.3":
+  version "1.1.3"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@emotion/serialize/-/serialize-1.1.3.tgz#84b77bfcfe3b7bb47d326602f640ccfcacd5ffb0"
+  integrity sha1-hLd7/P47e7R9MmYC9kDM/KzV/7A=
   dependencies:
     "@emotion/hash" "^0.9.1"
     "@emotion/memoize" "^0.8.1"
@@ -1869,7 +1901,7 @@
   dependencies:
     "@floating-ui/utils" "^0.1.3"
 
-"@floating-ui/dom@^1.5.1":
+"@floating-ui/dom@^1.0.1", "@floating-ui/dom@^1.5.1":
   version "1.5.3"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@floating-ui/dom/-/dom-1.5.3.tgz#54e50efcb432c06c23cd33de2b575102005436fa"
   integrity sha1-VOUO/LQywGwjzTPeK1dRAgBUNvo=
@@ -2712,6 +2744,13 @@
   version "0.23.13"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/react-slick/-/react-slick-0.23.13.tgz#037434e73a58063047b121e08565f7185d811f36"
   integrity sha1-A3Q05zpYBjBHsSHghWX3GF2BHzY=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-transition-group@^4.4.0":
+  version "4.4.10"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/@types/react-transition-group/-/react-transition-group-4.4.10.tgz#6ee71127bdab1f18f11ad8fb3322c6da27c327ac"
+  integrity sha1-bucRJ72rHxjxGtj7MyLG2ifDJ6w=
   dependencies:
     "@types/react" "*"
 
@@ -4732,6 +4771,11 @@ memoize-one@^5.1.1:
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/memoize-one/-/memoize-one-5.2.1.tgz#8337aa3c4335581839ec01c3d594090cebe8f00e"
   integrity sha1-gzeqPEM1WBg57AHD1ZQJDOvo8A4=
 
+memoize-one@^6.0.0:
+  version "6.0.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/memoize-one/-/memoize-one-6.0.0.tgz#b2591b871ed82948aee4727dc6abceeeac8c1045"
+  integrity sha1-slkbhx7YKUiu5HJ9xqvO7qyMEEU=
+
 memory-pager@^1.0.2:
   version "1.5.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/memory-pager/-/memory-pager-1.5.0.tgz#d8751655d22d384682741c972f2c3d6dfa3e66b5"
@@ -5256,7 +5300,7 @@ prisma@^4.10.1:
   dependencies:
     "@prisma/engines" "4.16.2"
 
-prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha1-Z9h78aaU9IQ1zzMsJK8QIUoxQLU=
@@ -5431,6 +5475,21 @@ react-remove-scroll@^2.5.6:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
+react-select@^5.8.0:
+  version "5.8.0"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-select/-/react-select-5.8.0.tgz#bd5c467a4df223f079dd720be9498076a3f085b5"
+  integrity sha1-vVxGek3yI/B53XIL6UmAdqPwhbU=
+  dependencies:
+    "@babel/runtime" "^7.12.0"
+    "@emotion/cache" "^11.4.0"
+    "@emotion/react" "^11.8.1"
+    "@floating-ui/dom" "^1.0.1"
+    "@types/react-transition-group" "^4.4.0"
+    memoize-one "^6.0.0"
+    prop-types "^15.6.0"
+    react-transition-group "^4.3.0"
+    use-isomorphic-layout-effect "^1.1.2"
+
 react-slick@^0.29.0:
   version "0.29.0"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-slick/-/react-slick-0.29.0.tgz#0bed5ea42bf75a23d40c0259b828ed27627b51bb"
@@ -5451,7 +5510,7 @@ react-style-singleton@^2.2.1:
     invariant "^2.2.4"
     tslib "^2.0.0"
 
-react-transition-group@^4.4.5:
+react-transition-group@^4.3.0, react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
   integrity sha1-5T1OPzNE2oUhSJ+++PJYHUK+zdE=
@@ -6116,6 +6175,11 @@ use-callback-ref@^1.3.0:
   integrity sha1-dyGZiZucmlBSb+3EmT/H+h9+MtU=
   dependencies:
     tslib "^2.0.0"
+
+use-isomorphic-layout-effect@^1.1.2:
+  version "1.1.2"
+  resolved "https://abscbn-itdev.pkgs.visualstudio.com/3dfc7b66-eda3-452a-b4d2-0bf1401f8828/_packaging/imp-design-system/npm/registry/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.1.2.tgz#497cefb13d863d687b08477d9e5a164ad8c1a6fb"
+  integrity sha1-SXzvsT2GPWh7CEd9nloWStjBpvs=
 
 use-sidecar@^1.1.2:
   version "1.1.2"

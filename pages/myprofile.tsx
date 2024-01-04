@@ -96,7 +96,11 @@ const MyProfile = () => {
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string(),
     userPhone: Yup.number().typeError("Phone number must be a number"),
-    userCountryCode: Yup.string().required("Country code is required"),
+    userCountryCode: Yup.string().when('userPhone', {
+      is: (val:string) => (val && val.length > 0 ? true : false),
+      then: (schema) => schema.required("Country Code is required"),
+      otherwise: (schema) => schema
+    }),
     userGender: Yup.string(),
     userBirthday: Yup.string() || Yup.date(),
     userEmail: Yup.string().email("Invalid email").required("Email is required"),
@@ -107,9 +111,7 @@ const MyProfile = () => {
       lastName: profile?.lastName || '',
       userEmail: profile?.email || email || '',      
       userPhone: profile?.phone || '',      
-      userCountryCode: profile?.countryCode || '',      
-      // userPhone: (profile?.phone?.length > 3)?profile?.phone?.slice(3) || '' : '',
-      // userCountryCode: (profile?.phone?.length > 3)?profile?.phone?.substr(0, 3) || '' : '',    
+      userCountryCode: profile?.countryCode || '',
       userGender: profile?.gender || '',
       userBirthday: profile?.birthday || '',
     },
@@ -139,7 +141,7 @@ const MyProfile = () => {
         "lastName":lastName,
         "gender":userGender,
         "phone":userPhone,
-        "countryCode":userCountryCode,
+        "countryCode": userCountryCode || '+1',
         "birthday":userBirthday?.split('T')[0], 
       };
       // console.log('data: ', data);
