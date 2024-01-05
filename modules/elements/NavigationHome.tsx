@@ -4,12 +4,14 @@ import NavItem from '@/components/navbar/NavItem';
 import ProfileDropDown from '@/components/navbar/ProfileDropDown';
 import SearchBox from '@/components/navbar/SearchBox';
 import {Notifications, Search} from '@mui/icons-material';
-
+import useIsMobile from '@/hooks/useIsMobile';
+import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
 const logoSrc = '/images/logonew.png';
 const NavigationHome = () => {
   const router = useRouter();
   const [isScrolling, setIsScrolling] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const isMobile = useIsMobile();
   // get scroll position in px
   const getScrollPosition = () => {
     return window?.pageYOffset;
@@ -30,6 +32,8 @@ const NavigationHome = () => {
   }, []);
 
   return (
+    <>
+    {(isMobile)?(<NavigationHomeMobile/>):
     <div 
       className={`w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
         <div
@@ -78,6 +82,8 @@ const NavigationHome = () => {
             </div>
         </div>
     </div>
+    }
+    </>
   )
 }
 

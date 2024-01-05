@@ -18,8 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     let userID = getValue(req.query.userId as string);
     let movieID = getValue(req.query.movieId as string);
+    let product = getValue(req.query.product as string);
     
     let url = `${process.env.API_URL}/page/details?userId=${userID}&itemCode=${movieID}`;
+    if( product ){
+      url = url + `&product=${product}`;
+    }
     if( !userID ){
       return res.status(200).json([]);
     }

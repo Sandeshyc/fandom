@@ -4,7 +4,7 @@ import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react';
-import {ArrowDropDown, ArrowDropUp} from '@mui/icons-material';
+import {ArrowDropDown, ArrowDropUp, CreditCard} from '@mui/icons-material';
 import {
     MyTicketsIcon,
     MyListIcon,
@@ -117,6 +117,16 @@ const ProfileDropDown = () => {
                             }>
                                 <span className='mr-2'><MyAccountIcon/></span>
                                 <p>Manage Account</p>
+                            </div>  
+                        </div>
+                        <div className='mb-2'>
+                            <div 
+                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mycard') && 'bg-[#F5F5F5]'}`}
+                            onClick={
+                                () => router.push('/mycard')
+                            }>
+                                <span className='mr-2'><CreditCard/></span>
+                                <p>Manage Card</p>
                             </div>  
                         </div>
                         <div className='mb-1'>
