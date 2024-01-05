@@ -1,7 +1,12 @@
 import React from 'react';
-const PurchaseBadge = () => {
+type Props = {
+    className?: string;
+    style?: React.CSSProperties;
+}
+const PurchaseBadge = ({className, style}:Props) => {
     return (
-        <p className='text-xs py-1 px-4 w-auto absolute top-0 right-0 z-20 text-white rounded-bl-xl rounded-tr-md shadow-lg shadow-indigo-500/40 bg-gradient-to-l from-blue-700 to-blue-500'>
+        <p className={`text-xs py-1 px-4 w-auto absolute top-0 right-0 z-20 text-white rounded-bl-xl rounded-tr-md shadow-lg shadow-indigo-500/40 bg-gradient-to-l from-blue-700 to-blue-500 ${className}`}
+        style={style}>
             My Tickets
         </p>
     )

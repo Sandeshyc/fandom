@@ -1,10 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
-
-import FooterMobile from "@/modules/components/Footer/FooterMobile";
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import MovieSmallModal from '@/components/MovieSmallModal';
-
+import useIsMobile from "@/hooks/useIsMobile";
 import {
     FacebookIcon,
     InstagramIcon,
@@ -16,11 +14,10 @@ const bgImage = 'url("/images/footer-bg.png")';
 const logoSrc = '/images/logonew.png';
 const Footer = () => {
     const router = useRouter();
-
     const {isOpen, closeModal} = useMoviePopupStore();
-
+    const isMobile = useIsMobile();
     return(<>
-        <FooterMobile/>
+        {(!isMobile)?<>
         <div className="py-8 bg-black"
         style={{
             backgroundImage: bgImage,
@@ -76,7 +73,8 @@ const Footer = () => {
             </div>
         </div>
         <MovieSmallModal visible={isOpen} onClose={closeModal} />
-        {/* <MovieSmallModal visible={isOpen}/> */}
+        </>:
+        null}
     </>);
 }
 

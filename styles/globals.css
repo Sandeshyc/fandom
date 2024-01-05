@@ -38,14 +38,14 @@ body {
   background-color: #000;
   /* font-family: 'Poppins', sans-serif; */
 }
-
+/* 
 #__next {
   @apply h-full;
 }
 
 html {
   @apply h-full;
-}
+} */
 .jk_jwp_full .jwplayer.jw-flag-aspect-mode{
   max-height: 100vh !important;
 }
@@ -593,4 +593,10 @@ html {
 
 .movieSmallModal{
   animation: zoom 0.4s;
+}
+
+@media screen and (max-width: 960px) {
+    #__next{
+      padding-bottom: 60px;
+    }
 }

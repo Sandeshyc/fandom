@@ -1,5 +1,4 @@
-import { type } from "os";
-import React, {useEffect} from "react";
+import React from "react";
 import { MobileIcon } from "@/utils/CustomSVGs";
 import CountryData from "modules/data/countries.json";
 import Select from 'react-select';
