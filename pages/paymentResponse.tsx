@@ -38,22 +38,30 @@ const MyProfile = () => {
                 // console.log('URL:', `${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`)
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
                     .then(response => {
-                    if(response.status === 200) {
-                        setIsSuccess(true);
-                        setSuccessMessage('Payment successfull.');
+                        // console.log('Response:', response);
+                        if(response.status === 200 || response.status === 201 || response.status === 204) {
+                            setIsSuccess(true);
+                            setSuccessMessage('Payment successfull.');
 
-                        // console.log('Success:', response?.data?.createRes?.itemCode);
-                        const movieID = response?.data?.createRes?.itemCode;
-                        setTimeout(() => {
-                            // remove browser history /payment/
-                            // window.history.pushState(null, '', `/details/${itemCode}`);                            
+                            // console.log('Success:', response?.data?.createRes?.itemCode);
+                            const movieID = response?.data?.createRes?.itemCode;
+                            setTimeout(() => {
+                                // remove browser history /payment/
+                                // window.history.pushState(null, '', `/details/${itemCode}`);                            
 
-                            // router.push(`/details/${itemCode}`);
-                            // router.replace(`/details/${itemCode}`);
-                            router.replace(`/details/${itemCode}`);
-                        }, 2000);
+                                // router.push(`/details/${itemCode}`);
+                                // router.replace(`/details/${itemCode}`);
+                                router.replace(`/details/${itemCode}`);
+                            }, 2000);
+                        }else{
+                            setIsError(true);
+                            setErrorMessage('Something went wrong. Please try again later.');
+                            setTimeout(() => {
+                                router.replace(`/`);
+                            }, 4000);
+                        }
                     }
-                })
+                )
                 .catch(error => {
                     console.error('Error:', error);
                     setIsError(true);
