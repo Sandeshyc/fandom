@@ -29,6 +29,7 @@ const RemoveListBtn: React.FC<PlayButtonProps> = ({ movieId, isRemoveHandler }) 
       watchList: [movieId],
     };
     let result;
+    // Need to Update API URL
     axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userIdToken}/watchlist`, { headers, data })
       .then(response => {
         console.log('response: ', response);

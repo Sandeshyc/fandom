@@ -40,7 +40,7 @@ const Home = (props:any) => {
   return (
     <>
       {(isReady && !isLoading) ? (<>
-      <div className="py-16 pt-28 min-h-[80vh]"
+      <div className="py-16 lg:pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
@@ -52,7 +52,6 @@ const Home = (props:any) => {
           getComponent = {getComponent}
           isLoading = {isLoading}/> 
       </div>
-      <Footer/>
       </>):(<SkeletonList/>)}
     </>
   )

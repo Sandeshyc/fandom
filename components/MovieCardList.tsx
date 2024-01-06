@@ -15,7 +15,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
   const [isRemove, setIsRemove] = React.useState(false);
 
-  const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
+  const redirectToWatch = useCallback(() => router.push(`/details/${data._id}?viewPlan=true`), [router, data._id]);
   const isRemoveHandler = (isRemove: boolean) => {
     setIsRemove(isRemove);
   }

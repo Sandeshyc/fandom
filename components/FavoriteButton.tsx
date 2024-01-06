@@ -58,7 +58,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     await checkUserID();
     let response;
     if (isInLish) {
-      // console.log('remove from list');
+      console.log('remove from list');
       const headers = {
         'Content-Type': 'application/json',
       };
@@ -66,6 +66,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
         watchList: [movieId],
       };
       let result;
+      // Need to Update API URL
       axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, { headers, data })
         .then(response => {
           // console.log('response: ', response);
@@ -87,7 +88,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
         watchList: [movieId],
       };
       let result;
-      axios.post(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, data, { headers })
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/watchlist`, data, { headers })
         .then(response => {
           // console.log('response: ', response);
           if(response.status === 200) {

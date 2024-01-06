@@ -1,15 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import MobileBottomNav from '@/modules/elements/Navigation/BottomNavigation';
 
 const logoSrc = '/images/logonew.png';
-const NavigationHomeMobile = () => {
+const Header = () => {
   const router = useRouter();
 
   return (
     <>
     <div 
-      className={`fixed top-0 left-0 z-40 w-full py-4 bg-gradient-to-b from-black from-50% to-transparent to-100%`}>
+      className={`fixed top-0 left-0 z-40 w-full py-2 bg-gradient-to-b from-black from-50% to-transparent to-100%`}>
         <div
         className='px-4'>
             <div className='flex items-center justify-center flex-wrap'>
@@ -26,9 +25,8 @@ const NavigationHomeMobile = () => {
             </div>
         </div>
     </div>
-    <MobileBottomNav/>
     </>
   )
 }
 
-export default NavigationHomeMobile;
+export default Header;

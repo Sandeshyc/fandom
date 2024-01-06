@@ -17,8 +17,14 @@ import PackageMovielist from '@/modules/components/PackageMovielist';
 import MovieListVertical from '@/modules/components/MovieListVertical';
 import MovieWatchList from '@/modules/components/MovieWatchList';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
+import WatchAndBuy from '@/modules/components/WatchAndBuy';
+import Header from '@/modules/elements/Header';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
+import DealsAndOffers from '@/modules/components/DealsAndOffers';
+import Footer from '@/components/Footer';
 
 const comps = {
+    header : Header,
     navigation : Navigation,
     backNavigation : NavigationBack,
     roll : Roll,
@@ -40,6 +46,10 @@ const comps = {
     carousel : Carousel,
     movieListVertical : MovieListVertical,
     movieWatchList : MovieWatchList,
+    watchAndBuy : WatchAndBuy,
+    bottomNavigation : BottomNavigation,
+    dealsAndOffers : DealsAndOffers,
+    footer : Footer,
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

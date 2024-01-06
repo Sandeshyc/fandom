@@ -56,7 +56,6 @@ const Details = () => {
         modules={movieDetails}
         getComponent = {getComponent}
         isLoading = {isLoading}/>
-        <Footer/>
       </div>
     </>:<SkeletonDetails/>}
   </>

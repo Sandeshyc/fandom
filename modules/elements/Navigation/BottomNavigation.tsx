@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import MobileCollapse from '@/modules/elements/Navigation/MobileCollapse';
 
-const MobileBottomNav = () => {
+const BottomNavigation = () => {
     const router = useRouter();
     const [isCollapseOpen, setIsCollapseOpen] = useState(false);
     return (
@@ -54,4 +54,4 @@ const MobileBottomNav = () => {
         </>
     )
 };
-export default MobileBottomNav;
+export default BottomNavigation;

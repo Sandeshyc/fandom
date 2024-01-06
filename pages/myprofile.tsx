@@ -13,7 +13,7 @@ import ProfileMobile from '@/components/ProfileMobile';
 import ProfileGender from '@/components/ProfileGender';
 import ProfileBirthday from '@/components/ProfileBirthday';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
-import Navbar from '@/components/Navbar';
+import NavigationHome from '@/modules/elements/NavigationHome';
 import Footer from '@/components/Footer';
 import { set } from 'lodash';
 
@@ -175,8 +175,8 @@ const MyProfile = () => {
 
   return (<>
       {(isReady && !isLoading)?<>
-      <Navbar />
-      <div className="py-16 pt-28 min-h-[80vh]"
+      <NavigationHome />
+      <div className="py-16 lg:pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
