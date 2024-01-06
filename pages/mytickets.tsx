@@ -12,7 +12,7 @@ const Home = (props:any) => {
   const router = useRouter();
   const { region, product } =  props; 
   const { data: movies = [], isLoading } = usePurchaseMovies(region, 'web', userIdToken );
-  console.log('movies: ', movies);
+  // console.log('movies: ', movies);
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
@@ -33,7 +33,7 @@ const Home = (props:any) => {
   return (
     <>
       {(!isLoading && isReady) ? (<>
-      <div className="py-16 pt-28 min-h-[80vh]" style={{
+      <div className="py-16 lg:pt-28 min-h-[80vh]" style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
@@ -43,7 +43,7 @@ const Home = (props:any) => {
           modules={movies}
           getComponent = {getComponent}
           isLoading = {isLoading}/>        
-      </div><Footer/></>) : (<SkeletonPurchase/>)}
+      </div></>) : (<SkeletonPurchase/>)}
     </>
   )
 }

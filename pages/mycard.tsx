@@ -5,6 +5,7 @@ import {
 } from '@mui/icons-material';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import NavigationHome from '@/modules/elements/NavigationHome';
 import { set } from 'lodash';
 
 const bgImage = 'url("/images/new-bg.png")';
@@ -36,8 +37,8 @@ const MyProfile = () => {
   },)
 
   return (<>
-      <Navbar />
-      <div className="pt-28 min-h-full"
+      <NavigationHome />
+      <div className="pt-20 lg:pt-28 min-h-full"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',

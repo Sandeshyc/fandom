@@ -73,9 +73,7 @@ const Home = (props:any) => {
       <Mapper
         modules={movies}
         getComponent = {getComponent}
-        isLoading = {isLoading}/>
-        <AmazingDeals/>
-        <Footer/></> : (<SkeletonHome/>)}
+        isLoading = {isLoading}/></> : (<SkeletonHome/>)}
     </div>
     </>) 
 }

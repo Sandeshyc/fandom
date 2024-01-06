@@ -29,7 +29,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   const { data } = useMoviePopupStore();
   const redirectToWatch = useCallback(() => {
     handleClose(null);
-    router.push(`/details/${data?._id}`);
+    router.push(`/details/${data?._id}?viewPlan=true`);
   }, [router, data?._id]);
 
   let zoomScale = 1;

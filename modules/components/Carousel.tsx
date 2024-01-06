@@ -24,7 +24,7 @@ type CarouselProps = {
 
 const Carousel = ({items}:CarouselProps) => {
     // console.log('items: ', items);
-    return (<div className='pb-4 bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
+    return (<div className='pb-4 pt-[55px] bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
         <div className='mx-[4vw] mobileCarousel scale-[0.8]'>
             <Slider {...settings}>
                 {items?.map((item, index) => {

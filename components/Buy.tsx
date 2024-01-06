@@ -65,7 +65,8 @@ const Buy: React.FC<PlayButtonProps> = ({
         rounded-full 
         py-1
         px-3
-        w-[220px]
+        w-[100px]
+        lg:w-[220px]
         text-base
         flex
         flex-row
@@ -82,7 +83,8 @@ const Buy: React.FC<PlayButtonProps> = ({
         rounded-full 
         py-1
         px-3
-        w-[220px]
+        w-[120px]
+        lg:w-[220px]
         text-base
         flex
         flex-row

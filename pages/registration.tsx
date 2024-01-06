@@ -76,7 +76,7 @@ const Registration = () => {
         </div>
       <div className="w-full xl:w-1/2 h-srceen">
         
-        <div className="flex flex-wrap justify-center h-full">
+        <div className="flex flex-wrap justify-center h-full  pt-[100px] xl:pt-0">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
             <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Create an Account</h1>
             <GoogleIdentitySignUp />

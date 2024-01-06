@@ -29,10 +29,10 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
             />
         </div>
         <ul className='text-white flex flex-wrap text-center mt-0 my-8 px-2'>
-            <li className={`text-white border-2 flex justify-center items-center ${(openTab === 0)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-8 min-w-[160px] cursor-pointer hover:border-white/80`}
+            <li className={`text-white border-2 flex justify-center items-center ${(openTab === 0)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-2 md:mr-4 lg:mr-8 min-w-[100px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
               onClick={() => setOpenTab(0)}
               >Active</li>
-            <li className={`text-white border-2 flex justify-center items-center ${(openTab === 1)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-2 min-w-[160px] cursor-pointer hover:border-white/80`}
+            <li className={`text-white border-2 flex justify-center items-center ${(openTab === 1)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-2 min-w-[100px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
               onClick={() => setOpenTab(1)}
               >Expired</li>
         </ul>

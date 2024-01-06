@@ -2,7 +2,7 @@ import React, { use, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
-import Navbar from '@/components/Navbar';
+import NavigationHome from '@/modules/elements/NavigationHome';
 import Footer from '@/components/Footer';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import { set } from 'lodash';
@@ -92,7 +92,7 @@ const MyProfile = () => {
   }, []);
 
   return (<>
-      {(isReady) && (<><Navbar />
+      {(isReady) && (<><NavigationHome />
       <div className="py-16  min-h-[80vh]">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner max-w-[1200px] mx-auto mt-16">
