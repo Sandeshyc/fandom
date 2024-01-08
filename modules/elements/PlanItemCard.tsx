@@ -65,7 +65,7 @@ const PlanItemCard = ({
     }
     return (<>
       <div className='text-white px-6 mb-4 w-[280px] min-w-[260px]'>
-        <div className=''>
+        <div>
         <div className='bg-[#0F0F0F] flex-grow w-full rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
           <div className='text-xl font-semibold mb-4'>{item?.name}</div>
           <div className='text-white text-base text-left'>

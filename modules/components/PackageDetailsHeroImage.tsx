@@ -7,6 +7,8 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { yearFromDate } from '@/utils/yearFromDate';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import {DetailsHeroBanner} from '@/modules/components/DetailsHeroImage';
+import PackageDetailsHeroImageMobile from '@/modules/components/PackageDetailsHeroImageMobile';
+import useIsMobile from '@/hooks/useIsMobile';
 type Props = {
     data: any;
 }
@@ -15,6 +17,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     const [movieListOfset, setMovieListOfset] = React.useState(0);
     const movieId = data?._id || '';
     let thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
@@ -25,8 +28,9 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     }, []);
     // console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
     return (<>
-        <DetailsHeroBanner
-            thumb={thumb}/>
+        {(isMobile)?(<PackageDetailsHeroImageMobile data={data} hasMovieList={hasMovieList} movieListOfset={movieListOfset}/>):
+        <>
+        <DetailsHeroBanner thumb={thumb}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
             <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:'Upcomming...'}</h1>
             {(data?.noOfMovie && data?.noOfMovie > 0) ? (<p className="mb-1 flex items-center flex-wrap my-2">
@@ -62,7 +66,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                     <button 
                         onClick={() => {
                             if(hasMovieList){
-                                window.scrollTo({top: movieListOfset, behavior: 'smooth'});
+                                window.scrollTo({top: movieListOfset - 100, behavior: 'smooth'});
                             }                
                         }} 
                         className="text-white py-1 text-base flex flex-row items-center justify-center transition min-w-[160px] h-[44px] border border-transparent rounded-full hover:border-white/40">
@@ -80,6 +84,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                 </div>
             </div>
         </div>
+        </>}
     </>);
 }
 export default PackageDetailsHeroImage;

@@ -15,8 +15,8 @@ const Details = () => {
   const isMobile = useIsMobile();
   const { movieId } = router.query;
   const [userIdToken, setUserIdToken] = React.useState('');
-  const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
-  // console.log('movieData', isLoading, movieDetails);
+  const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'web':'web'); // Need to upate
+  // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
   useEffect(() => {  
     setIsReady(true);  
     const userInfo = window.localStorage.getItem('userInfo');

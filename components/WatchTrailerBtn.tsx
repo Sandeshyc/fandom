@@ -33,7 +33,7 @@ const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         hover:opacity-90
         ">
         <TrailerIcon/>
-        <span className='ml-2'>Watch Trailer</span>
+        <span className='ml-2'>Trailer</span>
     </button>
   );
 }

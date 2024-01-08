@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
+import useProfile from '@/hooks/useProfile';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import {
     Search,
@@ -20,8 +21,41 @@ type Props = {
     setIsCollapseOpen: (value: boolean) => void;
 }
 const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {    
-    const router = useRouter();  
+    const router = useRouter();
+    const [userid, setUserid] = React.useState('');
+    const [displayName, setDisplayName] = React.useState('');
 
+    const { data: profile, isLoading } = useProfile(userid);
+    useEffect(() => {
+        if(!isLoading) {
+            if( profile?.hasOwnProperty('firstName') || profile?.hasOwnProperty('lastName')) {
+                if(profile?.hasOwnProperty('firstName')){
+                    setDisplayName(profile?.firstName);
+                }
+                if(profile?.hasOwnProperty('lastName')){
+                    setDisplayName(profile?.firstName+' '+profile?.lastName);    
+                }
+            }else if(profile?.hasOwnProperty('email')) {
+                const email = profile?.email;
+                // before @
+                const emailName = email?.split('@')[0];
+                setDisplayName(emailName);
+            }else{
+                setDisplayName('Your Name');
+            }            
+        }
+    }, [profile]);
+
+    useEffect(() => {
+        const userInfo = window.localStorage.getItem('userInfo');
+        if (userInfo) {
+          const userInfoObj = JSON.parse(userInfo);
+          if(userInfoObj?.sub) {
+            setUserid(userInfoObj?.sub);
+          }
+        }
+    }, []);
+    
     const logoutFnc = () => {
         const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
         const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
@@ -48,10 +82,12 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     </div>
                     <div>
                         <h3
-                        className='font-semibold text-xl m-0'>Profile 1</h3>
+                        className='font-semibold text-xl m-0'>{( displayName )??(displayName)}</h3>
                         <p className='text-base text-white'>
                             <span
-                            className='cursor-pointer hover:underline'>Switch Profile</span>
+                            className='cursor-pointer hover:underline' onClick={
+                                () => router.push('/myprofile')
+                            }>Edit Profile</span>
                         </p>
                     </div>
                 </div> 

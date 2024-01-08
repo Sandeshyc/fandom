@@ -1,7 +1,7 @@
 import React from "react";
 import { stableKeys } from "@/utils/stableKeys";
 import {capFirstLetter} from '@/utils/capFirstLetter';
-
+import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 type tabArgsProps = {
     tabArgs:any[],
     openTab:number,
@@ -17,13 +17,10 @@ const TabContents = ({
                     return (
                         <div className={openTab === index ? "block" : "hidden"} id={"link" + index} key={stableKeys[index]}>
                             {(tab.type === 'text') && (
-                                <p className="mb-0">
-                                    {tab.content}
-                                </p>
+                                <ReadMoreDescription text={tab.content}/>
                             )}
-                            {(tab.type === 'arrays') && (
-                                <>                                
-                                <div className="ddd">
+                            {(tab.type === 'arrays') && (                              
+                                <div>
                                     {tab?.content.map((item:any, index:number) => {
                                         return (
                                             <div key={stableKeys[index]}>
@@ -42,8 +39,7 @@ const TabContents = ({
                                             </div>
                                         )
                                     })}
-                                </div>                                
-                                </>
+                                </div> 
                             )}
                         </div>
                     )

@@ -80,11 +80,11 @@ const ShareBtnGroup = ({data}:dataProps) => {
     }, []);
 
     return (<>
-        <div className="text-white/90 flex justify-start pr-4 items-end overflow-y-hidden overflow-x-auto my-8">
+        <div className="text-white/90 flex justify-start items-end overflow-y-hidden overflow-x-auto my-4 relative z-10">
             <ShareItem 
                 icon={<ThumbUpOffAlt
                     sx={{
-                        fontSize: 32,
+                        fontSize: 28,
                         color: '#eee',
                     }}
                 />} 
@@ -93,14 +93,14 @@ const ShareBtnGroup = ({data}:dataProps) => {
             <ShareItem 
                 icon={(isInLish)?<Remove
                     sx={{
-                        fontSize: 32,
+                        fontSize: 28,
                         color: '#eee',
                         border: '2px solid #ddd',
                         borderRadius: '50%',
                     }}
                 />:<Add
                     sx={{
-                        fontSize: 32,
+                        fontSize: 28,
                         color: '#eee',
                     }}
                 />} 
@@ -111,7 +111,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
             <ShareItem 
                 icon={<Download
                     sx={{
-                        fontSize: 32,
+                        fontSize: 28,
                         color: '#eee',
                     }}
                 />} 
@@ -120,7 +120,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
             <ShareItem 
                 icon={<Share
                     sx={{
-                        fontSize: 32,
+                        fontSize: 28,
                         color: '#eee',
                     }}
                 />} 
@@ -129,7 +129,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
             <ShareItem 
                 icon={<Celebration
                     sx={{
-                        fontSize: 32,
+                        fontSize: 28,
                         color: '#eee',
                     }}
                 />} 
@@ -147,7 +147,7 @@ type ShareItemProps = {
 };
 const ShareItem = ({icon, label, handelClick}:ShareItemProps) => {
     return (
-        <button className="flex flex-col justify-center items-center py-2 px-4 cursor-pointer min-w-[100px]" 
+        <button className="flex flex-col justify-center items-center py-2 px-4 cursor-pointer min-w-[100px] first:min-w-[65px] last:min-w-[60px]" 
             onClick={() => {
                 handelClick();          
             }}>

@@ -1,40 +1,30 @@
-import React, { use, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import {
   DataUsage
 } from '@mui/icons-material';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import NavigationHome from '@/modules/elements/NavigationHome';
-import { set } from 'lodash';
 
 const bgImage = 'url("/images/new-bg.png")';
 
 const MyProfile = () => {
-  const router = useRouter();
-  const { productId, userid, transactionId, env } = router.query;
   const [iframeLoaded, setIframeLoaded] = useState(false);
-  const [itemCode, setItemCode] = useState('');
-  // console.log('productId:', productId);
+  const [userid, setUserid] = React.useState('');
   const iframeParams = `https://dev-payments.abs-cbn.com/card-management?userid=${userid}`;
 
   const handleIframeLoad = () => {
     setIframeLoaded(true);
   };
 
-  const handleBackBtn = () => {
-    // router.back();
-    if(itemCode){
-      router.replace(`/details/${itemCode}`);
-    }else{
-      router.replace('/');
-    }
-  };
-
   useEffect(() => {
-    const tempItemCode = window.localStorage.getItem('itemCode');
-    setItemCode(tempItemCode ? tempItemCode : '');
-  },)
+    const userInfo = window.localStorage.getItem('userInfo');
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj?.sub) {
+        setUserid(userInfoObj?.sub);
+      }
+    }
+  },[])
 
   return (<>
       <NavigationHome />
@@ -42,7 +32,7 @@ const MyProfile = () => {
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '100% auto',
+        backgroundSize: '100% auto', 
         backgroundPosition: 'right '+ 30 + '%',
       }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>

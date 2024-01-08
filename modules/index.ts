@@ -9,11 +9,13 @@ import Navigation from "@/modules/components/Navigation";
 import NavigationBack from '@/modules/elements/NavigationBack';
 import DetailsHeroImage from "@/modules/components/DetailsHeroImage";
 import PackageDetailsHeroImage from '@/modules/components/PackageDetailsHeroImage';
+import PackageDetailsHeroImageMobile from '@/modules/components/PackageDetailsHeroImageMobile';
 import MovieSummary from "@/modules/components/MovieSummary";
 import WatchAndShare from "@/modules/components/WatchAndShare";
 import MovieDetails from "@/modules/components/MovieDetails";
 import Carousel from '@/modules/components/Carousel';
 import PackageMovielist from '@/modules/components/PackageMovielist';
+import PackageMovielistMobile from '@/modules/components/PackageMovielistMobile';
 import MovieListVertical from '@/modules/components/MovieListVertical';
 import MovieWatchList from '@/modules/components/MovieWatchList';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
@@ -50,6 +52,8 @@ const comps = {
     bottomNavigation : BottomNavigation,
     dealsAndOffers : DealsAndOffers,
     footer : Footer,
+    packageDetailsHeroImageMobile : PackageDetailsHeroImageMobile,
+    packageMovielistMobile : PackageMovielistMobile 
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];
