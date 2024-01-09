@@ -7,8 +7,6 @@ import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
 import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 
-import OpuAccrodion from 'components/TestAccroding';
-
 const imgOneLogin = '/images/onelogsmall.png';
 const imgLogBG = '/images/loginbgnew.png';
 
@@ -74,7 +72,7 @@ const Auth = () => {
         <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
         <p className='text-white font-semibold text-xl xl:text-2xl'>iWantTFC Tickets</p>
     </div>
-    <div className="relative h-full w-full pt-[100px] xl:pt-0 bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">      
+    <div className="relative min-h-screen h-full w-full pt-[100px] xl:pt-0 bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">      
       <div className="w-full xl:w-1/2 flex justify-center items-center">        
         <div className="flex flex-wrap justify-center">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
@@ -110,7 +108,7 @@ const Auth = () => {
           </div>
         </div>
       </div>
-      <div className='hidden xl:block xl:w-1/2 h-full'>
+      <div className='hidden xl:block xl:w-1/2'>
         <img src={imgLogBG} className="h-full w-full object-cover object-left-bottom" alt="Logo" />
       </div>
     </div>

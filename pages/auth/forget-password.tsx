@@ -68,7 +68,7 @@ const ForgetPassword = () => {
                 <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
                 <p className='text-white font-semibold text-xl xl:text-2xl'>iWantTFC Tickets</p>
             </div>
-            <div className="relative h-full w-full  pt-[100px] xl:pt-0 bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">                
+            <div className="relative min-h-screen h-full w-full  pt-[100px] xl:pt-0 bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">                
                 <div className="w-full xl:w-1/2 ">            
                     <div className="flex flex-wrap justify-center h-full">
                         <div className="w-full max-w-[315px] sm:max-w-[448px] self-center">
@@ -103,7 +103,7 @@ const ForgetPassword = () => {
                         </div>
                     </div>
             </div>
-            <div className='hidden xl:block xl:w-1/2 h-full'>
+            <div className='hidden xl:block xl:w-1/2'>
                 <img src={imgLogBG} className="h-full w-full object-cover object-left-bottom" alt="Logo" />
             </div>
         </div>

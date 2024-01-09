@@ -105,9 +105,9 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   
   const Icon = isInLish ? CheckIcon : PlusIcon;
 
-  return (<div onClick={toggleFavorites} className={`cursor-pointer group/item w-8 h-8 ${(isInLish)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 ${classes}`} style={style}>
+  return (<button title="Watchlist" onClick={toggleFavorites} className={`cursor-pointer group/item w-8 h-8 ${(isInLish)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 ${classes}`} style={style}>
   <Icon className={`text-white group-hover/item:text-neutral-300 w-6 ${innerClass}`} />
-</div>
+</button>
   )
 }
 

@@ -10,6 +10,7 @@ type Props = {
   title: string;
 }
 const PackageMovielist = ({data, title}:Props) => {
+  if(!data) return null;
   const isMobile = useIsMobile();
   const [item, setItem] = React.useState(data[0] || {}); 
   const titleMobile = title;

@@ -21,7 +21,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
 
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
-        if(movieListHeroBanner !== null || movieListHeroBanner !== undefined || movieListHeroBanner !== ''){
+        if((movieListHeroBanner !== null) && (movieListHeroBanner !== undefined) && (movieListHeroBanner !== '')){
             setHasMovieList(true);
             setMovieListOfset((movieListHeroBanner?.getBoundingClientRect()?.top || 0) + window.scrollY);
         }

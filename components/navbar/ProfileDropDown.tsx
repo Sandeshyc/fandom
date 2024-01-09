@@ -111,7 +111,7 @@ const ProfileDropDown = () => {
                         <div className='my-[20px] asDivider'></div>
                         <div className='mb-2'>
                             <button 
-                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/myprofile') && 'bg-[#F5F5F5]'}`}
+                            className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/myprofile') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/myprofile')
                             }>
@@ -121,7 +121,7 @@ const ProfileDropDown = () => {
                         </div>
                         <div className='mb-2'>
                             <button 
-                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mycard') && 'bg-[#F5F5F5]'}`}
+                            className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mycard') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/mycard')
                             }>
@@ -131,7 +131,7 @@ const ProfileDropDown = () => {
                         </div>
                         <div className='mb-1'>
                             <button 
-                            className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mytickets') && 'bg-[#F5F5F5]'}`}
+                            className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mytickets') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/mytickets')
                             }>
@@ -140,7 +140,7 @@ const ProfileDropDown = () => {
                             </button>  
                         </div> 
                         <div className='mb-2'>
-                            <button className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/list') && 'bg-[#F5F5F5]'}`}
+                            <button className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/list') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/list')
                             }>
@@ -162,7 +162,7 @@ const ProfileDropDown = () => {
                             </div>  
                         </div>  */}
                         <div className='mb-2'>
-                            <button className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            <button className='flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
                             onClick={
                                 () => {
                                     window.open('https://tickets.iwanttfc.com/support', '_blank');
@@ -175,7 +175,7 @@ const ProfileDropDown = () => {
                         <div className='my-[10px] asDivider'></div> 
                         <div>
                             <button 
-                                className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                                className='flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
                                 onClick={
                                     () => logoutFnc()
                                 }

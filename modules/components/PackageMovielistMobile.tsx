@@ -8,6 +8,7 @@ type Props = {
 }
 const PackageMovielistMobile = ({data, title}:Props) => {
   // console.log('data BillboardExtended', data);
+  if(!data) return null;
   const [item, setItem] = React.useState(data[0] || {}); 
   const [itemEnded, setItemEnded] = React.useState(1);
   const onVideoCompleted = (completed:boolean) => {
