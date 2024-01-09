@@ -15,6 +15,7 @@ const PackageMovielistMobile = ({data, title}:Props) => {
       setItemEnded(itemEnded + 1);
     }
   }
+  title += data?.length > 0 ? ' ('+data?.length+')' : '';
   return (
     (item?._id)?<div className={`my-[5vw] movieListHeroBanner`} >
     <div>
@@ -22,9 +23,9 @@ const PackageMovielistMobile = ({data, title}:Props) => {
         {(title)?<p className="text-white text-xl lg:text-2xl	font-medium mb-2 mr-2">{title}</p>:null}
       </div>
       <div className={`gap-2`}>
-        <div className='relative'>
+        <div className='relative bg-black'>
           <MovieListHeroBannerMobile data={item} isComplited={onVideoCompleted} />
-          <div className="absolute left-0 right-0 bottom-0">
+          <div className="pl-4">
             <MovieListHeroBannerItemsMobile 
               title={data.title} 
               portrait={false}

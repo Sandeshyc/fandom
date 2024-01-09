@@ -24,7 +24,7 @@ const useIsMobile = () => {
 		}; 
 	}, []); 
 
-	return width <= 960; 
+	return width < 960; 
 }; 
 
 export default useIsMobile; 

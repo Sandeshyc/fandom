@@ -8,6 +8,8 @@ import PlayButton from "@/components/PlayButton";
 import WatchTrailerBtn from "@/components/WatchTrailerBtn";
 import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
 import Buttons from '@/components/identites/Buttons';
+import FavoriteButton from '@/components/FavoriteButton';
+import { ShareIcon } from '@heroicons/react/24/solid';
 
 type Props = {
   data: any;
@@ -69,14 +71,11 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
             <>
               <PlayButton movieId={data?._id} />
             </>
-          ) : (data?.canBuy === true) ? (<Buttons 
-            onClick={() => router.push(`/details/${data?._id}?viewPlan=true`)}
-            className="mr-2">Rent</Buttons>):
-            (<Buttons
-              onClick={() => {console.log('Region not allowed')}}
-              className="mr-2 opacity-80"
-              styles={{ cursor: "not-allowed" }}>Rent</Buttons>)}
-          <ViewDetailsButton movieId={data?._id} />
+          ) : (<WatchTrailerBtn movieId={data?._id}/>)}
+          <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
+          <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
+              <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { useRouter } from 'next/router';
 import {
-    Home,
-    Download,
+    HomeOutlined,
+    ConfirmationNumberOutlined,
     List,
     MoreHoriz,
 } from '@mui/icons-material';
@@ -21,24 +21,24 @@ const BottomNavigation = () => {
             <div className='flex justify-between'>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
                 onClick={() => router.push('/')}>
-                    <Home
+                    <HomeOutlined
                     className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span
                     className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Home</span>
                 </button>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
                 onClick={() => router.push('/mytickets')}>
-                    <List
+                    <ConfirmationNumberOutlined
                     className={`${('/mytickets' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span
                     className={`${('/mytickets' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My Tickets</span>
                 </button>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
-                onClick={() => router.push('')}>
-                    <Download
-                    className={`${('/ddd' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                onClick={() => router.push('/list')}>
+                    <List
+                    className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span
-                    className={`${('/ddd' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Downloads</span>
+                    className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My List</span>
                 </button>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
                 onClick={() => {

@@ -12,7 +12,7 @@ type Props = {
 const PackageMovielist = ({data, title}:Props) => {
   const isMobile = useIsMobile();
   const [item, setItem] = React.useState(data[0] || {}); 
-  
+  const titleMobile = title;
   title += data?.length > 0 ? ' ('+data?.length+')' : '';
   const [itemEnded, setItemEnded] = React.useState(1);
   const onVideoCompleted = (completed:boolean) => {
@@ -21,7 +21,7 @@ const PackageMovielist = ({data, title}:Props) => {
     }
   }
   return (<>
-    {(item?._id)?(isMobile)?(<PackageMovielistMobile data={data} title={title}/>):
+    {(item?._id)?(isMobile)?(<PackageMovielistMobile data={data} title={titleMobile}/>):
     <div className={`my-[5vw] movieListHeroBanner`} >
     <div>
       <div className="px-2 max-w-[1600px] mx-auto"><ReelHeading title={title}/></div>

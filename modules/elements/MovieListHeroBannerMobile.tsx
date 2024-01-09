@@ -8,6 +8,8 @@ import PlayButton from "@/components/PlayButton";
 import WatchTrailerBtn from "@/components/WatchTrailerBtn";
 import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
 import Buttons from '@/components/identites/Buttons';
+import FavoriteButton from '@/components/FavoriteButton';
+import { ShareIcon } from '@heroicons/react/24/solid';
 
 type Props = {
   data: any;
@@ -18,7 +20,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   return (
     <div className={`relative billboardSec`}>
       <div
-        className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh]`}
+        className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[300px] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]`}
       >
         <div className="brightness-[60%] h-full">
           <ReactVideoPlayer
@@ -28,8 +30,8 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
         </div>
         <div className="preview"></div>
       </div>
-      <div className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition`}>
-        <p className="text-white text-xl md:text-2xl h-full w-[85%] lg:w-[50%] lg:text-6xl drop-shadow-xl">
+      <div className={`absolute bottom-0 pl-4 md:pl-16 pt-4 pb-1 bg-gradient-to-t from-black to-transparent w-full`}>
+        <p className="text-white text-xl font-semibold md:text-2xl h-full w-[85%] lg:w-[50%] lg:text-6xl drop-shadow-xl">
           {data?.title}
         </p>
         {data?.publishSchedule ? (
@@ -56,19 +58,21 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
         {data?.contentPrivider ? (
           <p className="mb-1 text-xs">{data?.contentPrivider}</p>
         ) : null}
+        
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          {data?.allowed === true ? (
-            <>
-              <PlayButton movieId={data?._id} />
-            </>
-          ) : (data?.canBuy === true) ? (<Buttons 
-            onClick={() => router.push(`/details/${data?._id}?viewPlan=true`)}
-            className="mr-2">Rent</Buttons>):
-            (<Buttons
-              onClick={() => {console.log('Region not allowed')}}
-              className="mr-2 opacity-80"
-              styles={{ cursor: "not-allowed" }}>Rent</Buttons>)}
-          <ViewDetailsButton movieId={data?._id} />
+          {data?.allowed === true ? (<PlayButton movieId={data?._id}/>) :(<WatchTrailerBtn movieId={data?._id}/>)}
+          <FavoriteButton 
+              movieId={data?._id}
+              classes='mx-2 bg-white/40 hover:bg-white/50'
+              style={{
+                  borderWidth: 0,
+              }}
+              isInWatchList={data?.isInWatchList}
+              innerClass='text-white'
+          />
+          <div className="cursor-pointer group/item w-8 h-8 flex justify-center items-center transition bg-[#fff]/30 hover:bg-[#fff]/40 rounded-full">
+              <ShareIcon className="text-white group-hover/item:text-neutral-300 w-4" />
+          </div>
         </div>
       </div>
     </div>

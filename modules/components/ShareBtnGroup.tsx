@@ -80,28 +80,21 @@ const ShareBtnGroup = ({data}:dataProps) => {
     }, []);
 
     return (<>
-        <div className="text-white/90 flex justify-start items-end overflow-y-hidden overflow-x-auto my-4 relative z-10">
-            <ShareItem 
-                icon={<ThumbUpOffAlt
-                    sx={{
-                        fontSize: 28,
-                        color: '#eee',
-                    }}
-                />} 
-                label='Like' 
-                handelClick={() => {}}/>
+        <div className="text-white/80 flex justify-center items-end overflow-y-hidden overflow-x-auto my-4 relative z-10 border border-white/30 rounded-xl">
             <ShareItem 
                 icon={(isInLish)?<Remove
                     sx={{
                         fontSize: 28,
-                        color: '#eee',
+                        color: '#ccc',
                         border: '2px solid #ddd',
                         borderRadius: '50%',
                     }}
                 />:<Add
                     sx={{
                         fontSize: 28,
-                        color: '#eee',
+                        color: '#ccc',
+                        border: '2px solid #ddd',
+                        borderRadius: '50%',
                     }}
                 />} 
                 label='Watchlist' 
@@ -109,31 +102,13 @@ const ShareBtnGroup = ({data}:dataProps) => {
                     toggleFavorites();
                 }}/>
             <ShareItem 
-                icon={<Download
-                    sx={{
-                        fontSize: 28,
-                        color: '#eee',
-                    }}
-                />} 
-                label='Download' 
-                handelClick={() => {}}/>
-            <ShareItem 
                 icon={<Share
                     sx={{
                         fontSize: 28,
-                        color: '#eee',
+                        color: '#ccc',
                     }}
                 />} 
                 label='Share' 
-                handelClick={() => {}}/>
-            <ShareItem 
-                icon={<Celebration
-                    sx={{
-                        fontSize: 28,
-                        color: '#eee',
-                    }}
-                />} 
-                label='Watch Party' 
                 handelClick={() => {}}/>
         </div>
     </>);
@@ -147,7 +122,7 @@ type ShareItemProps = {
 };
 const ShareItem = ({icon, label, handelClick}:ShareItemProps) => {
     return (
-        <button className="flex flex-col justify-center items-center py-2 px-4 cursor-pointer min-w-[100px] first:min-w-[65px] last:min-w-[60px]" 
+        <button className="flex flex-col justify-center items-center py-2 px-4 cursor-pointer min-w-[100px]" 
             onClick={() => {
                 handelClick();          
             }}>

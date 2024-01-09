@@ -100,53 +100,53 @@ const ProfileDropDown = () => {
                                 <h3
                                 className='font-semibold text-[18px] m-0'>{( displayName )??(displayName)}</h3>
                                 <p className='text-[14px] text-[#0094FF]'>
-                                    <span
+                                    <button
                                     className='cursor-pointer hover:underline'
                                     onClick={
                                         () => router.push('/myprofile')
-                                    }>Edit Profile</span>
+                                    }>Edit Profile</button>
                                 </p>
                             </div>
                         </div>                        
                         <div className='my-[20px] asDivider'></div>
                         <div className='mb-2'>
-                            <div 
+                            <button 
                             className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/myprofile') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/myprofile')
                             }>
                                 <span className='mr-2'><MyAccountIcon/></span>
                                 <p>Manage Account</p>
-                            </div>  
+                            </button>  
                         </div>
                         <div className='mb-2'>
-                            <div 
+                            <button 
                             className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mycard') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/mycard')
                             }>
                                 <span className='mr-2'><CreditCard/></span>
                                 <p>Manage Card</p>
-                            </div>  
+                            </button>  
                         </div>
                         <div className='mb-1'>
-                            <div 
+                            <button 
                             className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mytickets') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/mytickets')
                             }>
                                 <span className='mr-2'><MyTicketsIcon/></span>
                                 <p>My Tickets</p>
-                            </div>  
+                            </button>  
                         </div> 
                         <div className='mb-2'>
-                            <div className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/list') && 'bg-[#F5F5F5]'}`}
+                            <button className={`flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/list') && 'bg-[#F5F5F5]'}`}
                             onClick={
                                 () => router.push('/list')
                             }>
                                 <span className='mr-2'><MyListIcon/></span>
                                 <p>My List</p>
-                            </div>  
+                            </button>  
                         </div>
                         {/* <div className='mb-2'>
                             <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
@@ -162,7 +162,7 @@ const ProfileDropDown = () => {
                             </div>  
                         </div>  */}
                         <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            <button className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
                             onClick={
                                 () => {
                                     window.open('https://tickets.iwanttfc.com/support', '_blank');
@@ -170,11 +170,11 @@ const ProfileDropDown = () => {
                             }>
                                 <span className='mr-2'><HelpCenterIcon/></span>
                                 <p>Help Centre</p>
-                            </div>  
+                            </button>  
                         </div> 
                         <div className='my-[10px] asDivider'></div> 
                         <div>
-                            <div 
+                            <button 
                                 className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
                                 onClick={
                                     () => logoutFnc()
@@ -182,7 +182,7 @@ const ProfileDropDown = () => {
                                 >
                                 <span className='mr-2'><LogoutIcon/></span>
                                 <p>Logout</p>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </Menu.Items>

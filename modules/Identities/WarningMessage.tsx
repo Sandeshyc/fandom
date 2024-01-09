@@ -28,6 +28,7 @@ const WarningMessage = ({
             </div>
             <div className='w-[180px] flex-grow'>
                 <p
+                className='text-sm xl:text-base'
                 style={{
                     color: textColor,                
                 }}

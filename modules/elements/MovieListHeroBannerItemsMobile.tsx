@@ -53,9 +53,9 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
     let i = 0;
     return data.map((movie:any, index:number) => {   
     return (
-      <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
+      <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-2'>
         <div className="w-full aspect-video cursor-pointer">
-          <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
+          <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-2 border-white/80':'z-20 shadow-lg'}`}>
             {(movie?.allowed)?<PurchaseBadge/>:
             (movie?.canBuy === false)?<NotAllowed message='Region Restricted'/>:
             null}
@@ -72,7 +72,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
         <div className={`gap-2 relative`}>
           <div className='relative z-10'>
             <div className="block lg:hidden">
-              <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+              <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide pl-1 py-2'>
                 {getSlides()}
               </div>
             </div>

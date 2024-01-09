@@ -20,14 +20,13 @@ const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         rounded-full
         py-1
         px-3
-        w-[180px]
+        w-[48%]
         lg:w-[220px]
         text-base 
         flex
         flex-row
         justify-center
         items-center
-        mr-4
         h-[44px]
         transition-opacity
         hover:opacity-90

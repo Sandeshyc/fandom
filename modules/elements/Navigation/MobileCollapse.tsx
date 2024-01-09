@@ -77,8 +77,8 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
         <div className='fixed left-0 top-0 w-screen h-screen text-white bg-gradient-to-t from-black to-black/80 py-12 px-8 z-50'>
             <div className='flex justify-between items-center mb-8'>
                 <div className='flex items-center w-[150px] grow'>
-                    <div className='transition w-[64px] h-[64px] mr-[10px]'>
-                        <img src="/images/default-blue.png" alt="Name" className='w-full h-full'/>
+                    <div className='transition w-[64px] h-[64px] mr-[10px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
+                        <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                     </div>
                     <div>
                         <h3

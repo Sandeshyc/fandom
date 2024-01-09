@@ -11,7 +11,7 @@ const bgImage = 'url("/images/new-bg.png")';
 
 const Details = () => {
   const [isReady, setIsReady] = React.useState(false);
-  const router = useRouter();  
+  const router = useRouter();
   const isMobile = useIsMobile();
   const { movieId } = router.query;
   const [userIdToken, setUserIdToken] = React.useState('');
