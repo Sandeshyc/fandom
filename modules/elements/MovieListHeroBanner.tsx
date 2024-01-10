@@ -31,9 +31,9 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
         <div className="preview"></div>
       </div>
       <div
-        className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition`}
+        className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition w-full`}
       >
-        <p className="text-white text-2xl md:text-5xl h-full w-[85%] lg:w-[50%] lg:text-6xl drop-shadow-xl">
+        <p className="text-white text-2xl md:text-5xl h-full w-[85%] lg:w-[50%] lg:text-6xl drop-shadow-xl mb-1">
           {data?.title}
         </p>
         {data?.publishSchedule ? (

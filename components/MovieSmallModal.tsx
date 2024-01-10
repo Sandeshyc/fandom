@@ -36,24 +36,39 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
 
   const removeContinueWatch = useCallback(() => {
     // Remove Box from Continue Watching List
+    const removeContinueWatchItem = () => {
+      const headers = {
+        'Content-Type': 'application/json',
+      };      
+      const dataBody = {
+        itemCode: data?._id,
+      };
+      let result;
+      axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
+        .then(response => {
+          console.log('response: ', response);
+          if(response.status === 200) {
+            result = response.data;
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        }); 
+    }
     console.log('data Remove:', data);
-    const headers = {
-      'Content-Type': 'application/json',
-    };      
-    const dataBody = {
-      watchList: [data?._id],
-    };
-    let result;
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, dataBody, { headers })
-      .then(response => {
-        console.log('response: ', response);
-        if(response.status === 200) {
-          result = response.data;
+    if(!userId){
+      const userInfo = window.localStorage.getItem('userInfo');
+      if(userInfo) {
+        const userInfoObj = JSON.parse(userInfo);
+        if(userInfoObj.sub) {
+          setUserId(userInfoObj.sub);
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      }); 
+      }
+      removeContinueWatchItem();
+    }else{
+      removeContinueWatchItem();
+    }
+    
   }, [data?._id]);
 
   let zoomScale = 1;
@@ -179,7 +194,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
-            {(data?.currentTime)?<button title='Remove from Row' onClick={removeContinueWatch} className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
+            {(data?.currentTime && 0)?<button title='Remove from Row' onClick={removeContinueWatch} className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
                 <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
               </button>:null}
               <FavoriteButton movieId={data?._id || '0'} isInWatchList={data?.isInWatchList}/>
@@ -193,8 +208,6 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
             </div>
           </div>
         </div>
-
-          
         </div>
       </div>
     </div>

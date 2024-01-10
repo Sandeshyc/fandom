@@ -33,8 +33,8 @@ const PackageDetailsHeroImage = ({data}:Props) => {
         <DetailsHeroBanner thumb={thumb}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
             <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:'Upcomming...'}</h1>
-            {(data?.noOfMovie && data?.noOfMovie > 0) ? (<p className="mb-1 flex items-center flex-wrap my-2">
-                <span className="text-gray-300 mr-2 text-xl">{'A package of '}<span className='text-white'>{data?.noOfMovie}</span> movies </span>
+            {(data?.packageShortDetails) ? (<p className="mb-1 flex items-center flex-wrap my-2">
+                <span className="text-gray-300 mr-2 text-xl">{data?.packageShortDetails}</span>
             </p>):
             null}
             <div className="flex flex-row items-center mb-1">
@@ -75,9 +75,6 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                     </>:null}
                 <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
                     <FavoriteButton movieId={movieId} isInWatchList={data?.isInWatchList}/>
-                    <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">
-                        <ThumbUp className="text-white group-hover/item:text-neutral-300 w-6" />
-                    </div>
                     <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
                         <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
                     </div>

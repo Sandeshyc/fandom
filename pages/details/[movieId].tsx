@@ -17,7 +17,7 @@ const Details = () => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web'); // Need to upate
   // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
-  useEffect(() => {  
+  useEffect(() => {
     setIsReady(true);  
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {

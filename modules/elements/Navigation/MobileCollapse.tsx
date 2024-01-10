@@ -105,7 +105,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     </button>
                 </div>    
             </div> 
-            <div className="overflow-y-auto overflow-x-hidden h-full">
+            <div className="overflow-y-auto overflow-x-hidden h-full pb-8">
                 <NavItem
                 icon={<Search />}
                 label={'Search'}
