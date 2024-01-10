@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { MovieInterface } from '@/types';
 import EnititlementEndDate from '@/components/Expair';
-import { VolunteerActivism, Check, ShoppingBag } from '@mui/icons-material';
+import { VolunteerActivismOutlined, Check, ShoppingBagOutlined } from '@mui/icons-material';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -27,12 +27,14 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
       <div className="w-[58%] py-1">
         {(data?.title)?<p
           onClick={redirectToWatch}
-          className="text-white text-sm sm:text-base md:text-xl xl:text-2xl mb-1 md:mb-2 cursor-pointer"
+          className="text-white text-base md:text-xl xl:text-2xl mb-1 md:mb-2 cursor-pointer"
         >{data.title}</p>:null}
         {(data?.planDescription)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><Check className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.planDescription}</p>:null}          
-        {(data?.contentPrivider)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivism className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>:null}
-        {(data?.sourcePlatform)?<p className="text-sm mb-2 flex items-center"><ShoppingBag className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{capFirstLetter(data?.sourcePlatform)}</p>:null}
-        {(data?.endTime)?<EnititlementEndDate endDate={data?.endTime} short={true} />:null}
+        {(data?.contentPrivider)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivismOutlined className="w-[10px] h-[10px] md:w-[16px] md:h-[16px] text-white mr-1"/>{data?.contentPrivider}</p>:null}
+        {(data?.sourcePlatform)?<p className="text-[12px] sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><ShoppingBagOutlined className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] text-white mr-1"/>{capFirstLetter(data?.sourcePlatform)}</p>:null}
+        {(data?.endTime)?<>
+          <EnititlementEndDate endDate={data?.endTime} short={true} />
+        </>:null}
       </div>
     </div>
   )

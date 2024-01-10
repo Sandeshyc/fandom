@@ -1,6 +1,7 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { round } from 'lodash';
+import axios from 'axios';
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import EnititlementEndDate from '@/components/Expair';
@@ -8,7 +9,7 @@ import PublishDate from '@/modules/Identities/PublishDate';
 import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
-
+import {Cancel} from '@mui/icons-material';
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -19,6 +20,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
   const router = useRouter();
   const { openModal, closeModal} = useMoviePopupStore();
   const [autoplay, setAutoplay] = React.useState(false); 
+  const [userId, setUserId] = React.useState('');
 
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
@@ -87,6 +89,38 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
   }, [router, data?._id]);  
   const noGradientClass = gradient ? '' : ' bg-black py-1 ';
 
+  const removeContinueWatch = useCallback(() => {
+    // Remove Box from Continue Watching List
+    console.log('data Remove:', data);
+    const headers = {
+      'Content-Type': 'application/json',
+    };      
+    const dataBody = {
+      watchList: [data?._id],
+    };
+    let result;
+    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, dataBody, { headers })
+      .then(response => {
+        console.log('response: ', response);
+        if(response.status === 200) {
+          result = response.data;
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      }); 
+  }, [data?._id]);
+
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    if(userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj.sub) {
+        setUserId(userInfoObj.sub);
+      }
+    }
+  }, []);
+
   return (
     <div 
     ref={thumbOuterRef}
@@ -101,7 +135,12 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient }) =
           {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
           {(data?.publishSchedule && !gradient)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 py-1 rounded-md ${noGradientClass}`}><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
           {(data?.publishSchedule && gradient)?<div className={`mb-2 mx-2 text-gray-100 px-2 rounded-md ${noGradientClass}`}><PublishDateDetails publishDate={data?.publishSchedule} short={true} /></div>:null}
-          {data?.currentTime ? <div className='m-2 mt-0'><ProgressBar done={progress} /></div> : null}
+          {data?.currentTime ? <div className='m-2 mt-0 flex items-center'>
+            <ProgressBar done={progress} />
+            <div onClick={removeContinueWatch} className={`cursor-pointer hidden`}>
+                <Cancel className={`text-white w-4`} />
+              </div>
+            </div> : null}
         </div>        
         <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>        
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}

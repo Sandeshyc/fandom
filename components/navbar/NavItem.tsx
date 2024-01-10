@@ -10,13 +10,13 @@ type Props = {
 const NavItem: React.FC<Props> = ({ label, route, activeRoute }) => {
     const router = useRouter();
     return (
-        <div
+        <button
             className={`relative text-[16px] cursor-pointer text-white ${(activeRoute === router.pathname)?'font-semibold':''}`}
             onClick={() => router.push(route)}>
             <span className="block">{label}</span>
             
             {(activeRoute === router.pathname)?<span className={`w-full h-[3px] rounded-full bg-blue-500 inline-block absolute bottom-[-6px] left-[50%] transform translate-x-[-50%]`}></span>:null}
-        </div>
+        </button>
     );
 }
 

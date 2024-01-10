@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -41,6 +42,7 @@ type CarouselItemProps = {
 };
 const CarouselItem = ({item}:CarouselItemProps) => {
     const thumb = item?.thumbnailPotrait || item?.thumbnailUrl;
+    const router = useRouter();
     return (<div className='w-full aspect-[6/9] bg-zinc-900 rounded-md relative' >
         {(item?.allowed)?<PurchaseBadge 
         className='!w-[100px] text-center rounded-br-xl rounded-tr-none'
@@ -49,7 +51,9 @@ const CarouselItem = ({item}:CarouselItemProps) => {
             transform: 'translateX(-50%)',
         }}/>:
         null}
-        <img src={thumb} alt={item?.title} className='w-full h-full object-contain rounded-lg'/>
+        <div className='w-full h-full rounded-lg cursor-pointer' onClick={() => router.push(`/details/${item?._id}`)}>
+            <img src={thumb} alt={item?.title} className='w-full h-full object-contain rounded-lg'/>
+        </div>
         <div className='absolute bottom-0 left-0 w-full p-2 pb-4 pt-12 bg-gradient-to-t from-black/60 from-60% to-transparent to-85%'>
             <p className='text-white text-lg font-medium text-center mb-2 drop-shadow-md'>
                 {item?.title}

@@ -66,8 +66,8 @@ const Registration = () => {
     oidcApi.beginAuth({ state, nonce });
   }
   return (
-    <div className="relative h-full w-full bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">
-      <div className='hidden xl:block xl:w-1/2 h-full'>
+    <div className="relative min-h-screen h-full w-full bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">
+      <div className='hidden xl:block xl:w-1/2'>
           <img src={imgLogBG} className="h-full w-full object-cover object-right-top" alt="all Movies" />
       </div>
       <div className="w-full p-2 fixed left-0 top-0 flex items-center xl:justify-end">

@@ -204,22 +204,13 @@ const MyProfile = () => {
                         handleChange={handleChange} 
                       />
                     </div>
-                    <div className={`mb-3 ${(isUpdateMode)?'md:w-[50%] md:pr-3 lg:w-[33%] lg:pr-0':'md:w-[33%] md:pl-2'} w-full`}>
+                    <div className={`mb-3 ${(isUpdateMode)?'md:w-[50%] md:pr-3 lg:w-[33%] lg:pr-0':'md:w-[66%] md:pl-2'} w-full`}>
                       <ProfileEmail
                         isUpdateMode={isUpdateMode}
                         errors={errors.userEmail}
                         touched={touched.userEmail}
                         values={values.userEmail}
                         handleChange={handleChange}  
-                      />
-                    </div>
-                    <div className={`mb-3 w-full ${(isUpdateMode)?'md:w-[50%] md:pr-2 md:pl-1 lg:w-[33%] lg:pr-3':'md:w-[33%] md:pr-4'}`}>
-                      <ProfileMobile
-                        isUpdateMode={isUpdateMode}
-                        errors={errors}
-                        touched={touched}
-                        values={values}
-                        handleChange={handleChange} 
                       />
                     </div>
                     <div className={`mb-3 ${(isUpdateMode)?'w-[50%] pl-1 pr-2 lg:w-[33%] lg:pr-2':'w-[50%] pr-2 md:w-[33%] md:pr-4'}`}>
@@ -251,7 +242,7 @@ const MyProfile = () => {
                         disabled={isUpdating}
                         onClick={()=>handleSubmit()}
                         className={`bg-[#2D45F2] ${(isUpdating)?'cursor-not-allow':''} text-white w-[48%] ml-[2%] sl:ml-[0px] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>{(isUpdating)?'Updating...':'Save'}</button></>:<><span onClick={()=>updateProfile(true)}
-                        className={`bg-[#2D45F2] text-white cursor-pointer w-full sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>Edit Profile</span></>}
+                        className={`bg-[#2D45F2] text-white cursor-pointer text-center w-full sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>Edit Profile</span></>}
                     </div>
                     {
                       (isSuccess)?<p className="text-green-900 w-full rounded-md text-[14px] mt-2 px-2 py-1 bg-green-100 text-center">Profile updated successfully</p>:null

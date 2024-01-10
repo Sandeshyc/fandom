@@ -1,7 +1,7 @@
 import React, { use, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-
+import axios from 'axios';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import PlayButton from '@/components/PlayButton';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
@@ -13,6 +13,7 @@ import { stableKeys } from '@/utils/stableKeys';
 import AudioMute from '@/modules/elements/AudioMute';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import Buttons from '@/components/identites/Buttons';
+import {CloseOutlined} from '@mui/icons-material';
 
 interface movieSmallModalProps {
   visible?: boolean;
@@ -25,12 +26,50 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   const [isMute, setIsMute] = React.useState(true);
   const thumbRef = React.useRef<HTMLDivElement>(null);
   const [boxHeight , setBoxHeight] = useState(0);
+  const [userId, setUserId] = React.useState('');
   
   const { data } = useMoviePopupStore();
   const redirectToWatch = useCallback(() => {
     handleClose(null);
     router.push(`/details/${data?._id}?viewPlan=true`);
   }, [router, data?._id]);
+
+  const removeContinueWatch = useCallback(() => {
+    // Remove Box from Continue Watching List
+    const removeContinueWatchItem = () => {
+      const headers = {
+        'Content-Type': 'application/json',
+      };      
+      const dataBody = {
+        itemCode: data?._id,
+      };
+      let result;
+      axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
+        .then(response => {
+          console.log('response: ', response);
+          if(response.status === 200) {
+            result = response.data;
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        }); 
+    }
+    console.log('data Remove:', data);
+    if(!userId){
+      const userInfo = window.localStorage.getItem('userInfo');
+      if(userInfo) {
+        const userInfoObj = JSON.parse(userInfo);
+        if(userInfoObj.sub) {
+          setUserId(userInfoObj.sub);
+        }
+      }
+      removeContinueWatchItem();
+    }else{
+      removeContinueWatchItem();
+    }
+    
+  }, [data?._id]);
 
   let zoomScale = 1;
   if(data?.xy?.width && data?.xy?.thumbW && data?.xy?.width>0 && data?.xy?.thumbW > 0){
@@ -64,7 +103,16 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     }
   }, [isVisible]);
   // console.log('xy ', data?.xy);
- 
+  
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    if(userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj.sub) {
+        setUserId(userInfoObj.sub);
+      }
+    }
+  }, []);
 
   const handleClose = useCallback((e) => {
     // if(e.target.dataset?.button !== 'close') return;
@@ -146,9 +194,11 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
+            {(data?.currentTime && 0)?<button title='Remove from Row' onClick={removeContinueWatch} className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
+                <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
+              </button>:null}
               <FavoriteButton movieId={data?._id || '0'} isInWatchList={data?.isInWatchList}/>
-              
-              
+
               {data?.allowed? (
                 <Buttons onClick={redirectToWatch} type='white'>Play Now</Buttons>
               ) : (
@@ -158,8 +208,6 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
             </div>
           </div>
         </div>
-
-          
         </div>
       </div>
     </div>

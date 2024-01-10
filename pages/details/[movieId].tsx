@@ -11,13 +11,13 @@ const bgImage = 'url("/images/new-bg.png")';
 
 const Details = () => {
   const [isReady, setIsReady] = React.useState(false);
-  const router = useRouter();  
+  const router = useRouter();
   const isMobile = useIsMobile();
   const { movieId } = router.query;
   const [userIdToken, setUserIdToken] = React.useState('');
-  const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
-  // console.log('movieData', isLoading, movieDetails);
-  useEffect(() => {  
+  const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web'); // Need to upate
+  // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
+  useEffect(() => {
     setIsReady(true);  
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {

@@ -7,6 +7,8 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { yearFromDate } from '@/utils/yearFromDate';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import {DetailsHeroBanner} from '@/modules/components/DetailsHeroImage';
+import PackageDetailsHeroImageMobile from '@/modules/components/PackageDetailsHeroImageMobile';
+import useIsMobile from '@/hooks/useIsMobile';
 type Props = {
     data: any;
 }
@@ -15,22 +17,24 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     const [movieListOfset, setMovieListOfset] = React.useState(0);
     const movieId = data?._id || '';
     let thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
-        if(movieListHeroBanner !== null || movieListHeroBanner !== undefined || movieListHeroBanner !== ''){
+        if((movieListHeroBanner !== null) && (movieListHeroBanner !== undefined) && (movieListHeroBanner !== '')){
             setHasMovieList(true);
             setMovieListOfset((movieListHeroBanner?.getBoundingClientRect()?.top || 0) + window.scrollY);
         }
     }, []);
     // console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
     return (<>
-        <DetailsHeroBanner
-            thumb={thumb}/>
+        {(isMobile)?(<PackageDetailsHeroImageMobile data={data} hasMovieList={hasMovieList} movieListOfset={movieListOfset}/>):
+        <>
+        <DetailsHeroBanner thumb={thumb}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
             <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:'Upcomming...'}</h1>
-            {(data?.noOfMovie && data?.noOfMovie > 0) ? (<p className="mb-1 flex items-center flex-wrap my-2">
-                <span className="text-gray-300 mr-2 text-xl">{'A package of '}<span className='text-white'>{data?.noOfMovie}</span> movies </span>
+            {(data?.packageShortDetails) ? (<p className="mb-1 flex items-center flex-wrap my-2">
+                <span className="text-gray-300 mr-2 text-xl">{data?.packageShortDetails}</span>
             </p>):
             null}
             <div className="flex flex-row items-center mb-1">
@@ -62,7 +66,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                     <button 
                         onClick={() => {
                             if(hasMovieList){
-                                window.scrollTo({top: movieListOfset, behavior: 'smooth'});
+                                window.scrollTo({top: movieListOfset - 100, behavior: 'smooth'});
                             }                
                         }} 
                         className="text-white py-1 text-base flex flex-row items-center justify-center transition min-w-[160px] h-[44px] border border-transparent rounded-full hover:border-white/40">
@@ -71,15 +75,13 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                     </>:null}
                 <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
                     <FavoriteButton movieId={movieId} isInWatchList={data?.isInWatchList}/>
-                    <div className="cursor-pointer group/item w-9 h-9 lg:w-9 lg:h-9 flex justify-center items-center transition">
-                        <ThumbUp className="text-white group-hover/item:text-neutral-300 w-6" />
-                    </div>
                     <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
                         <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
                     </div>
                 </div>
             </div>
         </div>
+        </>}
     </>);
 }
 export default PackageDetailsHeroImage;

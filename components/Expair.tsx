@@ -9,7 +9,7 @@ interface TextHighlightProps {
 
 const TxtHL = ({children, style, className,} : TextHighlightProps) => {
     return (
-        <span className={`text-green-400 font-bold mx-1 ${className}`} style={style}> {children} </span>
+        <span className={`text-green-400 text-[12px] lg:text-xs lg:font-bold mx-1 ${className}`} style={style}> {children} </span>
     )
 }
 
@@ -25,7 +25,7 @@ const EnititlementEndDate = ({endDate, short = true, base = 0.5} : EnititlementE
 
     let Print  = <></>;
     if(day === 0 && hour === 0 && minute === 0){
-        Print = <><span className="text-red-500 font-bold"> Expired!</span></>
+        Print = <><span className="text-red-500 lg:font-bold"> Expired!</span></>
     }else if(short){
         if(day === 0 && hour === 0){
             Print = <><TxtHL>{minute}</TxtHL> minutes left to watch!</>
