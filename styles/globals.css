@@ -201,7 +201,7 @@ html {
   margin-right: 10px !important;
 }
 .portrait .mobileCardsSlide > .movieCard{
-  min-width: 160px !important;
+  min-width: 150px !important;
 }
 .mobileCardsSlide > .movieCardNumber{
   min-width: 180px !important;

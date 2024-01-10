@@ -194,7 +194,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
-            {(data?.currentTime && 0)?<button title='Remove from Row' onClick={removeContinueWatch} className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
+            {(data?.currentTime)?<button title='Remove from Row' onClick={removeContinueWatch} className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
                 <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
               </button>:null}
               <FavoriteButton movieId={data?._id || '0'} isInWatchList={data?.isInWatchList}/>
