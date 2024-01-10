@@ -7,7 +7,7 @@ const SkeletonList = () => {
   return (
     <>
       <SkeletonHeader/>
-      <div className="pb-12 pt-32">
+      <div className="pb-12 pt-[80px]">
         <div className={`px-4`}>
           <div className="movieSliderInner">
             <div className="w-[200px] lg:w-[350px] px-2">

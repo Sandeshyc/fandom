@@ -10,8 +10,8 @@ type Props = {
 const ReelHeading: React.FC<Props> = ({ title, link, linkText }) => {
     const router = useRouter();
     return (<>{(title)?<div className='flex items-center'>
-          <p className="text-white text-2xl	font-medium mb-4 mr-2">{title}</p>
-          {(link)?<p className="text-[#0094FF] text-[16px] font-regular mb-4 cursor-pointer"
+          <p className="text-white text-xl lg:text-2xl	font-medium mb-1 lg:mb-4 mr-2">{title}</p>
+          {(link)?<p className="text-[#0094FF] text-[16px] font-regular mb-2 lg:mb-4 cursor-pointer"
             onClick={() => router.push(link)}
           >{(linkText)?linkText:'Explore All'} <ChevronRightIcon
             className="inline-block w-4 h-4 text-[16px]" /></p>:null}

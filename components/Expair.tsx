@@ -9,7 +9,7 @@ interface TextHighlightProps {
 
 const TxtHL = ({children, style, className,} : TextHighlightProps) => {
     return (
-        <span className={`text-green-400 text-[12px] lg:text-xs lg:font-bold mx-1 ${className}`} style={style}> {children} </span>
+        <span className={`text-green-400 lg:font-bold mx-1 ${className}`} style={style}> {children} </span>
     )
 }
 
@@ -39,7 +39,7 @@ const EnititlementEndDate = ({endDate, short = true, base = 0.5} : EnititlementE
     }
 
     return (
-        <p className="flex flex-wrap items-center text-sm">
+        <p className="flex flex-wrap items-center text-[10px] lg:text-xs">
             <ClockIcon className="text-white w-[16px] h-[16px] mr-1"/> {Print}
         </p>
     )

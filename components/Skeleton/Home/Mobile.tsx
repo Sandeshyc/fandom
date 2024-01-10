@@ -4,114 +4,199 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const SkeletonHomeMobile = () => {
   return (
     <div className="bg-black h-screen">
-        <div className="pt-2 px-4 flex flex-wrap justify-between">
-            <div className='flex flex-wrap items-center pr-4'>
-                <div className="w-[50px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[50px]'/>
+        <div className={`fixed top-0 left-0 z-40 w-full py-4 bg-gradient-to-b from-black to-transparent`}>
+            <div className='px-4'>
+                <div className='flex items-center justify-center flex-wrap'>
+                    <div className='mr-4'>
+                        <div className="w-[90px] mr-2">
+                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[40px]'/>
+                        </div>
+                    </div>
+                    <div className='flex items-center'>
+                        <div className="w-[90px] mr-2">
+                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]'/>
+                        </div>
+                    </div>
                 </div>
-                <div className="w-[80px]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]' />
+            </div>
+        </div>
+        <div className='bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
+            <div className='pt-[85px]'>
+                <div className='flex items-center justify-center relative'>
+                    <div className="w-[55vw] absolute left-0"
+                    style={{
+                        transform: 'translateY(-50%)',
+                        top: '50%',
+                    }}>
+                        <Skeleton baseColor='#222' highlightColor='#555' className='aspect-[6/9] rounded-md'/>
+                    </div>
+                    <div className="w-[65vw] relative z-10 rounded-md">
+                        <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[6/9] rounded-md'/>
+                        <div className='absolute bottom-0 left-0 w-full p-2 pb-4 pt-12 bg-gradient-to-t from-black/60 from-60% to-transparent to-85% text-center'>
+                            <div className='w-[60%] mx-auto'>
+                                <Skeleton baseColor='#777' highlightColor='#aaa' className='h-[20px]'/>
+                            </div>
+                            <div className='flex justify-center mt-2'>
+                                <div className='w-[30px]'>
+                                    <Skeleton baseColor='#777' highlightColor='#aaa' className='h-[30px]' borderRadius={50}/>
+                                </div>
+                                <div className='w-[30px] mx-2'>
+                                    <Skeleton baseColor='#777' highlightColor='#aaa' className='h-[30px]' borderRadius={50}/>
+                                </div>
+                                <div className='w-[30px]'>
+                                    <Skeleton baseColor='#777' highlightColor='#aaa' className='h-[30px]' borderRadius={50}/>
+                                </div>
+                            </div>
+                    </div>
+                    </div>
+                    <div className="w-[55vw] absolute right-0"
+                    style={{
+                        transform: 'translateY(-50%)',
+                        top: '50%',
+                    }}>
+                        <Skeleton baseColor='#222' highlightColor='#555' className='aspect-[6/9] rounded-md'/>
+                    </div>
                 </div>
             </div>
-            <div className="w-[32px]">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[32px]' />
-            </div>
         </div>
-        <div className="pt-12 px-4">
-            <div className="w-[250px] pb-4">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[40px] w-full' />
-            </div>
-            <div className="w-[70%] pb-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[16px] w-full' />
-            </div>
-            <div className="w-[75%] pb-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[16px] w-full' />
-            </div>
-            <div className="w-[70%] pb-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[16px] w-full' />
-            </div>
-            <div className="w-[60%] pb-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[16px] w-full' />
-            </div>
-        </div>
-        <div className="pt-2 px-4 flex flex-wrap mb-8">
-            <div className="w-[100px] pr-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[38px] w-full' />                
-            </div>
-            <div className="w-[100px]">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[38px] w-full' />                
-            </div>
-        </div>
-        <div className="px-4 pb-8">
-            <div className="w-[40%] pb-2">
+        <div className="px-4 pb-8 mt-12">
+            <div className="w-[200px] pb-2">
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
             </div>
-            <div className='flex flex-wrap justify-between'>
-                <div className="w-[32%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
+            <div className='flex overflow-y-hidden overflow-x-auto'>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
                 </div> 
-                <div className="w-[32%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
-                </div>
-                <div className="w-[32%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
-                </div>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
             </div>
         </div> 
         <div className="px-4 pb-8">
-            <div className="w-[40%] pb-2">
+            <div className="w-[200px] pb-2">
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
             </div>
-            <div className='flex flex-wrap justify-between'>
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
+            <div className='flex overflow-y-hidden overflow-x-auto'>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
                 </div> 
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
-                </div>
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
-                </div>
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
-                </div>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
             </div>
         </div> 
         <div className="px-4 pb-8">
-            <div className="w-[40%] pb-2">
+            <div className="w-[200px] pb-2">
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
             </div>
-            <div className='flex flex-wrap justify-between'>
-                <div className="w-[32%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
+            <div className='flex overflow-y-hidden overflow-x-auto'>
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
                 </div> 
-                <div className="w-[32%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
                 </div>
-                <div className="w-[32%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
                 </div>
-            </div>
-        </div> 
-        <div className="px-4 pb-8">
-            <div className="w-[40%] pb-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
-            </div>
-            <div className='flex flex-wrap justify-between'>
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
+                </div>
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
+                </div>
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
+                </div>
+                <div className="min-w-[150px] w-[150px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[240/360] w-full' /> 
                 </div> 
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
-                </div>
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16] w-full' /> 
-                </div>
-                <div className="w-[24%]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[9/16]'/> 
-                </div>
             </div>
         </div>
+        <div className="px-4 pb-8">
+            <div className="w-[200px] pb-2">
+                <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
+            </div>
+            <div className='flex overflow-y-hidden overflow-x-auto'>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+            </div>
+        </div> 
+        <div className="px-4 pb-8">
+            <div className="w-[200px] pb-2">
+                <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
+            </div>
+            <div className='flex overflow-y-hidden overflow-x-auto'>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+            </div>
+        </div> 
+        <div className="px-4 pb-8">
+            <div className="w-[200px] pb-2">
+                <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
+            </div>
+            <div className='flex overflow-y-hidden overflow-x-auto'>
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+                <div className="min-w-[220px] w-[220px] mr-2">
+                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
+                </div> 
+            </div>
+        </div> 
     </div>
   )
 }

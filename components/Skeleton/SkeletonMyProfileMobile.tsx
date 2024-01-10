@@ -1,15 +1,11 @@
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import SkeletonHeader from './Header';
-import SkeletonMyProfileMobile from './SkeletonMyProfileMobile';
 const bgImage = 'url("/images/new-bg.png")';
-const SkeletonMyProfile = () => {
+const SkeletonMyProfileMobile = () => {
   return (
     <>
-      <div className='lg:hidden'>
-        <SkeletonMyProfileMobile/>
-      </div>
-      <div className="py-16 pt-28 min-h-[80vh] hidden lg:block"
+      <div className="py-16 pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
@@ -26,10 +22,10 @@ const SkeletonMyProfile = () => {
               <div className={`text-white max-w-[996px]`}>
                 <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[22%]`}>                
                   <div className="w-[200px]">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] lg:h-[40px] mb-4' />
+                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px] lg:h-[40px] mb-4' />
                   </div>
                   <div className={`mt-2 flex flex-wrap`}>
-                    <div className='w-[33%] pr-2'>
+                    <div className='w-[70%] md:w-[51%] pr-2'>
                       <div className="w-[120px] mb-1">
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[18px]' />
                       </div>
@@ -37,7 +33,7 @@ const SkeletonMyProfile = () => {
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[22px]' />
                       </div>
                     </div>
-                    <div className='w-[66%] pr-2'>
+                    <div className='w-[100%] md:w-[71%] pr-2'>
                       <div className="w-[120px] mb-1">
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[18px]' />
                       </div>
@@ -45,7 +41,7 @@ const SkeletonMyProfile = () => {
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[22px]' />
                       </div>
                     </div>
-                    <div className='w-[33%] pr-2'>
+                    <div className='w-[50%] md:w-[35%] pr-2'>
                       <div className="w-[120px] mb-1">
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[18px]' />
                       </div>
@@ -53,7 +49,7 @@ const SkeletonMyProfile = () => {
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[22px]' />
                       </div>
                     </div>
-                    <div className='w-[33%] pl-2'>
+                    <div className='w-[50%] md:w-[35%] pl-2'>
                       <div className="w-[120px] mb-1">
                         <Skeleton baseColor='#333' highlightColor='#666' className='h-[18px]' />
                       </div>
@@ -81,4 +77,4 @@ const SkeletonMyProfile = () => {
   )
 }
 
-export default SkeletonMyProfile
+export default SkeletonMyProfileMobile
