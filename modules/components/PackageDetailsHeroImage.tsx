@@ -28,7 +28,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     }, []);
     // console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
     return (<>
-        {(isMobile)?(<PackageDetailsHeroImageMobile data={data} hasMovieList={hasMovieList} movieListOfset={movieListOfset}/>):
+        {(isMobile)?(<PackageDetailsHeroImageMobile data={data}/>):
         <>
         <DetailsHeroBanner thumb={thumb}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">

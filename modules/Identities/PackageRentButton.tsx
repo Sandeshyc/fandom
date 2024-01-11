@@ -34,7 +34,7 @@ const PackageRentButton = ({
             style={styles}
         >Rent</button>):
         (<button
-            className="bg-black/60 border border-blue-600 text-white rounded-full py-1 px-3 w-[180px] text-base transition h-[44px] cursor-not-allowed">
+            className="bg-black/60 border border-white/70 text-white/60 rounded-full py-1 px-3 w-[180px] text-base transition h-[44px] cursor-not-allowed">
               Purchased           
             </button>)}
         <Modal

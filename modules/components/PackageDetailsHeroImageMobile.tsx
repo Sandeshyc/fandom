@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {DetailsHeroBanner} from '@/modules/components/DetailsHeroImage';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import PackageRentButtonMobile from '@/modules/Identities/PackageRentButtonMobile';
@@ -7,11 +7,18 @@ import WarningMessage from '@/modules/Identities/WarningMessage';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 type Props = {
     data: any;
-    movieListOfset: number;
-    hasMovieList: boolean;
 }
-const PackageDetailsHeroImageMobile = ({data, movieListOfset, hasMovieList}:Props) => {
+const PackageDetailsHeroImageMobile = ({data}:Props) => {
+    const [hasMovieList, setHasMovieList] = React.useState(false);
+    const [movieListOfset, setMovieListOfset] = React.useState(0);
     const thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
+    useEffect(() => {
+        const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
+        if((movieListHeroBanner !== null) && (movieListHeroBanner !== undefined) && (movieListHeroBanner !== '')){
+            setHasMovieList(true);
+            setMovieListOfset((movieListHeroBanner?.getBoundingClientRect()?.top || 0) + window.scrollY);
+        }
+    }, []);
     return (<>
         <DetailsHeroBanner thumb={thumb}/>
         <MovieSummary data={data}/>

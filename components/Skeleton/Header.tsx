@@ -4,8 +4,23 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const SkeletonHeader = () => {
   return (
     <>
-    <div 
-      className={`w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b from-black/40 from-70% to-transparent to-100%`}>
+    <div className={`lg:hidden fixed top-0 left-0 z-40 w-full py-4 bg-gradient-to-b from-black to-transparent`}>
+        <div className='px-4'>
+            <div className='flex items-center justify-center flex-wrap'>
+                <div className='mr-4'>
+                    <div className="w-[90px] mr-2">
+                        <Skeleton baseColor='#333' highlightColor='#666' className='h-[40px]'/>
+                    </div>
+                </div>
+                <div className='flex items-center'>
+                    <div className="w-[90px] mr-2">
+                        <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div className={`w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b from-black/40 from-70% to-transparent to-100% hidden lg:block`}>
         <div
         className='px-4'>
             <div className='flex items-center justify-between flex-wrap'>

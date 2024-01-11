@@ -107,9 +107,11 @@ const ShareBtnGroup = ({data}:dataProps) => {
                         fontSize: 28,
                         color: '#ccc',
                     }}
-                />} 
+                />}
                 label='Share' 
-                handelClick={() => {}}/>
+                handelClick={() => {
+                    console.log('Share');
+                }}/>
         </div>
     </>);
 };
