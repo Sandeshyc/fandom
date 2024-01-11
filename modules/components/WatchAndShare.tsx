@@ -13,7 +13,28 @@ import {ReportProblem} from '@mui/icons-material';
 import useIsMobile from '@/hooks/useIsMobile';
 import WatchAndBuy from '@/modules/components/WatchAndBuy';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
-
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    GabShareButton,
+    HatenaShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    OKShareButton,
+    PinterestShareButton,
+    PocketShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    ViberShareButton,
+    VKShareButton,
+    WhatsappShareButton,
+    WorkplaceShareButton,
+  } from "react-share";
 type dataProps = {
     data: any;
 }
@@ -56,10 +77,16 @@ const MovieSummary = ({data}:dataProps) => {
             onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
             type='white'><RestartAlt className="w-6 text-black mr-2" /> Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}</>:null}
             <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
-            <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
-            <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
-                <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
-            </div>
+                <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
+                <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
+                    <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
+                </div>
+                <FacebookShareButton 
+                    url={`https://qa-psr-tickets-web.abs-cbn.com/`}
+                    title={'Hello World'}
+                    className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
+                    Test Facebook
+                </FacebookShareButton>
             </div>
         </div>
     </div>}</>);

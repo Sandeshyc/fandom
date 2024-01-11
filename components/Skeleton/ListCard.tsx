@@ -16,8 +16,11 @@ const SkeletonListCard = ({
                     <div className="w-[40%] relative">
                         <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[16/9] w-full rounded-md' />
                     </div>
-                    <div className="w-[58%] pt-1 pr-4">
-                        <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[20/1] w-[80%] mb-1' count={3}/>
+                    <div className="w-[58%] pt-0 pr-4 pb-1">
+                        <Skeleton baseColor='#333' highlightColor='#666' className='w-[80%] h-[10px]' count={2}/>
+                        <div className="w-[80px]">
+                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[25px]' borderRadius={50}/>
+                        </div>
                     </div>
                 </div>
             </div>
