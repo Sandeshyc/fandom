@@ -10,13 +10,17 @@ import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
 import Buttons from '@/components/identites/Buttons';
 import FavoriteButton from '@/components/FavoriteButton';
 import { ShareIcon } from '@heroicons/react/24/solid';
-
+import SocialShare from '@/modules/elements/SocialShare';
 type Props = {
   data: any;
   isComplited: any;
 };
 const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const handleToggle = () => {
+    setOpen(!open);
+  }
   return (
     <div className={`relative billboardSec`}>
       <div
@@ -70,9 +74,19 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
               isInWatchList={data?.isInWatchList}
               innerClass='text-white'
           />
-          <div className="cursor-pointer group/item w-8 h-8 flex justify-center items-center transition bg-[#fff]/30 hover:bg-[#fff]/40 rounded-full">
-              <ShareIcon className="text-white group-hover/item:text-neutral-300 w-4" />
-          </div>
+            {(data?._id)?<>
+              <button 
+                  onClick={handleToggle}
+                  className="cursor-pointer group/item w-8 h-8 flex justify-center items-center transition bg-[#fff]/30 hover:bg-[#fff]/40 rounded-full">
+                  <ShareIcon className="text-white group-hover/item:text-neutral-300 w-4" />
+              </button>
+              <SocialShare 
+                  open={open}
+                  setOpen={setOpen}
+                  url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
+                  title={data?.title}
+              />
+          </>:null}
         </div>
       </div>
     </div>

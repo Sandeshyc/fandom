@@ -8,6 +8,7 @@ import PlayButtonSmall from '@/components/PlayButtonSmall';
 import FavoriteButton from '@/components/FavoriteButton';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import { ShareIcon } from '@heroicons/react/24/solid';
+import SocialShare from '@/modules/elements/SocialShare';
 let settings = {
     dots: false,
     arrows: false,
@@ -43,6 +44,10 @@ type CarouselItemProps = {
 const CarouselItem = ({item}:CarouselItemProps) => {
     const thumb = item?.thumbnailPotrait || item?.thumbnailUrl;
     const router = useRouter();
+    const [open, setOpen] = React.useState(false);
+    const handleToggle = () => {
+        setOpen(!open);
+    }
     return (<div className='w-full aspect-[6/9] bg-zinc-900 rounded-md relative' >
         {(item?.allowed)?<PurchaseBadge 
         className='!w-[100px] text-center rounded-br-xl rounded-tr-none'
@@ -72,9 +77,19 @@ const CarouselItem = ({item}:CarouselItemProps) => {
                     }}
                     innerClass='text-white'
                 />
-                <div className="cursor-pointer group/item w-8 h-8 flex justify-center items-center transition bg-[#fff]/30 hover:bg-[#fff]/40 rounded-full">
-                    <ShareIcon className="text-white group-hover/item:text-neutral-300 w-4" />
-                </div>
+                {(item?._id)?<>
+                    <button 
+                        onClick={handleToggle}
+                        className="cursor-pointer group/item w-8 h-8 flex justify-center items-center transition bg-[#fff]/30 hover:bg-[#fff]/40 rounded-full">
+                        <ShareIcon className="text-white group-hover/item:text-neutral-300 w-4" />
+                    </button>
+                    <SocialShare 
+                        open={open}
+                        setOpen={setOpen}
+                        url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${item?._id}`}
+                        title={item?.title}
+                    />
+                </>:null}
             </div>
         </div>
     </div>);

@@ -8,6 +8,7 @@ import {
     Share,
     Celebration,
 } from '@mui/icons-material';
+import SocialShare from '@/modules/elements/SocialShare';
 
 type dataProps = {
     data: any;
@@ -16,6 +17,10 @@ const ShareBtnGroup = ({data}:dataProps) => {
     const [userId, setUserId] = React.useState('');
     const [isInLish, setIsInLish] = React.useState(data?.isInWatchList);
     const movieId = data?._id;
+    const [open, setOpen] = React.useState(false);
+    const handleToggle = () => {
+        setOpen(!open);
+    }
     const toggleFavorites = async () => {
         const checkUserID = async () => {
           if(!userId) {
@@ -101,7 +106,8 @@ const ShareBtnGroup = ({data}:dataProps) => {
                 handelClick={() => {
                     toggleFavorites();
                 }}/>
-            <ShareItem 
+            {(data?._id)?<>
+              <ShareItem 
                 icon={<Share
                     sx={{
                         fontSize: 28,
@@ -109,9 +115,15 @@ const ShareBtnGroup = ({data}:dataProps) => {
                     }}
                 />}
                 label='Share' 
-                handelClick={() => {
-                    console.log('Share');
-                }}/>
+                handelClick={handleToggle}/>
+                  
+                  <SocialShare 
+                      open={open}
+                      setOpen={setOpen}
+                      url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
+                      title={data?.title}
+                  />
+              </>:null}
         </div>
     </>);
 };
