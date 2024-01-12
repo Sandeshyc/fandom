@@ -4,6 +4,7 @@ import useProfile from '@/hooks/useProfile';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import {
     Search,
+    CloseOutlined,
     Home,
     Insights,
     Movie,
@@ -16,6 +17,7 @@ import {
     CreditCard, 
     NotificationsOutlined
 } from '@mui/icons-material';
+import SearchBoxMobile from '@/modules/elements/SearchBoxMobile';
 
 type Props = {
     isCollapseOpen: boolean;
@@ -24,6 +26,7 @@ type Props = {
 const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {    
     const router = useRouter();
     const [userid, setUserid] = React.useState('');
+    const [isSearchOpen, setIsSearchOpen] = React.useState(false);
     const [displayName, setDisplayName] = React.useState('');
 
     const { data: profile, isLoading } = useProfile(userid);
@@ -108,12 +111,15 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
             </div> 
             <div className="overflow-y-auto overflow-x-hidden h-full pb-8">
                 <NavItem
-                icon={<Search />}
+                icon={(isSearchOpen)?<CloseOutlined />:<Search />}
                 label={'Search'}
                 handleClick={() => {
-                    router.push('');
+                    setIsSearchOpen(!isSearchOpen);
                 }}
                 activeRoute=''/>
+                <SearchBoxMobile 
+                isOpened={isSearchOpen}
+                />
                 <NavItem
                 icon={<Home />}
                 label={'Home'}

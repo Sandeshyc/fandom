@@ -16,7 +16,7 @@ const Notification = () => {
                 }}/>
                 <span
                 className='font-semibold text-white'>
-                    0                          
+                    13                          
                 </span>
             </Menu.Button>
             <Transition

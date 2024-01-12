@@ -57,7 +57,7 @@ const Navbar = () => {
               <div className='flex items-center justify-end'>
                   <div className=''>
                     <div className='flex flex-row items-center'>
-                      <div className='mr-6'>
+                      <div className='mr-6 relative'>
                         <SearchBox/>
                         {/* <Search
                         sx={{

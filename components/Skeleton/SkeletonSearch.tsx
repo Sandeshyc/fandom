@@ -3,9 +3,9 @@ import SearchCard from './SearchCard'
 const SkeletonSearch = () => {
   return (
     <>
-      <div className="lg:px-6 pb-6 flex flex-wrap">
-        <SearchCard count={12}/>
-      </div>
+    <div className="flex flex-wrap mx-[-5px]">
+        <SearchCard count={6}/>
+    </div>
     </>
   )
 }

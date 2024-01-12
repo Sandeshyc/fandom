@@ -1,16 +1,16 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import SideBar from '@/components/SideBar'
 import useSearchMovies from '@/hooks/useSearchMovies';
-import MovieCardSearch from '@/components/MovieCardSearch';
+import MovieCardReel from '@/modules/elements/MovieCardReel';
 import { Info } from '@mui/icons-material';
 import { stableKeys } from '@/utils/stableKeys';
 import SkeletonSearch from '@/components/Skeleton/SkeletonSearch';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
-import { set } from 'lodash';
-
-const Search = (props) => {
+import NavigationHome from '@/modules/elements/NavigationHome';
+import Footer from '@/components/Footer';
+const bgImage = 'url("/images/new-bg.png")';
+const Search = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();
   const [userIdToken, setUserIdToken] = React.useState('');
@@ -29,7 +29,7 @@ const Search = (props) => {
   const [author, setAuthor] = React.useState('');
   const [offset, setOffset] = React.useState(0);  
 
-  const submitSearch = (e) => {
+  const submitSearch = (e:any) => {
     e.preventDefault();
     if(title === '' || title === undefined || title === null) {
       setIsInvalid(true);      
@@ -91,20 +91,20 @@ const Search = (props) => {
     }
 
   }, [allParams]);
-
-
-  // useEffect(() => {
-  //   setQueryString(`title=${title}&genre=${genre}&contentType=${contentType}&page=${page}&limit=${limit}&pageSize=${pageSize}&author=${author}&offset=${offset}&cast=${cast}`);
-  // }, [title, genre, contentType, page, limit, pageSize, author, offset, cast]);
   
   return (
     <>
-      {(isReady) ? (<><SideBar />
-      <div className="py-16">
-        <div className={`px-4 md:px-12 mb-[3vw]`}>
+      <div className="py-16 lg:pt-28 text-white"
+      style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% auto',
+        backgroundPosition: 'right '+ 30 + '%',
+      }}>
+        <NavigationHome />
+        <div className={`px-4 mb-[3vw] min-h-[75vh] container mx-auto`}>
           <div className="movieSliderInner">
-            <p className="text-white text-xl md:text-2xl font-semibold mb-4 lg:pl-6">Result of "{searchKeyWord}"</p>
-            <div className='w-full lg:px-6 mb-4'>
+            <div className='w-full  mb-4'>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -131,7 +131,7 @@ const Search = (props) => {
                   <button 
                     type='button'
                     onClick={() => setOpenFilter(!openFilter)}
-                    className='w-[150px] mb-2 px-[7px] bg-[#eee] text-[#222] rounded-sm px-4 py-2 focus:outline-none  focus:border-transparent flex justify-between items-center ml-[7px]'>
+                    className='w-[150px] mb-2 bg-[#eee] text-[#222] rounded-sm px-4 py-2 focus:outline-none  focus:border-transparent flex justify-between items-center ml-[7px] lg:hidden'>
                     Filter <TuneIcon className="text-[#222] w-4 h-4 ml-2" />
                   </button>
                   <div className={`flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>                    
@@ -180,13 +180,18 @@ const Search = (props) => {
                   </div>
               </form>
             </div>
-
-            <div className="lg:px-6 flex flex-wrap">
-            {(!isLoading)?((Array.isArray(movies?.list) && movies?.list?.length > 0)?(movies?.list?.map((item: any, index) => <MovieCardSearch data={item} key={stableKeys[index]}/>)):<NoMovies searchKeyWord={searchKeyWord}/>):<SkeletonSearch/>}
+            <p className="text-white text-xl md:text-2xl font-semibold mb-4">Result of "{searchKeyWord}"</p>
+            {(isReady && !isLoading) ? (<>     
+            <div className="flex flex-wrap mx-[-5px]">
+              {((Array.isArray(movies?.list) && movies?.list?.length > 0)?
+              (movies?.list?.map((item: any, index:number) => <div className='w-full sm:w-1/2 2xl:w-1/3 px-2 mb-4'><MovieCardReel key={stableKeys[index]} data={item} portrait={false} gradient={false}/></div>)):
+              <NoMovies/>)}
             </div>
+            </>) : <SkeletonSearch/>}
           </div>
         </div>
-      </div></>) : null}
+        <Footer/>
+      </div>
     </>
   )
 }
@@ -196,15 +201,13 @@ export default Search;
 type NoMoviesProps = {
   searchKeyWord: boolean;
 }
-const NoMovies = ({searchKeyWord}:NoMoviesProps) => {
+const NoMovies = () => {
   return (
     <>
-    {
-      (searchKeyWord)?(<div className="flex flex-col items-center justify-center w-[450px] max-w-full bg-gray-600 p-8 rounded-md">
+    {(<div className="flex flex-col items-center justify-center w-[450px] max-w-full bg-gray-600 p-8 rounded-md">
       <Info className="w-[100px] h-[100px] text-yellow-500 mb-4 text-xl" />
       <p className="text-white text-2xl">No movies found!</p>
-    </div>):null
-    }
+    </div>)}
     </>
   )
 }

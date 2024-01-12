@@ -3,13 +3,11 @@ import { useRouter } from 'next/router';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {SearchIcon} from '@/utils/CustomSVGs';
-import {
-  CloseOutlined
-} from '@mui/icons-material';
-
-const SearchBox = () => {
+type Props = {
+  isOpened: boolean;
+}
+const SearchBoxMobile = ({isOpened}:Props) => {
     const router = useRouter();
-    const [isOpened, setIsOpened] = React.useState(false);
 
     const schema = Yup.object().shape({
       title: Yup.string().required("Movie, Event is required")
@@ -35,12 +33,12 @@ const SearchBox = () => {
 
     return(<>
         <div
-          className={`w-[700px] py-3 px-4 bg-gray-800 rounded-md absolute top-[100%] right-[-25px] z-50 ${(isOpened)?'block':'hidden'} `}>
+          className={`w-full bg-gray-800 rounded-md mb-6 ${(isOpened)?'block':'hidden'} `}>
           <form onSubmit={handleSubmit} method="POST"
-            className={`w-full text-white bg-black rounded-lg focus:outline-none flex border-2 border-white relative`}>
+            className={`w-full text-white bg-black rounded-lg focus:outline-none flex border border-white relative`}>
             <input
               type="text" 
-              className="w-full bg-transparent text-white  px-4 py-2 focus:outline-none focus:border-transparent pr-[60px] h-16" 
+              className="w-full bg-transparent text-white  px-4 py-2 focus:outline-none focus:border-transparent pr-[60px] h-12" 
               placeholder="Search Movies, Events..."
               name="title"
               value={values.title}
@@ -55,15 +53,8 @@ const SearchBox = () => {
           </form>
           {(errors.title && touched.title)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.title}</p>:null}
         </div>
-        <span
-            className='cursor-pointer'
-            onClick={() => {
-                setIsOpened(!isOpened);
-            }}>
-            {(isOpened)?(<CloseOutlined/>):(<SearchIcon/>)}
-        </span>
       </>
     );
 }
 
-export default SearchBox;
+export default SearchBoxMobile;
