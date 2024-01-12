@@ -4,6 +4,7 @@ import NavItem from '@/components/navbar/NavItem';
 import ProfileDropDown from '@/components/navbar/ProfileDropDown';
 import SearchBox from '@/components/navbar/SearchBox';
 import {Notifications, Search} from '@mui/icons-material';
+import Notification from '@/modules/elements/Notification';
 
 const logoSrc = '/images/logonew.png';
 const Navbar = () => {
@@ -77,6 +78,7 @@ const Navbar = () => {
                           0                          
                         </span>
                       </div>
+                      <Notification/>
                       <ProfileDropDown/>
                     </div>
                   </div>

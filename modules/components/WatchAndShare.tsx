@@ -13,13 +13,18 @@ import {ReportProblem} from '@mui/icons-material';
 import useIsMobile from '@/hooks/useIsMobile';
 import WatchAndBuy from '@/modules/components/WatchAndBuy';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
+import SocialShare from '@/modules/elements/SocialShare';
 
 type dataProps = {
     data: any;
 }
 const MovieSummary = ({data}:dataProps) => {
+    const [open, setOpen] = React.useState(false);
     const router = useRouter();
     const isMobile = useIsMobile();
+    const handleToggle = () => {
+        setOpen(!open);
+    }
     return (<>{(isMobile)?(<>
     <WatchAndBuy data={data}/>
     <div className='px-4'>
@@ -56,10 +61,20 @@ const MovieSummary = ({data}:dataProps) => {
             onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
             type='white'><RestartAlt className="w-6 text-black mr-2" /> Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}</>:null}
             <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
-            <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
-            <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
-                <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
-            </div>
+                <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
+                {(data?._id)?<>
+                    <button 
+                        onClick={handleToggle}
+                        className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
+                        <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
+                    </button>
+                    <SocialShare 
+                        open={open}
+                        setOpen={setOpen}
+                        url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
+                        title={data?.title}
+                    />
+                </>:null}
             </div>
         </div>
     </div>}</>);

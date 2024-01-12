@@ -9,10 +9,15 @@ import WarningMessage from '@/modules/Identities/WarningMessage';
 import {DetailsHeroBanner} from '@/modules/components/DetailsHeroImage';
 import PackageDetailsHeroImageMobile from '@/modules/components/PackageDetailsHeroImageMobile';
 import useIsMobile from '@/hooks/useIsMobile';
+import SocialShare from '@/modules/elements/SocialShare';
 type Props = {
     data: any;
 }
 const PackageDetailsHeroImage = ({data}:Props) => {
+    const [open, setOpen] = React.useState(false);
+    const handleToggle = () => {
+        setOpen(!open);
+    }
     const [hasMovieList, setHasMovieList] = React.useState(false);
     const [movieListOfset, setMovieListOfset] = React.useState(0);
     const movieId = data?._id || '';
@@ -75,9 +80,19 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                     </>:null}
                 <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
                     <FavoriteButton movieId={movieId} isInWatchList={data?.isInWatchList}/>
-                    <div className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
-                        <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
-                    </div>
+                    {(data?._id)?<>
+                        <button 
+                            onClick={handleToggle}
+                            className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
+                            <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
+                        </button>
+                        <SocialShare 
+                            open={open}
+                            setOpen={setOpen}
+                            url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
+                            title={data?.title}
+                        />
+                    </>:null}
                 </div>
             </div>
         </div>
