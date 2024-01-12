@@ -94,7 +94,7 @@ const Search = (props:any) => {
   
   return (
     <>
-      <div className="py-16 lg:pt-28 text-white"
+      <div className="py-16 lg:pt-32 text-white"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
@@ -104,7 +104,7 @@ const Search = (props:any) => {
         <NavigationHome />
         <div className={`px-4 mb-[3vw] min-h-[75vh] container mx-auto`}>
           <div className="movieSliderInner">
-            <div className='w-full  mb-4'>
+            <div className='w-full mb-4'>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -113,10 +113,10 @@ const Search = (props:any) => {
                 className="flex flex-wrap mx-[-7px]">
                   <div className='w-full mb-2 px-[7px]'>
                     <div 
-                      className={`bg-gray-700 text-white rounded-md flex w-[300px] sm:w-[450px] max-w-full ${(isInvalid && !title)?'border-red-800 border shadow  shadow-orange-700':''}`}>
+                      className={`bg-gray-700 text-white rounded-md flex w-full lg:w-[855px] max-w-full ${(isInvalid && !title)?'border-red-800 border shadow  shadow-orange-700':''}`}>
                       <input 
                         type="text" 
-                        className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px] " 
+                        className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px] h-[50px] lg:h-[60px]" 
                         placeholder="Search title here" 
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
@@ -134,7 +134,18 @@ const Search = (props:any) => {
                     className='w-[150px] mb-2 bg-[#eee] text-[#222] rounded-sm px-4 py-2 focus:outline-none  focus:border-transparent flex justify-between items-center ml-[7px] lg:hidden'>
                     Filter <TuneIcon className="text-[#222] w-4 h-4 ml-2" />
                   </button>
-                  <div className={`flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>                    
+                  <div className={`flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>    
+                    <div className='w-[150px] mb-2 px-[7px]'>
+                      <select 
+                      defaultValue={genre}
+                      onChange={(e) => setGenre(e.target.value)}
+                      className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
+                        <option value="">Genre</option>
+                        <option value="comedy">Comedy</option> 
+                        <option value="drama">Drama</option> 
+                        <option value="romance">Romance</option>
+                      </select>
+                    </div>                
                     <div className='w-[200px] mb-2 px-[7px]'>
                       <input 
                       type="text" 
@@ -152,19 +163,8 @@ const Search = (props:any) => {
                       value={cast}
                       onChange={(e) => setCast(e.target.value)}
                       />
-                    </div>
-                    <div className='w-[150px] mb-2 px-[7px]'>
-                      <select 
-                      defaultValue={genre}
-                      onChange={(e) => setGenre(e.target.value)}
-                      className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                        <option value="">Genre</option>
-                        <option value="comedy">Comedy</option> 
-                        <option value="drama">Drama</option> 
-                        <option value="romance">Romance</option>
-                      </select>
-                    </div>
-                    <div className='w-[150px] mb-2 px-[7px]'>
+                    </div>                    
+                    <div className='w-[170px] mb-2 px-[7px]'>
                       <select 
                       defaultValue={contentType}
                       onChange={(e) => setContentType(e.target.value)}

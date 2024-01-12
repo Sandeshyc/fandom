@@ -55,6 +55,11 @@ const SearchBox = () => {
           </form>
           {(errors.title && touched.title)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.title}</p>:null}
         </div>
+        <div className={`fixed top-0 left-0 z-10 w-full h-full ${(isOpened)?'block':'hidden'}`}
+        onClick={() => {
+          setIsOpened(false);
+        }}
+        ></div>
         <span
             className='cursor-pointer'
             onClick={() => {

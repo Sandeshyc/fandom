@@ -60,8 +60,11 @@ const Notification = () => {
 export default Notification;
 
 const Item = () => {
+    const [isRead, setIsRead] = useState(false);
     return (
-    <button className={`flex flex-wrap justify-between mb-8 w-full bg-[#101010] relative ${(1)?'pr-2':''}`}>
+    <button 
+    onClick={() => setIsRead(true)}
+    className={`flex flex-wrap justify-between mb-8 w-full bg-[#101010] relative ${(!isRead)?'pr-2':''}`}>
         <div className='w-[145px]'>
             <img src="https://absprod-static.iwanttfc.com/c/6/images/Enl2NPvzQ1UrsGO12ZePSg.jpg" alt="Movie Name" />
         </div>
@@ -70,7 +73,7 @@ const Item = () => {
             <p className='text-xs text-[#A7A7A9] mb-1 line-clamp-2'>Update your iWantTFC App to access new features and get...</p>
             <p className='text-xs text-[#A7A7A9]'>2 Hours ago</p>
         </div>
-        {(1)?(<Circle sx={{
+        {(!isRead)?(<Circle sx={{
             fontSize: 10,
             color: '#007DFB',
             position: 'absolute',
