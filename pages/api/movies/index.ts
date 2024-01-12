@@ -18,6 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     // await serverAuth(req, res);
     const ipAddress = req.headers["x-forwarded-for"] as string;
+    console.log('ipAddress ', ipAddress)
     // const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
@@ -26,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let region = '';
     if (ipAddress) {
       try {
+        
         const ipAdds = ipAddress.split(',')
         const ipURL = `https://geoip.kapamilya.com/api/location/${ipAdds[0]}?api-version=1.0`
         const {data} = await axios.get(ipURL);
@@ -46,6 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if( !userID ){
       return res.status(200).json([]);
     }
+    console.log(url)
     const moviesRes = await axios.get(url);
     const movies = moviesRes.data;
     return res.status(200).json(movies);

@@ -262,7 +262,7 @@ const PlanCard = ({
         <p className='mb-0 text-white/60 text-sm'>Price:</p>
         <p className='mb-4'>
             <span className='text-white text-[32px] font-medium'
-            >{item?.price}</span>
+            >{item?.price} {item?.currency ?? ''}</span>
           </p>
           {(item?.bought)?(<><button
           className="
