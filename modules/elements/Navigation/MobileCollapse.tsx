@@ -13,7 +13,8 @@ import {
     HelpOutline,
     Logout,  
     Close,
-    CreditCard
+    CreditCard, 
+    NotificationsOutlined
 } from '@mui/icons-material';
 
 type Props = {
@@ -163,6 +164,13 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     router.push('/mycard');
                 }}
                 activeRoute='/mycard'/>
+                <NavItem
+                icon={<NotificationsOutlined />}
+                label={'Notifications'}
+                handleClick={() => {
+                    router.push('/notifications');
+                }}
+                activeRoute=''/>
                 <br />
                 <NavItem
                 icon={<HelpOutline />}

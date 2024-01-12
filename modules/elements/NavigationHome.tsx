@@ -6,6 +6,7 @@ import SearchBox from '@/components/navbar/SearchBox';
 import {Notifications, Search} from '@mui/icons-material';
 import useIsMobile from '@/hooks/useIsMobile';
 import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
+import Notification from '@/modules/elements/Notification';
 const logoSrc = '/images/logonew.png';
 const NavigationHome = () => {
   const router = useRouter();
@@ -63,18 +64,7 @@ const NavigationHome = () => {
                       <div className='mr-6'>
                         <SearchBox/>
                       </div>
-                      <div className='flex items-center px-4 py-1 border-2 border-blue-500 rounded-[20px] mr-6'>
-                        <Notifications
-                        sx={{
-                          fontSize: 25,
-                          color: '#fff',
-                          marginRight: '10px'
-                        }}/>
-                        <span
-                        className='font-semibold text-white'>
-                          0                          
-                        </span>
-                      </div>
+                      <Notification/>
                       <ProfileDropDown/>
                     </div>
                   </div>

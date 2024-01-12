@@ -29,9 +29,18 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   const [userId, setUserId] = React.useState('');
   
   const { data } = useMoviePopupStore();
-  const redirectToWatch = useCallback(() => {
+  const redirectToRent = useCallback(() => {
     handleClose(null);
     router.push(`/details/${data?._id}?viewPlan=true`);
+  }, [router, data?._id]);
+  const redirectToDetails = useCallback(() => {
+    handleClose(null);
+    router.push(`/details/${data?._id}`);
+  }, [router, data?._id]);
+
+  const redirectToWatch = useCallback(() => {
+    handleClose(null);
+    router.push(`/watch/${data?._id}`);
   }, [router, data?._id]);
 
   const removeContinueWatch = useCallback(() => {
@@ -157,7 +166,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
           />
           <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
           style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-          onClick={redirectToWatch}>
+          onClick={redirectToDetails}>
             {data?.videoUrl ? <div className='relative h-0 w-full pt-[56.56%]'>
               <div className='absolute top-0 left-0 w-full h-full'>
                 <ReactVideoPlayer 
@@ -202,7 +211,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               {data?.allowed? (
                 <Buttons onClick={redirectToWatch} type='white'>Play Now</Buttons>
               ) : (
-                <Buttons onClick={redirectToWatch}>Rent</Buttons>
+                <Buttons onClick={redirectToRent}>Rent</Buttons>
               )}
 
             </div>
