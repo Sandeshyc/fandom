@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import {
     HomeOutlined,
@@ -7,10 +7,16 @@ import {
     MoreHoriz,
 } from '@mui/icons-material';
 import MobileCollapse from '@/modules/elements/Navigation/MobileCollapse';
+import { set } from 'lodash';
 
 const BottomNavigation = () => {
     const router = useRouter();
-    const [isCollapseOpen, setIsCollapseOpen] = useState(false);
+    const [isCollapseOpen, setIsCollapseOpen] = useState(false);    
+    
+    useEffect(() => {
+        setIsCollapseOpen(false);
+    }, [router.asPath]);
+
     return (
         <>
         {(isCollapseOpen)?<MobileCollapse 

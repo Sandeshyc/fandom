@@ -93,7 +93,7 @@ const ProfileDropDown = () => {
                     className="absolute text-[16px] right-0 z-20 mt-2 w-[360px] origin-top-right rounded-md bg-white text-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="p-4">
                         <div className='flex items-center'>
-                            <div className='transition w-[64px] h-[64px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF] mr-[10px]'>
+                            <div className='transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF] mr-[10px]'>
                                 <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                             </div>
                             <div>
