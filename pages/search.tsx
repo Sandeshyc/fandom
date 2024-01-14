@@ -184,7 +184,7 @@ const Search = (props:any) => {
             {(isReady && !isLoading) ? (<>     
             <div className="flex flex-wrap mx-[-5px]">
               {((Array.isArray(movies?.list) && movies?.list?.length > 0)?
-              (movies?.list?.map((item: any, index:number) => <div className='w-full sm:w-1/2 2xl:w-1/3 px-2 mb-4'><MovieCardReel key={stableKeys[index]} data={item} portrait={false} gradient={false}/></div>)):
+              (movies?.list?.map((item: any, index:number) => <div className='w-full sm:w-1/2 lg:w-1/3 2xl:1/4 px-2 mb-4'><MovieCardReel key={stableKeys[index]} data={item} portrait={false} gradient={false}/></div>)):
               <NoMovies/>)}
             </div>
             </>) : <SkeletonSearch/>}
