@@ -13,20 +13,22 @@ import { stableKeys } from '@/utils/stableKeys';
 import AudioMute from '@/modules/elements/AudioMute';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import Buttons from '@/components/identites/Buttons';
-import {CloseOutlined} from '@mui/icons-material';
+import {CloseOutlined, LoopOutlined} from '@mui/icons-material';
 
 interface movieSmallModalProps {
   visible?: boolean;
   onClose: any;
+  reelItem?: any;
 }
 
-const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) => {
+const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, reelItem}) => {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const [isMute, setIsMute] = React.useState(true);
   const thumbRef = React.useRef<HTMLDivElement>(null);
   const [boxHeight , setBoxHeight] = useState(0);
   const [userId, setUserId] = React.useState('');
+  const [isDeleting, setIsDeleting] = React.useState(false);
   
   const { data } = useMoviePopupStore();
   const redirectToRent = useCallback(() => {
@@ -43,7 +45,11 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     router.push(`/watch/${data?._id}`);
   }, [router, data?._id]);
 
-  const removeContinueWatch = useCallback(() => {
+  useEffect(() => {
+    setIsDeleting(false);
+  }, [data]);
+
+  const removeContinueWatch = () => {
     // Remove Box from Continue Watching List
     const removeContinueWatchItem = () => {
       const headers = {
@@ -53,18 +59,32 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
         itemCode: data?._id,
       };
       let result;
+      // Remove from Continue Watching List
+      
+      // const reelOuterBox = data?.thumbOuter?.closest('.slick-slide') || data?.thumbOuter;
+      // if(reelOuterBox) {
+      //   reelOuterBox.classList.add('opacity-0');
+      //   setTimeout(() => {
+      //     reelOuterBox.remove();
+      //   }, 400);
+      //   // refresh slick slider
+      //   data?.sliderRef?.current?.slickNext() || data?.sliderRef?.current?.slickPrev();
+
+      // }
       axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
-        .then(response => {
-          console.log('response: ', response);
-          if(response.status === 200) {
-            result = response.data;
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        }); 
+      .then(response => {
+        // console.log('response: ', response);
+        if(response.status === 200) {
+          result = response.data;
+          handleClose(null);
+          data?.setRemovedItem(data?._id);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      }); 
     }
-    console.log('data Remove:', data);
+    // console.log('data Remove:', data);
     if(!userId){
       const userInfo = window.localStorage.getItem('userInfo');
       if(userInfo) {
@@ -78,7 +98,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
       removeContinueWatchItem();
     }
     
-  }, [data?._id]);
+  };
 
   let zoomScale = 1;
   if(data?.xy?.width && data?.xy?.thumbW && data?.xy?.width>0 && data?.xy?.thumbW > 0){
@@ -92,12 +112,12 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
   }, [visible]);
 
   useEffect(() => {
-    const moveLayers = (e) => {
+    const moveLayers = (e:any) => {
       if(isVisible){
         if(e.target.closest('.movieSmallModal') || e.target.classList.contains('movieSmallModal')){
-          console.log('This is ');
+          // console.log('This is ');
         }else{
-          console.log('This is not');
+          // console.log('This is not');
           setIsVisible(false);
           setTimeout(() => {
             onClose();
@@ -123,7 +143,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     }
   }, []);
 
-  const handleClose = useCallback((e) => {
+  const handleClose = useCallback((e:any) => {
     // if(e.target.dataset?.button !== 'close') return;
 
     // console.log('close');
@@ -142,6 +162,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
     return null;
   }
   
+
   
 
   return (
@@ -203,8 +224,13 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose}) =>
               </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
-            {(data?.currentTime)?<button title='Remove from Row' onClick={removeContinueWatch} className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
-                <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
+            {(data?.currentTime)?<button title='Remove from Row' onClick={(e) => {
+              if(isDeleting) return;
+              removeContinueWatch();
+              setIsDeleting(true);
+            }}
+            className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>                
+                {(isDeleting)?(<LoopOutlined className={`text-white w-6 animate-spin`} />):(<CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />)}
               </button>:null}
               <FavoriteButton movieId={data?._id || '0'} isInWatchList={data?.isInWatchList}/>
 

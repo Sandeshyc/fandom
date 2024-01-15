@@ -1,7 +1,7 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useSearchMovies from '@/hooks/useSearchMovies';
-import MovieCardReel from '@/modules/elements/MovieCardReel';
+import MovieCardSearch from '@/modules/elements/MovieCardSearch';
 import { Info } from '@mui/icons-material';
 import { stableKeys } from '@/utils/stableKeys';
 import SkeletonSearch from '@/components/Skeleton/SkeletonSearch';
@@ -113,7 +113,7 @@ const Search = (props:any) => {
                 className="flex flex-wrap mx-[-7px]">
                   <div className='w-full mb-2 px-[7px]'>
                     <div 
-                      className={`bg-gray-700 text-white rounded-md flex w-full lg:w-[855px] max-w-full ${(isInvalid && !title)?'border-red-800 border shadow  shadow-orange-700':''}`}>
+                      className={`bg-gray-700 text-white rounded-md flex w-full max-w-full ${(isInvalid && !title)?'border-red-800 border shadow  shadow-orange-700':''}`}>
                       <input 
                         type="text" 
                         className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px] h-[50px] lg:h-[60px]" 
@@ -128,14 +128,16 @@ const Search = (props:any) => {
                       </button>):null}
                     </div>
                   </div>
-                  <button 
-                    type='button'
-                    onClick={() => setOpenFilter(!openFilter)}
-                    className='w-[150px] mb-2 bg-[#eee] text-[#222] rounded-sm px-4 py-2 focus:outline-none  focus:border-transparent flex justify-between items-center ml-[7px] lg:hidden'>
-                    Filter <TuneIcon className="text-[#222] w-4 h-4 ml-2" />
-                  </button>
-                  <div className={`flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>    
-                    <div className='w-[150px] mb-2 px-[7px]'>
+                  <div className='px-[7px] mb-2 flex justify-end w-full'>
+                    <button 
+                      type='button'
+                      onClick={() => setOpenFilter(!openFilter)}
+                      className='w-[150px] bg-[#eee] text-[#222] rounded-sm px-4 py-2 focus:outline-none  focus:border-transparent flex justify-between items-center ml-[7px] lg:hidden'>
+                      Filter <TuneIcon className="text-[#222] w-4 h-4 ml-2" />
+                    </button>
+                  </div>
+                  <div className={`w-full flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>    
+                    <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
                       <select 
                       defaultValue={genre}
                       onChange={(e) => setGenre(e.target.value)}
@@ -146,7 +148,7 @@ const Search = (props:any) => {
                         <option value="romance">Romance</option>
                       </select>
                     </div>                
-                    <div className='w-[200px] mb-2 px-[7px]'>
+                    <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
                       <input 
                       type="text" 
                       className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" 
@@ -155,7 +157,7 @@ const Search = (props:any) => {
                       onChange={(e) => setAuthor(e.target.value)}
                       />                    
                     </div>
-                    <div className='w-[200px] mb-2 px-[7px]'>
+                    <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
                       <input 
                       type="text" 
                       className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" 
@@ -164,7 +166,7 @@ const Search = (props:any) => {
                       onChange={(e) => setCast(e.target.value)}
                       />
                     </div>                    
-                    <div className='w-[170px] mb-2 px-[7px]'>
+                    <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
                       <select 
                       defaultValue={contentType}
                       onChange={(e) => setContentType(e.target.value)}
@@ -174,8 +176,8 @@ const Search = (props:any) => {
                         <option value="TV Show">TV Show</option>
                       </select>
                     </div>
-                    <div className='w-[150px] mb-2 px-[7px]'>
-                      <button type="submit" className="w-full bg-[#2D45F2] text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2D45F2] focus:border-transparent">Search</button>
+                    <div className='w-full lg:mt-2 xl:mt-0 mb-2 px-[7px] xl:w-1/5'>
+                      <button type="submit" className="w-full bg-[#2D45F2] text-white rounded-md px-4 py-3 xl:py-2 focus:outline-none focus:ring-2 focus:ring-[#2D45F2] focus:border-transparent">Search</button>
                     </div>
                   </div>
               </form>
@@ -184,7 +186,7 @@ const Search = (props:any) => {
             {(isReady && !isLoading) ? (<>     
             <div className="flex flex-wrap mx-[-5px]">
               {((Array.isArray(movies?.list) && movies?.list?.length > 0)?
-              (movies?.list?.map((item: any, index:number) => <div className='w-full sm:w-1/2 2xl:w-1/3 px-2 mb-4'><MovieCardReel key={stableKeys[index]} data={item} portrait={false} gradient={false}/></div>)):
+              (movies?.list?.map((item: any, index:number) => <div className='w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4' key={stableKeys[index]}><MovieCardSearch data={item} portrait={false}/></div>)):
               <NoMovies/>)}
             </div>
             </>) : <SkeletonSearch/>}

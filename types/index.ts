@@ -7,6 +7,7 @@ export interface MovieInterface {
   description: string;
   thumbnailUrl: string;
   thumbnailPotrait: string;
+  thumbnailMotionUrl?: string;
   videoUrl: string;
   duration: string | number;
   videoDuration?: number;
@@ -30,4 +31,7 @@ export interface MovieInterface {
   xy?: {x: number, y: number, width: number, thumbW: number};
   currentTime?: number;
   sourcePlatform?: string;
+  thumbOuter?:any;
+  sliderRef?:any;
+  setRemovedItem?:any;
 }

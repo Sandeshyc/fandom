@@ -16,7 +16,15 @@ const BottomNavigation = () => {
     useEffect(() => {
         setIsCollapseOpen(false);
     }, [router.asPath]);
-
+    useEffect(() => {
+        if(isCollapseOpen) {
+            document.querySelector('main')?.classList.add('overflow-hidden');
+            document.body.style.overflowY = 'hidden';
+        }else{
+            document.querySelector('main')?.classList.remove('overflow-hidden');
+            document.body.style.overflowY = 'auto';
+        }
+    }, [isCollapseOpen]);
     return (
         <>
         {(isCollapseOpen)?<MobileCollapse 
