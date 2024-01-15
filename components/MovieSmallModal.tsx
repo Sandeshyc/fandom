@@ -59,18 +59,6 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
         itemCode: data?._id,
       };
       let result;
-      // Remove from Continue Watching List
-      
-      // const reelOuterBox = data?.thumbOuter?.closest('.slick-slide') || data?.thumbOuter;
-      // if(reelOuterBox) {
-      //   reelOuterBox.classList.add('opacity-0');
-      //   setTimeout(() => {
-      //     reelOuterBox.remove();
-      //   }, 400);
-      //   // refresh slick slider
-      //   data?.sliderRef?.current?.slickNext() || data?.sliderRef?.current?.slickPrev();
-
-      // }
       axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
       .then(response => {
         // console.log('response: ', response);
@@ -123,8 +111,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
             onClose();
           }, 10);
         }
-      }
-      
+      }      
     }
     window.addEventListener('mousemove', moveLayers);
     return () => {
@@ -144,9 +131,6 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   }, []);
 
   const handleClose = useCallback((e:any) => {
-    // if(e.target.dataset?.button !== 'close') return;
-
-    // console.log('close');
 
     setIsVisible(false);
     setTimeout(() => {
@@ -161,12 +145,11 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   if (!visible) {
     return null;
   }
-  
-
-  
 
   return (
-    <div ref={thumbRef} onMouseLeave={handleClose} className={`movieSmallModal group z-50 transition-all duration-300 absolute inset-0`} data-button="close" style={
+    <div ref={thumbRef} 
+      onMouseLeave={handleClose}  
+      className={`movieSmallModal group z-50 transition-all duration-300 absolute inset-0`} data-button="close" style={
       {
         left: data?.xy?.x ?? 20, 
         top: data?.xy?.y ?? 20,
