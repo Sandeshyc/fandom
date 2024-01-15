@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -8,7 +8,7 @@ type Props = {
 }
 const SearchBoxMobile = ({isOpened}:Props) => {
     const router = useRouter();
-
+    const searchInputRef = useRef(null);
     const schema = Yup.object().shape({
       title: Yup.string().required("Movie, Event is required")
     });
@@ -30,13 +30,19 @@ const SearchBoxMobile = ({isOpened}:Props) => {
     });
     // Destructure the formik object
     const { errors, touched, values, handleChange, handleSubmit } = formiks;
-
+    useEffect(() => {
+      if(isOpened) {
+        const searchInput = searchInputRef.current as unknown as HTMLElement;
+        searchInput.focus();
+      }
+    }, [isOpened]);
     return(<>
         <div
           className={`w-full bg-gray-800 rounded-md mb-6 ${(isOpened)?'block':'hidden'} `}>
           <form onSubmit={handleSubmit} method="POST"
             className={`w-full text-white bg-black rounded-lg focus:outline-none flex border border-white relative`}>
             <input
+              ref={searchInputRef}
               type="text" 
               className="w-full bg-transparent text-white  px-4 py-2 focus:outline-none focus:border-transparent pr-[60px] h-12" 
               placeholder="Search Movies, Events..."

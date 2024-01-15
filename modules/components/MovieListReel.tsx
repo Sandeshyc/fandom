@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {use, useRef, useEffect} from 'react';
 import Slider from "react-slick";
 import { useRouter } from 'next/router';
 import "slick-carousel/slick/slick.css";
@@ -34,11 +34,16 @@ function SlickPrevArrow(props: any) {
   );
 }
 
+// Main Component
 const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false }) => {
   const router = useRouter();
-  if (isEmpty(data)) {
-    return null;
-  }
+  const sliderRef = useRef(null);
+  const [removedItem, setRemovedItem] = React.useState(null);
+  const [newData, setNewData] = React.useState(data);
+
+  // if (isEmpty(newData)) {
+  //   return null;
+  // }
   let settings = {
     dots: false,
     infinite: false,
@@ -79,9 +84,11 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
       },
     ]
   }; 
-  if(Array.isArray(data) && data?.length > 0 ) {
-    data = data.filter((item: any) => item !== null);
-  }
+  useEffect(() => {
+    if (removedItem) {
+      setNewData(newData.filter((item: any) => item._id !== removedItem));
+    }
+  }, [removedItem]);
   const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
     <div className="movieSliderInner">
       <ReelHeading 
@@ -91,15 +98,18 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
         />
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-          {data?.map((movie, index) => (
-            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+          {newData?.map((movie, index) => (
+            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} setRemovedItem={setRemovedItem}/>
           ))}
         </div>
       </div>
       <div className="hidden lg:block movieSliderReel">
-        <Slider {...settings}>
-          {data?.map((movie, index) => (
-            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+        <Slider
+        ref={sliderRef}
+        key={newData.length}
+        {...settings}>
+          {newData?.map((movie, index) => (
+            <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} sliderRef={sliderRef} setRemovedItem={setRemovedItem}/>
           ))}
         </Slider>  
       </div> 
@@ -107,7 +117,7 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
   </div>);
 
   return (<>
-    {(Array.isArray(data) && data.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 lg:pl-16 mt-2'>{ReelContent()}</div>:null}
+    {(Array.isArray(newData) && newData.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 lg:pl-16 mt-2'>{ReelContent()}</div>:null}
     </>
   );
 }
