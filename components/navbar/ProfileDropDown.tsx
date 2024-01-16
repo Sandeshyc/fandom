@@ -19,7 +19,6 @@ const ProfileDropDown = () => {
     const router = useRouter();
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
-
     const { data: profile, isLoading } = useProfile(userid);
     // console.log('profile', profile, isLoading);
 
@@ -143,6 +142,7 @@ const ProfileDropDown = () => {
                                 <p>My List</p>
                             </button>  
                         </div>
+                        
                         {/* <div className='mb-2'>
                             <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
                                 <span className='mr-2'><PurchaseGiftCardIcon/></span>

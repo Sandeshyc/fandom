@@ -1,7 +1,4 @@
 import React, { useCallback, useState, useEffect, use } from 'react';
-import { useSession, signIn, signOut, getSession } from "next-auth/react"
-import axios from 'axios';
-import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
@@ -57,7 +54,7 @@ const Auth = () => {
         true,
         token
       );
-      console.log('userResponse', userResponse);
+      // console.log('userResponse', userResponse);
       if(userResponse === 200) {
         setIsSubmit(true);
         setIsSuccess(true);

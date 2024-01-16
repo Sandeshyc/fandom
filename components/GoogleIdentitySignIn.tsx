@@ -14,6 +14,7 @@ import {
   EyeIcon
 } from '@heroicons/react/20/solid';
 import { useRouter } from "next/router";
+import useUserInfo from '@/hooks/useUserInfo';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
@@ -26,10 +27,13 @@ const app = initializeApp(firebaseConfig);
 
 const GoogleIdentitySignIn = () => {
   const router = useRouter();
+  const {checkUser} = useUserInfo();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [onSubmit, setOnSubmit] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);  
 
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);
@@ -65,40 +69,28 @@ const GoogleIdentitySignIn = () => {
             password
           );
           const user = userCredential.user;
+          // console.log('user', user);
           if(user !== null && user !== undefined) {
-            const headers = {
-              'Content-Type' : 'application/json',
-            };     
-            const data = {
-              "providerId": user?.uid || '',
-              "email": user?.email || '',
-              "providerName": user?.providerId || '',
-            };
-            await axios.post(`http://192.168.68.108:9000/user/info`, data, { headers })
-            .then(response => {
-              // console.log('response', response);
-              if(response.data?.status === 200 || response.data?.status === 201) {
-                const userInfoData = response.data?.data;
-                const userInfo = {
-                  sub: userInfoData?.userId,
-                  email: userInfoData?.email,
-                  uid: userInfoData?.userId,
-                  providerName: userInfoData?.providerName,
-                  emailVerified: user?.emailVerified,
-                }
-                window.localStorage.setItem('provider', 'firebase');
-                window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-                window.localStorage.setItem('googleIndentityAccessToken', 'testData'); // Need to Update
-                window.location.replace('/');
-              }else{
-                console.log('error', response.data?.message);
-                return response.data?.message;
-              }
-            })
-            .catch(error => {
-              console.log('error', error);
-              return error;
-            });
+            const userResponse = await checkUser(
+              user?.uid,
+              user?.uid,
+              user?.email || '',
+              user?.providerId,
+              user?.emailVerified,
+              '',
+              user?.accessToken || ''
+            ); 
+            if(userResponse === 200) {
+              setIsSubmit(true);
+              setIsSuccess(true);
+              router.replace('/');
+              console.log('success');
+            }else{
+              setIsSubmit(true);
+              setIsSuccess(false);
+              router.replace('/auth');
+              console.log('failed');
+            }           
           }
           setOnSubmit(false);
         } catch (err) {

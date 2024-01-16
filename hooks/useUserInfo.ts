@@ -19,7 +19,7 @@ const useUserInfo = () => {
             "providerName": providerName,
             "emailVerified": emailVerified,
         };
-        const response = await axios.post(`http://192.168.68.108:9000/user/info`, data, { headers })
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, data, { headers })
         .then(response => {
         // console.log('response', response);
         if(response.data?.status === 200 || response.data?.status === 201) {

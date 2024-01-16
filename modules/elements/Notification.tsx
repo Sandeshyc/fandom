@@ -65,10 +65,10 @@ const Item = () => {
     <button 
     onClick={() => setIsRead(true)}
     className={`flex flex-wrap justify-between mb-8 w-full bg-[#101010] relative ${(!isRead)?'pr-2':''}`}>
-        <div className='w-[145px]'>
+        <div className='w-[40%]'>
             <img src="https://absprod-static.iwanttfc.com/c/6/images/Enl2NPvzQ1UrsGO12ZePSg.jpg" alt="Movie Name" />
         </div>
-        <div className='w-[145px] grow text-left pl-4'>
+        <div className='w-[60%] grow text-left pl-4'>
             <h4 className='text-base font-medium line-clamp-2'>Movie Name</h4>
             <p className='text-xs text-[#A7A7A9] mb-1 line-clamp-2'>Update your iWantTFC App to access new features and get...</p>
             <p className='text-xs text-[#A7A7A9]'>2 Hours ago</p>
