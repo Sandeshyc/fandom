@@ -112,9 +112,9 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     //     thumbOuter.remove();
     //   }, 400);
     // }
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, dataBody, { headers })
+    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
       .then(response => {
-        console.log('response: ', response);
+        // console.log('response: ', response);
         if(response.status === 200) {
           result = response.data;
           setRemovedItem(data?._id);

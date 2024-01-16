@@ -7,7 +7,7 @@ const SkeletonPurchase = () => {
   return (
     <>
       <SkeletonHeader/>
-      <div className="pb-12 pt-[85px]">
+      <div className="pb-12 pt-[100px]">
         <div className={`px-4`}>
           <div className="movieSliderInner">
             <div className="w-[250px]">
