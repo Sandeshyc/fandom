@@ -7,7 +7,7 @@ type Props = {
     title?: string;
 };
 const Extended = ({data, title}:Props) => {
-  const [item, setItem] = React.useState(data[0] || {}); 
+  const [item, setItem] = React.useState(data?.[0] || {}); 
   const [itemEnded, setItemEnded] = React.useState(1);
   const onVideoCompleted = (completed:boolean) => {
     if(completed === true){

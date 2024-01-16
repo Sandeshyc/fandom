@@ -7,7 +7,7 @@ type Props = {
   data: any;
 };
 const Billboard = ({data}:Props) => {
-  data = data[(Math.floor(Math.random() * data?.length))]
+  data = data?.[(Math.floor(Math.random() * data?.length))] ?? {}
   return (
     <div className={`relative billboardSec`}>   
       <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[250px] sm:h-[300px] md:h-[85vh] md:min-h-[700px] max-h-[85vh]`}>
