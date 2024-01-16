@@ -33,11 +33,6 @@ const ProfileDropDown = () => {
                 if(profile?.hasOwnProperty('lastName')){
                     setDisplayName(profile?.firstName+' '+profile?.lastName);    
                 }
-            }else if(profile?.hasOwnProperty('email')) {
-                const email = profile?.email;
-                // before @
-                const emailName = email?.split('@')[0];
-                setDisplayName(emailName);
             }else{
                 setDisplayName('Your Name');
             }            

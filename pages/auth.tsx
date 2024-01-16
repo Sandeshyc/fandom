@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, use } from 'react';
+import React, { useCallback, useState, useEffect, use } from 'react';
 import { useSession, signIn, signOut, getSession } from "next-auth/react"
 import axios from 'axios';
 import { NextPageContext } from 'next';
@@ -6,12 +6,16 @@ import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
 import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
+import useUserInfo from '@/hooks/useUserInfo';
 
 const imgOneLogin = '/images/onelogsmall.png';
 const imgLogBG = '/images/loginbgnew.png';
 
 const Auth = () => {
   const router = useRouter();
+  const {checkUser} = useUserInfo();
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);  
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     // console.log('userInfo: ', userInfo);
@@ -29,9 +33,9 @@ const Auth = () => {
 
   useEffect(() => {
     // Parse the token from the URL.
-    console.log('window.location.hash',  window.location.hash)
+    // console.log('window.location.hash',  window.location.hash)
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
-    const getAccessToken = async (token:string) => {
+    const getAccessToken = async (token:string) => {      
       const userInfo = await fetch(`${process.env.NEXT_PUBLIC_SSO_AUTHORITY}/me`, {
         method: 'GET',
         headers: {
@@ -40,12 +44,31 @@ const Auth = () => {
       })
       .then(response => response.json())
       .then(data => {
-          window.localStorage.setItem('oneLogInAccessToken', token);
-          window.localStorage.setItem('userInfo', JSON.stringify(data)); 
-          router.push('/');
+        // console.log('user info data', data);
           return data;
       })
       .catch(error => console.log('user info error', error));
+      // console.log('userInfo', userInfo);
+      const userResponse = await checkUser(
+        userInfo?.sub,
+        userInfo?.sub,
+        userInfo?.email,
+        'oneLogin',
+        true,
+        token
+      );
+      console.log('userResponse', userResponse);
+      if(userResponse === 200) {
+        setIsSubmit(true);
+        setIsSuccess(true);
+        router.push('/');
+        console.log('success');
+      }else{
+        setIsSubmit(true);
+        setIsSuccess(false);
+        router.push('/auth');
+        console.log('failed');
+      }      
     }
     if (token) {
       getAccessToken(token);    
@@ -81,12 +104,18 @@ const Auth = () => {
             <div className='my-4'>
               <p className='text-center text-white/80 text-sm'>or</p>
             </div>
+            {(isSubmit && !isSuccess)?<p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>
+              Opos! Something went wrong. Please try again.
+              </p>:null}
+            {(isSubmit && isSuccess)?<p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>
+              Success! Please wait a moment.
+              </p>:null}
             <button 
             className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90"
             onClick={() => LoginPage()}>
               <img src={imgOneLogin} className="h-6 inline-block mr-2" alt="OneLogin" />
               <span>Employee Login</span>
-            </button> 
+            </button>
             <div className='w-full flex justify-center text-white mt-4 mb-2'>
               <p className='text-sm m-0'>
                 <span className='text-white/60 text-sm mr-2'>New here?</span>
@@ -94,17 +123,7 @@ const Auth = () => {
                   onClick={() => goRegistration()}
                 className='text-white text-sm cursor-pointer hover:underline'>Create Account</span>
               </p>
-            </div> 
-            {/* <div className='w-full flex justify-center text-white mt-4 mb-2'>
-              <p className='text-sm m-0'>
-                <span className='text-white text-sm cursor-pointer hover:underline'>Skip Login for Now</span>
-              </p>
-            </div>  */}
-            {/* <div className='w-full flex justify-center text-white mt-4 mb-2'>
-              <p className='text-[10px] lg:text-[12px] m-0 text-white/60'>
-                This page is <span className='text-white/80'>protected by Google reCAPTCHA</span> to ensure you're not a bot. Learn More
-              </p>
-            </div>  */}
+            </div>
           </div>
         </div>
       </div>
