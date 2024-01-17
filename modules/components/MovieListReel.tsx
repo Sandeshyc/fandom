@@ -39,11 +39,14 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
+  if(Array.isArray(data) && data?.length > 0 ) {
+    data = data.filter((item: any) => item !== null);
+  }
   const [newData, setNewData] = React.useState(data);
 
-  // if (isEmpty(newData)) {
-  //   return null;
-  // }
+  if (isEmpty(newData)) {
+    return null;
+  }
   let settings = {
     dots: false,
     infinite: false,

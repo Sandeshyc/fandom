@@ -39,11 +39,6 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 if(profile?.hasOwnProperty('lastName')){
                     setDisplayName(profile?.firstName+' '+profile?.lastName);    
                 }
-            }else if(profile?.hasOwnProperty('email')) {
-                const email = profile?.email;
-                // before @
-                const emailName = email?.split('@')[0];
-                setDisplayName(emailName);
             }else{
                 setDisplayName('Your Name');
             }            
@@ -110,7 +105,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 </div>    
             </div> 
             <div className="overflow-y-auto overflow-x-hidden h-full pb-8">
-                <NavItem
+                {/* <NavItem
                 icon={(isSearchOpen)?<CloseOutlined />:<Search />}
                 label={'Search'}
                 handleClick={() => {
@@ -119,7 +114,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 activeRoute=''/>
                 <SearchBoxMobile 
                 isOpened={isSearchOpen}
-                />
+                /> */}
                 <NavItem
                 icon={<Home />}
                 label={'Home'}
@@ -130,7 +125,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 />
                 <NavItem
                 icon={<Insights />}
-                label={'Comming Soon'}
+                label={'Upcoming'}
                 handleClick={() => {
                     router.push('');
                 }}
@@ -170,13 +165,13 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     router.push('/mycard');
                 }}
                 activeRoute='/mycard'/>
-                <NavItem
+                {/* <NavItem
                 icon={<NotificationsOutlined />}
                 label={'Notifications'}
                 handleClick={() => {
                     router.push('/notifications');
                 }}
-                activeRoute=''/>
+                activeRoute=''/> */}
                 <br />
                 <NavItem
                 icon={<HelpOutline />}

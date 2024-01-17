@@ -42,7 +42,7 @@ const SearchBox = () => {
 
     return(<>
         <div
-          className={`w-[700px] py-3 px-4 bg-gray-800 rounded-md absolute top-[100%] right-[-25px] z-50 ${(isOpened)?'block':'hidden'} `}>
+          className={`max-w-[80vw] w-[700px] py-3 px-4 bg-gray-800 rounded-md absolute top-[100%] right-[-25px] z-50 ${(isOpened)?'block':'hidden'} `}>
           <form onSubmit={handleSubmit} method="POST"
             className={`w-full text-white bg-black rounded-lg focus:outline-none flex border-2 border-white relative`}>
             <input

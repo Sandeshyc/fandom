@@ -16,6 +16,11 @@ import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import NavigationHome from '@/modules/elements/NavigationHome';
 import Footer from '@/components/Footer';
 import { set } from 'lodash';
+import DeleteAccount from '@/modules/elements/DeleteAccount';
+import {
+  CloseOutlined, 
+  DeleteOutlineOutlined,
+} from '@mui/icons-material';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -37,6 +42,7 @@ const MyProfile = () => {
   const [isUpdating, setIsUpdating] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
+  const [openDeleteAccount, setOpenDeleteAccount] = React.useState(false);
 
 
   const { data: profile, isLoading } = useProfile(userid);
@@ -256,6 +262,22 @@ const MyProfile = () => {
             </div>
           </div>
         </form>
+        <div className="container mx-auto max-w-[996px] px-4">
+          <div className='mb-2'>
+              <button className={`flex items-center text-red-600 cursor-pointer bg-white/80 rounded-md px-6 py-2`}
+              onClick={
+                  () => setOpenDeleteAccount(true)
+              }>
+                <DeleteOutlineOutlined 
+                sx={{
+                    fontSize: '25px',
+                    marginRight: '5px',
+                }}/>
+                <p>Delete  Account</p>
+              </button>  
+          </div>
+          {openDeleteAccount && <DeleteAccount open={openDeleteAccount} setOpen={setOpenDeleteAccount}/>}
+        </div>
       </div><Footer/></>:<SkeletonMyProfile/>}
   </>)
 }

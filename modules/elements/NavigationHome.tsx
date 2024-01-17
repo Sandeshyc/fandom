@@ -59,7 +59,7 @@ const NavigationHome = () => {
                 </div>
               </div>
               <div className='flex items-center justify-end'>
-                  <div className=''>
+                  <div>
                     <div className='flex flex-row items-center'>
                       <div className='mr-6 relative'>
                         <SearchBox/>
