@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import {
   getAuth, 
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-
+import useUserInfo from '@/hooks/useUserInfo';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { EmailIcon, LockIcon, EyeSlashIcon } from "@/utils/CustomSVGs";
@@ -31,9 +32,11 @@ const GoogleIdentitySignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
+  const [isMarketing, setIsMarketing] = useState(false);
   const [onSubmit, setOnSubmit] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('Email or Password is incorrect');
+  const [errorMessage, setErrorMessage] = useState('oops! something went wrong');
   const router = useRouter();
+  const {checkUser} = useUserInfo();
   const schema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(
@@ -72,56 +75,59 @@ const GoogleIdentitySignUp = () => {
       // Make a request to your backend to store the data
       setIsSubmitting(true);
       setOnSubmit(true);
-
-      const userCredential = await createUserWithEmailAndPassword(
-        getAuth(),
-        email,
-        password
-      )
-      .then((userCredential) => {
-        // Signed up 
-      const user = userCredential.user;
-        // is created user 
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          getAuth(),
+          email,
+          password
+        );
+        const user = userCredential.user;
         console.log('user ', user);
-        if(user) {
-          const userInfo = {
-            sub: user.uid,
-            email: user.email,
-            preferred_username: user.email,
-            name: user.displayName,
-            uid: user.uid,
-          };
-          window.localStorage.setItem('provider', 'firebaseEmailPassword');
-          window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-          window.localStorage.setItem('googleIndentityAccessToken', user?.accessToken);
-          // router.push('/auth/verify-email');
-          router.push('/');
+        if(user !== null && user !== undefined) {
+          const userResponse = await checkUser(
+            user?.uid,
+            user?.uid,
+            user?.email || '',
+            user?.providerId,
+            user?.emailVerified,
+            '',
+            user?.accessToken || ''
+          ); 
+          if(userResponse === 200) {
+            setIsLoginFail(false);
+            router.replace('/');
+            console.log('success');
+          }else{
+            setIsLoginFail(true);
+            router.replace('/auth');
+            console.log('failed');
+          }        
+        }else{
+          setIsLoginFail(true);
+          setOnSubmit(false);
+          console.log('failed');
         }
-
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if(errorCode === 'auth/email-already-in-use') {
-          setErrorMessage('Email address already exists.');
-        }
-        if(errorCode === 'auth/invalid-email') {
-          setErrorMessage('Invalid email');
-        }
-        if(errorCode === 'auth/weak-password') {
-          setErrorMessage('Weak password');
-        }
-        if(errorCode === 'auth/operation-not-allowed') {
-          setErrorMessage('Operation not allowed');
-        }
-        // console.log('errorCode ', errorCode);
-        // console.log('errorMessage ', errorMessage);
-        setIsLoginFail(true);
-        setOnSubmit(false);
-      });
-
-
+      } catch (err: any) {
+      setIsLoginFail(true);
+      setOnSubmit(false);
+      if(err.code === 'auth/email-already-in-use') {
+        setErrorMessage('Email address already exists.');
+      }
+      if(err.code === 'auth/invalid-email') {
+        setErrorMessage('Invalid email');
+      }
+      if(err.code === 'auth/weak-password') {
+        setErrorMessage('Weak password');
+      }
+      if(err.code === 'auth/operation-not-allowed') {
+        setErrorMessage('Operation not allowed');
+      }
+      if(err.code === 'auth/unknown') {
+        setErrorMessage('Unknown error');
+      }
+    }
     },
+    
   });
 
   // Destructure the formik object
@@ -217,7 +223,7 @@ const GoogleIdentitySignUp = () => {
         </div>
         {errors.confirmPassword && touched.confirmPassword && <span className='text-red-500 w-full text-xs'>{errors.confirmPassword}</span>}
       </div>
-      <div className='mb-4 px-4'>
+      <div className='mb-4'>
         <div className='flex justify-between items-center'>
           <div className='flex items-start'>
             <input type="checkbox" className='mr-2 w-6 h-6 mt-1' id='agree'
@@ -225,11 +231,20 @@ const GoogleIdentitySignUp = () => {
               checked={isAgree}
               onChange={(e) => setIsAgree(e.target.checked)}
             />
-            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the 
-            <span 
-              onClick={() => router.push('/terms-and-conditions')}
-            className='font-semibold hover:underline cursor-pointer'>Terms and Condition</span> and <span onClick={() => router.push('/terms-and-conditions')}
-            className='font-semibold hover:underline cursor-pointer'>Privacy Policy</span></label>
+            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <Link href='/terms-condition'>Terms and Condition</Link> and <Link href='/privacy'>Privacy Policy</Link>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div className='mb-4'>
+        <div className='flex justify-between items-center'>
+          <div className='flex items-start'>
+            <input type="checkbox" className='mr-2 w-6 h-6 mt-1' id='isMarketing'
+              name='isMarketing'
+              checked={isMarketing}
+              onChange={(e) => setIsMarketing(e.target.checked)}
+            />
+            <label htmlFor="isMarketing" className='text-white/90 text-[14px]'>I agree to receive marketing communications (until I unsubscribe).</label>
           </div>
         </div>
       </div>
