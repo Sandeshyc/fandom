@@ -2,50 +2,17 @@ import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { useRouter } from 'next/router';
 import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  sendSignInLinkToEmail,
   getAuth, 
-  signInWithEmailLink,
-  signOut,
-  GoogleAuthProvider,
-  getAdditionalUserInfo,
-  signInWithPopup,
-  OAuthProvider,
-  UserCredential,
-  signInWithRedirect,
-  getRedirectResult,
-  GithubAuthProvider,
-  FacebookAuthProvider,
-  TwitterAuthProvider,
-  Auth,
   createUserWithEmailAndPassword,
-  updateProfile,
-  sendEmailVerification,
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  reauthenticateWithPopup,
-  reauthenticateWithRedirect,
-  sendPasswordResetEmail,
-  confirmPasswordReset,
-  applyActionCode,
-  checkActionCode,
-  verifyPasswordResetCode,
-  User,
-  browserLocalPersistence,
-  browserSessionPersistence,
-  indexedDBLocalPersistence,
-  inMemoryPersistence,
-  setPersistence,
-
 } from 'firebase/auth';
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { EmailIcon, LockIcon, EyeSlashIcon } from "@/utils/CustomSVGs";
 import {
-  EyeIcon
-} from '@heroicons/react/20/solid';
+  Visibility,
+  VisibilityOff
+} from '@mui/icons-material';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
@@ -69,8 +36,14 @@ const GoogleIdentitySignUp = () => {
   const router = useRouter();
   const schema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
-    password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords are not matched').required('Confirm Password is required'),
+    password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      'Password must contain at least 1 uppercase, 1 lowercase and 1 number'
+    ),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref('password'), ''], 
+      'Passwords are not matched'
+    ).required('Confirm Password is required'),
   });
 
 
@@ -82,55 +55,6 @@ const GoogleIdentitySignUp = () => {
   }
   const toggleConfirmPassword = () => {
     setIsShowConfirmPassword(!isShowConfirmPassword);
-  }  
-
-  const handleSignUp = async () => {
-    setIsSubmitting(true);
-    if(!email || !password || !isEmailValid(email)) {
-      return;
-    }
-    setOnSubmit(true);
-    // try {
-    //   const userCredential = await signInWithEmailAndPassword(
-    //     getAuth(),
-    //     email,
-    //     password
-    //   );
-    //   const user = userCredential.user;
-    //   // console.log('Success ',user);
-    //   const userInfo = {
-    //     sub: user.uid,
-    //     email: user.email,
-    //     preferred_username: user.email,
-    //     name: user.displayName,
-    //     uid: user.uid,
-    //   };    
-    //   window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-    //   window.localStorage.setItem('googleIndentityAccessToken', user?.accessToken);
-    //   window.location.href = '/';
-    //   // setOnSubmit(false);
-    // } catch (err) {
-    //   // console.log('Error', err);
-    //   setIsLoginFail(true);
-    //   setOnSubmit(false);
-    // }
-  };
-
-  const getPasswordStrength = (password: string) => {
-    let strength = 0;
-    if (password.match(/[a-z]+/)) {
-      strength += 1;
-    }
-    if (password.match(/[A-Z]+/)) {
-      strength += 1;
-    }
-    if (password.match(/[0-9]+/)) {
-      strength += 1;
-    }
-    if (password.match(/[!@#$%^&*]+/)) {
-      strength += 1;
-    }
-    return strength;
   }
 
   const formik = useFormik({
@@ -179,7 +103,7 @@ const GoogleIdentitySignUp = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         if(errorCode === 'auth/email-already-in-use') {
-          setErrorMessage('Email already in use');
+          setErrorMessage('Email address already exists.');
         }
         if(errorCode === 'auth/invalid-email') {
           setErrorMessage('Invalid email');
@@ -213,6 +137,7 @@ const GoogleIdentitySignUp = () => {
             placeholder="Email Address"
             type="text"
             name='email'
+            autoFocus={true}
             value={values.email}
             onChange={handleChange}
             className='w-full text-white text-[14px] lg:text-[16px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[42px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%]'/>
@@ -238,11 +163,20 @@ const GoogleIdentitySignUp = () => {
           <div className="absolute top-[8px] sm:top-[11px] xl:top-[14px] right-0 px-2 flex justify-center items-center h-[24px] border-l border-[#5F576F] text-[10px]">
             {(!isShowPassword)?<><span 
               onClick={togglePassword}>
-              <EyeSlashIcon/>
+              <VisibilityOff
+                sx={{
+                  fontSize: 18,
+                  color: '#fff',
+                }}
+              />
             </span></>:<><span
               onClick={togglePassword}>
-            <EyeIcon 
-              className='text-[#fff] w-4 h-4 text-[14px]'/>
+            <Visibility
+              sx={{
+                fontSize: 18,
+                color: '#fff',
+              }}
+            />
             </span></>}
           </div>
         </div>
@@ -264,11 +198,20 @@ const GoogleIdentitySignUp = () => {
           <div className="absolute top-[8px] sm:top-[11px] xl:top-[14px] right-0 px-2 flex justify-center items-center h-[24px] border-l border-[#5F576F] text-[10px]">
             {(!isShowConfirmPassword)?<><span 
               onClick={toggleConfirmPassword}>
-              <EyeSlashIcon/>
+              <VisibilityOff
+                sx={{
+                  fontSize: 18,
+                  color: '#fff',
+                }}
+              />
             </span></>:<><span
               onClick={toggleConfirmPassword}>
-            <EyeIcon 
-              className='text-[#fff] w-4 h-4 text-[14px]'/>
+            <Visibility
+              sx={{
+                fontSize: 18,
+                color: '#fff',
+              }}
+            />
             </span></>}
           </div>
         </div>
@@ -282,7 +225,11 @@ const GoogleIdentitySignUp = () => {
               checked={isAgree}
               onChange={(e) => setIsAgree(e.target.checked)}
             />
-            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <span className='font-semibold hover:underline cursor-pointer'>Terms and Condition and Privacy Policy</span></label>
+            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the 
+            <span 
+              onClick={() => router.push('/terms-and-conditions')}
+            className='font-semibold hover:underline cursor-pointer'>Terms and Condition</span> and <span onClick={() => router.push('/terms-and-conditions')}
+            className='font-semibold hover:underline cursor-pointer'>Privacy Policy</span></label>
           </div>
         </div>
       </div>
