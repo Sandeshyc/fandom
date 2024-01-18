@@ -37,7 +37,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
         <>
         <DetailsHeroBanner thumb={thumb}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
-            <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:'Upcomming...'}</h1>
+            <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:'Upcoming...'}</h1>
             {(data?.packageShortDetails) ? (<p className="mb-1 flex items-center flex-wrap my-2">
                 <span className="text-gray-300 mr-2 text-xl">{data?.packageShortDetails}</span>
             </p>):

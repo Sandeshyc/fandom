@@ -13,6 +13,7 @@ const NavigationHome = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const isMobile = useIsMobile();
+  const [userid, setUserid] = React.useState('');
   // get scroll position in px
   const getScrollPosition = () => {
     return window?.pageYOffset;
@@ -30,6 +31,16 @@ const NavigationHome = () => {
     }
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj?.sub) {
+        setUserid(userInfoObj?.sub);
+      }
+    }
   }, []);
 
   return (
@@ -54,11 +65,10 @@ const NavigationHome = () => {
                     <NavItem label="Events" route="/" activeRoute={''} />
                     <NavItem label="My Tickets" route="/mytickets" activeRoute={'/mytickets'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />
-                    {/* <NavItem label="Partner With Us" route="/" activeRoute={''} /> */}
                   </div>
                 </div>
               </div>
-              <div className='flex items-center justify-end'>
+              <div className={`${(userid)?'flex':'hidden'} items-center justify-end`}>
                   <div>
                     <div className='flex flex-row items-center'>
                       <div className='mr-6 relative'>

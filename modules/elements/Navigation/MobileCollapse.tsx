@@ -15,7 +15,9 @@ import {
     Logout,  
     Close,
     CreditCard, 
-    NotificationsOutlined
+    NotificationsOutlined,
+    PersonOutlineOutlined,
+    LiveTvOutlined
 } from '@mui/icons-material';
 import SearchBoxMobile from '@/modules/elements/SearchBoxMobile';
 
@@ -73,16 +75,16 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
     };
 
     return (<>
-        <div className='fixed left-0 top-0 w-screen h-screen text-white bg-gradient-to-t from-black to-black/80 py-12 px-8 z-50'>
-            <div className='flex justify-between items-center mb-8'>
+        <div className='fixed left-0 top-0 w-screen h-screen text-white bg-gradient-to-t from-black to-black/80 pt-6 pb-12 px-8 z-50'>
+            <div className='flex justify-between items-center mb-6'>
                 <div className='flex items-center w-[150px] grow'>
                     <div className='transition w-[64px] h-[64px] mr-[10px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
                         <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                     </div>
                     <div>
                         <h3
-                        className='font-semibold text-xl m-0'>{( displayName )??(displayName)}</h3>
-                        <p className='text-base text-white'>
+                        className='font-semibold text-md md:text-xl m-0'>{( displayName )??(displayName)}</h3>
+                        <p className='text-sm md:text-base text-white'>
                             <span
                             className='cursor-pointer hover:underline' onClick={
                                 () => router.push('/myprofile')
@@ -105,16 +107,6 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 </div>    
             </div> 
             <div className="overflow-y-auto overflow-x-hidden h-full pb-8">
-                {/* <NavItem
-                icon={(isSearchOpen)?<CloseOutlined />:<Search />}
-                label={'Search'}
-                handleClick={() => {
-                    setIsSearchOpen(!isSearchOpen);
-                }}
-                activeRoute=''/>
-                <SearchBoxMobile 
-                isOpened={isSearchOpen}
-                /> */}
                 <NavItem
                 icon={<Home />}
                 label={'Home'}
@@ -138,19 +130,12 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 }}
                 activeRoute=''/>
                 <NavItem
-                icon={<Category />}
-                label={'Categories'}
+                icon={<LiveTvOutlined />}
+                label={'Events'}
                 handleClick={() => {
                     router.push('');
                 }}
                 activeRoute=''/>
-                <NavItem
-                icon={<PlaylistPlay />}
-                label={'My List'}
-                handleClick={() => {
-                    router.push('/list');
-                }}
-                activeRoute='/list'/>
                 <NavItem
                 icon={<ShoppingCart />}
                 label={'My Tickets'}
@@ -159,19 +144,26 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 }}
                 activeRoute='/mytickets'/>
                 <NavItem
+                icon={<PlaylistPlay />}
+                label={'My List'}
+                handleClick={() => {
+                    router.push('/list');
+                }}
+                activeRoute='/list'/> 
+                <NavItem
+                icon={<PersonOutlineOutlined />}
+                label={'Manage Account'}
+                handleClick={() => {
+                    router.push('/myprofile');
+                }}
+                activeRoute='/myprofile'/>               
+                <NavItem
                 icon={<CreditCard />}
-                label={'My Card'}
+                label={'Manage Card'}
                 handleClick={() => {
                     router.push('/mycard');
                 }}
                 activeRoute='/mycard'/>
-                {/* <NavItem
-                icon={<NotificationsOutlined />}
-                label={'Notifications'}
-                handleClick={() => {
-                    router.push('/notifications');
-                }}
-                activeRoute=''/> */}
                 <br />
                 <NavItem
                 icon={<HelpOutline />}
@@ -205,7 +197,7 @@ const NavItem = ({ icon, label, handleClick, activeRoute }:NavItemProps) => {
         <div className='mb-4'>
             <button className="flex items-center" onClick={handleClick}>
                 <span className={`mr-2 border-b-4 ${(router.asPath === activeRoute)?'border-red-600 text-white':'border-transparent text-white/80'} `}>{icon}</span>
-                <p className={`text-lg ${(router.asPath === activeRoute)?'font-semibold text-white':'font-normal text-white/80'}`}>{label}</p>
+                <p className={`text-lg ${(router.asPath === activeRoute)?'font-medium text-white':'font-normal text-white/80'}`}>{label}</p>
             </button>
         </div>
     );
