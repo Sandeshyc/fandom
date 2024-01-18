@@ -78,6 +78,7 @@ const Top10 = ({ data, title, portrait }:Props) => {
   let j = 1;
   return (
     <div className={`pl-4 md:pl-16 mb-[3vw] movieSlider`}>
+      <div className={`movieSliderInner`}>
         <ReelHeading title={title} />
         <div className={`gap-2`}>
             <div className="block lg:hidden">
@@ -87,7 +88,7 @@ const Top10 = ({ data, title, portrait }:Props) => {
                 ))}
                 </div>
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden lg:block gap-2">
                 <Slider {...settings}>
                 {data?.map((movie, index) => (                
                     (j<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />:null
@@ -95,6 +96,7 @@ const Top10 = ({ data, title, portrait }:Props) => {
                 </Slider>  
             </div> 
         </div>
+      </div>
     </div>
   );
 }

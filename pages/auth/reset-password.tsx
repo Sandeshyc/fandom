@@ -3,6 +3,8 @@ import { initializeApp } from 'firebase/app';
 import {
     getAuth,
     confirmPasswordReset,
+    checkActionCode,
+    applyActionCode,
 } from 'firebase/auth';
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -40,9 +42,26 @@ const ResetPassword = () => {
         setOobCode(oobCode as string);
         setMode(mode as string);
         if(mode === 'verifyEmail') {
-            
+            const handleVerification = async () => {
+                try {
+                  await checkActionCode(auth, oobCode as string);
+                  console.log('ddd Email verification successful!');
+                } catch (error) {
+                  console.error('Error verifying email:', error);
+                }
+                try {
+                   const ddd =  await applyActionCode(auth, oobCode as string);
+                   console.log('ddd: ', ddd);
+                  console.log('Email verification successful!');
+                } catch (error) {
+                  console.error('Error verifying email:', error);
+                }
 
-            router.replace('/auth');
+                console.log('oobCode: ', auth.currentUser?.emailVerified);
+              };
+          
+              handleVerification();
+            // router.replace('/auth');
         }
     }, [router.query]);
 

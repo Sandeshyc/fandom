@@ -104,7 +104,7 @@ const GoogleIdentitySignIn = () => {
                 url: `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/auth/reset-password?email=${user?.email}`,
                 handleCodeInApp: true,
               };
-              await sendEmailVerification(user, actionCodeSettings);
+              await sendEmailVerification(user);
             }         
           }
           setOnSubmit(false);
