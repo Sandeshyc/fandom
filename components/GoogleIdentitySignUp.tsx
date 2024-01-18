@@ -5,6 +5,7 @@ import Link from 'next/link';
 import {
   getAuth, 
   createUserWithEmailAndPassword,
+  sendEmailVerification
 } from 'firebase/auth';
 import useUserInfo from '@/hooks/useUserInfo';
 import { useFormik } from "formik";
@@ -14,6 +15,7 @@ import {
   Visibility,
   VisibilityOff
 } from '@mui/icons-material';
+import VerifyMail from '@/modules/elements/VerifyMail';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
@@ -25,16 +27,14 @@ const app = initializeApp(firebaseConfig);
 
 const GoogleIdentitySignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoginFail, setIsLoginFail] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');  
+  const [isLoginFail, setIsLoginFail] = useState(false); 
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
   const [isMarketing, setIsMarketing] = useState(false);
   const [onSubmit, setOnSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState('oops! something went wrong');
+  const [isVerifingEmail, setIsVerifingEmail] = useState(false);
   const router = useRouter();
   const {checkUser} = useUserInfo();
   const schema = Yup.object().shape({
@@ -49,10 +49,6 @@ const GoogleIdentitySignUp = () => {
     ).required('Confirm Password is required'),
   });
 
-
-  const isEmailValid = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);
   }
@@ -82,50 +78,57 @@ const GoogleIdentitySignUp = () => {
           password
         );
         const user = userCredential.user;
-        console.log('user ', user);
+        // console.log('user ', user);
         if(user !== null && user !== undefined) {
-          const userResponse = await checkUser(
-            user?.uid,
-            user?.uid,
-            user?.email || '',
-            user?.providerId,
-            user?.emailVerified,
-            '',
-            user?.accessToken || ''
-          ); 
-          if(userResponse === 200) {
-            setIsLoginFail(false);
-            router.replace('/');
-            console.log('success');
+          const isEmailVerified = user?.emailVerified;
+          if(isEmailVerified){ 
+            const userResponse = await checkUser(
+              user?.uid,
+              user?.uid,
+              user?.email || '',
+              user?.providerId,
+              user?.emailVerified,
+              '',
+              'testData'
+            ); 
+            if(userResponse === 200) {
+              setIsLoginFail(false);
+              router.replace('/');
+              console.log('success');
+            }else{
+              setIsLoginFail(true);
+              router.replace('/auth');
+              console.log('failed');
+            } 
           }else{
-            setIsLoginFail(true);
-            router.replace('/auth');
-            console.log('failed');
-          }        
+            setIsLoginFail(false);
+            setIsVerifingEmail(true);
+            await sendEmailVerification(user);
+          }       
         }else{
           setIsLoginFail(true);
           setOnSubmit(false);
           console.log('failed');
         }
       } catch (err: any) {
-      setIsLoginFail(true);
-      setOnSubmit(false);
-      if(err.code === 'auth/email-already-in-use') {
-        setErrorMessage('Email address already exists.');
+        setIsLoginFail(true);
+        setOnSubmit(false);
+        if(err.code === 'auth/email-already-in-use') {
+          setErrorMessage('Email address already exists.');
+        }
+        if(err.code === 'auth/invalid-email') {
+          setErrorMessage('Invalid email');
+        }
+        if(err.code === 'auth/weak-password') {
+          setErrorMessage('Weak password');
+        }
+        if(err.code === 'auth/operation-not-allowed') {
+          setErrorMessage('Operation not allowed');
+        }
+        if(err.code === 'auth/unknown') {
+          setErrorMessage('Unknown error');
+        }
       }
-      if(err.code === 'auth/invalid-email') {
-        setErrorMessage('Invalid email');
-      }
-      if(err.code === 'auth/weak-password') {
-        setErrorMessage('Weak password');
-      }
-      if(err.code === 'auth/operation-not-allowed') {
-        setErrorMessage('Operation not allowed');
-      }
-      if(err.code === 'auth/unknown') {
-        setErrorMessage('Unknown error');
-      }
-    }
     },
     
   });
@@ -133,9 +136,11 @@ const GoogleIdentitySignUp = () => {
   // Destructure the formik object
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
-
-
   return (
+    <>
+    {(isVerifingEmail)?<VerifyMail
+    email={values.email}
+    />:null}
     <form onSubmit={handleSubmit} method="POST" className="text-left">
       <div className='mb-4'>
         <div className="relative">
@@ -231,7 +236,7 @@ const GoogleIdentitySignUp = () => {
               checked={isAgree}
               onChange={(e) => setIsAgree(e.target.checked)}
             />
-            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <Link href='/terms-condition'>Terms and Condition</Link> and <Link href='/privacy'>Privacy Policy</Link>
+            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <Link href='/terms-condition' className='underline'>Terms and Condition</Link> and <Link href='/privacy' className='underline'>Privacy Policy</Link>
             </label>
           </div>
         </div>
@@ -248,8 +253,13 @@ const GoogleIdentitySignUp = () => {
           </div>
         </div>
       </div>
-      {(isAgree)?<>{(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}<button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':'Continue'}</button></>:<><button className='bg-transparent h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#F6F6F6]/50 border-2 border-[#F6F6F6]/40 rounded-[50px] w-full cursor-not-allowed' disabled>Continue</button></>}
+      {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
+      {(isSubmitting && !isLoginFail && isVerifingEmail) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Registration Successfully, Please verify email</p>} 
+      {(isAgree)?<>     
+      <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':'Continue'}</button></>:
+      <><button className='bg-transparent h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#F6F6F6]/50 border-2 border-[#F6F6F6]/40 rounded-[50px] w-full cursor-not-allowed' disabled>Continue</button></>}
     </form>
+    </>
   );
 };
 

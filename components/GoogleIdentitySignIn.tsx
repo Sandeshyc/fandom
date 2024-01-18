@@ -4,7 +4,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   sendSignInLinkToEmail,
-  getAuth  
+  getAuth,
+  sendEmailVerification,  
 } from 'firebase/auth';
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,6 +16,7 @@ import {
 } from '@mui/icons-material';
 import { useRouter } from "next/router";
 import useUserInfo from '@/hooks/useUserInfo';
+import VerifyMail from '@/modules/elements/VerifyMail';
 import { set } from 'lodash';
 
 const firebaseConfig = {
@@ -34,6 +36,7 @@ const GoogleIdentitySignIn = () => {
   const [isSuccess, setIsSuccess] = useState(false);  
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [onSubmit, setOnSubmit] = useState(false);
+  const [isVerifingEmail, setIsVerifingEmail] = useState(false);
 
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);
@@ -69,28 +72,40 @@ const GoogleIdentitySignIn = () => {
             password
           );
           const user = userCredential.user;
-          // console.log('user', user);
+          console.log('user', user);
           if(user !== null && user !== undefined) {
-            const userResponse = await checkUser(
-              user?.uid,
-              user?.uid,
-              user?.email || '',
-              user?.providerId,
-              user?.emailVerified,
-              '',
-              user?.accessToken || ''
-            ); 
-            if(userResponse === 200) {
+            const isEmailVerified = user?.emailVerified;
+            if(isEmailVerified){ 
+              const userResponse = await checkUser(
+                user?.uid,
+                user?.uid,
+                user?.email || '',
+                user?.providerId,
+                user?.emailVerified, 
+                '',
+                'testData'
+              );
+              if(userResponse === 200) {
+                setIsSuccess(true);
+                setIsLoginFail(false);
+                router.replace('/');
+                console.log('success');
+              }else{
+                setIsSuccess(false);
+                setIsLoginFail(true);
+                router.replace('/auth');
+                console.log('failed');
+              }
+            }else{
               setIsSuccess(true);
               setIsLoginFail(false);
-              router.replace('/');
-              console.log('success');
-            }else{
-              setIsSuccess(false);
-              setIsLoginFail(true);
-              router.replace('/auth');
-              console.log('failed');
-            }           
+              setIsVerifingEmail(true);
+              const actionCodeSettings = {
+                url: `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/auth/reset-password?email=${user?.email}`,
+                handleCodeInApp: true,
+              };
+              await sendEmailVerification(user, actionCodeSettings);
+            }         
           }
           setOnSubmit(false);
         } catch (err) {
@@ -105,6 +120,10 @@ const GoogleIdentitySignIn = () => {
   const { errors, touched, values, handleChange, handleSubmit } = formiks;
 
   return (
+    <>
+    {(isVerifingEmail)?<VerifyMail
+    email={values.userEmail}
+    />:null}    
     <form onSubmit={handleSubmit} method="POST" className="text-left">
       <div className='mb-4'>
         <div className="relative">
@@ -166,12 +185,13 @@ const GoogleIdentitySignIn = () => {
         </div>
       </div>
       {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>Incorrect Email Or Password</p>}
-      {(isSubmitting && isSuccess) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Login Success, Please wait...</p>}
+      {(isSubmitting && isSuccess) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Login Success, {(isVerifingEmail)?'please verify email':'Please wait...'}</p>}
       <button
       type="submit"
       className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':
       'Continue'}</button>
     </form>
+    </>
   );
 };
 

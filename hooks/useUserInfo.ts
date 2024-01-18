@@ -36,10 +36,10 @@ const useUserInfo = () => {
           if(oneLogInAccessToken){
             window.localStorage.setItem('oneLogInAccessToken', oneLogInAccessToken);
           }else{
-            window.localStorage.setItem('googleIndentityAccessToken', 'testData');// Need to Update
+            window.localStorage.setItem('googleIndentityAccessToken', googleIndentityAccessToken || 'testData');// Need to Update
           }
           window.location.replace('/');
-            return 200;
+          return 200;
         }else{
         //   console.log('error', response.data?.message);
         //   return response.data?.message;

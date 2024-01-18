@@ -7,6 +7,7 @@ import useMovieList from '@/hooks/useMovieList';
 import AmazingDeals from '@/modules/components/AmazingDeals';
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import useIsMobile from '@/hooks/useIsMobile';
+import Welcome from '@/modules/elements/Welcome';
 
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
@@ -69,6 +70,7 @@ const Home = (props:any) => {
       backgroundSize: '100% auto',
       backgroundPosition: 'right '+ 30 + '%',
     }}>
+    {/* <Welcome/> */}
     {(!isLoading && isReady && movies)?<>
       <Mapper
         modules={movies}
