@@ -119,16 +119,16 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 icon={<Insights />}
                 label={'Upcoming'}
                 handleClick={() => {
-                    router.push('');
+                    router.push('/upcoming');
                 }}
-                activeRoute=''/>
+                activeRoute='/upcoming'/>
                 <NavItem
                 icon={<Movie />}
                 label={'Movies'}
                 handleClick={() => {
-                    router.push('');
+                    router.push('/movies');
                 }}
-                activeRoute=''/>
+                activeRoute='/movies'/>
                 <NavItem
                 icon={<LiveTvOutlined />}
                 label={'Events'}

@@ -40,13 +40,15 @@ const GoogleIdentitySignUp = () => {
   const schema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
       'Password must contain at least 1 uppercase, 1 lowercase and 1 number'
     ),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref('password'), ''], 
       'Passwords are not matched'
     ).required('Confirm Password is required'),
+    tnc: Yup.boolean().oneOf([true], 'Accept Terms & Conditions is required'),
+    marketing: Yup.boolean(),
   });
 
   const togglePassword = () => {
@@ -61,13 +63,15 @@ const GoogleIdentitySignUp = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      tnc: false,
+      marketing: false,
     },
 
     // Pass the Yup schema to validate the form
     validationSchema: schema,
 
     // Handle form submission
-    onSubmit: async ({ email, password, confirmPassword }) => {
+    onSubmit: async ({ email, password, confirmPassword, tnc, marketing }) => {
       // Make a request to your backend to store the data
       setIsSubmitting(true);
       setOnSubmit(true);
@@ -80,26 +84,31 @@ const GoogleIdentitySignUp = () => {
         const user = userCredential.user;
         // console.log('user ', user);
         if(user !== null && user !== undefined) {
+          await checkUser(
+            user?.uid,
+            user?.uid,
+            user?.email || '',
+            user?.providerId,
+            user?.emailVerified,
+            '',
+            'testData',
+            false,
+            tnc,
+            marketing
+          );           
           const isEmailVerified = user?.emailVerified;
           if(isEmailVerified){ 
-            const userResponse = await checkUser(
-              user?.uid,
-              user?.uid,
-              user?.email || '',
-              user?.providerId,
-              user?.emailVerified,
-              '',
-              'testData'
-            ); 
-            if(userResponse === 200) {
-              setIsLoginFail(false);
-              router.replace('/');
-              console.log('success');
-            }else{
-              setIsLoginFail(true);
-              router.replace('/auth');
-              console.log('failed');
-            } 
+            const userInfo = {
+              sub: user?.uid,
+              email: user?.email,
+              uid: user?.uid,
+              providerName: user?.providerId,
+              emailVerified: user?.emailVerified,
+            }
+            window.localStorage.setItem('provider', user?.providerId);
+            window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            window.localStorage.setItem('googleIndentityAccessToken', 'testData');// Need to Update            
+            router.replace('/');
           }else{
             setIsLoginFail(false);
             setIsVerifingEmail(true);
@@ -231,12 +240,13 @@ const GoogleIdentitySignUp = () => {
       <div className='mb-4'>
         <div className='flex justify-between items-center'>
           <div className='flex items-start'>
-            <input type="checkbox" className='mr-2 w-6 h-6 mt-1' id='agree'
-              name='agree'
-              checked={isAgree}
-              onChange={(e) => setIsAgree(e.target.checked)}
+            <input type="checkbox" className='mr-2 w-6 h-6 mt-1'
+              id='agree'
+              name='tnc'
+              checked={values.tnc}
+              onChange={handleChange}
             />
-            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <Link href='/terms-condition' className='underline'>Terms and Condition</Link> and <Link href='/privacy' className='underline'>Privacy Policy</Link>
+            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <a href='/terms-condition' className='underline' target='_blank'>Terms and Condition</a> and <a href='/privacy' className='underline' target='_blank'>Privacy Policy</a>
             </label>
           </div>
         </div>
@@ -245,9 +255,9 @@ const GoogleIdentitySignUp = () => {
         <div className='flex justify-between items-center'>
           <div className='flex items-start'>
             <input type="checkbox" className='mr-2 w-6 h-6 mt-1' id='isMarketing'
-              name='isMarketing'
-              checked={isMarketing}
-              onChange={(e) => setIsMarketing(e.target.checked)}
+              name='marketing'
+              checked={values.marketing}
+              onChange={handleChange}
             />
             <label htmlFor="isMarketing" className='text-white/90 text-[14px]'>I agree to receive marketing communications (until I unsubscribe).</label>
           </div>
@@ -255,7 +265,7 @@ const GoogleIdentitySignUp = () => {
       </div>
       {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
       {(isSubmitting && !isLoginFail && isVerifingEmail) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Registration Successfully, Please verify email</p>} 
-      {(isAgree)?<>     
+      {(values.tnc)?<>     
       <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':'Continue'}</button></>:
       <><button className='bg-transparent h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#F6F6F6]/50 border-2 border-[#F6F6F6]/40 rounded-[50px] w-full cursor-not-allowed' disabled>Continue</button></>}
     </form>

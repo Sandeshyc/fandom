@@ -42,7 +42,7 @@ const Movies = (props:any) => {
   const isMobile = useIsMobile();
   // console.log('productPlatform: ', isMobile);
 
-  const { data: movies = [], isLoading } = useMovieList(region, (isMobile)?'mobile':'web', 'upcoming', userIdToken);
+  const { data: movies = [], isLoading } = useMovieList(region, (isMobile)?'mobile':'web', 'movies', userIdToken);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');    

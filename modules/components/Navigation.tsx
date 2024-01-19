@@ -49,8 +49,8 @@ const NavigationHome = () => {
                 <div className='ml-8'>
                   <div className='flex flex-row items-center gap-7'>
                     <NavItem label="Home" route="/" activeRoute={'/'} />
-                    <NavItem label="Upcoming" route="" activeRoute={''} />
-                    <NavItem label="Movies" route="" activeRoute={''} />
+                    <NavItem label="Upcoming" route="/upcoming" activeRoute={'/upcoming'} />
+                    <NavItem label="Movies" route="/movies" activeRoute={'/movies'} />
                     <NavItem label="Events" route="" activeRoute={''} />
                     <NavItem label="My Tickets" route="/mytickets" activeRoute={'/mytickets'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />

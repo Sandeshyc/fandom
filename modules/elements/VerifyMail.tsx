@@ -33,16 +33,25 @@ type Props = {
 const VerifyMail = ({email}:Props) => {
     const [isReSend, setIsReSend] = useState(false);
     const [open, setOpen] = React.useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
     const handleClose = () => {
         setOpen(true);
     };
     const sentVerifyEmail = async () => {
         try {
-            await sendEmailVerification(auth?.currentUser as any);
+            setIsReSend(true);
+            const sendResponse = await sendEmailVerification(auth?.currentUser as any);
+            console.log('sendResponse', sendResponse);
             setTimeout(() => {
                 setIsReSend(false);
-            }, 5000);
-        }catch (error) {
+            }, 20000);
+        }catch (error:any) {
+            if(error.code === 'auth/too-many-requests') {
+                setErrorMessage('Too many requests. Try again later.');
+            }
+            if(error.code === 'auth/user-not-found') {
+                setErrorMessage('User not found.');
+            }
             console.log('error', error);
         }
     }
@@ -63,11 +72,14 @@ const VerifyMail = ({email}:Props) => {
                 <p className="text-white text-sm md:text-base mb-4">
                     We have sent a confirmation email to <span className="italic">
                     {email}</span>. Please check your email and click the link within 24 hours to complete your registration.
-                </p>                
+                </p> 
+                {(errorMessage)?<p className="text-red-500 text-sm md:text-base mb-4">
+                    {errorMessage}
+                    </p>:null}               
                 {(isReSend)?<button 
                 disabled={isReSend}
-                className="underline text-blue-500 font-medium cursor-not-allowed">
-                    Resend verification link
+                className="underline text-blue-500 font-medium cursor-not-allowed disabled">
+                    Resent verification link
                 </button>:
                 <button className="underline text-blue-500 font-medium"
                     onClick={sentVerifyEmail}>
