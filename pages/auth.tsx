@@ -4,7 +4,7 @@ import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
 import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 import useUserInfo from '@/hooks/useUserInfo';
-
+import VerifyMail from '@/modules/elements/VerifyMail';
 const imgOneLogin = '/images/onelogsmall.png';
 const imgLogBG = '/images/loginbgnew.png';
 
@@ -12,7 +12,8 @@ const Auth = () => {
   const router = useRouter();
   const {checkUser} = useUserInfo();
   const [isSubmit, setIsSubmit] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);  
+  const [isSuccess, setIsSuccess] = useState(false); 
+  const [isVerifyOneLogin, setIsVerifyOneLogin] = useState(false); 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     // console.log('userInfo: ', userInfo);
@@ -65,9 +66,11 @@ const Auth = () => {
         setIsSuccess(false);
         router.push('/auth');
         console.log('failed');
-      }      
+      } 
+      setIsVerifyOneLogin(false);     
     }
     if (token) {
+      setIsVerifyOneLogin(true);
       getAccessToken(token);    
     }
 
@@ -111,7 +114,7 @@ const Auth = () => {
             className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90"
             onClick={() => LoginPage()}>
               <img src={imgOneLogin} className="h-6 inline-block mr-2" alt="OneLogin" />
-              <span>Employee Login</span>
+              <span>{(isVerifyOneLogin)?'Loading...':'Employee Login'}</span>
             </button>
             <div className='w-full flex justify-center text-white mt-4 mb-2'>
               <p className='text-sm m-0'>

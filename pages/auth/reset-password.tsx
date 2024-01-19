@@ -3,13 +3,16 @@ import { initializeApp } from 'firebase/app';
 import {
     getAuth,
     confirmPasswordReset,
+    checkActionCode,
+    applyActionCode,
 } from 'firebase/auth';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { EmailIcon, LockIcon, EyeSlashIcon } from "@/utils/CustomSVGs";
 import {
   Visibility,
-  VisibilityOff
+  VisibilityOff,
+  RotateRightOutlined
 } from '@mui/icons-material';
 import { useRouter } from "next/router";
 const firebaseConfig = {
@@ -30,12 +33,54 @@ const ResetPassword = () => {
     const [onSubmit, setOnSubmit] = useState(false);
     const [errorMessage, setErrorMessage] = useState('oops! something went wrong');
     const [oobCode, setOobCode] = useState('');
+    const [mode, setMode] = useState('');
     const router = useRouter();
-
+    const [verifyEmailErrorMessage, setVerifyEmailErrorMessage] = useState('oops! something went wrong');
+    const [isVerifiedEmail, setIsVerifiedEmail] = useState(false);
+    const [isVerifingEnd, setIsVerifingEnd] = useState(false);
     // get query params
     useEffect(() => {
-        const { oobCode } = router.query;
+        const { oobCode, mode } = router.query;
         setOobCode(oobCode as string);
+        setMode(mode as string);
+        if(mode === 'verifyEmail') {
+            const handleVerification = async () => {
+                console.log('auth.currentUser?.emailVerified', auth.currentUser?.emailVerified);
+                if(auth.currentUser?.emailVerified === true) {
+                    setIsVerifiedEmail(true);
+                    setTimeout(() => {
+                        router.replace('/');
+                    }, 3000);
+                }else{
+                    try {
+                        await applyActionCode(auth, oobCode as string);
+                        setIsVerifiedEmail(true);
+                        setTimeout(() => {
+                            router.replace('/');
+                        }, 3000);
+                    } catch (error:any) {
+                        if(error.code === 'auth/expired-action-code') {
+                            setVerifyEmailErrorMessage('expired');
+                        }
+                        if(error.code === 'auth/invalid-action-code') {
+                            setVerifyEmailErrorMessage('This link already used');
+                        }
+                        if(error.code === 'auth/user-disabled') {
+                            setVerifyEmailErrorMessage('user disabled');
+                        }
+                        if(error.code === 'auth/user-not-found') {
+                            setVerifyEmailErrorMessage('user not found');
+                        }
+                        if(error.code === 'auth/email-already-in-use') {
+                            setVerifyEmailErrorMessage('email already in use');
+                        }
+                    }
+                } 
+                setIsVerifingEnd(true);              
+              };          
+              handleVerification();
+            // router.replace('/auth');
+        }
     }, [router.query]);
 
     const togglePassword = () => {
@@ -47,7 +92,7 @@ const ResetPassword = () => {
 
     const schema = Yup.object().shape({
         password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
             'Password must contain at least 1 uppercase, 1 lowercase and 1 number'
           ),
           confirmPassword: Yup.string().oneOf(
@@ -81,11 +126,22 @@ const ResetPassword = () => {
                 console.log('error: ', error);
                 setOnSubmit(false);
                 setIsLoginFail(true);
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log('errorCode: ', errorCode);
-                console.log('errorMessage: ', errorMessage);
-                setErrorMessage(errorMessage);
+                setErrorMessage('oops! something went wrong');
+                if(error.code === 'auth/expired-action-code') {
+                    setErrorMessage('The link has expired. ');
+                }
+                if(error.code === 'auth/expired-action-code') {
+                    setErrorMessage('The link has expired. ');
+                }
+                if(error.code === 'auth/invalid-action-code') {
+                    setErrorMessage('The link is invalid. ');
+                }
+                if(error.code === 'auth/user-disabled') {
+                    setErrorMessage('The user corresponding to the given link has been disabled. ');
+                }
+                if(error.code === 'auth/user-not-found') {
+                    setErrorMessage('There is no user corresponding to the given link. ');
+                }                
             });
     
         },
@@ -103,8 +159,9 @@ const ResetPassword = () => {
                 <div className="w-full xl:w-1/2 ">            
                     <div className="flex flex-wrap justify-center h-full">
                         <div className="w-full max-w-[315px] sm:max-w-[448px] self-center">
-                            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold  text-center '>Reset Password</h1>
-                            <p className='text-white text-[14px] sm:text-[16px] xl:text-[18px] mb-2'>New Password</p>
+                            {(mode === 'resetPassword')?
+                            <><h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold  text-center '>Reset Password</h1>
+                            <p className='text-white text-[14px] sm:text-[16px] xl:text-[18px] mb-2'>New Password</p>                            
                             <form onSubmit={handleSubmit} method="POST">
                                 <div className='mb-4'>
                                     <div className="relative">
@@ -179,7 +236,6 @@ const ResetPassword = () => {
                                 </div>
                                 {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
                                 {(isSubmitting && !isLoginFail) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
-
                                 <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':'Continue'}</button>
                             </form>
                             <p className="flex flex-wrap justify-center text-white mt-8">
@@ -187,7 +243,38 @@ const ResetPassword = () => {
                                     onClick={() => router.push('/auth')}
                                     className='text-white text-[14px] cursor-pointer hover:underline'
                                 >Back Login</span>
+                            </p></>:
+                            null}
+                            {(mode === 'verifyEmail' && !isVerifingEnd)?
+                            <div className="flex justify-center items-center flex-col">
+                                <RotateRightOutlined
+                                    className="animate-spin"
+                                    sx={{
+                                        fontSize: 60,
+                                        color: '#fff',
+                                    }}
+                                />
+                                <p className="text-white">Verifing Email...</p>
+                            </div>:
+                            null}
+                            {(mode === 'verifyEmail' && isVerifingEnd && isVerifiedEmail)?
+                                <p 
+                                className="text-green-900 bg-green-200 rounded-md my-2 p-4 w-full text-center">
+                                    Your email has been verified. Please wait...
+                                </p>:
+                            null}
+                            {(mode === 'verifyEmail' && isVerifingEnd && !isVerifiedEmail)?
+                            <>
+                            <p className="text-red-900 bg-red-200 rounded-md my-2 p-4 w-full text-center">
+                                {verifyEmailErrorMessage}
                             </p>
+                            <p className="flex flex-wrap justify-center text-white mt-8">
+                                <span
+                                    onClick={() => router.push('/auth')}
+                                    className='text-white text-[14px] cursor-pointer hover:underline'
+                                >Back Login</span>
+                            </p></>:
+                            null}
                         </div>
                     </div>
             </div>

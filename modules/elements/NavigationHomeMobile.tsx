@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import MobileBottomNav from '@/modules/elements/Navigation/BottomNavigation';
 
 const logoSrc = '/images/logonew.png';
 const NavigationHomeMobile = () => {
+  const [userid, setUserid] = React.useState('');
   const router = useRouter();
-
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj?.sub) {
+        setUserid(userInfoObj?.sub);
+      }
+    }
+  }, []);
   return (
     <>
     <div 
@@ -25,7 +34,7 @@ const NavigationHomeMobile = () => {
             </div>
         </div>
     </div>
-    <MobileBottomNav/>
+    {(userid)?<MobileBottomNav/>:null}
     </>
   )
 }

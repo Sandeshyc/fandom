@@ -59,12 +59,17 @@ const NavigationHome = () => {
                   alt="Logo" onClick={() => router.push('/')} />
                 </div>
                 <div className='ml-8'>
-                  <div className='flex flex-row items-center gap-7'>
+                  <div className={`${(userid)?'flex':'hidden'} flex-row items-center gap-7`}>
                     <NavItem label="Home" route="/" activeRoute={'/'} />
-                    <NavItem label="Movies" route="/" activeRoute={''} />
+                    <NavItem label="Upcoming" route="/upcoming" activeRoute={'/upcoming'} />
+                    <NavItem label="Movies" route="/movies" activeRoute={'/movies'} />
                     <NavItem label="Events" route="/" activeRoute={''} />
                     <NavItem label="My Tickets" route="/mytickets" activeRoute={'/mytickets'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />
+                  </div>
+                  <div className={`${(!userid)?'flex':'hidden'} flex-row items-center gap-7`}>
+                    <NavItem label="Login" route="/auth" activeRoute={'/auth'} />
+                    <NavItem label="Registration" route="/registration" activeRoute={'/registration'} />
                   </div>
                 </div>
               </div>
