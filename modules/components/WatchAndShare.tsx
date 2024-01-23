@@ -14,7 +14,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 import WatchAndBuy from '@/modules/components/WatchAndBuy';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import SocialShare from '@/modules/elements/SocialShare';
-
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 type dataProps = {
     data: any;
 }
@@ -45,6 +45,7 @@ const MovieSummary = ({data}:dataProps) => {
                 {data.messages.map((message : string, index : number) => <p key={stableKeys[index]}>{message}</p>)}
             </div>
         </div>): null}
+        {(data?._id)?
         <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
             {(data)?<>{(data?.allowed)?(<>{data?.isPackage ? null : (data?.currentTime)?(<Buttons
             onClick={() => router.push(`/watch/${data?._id}`)} 
@@ -76,7 +77,9 @@ const MovieSummary = ({data}:dataProps) => {
                     />
                 </>:null}
             </div>
-        </div>
+        </div>:
+        <ErrorPopUp
+        message='Test'/>}
     </div>}</>);
   
 }

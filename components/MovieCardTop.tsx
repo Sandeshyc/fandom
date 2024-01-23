@@ -78,7 +78,7 @@ const MovieCardTop: React.FC<MovieCardTopProps> = ({ data, portrait, number }) =
           {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={data?.videoUrl} control={false}   />)} */}
           {autoplay && (<ReactVideoPlayer control={false} poster={data?.thumbnailUrl} videoURL={data?.videoUrl} />)}
           <p className="text-green-400 font-semibold mt-4 title">
-            {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
+            {data.title || ""} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
           </p>
         </div>
         <div className="

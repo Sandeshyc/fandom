@@ -10,13 +10,14 @@ import Footer from '@/components/Footer';
 import SkeletonList from '@/components/Skeleton/SkeletonList';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 const bgImage = 'url("/images/new-bg.png")';
 const Home = (props:any) => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();
   const { region, product } =  props; 
-  const { data: movies = [], isLoading } = useListMovies(region, 'web', userIdToken);
+  const { data: movies = [], isLoading, error } = useListMovies(region, 'web', userIdToken);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -53,6 +54,7 @@ const Home = (props:any) => {
           isLoading = {isLoading}/> 
       </div>
       </>):(<SkeletonList/>)}
+      {(error)?<><ErrorPopUp message={error.message}/></>:null}
     </>
   )
 }

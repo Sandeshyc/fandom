@@ -9,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import NavigationHome from '@/modules/elements/NavigationHome';
 import Footer from '@/components/Footer';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 const bgImage = 'url("/images/new-bg.png")';
 const Search = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
@@ -44,7 +45,7 @@ const Search = (props:any) => {
     }
   }
 
-  const { data: movies, isLoading } = useSearchMovies(
+  const { data: movies, isLoading, error } = useSearchMovies(
     'web',
     queryString 
   );
@@ -183,13 +184,15 @@ const Search = (props:any) => {
               </form>
             </div>
             <p className="text-white text-xl md:text-2xl font-semibold mb-4">Result of "{searchKeyWord}"</p>
-            {(isReady && !isLoading) ? (<>     
-            <div className="flex flex-wrap mx-[-5px]">
-              {((Array.isArray(movies?.list) && movies?.list?.length > 0)?
-              (movies?.list?.map((item: any, index:number) => <div className='w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4' key={stableKeys[index]}><MovieCardSearch data={item} portrait={false}/></div>)):
-              <NoMovies/>)}
-            </div>
-            </>) : <SkeletonSearch/>}
+            {(error)?<ErrorPopUp message={error.message}/>:
+            (isReady && !isLoading) ? (<>     
+              <div className="flex flex-wrap mx-[-5px]">
+                {((Array.isArray(movies?.list) && movies?.list?.length > 0)?
+                (movies?.list?.map((item: any, index:number) => <div className='w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4' key={stableKeys[index]}><MovieCardSearch data={item} portrait={false}/></div>)):
+                <NoMovies/>)}
+              </div>
+              </>) :
+            <SkeletonSearch/>}
           </div>
         </div>
         <Footer/>

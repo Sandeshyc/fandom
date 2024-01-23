@@ -18,7 +18,7 @@ const ItemShortInfo = ({data}:Props) => {
       <div className='flex-grow flex flex-wrap w-[200px]'>
         <div className='w-full flex flex-wrap'>
           <div className='mr-6'>
-            <p className="font-medium text-3xl">{data?.title || "upcoming..."}</p>
+            <p className="font-medium text-3xl">{data?.title || ""}</p>
           </div>
           <div className='flex flex-row items-center gap-2 mr-6'>
             {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}

@@ -19,6 +19,9 @@ interface VideoPlayerProps {
 
 
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data, isRestart }) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isReady, setIsReady] = useState(false);
+    const [isBuffering, setIsBuffering] = useState(false);
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
@@ -29,6 +32,15 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
     }
+    
+    useEffect(() => {
+        // if player take more than 10 sec to load then show slow internet message
+        setTimeout(() => {
+            if(!isPlaying){
+                console.log('slow internet, reload ');
+            }
+        }, 10000);
+    }, [isReady]);
 
 
     useEffect(() => {
@@ -98,6 +110,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on ready video
             player.on('ready', function() {
+                console.log('Video Ready');
+                setIsReady(true);
                 if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
                     player.seek(data?.currentTime);
                 }
@@ -115,6 +129,9 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on playing video
             player.on('play', function() {
+                console.log('Video Play');
+                setIsPlaying(true);
+                setIsBuffering(false);
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "play",
@@ -139,6 +156,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 const currentTime = player.getPosition();
                 const duration = player.getDuration();
                 console.log('Video Pause');
+                setIsBuffering(false);
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "pause",
@@ -148,6 +166,32 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                         "duration": duration,
                     }
                 });
+            });
+
+            // on before play video
+            player.on('load', function() {
+                console.log('Video beforePlay');
+                setIsBuffering(false);
+                
+            });
+
+
+            // on loading video
+            player.on('buffer', function() {
+                // logPlayerEvent({
+                //     "eventType": "player",
+                //     "eventName": "buffer",
+                //     "meta": {
+                //         "itemCode": data?._id,
+                //     }
+                // });
+                console.log('buffer');
+                const timeout = setTimeout(() => {
+                    setIsBuffering(true);
+                }, 5000);
+                // clear timeout
+                // clearTimeout(timeout);
+                
             });
 
             // on complete video
@@ -167,6 +211,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             player.on('error', function(error : any) {
+                console.log('error: ', error);
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "error",
@@ -194,6 +239,9 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
     return (
         <>
+            {/* IsPlay: {isPlaying.toString()} <br/>
+            IsBuffering: {isBuffering.toString()} <br/>
+            <br/> */}
             <div className="h-full"  style={styling}>
                 <div ref={playerRef} className="h-full" id="jwplayer-container">
                     <div className="h-full" />

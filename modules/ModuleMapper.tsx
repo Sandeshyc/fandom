@@ -1,5 +1,6 @@
 import React from 'react';
 import { stableKeys } from '@/utils/stableKeys';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 
 interface ModuleWrapperProps {
     modules: any;
@@ -25,6 +26,14 @@ export default function ModuleMapper ({
         if(module?.displayType == 'rollBordered' ){
             extraProps.isSquare = false;
             extraProps.portrait = true;
+        }
+        if(module?.name == 'error' ){
+            return(
+                <div key={stableKeys[moduleIndex]}>
+                    <ErrorPopUp 
+                    message='Test'/>
+                </div>
+            )
         }
         const Component = getComponent(module?.displayType || "");
         if(!Component) return null;

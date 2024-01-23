@@ -10,6 +10,7 @@ import {DetailsHeroBanner} from '@/modules/components/DetailsHeroImage';
 import PackageDetailsHeroImageMobile from '@/modules/components/PackageDetailsHeroImageMobile';
 import useIsMobile from '@/hooks/useIsMobile';
 import SocialShare from '@/modules/elements/SocialShare';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 type Props = {
     data: any;
 }
@@ -37,7 +38,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
         <>
         <DetailsHeroBanner thumb={thumb}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
-            <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:'Upcoming...'}</h1>
+            <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:''}</h1>
             {(data?.packageShortDetails) ? (<p className="mb-1 flex items-center flex-wrap my-2">
                 <span className="text-gray-300 mr-2 text-xl">{data?.packageShortDetails}</span>
             </p>):
@@ -63,6 +64,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                 textColor={'#fff'}
             />):
             null}
+            {(data?._id)?
             <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap"> 
                 {(data?.canBuy === true)?(<PackageRentButton 
                 data={data}/>):
@@ -94,7 +96,9 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                         />
                     </>:null}
                 </div>
-            </div>
+            </div>:
+            <ErrorPopUp
+            message='Test'/>}
         </div>
         </>}
     </>);
