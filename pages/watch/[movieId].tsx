@@ -20,7 +20,7 @@ const Watch = () => {
   const [backBtnActive, setBackBtnActive] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
-  // console.log('Watch data: ', data, isLoading, isReady);
+  // console.log('Watch data: ', data);
   const {t} = router.query;
   const isRestart = t === 'restart' ? true : false;
   useEffect(() => {
@@ -106,7 +106,6 @@ const Watch = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         }}>
-
         {(videoReady)?((isTrailer)?((trailerUrl)?(<ReactMainVideoPlayer 
         videoURL={trailerUrl}
         poster={data?.thumbnailUrl}

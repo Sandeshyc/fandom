@@ -129,7 +129,7 @@ const GoogleIdentitySignIn = () => {
         <div className="relative">
           <input 
             placeholder="Email Address"
-            type="text" 
+            type="email" 
             name='userEmail'
             autoFocus={true}
             value={values.userEmail}

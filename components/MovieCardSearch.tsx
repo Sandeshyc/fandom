@@ -75,7 +75,7 @@ const MovieCardSearch: React.FC<MovieCardProps> = ({ data }) => {
           {/* {autoplay && (<VideoPlayer image={data?.thumbnailUrl} video={videoURL} control={false}   />)} */}
           {autoplay && (<ReactVideoPlayer videoURL={videoURL} control={false} poster={data?.thumbnailUrl} />)}
           <p className="text-green-400 font-semibold mt-4 title">
-            {data.title || "upcoming..."} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
+            {data.title || ""} <span className="text-white">({yearFromDate(data?.createdDate)})</span>
           </p>
         </div>
         <div className="

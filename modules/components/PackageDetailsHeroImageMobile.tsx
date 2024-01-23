@@ -5,6 +5,7 @@ import PackageRentButtonMobile from '@/modules/Identities/PackageRentButtonMobil
 import MovieSummary from '@/modules/components/MovieSummary';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 type Props = {
     data: any;
 }
@@ -34,6 +35,7 @@ const PackageDetailsHeroImageMobile = ({data}:Props) => {
                 textColor={'#fff'}
             />):
             null}
+            {(data?._id)?
             <div className='flex flex-wrap justify-between'>
                 {(data?.canBuy === true)?(<PackageRentButtonMobile data={data} hasMovieList={hasMovieList}/>):
                     (<button className={`cursor-not-allowed opacity-60 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-full py-1 px-3 w-${(hasMovieList)?'[50%]':'full'} text-base h-[44px]`}>Rent</button>)}
@@ -48,7 +50,9 @@ const PackageDetailsHeroImageMobile = ({data}:Props) => {
                         Movie List <ChevronRightIcon className="w-5 h-5 ml-2 text-white/80" />
                 </button>
                 </>:null}
-            </div> 
+            </div>:
+            <ErrorPopUp
+            message='Test'/>}
             <ShareBtnGroup data={data}/>
         </div>
     </>);

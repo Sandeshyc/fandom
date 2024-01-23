@@ -8,6 +8,7 @@ import AmazingDeals from '@/modules/components/AmazingDeals';
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import useIsMobile from '@/hooks/useIsMobile';
 import Welcome from '@/modules/elements/Welcome';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
@@ -42,7 +43,7 @@ const Movies = (props:any) => {
   const isMobile = useIsMobile();
   // console.log('productPlatform: ', isMobile);
 
-  const { data: movies = [], isLoading } = useMovieList(region, (isMobile)?'mobile':'web', 'movies', userIdToken);
+  const { data: movies = [], isLoading, error } = useMovieList(region, (isMobile)?'mobile':'web', 'movies', userIdToken);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');    
@@ -75,6 +76,7 @@ const Movies = (props:any) => {
         modules={movies}
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonHome/>)}
+    {(error)?<ErrorPopUp message={error.message}/>:null}
     </div>
     </>) 
 }

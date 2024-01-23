@@ -4,7 +4,7 @@ import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import useMovieDetails from '@/hooks/useMovieDetails';
 import useIsMobile from '@/hooks/useIsMobile';
-import Footer from '@/components/Footer';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 
 const bgImage = 'url("/images/new-bg.png")';
@@ -15,7 +15,10 @@ const Details = () => {
   const isMobile = useIsMobile();
   const { movieId } = router.query;
   const [userIdToken, setUserIdToken] = React.useState('');
-  const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web'); // Need to upate
+  const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web'); // Need to upate
+  console.log('movieDetails', movieDetails);
+  console.log('isLoading', isLoading);
+  console.log('error', error);
   // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
   useEffect(() => {
     setIsReady(true);  
@@ -58,6 +61,7 @@ const Details = () => {
         isLoading = {isLoading}/>
       </div>
     </>:<SkeletonDetails/>}
+    {error && <ErrorPopUp message={error.message}/>}
   </>
   )
 }

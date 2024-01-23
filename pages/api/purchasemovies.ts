@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // if (region !== 'NA') url = `${url}&region=${region}`;
     if (product !== 'NA') url = `${url}&platform=${product}`;
     // console.log(region, product, userID, url)
-    const moviesRes = await axios.get(url);
+    const moviesRes = await axios.get(url, {timeout: 5000})
     const movies = moviesRes.data;
     return res.status(200).json(movies);
   } catch (error) {

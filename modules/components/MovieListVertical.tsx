@@ -39,26 +39,20 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
         </ul>
         <div className={`${(openTab === 0)?'flex flex-wrap':'hidden'}`}>
             {(Array.isArray(ActiveItems) && ActiveItems?.length > 0)?ActiveItems.map((item:MovieInterface, index:number) => (
-                <>
-                <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4'>
+                <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4' key={stableKeys[index]}>
                     <MovieCardPurchase
-                    key={stableKeys[index]}
                     data={item}
                     />
                 </div>
-                </>
             )):<NoMovies/>}
         </div>
         <div className={`${(openTab === 1)?'flex flex-wrap':'hidden'}`}>
             {(Array.isArray(ExpairedItems) && ExpairedItems?.length > 0)?ExpairedItems.map((item:MovieInterface, index:number) => (
-                <>
-                <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4'>
+                <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4' key={stableKeys[index]}>
                     <MovieCardPurchase
-                    key={stableKeys[index]}
                     data={item}
                     />
                 </div>
-                </>
             )):<NoMovies/>}
         </div>
   </div>);

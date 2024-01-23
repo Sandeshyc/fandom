@@ -24,12 +24,10 @@ const MovieWatchList = ({ data, title, link, linkText, isBoxesLayout = false }:P
         </div>
         <div className={`flex flex-wrap`}>
             {(Array.isArray(data) && data?.length > 0)?data.map((item:MovieInterface, index:number) => (
-                <>
                 <MovieCardList
                 key={stableKeys[index]}
                 data={item}
                 />
-                </>
             )):<NoMovies/>}
         </div>
   </div>);
