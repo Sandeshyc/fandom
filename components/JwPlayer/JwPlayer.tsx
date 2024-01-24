@@ -2,6 +2,7 @@ import { set } from "lodash";
 import React, { useState, useEffect, useRef, use } from "react";
 
 import usePlayerEvent from "@/hooks/usePlayerEvent";
+import axios from "axios";
 
 interface VideoPlayerProps {
     image : string;
@@ -26,12 +27,33 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
     const x = useRef(0);
+    const [drmTokens, setDrmTokens] = useState<any>({
+        widevine: '',
+        fairplay: '',
+    });
 
     // console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
     }
+
+    useEffect(() => {
+        (async () => {
+            try{
+                if(!data?._id || drmTokens.widevine !== '') return;
+                console.log('itemID : ', data?._id);
+                const tokens = await axios ({
+                    method: 'get',
+                    url: `${process.env.NEXT_PUBLIC_API_URL}/item/${data?._id}/dkey`,
+                });
+                console.log('tokens: ', tokens?.data?.data);
+                if(tokens?.data?.data){
+                    setDrmTokens(tokens?.data?.data);
+                }
+            } catch(e){ console.error(e); }
+        })();
+    }, [data?._id]);
     
     useEffect(() => {
         // if player take more than 10 sec to load then show slow internet message
@@ -39,14 +61,14 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             if(!isPlaying){
                 console.log('slow internet, reload ');
             }
-        }, 10000);
+        }, 20000);
     }, [isReady]);
 
 
     useEffect(() => {
         try{ 
-
-            if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" ) return;
+            console.log('drmTokens.widevine: ', drmTokens.widevine);
+            if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
             // make track are ready
             let tracks: any = [];
             if (caption) {
@@ -64,9 +86,29 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             playerRef.current.style ="opacity: 0.5"
 
             const player = window.jwplayer(playerRef.current.firstChild);
+            if(!player) return;
             player.setup({
-                file: video,
-                image: image,
+                playlist:  [{ 
+                    image: image,
+                    sources:  [{ 
+                      file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/dash/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.mpd",
+                      "drm": {
+                        "widevine": {
+                          "url": drmTokens?.widevine,
+                          }
+                      }  
+                    },{ 
+                      file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/hls/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.m3u8",
+                      "drm": {
+                        "fairplay": {
+                          "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
+                          "processSpcUrl": drmTokens?.fairplay,
+                        }
+                      } 
+                    }]  
+                }],
+                // file: video,
+                // image: image,
                 aspectratio: "16:9",
                 autostart: autoplay,
                 mute: true,
@@ -109,7 +151,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             // }
 
             // on ready video
-            player.on('ready', function() {
+            player?.on('ready', function() {
                 console.log('Video Ready');
                 setIsReady(true);
                 if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
@@ -128,7 +170,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         
 
             // on playing video
-            player.on('play', function() {
+            player?.on('play', function() {
                 console.log('Video Play');
                 setIsPlaying(true);
                 setIsBuffering(false);
@@ -152,7 +194,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             // on pause video
-            player.on('pause', function() {
+            player?.on('pause', function() {
                 const currentTime = player.getPosition();
                 const duration = player.getDuration();
                 console.log('Video Pause');
@@ -169,7 +211,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             // on before play video
-            player.on('load', function() {
+            player?.on('load', function() {
                 console.log('Video beforePlay');
                 setIsBuffering(false);
                 
@@ -177,7 +219,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
 
             // on loading video
-            player.on('buffer', function() {
+            player?.on('buffer', function() {
                 // logPlayerEvent({
                 //     "eventType": "player",
                 //     "eventName": "buffer",
@@ -195,7 +237,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             // on complete video
-            player.on('complete', function() {
+            player?.on('complete', function() {
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "completed",
@@ -210,7 +252,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 }
             });
 
-            player.on('error', function(error : any) {
+            player?.on('error', function(error : any) {
                 console.log('error: ', error);
                 logPlayerEvent({
                     "eventType": "player",
@@ -228,14 +270,16 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             // clear on unmount
             return () => {
                 // player.remove();
-                player.pause();
+                // player.pause();
+                // player.stop();
+                player?.remove();
                 // setTimeout(() => {-
                 //     player.stop();
                 // }, 1000);                
             };
         } catch(e){ console.error(e); }
 
-    }, [video, autoplay]);
+    }, [video, autoplay, drmTokens.widevine]);
 
     return (
         <>
