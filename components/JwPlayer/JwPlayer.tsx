@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, use } from "react";
 
 import usePlayerEvent from "@/hooks/usePlayerEvent";
 import axios from "axios";
+import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 
 interface VideoPlayerProps {
     image : string;
@@ -26,10 +27,12 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
+    const [drmError, setDrmError] = useState(false);
     const x = useRef(0);
     const [drmTokens, setDrmTokens] = useState<any>({
         widevine: '',
         fairplay: '',
+        playready: '',
     });
 
     // console.log('video: ', video);
@@ -51,7 +54,11 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 if(tokens?.data?.data){
                     setDrmTokens(tokens?.data?.data);
                 }
-            } catch(e){ console.error(e); }
+            } catch(e){ 
+                console.error('DRM error :');
+                setDrmError(true)
+                console.error(e); 
+            }
         })();
     }, [data?._id]);
     
@@ -67,7 +74,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
     useEffect(() => {
         try{ 
-            console.log('drmTokens.widevine: ', drmTokens.widevine);
+            console.log('drmTokens.fairplay: ', drmTokens.fairplay);
             if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
             // make track are ready
             let tracks: any = [];
@@ -91,20 +98,31 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 playlist:  [{ 
                     image: image,
                     sources:  [{ 
-                      file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/dash/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.mpd",
-                      "drm": {
-                        "widevine": {
-                          "url": drmTokens?.widevine,
-                          }
-                      }  
+                        file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/hls/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.m3u8",
+                        "drm": {
+                            "fairplay": {
+                                "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
+                                "processSpcUrl": drmTokens?.fairplay,
+                            },
+                            // "licenseRequestHeaders": {
+                            //     "content-type": "application/octet-stream",
+                            //     // "Content-Type": "application/octet-stream"
+                            // },
+                        } 
                     },{ 
-                      file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/hls/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.m3u8",
-                      "drm": {
-                        "fairplay": {
-                          "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
-                          "processSpcUrl": drmTokens?.fairplay,
+                        file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/dash/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.mpd",
+                        "drm": {
+                            "widevine": {
+                                "url": drmTokens?.widevine,
+                            }
+                        }  
+                    },{
+                        file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/dash/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.mpd",
+                        "drm": {
+                            "playready": {
+                                "url": drmTokens?.playready,
+                            }
                         }
-                      } 
                     }]  
                 }],
                 // file: video,
@@ -171,6 +189,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on playing video
             player?.on('play', function() {
+                setIsPlaying(false);
                 console.log('Video Play');
                 setIsPlaying(true);
                 setIsBuffering(false);
@@ -195,6 +214,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on pause video
             player?.on('pause', function() {
+                setIsPlaying(false);
                 const currentTime = player.getPosition();
                 const duration = player.getDuration();
                 console.log('Video Pause');
@@ -265,6 +285,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                     }
                 });
                 console.log('error');
+                setDrmError(true);
             });
 
             // clear on unmount
@@ -277,7 +298,10 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 //     player.stop();
                 // }, 1000);                
             };
-        } catch(e){ console.error(e); }
+        } catch(e){ 
+            console.error(e); 
+            setDrmError(true);
+        }
 
     }, [video, autoplay, drmTokens.widevine]);
 
@@ -291,6 +315,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                     <div className="h-full" />
                 </div>
             </div>
+            {drmError? <ErrorPopUp message="Sorry for the interruptions, will be fixed soon!"/> : null}
         </>
     )
 };
