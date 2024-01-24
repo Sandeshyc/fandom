@@ -5,7 +5,7 @@ import axios from 'axios';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import PlayButton from '@/components/PlayButton';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
-import FavoriteButton from '@/components/FavoriteButton';
+import FavoriteButton from '@/modules/Identities/FavoriteButton';
 import MovieCardSimple from '@/components/MovieCardSimple';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import useMovieList from '@/hooks/useMovieList';
@@ -28,9 +28,9 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const thumbRef = React.useRef<HTMLDivElement>(null);
   const [boxHeight , setBoxHeight] = useState(0);
   const [userId, setUserId] = React.useState('');
-  const [isDeleting, setIsDeleting] = React.useState(false);
-  
+  const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
+  const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp || false);
   const redirectToRent = useCallback(() => {
     handleClose(null);
     router.push(`/details/${data?._id}?viewPlan=true`);
@@ -145,7 +145,10 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   if (!visible) {
     return null;
   }
-
+  const handelWatchListItem = (isInWatchList:boolean) => {
+    data?.setIsInWatchListTemp(!isInWatchList);
+    setIsInLish(!isInLish);
+  }
   return (
     <div ref={thumbRef} 
       onMouseLeave={handleClose}  
@@ -215,14 +218,18 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
             className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>                
                 {(isDeleting)?(<LoopOutlined className={`text-white w-6 animate-spin`} />):(<CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />)}
               </button>:null}
-              <FavoriteButton movieId={data?._id || '0'} isInWatchList={data?.isInWatchList}/>
-
+              {(data?._id)?<FavoriteButton 
+                movieId={data?._id} 
+                isInWatchList={data?.isInWatchListTemp}
+                handelWatchListItem={handelWatchListItem}
+                setIsInWatchListTemp={data?.setIsInWatchListTemp}
+                isInWatchListTemp={data?.isInWatchListTemp}
+                />:null}
               {data?.allowed? (
                 <Buttons onClick={redirectToWatch} type='white'>Play Now</Buttons>
               ) : (
                 <Buttons onClick={redirectToRent}>Rent</Buttons>
               )}
-
             </div>
           </div>
         </div>

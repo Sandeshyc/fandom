@@ -23,6 +23,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   const { openModal, closeModal} = useMoviePopupStore();
   const [autoplay, setAutoplay] = React.useState(false); 
   const [userId, setUserId] = React.useState('');
+  const [isInWatchListTemp, setIsInWatchListTemp] = React.useState(data?.isInWatchList || false);
 
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
@@ -55,10 +56,12 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
         width: popWidth,
         thumbW: thumbW > thumbH ? thumbW : thumbH,
       },
+      ...data,
       thumbOuter,
       sliderRef,
       setRemovedItem,
-      ...data
+      isInWatchListTemp,
+      setIsInWatchListTemp,
     }
 
     x.current = true;
@@ -76,10 +79,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   let thumbURl = '';
   let aspectRatio = '384/216';
   if(portrait){
-    thumbURl = data?.thumbnailPotrait;
+    thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
     aspectRatio = '240/360';
   }else{
-    thumbURl = data?.thumbnailUrl;
+    thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
   }
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){

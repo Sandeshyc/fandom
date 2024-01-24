@@ -48,7 +48,7 @@ const Home = (props:any) => {
   console.log('isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
 
   useEffect(() => {
-    console.log('Home: back ', movies);
+    // console.log('Home: back ', movies);
     setRandomNumber(Math.floor(100000 + Math.random() * 900000).toString());
     const userInfo = window.localStorage.getItem('userInfo');    
     // console.log('userInfo: ', userInfo);
@@ -64,6 +64,7 @@ const Home = (props:any) => {
       router.push('/auth');
     }
     setIsReady(true);
+    
   }, []);
 
   return (<>

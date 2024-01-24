@@ -29,7 +29,10 @@ const SkeletonHeader = () => {
                     <Skeleton baseColor='#333' highlightColor='#666' height={50} width={120}/>
                 </div>
                 <div className='ml-8'>
-                  <div className='flex flex-row items-center gap-7'>
+                  <div className='flex flex-row items-center gap-6'>
+                    <div className='mr-2'>
+                        <Skeleton baseColor='#333' highlightColor='#666' height={18} width={80}/>
+                    </div>
                     <div className='mr-2'>
                         <Skeleton baseColor='#333' highlightColor='#666' height={18} width={80}/>
                     </div>

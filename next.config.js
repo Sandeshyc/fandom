@@ -7,6 +7,11 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // logging: {
+  //   fetches:{
+  //     fullUrl: true,
+  //   }
+  // },
   // env:{
   //   MY_DOMAIN: process.env.MY_DOMAIN,
   // }

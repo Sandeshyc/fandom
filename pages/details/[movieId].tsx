@@ -21,14 +21,14 @@ const Details = () => {
   console.log('error', error);
   // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
   useEffect(() => {
-    setIsReady(true);  
+    setIsReady(true);
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
         setUserIdToken(userInfoObj.sub);
       }
-    }
+    }    
   }, []);
 
   useEffect(() => {    

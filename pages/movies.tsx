@@ -44,6 +44,7 @@ const Movies = (props:any) => {
   // console.log('productPlatform: ', isMobile);
 
   const { data: movies = [], isLoading, error } = useMovieList(region, (isMobile)?'mobile':'web', 'movies', userIdToken);
+  console.log('movies: ', movies);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');    

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Script from "next/script";   
 import type { AppProps } from 'next/app';
 import { Poppins } from 'next/font/google';
-
+import ErrorBoundary from '@/modules/elements/ErrorBoundary';
 import useWishListStore from '@/hooks/useWishListStore';
 
 import '../styles/globals.css';
@@ -49,7 +49,9 @@ export default function App({
 
       {/* <SessionProvider session={session}> */}
           <main className={poppins.className}>
+            <ErrorBoundary>
             <Component {...pageProps} />
+            </ErrorBoundary>
           </main>
       {/* </SessionProvider> */}
     </>

@@ -16,7 +16,9 @@ export default function ModuleMapper ({
   isLoading,
 } : ModuleWrapperProps) {
     return modules?.map((module:any, moduleIndex:number) => {
-        const extraProps = {};
+        const extraProps = {
+            marginTop: false,
+        };
         if(module?.displayType === 'potrait' || module?.displayType === 'top10' || module?.displayType === 'portrait'){
             extraProps.portrait = true;
         }
@@ -36,6 +38,13 @@ export default function ModuleMapper ({
             )
         }
         const Component = getComponent(module?.displayType || "");
+ 
+        if((moduleIndex == 0 && modules[0].displayType !== 'navigation') || moduleIndex == 1){
+            if(module.displayType !== 'detailsHeroImage' && module.displayType !== 'billboard' && module.displayType !== 'LayoutCoverflowSlider' ){
+            extraProps.marginTop = true;
+            }
+        }
+
         if(!Component) return null;
         return (
             <Component

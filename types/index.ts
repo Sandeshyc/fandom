@@ -34,4 +34,6 @@ export interface MovieInterface {
   thumbOuter?:any;
   sliderRef?:any;
   setRemovedItem?:any;
+  isInWatchListTemp?:any;
+  setIsInWatchListTemp?:any;
 }
