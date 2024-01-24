@@ -98,7 +98,9 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                 </div>
             </div>:
             <ErrorPopUp
-            message='Test'/>}
+            message='Sorry, Something went wrong!'
+            isRetry={false}
+            />}
         </div>
         </>}
     </>);

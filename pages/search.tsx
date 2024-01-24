@@ -184,7 +184,7 @@ const Search = (props:any) => {
               </form>
             </div>
             <p className="text-white text-xl md:text-2xl font-semibold mb-4">Result of "{searchKeyWord}"</p>
-            {(error)?<ErrorPopUp message={error.message}/>:
+            {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:
             (isReady && !isLoading) ? (<>     
               <div className="flex flex-wrap mx-[-5px]">
                 {((Array.isArray(movies?.list) && movies?.list?.length > 0)?

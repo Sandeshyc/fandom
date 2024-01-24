@@ -61,7 +61,7 @@ const Details = () => {
         isLoading = {isLoading}/>
       </div>
     </>:<SkeletonDetails/>}
-    {error && <ErrorPopUp message={error.message}/>}
+    {error && <ErrorPopUp message={'Sorry, Something went wrong!'}/>}
   </>
   )
 }

@@ -52,7 +52,9 @@ const PackageDetailsHeroImageMobile = ({data}:Props) => {
                 </>:null}
             </div>:
             <ErrorPopUp
-            message='Test'/>}
+            message='Sorry, Something went wrong!'
+            isRetry={false}
+            />}
             <ShareBtnGroup data={data}/>
         </div>
     </>);
