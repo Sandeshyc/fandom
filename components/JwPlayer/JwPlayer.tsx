@@ -2,10 +2,15 @@ import { set } from "lodash";
 import React, { useState, useEffect, useRef, use } from "react";
 
 import usePlayerEvent from "@/hooks/usePlayerEvent";
+import axios from "axios";
+import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 
 interface VideoPlayerProps {
     image : string;
-    video : string;
+    video : {
+        HLS: string;
+        DASH: string;
+    }
     control : boolean;
     autoplay : boolean;
     isComplited : () => void;
@@ -25,13 +30,42 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
     const playerRef = useRef();
     const {logPlayerEvent} = usePlayerEvent();
     const [firstPlay, setFirstPlay] = useState(true);
+    const [drmError, setDrmError] = useState(false);
     const x = useRef(0);
+    const [drmTokens, setDrmTokens] = useState<any>({
+        widevine: '',
+        fairplay: '',
+        playready: '',
+    });
 
-    // console.log('video: ', video);
+    console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
     }
+
+    
+
+    useEffect(() => {
+        (async () => {
+            try{
+                if(!data?._id || drmTokens.widevine !== '') return;
+                console.log('itemID : ', data?._id);
+                const tokens = await axios ({
+                    method: 'get',
+                    url: `${process.env.NEXT_PUBLIC_API_URL}/item/${data?._id}/dkey`,
+                });
+                console.log('tokens: ', tokens?.data?.data);
+                if(tokens?.data?.data){
+                    setDrmTokens(tokens?.data?.data);
+                }
+            } catch(e){ 
+                console.error('DRM error :');
+                setDrmError(true)
+                console.error(e); 
+            }
+        })();
+    }, [data?._id]);
     
     useEffect(() => {
         // if player take more than 10 sec to load then show slow internet message
@@ -39,14 +73,20 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             if(!isPlaying){
                 console.log('slow internet, reload ');
             }
-        }, 10000);
+        }, 20000);
     }, [isReady]);
 
 
     useEffect(() => {
         try{ 
-
-            if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" ) return;
+            // if no video url then return
+            if(!video || (!video?.HLS && !video?.DASH)){
+                setDrmError(true);
+                return;
+            }
+            
+            console.log('drmTokens.fairplay: ', drmTokens.fairplay);
+            if ( video === undefined || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
             // make track are ready
             let tracks: any = [];
             if (caption) {
@@ -64,9 +104,45 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             playerRef.current.style ="opacity: 0.5"
 
             const player = window.jwplayer(playerRef.current.firstChild);
+            console.log('player: ', player);
+            console.log('playerRef.current.firstChild: ', playerRef.current.firstChild);
+
+            if(!player || !playerRef.current.firstChild) return;
             player.setup({
-                file: video,
-                image: image,
+                playlist:  [{ 
+                    image: image,
+                    sources:  [{ 
+                        file: video?.HLS,
+                        "drm": {
+                            "fairplay": {
+                                "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
+                                "processSpcUrl": drmTokens?.fairplay,
+                            },
+                            headers : [
+                                {
+                                    "name": "Content-Type",
+                                    "value": "application/octet-stream"
+                                }
+                            ]
+                        } 
+                    },{ 
+                        file: video?.DASH,
+                        "drm": {
+                            "widevine": {
+                                "url": drmTokens?.widevine,
+                            }
+                        }  
+                    },{
+                        file: video?.DASH,
+                        "drm": {
+                            "playready": {
+                                "url": drmTokens?.playready,
+                            }
+                        }
+                    }]  
+                }],
+                // file: video,
+                // image: image,
                 aspectratio: "16:9",
                 autostart: autoplay,
                 mute: true,
@@ -109,7 +185,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             // }
 
             // on ready video
-            player.on('ready', function() {
+            player?.on('ready', function() {
                 console.log('Video Ready');
                 setIsReady(true);
                 if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
@@ -128,7 +204,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         
 
             // on playing video
-            player.on('play', function() {
+            player?.on('play', function() {
+                setDrmError(false);
                 console.log('Video Play');
                 setIsPlaying(true);
                 setIsBuffering(false);
@@ -152,7 +229,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             // on pause video
-            player.on('pause', function() {
+            player?.on('pause', function() {
+                setIsPlaying(false);
                 const currentTime = player.getPosition();
                 const duration = player.getDuration();
                 console.log('Video Pause');
@@ -169,7 +247,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             // on before play video
-            player.on('load', function() {
+            player?.on('load', function() {
                 console.log('Video beforePlay');
                 setIsBuffering(false);
                 
@@ -177,7 +255,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
 
             // on loading video
-            player.on('buffer', function() {
+            player?.on('buffer', function() {
                 // logPlayerEvent({
                 //     "eventType": "player",
                 //     "eventName": "buffer",
@@ -195,7 +273,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             });
 
             // on complete video
-            player.on('complete', function() {
+            player?.on('complete', function() {
                 logPlayerEvent({
                     "eventType": "player",
                     "eventName": "completed",
@@ -210,7 +288,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 }
             });
 
-            player.on('error', function(error : any) {
+            player?.on('error', function(error : any) {
                 console.log('error: ', error);
                 logPlayerEvent({
                     "eventType": "player",
@@ -223,19 +301,25 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                     }
                 });
                 console.log('error');
+                setDrmError(true);
             });
 
             // clear on unmount
             return () => {
                 // player.remove();
-                player.pause();
+                // player.pause();
+                // player.stop();
+                player?.remove();
                 // setTimeout(() => {-
                 //     player.stop();
                 // }, 1000);                
             };
-        } catch(e){ console.error(e); }
+        } catch(e){ 
+            console.error(e); 
+            setDrmError(true);
+        }
 
-    }, [video, autoplay]);
+    }, [video, autoplay, drmTokens.widevine]);
 
     return (
         <>
@@ -247,6 +331,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                     <div className="h-full" />
                 </div>
             </div>
+            {drmError? <ErrorPopUp message="Sorry for the interruptions, will be fixed soon!"/> : null}
         </>
     )
 };
@@ -254,7 +339,10 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 // default props
 VideoPlayer.defaultProps = {
     image: "",
-    video: "",
+    video: {
+        HLS: "",
+        DASH: "",
+    },
     control: true,
     autoplay: true,
     pictureInPicture: false,

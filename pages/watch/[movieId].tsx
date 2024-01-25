@@ -15,30 +15,58 @@ const Watch = () => {
   const [isReady, setIsReady] = React.useState(false);
   const [isTrailer, setIsTrailer] = React.useState(true);
   const [trailerUrl, setTrailerUrl] = React.useState('');
-  const [videoURL, setVideoURL] = React.useState('');
   const [videoReady, setVideoReady] = React.useState(false);
   const [backBtnActive, setBackBtnActive] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
-  // console.log('Watch data: ', data);
+  const [videoURL, setVideoURL] = React.useState(
+    {
+      'HLS': data?.hlsVideo,
+      'DASH': data?.dashVideo,
+    }
+  );
+
+  console.log('data?.videoUrls: ', data?.videoUrls);
+
   const {t} = router.query;
   const isRestart = t === 'restart' ? true : false;
   useEffect(() => {
     if(data?._id){
       setVideoReady(true);
     }
+
     if(data?.allowed){
       setIsTrailer(false);
-      if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
-        setVideoURL(data?.videoUrls[0]?.url);
+      const VideoURLs = {
+        'HLS': data?.hlsVideo,
+        'DASH': data?.dashVideo,
       }
+      if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
+        data?.videoUrls.map((item:any) => {
+          if(!VideoURLs.HLS && item?.label?.toUpperCase() === 'HLS'){
+            VideoURLs.HLS = item?.url;
+          }
+          if(!VideoURLs.DASH && item?.label?.toUpperCase() === 'DASH'){
+            VideoURLs.DASH = item?.url;
+          }
+        });
+      }
+      setVideoURL(VideoURLs);
     }else{
       setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
     }
-    // console.log('videoURL: ', videoURL);
+
     if(trailer === 'true'){
       setIsTrailer(true);
-      setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
+      let trailerURL = data?.trailerVideo ? data?.trailerVideo : data?.trailerUrl;
+      if(!trailerURL){
+        data?.videoUrls.map((item:any) => {
+          if(item?.label === 'Trailer'){
+            trailerURL = item?.url;
+          }
+        });
+      }
+      setTrailerUrl(trailerURL ? trailerURL : '');
     }
   }, [data]);
 
