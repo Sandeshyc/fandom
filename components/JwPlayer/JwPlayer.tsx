@@ -7,7 +7,10 @@ import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 
 interface VideoPlayerProps {
     image : string;
-    video : string;
+    video : {
+        HLS: string;
+        DASH: string;
+    }
     control : boolean;
     autoplay : boolean;
     isComplited : () => void;
@@ -35,11 +38,13 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         playready: '',
     });
 
-    // console.log('video: ', video);
+    console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
     }
+
+    
 
     useEffect(() => {
         (async () => {
@@ -74,8 +79,14 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
     useEffect(() => {
         try{ 
+            // if no video url then return
+            if(!video || (!video?.HLS && !video?.DASH)){
+                setDrmError(true);
+                return;
+            }
+            
             console.log('drmTokens.fairplay: ', drmTokens.fairplay);
-            if ( video === undefined || video === "" || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
+            if ( video === undefined || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
             // make track are ready
             let tracks: any = [];
             if (caption) {
@@ -93,31 +104,36 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             playerRef.current.style ="opacity: 0.5"
 
             const player = window.jwplayer(playerRef.current.firstChild);
-            if(!player) return;
+            console.log('player: ', player);
+            console.log('playerRef.current.firstChild: ', playerRef.current.firstChild);
+
+            if(!player || !playerRef.current.firstChild) return;
             player.setup({
                 playlist:  [{ 
                     image: image,
                     sources:  [{ 
-                        file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/hls/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.m3u8",
+                        file: video?.HLS,
                         "drm": {
                             "fairplay": {
                                 "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
                                 "processSpcUrl": drmTokens?.fairplay,
                             },
-                            // "licenseRequestHeaders": {
-                            //     "content-type": "application/octet-stream",
-                            //     // "Content-Type": "application/octet-stream"
-                            // },
+                            headers : [
+                                {
+                                    "name": "Content-Type",
+                                    "value": "application/octet-stream"
+                                }
+                            ]
                         } 
                     },{ 
-                        file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/dash/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.mpd",
+                        file: video?.DASH,
                         "drm": {
                             "widevine": {
                                 "url": drmTokens?.widevine,
                             }
                         }  
                     },{
-                        file:  "https://abs-vcms.akamaized.net/media/input/angpulubiatangprinsesa_1997_f1_restoredintl_wmk-165224/output/dash/AngPulubiAtAngPrinsesa_1997_F1_RestoredIntl_WMK-165224.mpd",
+                        file: video?.DASH,
                         "drm": {
                             "playready": {
                                 "url": drmTokens?.playready,
@@ -189,7 +205,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
             // on playing video
             player?.on('play', function() {
-                setIsPlaying(false);
+                setDrmError(false);
                 console.log('Video Play');
                 setIsPlaying(true);
                 setIsBuffering(false);
@@ -323,7 +339,10 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 // default props
 VideoPlayer.defaultProps = {
     image: "",
-    video: "",
+    video: {
+        HLS: "",
+        DASH: "",
+    },
     control: true,
     autoplay: true,
     pictureInPicture: false,
