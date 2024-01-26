@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json([]);
     }
     // console.log(url);
-    const moviesRes = await axios.get(url, {timeout: 5000});
+    const moviesRes = await axios.get(url, {timeout: 10000});
     const movies = moviesRes.data;
     return res.status(200).json(movies);
   } catch (error) {

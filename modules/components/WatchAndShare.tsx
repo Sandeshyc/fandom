@@ -79,7 +79,7 @@ const MovieSummary = ({data}:dataProps) => {
             </div>
         </div>:
         <ErrorPopUp
-        message='Test'/>}
+        message='Sorry, Something went wrong!'/>}
     </div>}</>);
   
 }

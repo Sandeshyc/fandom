@@ -31,6 +31,7 @@ const app = initializeApp(firebaseConfig);
 const GoogleIdentitySignIn = () => {
   const router = useRouter();
   const {checkUser} = useUserInfo();
+  const [message, setMessage] = useState('Incorrect Email Or Password');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);  
@@ -108,11 +109,28 @@ const GoogleIdentitySignIn = () => {
             }         
           }
           setOnSubmit(false);
-        } catch (err) {
+        } catch (err:any) {
           console.log('Error', err);
           setIsLoginFail(true);
           setIsSuccess(false);
           setOnSubmit(false);
+          switch (err.code) {
+            case 'auth/invalid-email':
+              setMessage('Invalid Email');
+              break;
+            case 'auth/user-disabled':
+              setMessage('This User Is Disabled');
+              break;
+            case 'auth/user-not-found':
+              setMessage('This Email Is Not Registered');
+              break;
+            case 'auth/too-many-requests':
+              setMessage('Too Many Requests, Please Try Again Later');
+              break;
+            default:
+              setMessage('Incorrect Email Or Password');
+              break;
+          }       
         }      
     },
     enableReinitialize: true,
@@ -184,7 +202,7 @@ const GoogleIdentitySignIn = () => {
           </p>
         </div>
       </div>
-      {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>Incorrect Email Or Password</p>}
+      {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{message}</p>}
       {(isSubmitting && isSuccess) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Login Success, {(isVerifingEmail)?'please verify email':'Please wait...'}</p>}
       <button
       type="submit"

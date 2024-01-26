@@ -13,8 +13,9 @@ const poppins = Poppins({
   });
 type Props = {
     message: string;
+    isRetry?: boolean;
 };
-const ErrorPopUp = ({message}:Props) => {
+const ErrorPopUp = ({message, isRetry=true}:Props) => {
     const route = useRouter();
     const [open, setOpen] = React.useState(true);
     const handleClose = () => {
@@ -40,8 +41,9 @@ const ErrorPopUp = ({message}:Props) => {
                 <h3 className="text-white/80 text-2xl font-semibold mb-2">
                     Opps! 
                 </h3>
-                <p className="text-white/80 text-sm md:text-base mb-6">Sorry, Something went wrong!</p> 
+                <p className="text-white/80 text-sm md:text-base mb-6">{(message)?message:'Sorry, Something went wrong!'}</p> 
                 <div className="gap-2 flex justify-center">
+                    {(isRetry)?
                     <button
                     className="bg-gray-700 text-white/70 text-sm md:text-base px-4 py-2 rounded-md"
                     onClick={
@@ -50,7 +52,8 @@ const ErrorPopUp = ({message}:Props) => {
                         }
                     }>
                         Try Again
-                    </button>
+                    </button>:
+                    null}
                     {(route.pathname !== '/') && (
                         <button
                         className="text-white/90 text-sm md:text-base px-4 py-2 rounded-md bg-gradient-to-l from-blue-700 to-blue-600"

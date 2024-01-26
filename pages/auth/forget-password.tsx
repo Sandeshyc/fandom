@@ -97,8 +97,9 @@ const ForgetPassword = () => {
                                     </div>
                                     {errors.email && touched.email && <span className='text-red-500 w-full text-sm text-left block mt-1'>{errors.email}</span>}
                                 </div>
-                                {isEmailSent?<p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>We have sent an email to your email address. <br />
-                                Please check your email for a the link.
+                                {isEmailSent?<p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>
+                                    We have sent an email to <span className="italic">{values.email}</span>. <br />
+                                    Please, check your email.
                                 </p>:''}
                                 {isEmailSentError?<p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>Sorry, we couldn't find an account with that email address. Please try again or create a new account.</p>:''}
                                 <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-md w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Send...':'Continue'}</button>

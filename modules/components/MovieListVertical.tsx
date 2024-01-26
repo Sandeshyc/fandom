@@ -21,7 +21,7 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
     const ActiveItems = data.filter((item:MovieInterface) => {
         return item.endTime > new Date().toISOString();
     });
-    const ReelContent = () => (<div className={` z-10 relative mt-[2vw] mb-[3vw]`}>
+    const ReelContent = () => (<div className={` z-10 relative mb-[3vw]`}>
         <div className='px-2'>
             <ReelHeading 
             title={title} 
@@ -58,8 +58,17 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
   </div>);
 
   return (<>
-    {(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:
-    <div className='px-4 mt-2'>{ReelContent()}</div>}
+    {(isBoxesLayout === true)?
+    <><div className="w-full overflow-hidden">
+        <div className="max-w-[1600px] mx-auto pb-[15px]">
+            <div className="overflow-hidden movieBoxsInside">
+                {ReelContent()}
+            </div>
+        </div>
+    </div></>:
+    <div className='px-4 mt-2'>
+        {ReelContent()}
+    </div>}
     </>
   );
 };

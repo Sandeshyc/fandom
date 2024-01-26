@@ -67,7 +67,12 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number })
   const redirectToWatch = useCallback(() => {
     router.push(`/details/${data?._id}`)
   }, [router, data?._id]);
-
+  let thumbURl = '';
+  if(portrait){
+    thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+  }else{
+    thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
+  }
   return (
     <div  
     ref={thumbOuterRef}
@@ -76,7 +81,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number })
         <div className='number'><SvgNumbers item={number as number} /></div>
         <div className='img relative bg-zinc-900 rounded-md'>
           {(data?.allowed)?<PurchaseBadge/>:null} 
-          <img onClick={redirectToWatch} src={portrait ? data.thumbnailPotrait : data.thumbnailUrl } alt="Movie" draggable={false} className="cursor-pointer object-contain transition duration shadow-xl rounded-md  delay-300 w-full h-[12vw]" />
+          <img onClick={redirectToWatch} src={thumbURl} alt="Movie" draggable={false} className="cursor-pointer object-contain transition duration shadow-xl rounded-md  delay-300 w-full h-[12vw]" />
         </div>
       </div>
     </div>

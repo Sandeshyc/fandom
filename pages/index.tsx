@@ -45,10 +45,10 @@ const Home = (props:any) => {
   // console.log('productPlatform: ', isMobile);
 
   const { data: movies = [], isLoading, error } = useMovieList(region, (isMobile)?'mobile':'web', 'home', userIdToken, randomNumber.toString());
-  console.log('isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
+  console.log(userIdToken, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
 
   useEffect(() => {
-    console.log('Home: back ', movies);
+    // console.log('Home: back ', movies);
     setRandomNumber(Math.floor(100000 + Math.random() * 900000).toString());
     const userInfo = window.localStorage.getItem('userInfo');    
     // console.log('userInfo: ', userInfo);
@@ -64,6 +64,7 @@ const Home = (props:any) => {
       router.push('/auth');
     }
     setIsReady(true);
+    
   }, []);
 
   return (<>
@@ -81,7 +82,7 @@ const Home = (props:any) => {
         modules={movies}
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonHome/>)}
-    {/* {(error)?<ErrorPopUp message={error.message}/>:null} */}
+    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
     </div>
     </>) 
 }

@@ -45,7 +45,7 @@ const Home = (props:any) => {
           getComponent = {getComponent}
           isLoading = {isLoading}/>        
       </div></>) : (<SkeletonPurchase/>)}
-      {(error)?<><ErrorPopUp message={error.message}/></>:null}
+      {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
     </>
   )
 }

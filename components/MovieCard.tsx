@@ -128,7 +128,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data, portrait }) => {
             <p className="border-gray-500 border px-1 text-xs">HD</p>
             <p className="border-gray-500 border px-1 text-xs">16+</p>
           </div>
-          <div className="flex flex-row items-center gap-2 mt-2 text-white text-xs text-gray-500">
+          <div className="flex flex-row items-center gap-2 mt-2  text-xs text-gray-500">
             <p>language, violence, suicide</p>
           </div>
 

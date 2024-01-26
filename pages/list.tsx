@@ -54,7 +54,7 @@ const Home = (props:any) => {
           isLoading = {isLoading}/> 
       </div>
       </>):(<SkeletonList/>)}
-      {(error)?<><ErrorPopUp message={error.message}/></>:null}
+      {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
     </>
   )
 }

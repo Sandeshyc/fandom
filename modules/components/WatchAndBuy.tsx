@@ -38,7 +38,7 @@ const WatchAndBuy = ({data}:Props) => {
                 <RestartAlt className="w-6 text-black mr-2" /> Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}
             </div>:
             <ErrorPopUp 
-            message='Test'/>}
+            message='Sorry, Something went wrong!'/>}
         </div>
     </>);
 }

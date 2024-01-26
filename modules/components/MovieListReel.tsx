@@ -9,6 +9,7 @@ import MovieCardReel from '@/modules/elements/MovieCardReel';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
+import useIsMobile from '@/hooks/useIsMobile';
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -18,6 +19,7 @@ interface MovieListProps {
   linkText?: string;
   gradient?: boolean;
   isBoxesLayout?: boolean;
+  marginTop?: boolean;
 }
 
 function SlickNextArrow(props: any) {
@@ -35,7 +37,7 @@ function SlickPrevArrow(props: any) {
 }
 
 // Main Component
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false }) => {
+const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
@@ -43,6 +45,7 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
     data = data.filter((item: any) => item !== null);
   }
   const [newData, setNewData] = React.useState(data);
+  const isMobile = useIsMobile();
 
   if (isEmpty(newData)) {
     return null;
@@ -120,7 +123,26 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
   </div>);
 
   return (<>
-    {(Array.isArray(newData) && newData.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 lg:pl-16 mt-2'>{ReelContent()}</div>:null}
+    {(Array.isArray(newData) && newData.length > 0)?(isBoxesLayout === true)?
+    <>
+    <div className={`w-full overflow-hidden`}
+    style={{
+      marginTop: marginTop ? ((isMobile)?'70px': '120px') : '0px',
+    }}>
+      <div className="max-w-[1600px] mx-auto px-[15px]">
+        <div className="overflow-hidden movieBoxsInside">
+          {ReelContent()}
+        </div>
+      </div>
+    </div>
+    </>:
+    <div className={`pl-4 lg:pl-16 mt-2`}
+    style={{
+      marginTop: marginTop ? ((isMobile)?'70px': '120px') : '0px',
+    }}>
+      {ReelContent()}
+    </div>:
+    null}
     </>
   );
 }
