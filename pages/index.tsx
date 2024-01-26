@@ -45,7 +45,7 @@ const Home = (props:any) => {
   // console.log('productPlatform: ', isMobile);
 
   const { data: movies = [], isLoading, error } = useMovieList(region, (isMobile)?'mobile':'web', 'home', userIdToken, randomNumber.toString());
-  console.log('isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
+  console.log(userIdToken, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
 
   useEffect(() => {
     // console.log('Home: back ', movies);

@@ -210,7 +210,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
               </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
-            {(data?.currentTime)?<button title='Remove from Row' onClick={(e) => {
+            {(data?.currentTime || data?.currentTime === 0)?<button title='Remove from Row' onClick={(e) => {
               if(isDeleting) return;
               removeContinueWatch();
               setIsDeleting(true);
