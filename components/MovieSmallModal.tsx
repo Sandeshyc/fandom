@@ -30,7 +30,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const [userId, setUserId] = React.useState('');
   const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
-  const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp || false);
+  // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
     handleClose(null);
     router.push(`/details/${data?._id}?viewPlan=true`);
@@ -145,9 +145,9 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   if (!visible) {
     return null;
   }
-  const handelWatchListItem = (isInWatchList:boolean) => {
-    data?.setIsInWatchListTemp(!isInWatchList);
-    setIsInLish(!isInLish);
+  const handelWatchListItem = () => {
+    data?.setIsInWatchListTemp(!data?.isInWatchListTemp);
+    // setIsInLish(!isInLish);
   }
   return (
     <div ref={thumbRef} 
@@ -221,7 +221,11 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
               {(data?._id)?<FavoriteButton 
                 movieId={data?._id} 
                 isInWatchList={data?.isInWatchListTemp}
-                handelWatchListItem={handelWatchListItem}
+                handelWatchListItem={
+                  () => {
+                    console.log('handelWatchListItem');
+                  }
+                }
                 setIsInWatchListTemp={data?.setIsInWatchListTemp}
                 isInWatchListTemp={data?.isInWatchListTemp}
                 />:null}

@@ -146,6 +146,9 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
+      {/* <p className='absolute z-30 top-0 left-0 m-2 text-white bg-opacity-80 px-2 py-1 rounded-md'>
+        {isInWatchListTemp?.toString()}
+      </p> */}
       {(data?.allowed)?<PurchaseBadge/>:null}  
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>

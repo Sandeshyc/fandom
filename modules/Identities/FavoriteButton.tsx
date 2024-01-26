@@ -78,8 +78,8 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
           // console.log('response: ', response);
           if(response.status === 200) {
             setIsInLish(false);
-            handelWatchListItem(!isInLish);
-            setIsInWatchListTemp(!isInWatchListTemp);
+            handelWatchListItem(false);
+            setIsInWatchListTemp(false);
             // console.log('response.data: ', response.data);
             result = response.data;
           }
@@ -101,6 +101,8 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
           // console.log('response: ', response);
           if(response.status === 200) {
             setIsInLish(true);
+            handelWatchListItem(true);
+            setIsInWatchListTemp(true);
             // console.log('response.data: ', response.data);
             result = response.data;
           }
