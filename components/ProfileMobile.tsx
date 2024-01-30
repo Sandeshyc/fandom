@@ -1,6 +1,6 @@
 import React from "react";
 import { MobileIcon } from "@/utils/CustomSVGs";
-import CountryData from "modules/data/countries.json";
+import CountryData from "@/services/json/countries.json";
 import Select from 'react-select';
 type ProfileMobileProps = {
     isUpdateMode: boolean;

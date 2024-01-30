@@ -31,9 +31,13 @@ export interface MovieInterface {
   xy?: {x: number, y: number, width: number, thumbW: number};
   currentTime?: number;
   sourcePlatform?: string;
+  itemRemoved?: boolean;
   thumbOuter?:any;
   sliderRef?:any;
   setRemovedItem?:any;
   isInWatchListTemp?:any;
   setIsInWatchListTemp?:any;
+  popupIsLoading?:boolean;
+  handelAddMyList?:any;
+  handelRemoveWatchingList?:any;
 }

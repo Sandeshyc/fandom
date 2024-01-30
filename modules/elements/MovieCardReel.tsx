@@ -1,7 +1,11 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { round, set } from 'lodash';
-import axios from 'axios';
+import {
+  addToMyList,
+  removeFromMyList,
+  removeFromWatchingLists,
+} from '@/services/api';
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import EnititlementEndDate from '@/components/Expair';
@@ -20,15 +24,29 @@ interface MovieCardProps {
 
 const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sliderRef, setRemovedItem }) => {
   const router = useRouter();
-  const { openModal, closeModal} = useMoviePopupStore();
-  const [autoplay, setAutoplay] = React.useState(false); 
+  const { openModal, updateModal} = useMoviePopupStore();
   const [userId, setUserId] = React.useState('');
   const [isInWatchListTemp, setIsInWatchListTemp] = React.useState(data?.isInWatchList || false);
+  const [removeRequest, setRemoveRequest] = React.useState(false);
+  const [watchListRequest, setWatchListRequest] = React.useState(false);
+  const [popupIsLoading, setPopupIsLoading] = React.useState(false);
+  const [itemRemoved, setItemRemoved] = React.useState(false);
 
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
-  const [isMouseActive, setIsMouseActive] = React.useState(false);
   const x = useRef(false);
+
+  let dataExtend = {
+    ...data,
+    thumbOuter,
+    sliderRef,
+    isInWatchListTemp,
+    setIsInWatchListTemp,
+    setRemoveRequest,
+    setWatchListRequest,
+    popupIsLoading,
+    itemRemoved,
+  };
 
   let timer: any = 0;
   const onHoverHandler = () => {
@@ -49,20 +67,15 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     left = (left < 0)? 20 : left;
     left = (left > (window.innerWidth - popWidth - 20))? (window.innerWidth - popWidth - 40) : left;
 
-    const dataExtend = {
-      xy : {
-        x: left,
-        y: round(top),
-        width: popWidth,
-        thumbW: thumbW > thumbH ? thumbW : thumbH,
-      },
-      ...data,
-      thumbOuter,
-      sliderRef,
-      setRemovedItem,
-      isInWatchListTemp,
-      setIsInWatchListTemp,
-    }
+    
+    dataExtend.xy = {
+      x: left,
+      y: round(top),
+      width: popWidth,
+      thumbW: thumbW > thumbH ? thumbW : thumbH,
+    };
+    dataExtend.handelAddMyList = handelAddMyList;
+    dataExtend.handelRemoveWatchingList = handelRemoveWatchingList;
 
     x.current = true;
     timer = setTimeout(() => {
@@ -72,6 +85,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
       }
     }, 400);
   }
+
   const onMouseLeave = () => {
     x.current = false;
     clearTimeout(timer);
@@ -97,35 +111,50 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   }, [router, data?._id]);  
   const noGradientClass = gradient ? '' : ' bg-black py-1 ';
 
-  const removeContinueWatch = () => {
-    // Remove Box from Continue Watching List
-    // console.log('data Remove:', data);
-    const headers = {
-      'Content-Type': 'application/json',
-    };      
-    const dataBody = {
-      watchList: [data?._id],
-    };
-    let result;
-    // Remove from Continue Watching List
-    // if(thumbOuter) {
-    //   console.log('thumbOuterddd', thumbOuter);
-    //   thumbOuter.classList.add('opacity-0');
-    //   setTimeout(() => {
-    //     thumbOuter.remove();
-    //   }, 400);
-    // }
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
-      .then(response => {
-        // console.log('response: ', response);
-        if(response.status === 200) {
-          result = response.data;
-          setRemovedItem(data?._id);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      }); 
+  const handelAddMyList = async (isInLish : boolean) => {
+      console.log('handelAddMyList', isInWatchListTemp);
+      dataExtend.popupIsLoading = true;
+      updateModal(dataExtend);
+      let response;
+      if(isInLish) {
+        response = await removeFromMyList(userId, data?._id);
+      }else{
+        response = await addToMyList(userId, data?._id);
+      }
+      console.log('response List: ', response);
+      if(response.status === 'success') {
+        dataExtend.isInWatchListTemp = isInLish;
+        setIsInWatchListTemp(isInLish);
+        console.log('isInWatchListTemp: 2 ', isInWatchListTemp);
+      }else{
+        console.log('Error: ', response);
+      }
+      dataExtend.popupIsLoading = false;
+      updateModal(dataExtend);
+      console.log('isInWatchListTemp: 3 ', isInWatchListTemp);
+  };
+
+  const handelRemoveWatchingList = async () => {
+    console.log('handelRemoveWatchingList');
+    dataExtend.popupIsLoading = true;
+    updateModal(dataExtend);
+    let response;
+    response = await removeFromWatchingLists(userId, data?._id);
+    console.log('response List: ', response);
+    if(response.status === 'success') {
+      dataExtend.isInWatchListTemp = false;
+      setIsInWatchListTemp(false);
+      console.log('isInWatchListTemp: 2 ', isInWatchListTemp);
+      dataExtend.popupIsLoading = false;
+      dataExtend.itemRemoved = true;
+      setTimeout(() => {
+        setRemovedItem(data?._id); 
+      }, 100);
+    }else{
+      console.log('Error: ', response);
+    }
+    updateModal(dataExtend);     
+    dataExtend.popupIsLoading = false;
   };
 
   useEffect(() => {
@@ -146,9 +175,6 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {/* <p className='absolute z-30 top-0 left-0 m-2 text-white bg-opacity-80 px-2 py-1 rounded-md'>
-        {isInWatchListTemp?.toString()}
-      </p> */}
       {(data?.allowed)?<PurchaseBadge/>:null}  
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
@@ -159,14 +185,13 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
             <ProgressBar done={progress} />
             <div onClick={(e) => {
             e.stopPropagation();
-            // console.log('removeContinueWatch');
-            removeContinueWatch();
+            handelRemoveWatchingList();
           }} className={`cursor-pointer lg:hidden`}>
                 <Cancel className={`text-white w-4`} />
               </div>
             </div> : null}
         </div>             
-        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>        
+        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>
     </div>

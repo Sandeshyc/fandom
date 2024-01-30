@@ -41,15 +41,17 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
+  // console.log('removedItem data: ', data);
   if(Array.isArray(data) && data?.length > 0 ) {
-    data = data.filter((item: any) => item !== null);
+    data = data.filter((item: any) => item && item._id);
   }
+  // is _id is not present in data, then return null
+  // if (Array.isArray(data) && data?.length > 0 && !data[0]._id) {
+  //   return null;
+  // }
   const [newData, setNewData] = React.useState(data);
   const isMobile = useIsMobile();
 
-  if (isEmpty(newData)) {
-    return null;
-  }
   let settings = {
     dots: false,
     infinite: false,
@@ -91,8 +93,15 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
     ]
   }; 
   useEffect(() => {
-    if (removedItem) {
-      setNewData(newData.filter((item: any) => item._id !== removedItem));
+    console.log('removedItem: ', removedItem);
+    if (removedItem && Array.isArray(newData) && newData?.length > 0){
+      const newDataTemp = newData?.filter((item: any) => {
+        return (
+          item?._id !== removedItem
+        )
+      }
+      );
+      setNewData(newDataTemp);
     }
   }, [removedItem]);
   const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
@@ -121,6 +130,10 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
       </div> 
     </div>
   </div>);
+
+  if (isEmpty(newData)) {
+    return null;
+  }
 
   return (<>
     {(Array.isArray(newData) && newData.length > 0)?(isBoxesLayout === true)?

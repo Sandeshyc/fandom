@@ -70,7 +70,7 @@ const MyProfile = () => {
                 </div>
               </div>):null}
               <iframe 
-                className='w-full h-screen'
+                className='w-full h-[160vh]'
                 src={iframeParams}  
                 onLoad={handleIframeLoad}     
                 >                
