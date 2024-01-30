@@ -23,25 +23,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
     let userID = getValue(req.query.userId as string);
-    // console.log('ipAddress ', ipAddress)
-    let region = '';
-    if (ipAddress) {
-      try {
-        
-        const ipAdds = ipAddress.split(',')
-        const ipURL = `https://geoip.kapamilya.com/api/location/${ipAdds[0]}?api-version=1.0`
-        const {data} = await axios.get(ipURL);
-        region = data?.data?.country?.isoCode;
-        console.log('IP DATA **************** ', region);
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    if (sectionName === 'NA') sectionName = 'home';
-    // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;
     
+    if (sectionName === 'NA') sectionName = 'home';
+    // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;    
     let url = `${process.env.API_URL}/page/${sectionName}/?userId=${userID}`;
-    if (region !== '' && region !== 'NA') url = `${url}&region=${region}`;
+    url = `${url}&region=PH`;
     if (product !== 'NA') url = `${url}&product=${product}`;
     
     // console.log('Home', region, product, sectionName, url)

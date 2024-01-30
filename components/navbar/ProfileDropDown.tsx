@@ -160,7 +160,7 @@ const ProfileDropDown = () => {
                             <button className='flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
                             onClick={
                                 () => {
-                                    window.open('https://tickets.iwanttfc.com/support', '_blank');
+                                    window.open('https://iconnconvergence-support.freshdesk.com/support/home', '_blank');
                                 }
                             }>
                                 <span className='mr-2'><HelpCenterIcon/></span>

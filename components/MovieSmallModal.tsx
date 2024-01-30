@@ -186,7 +186,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
               <button 
                 title='Remove from Row' 
                 onClick={handelRemoveWatchingListFunc} 
-                className={`cursor-pointer group/item w-8 h-8 border-white/60 border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}> 
+                className={`cursor-pointer group/item w-8 h-8 border-white/60 border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 `}> 
                 <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
               </button>}
 

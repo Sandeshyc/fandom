@@ -14,6 +14,7 @@ const Details = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { movieId } = router.query;
+  const [isError, setIsError] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
   const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web'); // Need to upate
   console.log('movieDetails', movieDetails);
@@ -21,6 +22,9 @@ const Details = () => {
   console.log('error', error);
   // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
   useEffect(() => {
+    if(!movieId){
+      setIsError(true);
+    }
     setIsReady(true);
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
@@ -45,7 +49,6 @@ const Details = () => {
     }
   }, []);
 
-
   return (<>
     {(isReady && !isLoading && movieDetails)?<>
       <div className="text-white" 
@@ -61,7 +64,7 @@ const Details = () => {
         isLoading = {isLoading}/>
       </div>
     </>:<SkeletonDetails/>}
-    {error && <ErrorPopUp message={'Sorry, Something went wrong!'}/>}
+    {(error || isError) && <ErrorPopUp message={'Sorry, Something went wrong!'}/>}
   </>
   )
 }

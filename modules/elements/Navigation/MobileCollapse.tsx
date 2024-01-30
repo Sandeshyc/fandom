@@ -169,7 +169,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 icon={<HelpOutline />}
                 label={'Get Help'}
                 handleClick={() => {
-                    window.open('https://tickets.iwanttfc.com/support', '_blank');
+                    window.open('https://iconnconvergence-support.freshdesk.com/support/home', '_blank');
                 }}
                 activeRoute=''/>
                 <NavItem

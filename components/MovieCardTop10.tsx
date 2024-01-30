@@ -114,7 +114,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
       dataExtend.popupIsLoading = true;
       updateModal(dataExtend);
       let response;
-      if(isInLish) {
+      if(!isInLish) {
         response = await removeFromMyList(userId, data?._id);
       }else{
         response = await addToMyList(userId, data?._id);

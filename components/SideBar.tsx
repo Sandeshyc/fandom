@@ -66,10 +66,10 @@ const SearchBox = (
             />
           <button
             type='submit'
-            className="h-[50px]"
+            className="h-[50px] active:opacity-85"
             onClick={submitSearch}>
               <SearchIcon className="text-gray-400 w-6 h-6" />
-            </button>
+          </button>
         </form>
       </div>
     </div>:null

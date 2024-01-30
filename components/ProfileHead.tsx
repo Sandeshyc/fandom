@@ -20,7 +20,7 @@ const ProfileHead = (
                 onClick={toggleProfile}
                 className="w-[25px]">
                 <ChevronDownIcon 
-                className={`h-6 w-6 text-white ${(profileExpanded)?'rotate-180':null}`}/>
+                className={`active:opacity-85 h-6 w-6 text-white ${(profileExpanded)?'rotate-180':null}`}/>
             </button>
         </div>
     );

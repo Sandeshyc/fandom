@@ -21,24 +21,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let userID = getValue(req.query.userId as string);
     let movieID = getValue(req.query.movieId as string);
-    let product = getValue(req.query.product as string);
+    let product = getValue(req.query.product as string);    
     
-    let region = '';
-    if (ipAddress) {
-      try {
-        
-        const ipAdds = ipAddress.split(',')
-        const ipURL = `https://geoip.kapamilya.com/api/location/${ipAdds[0]}?api-version=1.0`
-        const {data} = await axios.get(ipURL);
-        region = data?.data?.country?.isoCode;
-        console.log('IP DATA **************** ', region);
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
     let url = `${process.env.API_URL}/page/details?userId=${userID}&itemCode=${movieID}`;
-    if (region !== '' && region !== 'NA') url = `${url}&region=${region}`;
+    url = `${url}&region=PH`;
     if( product ){
       url = url + `&product=${product}`;
     }

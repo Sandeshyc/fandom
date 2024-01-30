@@ -112,11 +112,11 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   const noGradientClass = gradient ? '' : ' bg-black py-1 ';
 
   const handelAddMyList = async (isInLish : boolean) => {
-      console.log('handelAddMyList', isInWatchListTemp);
+      console.log('handelAddMyList', isInWatchListTemp, userId, data?._id);      
       dataExtend.popupIsLoading = true;
       updateModal(dataExtend);
       let response;
-      if(isInLish) {
+      if(!isInLish) {
         response = await removeFromMyList(userId, data?._id);
       }else{
         response = await addToMyList(userId, data?._id);
