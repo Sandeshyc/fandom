@@ -17,7 +17,7 @@ const Buttons = ({children, onClick, type='blue', className, styles} : ButtonsPr
   return (
     <button 
       onClick={onClick} 
-      className={`${btnClass[type]} ${className}`}
+      className={`${btnClass[type]} ${className} active:opacity-85`}
       style={styles}
       >{children}</button>
   )

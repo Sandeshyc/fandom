@@ -29,6 +29,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
         h-[44px]
         min-w-[180px]
         hover:opacity-90
+        active:opacity-85
         ">
         <PlayIcon className="w-6 text-black mr-2" />
         Play Now

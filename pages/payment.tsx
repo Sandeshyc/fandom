@@ -15,9 +15,6 @@ const MyProfile = () => {
   const { productId, userid, transactionId, env } = router.query;
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [itemCode, setItemCode] = useState('');
-  // console.log('productId:', productId);
-  // console.log('userid:', userid);
-  // console.log('transactionId:', transactionId);
   const iframeParams = `${process.env.NEXT_PUBLIC_PAYMENT_URI}?userid=${userid}&productId=${productId}&transactionId=${transactionId}&env=${env}`;
 
   const handleIframeLoad = () => {
@@ -70,7 +67,7 @@ const MyProfile = () => {
                 </div>
               </div>):null}
               <iframe 
-                className='w-full h-screen'
+                className='w-full h-[160vh]'
                 src={iframeParams}  
                 onLoad={handleIframeLoad}     
                 >                

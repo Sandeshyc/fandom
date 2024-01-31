@@ -111,7 +111,7 @@ const Auth = () => {
               Success! Please wait a moment.
               </p>:null}
             <button 
-            className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90"
+            className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90 active:opacity-85"
             onClick={() => LoginPage()}>
               <img src={imgOneLogin} className="h-6 inline-block mr-2" alt="OneLogin" />
               <span>{(isVerifyOneLogin)?'Loading...':'Employee Login'}</span>

@@ -1,19 +1,15 @@
 import React, { use, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import {capFirstLetter} from '@/utils/capFirstLetter';
-import PlayButton from '@/components/PlayButton';
-import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import FavoriteButton from '@/modules/Identities/FavoriteButton';
-import MovieCardSimple from '@/components/MovieCardSimple';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
-import useMovieList from '@/hooks/useMovieList';
 import { stableKeys } from '@/utils/stableKeys';
 import AudioMute from '@/modules/elements/AudioMute';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import Buttons from '@/components/identites/Buttons';
 import {CloseOutlined, LoopOutlined} from '@mui/icons-material';
+import { _id } from '@next-auth/mongodb-adapter';
 
 interface movieSmallModalProps {
   visible?: boolean;
@@ -26,10 +22,10 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const [isMute, setIsMute] = React.useState(true);
   const thumbRef = React.useRef<HTMLDivElement>(null);
-  const [boxHeight , setBoxHeight] = useState(0);
   const [userId, setUserId] = React.useState('');
   const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
+
   // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
     handleClose(null);
@@ -49,44 +45,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
     setIsDeleting(false);
   }, [data]);
 
-  const removeContinueWatch = () => {
-    // Remove Box from Continue Watching List
-    const removeContinueWatchItem = () => {
-      const headers = {
-        'Content-Type': 'application/json',
-      };      
-      const dataBody = {
-        itemCode: data?._id,
-      };
-      let result;
-      axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/playerEvent`, { headers, data: dataBody })
-      .then(response => {
-        // console.log('response: ', response);
-        if(response.status === 200) {
-          result = response.data;
-          handleClose(null);
-          data?.setRemovedItem(data?._id);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      }); 
-    }
-    // console.log('data Remove:', data);
-    if(!userId){
-      const userInfo = window.localStorage.getItem('userInfo');
-      if(userInfo) {
-        const userInfoObj = JSON.parse(userInfo);
-        if(userInfoObj.sub) {
-          setUserId(userInfoObj.sub);
-        }
-      }
-      removeContinueWatchItem();
-    }else{
-      removeContinueWatchItem();
-    }
-    
-  };
+  
 
   let zoomScale = 1;
   if(data?.xy?.width && data?.xy?.thumbW && data?.xy?.width>0 && data?.xy?.thumbW > 0){
@@ -142,12 +101,23 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
     setIsMute(!isMute);
   }
 
+  const handleWatchListItemFunc = () => {
+    data?.handelAddMyList(!data?.isInWatchListTemp);
+  }
+
+  const handelRemoveWatchingListFunc = () => {
+    console.log('handelRemoveWatchingListFunc');
+    // handleClose(null);
+    data?.handelRemoveWatchingList();
+  }
+  useEffect(() => {
+    if(data?.itemRemoved){
+      handleClose(null);
+    }
+  }, [data?.itemRemoved]);
+  
   if (!visible) {
     return null;
-  }
-  const handelWatchListItem = () => {
-    data?.setIsInWatchListTemp(!data?.isInWatchListTemp);
-    // setIsInLish(!isInLish);
   }
   return (
     <div ref={thumbRef} 
@@ -190,6 +160,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
         </div>     
         <div className="z-10
           bg-zinc-800
+          relative
           p-2
           lg:p-4
           transition
@@ -210,30 +181,34 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
               </div>           
             </div>
             <div className='flex flex-row items-center gap-2 mb-1'>
-            {(data?.currentTime || data?.currentTime === 0)?<button title='Remove from Row' onClick={(e) => {
-              if(isDeleting) return;
-              removeContinueWatch();
-              setIsDeleting(true);
-            }}
-            className={`cursor-pointer group/item w-8 h-8 ${(0)?'border-white':'border-white/60'} border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>                
-                {(isDeleting)?(<LoopOutlined className={`text-white w-6 animate-spin`} />):(<CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />)}
-              </button>:null}
-              {(data?._id)?<FavoriteButton 
-                movieId={data?._id} 
-                isInWatchList={data?.isInWatchListTemp}
-                handelWatchListItem={
-                  () => {
-                    console.log('handelWatchListItem');
-                  }
-                }
-                setIsInWatchListTemp={data?.setIsInWatchListTemp}
-                isInWatchListTemp={data?.isInWatchListTemp}
-                />:null}
+
+              {(data?.currentTime || data?.currentTime === 0) &&
+              <button 
+                title='Remove from Row' 
+                onClick={handelRemoveWatchingListFunc} 
+                className={`cursor-pointer group/item w-8 h-8 border-white/60 border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 `}> 
+                <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
+              </button>}
+
+              {(data?._id) && (
+                <FavoriteButton isInWatchList={data?.isInWatchListTemp} onClick={handleWatchListItemFunc} />
+              )}
+
               {data?.allowed? (
                 <Buttons onClick={redirectToWatch} type='white'>Play Now</Buttons>
               ) : (
                 <Buttons onClick={redirectToRent}>Rent</Buttons>
               )}
+
+              {(data?.popupIsLoading)?<div className='absolute inset-0 bg-black/30 flex justify-center items-center cursor-wait'>
+                <LoopOutlined
+                sx={{
+                  animation: 'spin 1s linear infinite',
+                  fontSize: 40,
+                  color: 'white',
+                }}
+                />
+              </div>:null}
             </div>
           </div>
         </div>

@@ -59,6 +59,6 @@ const GoBuy = (
       onClick={() => {
         router.push(`/details/${movieId}/?viewPlan=true`);
       }}
-      className="text-white rounded-full py-2 px-3 text-base min-w-[180px] h-[44px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r">Rent</button>
+      className="text-white rounded-full py-2 px-3 text-base min-w-[180px] h-[44px] transition bg-gradient-to-l from-blue-500 to-blue-600 hover:bg-gradient-to-r active:opacity-85">Rent</button>
   )
 }

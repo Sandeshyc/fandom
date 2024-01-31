@@ -33,28 +33,28 @@ const BottomNavigation = () => {
         />:null}
         <div className='fixed bottom-0 left-0 w-full z-40 bg-black px-6 py-2 border-t border-gray-800'>
             <div className='flex justify-between'>
-                <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
+                <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-85'
                 onClick={() => router.push('/')}>
                     <HomeOutlined
                     className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span
                     className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Home</span>
                 </button>
-                <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
+                <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-85'
                 onClick={() => router.push('/mytickets')}>
                     <ConfirmationNumberOutlined
                     className={`${('/mytickets' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span
                     className={`${('/mytickets' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My Tickets</span>
                 </button>
-                <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
+                <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-85'
                 onClick={() => router.push('/list')}>
                     <List
                     className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span
                     className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My List</span>
                 </button>
-                <button className='flex items-center justify-center flex-col px-2 cursor-pointer'
+                <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-85'
                 onClick={() => {
                     setIsCollapseOpen(true);
                 }}>

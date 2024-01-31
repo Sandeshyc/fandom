@@ -13,11 +13,12 @@ import {getComponent} from '@/modules';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 const bgImage = 'url("/images/new-bg.png")';
 const Home = (props:any) => {
+  const router = useRouter();
   const [userIdToken, setUserIdToken] = React.useState('');
   const [isReady, setIsReady] = React.useState(false);
-  const router = useRouter();
+  const [randomNumber, setRandomNumber] = React.useState(Math.floor(100000 + Math.random() * 900000).toString());
   const { region, product } =  props; 
-  const { data: movies = [], isLoading, error } = useListMovies(region, 'web', userIdToken);
+  const { data: movies = [], isLoading, error } = useListMovies(region, 'web', userIdToken, randomNumber);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
