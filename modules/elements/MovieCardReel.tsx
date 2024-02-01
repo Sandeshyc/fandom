@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { round, set } from 'lodash';
 import {
   addToMyList,
@@ -190,8 +191,20 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                 <Cancel className={`text-white w-4`} />
               </div>
             </div> : null}
-        </div>             
+        </div> 
+                    
         <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
+
+        {/* <Image 
+          src={thumbURl}
+          alt="Movie"
+          draggable={false}
+          className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}
+          layout="fill"
+          objectFit="cover"
+          priority={true}
+        /> */}
+
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>
     </div>

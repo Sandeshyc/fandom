@@ -138,16 +138,19 @@ const Search = (props:any) => {
                     </button>
                   </div>
                   <div className={`w-full flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>    
-                    <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
-                      <select 
-                      defaultValue={genre}
-                      onChange={(e) => setGenre(e.target.value)}
-                      className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                        <option value="">Genre</option>
-                        <option value="comedy">Comedy</option> 
-                        <option value="drama">Drama</option> 
-                        <option value="romance">Romance</option>
-                      </select>
+                    <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px] '>
+                      <div 
+                        className="bg-gray-700 rounded-md bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
+                        <select 
+                        defaultValue={genre}
+                        onChange={(e) => setGenre(e.target.value)}
+                        className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none  pr-[20px]">
+                          <option value="">Genre</option>
+                          <option value="comedy">Comedy</option> 
+                          <option value="drama">Drama</option> 
+                          <option value="romance">Romance</option>
+                        </select>
+                      </div>
                     </div>                
                     <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
                       <input 
@@ -168,17 +171,20 @@ const Search = (props:any) => {
                       />
                     </div>                    
                     <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
-                      <select 
-                      defaultValue={contentType}
-                      onChange={(e) => setContentType(e.target.value)}
-                      className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                        <option value="">Content Type</option>
-                        <option value="Movie">Movie</option>
-                        <option value="TV Show">TV Show</option>
-                      </select>
+                      <div 
+                        className="bg-gray-700 rounded-md bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
+                        <select 
+                        defaultValue={contentType}
+                        onChange={(e) => setContentType(e.target.value)}
+                        className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none  pr-[20px]">
+                          <option value="">Content Type</option>
+                          <option value="Movie">Movie</option>
+                          <option value="TV Show">TV Show</option>
+                        </select>
+                      </div>
                     </div>
                     <div className='w-full lg:mt-2 xl:mt-0 mb-2 px-[7px] xl:w-1/5'>
-                      <button type="submit" className="w-full bg-[#2D45F2] text-white rounded-md px-4 py-3 xl:py-2 focus:outline-none focus:ring-2 focus:ring-[#2D45F2] focus:border-transparent">Search</button>
+                      <button type="submit" className="w-full text-white rounded-md px-4 py-3 xl:py-2 focus:outline-none bg-gradient-to-r from-blue-700 to-blue-500 active:opacity-65">Search</button>
                     </div>
                   </div>
               </form>

@@ -92,7 +92,7 @@ const Buy: React.FC<PlayButtonProps> = ({
         items-center
         transition
         h-[44px]
-        active:opacity-85
+        active:opacity-65
         ">Rent</button>}
 <Modal
   open={open}
@@ -103,7 +103,7 @@ const Buy: React.FC<PlayButtonProps> = ({
     <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative '>
       <button
       onClick={handleClose}
-      className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-85'>
+      className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-65'>
         &times;
       </button>
       {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<PlanItems 
@@ -298,7 +298,7 @@ const PlanCard = ({
           px-3 md:px-6
           font-light
           w-full 
-          active:opacity-85
+          active:opacity-65
           text-[16px]">Rent            
           </button></>)}
       </div>

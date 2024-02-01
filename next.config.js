@@ -7,6 +7,28 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'abs-vcms.akamaized.net',
+  //       port: '',
+  //       pathname: '/media/**',
+  //     },
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'absprod-static.iwanttfc.com',
+  //       port: '',
+  //       pathname: '/c/**',
+  //     },
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'img10.hotstar.com',
+  //       port: '',
+  //       pathname: '/image/**',
+  //     },
+  //   ],
+  // },
   // logging: {
   //   fetches:{
   //     fullUrl: true,

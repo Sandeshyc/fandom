@@ -38,6 +38,7 @@
     "nanoid": "^5.0.2",
     "next": "^13.2.4",
     "next-auth": "^4.21.1",
+    "planby": "^1.1.7",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-datepicker": "^4.21.0",

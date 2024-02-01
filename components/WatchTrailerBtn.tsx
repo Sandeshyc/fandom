@@ -30,7 +30,7 @@ const WatchTrailerBtn: React.FC<PlayButtonProps> = ({ movieId }) => {
         h-[44px]
         transition-opacity
         hover:opacity-90
-        active:opacity-85
+        active:opacity-65
         ">
         <TrailerIcon/>
         <span className='ml-2'>Trailer</span>

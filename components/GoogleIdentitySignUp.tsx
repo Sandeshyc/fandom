@@ -266,7 +266,7 @@ const GoogleIdentitySignUp = () => {
       {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
       {(isSubmitting && !isLoginFail && isVerifingEmail) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Registration Successfully, Please verify email</p>} 
       {(values.tnc)?<>     
-      <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC] active:opacity-85'>{(onSubmit)?'Loading...':'Continue'}</button></>:
+      <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC] active:opacity-65'>{(onSubmit)?'Loading...':'Continue'}</button></>:
       <><button className='bg-transparent h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#F6F6F6]/50 border-2 border-[#F6F6F6]/40 rounded-[50px] w-full cursor-not-allowed' disabled>Continue</button></>}
     </form>
     </>

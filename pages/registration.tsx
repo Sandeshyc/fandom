@@ -84,7 +84,7 @@ const Registration = () => {
               <p className='text-center text-white/80 text-sm'>or</p>
             </div>
             <button 
-            className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90 active:opacity-85"
+            className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90 active:opacity-65"
             onClick={() => LoginPage()}>
               <img src={imgOneLogin} className="h-6 inline-block mr-2" alt="OneLogin" />
               <span>Employee Login</span>

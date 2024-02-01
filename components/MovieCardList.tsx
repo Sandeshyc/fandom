@@ -25,12 +25,16 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
     <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4'>
     <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white rounded-md sm:mr-4 justify-between h-full w-full">
       <div className="w-[40%] relative bg-gray-600 rounded-md">
-        <img onClick={redirectToDetails} src={data.thumbnailUrl } alt="Movie" draggable={false} className="
+        <img onClick={redirectToDetails} src={data.thumbnailUrl } alt={data?.title || ' '} draggable={false} className="
           cursor-pointer
           object-contain
           rounded-md
           w-full
-          h-full" />
+          h-full
+          flex
+          justify-center
+          items-center
+          text-white/40" />
         {(data?.allowed)?<PurchaseBadge/>:null}
       </div>
       <div className="w-[58%] py-1">
