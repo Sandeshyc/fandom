@@ -67,7 +67,7 @@ const MyProfile = () => {
                 </div>
               </div>):null}
               <iframe 
-                className='w-full h-[160vh]'
+                className='w-full h-[100vh]'
                 src={iframeParams}  
                 onLoad={handleIframeLoad}     
                 >                
