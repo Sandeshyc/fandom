@@ -65,7 +65,7 @@ const NotificationSettings = (props:any) => {
                 className='mt-4 text-blue-500 text-lg'
                 onClick={() => {}}
                 >
-                    Cancle
+                    Cancel
                 </button>
             </div>
         </div>

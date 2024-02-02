@@ -49,12 +49,14 @@ const Home = (props:any) => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <Mapper
-          modules={movies}
-          getComponent = {getComponent}
-          isLoading = {isLoading}/> 
+        <div className='container mx-auto max-w-[2400px]'>
+          <Mapper
+            modules={movies}
+            getComponent = {getComponent}
+            isLoading = {isLoading}/> 
+          </div>
       </div>
-      </>):(<SkeletonList/>)}
+      </>):(<div className='container mx-auto max-w-[2400px]'><SkeletonList/></div>)}
       {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
     </>
   )

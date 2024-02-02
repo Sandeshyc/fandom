@@ -32,7 +32,7 @@ const PackageRentButtonMobile = ({
     return (
         <>{(data?.allowed !== true)?(<button 
             onClick={handleClickOpen}
-            className={`bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-full py-1 px-3 w-${(hasMovieList)?'[50%]':'full'} text-base transition h-[44px] active:opacity-85 ${className}`}
+            className={`bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-full py-1 px-3 w-${(hasMovieList)?'[50%]':'full'} text-base transition h-[44px] active:opacity-65 ${className}`}
             style={styles}
         >Rent</button>):
         (<button

@@ -89,6 +89,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
     }
   }, []);
 
+  
   const handleClose = useCallback((e:any) => {
 
     setIsVisible(false);
@@ -110,12 +111,20 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
     // handleClose(null);
     data?.handelRemoveWatchingList();
   }
+  
   useEffect(() => {
     if(data?.itemRemoved){
       handleClose(null);
     }
   }, [data?.itemRemoved]);
   
+  useEffect(() => {
+    // get the route URL
+    const currentPath = window.location.pathname;
+    console.log('currentPath', currentPath);
+    handleClose(null);
+  }, [router.pathname]);
+
   if (!visible) {
     return null;
   }

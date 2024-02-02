@@ -33,18 +33,20 @@ const Home = (props:any) => {
   
   return (
     <>
-      {(!isLoading && isReady) ? (<>
+      {(!isLoading && isReady ) ? (<>
       <div className="py-16 lg:pt-28 min-h-[80vh]" style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <Mapper
-          modules={movies}
-          getComponent = {getComponent}
-          isLoading = {isLoading}/>        
-      </div></>) : (<SkeletonPurchase/>)}
+        <div className='container mx-auto max-w-[2400px]'>
+          <Mapper
+            modules={movies}
+            getComponent = {getComponent}
+            isLoading = {isLoading}/>
+          </div>     
+      </div></>) : (<div className='container mx-auto max-w-[2400px]'><SkeletonPurchase/></div>)}
       {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
     </>
   )

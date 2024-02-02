@@ -47,7 +47,7 @@ const RemoveListBtn: React.FC<PlayButtonProps> = ({ movieId, isRemoveHandler }) 
 
   return (!isRemove?<button 
       onClick={ removeList }
-      className="flex p-0 items-center text-[12px] sm:text-sm  xl:text-base active:opacity-85">
+      className="flex p-0 items-center text-[12px] sm:text-sm  xl:text-base active:opacity-65">
         <Close className="text-white  mr-1 w-[16px] h-[16px]" />
         Remove
     </button>:null);

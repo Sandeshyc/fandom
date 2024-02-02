@@ -206,7 +206,7 @@ const GoogleIdentitySignIn = () => {
       {(isSubmitting && isSuccess) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Login Success, {(isVerifingEmail)?'please verify email':'Please wait...'}</p>}
       <button
       type="submit"
-      className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC] active:opacity-85'>{(onSubmit)?'Loading...':
+      className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC] active:opacity-65'>{(onSubmit)?'Loading...':
       'Continue'}</button>
     </form>
     </>
