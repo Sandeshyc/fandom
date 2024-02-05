@@ -1,9 +1,15 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.iwanttfcapp23",
-    "sha256_cert_fingerprints":
-    ["54:31:3C:0A:4E:D9:EC:59:D3:21:1A:A0:29:17:5E:3C:97:58:4A:46:81:66:C3:A4:83:50:9B:FB:FB:D8:19:37"]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.iwanttfcapp23",
+      "sha256_cert_fingerprints": [
+        "54:31:3C:0A:4E:D9:EC:59:D3:21:1A:A0:29:17:5E:3C:97:58:4A:46:81:66:C3:A4:83:50:9B:FB:FB:D8:19:37",
+        "93:B0:25:FC:CA:6B:E5:8C:D2:E5:06:B4:BD:13:EE:39:71:FD:84:10:64:91:21:1A:6F:44:6A:86:A1:38:0F:75"
+      ]
+    }
   }
-}]
+]
