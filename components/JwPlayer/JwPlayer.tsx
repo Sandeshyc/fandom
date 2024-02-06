@@ -112,18 +112,19 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 playlist:  [{ 
                     image: image,
                     sources:  [{ 
+                        "type": "hls",
                         file: video?.HLS,
                         "drm": {
                             "fairplay": {
                                 "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
                                 "processSpcUrl": drmTokens?.fairplay,
+                                licenseRequestHeaders : [
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/octet-stream"
+                                    }
+                                ]
                             },
-                            headers : [
-                                {
-                                    "name": "Content-Type",
-                                    "value": "application/octet-stream"
-                                }
-                            ]
                         } 
                     },{ 
                         file: video?.DASH,
@@ -143,6 +144,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 }],
                 // file: video,
                 // image: image,
+                // type: "application/vnd.apple.mpegurl",
                 aspectratio: "16:9",
                 autostart: autoplay,
                 mute: true,
