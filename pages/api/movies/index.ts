@@ -23,11 +23,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
     let userID = getValue(req.query.userId as string);
+    let region = getValue(req.query.region as string);
     
     if (sectionName === 'NA') sectionName = 'home';
     // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;    
     let url = `${process.env.API_URL}/page/${sectionName}/?userId=${userID}`;
-    url = `${url}&region=PH`;
+    url = `${url}&region=${(region)?region:'PH'}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
     
     // console.log('Home', region, product, sectionName, url)
