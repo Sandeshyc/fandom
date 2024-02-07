@@ -7,6 +7,7 @@ import useMovieList from '@/hooks/useMovieList';
 import AmazingDeals from '@/modules/components/AmazingDeals';
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import useIsMobile from '@/hooks/useIsMobile';
+import getLocation from '@/services/api/location';
 import Welcome from '@/modules/elements/Welcome';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 
@@ -39,12 +40,20 @@ const Home = (props:any) => {
   const { region, product } =  props;
   const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
+  const [myRegion, setRegion] = React.useState('PH');
   const [randomNumber, setRandomNumber] = React.useState(Math.floor(100000 + Math.random() * 900000).toString());
 
   const isMobile = useIsMobile();
   // console.log('productPlatform: ', isMobile);
 
-  const { data: movies = [], isLoading, error } = useMovieList(region, (isMobile)?'mobile':'web', 'home', userIdToken, randomNumber.toString());
+  const _location = async () => {
+    const {countryIsoCode} = await getLocation();
+    console.log('countryIsoCode ', countryIsoCode);
+    setRegion(countryIsoCode);
+  }
+  _location();
+
+  const { data: movies = [], isLoading, error } = useMovieList(myRegion, (isMobile)?'mobile':'web', 'home', userIdToken, randomNumber.toString());
   console.log('Home Page: ', userIdToken, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
 
   useEffect(() => {

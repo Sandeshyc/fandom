@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios';
 import prismadb from '@/libs/prismadb';
 import serverAuth from "@/libs/serverAuth";
+import getLocation from "@/services/api/location";
 
 const getValue = (sourceVal: string) => {
   if (sourceVal && sourceVal !== '' && sourceVal !== null && sourceVal !== 'null' 
@@ -17,14 +18,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     const ipAddress = req.headers["x-forwarded-for"] as string;
-    console.log('ipAddress ', ipAddress)
-
+    // console.log('ipAddress ', ipAddress)
+    const {countryIsoCode} = await getLocation();
+    console.log('countryIsoCode ', countryIsoCode)
     let userID = getValue(req.query.userId as string);
     let movieID = getValue(req.query.movieId as string);
     let product = getValue(req.query.product as string);    
+    let region = getValue(req.query.region as string);    
     
     let url = `${process.env.API_URL}/page/details?userId=${userID}&itemCode=${movieID}`;
-    url = `${url}&region=PH`;
+    url = `${url}&region=${(region)?region:'PH'}`;
     if( product ){
       url = url + `&product=${product}`;
     }

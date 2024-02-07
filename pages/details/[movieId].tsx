@@ -4,6 +4,7 @@ import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import useMovieDetails from '@/hooks/useMovieDetails';
 import useIsMobile from '@/hooks/useIsMobile';
+import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
 
@@ -13,10 +14,17 @@ const Details = () => {
   const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();
   const isMobile = useIsMobile();
+  const [region, setRegion] = React.useState('PH'); // Need to update
   const { movieId } = router.query;
   const [isError, setIsError] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
-  const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web'); // Need to upate
+  const _location = async () => {
+    const {countryIsoCode} = await getLocation();
+    console.log('countryIsoCode ', countryIsoCode);
+    setRegion(countryIsoCode);
+  }
+  _location();
+  const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web', region); // Need to upate
   console.log('movieDetails', movieDetails);
   console.log('isLoading', isLoading);
   console.log('error', error);
