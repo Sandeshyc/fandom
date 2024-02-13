@@ -20,6 +20,7 @@ interface VideoPlayerProps {
     isRestart?: boolean;
 }
 
+const kid = '00030327487209190577273886473330';
 
 
 
@@ -53,7 +54,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 console.log('itemID : ', data?._id);
                 const tokens = await axios ({
                     method: 'get',
-                    url: `${process.env.NEXT_PUBLIC_API_URL}/item/${data?._id}/dkey`,
+                    url: `${process.env.NEXT_PUBLIC_API_URL}/item/${kid}/dkey`,
                 });
                 console.log('tokens: ', tokens?.data?.data);
                 if(tokens?.data?.data){
@@ -111,7 +112,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             player.setup({
                 playlist:  [{ 
                     image: image,
-                    sources:  [{ 
+                    sources:  [{
                         "type": "hls",
                         file: video?.HLS,
                         "drm": {
@@ -140,7 +141,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                                 "url": drmTokens?.playready,
                             }
                         }
-                    }]  
+                    }]
                 }],
                 // file: video,
                 // image: image,
