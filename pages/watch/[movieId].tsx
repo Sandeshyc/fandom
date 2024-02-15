@@ -35,6 +35,7 @@ const Watch = () => {
       setVideoReady(true);
     }
 
+    console.log('data: ', data?.allowed);
     if(data?.allowed){
       setIsTrailer(false);
       const VideoURLs = {
@@ -43,15 +44,16 @@ const Watch = () => {
       }
       if(Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
         data?.videoUrls.map((item:any) => {
-          if(!VideoURLs.HLS && item?.label?.toUpperCase() === 'HLS'){
+          if(!VideoURLs.HLS && item?.label?.toString().toUpperCase() === 'HLS'){
             VideoURLs.HLS = item?.url;
           }
-          if(!VideoURLs.DASH && item?.label?.toUpperCase() === 'DASH'){
+          if(!VideoURLs.DASH && item?.label?.toString().toUpperCase() === 'DASH'){
             VideoURLs.DASH = item?.url;
           }
         });
       }
       setVideoURL(VideoURLs);
+      console.log('VideoURLs: ', VideoURLs);
     }else{
       setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
     }
