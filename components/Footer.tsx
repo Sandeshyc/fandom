@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import MovieSmallModal from '@/components/MovieSmallModal';
@@ -16,14 +16,41 @@ const Footer = () => {
     const router = useRouter();
     const {isOpen, closeModal} = useMoviePopupStore();
     const isMobile = useIsMobile();
+
+    // get footer's current top position
+    const footerRef = useRef(null);
+    const [footerTop, setFooterTop] = useState(0);
+    useEffect(() => {
+        console.log('footerTop: ', footerTop);
+        console.log('footerRef.current: ', footerRef.current);
+        if(footerRef.current){
+            const windowHight = window.innerHeight;
+            const footerTopCurrent = footerRef.current.offsetTop;
+            const footerHight = footerRef.current.offsetHeight;
+            console.log('footerTop: ', footerTop);
+            if(footerTopCurrent < windowHight - footerHight){
+                setFooterTop(windowHight - footerHight - footerTopCurrent);
+            }else{
+                setFooterTop(1);
+            }
+        }
+        console.log('footerTop:1 ', footerTop);
+        console.log('window.innerHeight: ', window.innerHeight);
+    }, [footerRef.current]);
+
+
     return(<>
         {(!isMobile)?<>
         <div className="py-8 bg-black"
+        ref={footerRef}
         style={{
             backgroundImage: bgImage,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'auto 100%',
             backgroundPosition: 'right bottom',
+            position: 'relative',
+            top: footerTop + 'px',
+            visibility: (footerTop > 0)?'visible':'hidden'
           }}>
             <div className="px-4">
                 <div className="border-b border-[#0245F2] pb-8">

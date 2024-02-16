@@ -41,7 +41,7 @@ export default function ModuleMapper ({
  
         if((moduleIndex == 0 && modules[0].displayType !== 'navigation') || moduleIndex == 1){
             if(module.displayType !== 'detailsHeroImage' && module.displayType !== 'billboard' && module.displayType !== 'LayoutCoverflowSlider' ){
-            extraProps.marginTop = true;
+                extraProps.marginTop = true;
             }
         }
 
