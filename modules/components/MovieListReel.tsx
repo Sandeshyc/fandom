@@ -93,7 +93,6 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
     ]
   }; 
   useEffect(() => {
-    console.log('removedItem: ', removedItem);
     if (removedItem && Array.isArray(newData) && newData?.length > 0){
       const newDataTemp = newData?.filter((item: any) => {
         return (

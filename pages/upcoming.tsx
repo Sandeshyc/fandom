@@ -61,7 +61,7 @@ const Movies = (props:any) => {
     setIsReady(true);
   }, []);
 
-  return (<>
+  return (
     <div
     className='bg-[#000000] text-white'
     style={{
@@ -71,14 +71,15 @@ const Movies = (props:any) => {
       backgroundPosition: 'right '+ 30 + '%',
     }}>
     {/* <Welcome/> */}
-    {(!isLoading && isReady && movies)?<>
-      <Mapper
+    {(!isLoading && isReady && movies)
+      ?<><Mapper
         modules={movies}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (<SkeletonHome/>)}
+        isLoading = {isLoading}/></> 
+      : (<SkeletonHome/>)}
     {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
     </div>
-    </>) 
+    )
 }
 
 export default Movies;

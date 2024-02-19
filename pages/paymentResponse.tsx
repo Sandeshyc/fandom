@@ -41,7 +41,7 @@ const MyProfile = () => {
                         // console.log('Response:', response);
                         if(response.status === 200 || response.status === 201 || response.status === 204) {
                             setIsSuccess(true);
-                            setSuccessMessage('Payment successfull.');
+                            setSuccessMessage('Payment successful.');
 
                             // console.log('Success:', response?.data?.createRes?.itemCode);
                             const movieID = response?.data?.createRes?.itemCode;
