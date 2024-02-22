@@ -78,7 +78,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 if(tokens?.data?.data){
                     // save token in cookies with 30 day expiry
                     const tokes_string = JSON.stringify(tokens?.data?.data);
-                    document.cookie = `tfctDT_${kidEnc}=${tokes_string}; max-age=${60*60*24*30}; path=/`;
+                    document.cookie = `tfctDT_${kidEnc}=${tokes_string}; max-age=${60*60*24*2.95}; path=/`;
                     setDrmTokens(tokens?.data?.data);
                 }
 
