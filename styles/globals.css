@@ -429,7 +429,7 @@ html {
   background-image: -webkit-gradient( linear, left bottom, right bottom, color-stop(0.02, white), color-stop(0.5, gray), color-stop(0.98, white) );
 }
 
-.asFooterMenuWrap > div:not(:first-child)::before{
+.asFooterMenuWrap > *:not(:first-child)::before{
   display: inline-block;
   content: '';
   width: 6px;
@@ -607,4 +607,8 @@ html {
     #__next{
       padding-bottom: 60px;
     }
+}
+
+.ScrollSpyNav .active{
+  border-color: blue;
 }
