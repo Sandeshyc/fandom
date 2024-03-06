@@ -7,6 +7,7 @@ import { stableKeys } from '@/utils/stableKeys';
 import PlayButtonSmall from '@/components/PlayButtonSmall';
 import FavoriteButton from '@/components/FavoriteButton';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
 let settings = {
@@ -55,7 +56,11 @@ const CarouselItem = ({item}:CarouselItemProps) => {
             left: '50%',
             transform: 'translateX(-50%)',
         }}/>:
-        null}
+        <BadgeDesktop text="Sale" theme="orange" className='!w-[100px] text-center rounded-br-xl rounded-tr-none'
+        style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+        }}/>}
         <div className='w-full h-full rounded-lg cursor-pointer' onClick={() => router.push(`/details/${item?._id}`)}>
             <img src={thumb} alt={item?.title} className='w-full h-full object-contain rounded-lg'/>
         </div>

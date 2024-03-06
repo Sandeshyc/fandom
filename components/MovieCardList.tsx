@@ -5,6 +5,7 @@ import RemoveListBtn from '@/components/RemoveListButton';
 import Buttons from '@/components/identites/Buttons';
 import { VolunteerActivismOutlined } from '@mui/icons-material';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -35,7 +36,10 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           justify-center
           items-center
           text-white/40" />
-        {(data?.allowed)?<PurchaseBadge/>:null}
+        {(data?.allowed)?<PurchaseBadge/>
+        :
+        <BadgeDesktop text="Sale" theme="orange"/>
+        }
       </div>
       <div className="w-[58%] py-1">
         <p

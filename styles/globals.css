@@ -260,6 +260,11 @@ html {
   top:0;
   left: 0;
 }
+.movieCardTopBadgeWrap>.ticketBadge{
+  width: 68%;
+  margin-right: 0;
+  margin-left: auto;
+}
 .movieCardTop>.img{
   width: 52%;
   left:auto;

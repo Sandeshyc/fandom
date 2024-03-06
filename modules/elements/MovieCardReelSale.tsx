@@ -1,37 +1,38 @@
-import React, {useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { round } from 'lodash';
+import Image from 'next/image';
+import { round, set } from 'lodash';
 import {
   addToMyList,
   removeFromMyList,
   removeFromWatchingLists,
 } from '@/services/api';
-import SvgNumbers from '@/utils/SvgNumbers'
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
+import EnititlementEndDate from '@/components/Expair';
+import PublishDate from '@/modules/Identities/PublishDate';
+import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
+import ProgressBar from '@/components/elements/ProgressBar';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
-import BadgeMobile from '@/modules/Identities/BadgeMobile';
-
-interface MovieCardTopProps {
+import {Cancel} from '@mui/icons-material';
+interface MovieCardProps {
   data: MovieInterface;
-  number?: number;
   portrait?: boolean;
   gradient?: boolean;
   sliderRef?: any;
   setRemovedItem?: any;
 }
 
-const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, gradient, sliderRef, setRemovedItem }) => {
+const MovieCardReelSale: React.FC<MovieCardProps> = ({ data, portrait, gradient, sliderRef, setRemovedItem }) => {
   const router = useRouter();
   const { openModal, updateModal} = useMoviePopupStore();
   const [userId, setUserId] = React.useState('');
   const [isInWatchListTemp, setIsInWatchListTemp] = React.useState(data?.isInWatchList || false);
-  const [popupIsLoading, setPopupIsLoading] = React.useState(false);
-  const [itemRemoved, setItemRemoved] = React.useState(false);
   const [removeRequest, setRemoveRequest] = React.useState(false);
   const [watchListRequest, setWatchListRequest] = React.useState(false);
-  
+  const [popupIsLoading, setPopupIsLoading] = React.useState(false);
+  const [itemRemoved, setItemRemoved] = React.useState(false);
+
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
   const x = useRef(false);
@@ -90,18 +91,14 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
     x.current = false;
     clearTimeout(timer);
   }
-
-  const redirectToWatch = useCallback(() => {
-    router.push(`/details/${data?._id}`)
-  }, [router, data?._id]);
-
   let thumbURl = '';
+  let aspectRatio = '384/216';
   if(portrait){
     thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+    aspectRatio = '240/360';
   }else{
     thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
   }
-
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){
     const duration:number = data?.videoDuration || 1;
@@ -110,9 +107,13 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
       progress =  (current / duration) * 100;
     }
   }
+  const redirectToWatch = useCallback(() => {
+    router.push(`/details/${data?._id}`)
+  }, [router, data?._id]);  
+  const noGradientClass = gradient ? '' : ' bg-black py-1 ';
 
   const handelAddMyList = async (isInLish : boolean) => {
-      console.log('handelAddMyList', isInWatchListTemp);
+      console.log('handelAddMyList', isInWatchListTemp, userId, data?._id);      
       dataExtend.popupIsLoading = true;
       updateModal(dataExtend);
       let response;
@@ -168,34 +169,48 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
   }, []);
 
   return (
-    <div  
+    <>    
+    <div 
     ref={thumbOuterRef}
-    className="group col-span relative movieCard movieCardTopBadgeWrap" onMouseEnter={onHoverHandler} onMouseLeave={onMouseLeave}>
-      <div className='ticketBadge lg:hidden'>
-        {(data?.allowed)?
-          <BadgeMobile
-          text="My Tickets"
-          theme="blue"
-          />
-        :
-          <BadgeMobile
-            text="Sale"
-            theme="orange"
-          />
-        } 
-      </div>
-      <div className='movieCardTop movieCardTopV2'>
-        <div className='number'><SvgNumbers item={number as number} /></div>
-        <div className='img relative bg-zinc-900 rounded-md'>
-          <div className='hidden lg:block'>
-          {(data?.allowed)?<PurchaseBadge/>:
-            <BadgeDesktop text="Sale" theme="orange" />}
-          </div> 
-          <img onClick={redirectToWatch} src={thumbURl} alt="Movie" draggable={false} className="cursor-pointer object-contain transition duration shadow-xl rounded-md  delay-300 w-full h-[12vw]" />
-        </div>
+    className={`group bg-zinc-900 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
+    onMouseEnter={onHoverHandler} 
+    onMouseLeave={onMouseLeave}
+    onClick={redirectToWatch}
+    >
+      {(data?.allowed)?<PurchaseBadge/>:null}  
+      <div className='img relative h-full w-full'>        
+        <div className='absolute z-30 bottom-0 left-0 w-full '>
+          {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
+          {(data?.publishSchedule && !gradient)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 py-1 rounded-md ${noGradientClass}`}><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
+          {(data?.publishSchedule && gradient)?<div className={`mb-2 mx-2 text-gray-100 px-2 rounded-md ${noGradientClass}`}><PublishDateDetails publishDate={data?.publishSchedule} short={true} /></div>:null}
+          {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
+            <ProgressBar done={progress} />
+            <div onClick={(e) => {
+            e.stopPropagation();
+            handelRemoveWatchingList();
+          }} className={`cursor-pointer lg:hidden`}>
+                <Cancel className={`text-white w-4`} />
+              </div>
+            </div> : null}
+        </div> 
+                    
+        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
+
+        {/* <Image 
+          src={thumbURl}
+          alt="Movie"
+          draggable={false}
+          className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}
+          layout="fill"
+          objectFit="cover"
+          priority={true}
+        /> */}
+
+        {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>
     </div>
+    </>
   )
 }
 
-export default MovieCardTop10;
+export default MovieCardReelSale;

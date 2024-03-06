@@ -13,6 +13,7 @@ import EnititlementEndDate from '@/components/Expair';
 import PublishDate from '@/modules/Identities/PublishDate';
 import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
+import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import {Cancel} from '@mui/icons-material';
 interface MovieCardProps {
@@ -176,7 +177,17 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {(data?.allowed)?<PurchaseBadge/>:null}  
+      {(data?.allowed)?
+        <BadgeDesktop
+        text="My Tickets"
+        theme="blue"
+        />
+      :
+        <BadgeDesktop
+          text="Sale"
+          theme="orange"
+        />
+      }  
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
           {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
