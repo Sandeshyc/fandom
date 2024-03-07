@@ -47,7 +47,7 @@ const NavigationHome = () => {
     <>
     {(isMobile)?(<NavigationHomeMobile/>):
     <div 
-      className={`w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
+      className={`mainNavbar w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
         <div
         className='px-4'>
             <div className='flex items-center justify-between flex-wrap'>
@@ -63,6 +63,8 @@ const NavigationHome = () => {
                     <NavItem label="Home" route="/" activeRoute={'/'} />
                     <NavItem label="Upcoming" route="/upcoming" activeRoute={'/upcoming'} />
                     <NavItem label="Movies" route="/movies" activeRoute={'/movies'} />
+                    <NavItem label="Shows" route="/season" activeRoute={'/season'} />
+                    <NavItem label="Channel" route="/" activeRoute={''} />
                     <NavItem label="Events" route="/" activeRoute={''} />
                     <NavItem label="My Tickets" route="/mytickets" activeRoute={'/mytickets'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />

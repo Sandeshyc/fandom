@@ -57,14 +57,28 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: portrait ? 6.3 : 5.2,
-    slidesToScroll: portrait ? 6 : 5,
+    slidesToShow: portrait ? 10.3 : 8.2,
+    slidesToScroll: portrait ? 10 : 8,
     swipeToSlide: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 3200,
+        settings: {
+          slidesToShow: portrait ? 8.3 : 6.2,
+          slidesToScroll: portrait ? 8 : 6,
+        },
+      },
+      {
+        breakpoint: 2400,
+        settings: {
+          slidesToShow: portrait ? 7.3 : 5.2,
+          slidesToScroll: portrait ? 7 : 5,
+        },
+      },
+      {
+        breakpoint: 1140,
         settings: {
           slidesToShow: 4.3,
           slidesToScroll: 4,
@@ -105,17 +119,17 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
       setNewData(newDataTemp);
     }
   }, [removedItem]);
-  const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${portrait ? 'portrait': ""}`}>
+  const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
     <div className="movieSliderInner">
       <ReelHeading 
         title={title} 
-        link={link}
-        linkText={linkText}
+        link={'/category'} 
+        linkText={'Explore All'}
         />
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
           {newData?.map((movie, index) => (
-            <MovieCardReelPortrait key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} setRemovedItem={setRemovedItem}/>
+            <MovieCardReelPortrait key={stableKeys[index]} data={movie} portrait={isMobile || portrait} gradient={gradient} setRemovedItem={setRemovedItem}/>
           ))}
         </div>
       </div>

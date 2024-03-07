@@ -18,7 +18,7 @@ const NavigationHomeMobile = () => {
   return (
     <>
     <div 
-      className={`fixed top-0 left-0 z-40 w-full py-4 bg-gradient-to-b from-black to-transparent`}>
+      className={`mainNavbar fixed top-0 left-0 z-40 w-full py-4 bg-gradient-to-b from-black to-transparent`}>
         <div className='px-4'>
             <div className='flex items-center justify-center flex-wrap'>
               <div className='mr-4'>
