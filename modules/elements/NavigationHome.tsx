@@ -63,6 +63,8 @@ const NavigationHome = () => {
                     <NavItem label="Home" route="/" activeRoute={'/'} />
                     <NavItem label="Upcoming" route="/upcoming" activeRoute={'/upcoming'} />
                     <NavItem label="Movies" route="/movies" activeRoute={'/movies'} />
+                    <NavItem label="Shows" route="/season" activeRoute={'/season'} />
+                    <NavItem label="Channel" route="/" activeRoute={''} />
                     <NavItem label="Events" route="/" activeRoute={''} />
                     <NavItem label="My Tickets" route="/mytickets" activeRoute={'/mytickets'} />
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />

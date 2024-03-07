@@ -9,12 +9,13 @@ const ScrollSpyComponent = () => {
   const [navbarTop, setNavbarTop] = useState(0);
 
   useEffect(() => {
-    const mainNavbar = document.querySelector('.mainNavbar');
-    if(mainNavbar) {
-      const mainNavbarBound = mainNavbar?.getBoundingClientRect();
-      setMainNavHeight(mainNavbarBound?.height);
-    }
     const handleScroll = () => {
+      const mainNavbar = document.querySelector('.mainNavbar');
+      if(mainNavbar) {
+        const mainNavbarBound = mainNavbar?.getBoundingClientRect();
+        setMainNavHeight(mainNavbarBound?.height);
+      }
+
       const navBar = document.querySelector('.ScrollSpyNav');
       if(navBar) {
         const navBarBound = navBar?.getBoundingClientRect();
@@ -32,16 +33,15 @@ const ScrollSpyComponent = () => {
         <div className={`mb-8 ${(mainNavHeight > navbarTop) ? 'z-50 fixed w-full left-0 bg-black' : ''}`}
         style={{top: `${mainNavHeight}px`}}
         >
-          <div className='container mx-auto border-b border-gray-600 flex flex-wrap'>
+          <div className='container mx-auto border-b border-gray-600 flex lg:pt-4 text-base overflow-x-auto'>
           <ScrollSpy>
-              <a href="#section1" className='block py-1 px-4 min-w-[160px] text-center border-b-2 border-transparent' ref={React.createRef()}>Episodes (7)</a>            
-              <a href="#section2" className='block py-1 px-4 min-w-[160px] text-center border-b-2 border-transparent' ref={React.createRef()}>Cast & Crew </a>
-              <a href="#section3" className='block py-1 px-4 min-w-[160px] text-center border-b-2 border-transparent' ref={React.createRef()}>Ratings</a>
-              <a href="#section4" className='block py-1 px-4 min-w-[160px] text-center border-b-2 border-transparent' ref={React.createRef()}>More Info</a>
+              <a href="#section1" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>Episodes (7)</a>            
+              <a href="#section2" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>Cast & Crew </a>
+              <a href="#section3" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>Ratings</a>
+              <a href="#section4" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>More Info</a>
           </ScrollSpy>
           </div>
         </div>
-        <p>{mainNavHeight}  = {navbarTop}</p>
         <div id="section1" className='mb-8 border-b border-gray-600'>
           <div className='max-w-[1000px] mx-auto'>
               <h3 className='text-xl mb-4'>Episodes (7)</h3>
