@@ -72,7 +72,7 @@ const GoogleIdentitySignIn = () => {
             userEmail,
             password
           );
-          const user = userCredential.user;
+          const user = userCredential?.user as any;
           console.log('user', user);
           if(user !== null && user !== undefined) {
             const isEmailVerified = user?.emailVerified;
@@ -84,7 +84,7 @@ const GoogleIdentitySignIn = () => {
                 user?.providerId,
                 user?.emailVerified, 
                 '',
-                'testData'
+                user?.accessToken || '',
               );
               if(userResponse === 200) {
                 setIsSuccess(true);

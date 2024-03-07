@@ -13,6 +13,15 @@ import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
+  authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 
 export async function getServerSideProps(context: NextPageContext) {
   const region = context.query.region || ""
@@ -45,6 +54,20 @@ const Home = (props:any) => {
 
   const isMobile = useIsMobile();
   // console.log('productPlatform: ', isMobile);
+
+
+  const _test = async () => {
+    await onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log('user: ', user);
+      } else {
+        console.log('user: ', 'user is signed out');
+      }
+    });
+  }
+  _test();
+
 
   const _location = async () => {
     const {countryIsoCode} = await getLocation();

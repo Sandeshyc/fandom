@@ -14,6 +14,14 @@ import {
     HelpCenterIcon,
     LogoutIcon
 } from '@/utils/CustomSVGs';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signOut } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
+  authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const ProfileDropDown = () => {
     const router = useRouter();
@@ -53,8 +61,19 @@ const ProfileDropDown = () => {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('oneLogInAccessToken');
         if(googleIndentityAccessToken){
-          localStorage.removeItem('googleIndentityAccessToken');
-          router.push('/auth');
+            const _signOut = async () => {
+                await signOut(getAuth()).then(() => {
+                    console.log('signout');
+                    localStorage.removeItem('googleIndentityAccessToken');
+                    router.push('/auth');
+                }
+                ).catch((error) => {
+                    console.log('signout error', error);
+                });
+            }
+            _signOut();
+        //   localStorage.removeItem('googleIndentityAccessToken');
+        //   router.push('/auth');
         }else{
           if(oneLogInAccessToken){
             oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      

@@ -4,9 +4,20 @@ import * as oidcApi from 'pages/api/auth/oidcApi';
 import { nanoid } from 'nanoid'
 import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 import useUserInfo from '@/hooks/useUserInfo';
+import LoginWithIwantTFC from '@/modules/elements/LoginWithIwantTFC';
 import VerifyMail from '@/modules/elements/VerifyMail';
 const imgOneLogin = '/images/onelogsmall.png';
 const imgLogBG = '/images/loginbgnew.png';
+
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
+  authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 
 const Auth = () => {
   const router = useRouter();
@@ -14,6 +25,19 @@ const Auth = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false); 
   const [isVerifyOneLogin, setIsVerifyOneLogin] = useState(false); 
+
+  const _test = async () => {
+    await onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log('user: ', user);
+      } else {
+        console.log('user: ', 'user is signed out');
+      }
+    });
+  }
+  _test();
+
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     // console.log('userInfo: ', userInfo);
@@ -110,6 +134,7 @@ const Auth = () => {
             {(isSubmit && isSuccess)?<p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>
               Success! Please wait a moment.
               </p>:null}
+            <LoginWithIwantTFC />
             <button 
             className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90 active:opacity-65"
             onClick={() => LoginPage()}>
