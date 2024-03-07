@@ -54,7 +54,7 @@ const Movies = (props:any) => {
       backgroundPosition: 'right '+ 30 + '%',
     }}>
       <div className="relative z-0 mb-[-140px] md:mb-[-200px]">
-        <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[75vh] max-h-[100%] min-h-[400px] md:min-h-[700px]"  style={{backgroundImage: `url(https://images2.vudu.com/background/3031193-1920a.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+        <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[75vh] max-h-[100%] min-h-[400px] md:min-h-[700px]"  style={{backgroundImage: `url(https://images2.vudu.com/background/3031193-1920a.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center top'}}>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-full z-10 bg-black/70"/>    
     </div>
@@ -82,7 +82,7 @@ const Movies = (props:any) => {
                   <select 
                   defaultValue={season}
                   onChange={(e) => setSeason(e.target.value)}
-                  className="w-full bg-transparent text-white/70 rounded-md px-4 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px]">
+                  className="h-[44px] w-full bg-transparent text-white/70 rounded-md px-4 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px]">
                     {[...Array(50)].map((_, i) => {
                       return <option key={i} value={`Season ${i+1}`}>Season {i+1}</option>
 
@@ -90,7 +90,10 @@ const Movies = (props:any) => {
                     )}
                   </select>
                 </div>
-                <div className='border border-blue-600 rounded-md w-[160px] mb-2 mr-4 flex items-center justify-center text-sm text-white/80 cursor-pointer hover:text-white'>
+                <div className='bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-full px-3 w-[120px] lg:w-[220px] text-sm flex flex-row justify-center items-center transition active:opacity-65 h-[44px] cursor-pointer mb-2 mr-4'>
+                  <span>Rent</span>
+                </div>
+                <div className='h-[44px] border border-blue-600 rounded-md w-[160px] mb-2 mr-4 flex items-center justify-center text-sm text-white/80 cursor-pointer hover:text-white'>
                   <AddCircleOutlineOutlined 
                     sx={{fontSize: '20px', marginRight: '5px'}}
                   />

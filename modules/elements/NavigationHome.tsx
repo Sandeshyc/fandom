@@ -47,7 +47,7 @@ const NavigationHome = () => {
     <>
     {(isMobile)?(<NavigationHomeMobile/>):
     <div 
-      className={`w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
+      className={`mainNavbar w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
         <div
         className='px-4'>
             <div className='flex items-center justify-between flex-wrap'>
