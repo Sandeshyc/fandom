@@ -40,7 +40,7 @@ const Auth = () => {
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
-    // console.log('userInfo: ', userInfo);
+    console.log('userInfo: ', userInfo);
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {

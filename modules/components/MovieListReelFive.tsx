@@ -119,7 +119,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
       setNewData(newDataTemp);
     }
   }, [removedItem]);
-  const ReelContent = ()=> (<div className={` z-10 relative mt-[2vw] mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
+  const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
     <div className="movieSliderInner">
       <ReelHeading 
         title={title} 

@@ -95,7 +95,7 @@ const MovieCardReelSale: React.FC<MovieCardProps> = ({ data, portrait, gradient,
   let aspectRatio = '384/216';
   if(portrait){
     thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
-    aspectRatio = '240/360';
+    aspectRatio = '143/243';
   }else{
     thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
   }

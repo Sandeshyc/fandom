@@ -68,7 +68,7 @@ const Movies = (props:any) => {
 
           <div className={` z-10 relative mb-[3vw]`}>
             <div className='px-2'>
-              <p className="text-white text-xl lg:text-2xl	font-medium mb-1 lg:mb-4 mr-2">Comedies </p>
+              <p className="text-white text-xl lg:text-2xl	font-medium mb-1 lg:mb-4 mr-2">Page Title</p>
             </div>
             <div className={`flex flex-wrap`}>
                 {
@@ -114,9 +114,9 @@ const SampleBox = () => {
       </div>
       <div className="w-[58%] py-1">
         <p
-          className="text-white text-base md:text-xl xl:text-2xl mb-1 cursor-pointer"
+          className="text-white text-base md:text-lg xl:text-xl mb-1 cursor-pointer"
         >{'Movie Title'}</p>    
-        {(1)?<p className="text-xs sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivismOutlined className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>ABS-CBN</p>:null}
+        {(1)?<p className="text-xs sm:text-sm md:text-base xl:text-md mb-0 md:mb-1 flex items-center"><VolunteerActivismOutlined className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>ABS-CBN</p>:null}
         {0? (
           <Buttons  
             onClick={()=>{}}
