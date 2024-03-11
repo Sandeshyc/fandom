@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "label": "Home",
+        "route": "/",
+        "activeRoute": "/"
+    },
+    {
+        "id": 2,
+        "label": "Upcoming",
+        "route": "/upcoming",
+        "activeRoute": "/upcoming"
+    },
+    {
+        "id": 3,
+        "label": "Movies",
+        "route": "/movies",
+        "activeRoute": "/movies"
+    },
+    {
+        "id": 4,
+        "label": "Shows",
+        "route": "/season",
+        "activeRoute": "/season"
+    },
+    {
+        "id": 5,
+        "label": "Channel",
+        "route": "",
+        "activeRoute": ""
+    },
+    {
+        "id": 6,
+        "label": "Events",
+        "route": "",
+        "activeRoute": ""
+    },
+    {
+        "id": 7,
+        "label": "My Tickets",
+        "route": "/mytickets",
+        "activeRoute": "/mytickets"
+    },
+    {
+        "id": 8,
+        "label": "My List",
+        "route": "/list",
+        "activeRoute": "/list"
+    }
+]

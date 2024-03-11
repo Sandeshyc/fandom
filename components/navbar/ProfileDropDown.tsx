@@ -1,16 +1,14 @@
-import React, { use, useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react';
-import {ArrowDropDown, ArrowDropUp, CreditCard} from '@mui/icons-material';
+import {ArrowDropDown, CreditCard} from '@mui/icons-material';
 import {
     MyTicketsIcon,
     MyListIcon,
     MyAccountIcon,
-    PurchaseGiftCardIcon,
-    MyPartnerIcon,
     HelpCenterIcon,
     LogoutIcon
 } from '@/utils/CustomSVGs';
@@ -69,11 +67,11 @@ const ProfileDropDown = () => {
                 }
                 ).catch((error) => {
                     console.log('signout error', error);
+                    localStorage.removeItem('googleIndentityAccessToken');
+                    router.push('/auth');
                 });
             }
             _signOut();
-        //   localStorage.removeItem('googleIndentityAccessToken');
-        //   router.push('/auth');
         }else{
           if(oneLogInAccessToken){
             oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
@@ -85,7 +83,7 @@ const ProfileDropDown = () => {
     return (
         <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
-                <div className='transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
+                <div className='transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/80'>
                     <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                 </div>
                 <ArrowDropDown
@@ -106,13 +104,13 @@ const ProfileDropDown = () => {
                     className="absolute text-[16px] right-0 z-20 mt-2 w-[360px] origin-top-right rounded-md bg-white text-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="p-4">
                         <div className='flex items-center'>
-                            <div className='transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF] mr-[10px]'>
+                            <div className='transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/70 mr-3'>
                                 <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
                             </div>
                             <div>
                                 <h3
                                 className='font-semibold text-[18px] m-0'>{( displayName )??(displayName)}</h3>
-                                <p className='text-[14px] text-[#0094FF]'>
+                                <p className='text-[14px] text-primary/90'>
                                     <button
                                     className='cursor-pointer hover:underline'
                                     onClick={
@@ -124,7 +122,7 @@ const ProfileDropDown = () => {
                         <div className='my-[20px] asDivider'></div>
                         <div className='mb-2'>
                             <button 
-                            className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/myprofile') && 'bg-[#F5F5F5]'}`}
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${(router.pathname === '/myprofile') && 'bg-gray-100'}`}
                             onClick={
                                 () => router.push('/myprofile')
                             }>
@@ -134,7 +132,7 @@ const ProfileDropDown = () => {
                         </div>
                         <div className='mb-2'>
                             <button 
-                            className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mycard') && 'bg-[#F5F5F5]'}`}
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${(router.pathname === '/mycard') && 'bg-gray-100'}`}
                             onClick={
                                 () => router.push('/mycard')
                             }>
@@ -144,7 +142,7 @@ const ProfileDropDown = () => {
                         </div>
                         <div className='mb-1'>
                             <button 
-                            className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/mytickets') && 'bg-[#F5F5F5]'}`}
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${(router.pathname === '/mytickets') && 'bg-gray-100'}`}
                             onClick={
                                 () => router.push('/mytickets')
                             }>
@@ -153,7 +151,7 @@ const ProfileDropDown = () => {
                             </button>  
                         </div> 
                         <div className='mb-2'>
-                            <button className={`flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px] ${(router.pathname === '/list') && 'bg-[#F5F5F5]'}`}
+                            <button className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${(router.pathname === '/list') && 'bg-gray-100'}`}
                             onClick={
                                 () => router.push('/list')
                             }>
@@ -161,22 +159,9 @@ const ProfileDropDown = () => {
                                 <p>My List</p>
                             </button>  
                         </div>
-                        
-                        {/* <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
-                                <span className='mr-2'><PurchaseGiftCardIcon/></span>
-                                <p>Purchase a Gift</p>
-                            </div>  
-                        </div> */}
                         <div className='my-[15px] asDivider'></div> 
-                        {/* <div className='mb-2'>
-                            <div className='flex items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'>
-                                <span className='mr-2'><MyPartnerIcon/></span>
-                                <p>Partner with Us</p>
-                            </div>  
-                        </div>  */}
                         <div className='mb-2'>
-                            <button className='flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                            <button className='flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1'
                             onClick={
                                 () => {
                                     window.open('https://iconnconvergence-support.freshdesk.com/support/home', '_blank');
@@ -186,14 +171,13 @@ const ProfileDropDown = () => {
                                 <p>Help Centre</p>
                             </button>  
                         </div> 
-                        <div className='my-[10px] asDivider'></div> 
+                        <div className='my-[3] asDivider'></div> 
                         <div>
                             <button 
-                                className='flex w-full items-center cursor-pointer hover:bg-[#F5F5F5] rounded-md p-[5px]'
+                                className='flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1'
                                 onClick={
                                     () => logoutFnc()
-                                }
-                                >
+                                }>
                                 <span className='mr-2'><LogoutIcon/></span>
                                 <p>Logout</p>
                             </button>

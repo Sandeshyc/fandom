@@ -94,11 +94,12 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   }
   let thumbURl = '';
   let aspectRatio = '384/216';
+  const title = data?.title || '';
   if(portrait){
-    thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
     aspectRatio = '240/360';
   }else{
-    thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
+    thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
   }
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){
@@ -204,18 +205,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
             </div> : null}
         </div> 
                     
-        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
-
-        {/* <Image 
-          src={thumbURl}
-          alt="Movie"
-          draggable={false}
-          className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}
-          layout="fill"
-          objectFit="cover"
-          priority={true}
-        /> */}
-
+        <img src={thumbURl} alt={title} draggable={false} className={`flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>
     </div>

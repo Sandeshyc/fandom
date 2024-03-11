@@ -7,7 +7,6 @@ import {
     MoreHoriz,
 } from '@mui/icons-material';
 import MobileCollapse from '@/modules/elements/Navigation/MobileCollapse';
-import { set } from 'lodash';
 
 const BottomNavigation = () => {
     const router = useRouter();

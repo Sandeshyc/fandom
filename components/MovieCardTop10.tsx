@@ -94,12 +94,12 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
   const redirectToWatch = useCallback(() => {
     router.push(`/details/${data?._id}`)
   }, [router, data?._id]);
-
+  const title = data?.title || '';
   let thumbURl = '';
   if(portrait){
-    thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
   }else{
-    thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
+    thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
   }
 
   let progress = 0;
@@ -191,7 +191,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
           {(data?.allowed)?<PurchaseBadge/>:
             <BadgeDesktop text="Sale" theme="orange" />}
           </div> 
-          <img onClick={redirectToWatch} src={thumbURl} alt="Movie" draggable={false} className="cursor-pointer object-contain transition duration shadow-xl rounded-md  delay-300 w-full h-[12vw]" />
+          <img onClick={redirectToWatch} src={thumbURl} alt={title} draggable={false} className="flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain transition duration shadow-xl rounded-md  delay-300 w-full h-[12vw]" />
         </div>
       </div>
     </div>
