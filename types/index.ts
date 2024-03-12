@@ -1,12 +1,15 @@
 export interface MovieInterface {
-  publishSchedule?: string;
-  allowed?: boolean;
   id: string;
   _id: string;
   title: string;
+  header: {};
+  publishSchedule?: string;
+  allowed?: boolean;
   description: string;
   thumbnailUrl: string;
   thumbnailPotrait: string;
+  thumbnailPortraitUrl: string;
+  thumbnailLandscapeUrl: string;
   thumbnailMotionUrl?: string;
   videoUrl: string;
   duration: string | number;

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 const Episode = () => {
     return (
     <div className='mb-8 flex flex-wrap border-b border-white/40 pb-8 last:border-none'>

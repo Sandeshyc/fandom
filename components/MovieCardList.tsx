@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { MovieInterface } from '@/types';
 import RemoveListBtn from '@/components/RemoveListButton';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 import { VolunteerActivismOutlined } from '@mui/icons-material';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import BadgeDesktop from '@/modules/Identities/BadgeDesktop';

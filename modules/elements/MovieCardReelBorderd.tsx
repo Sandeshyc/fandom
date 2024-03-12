@@ -9,7 +9,8 @@ interface MovieCardProps {
 }
 const MovieCardReelBorderd: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
-  const thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+  const thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+  const title = data?.title || '';
 
   const redirectToWatch = useCallback(() => {
     router.push(`/details/${data?._id}`)
@@ -27,7 +28,7 @@ const MovieCardReelBorderd: React.FC<MovieCardProps> = ({ data }) => {
           theme="orange"
         />
         }     
-        <img  src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full z-10 aspect-[6/9]`}/>
+        <img  src={thumbURl} alt={title} draggable={false} className={`flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md w-full z-10 aspect-[6/9]`}/>
       </div>
       <div className={`flex justify-between absolute z-20 bottom-0 left-0 w-full px-[2.4vw] pb-[1.8vw] pt-[1.8vw] bg-gradient-to-t from-black from-45% via-black/80 via-75% to-transparent to-98% cursor-pointer`}>
           <p className="text-white text-xl font-medium mr-2">{data?.title}</p>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
 import { PlayIcon } from '@heroicons/react/24/solid';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 import FavoriteButton from '@/components/FavoriteButton';
 import ViewDetailsBtn from '@/components/ViewDetailsBtn';
 import { stableKeys } from '@/utils/stableKeys';

@@ -178,7 +178,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {(data?.allowed)?
+      {(data?.header)?
         <BadgeDesktop
         text="My Tickets"
         theme="blue"
