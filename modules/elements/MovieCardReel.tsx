@@ -15,6 +15,8 @@ import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
 import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import CardHeader from '@/modules/elements/CardHeader';
+import CardFooter from '@/modules/elements/CardFooter';
 import {Cancel} from '@mui/icons-material';
 interface MovieCardProps {
   data: MovieInterface;
@@ -178,22 +180,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {(data?.header)?
-        <BadgeDesktop
-        text="My Tickets"
-        theme="blue"
-        />
-      :
-        <BadgeDesktop
-          text="Sale"
-          theme="orange"
-        />
-      }  
+      <CardHeader header={data?.header} />
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
-          {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
-          {(data?.publishSchedule && !gradient)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 py-1 rounded-md ${noGradientClass}`}><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
-          {(data?.publishSchedule && gradient)?<div className={`mb-2 mx-2 text-gray-100 px-2 rounded-md ${noGradientClass}`}><PublishDateDetails publishDate={data?.publishSchedule} short={true} /></div>:null}
+          <CardFooter footer={data?.footer} />
           {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
             <ProgressBar done={progress} />
             <div onClick={(e) => {
@@ -203,8 +193,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                 <Cancel className={`text-white w-4`} />
               </div>
             </div> : null}
-        </div> 
-                    
+        </div>      
         <img src={thumbURl} alt={title} draggable={false} className={`flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>

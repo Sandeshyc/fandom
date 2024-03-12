@@ -1,19 +1,20 @@
 import React from 'react';
 type Props = {
     text?: string;
-    theme?: 'blue' | 'orange' | 'unset';
+    theme: 'primary' | 'blue' | 'orange' | 'unset';
     className?: string;
     style?: React.CSSProperties;
 }
 const BadgeDesktop = ({
-    text="My Tickets",
-    theme="blue",
+    text,
+    theme,
     className, 
     style
 }:Props) => {
     const themeClass = {
         blue: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white shadow-indigo-500/40',
         orange: 'bg-gradient-to-l from-orange-700 to-orange-500 text-white shadow-orange-500/40',
+        primary: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white shadow-indigo-500/40',
         unset: ''
     }
     return (
