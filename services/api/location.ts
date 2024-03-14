@@ -14,7 +14,7 @@ const getLocation = async () => {
 
     try { 
         const response = await axios.get(url, { headers });
-        console.log("Location Response: ", response);
+        // console.log("Location Response: ", response);
         if (response?.status === 200) {
             returnResponse = {
                 status: 'success',

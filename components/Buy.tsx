@@ -159,21 +159,19 @@ return (<>
         </div>
       </div>
     </div>
-    {/* <div className='flex flex-wrap justify-center planListsWrapper'> */}
     
-        <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
-          {items?.map((item, index)=>{
-            return (<PlanCard 
-              item={item}
-              movieId={movieId}
-              isPackage={data?.isPackage}
-              key={stableKeys[index]}
-              />)
-          })}
-        </div>
+    <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
+      {items?.map((item, index)=>{
+        return (<PlanCard 
+          item={item}
+          movieId={movieId}
+          isPackage={data?.isPackage}
+          key={stableKeys[index]}
+          />)
+      })}
+    </div>
     
   </div>
-  {/* <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p> */}
   </>)
 }
 
@@ -236,6 +234,8 @@ const PlanCard = ({
       entitleCall();
         
       }
+    }else{
+      router.push('/auth');    
     }
   }
   return (<>

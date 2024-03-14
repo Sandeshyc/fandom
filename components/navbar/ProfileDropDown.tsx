@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
-import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react';
 import {ArrowDropDown, CreditCard} from '@mui/icons-material';
+import checkAuthentication from '@/utils/checkAuth';
 import {
     MyTicketsIcon,
     MyListIcon,
@@ -23,6 +24,7 @@ const app = initializeApp(firebaseConfig);
 
 const ProfileDropDown = () => {
     const router = useRouter();
+    const [isLogedIn, setIsLogedIn] = useState(false);
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
     const { data: profile, isLoading } = useProfile(userid);
@@ -30,6 +32,13 @@ const ProfileDropDown = () => {
 
     
     useEffect(() => {
+        const _checkAuthentication = async () => {
+            const isAuthenticated = await checkAuthentication();
+            console.log('isAuthenticated', isAuthenticated);
+            setIsLogedIn(isAuthenticated);
+        }
+        _checkAuthentication();
+
         if(!isLoading) {
             if( profile?.hasOwnProperty('firstName') || profile?.hasOwnProperty('lastName')) {
                 if(profile?.hasOwnProperty('firstName')){
@@ -81,6 +90,8 @@ const ProfileDropDown = () => {
         }    
     }
     return (
+        <>
+        {(isLogedIn)?
         <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
                 <div className='transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/80'>
@@ -186,6 +197,15 @@ const ProfileDropDown = () => {
                 </Menu.Items>
             </Transition>
         </Menu>
+        :
+        <Link 
+        href='/auth'
+        className='text-contentColor/80 rounded-full px-3 py-1 flex justify-center items-center border-2 border-contentColor/50'>
+            Login
+        </Link> 
+        }
+        </>
+        
 
     );
 }

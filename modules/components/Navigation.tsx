@@ -6,11 +6,13 @@ import SearchBox from '@/components/navbar/SearchBox';
 import useIsMobile from '@/hooks/useIsMobile';
 import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
 import Notification from '@/modules/elements/Notification';
+import checkAuthentication from '@/utils/checkAuth';
 import { stableKeys } from '@/utils/stableKeys';
 import navItemLists from '@/services/json/navItemLists.json';
 const logoSrc = '/images/logonew.png';
 const NavigationHome = () => {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const isMobile = useIsMobile();
   // get scroll position in px
@@ -19,6 +21,11 @@ const NavigationHome = () => {
   }
 
   useEffect(() => {
+    const _checkAuthentication = async () => {
+      const isAuthenticated = await checkAuthentication();
+      setIsAuthenticated(isAuthenticated);
+    }
+    _checkAuthentication();
     const onScroll = () => {
       const scrollPosition = getScrollPosition();
       setScrollPosition(scrollPosition);
@@ -44,7 +51,13 @@ const NavigationHome = () => {
                 <div className='ml-4 xl:ml-8'>
                   <div className='flex flex-row items-center gap-4 xl:gap-8'>
                     {(Array.isArray(navItemLists)) && navItemLists.map((item, index) => (
-                      <NavItem key={stableKeys[index]} label={item?.label} route={item?.route} activeRoute={item?.activeRoute} />
+                      <>
+                        {
+                        (!item?.auth || (item?.auth && isAuthenticated))?
+                        <NavItem key={stableKeys[index]} label={item?.label} route={item?.route} activeRoute={item?.activeRoute} />
+                        :null
+                        }
+                      </>
                     ))}
                   </div>
                 </div>
