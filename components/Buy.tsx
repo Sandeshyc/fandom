@@ -235,7 +235,12 @@ const PlanCard = ({
         
       }
     }else{
-      router.push('/auth');    
+      let currentUrl = window.location.href;
+      currentUrl = currentUrl+'?viewPlan=true';
+      currentUrl = encodeURIComponent(currentUrl);
+      // console.log('Current URL:', currentUrl);
+      currentUrl = '/auth?redirectUrl='+currentUrl;
+      router.push(currentUrl);    
     }
   }
   return (<>

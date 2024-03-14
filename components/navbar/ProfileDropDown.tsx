@@ -72,7 +72,8 @@ const ProfileDropDown = () => {
                 await signOut(getAuth()).then(() => {
                     console.log('signout');
                     localStorage.removeItem('googleIndentityAccessToken');
-                    router.push('/auth');
+                    // router.push('/');
+                    window.location.href = '/';
                 }
                 ).catch((error) => {
                     console.log('signout error', error);

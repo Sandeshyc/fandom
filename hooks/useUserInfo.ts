@@ -45,7 +45,12 @@ const useUserInfo = () => {
             }else{
               window.localStorage.setItem('googleIndentityAccessToken', googleIndentityAccessToken || 'testData');// Need to Update
             }
-            window.location.replace('/');
+            let redirectUrl = localStorage.getItem('redirectUrl');
+          if(!redirectUrl){
+              redirectUrl = '/';
+          }
+          localStorage.removeItem('redirectUrl');
+            window.location.replace(redirectUrl);
           }
           return 200;
         }else{

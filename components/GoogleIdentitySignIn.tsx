@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import {
   onAuthStateChanged,
@@ -89,7 +89,12 @@ const GoogleIdentitySignIn = () => {
               if(userResponse === 200) {
                 setIsSuccess(true);
                 setIsLoginFail(false);
-                router.replace('/');
+                let redirectUrl = localStorage.getItem('redirectUrl');
+                if(!redirectUrl){
+                    redirectUrl = '/';
+                }
+                localStorage.removeItem('redirectUrl');
+                router.replace(redirectUrl);
                 console.log('success');
               }else{
                 setIsSuccess(false);
@@ -136,6 +141,11 @@ const GoogleIdentitySignIn = () => {
     enableReinitialize: true,
   });
   const { errors, touched, values, handleChange, handleSubmit } = formiks;
+
+  // useEffect(() => {
+  //   let redirectUrl = localStorage.getItem('redirectUrl');
+  //   console.log('redirectUrl', redirectUrl);
+  // },[]);
 
   return (
     <>

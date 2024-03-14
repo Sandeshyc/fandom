@@ -43,6 +43,18 @@ const Auth = () => {
   _test();
 
   useEffect(() => {
+
+    let redirectUrl = '';
+    // query string
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    // console.log('urlParams', urlParams);
+    if(urlParams?.get('redirectUrl')){
+      redirectUrl = urlParams?.get('redirectUrl') as string;
+      // console.log('redirectUrl', redirectUrl);
+      localStorage.setItem('redirectUrl', redirectUrl);
+    }
+
     const userInfo = window.localStorage.getItem('userInfo');
     console.log('userInfo: ', userInfo);
     if (userInfo) {
@@ -50,7 +62,7 @@ const Auth = () => {
       if(userInfoObj.sub) {
         router.push('/');
       }else{
-        router.push('/auth');
+        // router.push('/auth');
       }
     }else{
       const urlSearchParams = new URLSearchParams(window.location.search);
@@ -124,7 +136,7 @@ const Auth = () => {
           }
           _checkAccessToken(accessToken);
       }else{
-        router.push('/auth');
+        // router.push('/auth');
       }
     }
   }, []);
@@ -159,7 +171,12 @@ const Auth = () => {
       if(userResponse === 200) {
         setIsSubmit(true);
         setIsSuccess(true);
-        router.push('/');
+        let redirectUrl = localStorage.getItem('redirectUrl');
+        if(!redirectUrl){
+            redirectUrl = '/';
+        }
+        localStorage.removeItem('redirectUrl');
+        router.replace(redirectUrl);
         console.log('success');
       }else{
         setIsSubmit(true);
