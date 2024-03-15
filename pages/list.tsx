@@ -27,10 +27,10 @@ const Home = (props:any) => {
       if(userInfoObj.sub) {
         setUserIdToken(userInfoObj.sub);
       }else{
-        router.push('/auth');
+        router.push('/');
       }
     }else{
-      router.push('/auth');
+      router.push('/');
     }
   }, []);
 

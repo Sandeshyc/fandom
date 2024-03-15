@@ -29,6 +29,7 @@ const Auth = () => {
   const [isSuccess, setIsSuccess] = useState(false); 
   const [isVerifyOneLogin, setIsVerifyOneLogin] = useState(false); 
   const [tfcLoading, setTfcLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
 
   const _test = async () => {
     await onAuthStateChanged(getAuth(), (user) => {
@@ -68,6 +69,7 @@ const Auth = () => {
       const urlSearchParams = new URLSearchParams(window.location.search);
       if(urlSearchParams.has('iwanttfc_access_token')){
           setTfcLoading(true);
+          setAuthLoading(true);
           const params = Object.fromEntries(urlSearchParams.entries());
           const accessToken = params.iwanttfc_access_token;
           const refreshToken = params.iwanttfc_refresh_token;
@@ -145,7 +147,8 @@ const Auth = () => {
     // Parse the token from the URL.
     // console.log('window.location.hash',  window.location.hash)
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
-    const getAccessToken = async (token:string) => {      
+    const getAccessToken = async (token:string) => {  
+      setAuthLoading(true);    
       const userInfo = await fetch(`${process.env.NEXT_PUBLIC_SSO_AUTHORITY}/me`, {
         method: 'GET',
         headers: {
@@ -179,6 +182,7 @@ const Auth = () => {
         router.replace(redirectUrl);
         console.log('success');
       }else{
+        setAuthLoading(false);
         setIsSubmit(true);
         setIsSuccess(false);
         router.push('/auth');
@@ -202,12 +206,16 @@ const Auth = () => {
     router.push('/auth/forget-password');
   }
   function LoginPage() {
+    setAuthLoading(true);
     const nonce = nanoid();
     const state = nonce+'153';
     oidcApi.beginAuth({ state, nonce });
   }
   return (
     <>
+    {(authLoading)?
+    <div className="w-full h-full fixed left-0 top-0 bg-black/20 z-50 cursor-wait">
+    </div>:null}
     <div className="w-full p-2 fixed left-0 top-0 flex items-center z-10">
         <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
         <p className='text-white font-semibold text-xl xl:text-2xl'>iWantTFC Tickets</p>
@@ -217,7 +225,7 @@ const Auth = () => {
         <div className="flex flex-wrap justify-center">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
             <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to iWantTFC Tickets</h1>
-            <GoogleIdentitySignIn />
+            <GoogleIdentitySignIn setAuthLoading={setAuthLoading}/>
             <div className='my-4'>
               <p className='text-center text-white/80 text-sm'>or</p>
             </div>

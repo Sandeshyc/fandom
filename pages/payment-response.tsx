@@ -21,10 +21,10 @@ const MyProfile = () => {
   const [successMessage, setSuccessMessage] = React.useState('');
   const { productId, userid, transactionId, paymentStatus, paymentId } = router.query;
   useEffect(() => {
+    const itemCode = window.localStorage.getItem('itemCode');
     if(paymentStatus){
         if(paymentStatus === 'success'){
             const entitleCall = async () => {
-                const itemCode = window.localStorage.getItem('itemCode');
                 const headers = {
                     'Content-Type': 'application/json',
                 };      
@@ -75,6 +75,7 @@ const MyProfile = () => {
         }else{
             setIsError(true);
             setErrorMessage('Something went wrong. Please try again later.');
+            router.replace(`/details/${itemCode}`);
         }
         // setTimeout(() => {
         //     router.push(`/details/${transactionId}`);        

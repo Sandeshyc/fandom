@@ -73,7 +73,7 @@ const ProfileDropDown = () => {
                     console.log('signout');
                     localStorage.removeItem('googleIndentityAccessToken');
                     // router.push('/');
-                    window.location.href = '/';
+                    window.location.replace(window.location.href);
                 }
                 ).catch((error) => {
                     console.log('signout error', error);

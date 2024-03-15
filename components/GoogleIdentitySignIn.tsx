@@ -26,9 +26,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+type Props = {
+  setAuthLoading: any;
+}
 
-
-const GoogleIdentitySignIn = () => {
+const GoogleIdentitySignIn = ({setAuthLoading}:Props) => {
   const router = useRouter();
   const {checkUser} = useUserInfo();
   const [message, setMessage] = useState('Incorrect Email Or Password');
@@ -64,6 +66,7 @@ const GoogleIdentitySignIn = () => {
       userEmail, 
       password,
       }) => {
+        setAuthLoading(true);
         setIsSubmitting(true);
         setOnSubmit(true);
         try {
@@ -97,6 +100,7 @@ const GoogleIdentitySignIn = () => {
                 router.replace(redirectUrl);
                 console.log('success');
               }else{
+                setAuthLoading(false);
                 setIsSuccess(false);
                 setIsLoginFail(true);
                 router.replace('/auth');
@@ -117,6 +121,7 @@ const GoogleIdentitySignIn = () => {
         } catch (err:any) {
           console.log('Error', err);
           setIsLoginFail(true);
+          setAuthLoading(false);
           setIsSuccess(false);
           setOnSubmit(false);
           switch (err.code) {

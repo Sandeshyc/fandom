@@ -1,4 +1,7 @@
 import axios from 'axios';
+import {
+  auditEntitlement
+} from '@/services/api'
 
 const useUserInfo = () => {
     const checkUser = async (
@@ -45,12 +48,46 @@ const useUserInfo = () => {
             }else{
               window.localStorage.setItem('googleIndentityAccessToken', googleIndentityAccessToken || 'testData');// Need to Update
             }
-            let redirectUrl = localStorage.getItem('redirectUrl');
-          if(!redirectUrl){
-              redirectUrl = '/';
-          }
-          localStorage.removeItem('redirectUrl');
-            window.location.replace(redirectUrl);
+            let callbackAction = localStorage.getItem('callbackAction');
+            if(callbackAction === 'rent'){
+              let callbackParams = localStorage.getItem('callbackParams');
+              if(callbackParams){
+                const callbackParamsObj = JSON.parse(callbackParams);
+                const {itemCode, priceSKU, isPackage, transactionId} = callbackParamsObj;
+                const _auditEntitlementCall = async () => {          
+                  const data = {
+                      "userID": userInfoData?.userId,
+                      "itemCode": itemCode,
+                      "priceSKU": priceSKU,
+                      "isPackage": isPackage,
+                      "transactionId": transactionId,
+                  };
+                  const res = await auditEntitlement(data);
+                  if(res.status === 'success'){
+                    window.localStorage.setItem('itemCode', itemCode);
+                    let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userInfoData?.userId}&productId=${priceSKU}&transactionId=${transactionId}`;
+                    if(process.env.NODE_ENV === 'development'){
+                      forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
+                    }
+                    localStorage.removeItem('callbackAction');
+                    localStorage.removeItem('callbackParams');
+                    window.location.replace(forwordPurchaseUrl);
+                  }else{
+                    window.location.reload();
+                  }
+                }
+                _auditEntitlementCall();
+              }else{
+                window.location.href = '/';
+              }
+            }else{
+              let redirectUrl = localStorage.getItem('redirectUrl');
+              if(!redirectUrl){
+                  redirectUrl = '/';
+              }
+              localStorage.removeItem('redirectUrl');
+              window.location.replace(redirectUrl);
+            }            
           }
           return 200;
         }else{

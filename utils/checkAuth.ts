@@ -20,7 +20,12 @@ const checkAuthentication = async () => {
             }
             return _getAuthStatus();
         }else{
-            isAuthenticated = false;
+            const userInfo = localStorage.getItem('userInfo');
+            if(userInfo){
+                isAuthenticated = true;
+            }else{
+                isAuthenticated = false;
+            }
         }
         return isAuthenticated;
     };
