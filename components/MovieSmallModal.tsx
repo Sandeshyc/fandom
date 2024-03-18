@@ -1,6 +1,5 @@
 import React, { use, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import FavoriteButton from '@/modules/Identities/FavoriteButton';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
@@ -10,6 +9,7 @@ import ReactVideoPlayer from '@/components/ReactPlayer';
 import Buttons from '@/modules/Identities/Buttons';
 import {CloseOutlined, LoopOutlined} from '@mui/icons-material';
 import { _id } from '@next-auth/mongodb-adapter';
+import checkAuthentication from '@/utils/checkAuth';
 
 interface movieSmallModalProps {
   visible?: boolean;
@@ -19,6 +19,7 @@ interface movieSmallModalProps {
 
 const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, reelItem}) => {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const [isMute, setIsMute] = React.useState(true);
   const thumbRef = React.useRef<HTMLDivElement>(null);
@@ -80,6 +81,11 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   // console.log('xy ', data?.xy);
   
   useEffect(() => {
+    const _checkAuthentication = async () => {
+      const isAuthenticated = await checkAuthentication();
+      setIsAuthenticated(isAuthenticated);
+    }
+    _checkAuthentication();
     const userInfo = window.localStorage.getItem('userInfo');
     if(userInfo) {
       const userInfoObj = JSON.parse(userInfo);
@@ -199,7 +205,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
                 <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
               </button>}
 
-              {(data?._id) && (
+              {(isAuthenticated && data?._id) && (
                 <FavoriteButton isInWatchList={data?.isInWatchListTemp} onClick={handleWatchListItemFunc} />
               )}
 
