@@ -41,14 +41,21 @@ const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5.3,
+    slidesToShow: 6.2,
     slidesToScroll: 6,
     swipeToSlide: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 2400,
+        settings: {
+          slidesToShow: 5.2,
+          slidesToScroll:  5,
+        },
+      },
+      {
+        breakpoint: 1140,
         settings: {
           slidesToShow: 4.3,
           slidesToScroll: 4,

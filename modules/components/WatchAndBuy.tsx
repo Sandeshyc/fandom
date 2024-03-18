@@ -5,7 +5,7 @@ import Buy from '@/components/Buy';
 import { RestartAlt, ReportProblem } from '@mui/icons-material';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import PlayButton from '@/components/PlayButton';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 import { stableKeys } from '@/utils/stableKeys';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import MovieRentButtonMobile from '@/modules/Identities/MovieRentButtonMobile';

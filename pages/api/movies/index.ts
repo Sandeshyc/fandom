@@ -15,26 +15,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
       return res.status(405).end();
     }
-    
-    // await serverAuth(req, res);
-    const ipAddress = req.headers["x-forwarded-for"] as string;
-    console.log('ipAddress ', ipAddress)
-    // const region = getValue(req.query.region as string);
-    const product = getValue(req.query.product as string);
+    let product = getValue(req.query.product as string);
     let sectionName = getValue(req.query.sectionName as string);
     let userID = getValue(req.query.userId as string);
     let region = getValue(req.query.region as string);
     
     if (sectionName === 'NA') sectionName = 'home';
-    // let url = `${process.env.API_URL}/page/${sectionName}/?userId=151937500`;    
-    let url = `${process.env.API_URL}/page/${sectionName}/?userId=${userID}`;
-    url = `${url}&region=${(region)?region:'PH'}`;
-    if (product !== 'NA') url = `${url}&product=${product}`;
+    if (userID === 'NA') userID = '';
+    if (region === 'NA') region = 'PH';
+    if (product === 'NA') product = 'web';
+
+    let url = `${process.env.API_URL}/page/${sectionName}/?region=${region}`;
+    if(userID){
+      url = `${url}&userId=${userID}`;
+    }
+    if(product){
+      url = `${url}&product=${product}`;
+    }
     
     // console.log('Home', region, product, sectionName, url)
-    if( !userID ){
-      return res.status(200).json([]);
-    }
+    // if( !userID ){
+    //   return res.status(200).json([]);
+    // }
     // console.log(url)
     const moviesRes = await axios.get(url, {timeout: 10000});
     const movies = moviesRes.data;

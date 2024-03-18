@@ -21,10 +21,10 @@ const Home = (props:any) => {
       if(userInfoObj.sub) {
         setUserIdToken(userInfoObj.sub);
       }else{
-        router.push('/auth');
+        router.push('/');
       }
     }else{
-      router.push('/auth');
+      router.push('/');
     }
   }, []);
   useEffect(() => {
@@ -40,12 +40,12 @@ const Home = (props:any) => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <div className='container mx-auto max-w-[2400px]'>
+        {/* <div className='container mx-auto max-w-[2400px]'> */}
           <Mapper
             modules={movies}
             getComponent = {getComponent}
             isLoading = {isLoading}/>
-          </div>     
+          {/* </div>      */}
       </div></>) : (<div className='container mx-auto max-w-[2400px]'><SkeletonPurchase/></div>)}
       {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
     </>

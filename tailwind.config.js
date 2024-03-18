@@ -17,6 +17,11 @@ module.exports = {
 			screens: {
 				'lg': '960px',
 			},
+			colors:{
+				primary: '#2D49F3',
+				primaryLight: '#2A5CF9',
+				contentColor: '#FFFFFF',			
+			},
 		},
 	},
 	plugins: [],

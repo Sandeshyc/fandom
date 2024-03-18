@@ -20,7 +20,7 @@ const Details = () => {
   const [userIdToken, setUserIdToken] = React.useState('');
   const _location = async () => {
     const {countryIsoCode} = await getLocation();
-    console.log('countryIsoCode ', countryIsoCode);
+    // console.log('countryIsoCode ', countryIsoCode);
     setRegion(countryIsoCode);
   }
   _location();
@@ -54,10 +54,10 @@ const Details = () => {
       if(userInfoObj.sub) {
         // setUserIdToken(userInfoObj.sub);
       }else{
-        router.push('/auth');
+        // router.push('/auth');
       }
     }else{
-      router.push('/auth');
+      // router.push('/auth');
     }
   }, []);
 

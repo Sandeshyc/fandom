@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import {
   onAuthStateChanged,
@@ -26,9 +26,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+type Props = {
+  setAuthLoading: any;
+}
 
-
-const GoogleIdentitySignIn = () => {
+const GoogleIdentitySignIn = ({setAuthLoading}:Props) => {
   const router = useRouter();
   const {checkUser} = useUserInfo();
   const [message, setMessage] = useState('Incorrect Email Or Password');
@@ -64,6 +66,7 @@ const GoogleIdentitySignIn = () => {
       userEmail, 
       password,
       }) => {
+        setAuthLoading(true);
         setIsSubmitting(true);
         setOnSubmit(true);
         try {
@@ -89,9 +92,15 @@ const GoogleIdentitySignIn = () => {
               if(userResponse === 200) {
                 setIsSuccess(true);
                 setIsLoginFail(false);
-                router.replace('/');
+                let redirectUrl = localStorage.getItem('redirectUrl');
+                if(!redirectUrl){
+                    redirectUrl = '/';
+                }
+                localStorage.removeItem('redirectUrl');
+                router.replace(redirectUrl);
                 console.log('success');
               }else{
+                setAuthLoading(false);
                 setIsSuccess(false);
                 setIsLoginFail(true);
                 router.replace('/auth');
@@ -112,6 +121,7 @@ const GoogleIdentitySignIn = () => {
         } catch (err:any) {
           console.log('Error', err);
           setIsLoginFail(true);
+          setAuthLoading(false);
           setIsSuccess(false);
           setOnSubmit(false);
           switch (err.code) {
@@ -136,6 +146,11 @@ const GoogleIdentitySignIn = () => {
     enableReinitialize: true,
   });
   const { errors, touched, values, handleChange, handleSubmit } = formiks;
+
+  // useEffect(() => {
+  //   let redirectUrl = localStorage.getItem('redirectUrl');
+  //   console.log('redirectUrl', redirectUrl);
+  // },[]);
 
   return (
     <>

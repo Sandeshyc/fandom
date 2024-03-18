@@ -4,7 +4,7 @@ import PlayButton from '@/components/PlayButton';
 import WatchTrailerBtn from '@/components/WatchTrailerBtn';
 import Buy from '@/components/Buy';
 import FavoriteButton from '@/components/FavoriteButton';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 import { ThumbUp, RestartAlt } from '@mui/icons-material';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import { PlayIcon } from '@heroicons/react/24/solid';

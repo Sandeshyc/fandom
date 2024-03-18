@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { round, set } from 'lodash';
+import RollImage from '@/modules/Identities/RollImage';
 import {
   addToMyList,
   removeFromMyList,
@@ -15,6 +15,8 @@ import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
 import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import CardHeader from '@/modules/elements/CardHeader';
+import CardFooter from '@/modules/elements/CardFooter';
 import {Cancel} from '@mui/icons-material';
 interface MovieCardProps {
   data: MovieInterface;
@@ -94,11 +96,12 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   }
   let thumbURl = '';
   let aspectRatio = '384/216';
+  const title = data?.title || '';
   if(portrait){
-    thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
     aspectRatio = '240/360';
   }else{
-    thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
+    thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
   }
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){
@@ -175,47 +178,23 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     className={`group bg-zinc-900 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
     onMouseEnter={onHoverHandler} 
     onMouseLeave={onMouseLeave}
-    onClick={redirectToWatch}
-    >
-      {(data?.allowed)?
-        <BadgeDesktop
-        text="My Tickets"
-        theme="blue"
-        />
-      :
-        <BadgeDesktop
-          text="Sale"
-          theme="orange"
-        />
-      }  
+    onClick={redirectToWatch}>
+      <CardHeader header={data?.header} />
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
-          {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
-          {(data?.publishSchedule && !gradient)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 py-1 rounded-md ${noGradientClass}`}><PublishDate publishDate={data?.publishSchedule} short={true} /></div>:null}
-          {(data?.publishSchedule && gradient)?<div className={`mb-2 mx-2 text-gray-100 px-2 rounded-md ${noGradientClass}`}><PublishDateDetails publishDate={data?.publishSchedule} short={true} /></div>:null}
+          <CardFooter footer={data?.footer} />
           {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
             <ProgressBar done={progress} />
             <div onClick={(e) => {
-            e.stopPropagation();
-            handelRemoveWatchingList();
-          }} className={`cursor-pointer lg:hidden`}>
+                e.stopPropagation();
+                handelRemoveWatchingList();
+              }} 
+              className={`cursor-pointer lg:hidden`}>
                 <Cancel className={`text-white w-4`} />
-              </div>
+            </div>
             </div> : null}
-        </div> 
-                    
-        <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
-
-        {/* <Image 
-          src={thumbURl}
-          alt="Movie"
-          draggable={false}
-          className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}
-          layout="fill"
-          objectFit="cover"
-          priority={true}
-        /> */}
-
+        </div>  
+        <RollImage thumbURl={thumbURl} title={title} />
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>
     </div>

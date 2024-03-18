@@ -6,6 +6,9 @@ import GoogleIdentitySignIn from 'components/GoogleIdentitySignIn';
 import useUserInfo from '@/hooks/useUserInfo';
 import LoginWithIwantTFC from '@/modules/elements/LoginWithIwantTFC';
 import VerifyMail from '@/modules/elements/VerifyMail';
+import checkAccessToken from '@/utils/checkAccessToken';
+import getConnect from '@/services/api/get_connect';
+import reqRefreshToken from '@/services/api/refreshToken';
 const imgOneLogin = '/images/onelogsmall.png';
 const imgLogBG = '/images/loginbgnew.png';
 
@@ -25,6 +28,8 @@ const Auth = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false); 
   const [isVerifyOneLogin, setIsVerifyOneLogin] = useState(false); 
+  const [tfcLoading, setTfcLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
 
   const _test = async () => {
     await onAuthStateChanged(getAuth(), (user) => {
@@ -39,6 +44,18 @@ const Auth = () => {
   _test();
 
   useEffect(() => {
+
+    let redirectUrl = '';
+    // query string
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    // console.log('urlParams', urlParams);
+    if(urlParams?.get('redirectUrl')){
+      redirectUrl = urlParams?.get('redirectUrl') as string;
+      // console.log('redirectUrl', redirectUrl);
+      localStorage.setItem('redirectUrl', redirectUrl);
+    }
+
     const userInfo = window.localStorage.getItem('userInfo');
     console.log('userInfo: ', userInfo);
     if (userInfo) {
@@ -46,10 +63,83 @@ const Auth = () => {
       if(userInfoObj.sub) {
         router.push('/');
       }else{
-        router.push('/auth');
+        // router.push('/auth');
       }
     }else{
-      router.push('/auth');
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      if(urlSearchParams.has('iwanttfc_access_token')){
+          setTfcLoading(true);
+          setAuthLoading(true);
+          const params = Object.fromEntries(urlSearchParams.entries());
+          const accessToken = params.iwanttfc_access_token;
+          const refreshToken = params.iwanttfc_refresh_token;
+          const provider = params.iwanttfc_provider;            
+          const _checkAccessToken = async (accessToken:string) => {
+              const decode = await checkAccessToken(accessToken);
+              if(decode){
+                  console.log('decode', decode);
+                  const connectResponse = await getConnect(accessToken);
+                  if(connectResponse.status === 'success'){
+                      const userResponse = await checkUser(
+                          connectResponse?.data?.user?.id,
+                          'iWantTFC',
+                          connectResponse?.data?.user?.contact[0]?.email || 'test@domain.com',
+                          provider,
+                          true,
+                          '',
+                          accessToken,
+                      );
+                      if(userResponse === 200) {
+                          // setIsSuccess(true);
+                          // setIsLoginFail(false);
+                          router.replace('/');
+                          console.log('success');
+                      }else{
+                          // setIsSuccess(false);
+                          // setIsLoginFail(true);
+                          router.replace('/auth');
+                          console.log('failed');
+                      }
+                  }else{
+                    // const data = {
+                    //   "token": refreshToken
+                    // };
+                    // const _reqRefreshToken = async (data:any) => {
+                    //   const response = await reqRefreshToken(data);
+                    //   console.log('response', response);
+                    // }
+                    // _reqRefreshToken(data);
+                      // router.push('/auth');
+
+                      const userResponse = await checkUser(
+                        connectResponse?.data?.user?.id,
+                        'iWantTFC',
+                        connectResponse?.data?.user?.contact[0]?.email || 'test@domain.com',
+                        provider,
+                        true,
+                        '',
+                        accessToken,
+                    );
+                    if(userResponse === 200) {
+                        // setIsSuccess(true);
+                        // setIsLoginFail(false);
+                        router.replace('/');
+                        console.log('success');
+                    }else{
+                        // setIsSuccess(false);
+                        // setIsLoginFail(true);
+                        router.replace('/auth');
+                        console.log('failed');
+                    }
+                  }
+              }else{
+                  router.push('/auth');
+              }              
+          }
+          _checkAccessToken(accessToken);
+      }else{
+        // router.push('/auth');
+      }
     }
   }, []);
 
@@ -57,7 +147,8 @@ const Auth = () => {
     // Parse the token from the URL.
     // console.log('window.location.hash',  window.location.hash)
     const token = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
-    const getAccessToken = async (token:string) => {      
+    const getAccessToken = async (token:string) => {  
+      setAuthLoading(true);    
       const userInfo = await fetch(`${process.env.NEXT_PUBLIC_SSO_AUTHORITY}/me`, {
         method: 'GET',
         headers: {
@@ -83,9 +174,15 @@ const Auth = () => {
       if(userResponse === 200) {
         setIsSubmit(true);
         setIsSuccess(true);
-        router.push('/');
+        let redirectUrl = localStorage.getItem('redirectUrl');
+        if(!redirectUrl){
+            redirectUrl = '/';
+        }
+        localStorage.removeItem('redirectUrl');
+        router.replace(redirectUrl);
         console.log('success');
       }else{
+        setAuthLoading(false);
         setIsSubmit(true);
         setIsSuccess(false);
         router.push('/auth');
@@ -109,12 +206,16 @@ const Auth = () => {
     router.push('/auth/forget-password');
   }
   function LoginPage() {
+    setAuthLoading(true);
     const nonce = nanoid();
     const state = nonce+'153';
     oidcApi.beginAuth({ state, nonce });
   }
   return (
     <>
+    {(authLoading)?
+    <div className="w-full h-full fixed left-0 top-0 bg-black/20 z-50 cursor-wait">
+    </div>:null}
     <div className="w-full p-2 fixed left-0 top-0 flex items-center z-10">
         <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
         <p className='text-white font-semibold text-xl xl:text-2xl'>iWantTFC Tickets</p>
@@ -124,7 +225,7 @@ const Auth = () => {
         <div className="flex flex-wrap justify-center">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
             <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to iWantTFC Tickets</h1>
-            <GoogleIdentitySignIn />
+            <GoogleIdentitySignIn setAuthLoading={setAuthLoading}/>
             <div className='my-4'>
               <p className='text-center text-white/80 text-sm'>or</p>
             </div>
@@ -134,7 +235,7 @@ const Auth = () => {
             {(isSubmit && isSuccess)?<p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>
               Success! Please wait a moment.
               </p>:null}
-            <LoginWithIwantTFC />
+            <LoginWithIwantTFC isLoading={tfcLoading}/>
             <button 
             className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90 active:opacity-65"
             onClick={() => LoginPage()}>

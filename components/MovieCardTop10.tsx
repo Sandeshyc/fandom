@@ -12,6 +12,9 @@ import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import BadgeMobile from '@/modules/Identities/BadgeMobile';
+import CardHeader from '@/modules/elements/CardHeader';
+import CardFooter from '@/modules/elements/CardFooter';
+import RollImage from '@/modules/Identities/RollImage';
 
 interface MovieCardTopProps {
   data: MovieInterface;
@@ -94,12 +97,12 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
   const redirectToWatch = useCallback(() => {
     router.push(`/details/${data?._id}`)
   }, [router, data?._id]);
-
+  const title = data?.title || '';
   let thumbURl = '';
   if(portrait){
-    thumbURl = data?.thumbnailPotrait || data?.thumbnailUrl || '';
+    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
   }else{
-    thumbURl = data?.thumbnailUrl || data?.thumbnailPotrait || '';
+    thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
   }
 
   let progress = 0;
@@ -172,26 +175,15 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
     ref={thumbOuterRef}
     className="group col-span relative movieCard movieCardTopBadgeWrap" onMouseEnter={onHoverHandler} onMouseLeave={onMouseLeave}>
       <div className='ticketBadge lg:hidden'>
-        {(data?.allowed)?
-          <BadgeMobile
-          text="My Tickets"
-          theme="blue"
-          />
-        :
-          <BadgeMobile
-            text="Sale"
-            theme="orange"
-          />
-        } 
+      <CardHeader header={data?.header} />
       </div>
       <div className='movieCardTop movieCardTopV2'>
         <div className='number'><SvgNumbers item={number as number} /></div>
-        <div className='img relative bg-zinc-900 rounded-md'>
+        <div className='img relative bg-zinc-900 rounded-md' onClick={redirectToWatch}>
           <div className='hidden lg:block'>
-          {(data?.allowed)?<PurchaseBadge/>:
-            <BadgeDesktop text="Sale" theme="orange" />}
+            <CardHeader header={data?.header} />
           </div> 
-          <img onClick={redirectToWatch} src={thumbURl} alt="Movie" draggable={false} className="cursor-pointer object-contain transition duration shadow-xl rounded-md  delay-300 w-full h-[12vw]" />
+          <RollImage thumbURl={thumbURl} title={title}/>
         </div>
       </div>
     </div>

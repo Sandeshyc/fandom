@@ -7,7 +7,7 @@ import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import { stableKeys } from '@/utils/stableKeys';
 import AudioMute from '@/modules/elements/AudioMute';
 import ReactVideoPlayer from '@/components/ReactPlayer';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 import {CloseOutlined, LoopOutlined} from '@mui/icons-material';
 import { _id } from '@next-auth/mongodb-adapter';
 

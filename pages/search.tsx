@@ -62,10 +62,10 @@ const Search = (props:any) => {
       if(userInfoObj.sub) {
         setUserIdToken(userInfoObj.sub);
       }else{
-        router.push('/auth');
+        // router.push('/auth');
       }
     }else{
-      router.push('/auth');
+      // router.push('/auth');
     }
 
     // get All Params

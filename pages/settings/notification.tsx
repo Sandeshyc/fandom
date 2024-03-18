@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import NavigationHome from '@/modules/elements/NavigationHome';
 import Footer from '@/components/Footer';
 import { set } from 'lodash';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 const bgImage = 'url("/images/new-bg.png")';
 const NotificationSettings = (props:any) => {
   return (

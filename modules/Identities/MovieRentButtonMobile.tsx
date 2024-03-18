@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import ItemShortInfo from '@/modules/elements/ItemShortInfo';
 import PlanItemsList from '@/modules/components/PlanItemsList';
 import { PlayIcon } from '@heroicons/react/24/solid';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 type Props = {
     data: any;
     className?: string;

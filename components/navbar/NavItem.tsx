@@ -12,16 +12,9 @@ const NavItem: React.FC<Props> = ({ label, route, activeRoute }) => {
     const router = useRouter();
     return (
         <>
-        {/* <button
-            className={`relative text-[16px] cursor-pointer text-white ${(activeRoute === router.pathname)?'font-semibold':''}`}
-            onClick={() => router.push(route)}>
-            <span className="block">{label}</span>
-            
-            {(activeRoute === router.pathname)?<span className={`w-full h-[3px] rounded-full bg-blue-500 inline-block absolute bottom-[-6px] left-[50%] transform translate-x-[-50%]`}></span>:null}
-        </button> */}
-        <Link href={route} className={`relative text-[16px] cursor-pointer text-white ${(activeRoute === router.pathname)?'font-semibold':''}`}>
+        <Link href={route} className={`relative text-sm xl:text-base cursor-pointer text-contentColor ${(activeRoute === router.pathname)?'font-semibold':''}`}>
             <span className="block">{label}</span>            
-            {(activeRoute === router.pathname)?<span className={`w-full h-[3px] rounded-full bg-blue-500 inline-block absolute bottom-[-6px] left-[50%] transform translate-x-[-50%]`}></span>:null}
+            {(activeRoute === router.pathname)?<span className={`w-full h-[3px] rounded-full bg-primaryLight inline-block absolute bottom-[-6px] left-[50%] transform translate-x-[-50%]`}></span>:null}
         </Link>
         </>
     );

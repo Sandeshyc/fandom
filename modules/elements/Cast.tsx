@@ -1,6 +1,6 @@
 import React from 'react';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 const Cast = () => {
     return (
     <div className='mr-4 mb-4'>

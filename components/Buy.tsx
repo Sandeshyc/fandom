@@ -1,17 +1,14 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { useRouter } from 'next/router';
-import { BanknotesIcon } from '@heroicons/react/24/outline';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
-import { DialogContent } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
 import { capFirstLetter } from '@/utils/capFirstLetter';
+
 import {
-  PurchaseCardCurveIcon
-} from '@/utils/CustomSVGs';
+  auditEntitlement
+} from '@/services/api'
 
 interface PlayButtonProps {
   movieId: string;
@@ -28,8 +25,8 @@ const Buy: React.FC<PlayButtonProps> = ({
   allowed,
   data
 }:PlayButtonProps) => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState('s');
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('s');
   // const myElementRef = useRef();
   const handleClickOpen = () => {
     setOpen(true);
@@ -159,21 +156,19 @@ return (<>
         </div>
       </div>
     </div>
-    {/* <div className='flex flex-wrap justify-center planListsWrapper'> */}
     
-        <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
-          {items?.map((item, index)=>{
-            return (<PlanCard 
-              item={item}
-              movieId={movieId}
-              isPackage={data?.isPackage}
-              key={stableKeys[index]}
-              />)
-          })}
-        </div>
+    <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
+      {items?.map((item, index)=>{
+        return (<PlanCard 
+          item={item}
+          movieId={movieId}
+          isPackage={data?.isPackage}
+          key={stableKeys[index]}
+          />)
+      })}
+    </div>
     
   </div>
-  {/* <p className='text-white/80 text-xs my-2 text-center'>This gives you access for 48 hrs. starting Nov 20, 10:00AM PH/Manila time.</p> */}
   </>)
 }
 
@@ -183,7 +178,7 @@ const PlanCard = ({
   isPackage
 }:any) => {
   // console.log('item', item);
-  let descriptions = [];
+  let descriptions = [] as any;
   if(item?.description){
     // replace all , with <li>
     descriptions = [...item?.description?.split(',')];
@@ -191,17 +186,12 @@ const PlanCard = ({
   const router = useRouter();
   const goPurchase = (productId:string) => {
     const userInfor = localStorage.getItem('userInfo');
+    const transactionId = uuidv4();
     if(userInfor){
       const userInfo = JSON.parse(userInfor);
       const {sub} = userInfo;
       if(sub){
-        // const forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_PAYMENT_URI}?userid=${sub}&productId=${productId}`;
-        // check if env is production Or development
-        const entitleCall = async () => {
-          const transactionId = uuidv4();
-          const headers = {
-              'Content-Type': 'application/json',
-          };      
+        const _auditEntitlementCall = async () => {          
           const data = {
               "userID": sub,
               "itemCode": movieId,
@@ -209,33 +199,32 @@ const PlanCard = ({
               "isPackage": isPackage,
               "transactionId": transactionId,
           };
-          // console.log('Data:', data);
-          await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/audit/`, data, { headers })
-              .then(response => {
-              if(response.status === 200) {
-                window.localStorage.setItem('itemCode', movieId);
-                if(process.env.NODE_ENV === 'production'){
-                  // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`, '_blank');
-                  let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
-                  // router.replace(forwordPurchaseUrl);
-                  router.replace(forwordPurchaseUrl);
-
-                }
-                if(process.env.NODE_ENV === 'development'){
-                  // window.open(`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`, '_blank');
-                  let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`;
-                  router.replace(forwordPurchaseUrl);
-                }
-              }
-              console.log('Success:', response);
-          })
-          .catch(error => {
-              console.error('Error:', error);
-          }); 
+          const res = await auditEntitlement(data);
+          if(res.status === 'success'){
+            window.localStorage.setItem('itemCode', movieId);
+            let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
+            if(process.env.NODE_ENV === 'development'){
+              forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
+            }
+            router.replace(forwordPurchaseUrl);
+          }else{
+            window.location.reload();
+          }
+        }
+        _auditEntitlementCall();        
+      }else{
+        window.location.reload();
       }
-      entitleCall();
-        
-      }
+    }else{
+      localStorage.setItem('callbackAction', 'rent');
+      const callbackParams = {
+          "itemCode": movieId,
+          "priceSKU": productId,
+          "isPackage": isPackage,
+          "transactionId": transactionId
+      };
+      localStorage.setItem('callbackParams', JSON.stringify(callbackParams));
+      router.push('/auth');    
     }
   }
   return (<>
@@ -246,7 +235,7 @@ const PlanCard = ({
         <div className='text-white text-base text-left'>
           {/* <p className='mb-1 text-white/60 text-sm'>Ticket Details:</p> */}
           <ul className='list-disc list-inside ml-2 min-h-[100px]'>{
-            descriptions?.map((desc, index)=>{
+            descriptions?.map((desc:any, index:number)=>{
               return (<li key={stableKeys[index]}
                 className='text-sm mb-1 last:mb-0 font-light'
               >{desc}</li>)

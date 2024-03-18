@@ -7,7 +7,7 @@ import PublishDate from "@/modules/Identities/PublishDate";
 import PlayButton from "@/components/PlayButton";
 import WatchTrailerBtn from "@/components/WatchTrailerBtn";
 import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
-import Buttons from '@/components/identites/Buttons';
+import Buttons from '@/modules/Identities/Buttons';
 import FavoriteButton from '@/components/FavoriteButton';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
