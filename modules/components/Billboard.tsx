@@ -24,7 +24,7 @@ const Billboard = ({data}:Props) => {
           trailerUrl={trailerUrl}
         />
         <div className={`absolute bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25 pl-4 md:pl-16 transition`}>
-          <div className='mb-8 w-[90%] md:w-[80%] lg:w-[50%] text-white'>
+          <div className='mb-8 w-[90%] md:w-[80%] lg:w-[50%] text-contentColor'>
             {(title) && <Title tag="h1" size="6xl" className='mb-2'>{title}</Title>}
             {(description) && <Text size="lg" clamp={4}>{description}</Text>}
           </div>  
@@ -41,7 +41,7 @@ const Billboard = ({data}:Props) => {
 
               <LinkRoute href={`${detailUrl}`} type="hoverOutline">
                 Know More 
-                <ChevronRightIcon className="w-5 h-5 ml-2 text-white/80" />
+                <ChevronRightIcon className="w-5 h-5 ml-2 text-contentColor/80" />
               </LinkRoute>
             </div>
           )}

@@ -43,4 +43,5 @@ export interface MovieInterface {
   popupIsLoading?:boolean;
   handelAddMyList?:any;
   handelRemoveWatchingList?:any;
+  footer?:{};
 }

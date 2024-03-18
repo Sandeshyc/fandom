@@ -46,10 +46,6 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
   if(Array.isArray(data) && data?.length > 0 ) {
     data = data.filter((item: any) => item && item._id);
   }
-  // is _id is not present in data, then return null
-  // if (Array.isArray(data) && data?.length > 0 && !data[0]._id) {
-  //   return null;
-  // }
   const [newData, setNewData] = React.useState(data);
   const isMobile = useIsMobile();
 
@@ -107,6 +103,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
       },
     ]
   }; 
+
   useEffect(() => {
     console.log('removedItem: ', removedItem);
     if (removedItem && Array.isArray(newData) && newData?.length > 0){
@@ -119,6 +116,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
       setNewData(newDataTemp);
     }
   }, [removedItem]);
+
   const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
     <div className="movieSliderInner">
       <ReelHeading 
@@ -136,7 +134,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
       <div className="hidden lg:block movieSliderReel">
         <Slider
         ref={sliderRef}
-        key={newData.length}
+        key={newData?.length}
         {...settings}>
           {newData?.map((movie, index) => (
             <MovieCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} sliderRef={sliderRef} setRemovedItem={setRemovedItem}/>

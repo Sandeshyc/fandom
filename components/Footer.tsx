@@ -18,7 +18,7 @@ const Footer = () => {
     const isMobile = useIsMobile();
     return(<>
         {(!isMobile)?<>
-        <div className="py-8 bg-black"
+        <div className="mainFooter py-8 bg-black"
         style={{
             backgroundImage: bgImage,
             backgroundRepeat: 'no-repeat',

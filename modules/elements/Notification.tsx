@@ -7,7 +7,7 @@ const Notification = () => {
     const router = useRouter();    
     return (
         <Menu as="div" className="relative text-left flex">
-            <Menu.Button className="flex items-center px-2 xl:px-4 py-1 border-2 border-primaryLight rounded-[20px] md:mr-2 xl:mr-6">
+            <Menu.Button className="text-contentColor flex items-center px-2 xl:px-4 py-1 border-2 border-primaryLight rounded-[20px] md:mr-2 xl:mr-6">
                 <Notifications
                 sx={{
                     fontSize: {xs: 18, sm: 25, md: 18, xl: 25},

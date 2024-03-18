@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const ipAddress = req.headers["x-forwarded-for"] as string;
     // console.log('ipAddress ', ipAddress)
     const {countryIsoCode} = await getLocation();
-    console.log('countryIsoCode ', countryIsoCode)
+    // console.log('countryIsoCode ', countryIsoCode)
     let userID = getValue(req.query.userId as string);
     let movieID = getValue(req.query.movieId as string);
     let product = getValue(req.query.product as string);    

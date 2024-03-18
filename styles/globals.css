@@ -152,7 +152,7 @@ html {
   left:25%;
 } */
 
-.movieCard .img>img{
+.movieCard .img>img, .movieCard .img>.imgPlaceholder{
   position: absolute;
   top: 0;
   width: 100%;
@@ -612,4 +612,8 @@ html {
 
 .ScrollSpyNav .active{
   border-color: blue;
+}
+
+.mainHeader + .mainFooter{
+  margin-top: 160px;
 }

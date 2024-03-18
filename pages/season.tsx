@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import { AddCircleOutlineOutlined } from '@mui/icons-material';
 import ScrollSpyComponent from '@/modules/elements/ScrollSpyComponent';
@@ -86,7 +87,7 @@ const Seasons = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {isMobile?<BottomNavigation/>:<Footer/>}
     </>) 
 }
 

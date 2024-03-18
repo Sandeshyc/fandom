@@ -20,11 +20,6 @@ module.exports = {
 			colors:{
 				primary: '#2D49F3',
 				primaryLight: '#2A5CF9',
-				secondary: '#FFD700',
-				tertiary: '#FF6347',
-				quaternary: '#FF4500',
-				quinary: '#FF8C00',
-				black: '#000000',
 				contentColor: '#FFFFFF',			
 			},
 		},

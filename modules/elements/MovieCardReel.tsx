@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { round, set } from 'lodash';
+import RollImage from '@/modules/Identities/RollImage';
 import {
   addToMyList,
   removeFromMyList,
@@ -178,8 +178,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     className={`group bg-zinc-900 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
     onMouseEnter={onHoverHandler} 
     onMouseLeave={onMouseLeave}
-    onClick={redirectToWatch}
-    >
+    onClick={redirectToWatch}>
       <CardHeader header={data?.header} />
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
@@ -187,14 +186,15 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
           {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
             <ProgressBar done={progress} />
             <div onClick={(e) => {
-            e.stopPropagation();
-            handelRemoveWatchingList();
-          }} className={`cursor-pointer lg:hidden`}>
+                e.stopPropagation();
+                handelRemoveWatchingList();
+              }} 
+              className={`cursor-pointer lg:hidden`}>
                 <Cancel className={`text-white w-4`} />
-              </div>
+            </div>
             </div> : null}
-        </div>      
-        <img src={thumbURl} alt={title} draggable={false} className={`flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>
+        </div>  
+        <RollImage thumbURl={thumbURl} title={title} />
         {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
       </div>
     </div>

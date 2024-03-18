@@ -33,8 +33,17 @@ const MovieWatchList = ({ data, title, link, linkText, isBoxesLayout = false }:P
   </div>);
 
   return (<>
-    {(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto pb-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:
-    <div className='px-4 mt-2'>{ReelContent()}</div>}
+    {(isBoxesLayout === true)?
+    <div className="w-full overflow-hidden">
+        <div className="max-w-[1600px] mx-auto pb-[15px]">
+            <div className="overflow-hidden movieBoxsInside">
+                {ReelContent()}
+            </div>
+        </div>
+    </div>
+    :
+    <div className='container mx-auto max-w-[2400px] px-4 mt-2'>{ReelContent()}</div>
+    }
     </>
   );
 };
