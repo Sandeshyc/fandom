@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import checkAuthentication from '@/utils/checkAuth';
 import { stableKeys } from '@/utils/stableKeys';
 import PlayButtonSmall from '@/components/PlayButtonSmall';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -26,7 +27,6 @@ type CarouselProps = {
 };
 
 const Carousel = ({items}:CarouselProps) => {
-    // console.log('items: ', items);
     return (<div className='pb-4 pt-[55px] bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
         <div className='mx-[4vw] mobileCarousel scale-[0.8]'>
             <Slider {...settings}>
@@ -45,7 +45,15 @@ type CarouselItemProps = {
 const CarouselItem = ({item}:CarouselItemProps) => {
     const thumb = item?.thumbnailPotrait || item?.thumbnailUrl;
     const router = useRouter();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    useEffect(() => {
+        const _checkAuthentication = async () => {
+        const isAuthenticated = await checkAuthentication();
+        setIsAuthenticated(isAuthenticated);
+        }
+        _checkAuthentication();
+    }, []);
     const handleToggle = () => {
         setOpen(!open);
     }
@@ -62,7 +70,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
             transform: 'translateX(-50%)',
         }}/>}
         <div className='w-full h-full rounded-lg cursor-pointer' onClick={() => router.push(`/details/${item?._id}`)}>
-            <img src={thumb} alt={item?.title} className='w-full h-full object-contain rounded-lg'/>
+            <img src={thumb} alt={item?.title} className='w-full h-full object-cover rounded-lg'/>
         </div>
         <div className='absolute bottom-0 left-0 w-full p-2 pb-4 pt-12 bg-gradient-to-t from-black/60 from-60% to-transparent to-85%'>
             <p className='text-white text-lg font-medium text-center mb-2 drop-shadow-md'>
@@ -74,6 +82,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
                     classes='mr-4 bg-white/40 hover:bg-white/50'
                     innerClass='text-white'
                 />
+                {(isAuthenticated)&&
                 <FavoriteButton 
                     movieId={item?._id}
                     classes='mr-4 bg-white/40 hover:bg-white/50'
@@ -81,7 +90,8 @@ const CarouselItem = ({item}:CarouselItemProps) => {
                         borderWidth: 0,
                     }}
                     innerClass='text-white'
-                />
+                />}
+                
                 {(item?._id)?<>
                     <button 
                         onClick={handleToggle}

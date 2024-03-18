@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
+import checkAuthentication from '@/utils/checkAuth';
+import MobileCollapse from '@/modules/elements/Navigation/MobileCollapse';
 import {
     HomeOutlined,
     ConfirmationNumberOutlined,
     List,
     MoreHoriz,
+    AccountCircleOutlined
 } from '@mui/icons-material';
-import MobileCollapse from '@/modules/elements/Navigation/MobileCollapse';
 
 const BottomNavigation = () => {
     const router = useRouter();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isCollapseOpen, setIsCollapseOpen] = useState(false);    
     
     useEffect(() => {
@@ -24,6 +27,13 @@ const BottomNavigation = () => {
             document.body.style.overflowY = 'auto';
         }
     }, [isCollapseOpen]);
+    useEffect(() => {
+        const _checkAuthentication = async () => {
+            const isAuthenticated = await checkAuthentication();
+            setIsAuthenticated(isAuthenticated);
+        }
+        _checkAuthentication();
+    }, []);
     return (
         <>
         {(isCollapseOpen)?<MobileCollapse 
@@ -39,6 +49,8 @@ const BottomNavigation = () => {
                     <span
                     className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Home</span>
                 </button>
+                {(isAuthenticated)?
+                (<>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
                 onClick={() => router.push('/mytickets')}>
                     <ConfirmationNumberOutlined
@@ -53,6 +65,16 @@ const BottomNavigation = () => {
                     <span
                     className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My List</span>
                 </button>
+                </>)
+                :
+                <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
+                onClick={() => router.push('/auth')}>
+                    <AccountCircleOutlined
+                    className={`${('/auth' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                    <span
+                    className={`${('/auth' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Login</span>
+                </button>
+                }                
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
                 onClick={() => {
                     setIsCollapseOpen(true);

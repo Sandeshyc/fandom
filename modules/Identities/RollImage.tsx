@@ -7,7 +7,6 @@ type Props = {
 const RollImage = ({thumbURl, title, className}:Props) => {
     if(className === 'undefined') {className = '';}
     className += ' flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md z-10';
-
     return (
         <>
         {(thumbURl)?
@@ -18,7 +17,7 @@ const RollImage = ({thumbURl, title, className}:Props) => {
             />
             :
             <p
-            className={`imgPlaceholder ${className} `} >
+            className={`imgPlaceholder p-2 text-sm lg:text-lg ${className} `} >
                 {title}
             </p>
         }

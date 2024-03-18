@@ -66,7 +66,7 @@ const NavigationHome = () => {
                       <div className='mr-3 xl:mr-6 relative'>
                         <SearchBox/>
                       </div>
-                      <Notification />
+                      {(isAuthenticated)&&<Notification />}                      
                       <ProfileDropDown/>
                     </div>
                   </div>
