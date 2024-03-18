@@ -39,7 +39,7 @@ const Upcoming = () => {
     
   }, []);
 
-  return (<>
+  return (
     <div
     className='bg-[#000000] text-white'
     style={{
@@ -52,10 +52,11 @@ const Upcoming = () => {
       <Mapper
         modules={movies}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (<SkeletonHome/>)}
+        isLoading = {isLoading}/></> 
+      : (<SkeletonHome/>)}
     {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
     </div>
-    </>) 
+    )
 }
 
 export default Upcoming;

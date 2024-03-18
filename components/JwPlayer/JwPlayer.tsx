@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, use } from "react";
 import usePlayerEvent from "@/hooks/usePlayerEvent";
 import axios from "axios";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
+import { getCookie } from "@/utils";
 
 interface VideoPlayerProps {
     image : string;
@@ -18,6 +19,13 @@ interface VideoPlayerProps {
     pictureInPicture: boolean;
     data : any;
     isRestart?: boolean;
+}
+
+const kid = process.env.NEXT_PUBLIC_DKID || '';
+let kidEnc = kid as string;
+if(kid){
+    kidEnc = Buffer.from(kid).toString('base64');
+    console.log('kid: ', kidEnc);
 }
 
 
@@ -51,14 +59,29 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             try{
                 if(!data?._id || drmTokens.widevine !== '') return;
                 console.log('itemID : ', data?._id);
+                
+                // get DRM tokens from cookies
+                let token = getCookie(`tfctDT_${kidEnc}`);
+                console.log('token cookie: ', token);
+                if(token){
+                    token = JSON.parse(token);
+                    setDrmTokens(token);
+                    return;
+                }
+
+                // get DRM tokens from API
                 const tokens = await axios ({
                     method: 'get',
-                    url: `${process.env.NEXT_PUBLIC_API_URL}/item/${data?._id}/dkey`,
+                    url: `${process.env.NEXT_PUBLIC_API_URL}/item/${kid}/dkey`,
                 });
                 console.log('tokens: ', tokens?.data?.data);
                 if(tokens?.data?.data){
+                    // save token in cookies with 30 day expiry
+                    const tokes_string = JSON.stringify(tokens?.data?.data);
+                    document.cookie = `tfctDT_${kidEnc}=${tokes_string}; max-age=${60*60*23*3}; path=/`;
                     setDrmTokens(tokens?.data?.data);
                 }
+
             } catch(e){ 
                 console.error('DRM error :');
                 setDrmError(true)
@@ -111,19 +134,20 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             player.setup({
                 playlist:  [{ 
                     image: image,
-                    sources:  [{ 
+                    sources:  [{
+                        "type": "hls",
                         file: video?.HLS,
                         "drm": {
                             "fairplay": {
                                 "certificateUrl": "https://mcnassets.akamaized.net/Test/fairplay.cer",
                                 "processSpcUrl": drmTokens?.fairplay,
+                                licenseRequestHeaders : [
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/octet-stream"
+                                    }
+                                ]
                             },
-                            headers : [
-                                {
-                                    "name": "Content-Type",
-                                    "value": "application/octet-stream"
-                                }
-                            ]
                         } 
                     },{ 
                         file: video?.DASH,
@@ -139,10 +163,17 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                                 "url": drmTokens?.playready,
                             }
                         }
-                    }]  
+                    }],
+                    // tracks:[
+                    //     {
+                    //       "file" : "https://abs-vcms.akamaized.net/media/input/alovestory_2007_f1_restoredlocal_wmk-165229/output/Thumbnails/ALoveStory_2007_F1_RestoredLocal_000001.vtt",
+                    //       "kind" : "thumbnails"
+                    //     }
+                    // ]
                 }],
                 // file: video,
                 // image: image,
+                // type: "application/vnd.apple.mpegurl",
                 aspectratio: "16:9",
                 autostart: autoplay,
                 mute: true,

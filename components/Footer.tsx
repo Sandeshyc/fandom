@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import MovieSmallModal from '@/components/MovieSmallModal';
@@ -16,6 +16,7 @@ const Footer = () => {
     const router = useRouter();
     const {isOpen, closeModal} = useMoviePopupStore();
     const isMobile = useIsMobile();
+
     return(<>
         {(!isMobile)?<>
         <div className="mainFooter py-8 bg-black"
