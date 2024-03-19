@@ -157,14 +157,14 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
           toggleMute={toggleMute}
           />
           <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
-          style={{backgroundImage: `url(${data?.thumbnailUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+          style={{backgroundImage: `url(${data?.thumbnailLandscapeUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
           onClick={redirectToDetails}>
-            {data?.videoUrl ? <div className='relative h-0 w-full pt-[56.56%]'>
+            {data?.trailerUrl ? <div className='relative h-0 w-full pt-[56.56%]'>
               <div className='absolute top-0 left-0 w-full h-full'>
                 <ReactVideoPlayer 
-                videoURL={data?.videoUrl} 
+                videoURL={data?.trailerUrl} 
                 control={false} 
-                poster={data?.thumbnailUrl}
+                poster={data?.thumbnailLandscapeUrl}
                 isMute={isMute}
                 play={true}
                 className='opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000'
@@ -172,7 +172,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
               </div>
             </div> : <div className='aspect-[16/9]'></div>}             
           </div> 
-        </div>     
+        </div>    
         <div className="z-10
           bg-zinc-800
           relative

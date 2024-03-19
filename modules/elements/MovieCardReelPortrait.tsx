@@ -180,7 +180,6 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
       > 
         <div className='img relative h-full w-full'>        
           <div className='absolute z-30 bottom-0 left-0 w-full '>
-            {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}
             <CardFooterMobile footer={data?.footer} />
             {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
               <ProgressBar done={progress} />

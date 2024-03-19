@@ -43,7 +43,7 @@ type CarouselItemProps = {
     item: any;
 };
 const CarouselItem = ({item}:CarouselItemProps) => {
-    const thumb = item?.thumbnailPotrait || item?.thumbnailUrl;
+    const thumb = item?.thumbnailPortraitUrl || item?.thumbnailLandscapeUrl;
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

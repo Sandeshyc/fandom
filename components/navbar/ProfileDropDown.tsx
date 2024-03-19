@@ -63,11 +63,12 @@ const ProfileDropDown = () => {
     }, []);
 
     const logoutFnc = () => {
+        const provider = localStorage.getItem('provider');
         const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
         const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
         localStorage.removeItem('userInfo');
         localStorage.removeItem('oneLogInAccessToken');
-        if(googleIndentityAccessToken){
+        if(provider === 'firebase'){
             const _signOut = async () => {
                 await signOut(getAuth()).then(() => {
                     console.log('signout');

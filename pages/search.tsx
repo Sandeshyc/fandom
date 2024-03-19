@@ -7,14 +7,18 @@ import { stableKeys } from '@/utils/stableKeys';
 import SkeletonSearch from '@/components/Skeleton/SkeletonSearch';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
-import NavigationHome from '@/modules/elements/NavigationHome';
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
+import useIsMobile from '@/hooks/useIsMobile';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 const bgImage = 'url("/images/new-bg.png")';
 const Search = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
   const router = useRouter();
   const [userIdToken, setUserIdToken] = React.useState('');
+  const isMobile = useIsMobile();
 
   const [searchKeyWord, setSearchKeyWord] = React.useState('');
   const [queryString, setQueryString] = React.useState('');
@@ -102,7 +106,7 @@ const Search = (props:any) => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <NavigationHome />
+        {isMobile?<Header/>:<Navigation/>}
         <div className={`px-4 mb-[3vw] min-h-[75vh] container mx-auto`}>
           <div className="movieSliderInner">
             <div className='w-full mb-4'>
@@ -201,7 +205,7 @@ const Search = (props:any) => {
             <SkeletonSearch/>}
           </div>
         </div>
-        <Footer/>
+        {isMobile?<BottomNavigation/>:<Footer/>}
       </div>
     </>
   )

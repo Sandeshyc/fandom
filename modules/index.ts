@@ -1,4 +1,5 @@
 import Billboard from "@/modules/components/Billboard";
+import BillboardSlider from "@/modules/components/BillboardSlider";
 import Extended from '@/modules/components/Extended';
 import Roll from "@/modules/components/Roll";
 import Gradient from "@/modules/components/Gradient";
@@ -36,7 +37,7 @@ const comps = {
     portrait : Portrait,
     top10 : Top10,
     rollBordered : RollBordered,
-    billboard : Billboard,
+    billboard : BillboardSlider,
     extended : Extended,
     detailsHeroImage : DetailsHeroImage, 
     movieSummary : MovieSummary, 
