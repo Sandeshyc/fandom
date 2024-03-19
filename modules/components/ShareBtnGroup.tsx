@@ -1,5 +1,10 @@
-import React, {useEffect} from 'react';
-import axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import checkAuthentication from '@/utils/checkAuth';
+import {
+  addToMyList,
+  removeFromMyList,
+  removeFromWatchingLists,
+} from '@/services/api';
 import {
     ThumbUpOffAlt,
     Add,
@@ -18,6 +23,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
     const [isInLish, setIsInLish] = React.useState(data?.isInWatchList);
     const movieId = data?._id;
     const [open, setOpen] = React.useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const handleToggle = () => {
         setOpen(!open);
     }
@@ -34,47 +40,26 @@ const ShareBtnGroup = ({data}:dataProps) => {
           }
         }
         await checkUserID();
+        let result;
         if (isInLish) {
-          const headers = {
-            'Content-Type': 'application/json',
-          };
-          const data = {
-            watchList: [movieId],
-          };
-          let result;
-            // Need to Update API URL
-          axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, { headers, data })
-            .then(response => {
-              if(response.status === 200) {
-                setIsInLish(false);
-                result = response.data;
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+          result = await removeFromMyList(userId, movieId);
+          if(result.status === 'success'){
+            setIsInLish(false);
+          }
         }else{
-          const headers = {
-            'Content-Type': 'application/json',
-          };      
-          const data = {
-            watchList: [movieId],
-          };
-          let result;
-          axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/watchlist`, data, { headers })
-            .then(response => {
-              if(response.status === 200) {
-                setIsInLish(true);
-                result = response.data;
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });      
+          result = await addToMyList(userId, movieId);
+          if(result.status === 'success'){
+            setIsInLish(true);
+          }   
         }
     }
 
     useEffect(() => {
+      const _checkAuthentication = async () => {
+        const isAuthenticated = await checkAuthentication();
+        setIsAuthenticated(isAuthenticated);
+      }
+      _checkAuthentication();
         const userInfo = window.localStorage.getItem('userInfo');
         if(userInfo) {
           const userInfoObj = JSON.parse(userInfo);
@@ -86,26 +71,27 @@ const ShareBtnGroup = ({data}:dataProps) => {
 
     return (<>
         <div className="text-white/80 flex justify-center items-end overflow-y-hidden overflow-x-auto my-4 relative z-10 border border-white/30 rounded-xl">
-            <ShareItem 
-                icon={(isInLish)?<Remove
-                    sx={{
-                        fontSize: 28,
-                        color: '#ccc',
-                        border: '2px solid #ddd',
-                        borderRadius: '50%',
-                    }}
-                />:<Add
-                    sx={{
-                        fontSize: 28,
-                        color: '#ccc',
-                        border: '2px solid #ddd',
-                        borderRadius: '50%',
-                    }}
-                />} 
-                label='Watchlist' 
-                handelClick={() => {
-                    toggleFavorites();
-                }}/>
+            {(isAuthenticated)&&<ShareItem 
+              icon={(isInLish)?<Remove
+                  sx={{
+                      fontSize: 28,
+                      color: '#ccc',
+                      border: '2px solid #ddd',
+                      borderRadius: '50%',
+                  }}
+              />:<Add
+                  sx={{
+                      fontSize: 28,
+                      color: '#ccc',
+                      border: '2px solid #ddd',
+                      borderRadius: '50%',
+                  }}
+              />} 
+              label='Watchlist' 
+              handelClick={() => {
+                  toggleFavorites();
+              }}/>}
+            
             {(data?._id)?<>
               <ShareItem 
                 icon={<Share

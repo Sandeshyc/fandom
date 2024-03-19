@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
+import {
+  auditEntitlement
+} from '@/services/api'
 type Props = {
     item: any;
     movieId: string;
@@ -21,15 +23,12 @@ const PlanItemCard = ({
     const router = useRouter();
     const goPurchase = (productId:string) => {
       const userInfor = localStorage.getItem('userInfo');
+      const transactionId = uuidv4();
       if(userInfor){
         const userInfo = JSON.parse(userInfor);
         const {sub} = userInfo;
         if(sub){
-          const entitleCall = async () => {
-            const transactionId = uuidv4();
-            const headers = {
-                'Content-Type': 'application/json',
-            };      
+          const _auditEntitlementCall = async () => {          
             const data = {
                 "userID": sub,
                 "itemCode": movieId,
@@ -37,30 +36,32 @@ const PlanItemCard = ({
                 "isPackage": isPackage,
                 "transactionId": transactionId,
             };
-            // console.log('Data:', data);
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/audit/`, data, { headers })
-                .then(response => {
-                if(response.status === 200) {
-                  window.localStorage.setItem('itemCode', movieId);
-                  if(process.env.NODE_ENV === 'production'){
-                    let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
-                    router.replace(forwordPurchaseUrl);
-  
-                  }
-                  if(process.env.NODE_ENV === 'development'){
-                    let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}&env=dev`;
-                    router.replace(forwordPurchaseUrl);
-                  }
-                }
-                // console.log('Success:', response);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            }); 
+            const res = await auditEntitlement(data);
+            if(res.status === 'success'){
+              window.localStorage.setItem('itemCode', movieId);
+              let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
+              if(process.env.NODE_ENV === 'development'){
+                forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
+              }
+              router.replace(forwordPurchaseUrl);
+            }else{
+              window.location.reload();
+            }
+          }
+          _auditEntitlementCall();        
+        }else{
+          window.location.reload();
         }
-        entitleCall();
-          
-        }
+      }else{
+        localStorage.setItem('callbackAction', 'rent');
+        const callbackParams = {
+            "itemCode": movieId,
+            "priceSKU": productId,
+            "isPackage": isPackage,
+            "transactionId": transactionId
+        };
+        localStorage.setItem('callbackParams', JSON.stringify(callbackParams));
+        router.push('/auth');
       }
     }
     return (<>

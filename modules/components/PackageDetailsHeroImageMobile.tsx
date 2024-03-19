@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DetailsHeroBanner} from '@/modules/components/DetailsHeroImage';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import PackageRentButtonMobile from '@/modules/Identities/PackageRentButtonMobile';
@@ -6,12 +6,13 @@ import MovieSummary from '@/modules/components/MovieSummary';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+
 type Props = {
     data: any;
 }
 const PackageDetailsHeroImageMobile = ({data}:Props) => {
-    const [hasMovieList, setHasMovieList] = React.useState(false);
-    const [movieListOfset, setMovieListOfset] = React.useState(0);
+    const [hasMovieList, setHasMovieList] = useState(false);
+    const [movieListOfset, setMovieListOfset] = useState(0);
     const thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');

@@ -10,7 +10,13 @@ const checkAuthentication = async () => {
             const _getAuthStatus = async () => {
                 await onAuthStateChanged(auth, (user) => {
                     if (user) {          
-                        isAuthenticated = true;
+                        // isAuthenticated = true;   
+                        const userInfo = localStorage.getItem('userInfo');
+                        if(userInfo){
+                            isAuthenticated = true;
+                        }else{
+                            isAuthenticated = false;
+                        }                     
                     }else{
                         localStorage.removeItem('userInfo');
                         isAuthenticated = false;

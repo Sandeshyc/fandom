@@ -25,7 +25,8 @@ const MovieCardReelBorderd: React.FC<MovieCardProps> = ({ data }) => {
     className={`bg-[#101010]/60 group overflow-hidden col-span relative border-blue-700 border p-[1.8vw] pb-1 rounded-xl w-full transition-all duration-500 hover:border-white`}>
       <CardHeader header={data?.header} />
       <div className={`img relative h-full w-full bg-zinc-900 rounded-md`}>
-        <RollImage thumbURl={thumbURl} title={title} className='aspect-[6/9]'/>
+        {/* <RollImage thumbURl={thumbURl} title={title} className='aspect-[6/9]'/> */}
+        <img  src={thumbURl} alt={title} draggable={false} className={`flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md w-full z-10 aspect-[6/9]`}/>
       </div>
       <div className={`flex justify-between absolute z-20 bottom-0 left-0 w-full px-[2.4vw] pb-[1.8vw] pt-[1.8vw] bg-gradient-to-t from-black from-45% via-black/80 via-75% to-transparent to-98% cursor-pointer`}>
           <CardFooter footer={data?.footer} />

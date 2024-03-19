@@ -617,3 +617,47 @@ html {
 .mainHeader + .mainFooter{
   margin-top: 160px;
 }
+
+.billboardSlider .slick-dots{
+  bottom: 10px;
+}
+.billboardSlider .slick-dots li{
+  margin: 0px 3px;
+}
+.billboardSlider .slick-dots button{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #eee;
+  border: 2px solid #eee;
+  font-size: 0;
+}
+.billboardSlider .slick-dots .slick-active button{
+  background-color: #1D55CA;
+}
+.billboardSlider .slick-dots button:before, .billboardSlider .slick-arrow:before{
+  display: none;
+}
+.billboardSlider .slick-arrow{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.billboardSlider .slick-prev{  
+  left: 15px;
+}
+.billboardSlider .slick-next{
+  right: 15px;
+}
+.mobileEventCardsSlide > div{
+  min-width: 280px;
+  margin-right: 20px;
+}
+@media screen and (min-width: 640px) {
+  .mobileEventCardsSlide > div{
+    min-width: 480px;
+  }
+}

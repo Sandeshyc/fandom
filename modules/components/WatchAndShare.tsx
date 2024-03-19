@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import PlayButton from '@/components/PlayButton';
 import WatchTrailerBtn from '@/components/WatchTrailerBtn';
@@ -15,22 +15,34 @@ import WatchAndBuy from '@/modules/components/WatchAndBuy';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import SocialShare from '@/modules/elements/SocialShare';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import checkAuthentication from '@/utils/checkAuth';
 type dataProps = {
     data: any;
 }
 const MovieSummary = ({data}:dataProps) => {
     const [open, setOpen] = React.useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
     const isMobile = useIsMobile();
     const handleToggle = () => {
         setOpen(!open);
     }
-    return (<>{(isMobile)?(<>
-    <WatchAndBuy data={data}/>
-    <div className='px-4'>
-        <ShareBtnGroup data={data}/>
-    </div>
-    </>):<div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
+    useEffect(() => {
+        const _checkAuthentication = async () => {
+            const isAuthenticated = await checkAuthentication();
+            setIsAuthenticated(isAuthenticated);
+        }
+        _checkAuthentication();
+    }, []);
+    return (<>{(isMobile)?(
+        <>
+        <WatchAndBuy data={data}/>
+        <div className='px-4'>
+            <ShareBtnGroup data={data}/>
+        </div>
+        </>
+    ):
+    <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
       {(data?.canBuy === false && Array.isArray(data?.messages) && data?.messages.length) ?  (
         <div className='border border-yellow-500 p-2 flex flex-wrap mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px]'>
             <div className='w-[30px]'>
@@ -58,11 +70,21 @@ const MovieSummary = ({data}:dataProps) => {
                 data={data}
                 />
             )}              
-            {data?.isPackage ? null : (data?.allowed && data?.currentTime)?(<Buttons
+            {data?.isPackage ? 
+            null 
+            : 
+            (data?.allowed && data?.currentTime)?
+            (<Buttons
             onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
-            type='white'><RestartAlt className="w-6 text-black mr-2" /> Restart</Buttons>):(<WatchTrailerBtn movieId={data?._id} />)}</>:null}
-            <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>
-                <FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>
+            type='white'>
+                <RestartAlt className="w-6 text-black mr-2" /> Restart
+            </Buttons>
+            )
+            :
+            (<WatchTrailerBtn movieId={data?._id} />)}</>:null}
+
+            <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>                
+                {(isAuthenticated)&&<FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>}
                 {(data?._id)?<>
                     <button 
                         onClick={handleToggle}

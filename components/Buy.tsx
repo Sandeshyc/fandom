@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { useRouter } from 'next/router';
 import Modal from '@mui/material/Modal';
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
 import { capFirstLetter } from '@/utils/capFirstLetter';

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
 import ReactVideoPlayer from "@/components/ReactPlayer";
 import { stableKeys } from "@/utils/stableKeys";
@@ -11,6 +11,7 @@ import Buttons from '@/modules/Identities/Buttons';
 import FavoriteButton from '@/components/FavoriteButton';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
+import checkAuthentication from '@/utils/checkAuth';
 type Props = {
   data: any;
   isComplited: any;
@@ -18,9 +19,15 @@ type Props = {
 const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const handleToggle = () => {
     setOpen(!open);
   }
+  const _checkAuthentication = async () => {
+    const isAuthenticated = await checkAuthentication();
+    setIsAuthenticated(isAuthenticated);
+  }
+  _checkAuthentication();
   return (
     <div className={`relative billboardSec`}>
       <div
@@ -65,7 +72,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
         
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
           {data?.allowed === true ? (<PlayButton movieId={data?._id}/>) :(<WatchTrailerBtn movieId={data?._id}/>)}
-          <FavoriteButton 
+          {(isAuthenticated)&&<FavoriteButton 
               movieId={data?._id}
               classes='mx-2 bg-white/40 hover:bg-white/50'
               style={{
@@ -73,7 +80,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
               }}
               isInWatchList={data?.isInWatchList}
               innerClass='text-white'
-          />
+            />}
             {(data?._id)?<>
               <button 
                   onClick={handleToggle}

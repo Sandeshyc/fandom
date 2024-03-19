@@ -1,6 +1,8 @@
 import React, {use, useEffect} from 'react';
-import axios from 'axios';
 import {Close} from '@mui/icons-material';
+import {
+  removeFromMyList
+} from '@/services/api';
 
 interface PlayButtonProps {
   movieId: string;
@@ -20,29 +22,12 @@ const RemoveListBtn: React.FC<PlayButtonProps> = ({ movieId, isRemoveHandler }) 
     }
   }, []);
   
-  const removeList = () => {    
-    
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    const data = {
-      watchList: [movieId],
-    };
-    let result;
-    // Need to Update API URL
-    axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userIdToken}/watchlist`, { headers, data })
-      .then(response => {
-        console.log('response: ', response);
-        if(response.status === 200) {
-          setIsRemove(true);
+  const removeList = async () => {    
+    let result = await removeFromMyList(userIdToken, movieId);
+    if(result.status === 'success'){
+      setIsRemove(true);
           isRemoveHandler(true);
-          console.log('response.data: ', response.data);
-          result = response.data;
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    }
   }
 
   return (!isRemove?<button 

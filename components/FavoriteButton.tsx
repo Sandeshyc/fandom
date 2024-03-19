@@ -1,8 +1,12 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { PlusIcon, CheckIcon, MinusIcon } from '@heroicons/react/24/outline';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useFavorites from '@/hooks/useFavorites';
+import {
+  addToMyList,
+  removeFromMyList,
+  removeFromWatchingLists,
+} from '@/services/api';
 
 interface FavoriteButtonProps {
   movieId: string;
@@ -56,50 +60,17 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       }
     }
     await checkUserID();
-    let response;
+    let result;
     if (isInLish) {
-      console.log('remove from list');
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-      const data = {
-        watchList: [movieId],
-      };
-      let result;
-      // Need to Update API URL
-      axios.delete(`https://87kabuhi3g.execute-api.ap-southeast-1.amazonaws.com/dev/user/${userId}/watchlist`, { headers, data })
-        .then(response => {
-          // console.log('response: ', response);
-          if(response.status === 200) {
-            setIsInLish(false);
-            // console.log('response.data: ', response.data);
-            result = response.data;
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+      result = await removeFromMyList(userId, movieId);
+      if(result.status === 'success'){
+        setIsInLish(false);
+      }
     }else{
-      // console.log('add to list');
-      const headers = {
-        'Content-Type': 'application/json',
-      };      
-      const data = {
-        watchList: [movieId],
-      };
-      let result;
-      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/watchlist`, data, { headers })
-        .then(response => {
-          // console.log('response: ', response);
-          if(response.status === 200) {
-            setIsInLish(true);
-            // console.log('response.data: ', response.data);
-            result = response.data;
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });      
+      result = await addToMyList(userId, movieId);
+      if(result.status === 'success'){
+        setIsInLish(true);
+      }   
     }
   }
   
