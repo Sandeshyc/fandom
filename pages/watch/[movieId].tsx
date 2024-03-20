@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import useMovie from '@/hooks/useMovie';
 import SkeletonWatch from '@/components/Skeleton/SkeletonWatch';
-import { set } from 'lodash';
 import ReactMainVideoPlayer from '@/components/ReactMainPlayer';
 
 const Watch = () => {
@@ -19,6 +18,7 @@ const Watch = () => {
   const [backBtnActive, setBackBtnActive] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
+  console.log('data: ', data);
   const [videoURL, setVideoURL] = React.useState(
     {
       'HLS': data?.hlsVideo,
@@ -26,7 +26,7 @@ const Watch = () => {
     }
   );
 
-  console.log('data?.videoUrls: ', data?.videoUrls);
+  // console.log('data?.videoUrls: ', data?.videoUrls);
 
   const {t} = router.query;
   const isRestart = t === 'restart' ? true : false;
@@ -94,10 +94,10 @@ const Watch = () => {
         setUserId(userInfoObj.sub);
         // router.push('/');
       }else{
-        router.push('/auth');
+        // router.push('/auth');
       }
     }else{
-      router.push('/auth');
+      // router.push('/auth');
     }
     setIsReady(true);
     setBackBtnActive(false);
@@ -136,19 +136,30 @@ const Watch = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         }}>
-        {(videoReady)?((isTrailer)?((trailerUrl)?(<ReactMainVideoPlayer 
-        videoURL={trailerUrl}
-        poster={data?.thumbnailUrl}
-        control={true}/>):(<NotFount/>)):((videoURL)?(<VideoPlayer 
-          image={data?.thumbnailUrl}
-          video={videoURL} 
-          caption={captionURL}
-          control={true}
-          autoplay={true}
-          isComplited={() => {}}
-          data={data}
-          isRestart={isRestart}
-          pictureInPicture={true}/>):(<NotFount/>))):null}
+        {(videoReady)?
+          ((isTrailer)?
+            ((trailerUrl)?
+              (<ReactMainVideoPlayer 
+              videoURL={trailerUrl}
+              poster={data?.thumbnailUrl}
+              control={true}/>)   
+              :
+              (<NotFount/>))
+            :
+            ((videoURL)?
+              (<VideoPlayer 
+              image={data?.thumbnailUrl}
+              video={videoURL} 
+              caption={captionURL}
+              control={true}
+              autoplay={true}
+              isComplited={() => {}}
+              data={data}
+              isRestart={isRestart}
+              pictureInPicture={true}/>)
+            :
+            (<NotFount/>)))
+          :null}
       </div>
     </div></>):(<SkeletonWatch/>)}
     </>

@@ -16,7 +16,7 @@ type Props = {
 const WatchAndBuy = ({data}:Props) => {
     const router = useRouter();
     return (<>
-        <div className="relative z-10 px-4">
+        <div className="relative z-10 px-4 bg-black/90">
             {(data?.canBuy === false && Array.isArray(data?.messages) && data?.messages.length) ?  (
             <WarningMessage
                 message={data.messages.map((message : string, index : number) => <p key={stableKeys[index]}>{message}</p>)}

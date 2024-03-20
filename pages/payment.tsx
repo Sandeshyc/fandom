@@ -1,10 +1,11 @@
 import React, { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import SideBar from '@/components/SideBar'
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
-import NavigationHome from '@/modules/elements/NavigationHome';
-import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
-import { set } from 'lodash';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
+import useIsMobile from '@/hooks/useIsMobile';
+import checkAuthentication from '@/utils/checkAuth';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import {
   DataUsage
@@ -12,6 +13,7 @@ import {
 const bgImage = 'url("/images/new-bg.png")';
 const MyProfile = () => {
   const router = useRouter();
+  const isMobile = useIsMobile();
   const { productId, userid, transactionId, env } = router.query;
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [itemCode, setItemCode] = useState('');
@@ -29,14 +31,26 @@ const MyProfile = () => {
       router.replace('/');
     }
   };
-
   useEffect(() => {
+    if(iframeLoaded){
+      const _checkAuthentication = async () => {
+        const isAuthenticated = await checkAuthentication();
+        console.log('isAuthenticated:', isAuthenticated);
+        if(!isAuthenticated){
+          handleBackBtn();
+        }
+      }
+      _checkAuthentication();
+    }
+  },[iframeLoaded]);
+
+  useEffect(() => {    
     const tempItemCode = window.localStorage.getItem('itemCode');
     setItemCode(tempItemCode ? tempItemCode : '');
-  },)
+  },[]);
 
   return (<>
-      <NavigationHome />
+      {isMobile?<Header/>:<Navigation/>}
       <div className="pt-28 min-h-full"
       style={{
         backgroundImage: bgImage,
@@ -76,7 +90,7 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {isMobile?<BottomNavigation/>:<Footer/>}
   </>)
 }
 

@@ -7,9 +7,7 @@ import {
 
 const bgImage = '/images/amazingDeals.png';
 
-interface MovieListProps {
-}
-const DealsAndOffers: React.FC<MovieListProps> = () => {
+const DealsAndOffers = () => {
   const router = useRouter();
 
   return (

@@ -69,8 +69,8 @@ const ShareBtnGroup = ({data}:dataProps) => {
         }
     }, []);
 
-    return (<>
-        <div className="text-white/80 flex justify-center items-end overflow-y-hidden overflow-x-auto my-4 relative z-10 border border-white/30 rounded-xl">
+    return (<div className='bg-black py-4 pb-12'>
+        <div className="text-white/80 flex justify-center items-end overflow-y-hidden overflow-x-auto relative z-10 border border-white/30 rounded-xl">
             {(isAuthenticated)&&<ShareItem 
               icon={(isInLish)?<Remove
                   sx={{
@@ -111,7 +111,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
                   />
               </>:null}
         </div>
-    </>);
+    </div>);
 };
 export default ShareBtnGroup;
 
