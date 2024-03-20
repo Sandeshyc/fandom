@@ -20,7 +20,14 @@ import {
     PersonOutlineOutlined,
     LiveTvOutlined
 } from '@mui/icons-material';
-import SearchBoxMobile from '@/modules/elements/SearchBoxMobile';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signOut } from "firebase/auth";
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
+  authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 type Props = {
     isCollapseOpen: boolean;
@@ -64,20 +71,33 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
     }, []);
     
     const logoutFnc = () => {
+        const provider = localStorage.getItem('provider');
         const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
         const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
         localStorage.removeItem('userInfo');
         localStorage.removeItem('oneLogInAccessToken');
-        if(googleIndentityAccessToken){
-          localStorage.removeItem('googleIndentityAccessToken');
-          router.push('/auth');
+        if(provider === 'oneLogin'){
+            if(oneLogInAccessToken){
+                oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
+            }else{
+                oidcApi.logoutAuth();
+            }            
         }else{
-          if(oneLogInAccessToken){
-            oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
-          }else{
-            oidcApi.logoutAuth();
-          }
-        }    
+            const _signOut = async () => {
+                await signOut(getAuth()).then(() => {
+                    console.log('signout');
+                    localStorage.removeItem('googleIndentityAccessToken');
+                    // router.push('/');
+                    window.location.replace(window.location.href);
+                }
+                ).catch((error) => {
+                    console.log('signout error', error);
+                    localStorage.removeItem('googleIndentityAccessToken');
+                    router.push('/auth');
+                });
+            }
+            _signOut();
+        }   
     };
 
     return (<>

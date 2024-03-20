@@ -68,7 +68,10 @@ const BottomNavigation = () => {
                 </>)
                 :
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
-                onClick={() => router.push('/auth')}>
+                onClick={() => {
+                    localStorage.setItem('callbackAction', 'redirect');
+                    router.push('/auth');
+                }}>
                     <AccountCircleOutlined
                     className={`${('/auth' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
                     <span

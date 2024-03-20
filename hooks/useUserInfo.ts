@@ -41,7 +41,7 @@ const useUserInfo = () => {
               providerName: userInfoData?.providerName,
               emailVerified: emailVerified,
             }
-            window.localStorage.setItem('provider', providerName);
+            window.localStorage.setItem('provider', providerName || userInfoData?.providerName);
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
             if(oneLogInAccessToken){
               window.localStorage.setItem('oneLogInAccessToken', oneLogInAccessToken);

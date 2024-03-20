@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <>
     <div 
-      className={`fixed top-0 left-0 z-40 w-full pt-2 bg-gradient-to-b from-black/80 from-50% via-black/50 via-70% to-black/10 to-100%`}>
+      className={`mainHeader mainNavbar fixed top-0 left-0 z-40 w-full pt-2 bg-gradient-to-b from-black/80 from-50% via-black/50 via-70% to-black/10 to-100%`}>
         <div className='px-4 flex items-center justify-between'>
           <div className='flex items-center flex-wrap'>
             <div className='mr-4'>

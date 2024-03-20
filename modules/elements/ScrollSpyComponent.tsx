@@ -64,7 +64,7 @@ const ScrollSpyComponent = () => {
             </p>
         </div>
         <div id="section3" style={{ height: '30vh', backgroundColor: 'black' }} className='mb-8 border-b border-gray-600'>
-          <h3 className='text-xl mb-4'>Rating Comming soon</h3>
+          <h3 className='text-xl mb-4'>Rating & Review</h3>
         </div>
         <div id="section4" className='mb-8 pb-8 border-b border-gray-600'>
           <h3 className='text-xl mb-4'>More Info</h3>

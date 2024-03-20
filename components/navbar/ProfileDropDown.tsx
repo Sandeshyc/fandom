@@ -66,9 +66,17 @@ const ProfileDropDown = () => {
         const provider = localStorage.getItem('provider');
         const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
         const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
-        localStorage.removeItem('userInfo');
-        localStorage.removeItem('oneLogInAccessToken');
-        if(provider === 'firebase'){
+        localStorage.removeItem('userInfo');        
+        localStorage.removeItem('provider');
+        if(provider === 'oneLogin'){
+            localStorage.removeItem('oneLogInAccessToken');
+            if(oneLogInAccessToken){
+                oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
+            }else{
+                oidcApi.logoutAuth();
+            }            
+        }else{
+            localStorage.removeItem('googleIndentityAccessToken');
             const _signOut = async () => {
                 await signOut(getAuth()).then(() => {
                     console.log('signout');
@@ -83,12 +91,6 @@ const ProfileDropDown = () => {
                 });
             }
             _signOut();
-        }else{
-          if(oneLogInAccessToken){
-            oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
-          }else{
-            oidcApi.logoutAuth();
-          }
         }    
     }
     return (
@@ -202,6 +204,9 @@ const ProfileDropDown = () => {
         :
         <Link 
         href='/auth'
+        onClick={() => {
+            localStorage.setItem('callbackAction', 'redirect');        
+        }}
         className='text-contentColor/80 rounded-full px-3 py-1 flex justify-center items-center border-2 border-contentColor/50'>
             Login
         </Link> 
