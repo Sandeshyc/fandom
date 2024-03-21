@@ -37,7 +37,6 @@ const ScrollSpyComponent = () => {
           <ScrollSpy>
               <a href="#section1" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>Episodes (7)</a>            
               <a href="#section2" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>Cast & Crew </a>
-              <a href="#section3" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>Ratings</a>
               <a href="#section4" className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>More Info</a>
           </ScrollSpy>
           </div>
@@ -62,9 +61,6 @@ const ScrollSpyComponent = () => {
               <span className="text-white">Director: </span>
               Vince McMahon
             </p>
-        </div>
-        <div id="section3" style={{ height: '30vh', backgroundColor: 'black' }} className='mb-8 border-b border-gray-600'>
-          <h3 className='text-xl mb-4'>Rating & Review</h3>
         </div>
         <div id="section4" className='mb-8 pb-8 border-b border-gray-600'>
           <h3 className='text-xl mb-4'>More Info</h3>
