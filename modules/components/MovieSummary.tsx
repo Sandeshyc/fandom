@@ -1,19 +1,27 @@
 import React from 'react';
 import PublishDate from '@/modules/Identities/PublishDate';
 import Title from '@/modules/Identities/Title';
+import {capFirstLetter} from '@/utils/capFirstLetter';
+import { stableKeys } from '@/utils/stableKeys';
+import { yearFromDate } from '@/utils/yearFromDate';
 type dataProps = {
     data: any;
 }
 const MovieSummary = ({data}:dataProps) => {
-  const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+    const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+    let publishYear = data?.publishSchedule;
+    // get year from date
+    if(publishYear){
+      publishYear = yearFromDate(publishYear);
+    }
     return (
       <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
         <div className='container mx-auto px-4'>
           <div className='flex flex-wrap items-end pb-8'>
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
               <div className="flex flex-wrap items-end w-full">
-                <div className='w-[100px] sm:w-[120px] mr-2 bg-zinc-700 aspect-[6/9] rounded-md'>
-                  <img src={postar} alt={data?.title} className='w-full text-zinc-500' />
+                <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
+                  <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full' />
                 </div>
                 <div className='grow w-[100px] '>
                   <div className=' h-full mb-2 lg:mb-3'>
@@ -24,7 +32,14 @@ const MovieSummary = ({data}:dataProps) => {
                     {(data?.contentRating)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.contentRating}</span>):null}
                     {(data?.duration)?(<span className='mb-1'>{data?.duration}</span>):null}
                   </p>
-                  {(data?.publishSchedule)?(<p className="mb-1 flex items-center text-white/70"><PublishDate publishDate={data?.publishSchedule} short={true} /></p>):null}
+                  {(Array.isArray(data?.genre) && data?.genre?.length > 0)&&
+                    <div className='popUpGenre flex items-center text-contentColor/70'>
+                      {data?.genre?.map((itemTxt:string, index:number) => 
+                      <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0">{capFirstLetter(itemTxt)}
+                      </span>)}
+                      {(publishYear)&&<span className="inline-flex items-center text-sm mr-2 last:mr-0">{publishYear}
+                      </span>}
+                    </div>}
                 </div>
               </div>                
             </div>

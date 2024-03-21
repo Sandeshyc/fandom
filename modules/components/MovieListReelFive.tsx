@@ -15,6 +15,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 interface MovieListProps {
   data: MovieInterface[];
   title: string;
+  source: string;
   portrait: boolean;
   link?: string;
   linkText?: string;
@@ -38,14 +39,16 @@ function SlickPrevArrow(props: any) {
 }
 
 // Main Component
-const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
+  const [viewAllUrl, setViewAllUrl] = React.useState('');
   // console.log('removedItem data: ', data);
   if(Array.isArray(data) && data?.length > 0 ) {
     data = data.filter((item: any) => item && item._id);
   }
+
   const [newData, setNewData] = React.useState(data);
   const isMobile = useIsMobile();
 
@@ -105,7 +108,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
   }; 
 
   useEffect(() => {
-    console.log('removedItem: ', removedItem);
+    // console.log('removedItem: ', removedItem);
     if (removedItem && Array.isArray(newData) && newData?.length > 0){
       const newDataTemp = newData?.filter((item: any) => {
         return (
@@ -117,11 +120,17 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, portrait, li
     }
   }, [removedItem]);
 
+  useEffect(() => {
+    if (Array.isArray(data) && data?.length > 5){
+      setViewAllUrl( '/categories/' + source );
+    }
+  }, [data]);
+
   const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
     <div className="movieSliderInner">
       <ReelHeading 
         title={title} 
-        link={'/category'} 
+        link={viewAllUrl} 
         linkText={'Explore All'}
         />
       <div className="block lg:hidden">

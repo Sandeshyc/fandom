@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { stableKeys } from '@/utils/stableKeys';
 import {capFirstLetter} from '@/utils/capFirstLetter';
+import { yearFromDate } from '@/utils/yearFromDate';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
@@ -10,7 +11,12 @@ const MovieDetailsTab = ({data}:{data:any}) => {
     const [mainNavHeight, setMainNavHeight] = useState(0);
     const [navbarTop, setNavbarTop] = useState(0);
     const [tabArgs, setTabArgs] = React.useState([]);
+    const [relaseYear, setRelaseYear] = useState('');
+    
     useEffect(() => {
+        if(data?.publishSchedule){
+            setRelaseYear(yearFromDate(data?.publishSchedule as string) as any);
+        }
         let tempTabArgs = [];
         tempTabArgs.push({
             label:'Description', 
@@ -29,38 +35,62 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                 {
                     label:'Director',
                     type:'text',
-                    content:data?.author
+                    content:data?.director
+                },
+                {
+                    label:'Writer',
+                    type:'text',
+                    content:data?.writer
                 }
-            ]
-        });
-        tempTabArgs.push({
-            label:'Reviews', 
-            type:'arrays',
-            title:'Ratings & Reviews',
-            content:[
-                
             ]
         });
         tempTabArgs.push({
             label:'More Info', 
             type:'arrays',
-            content:[
-                {
-                    label:'Tags',
-                    type:'array',
-                    content:data?.tags
-                },
+            title: 'More Info',
+            content:[                
                 {
                     label:'Genres',
                     type:'array',
                     content:data?.genre
                 },
                 {
-                    label:'Content Privider',
+                    label:'Release year',
                     type:'text',
-                    content:data?.contentPrivider
-                }
+                    content: relaseYear as string
+                },
+                {
+                    label:'Rating',
+                    type:'text',
+                    content:data?.contentRating
+                },
+                {
+                    label:'Production Studio',
+                    type:'text',
+                    content:data?.contentProvider
+                },
+                
+                {
+                    label:'Language',
+                    type:'text',
+                    content:data?.language
+                },
+                {
+                    label: 'Released year',
+                    type: 'text',
+                    content: data?.publishSchedule
+                },
+                {
+                    label:'Tags',
+                    type:'array',
+                    content:data?.tags
+                },
             ]
+        });
+        tempTabArgs.push({
+            label: 'Related Movies',
+            type: 'text',
+            content: 'Related Movies'
         });
         setTabArgs(tempTabArgs as any);
     }, [data]);
@@ -108,7 +138,7 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                     </div>
                     {tabArgs?.map((tab:any, index:number) => {
                         return (
-                            <div id={`section${index}`} className='max-w-[1000px] min-h-[160px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
+                            <div id={`section${index}`} className='min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
                                 <div className='mt-4'> 
                                     {(tab?.title)&&<Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
                                     {(tab.type === 'text') && (
@@ -120,7 +150,7 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                                         <div>
                                             {tab?.content?.map((item:any, index:number) => {
                                                 return (
-                                                    <div key={stableKeys[index]}>
+                                                    <div key={stableKeys[index]} className='my-3'>
                                                     {(item.type === 'text' && (item?.content)) && (
                                                         <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
                                                         <span className="text-white">{item.label}: </span>

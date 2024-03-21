@@ -2,6 +2,7 @@ import Billboard from "@/modules/components/Billboard";
 import BillboardSlider from "@/modules/components/BillboardSlider";
 import Extended from '@/modules/components/Extended';
 import Roll from "@/modules/components/Roll";
+import MultiRawRoll from "@/modules/components/MultiRawRoll";
 import Gradient from "@/modules/components/Gradient";
 import Portrait from "@/modules/components/Portrait";
 import Top10 from "@/modules/components/Top10";
@@ -31,6 +32,7 @@ const comps = {
     navigation : Navigation,
     backNavigation : NavigationBack,
     roll : Roll,
+    multirawroll : MultiRawRoll,
     myPurchase : Roll,
     gradient : Gradient,
     potrait : Portrait,

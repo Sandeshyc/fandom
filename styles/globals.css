@@ -610,7 +610,7 @@ html {
     }
 }
 
-.ScrollSpyNav .active{
+.ScrollSpyNav .active, .scrollSpyItem.active{
   border-color: blue;
 }
 
