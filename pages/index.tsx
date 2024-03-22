@@ -55,7 +55,7 @@ const Home = () => {
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonHome/>)}
     {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
-    {/* <EventRoll/> */}
+    <EventRoll/>
     </div>
     </>) 
 }
