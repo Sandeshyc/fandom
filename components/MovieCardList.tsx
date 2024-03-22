@@ -6,6 +6,7 @@ import Buttons from '@/modules/Identities/Buttons';
 import { VolunteerActivismOutlined } from '@mui/icons-material';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
+import CardHeader from '@/modules/elements/CardHeader';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -36,10 +37,11 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           justify-center
           items-center
           text-white/40" />
-        {(data?.allowed)?<PurchaseBadge/>
+        {/* {(data?.allowed)?<PurchaseBadge/>
         :
         <BadgeDesktop text="Sale" theme="orange"/>
-        }
+        } */}
+        <CardHeader header={data?.header} />
       </div>
       <div className="w-[58%] py-1">
         <p

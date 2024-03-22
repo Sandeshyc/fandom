@@ -159,7 +159,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 activeRoute='/movies'/>
                 <NavItem
                 icon={<LiveTvOutlined />}
-                label={'Shows'}
+                label={'TV Shows'}
                 handleClick={() => {
                     router.push('/season');
                 }}
