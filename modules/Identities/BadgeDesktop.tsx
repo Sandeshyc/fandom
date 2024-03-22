@@ -14,6 +14,7 @@ const BadgeDesktop = ({
     const themeClass = {
         blue: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white shadow-indigo-500/40',
         orange: 'bg-gradient-to-l from-orange-700 to-orange-500 text-white shadow-orange-500/40',
+        Orange: 'bg-gradient-to-l from-orange-700 to-orange-500 text-white shadow-orange-500/40',
         primary: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white shadow-indigo-500/40',
         unset: ''
     }
