@@ -122,7 +122,7 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
             </div>
         </div>
     </div></>:
-    <div className='container mx-auto max-w-[2400px] px-4 mt-2'>
+    <div className='container mx-auto max-w-[2400px] px-4 mt-2 min-h-[70vh]'>
         {ReelContent()}
     </div>}
     </>

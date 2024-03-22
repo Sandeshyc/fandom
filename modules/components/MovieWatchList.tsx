@@ -42,7 +42,7 @@ const MovieWatchList = ({ data, title, link, linkText, isBoxesLayout = false }:P
         </div>
     </div>
     :
-    <div className='container mx-auto max-w-[2400px] px-4 mt-2'>{ReelContent()}</div>
+    <div className='container mx-auto max-w-[2400px] px-4 mt-2 min-h-[80vh]'>{ReelContent()}</div>
     }
     </>
   );

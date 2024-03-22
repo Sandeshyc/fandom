@@ -44,4 +44,11 @@ export const dateToDay = (expireDate: any) => {
 
     //const diffDays = Math.ceil(diffTime / (1000 * 86400)); // days (1000 * 60 * 60 * 24)
     //return diffDays;
-  }
+}
+
+
+export const getDateFormat = (date: string) => {
+    const datex = new Date(date);
+    const formattedDate = datex.toLocaleDateString('en-GB');
+    return formattedDate;
+}

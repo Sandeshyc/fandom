@@ -22,7 +22,7 @@
     },
     {
         "id": 4,
-        "label": "Shows",
+        "label": "TV Shows",
         "route": "/season",
         "activeRoute": "/season",
         "auth": false

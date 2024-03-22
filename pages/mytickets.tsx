@@ -34,7 +34,7 @@ const Home = (props:any) => {
   return (
     <>
       {(!isLoading && isReady ) ? (<>
-      <div className="py-16 lg:pt-28 min-h-[80vh]" style={{
+      <div className="pt-16 lg:pt-28 min-h-[80vh]" style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',

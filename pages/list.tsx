@@ -1,12 +1,7 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import SideBar from '@/components/SideBar'
 import useListMovies from '@/hooks/useListMovies';
-import MovieCardList from '@/components/MovieCardList';
 import { Info } from '@mui/icons-material';
-import { stableKeys } from '@/utils/stableKeys';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import SkeletonList from '@/components/Skeleton/SkeletonList';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
@@ -42,7 +37,7 @@ const Home = (props:any) => {
   return (
     <>
       {(isReady && !isLoading) ? (<>
-      <div className="py-16 lg:pt-28 min-h-[80vh]"
+      <div className="pt-16 lg:pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',

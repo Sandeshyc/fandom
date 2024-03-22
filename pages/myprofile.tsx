@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useProfile from '@/hooks/useProfile';
+import PaymentHistory from '@/modules/components/PaymentHistory';
 import useUpdateProfile from '@/hooks/useupdateProfile';
 import SideBar from '@/components/SideBar'
 import ProfileHead from '@/components/ProfileHead'
@@ -189,11 +190,11 @@ const MyProfile = () => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[3vw]`}>
+        <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[4vw]`}>
           <div className="container mx-auto max-w-[996px]">
-            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-6 lg:pl-6">My Account</p>
-            <div className="lg:pl-6">
-              <div className={`text-white max-w-[996px]`}>
+            <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-6">My Account</p>
+            <div>
+              <div className={`max-w-[996px]`}>
                 {/* <h4 className="text-white text-[18px] mb-2">Profile</h4> */}
                 <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[22%]`}>                
                   <ProfileHead
@@ -244,11 +245,30 @@ const MyProfile = () => {
                         onClick={()=>updateProfile(false)}
                         className="bg-transparent border text-white w-[48%] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px] mr-[2%] sm:mr-[10px]">Cancel</button>:null}
                       
-                      {(isUpdateMode)?<><button type='submit' 
+                      {(isUpdateMode)?<>
+                      <button type='submit' 
                         disabled={isUpdating}
                         onClick={()=>handleSubmit()}
-                        className={`bg-[#2D45F2] ${(isUpdating)?'cursor-not-allow':''} text-white w-[48%] ml-[2%] sl:ml-[0px] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>{(isUpdating)?'Updating...':'Save'}</button></>:<><span onClick={()=>updateProfile(true)}
-                        className={`bg-[#2D45F2] text-white cursor-pointer text-center w-full sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>Edit Profile</span></>}
+                        className={`bg-[#2D45F2] ${(isUpdating)?'cursor-not-allow':''} text-white w-[48%] ml-[2%] sl:ml-[0px] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>
+                          {(isUpdating)?'Updating...'
+                          :'Save'}
+                      </button>
+                      </>:
+                      <div className='flex flex-wrap items-center'>
+                      <span 
+                        onClick={()=>updateProfile(true)}
+                        className={`bg-[#2D45F2] text-white cursor-pointer text-center w-full sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>
+                          Edit Profile
+                      </span>
+                      <div className='sm:ml-8 mt-4 sm:mt-0 w-full sm:w-auto'>
+                        <span 
+                          onClick={
+                            () => setOpenDeleteAccount(true)
+                          }
+                          className='text-red-600 cursor-pointer'
+                        >Delete My Account</span>
+                      </div>
+                      </div>}
                     </div>
                     {
                       (isSuccess)?<p className="text-green-900 w-full rounded-md text-[14px] mt-2 px-2 py-1 bg-green-100 text-center">Profile updated successfully</p>:null
@@ -262,7 +282,7 @@ const MyProfile = () => {
             </div>
           </div>
         </form>
-        <div className="container mx-auto max-w-[996px] px-4">
+        {/* <div className="container mx-auto max-w-[996px] px-4">
           <div className='mb-2'>
               <button className={`flex items-center text-red-600 cursor-pointer bg-white/80 rounded-md px-6 py-2`}
               onClick={
@@ -277,6 +297,11 @@ const MyProfile = () => {
               </button>  
           </div>
           {openDeleteAccount && <DeleteAccount open={openDeleteAccount} setOpen={setOpenDeleteAccount}/>}
+        </div> */}
+        <div className='px-4'>
+          <div className="container mx-auto max-w-[1400px] py-4 bg-white/90 rounded-md">
+            <PaymentHistory />
+          </div>
         </div>
       </div><Footer/></>:<SkeletonMyProfile/>}
   </>)
