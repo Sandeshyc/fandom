@@ -12,7 +12,7 @@ const EventCardReel = () => {
         <div className={`group bg-zinc-900 rounded-md relative border border-contentColor/10`} >
             <div className='flex flex-wrap flex-col sm:flex-row'>
                 <div className='w-full h-auto sm:w-1/3 sm:bg-zinc-700 sm:aspect-[6/9] cursor-pointer'>
-                    <img src="https://images2.vudu.com/assets/content/poster/3002402-144" alt="ABS-CBN Logo" className='w-1/2 sm:w-full sm:h-full scale-105 rounded-md bg-zinc-700 mx-auto' />
+                    <img src="https://images2.vudu.com/assets/content/poster/3002402-144" alt="ABS-CBN Logo" className='w-1/2 sm:w-full sm:h-full scale-105 object-contain rounded-md bg-zinc-500 mx-auto' />
                 </div>
                 <div className='sm:w-2/3 p-4'>
                     <Title tag='h3' size='xl'>Beloved</Title>

@@ -24,6 +24,10 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     const movieId = data?._id || '';
     let thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
     const isMobile = useIsMobile();
+    let trailerUrl = '';
+    if(data?.trailerUrl){
+        trailerUrl = data?.trailerUrl;    
+    }
 
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
@@ -36,7 +40,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     return (<>
         {(isMobile)?(<PackageDetailsHeroImageMobile data={data}/>):
         <>
-        <DetailsHeroBanner thumb={thumb}/>
+        <DetailsHeroBanner thumb={thumb} videoURL={trailerUrl}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
             <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:''}</h1>
             {(data?.packageShortDetails) ? (<p className="mb-1 flex items-center flex-wrap my-2">

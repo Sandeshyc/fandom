@@ -4,6 +4,7 @@ import MovieListHeroBannerItems from '@/modules/elements/MovieListHeroBannerItem
 import ReelHeading from '@/modules/elements/ReelHeading';
 import useIsMobile from '@/hooks/useIsMobile';
 import PackageMovielistMobile from '@/modules/components/PackageMovielistMobile';
+import MovieDetailsTab from '@/modules/elements/MovieDetailsTab';
 
 type Props = {
   data: any;
@@ -23,25 +24,30 @@ const PackageMovielist = ({data, title}:Props) => {
   }
   return (<>
     {(item?._id)?(isMobile)?(<PackageMovielistMobile data={data} title={titleMobile}/>):
+    <>
     <div className={`my-[5vw] movieListHeroBanner`} >
-    <div>
-      <div className="px-2 max-w-[1600px] mx-auto"><ReelHeading title={title}/></div>
-        <div className={`gap-2`}>
-          <div className='relative'>
-            <MovieListHeroBanner data={item} isComplited={onVideoCompleted} />
-            <div className="absolute left-0 right-0 bottom-0 pl-4 md:pl-16">
-                <MovieListHeroBannerItems 
-                  title={data.title} 
-                  portrait={false}
-                  data={data} 
-                  className={`mt-2`}
-                  setCurrentMovie={setItem} 
-                  itemEnded={itemEnded} />
+      <div>
+        <div className="px-2 max-w-[1600px] mx-auto"><ReelHeading title={title}/></div>
+          <div className={`gap-2`}>
+            <div className='relative'>
+              <MovieListHeroBanner data={item} isComplited={onVideoCompleted} />
+              <div className="absolute left-0 right-0 bottom-0 pl-4 md:pl-16">
+                  <MovieListHeroBannerItems 
+                    title={data.title} 
+                    portrait={false}
+                    data={data} 
+                    className={`mt-2`}
+                    setCurrentMovie={setItem} 
+                    itemEnded={itemEnded} />
+              </div>
             </div>
           </div>
-        </div>
+      </div>
     </div>
-  </div>:null}
+    <MovieDetailsTab data={item} isPackage={true}/>
+    </>
+  :
+    null}
   </> 
   )
 }

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useProfile from '@/hooks/useProfile';
-import PaymentHistory from '@/modules/components/PaymentHistory';
 import useUpdateProfile from '@/hooks/useupdateProfile';
 import SideBar from '@/components/SideBar'
 import ProfileHead from '@/components/ProfileHead'
@@ -298,11 +297,6 @@ const MyProfile = () => {
           </div>
           {openDeleteAccount && <DeleteAccount open={openDeleteAccount} setOpen={setOpenDeleteAccount}/>}
         </div> */}
-        <div className='px-4'>
-          <div className="container mx-auto max-w-[1400px] py-4 bg-white/90 rounded-md">
-            <PaymentHistory />
-          </div>
-        </div>
       </div><Footer/></>:<SkeletonMyProfile/>}
   </>)
 }

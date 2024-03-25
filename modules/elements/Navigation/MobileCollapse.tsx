@@ -18,7 +18,8 @@ import {
     CreditCard, 
     NotificationsOutlined,
     PersonOutlineOutlined,
-    LiveTvOutlined
+    LiveTvOutlined,
+    PaymentsOutlined
 } from '@mui/icons-material';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from "firebase/auth";
@@ -188,12 +189,19 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     }}
                     activeRoute='/mytickets'/>
                     <NavItem
+                    icon={<PaymentsOutlined />}
+                    label={'Billing Details'}
+                    handleClick={() => {
+                        router.push('/billing-details');
+                    }}
+                    activeRoute='/billing-details'/> 
+                    <NavItem
                     icon={<PlaylistPlay />}
                     label={'My List'}
                     handleClick={() => {
                         router.push('/list');
                     }}
-                    activeRoute='/list'/> 
+                    activeRoute='/list'/>
                     <NavItem
                     icon={<PersonOutlineOutlined />}
                     label={'Manage Account'}

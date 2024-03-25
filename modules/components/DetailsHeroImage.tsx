@@ -33,7 +33,7 @@ type Props = {
 }
 export const DetailsHeroBanner = ({thumb, videoURL}:Props) => {
     return (
-        <div className="relative z-0 mb-[-140px] md:mb-[-200px]">
+        <div className="relative z-0 mb-[-140px] md:mb-[-240px]">
             <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[75vh] max-h-[100%] min-h-[400px] md:min-h-[700px]"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center top'}}>
                 {(videoURL)?
                     (<ReactVideoPlayer videoURL={videoURL} control={false} poster={thumb}/>)
@@ -41,7 +41,7 @@ export const DetailsHeroBanner = ({thumb, videoURL}:Props) => {
                     null
                 }
             </div>
-            <div className={`absolute bottom-0 left-0 w-full h-full z-10 bg-black/${(videoURL)?'40':'70'}`}/>    
+            <div className={`absolute bottom-0 left-0 w-full h-full z-10 bg-black/${(videoURL)?'40':'70'}`}/>
         </div>
     );
 }
