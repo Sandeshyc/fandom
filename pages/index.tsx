@@ -5,7 +5,6 @@ import useIsMobile from '@/hooks/useIsMobile';
 import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import getRandomNumber from '@/utils/randomNumber';
-import EventRoll from '@/modules/components/EventRoll';
 
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
@@ -55,7 +54,6 @@ const Home = () => {
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonHome/>)}
     {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
-    <EventRoll/>
     </div>
     </>) 
 }

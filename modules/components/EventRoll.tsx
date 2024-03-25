@@ -5,8 +5,21 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import EventCardReel from '@/modules/elements/EventCardReel';
 import ReelHeading from '@/modules/elements/ReelHeading';
+import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
+import { MovieInterface } from '@/types';
+interface MovieListProps {
+  data: MovieInterface[];
+  title: string;
+  source: string;
+  portrait: boolean;
+  link?: string;
+  linkText?: string;
+  gradient?: boolean;
+  isBoxesLayout?: boolean;
+  marginTop?: boolean;
+}
 
 function SlickNextArrow(props: any) {
     const { className, style, onClick } = props;
@@ -21,7 +34,7 @@ function SlickNextArrow(props: any) {
       <div className={className} onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
     );
   }
-const EventRoll = () => {
+const EventRoll: React.FC<MovieListProps> = ({ data, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
     const isMobile = useIsMobile();
     let settings = {
         dots: false,
@@ -66,8 +79,8 @@ const EventRoll = () => {
     const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile) ? 'portrait': ""}`}>
         <div className="movieSliderInner">
         <ReelHeading 
-            title={'Events'} 
-            link={'/category'} 
+            title={'Upcoming'} 
+            link={''} 
             linkText={'Explore All'}
             />
         <div className="block lg:hidden">
@@ -88,6 +101,9 @@ const EventRoll = () => {
         </div>
     </div>
     );
+    // if (isEmpty(data)) {
+    //   return null;
+    // }
     return(
         <div className={`pl-4 lg:pl-16 mt-2`}>
             {ReelContent()}
