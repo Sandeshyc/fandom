@@ -79,8 +79,10 @@ const BillboardItem = ({data}:Props) => {
   const thumbnailUrl = data?.thumbnailBannerUrl;
   const detailUrl = `/details/${itemId}`;
   const watchUrl = `/watch/${itemId}`;
+  let isActive = false;
   return (
-    <div className={`relative billboardSec`}>   
+    <div 
+    className={`relative billboardSec billboardSliderItem` }>   
       <BillboardBanner
         thumbnailUrl={thumbnailUrl}
         trailerUrl={trailerUrl}

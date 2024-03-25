@@ -25,7 +25,7 @@ const EventCardReel = () => {
                             fontSize: '1.2rem',
                         }}
                         className='mr-1' />
-                        <span>Event Starts From</span>
+                        <span>Starts From</span>
                     </p>
                     <p className='text-white/90 text-sm mb-4'>
                         <span>12th November 2023</span>
