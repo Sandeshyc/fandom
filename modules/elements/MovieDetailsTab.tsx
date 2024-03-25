@@ -7,7 +7,7 @@ import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
 // @ts-ignore
 import ScrollSpy from 'react-scrollspy-navigation';
-const MovieDetailsTab = ({data}:{data:any}) => {
+const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean}) => {
     const [mainNavHeight, setMainNavHeight] = useState(0);
     const [navbarTop, setNavbarTop] = useState(0);
     const [tabArgs, setTabArgs] = React.useState([]);
@@ -57,7 +57,17 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                 {
                     label:'Release year',
                     type:'text',
-                    content: relaseYear as string
+                    content: (data?.publishSchedule)?yearFromDate(data?.publishSchedule as string):'' as string
+                },
+                {
+                    label:'Duration',
+                    type:'text',
+                    content:data?.duration
+                },
+                {
+                    label:'Quality',
+                    type:'text',
+                    content:data?.quality
                 },
                 {
                     label:'Rating',
@@ -68,18 +78,13 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                     label:'Production Studio',
                     type:'text',
                     content:data?.contentProvider
-                },
-                
+                },                
                 {
                     label:'Language',
                     type:'text',
                     content:data?.language
-                },
-                {
-                    label: 'Released year',
-                    type: 'text',
-                    content: data?.publishSchedule
-                },
+                },               
+                
                 {
                     label:'Tags',
                     type:'array',
@@ -87,11 +92,13 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                 },
             ]
         });
-        tempTabArgs.push({
-            label: 'Related Movies',
-            type: 'text',
-            content: 'Related Movies'
-        });
+        if(!isPackage){
+            tempTabArgs.push({
+                label:'Related Movies',
+                type:'text',
+                content:'Related Movies'
+            });
+        }
         setTabArgs(tempTabArgs as any);
     }, [data]);
 
@@ -127,7 +134,7 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                                     {
                                     tabArgs?.map((tab:any, index:number) => {
                                         return (
-                                            <a key={stableKeys[index]} href={`#section${index}`} className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>{tab.label}</a>
+                                            <a key={stableKeys[index]} href={`#ssection${index}`} className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>{tab.label}</a>
                                         )
                                     })
                                     }
@@ -138,7 +145,7 @@ const MovieDetailsTab = ({data}:{data:any}) => {
                     </div>
                     {tabArgs?.map((tab:any, index:number) => {
                         return (
-                            <div id={`section${index}`} className='min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
+                            <div id={`ssection${index}`} className='min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
                                 <div className='mt-4'> 
                                     {(tab?.title)&&<Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
                                     {(tab.type === 'text') && (

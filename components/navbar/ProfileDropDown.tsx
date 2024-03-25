@@ -4,7 +4,7 @@ import Link from 'next/link';
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
 import { Menu, Transition } from '@headlessui/react';
-import {ArrowDropDown, CreditCard} from '@mui/icons-material';
+import {ArrowDropDown, CreditCard, PaymentsOutlined} from '@mui/icons-material';
 import checkAuthentication from '@/utils/checkAuth';
 import {
     MyTicketsIcon,
@@ -153,6 +153,16 @@ const ProfileDropDown = () => {
                             }>
                                 <span className='mr-2'><CreditCard/></span>
                                 <p>Manage Card</p>
+                            </button>  
+                        </div>
+                        <div className='mb-2'>
+                            <button 
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${(router.pathname === '/billing-details') && 'bg-gray-100'}`}
+                            onClick={
+                                () => router.push('/billing-details')
+                            }>
+                                <span className='mr-2'><PaymentsOutlined/></span>
+                                <p>Billing Details</p>
                             </button>  
                         </div>
                         <div className='mb-1'>

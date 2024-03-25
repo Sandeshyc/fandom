@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import usePaymentHistory from '@/hooks/usePaymentHistory';
 import {
-    PictureAsPdfOutlined
+    PictureAsPdfOutlined,
+    ContentCopyOutlined,
+    ContentCopyTwoTone
 } from '@mui/icons-material';
 import { stableKeys } from '@/utils/stableKeys';
 import Title from '@/modules/Identities/Title';
@@ -12,11 +14,16 @@ import {
 const PaymentHistory = () => {
     const [isReady, setIsReady] = useState(false);
     const [userId, setUserId] = useState('');
+    const [copyText, setCopyText] = useState('');
 
     // const { data, isLoading, error } = usePaymentHistory('7B6E23C8-6B77-4294-A7A3-66B4748D8D05');
     const { data, isLoading, error } = usePaymentHistory(userId);
-    console.log('data: ', data, isLoading, error);
+    // console.log('data: ', data, isLoading, error);
     const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-4`;
+    const copyTextFunc = (text: string) => {
+        navigator?.clipboard?.writeText(text);
+        setCopyText(text);
+    }
     useEffect(() => {
         const userInfo = window.localStorage.getItem('userInfo');
         if (userInfo) {
@@ -55,7 +62,26 @@ const PaymentHistory = () => {
                                 <td className={cellClass} data-label={'Date'}>
                                     {getDateFormat(payment?.date)}
                                 </td>
-                                <td className={cellClass} data-label={'Order Number'}>{payment?.orderNumber}</td>
+                                <td className={cellClass} data-label={'Order Number'}>
+                                    <span>
+                                        {payment?.orderNumber} 
+                                        {(copyText === payment?.orderNumber) ? (
+                                            <span className='text-black ml-2' title='Copied'>
+                                                <ContentCopyTwoTone
+                                                    sx={{ fontSize: 20 }}
+                                                />
+                                            </span>
+                                        )
+                                        :
+                                        (
+                                            <span className='text-black/50 ml-2 cursor-copy' title='Copy' onClick={() => copyTextFunc(payment?.orderNumber)}>
+                                                <ContentCopyOutlined
+                                                    sx={{ fontSize: 20 }}
+                                                />
+                                            </span>
+                                        )}
+                                    </span>    
+                                </td>
                                 <td className={cellClass} data-label={'Product Name'}>{payment?.productName}</td>
                                 <td className={cellClass} data-label={'Payment Method'}>
                                     <div className='flex items-center'>
@@ -90,7 +116,7 @@ const PaymentHistory = () => {
                     :
                     <tbody>
                         <tr>
-                            <td colSpan={6} className='text-center py-4'>Loading...</td>
+                            <td colSpan={6} className='text-center py-4 text-black'>Loading...</td>
                         </tr>
                     </tbody>
                     }

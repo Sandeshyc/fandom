@@ -15,6 +15,9 @@ type Props = {
     linkText?: string;
 };
 const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false }:Props) => {
+    if(Array.isArray(data) && data?.length > 0 ) {
+        data = data.filter((item: any) => item && item._id);
+    }
     // console.log('data', data);
     const [openTab, setOpenTab] = useState(0);
     const [userId, setUserId] = useState('');
@@ -33,7 +36,10 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
 
     const setAllTickets = () => {
         const _getAllTickets = async (userId:string) => {
-            const allTickets = await getAllTickets(userId);
+            let allTickets = await getAllTickets(userId);
+            if(Array.isArray(allTickets) && allTickets?.length > 0 ) {
+                allTickets = allTickets.filter((item: any) => item && item._id);
+            }
             setAllTicketsItems(allTickets);
             setAllTicketsLoaded(true);
             console.log('allTickets: ', allTickets);
@@ -69,6 +75,8 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
     //     return item.endTime > new Date().toISOString();
     // });
     const ActiveItems = data;
+    // check data?_id is available
+
     const ReelContent = () => (<div className={` z-10 relative mb-[3vw]`}>
         <div className='px-2'>
             <ReelHeading 

@@ -20,6 +20,7 @@ import Carousel from '@/modules/components/Carousel';
 import PackageMovielist from '@/modules/components/PackageMovielist';
 import PackageMovielistMobile from '@/modules/components/PackageMovielistMobile';
 import MovieListVertical from '@/modules/components/MovieListVertical';
+import MovieListVerticalGrid from '@/modules/components/MovieListVerticalGrid';
 import MovieWatchList from '@/modules/components/MovieWatchList';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import WatchAndBuy from '@/modules/components/WatchAndBuy';
@@ -52,6 +53,7 @@ const comps = {
     packageMovielist : PackageMovielist, 
     carousel : Carousel,
     movieListVertical : MovieListVertical,
+    movieListVerticalGrid : MovieListVerticalGrid,
     movieWatchList : MovieWatchList,
     watchAndBuy : WatchAndBuy,
     bottomNavigation : BottomNavigation,

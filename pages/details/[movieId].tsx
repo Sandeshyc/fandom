@@ -63,7 +63,7 @@ const Details = () => {
 
   return (<>
     {(isReady && !isLoading && movieDetails)?<>
-      <div className="text-white" 
+      <div className="text-white bg-[#000000] overflow-x-hidden" 
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
