@@ -79,23 +79,23 @@ const EventRoll: React.FC<MovieListProps> = ({ data, title, source, portrait, li
     const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile) ? 'portrait': ""}`}>
         <div className="movieSliderInner">
         <ReelHeading 
-            title={'Upcoming'} 
-            link={''} 
+            title={title} 
+            link={'/categories/upcoming'} 
             linkText={'Explore All'}
             />
         <div className="block lg:hidden">
             <div className='flex overflow-y-hidden overflow-x-auto mobileEventCardsSlide py-4'>
-            {Array.from({length: 8}, (_, i) => {
-                return <EventCardReel key={i}/>
-            })}
+            {data?.map((movie, index) => (
+              <EventCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+            ))}
             </div>
         </div>
         <div className="hidden lg:block movieSliderReel">
             <Slider
             {...settings}>
-            {Array.from({length: 8}, (_, i) => {
-                return <EventCardReel key={i}/>
-            })}
+            {data?.map((movie, index) => (
+              <EventCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+            ))}
             </Slider>  
         </div> 
         </div>
@@ -105,7 +105,11 @@ const EventRoll: React.FC<MovieListProps> = ({ data, title, source, portrait, li
     //   return null;
     // }
     return(
-        <div className={`pl-4 lg:pl-16 mt-2`}>
+        <div className={`pl-4 lg:pl-16 mt-2`}
+        style={{
+          marginTop: marginTop ? ((isMobile)?'70px': '120px') : '0px',
+        }}
+        >
             {ReelContent()}
         </div>
     )

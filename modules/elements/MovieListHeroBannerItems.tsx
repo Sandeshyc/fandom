@@ -11,29 +11,30 @@ import { get, isEmpty } from 'lodash';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import NotAllowed from '@/modules/Identities/NotAllowed';
 
-interface MovieListNumberProps {
+type MovieListNumberProps = {
   data: MovieInterface[];
   title: string;
   portrait: boolean;
   setCurrentMovie: Function;
   className : string;
+  itemEnded: number;
 }
 
-function SlickNextArrow(props : object) {
+function SlickNextArrow(props : any) {
   const { className, style, onClick } = props;
   return (
     <div className="slick-arrow slick-next hidden lg:block" onClick={onClick}><ChevronRightIcon strokeWidth={1.5}/></div>
   );
 }
 
-function SlickPrevArrow(props) {
+function SlickPrevArrow(props: any) {
   const { className, style, onClick } = props;
   return (
     <div className="slick-arrow slick-prev hidden lg:block" onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
   );
 }
 
-const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, className, itemEnded }) => {
+const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, className, itemEnded }:MovieListNumberProps) => {
   if (isEmpty(data)) {
     return null;
   }
@@ -80,7 +81,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
     
   };
 
-  const hendleSlideChange = (e, movie) => {
+  const hendleSlideChange = (e:any, movie:any) => {
     console.log('e', e.currentTarget.dataset.index, current);
     setCurrentMovie(movie);
     setCurrent(parseInt(e.currentTarget.dataset.index));
@@ -110,21 +111,22 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
 
   const getSlides = () => { 
     let i = 0;
-    return data.map((movie, index) => {
+    return data.map((movie:any, index:number) => {
    
-    return (
-      <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
-        <div className="w-full aspect-video cursor-pointer">
-          <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
-            {(movie?.allowed)?<PurchaseBadge/>:
-            (movie?.canBuy === false)?<NotAllowed/>:
-            null}
-            <img src={get(movie, 'thumbnailUrl')} className="w-full h-full object-contain rounded-lg" />
+      return (
+        <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
+          <div className="w-full aspect-video cursor-pointer">
+            <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
+              {(movie?.allowed)?<PurchaseBadge/>:
+              (movie?.canBuy === false)?<NotAllowed/>:
+              null}
+              <img src={get(movie, 'thumbnailUrl')} alt={movie?.title} className="w-full h-full object-contain rounded-lg text-zinc-500 flex justify-center items-center" />
+            </div>
           </div>
         </div>
-      </div>
-    )
-  }) };
+      )
+    }) 
+  };
 
   return (
     <div className={`group movieSlider ${className} ${portrait ? 'portrait': ""}`}>

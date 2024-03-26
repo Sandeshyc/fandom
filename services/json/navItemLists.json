@@ -7,13 +7,6 @@
         "auth": false
     },
     {
-        "id": 2,
-        "label": "Upcoming",
-        "route": "/upcoming",
-        "activeRoute": "/upcoming",
-        "auth": false
-    },
-    {
         "id": 3,
         "label": "Movies",
         "route": "/movies",
@@ -30,13 +23,6 @@
     {
         "id": 5,
         "label": "Channel",
-        "route": "",
-        "activeRoute": "",
-        "auth": false
-    },
-    {
-        "id": 6,
-        "label": "Events",
         "route": "",
         "activeRoute": "",
         "auth": false

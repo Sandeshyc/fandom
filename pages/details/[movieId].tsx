@@ -26,8 +26,8 @@ const Details = () => {
   _location();
   const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web', region); // Need to upate
   console.log('movieDetails', movieDetails);
-  console.log('isLoading', isLoading);
-  console.log('error', error);
+  // console.log('isLoading', isLoading);
+  // console.log('error', error);
   // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
   useEffect(() => {
     setIsReady(true);

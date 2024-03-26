@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component {
                     fontSize: '4rem',                
                 }}
                 />
-            <h3 className="text-white/80 text-2xl font-semibold mb-2">Opps!</h3>
+            <h3 className="text-white/80 text-2xl font-semibold mb-2">oops!</h3>
             <p className="text-white/80 text-sm md:text-base mb-6">Sorry, there is an error!</p>
             <div className="gap-2 flex justify-center">
                   <button

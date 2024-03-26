@@ -23,7 +23,7 @@ const PackageMovielist = ({data, title}:Props) => {
     }
   }
   return (<>
-    {(item?._id)?(isMobile)?(<PackageMovielistMobile data={data} title={titleMobile}/>):
+    {(item?._id)?(isMobile && 0)?(<PackageMovielistMobile data={data} title={titleMobile}/>):
     <>
     <div className={`my-[5vw] movieListHeroBanner`} >
       <div>
