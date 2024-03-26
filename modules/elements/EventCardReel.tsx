@@ -222,9 +222,9 @@ const EventCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                     </>
                     }
                     <div className='flex flex-row items-center justify-end gap-2 mt-6'>
-                        {(isAuthenticated && data?._id) && (
+                        {(isAuthenticated && data?._id && 0)? (
                             <FavoriteButton isInWatchList={data?.isInWatchListTemp} onClick={handleWatchListItemFunc} />
-                        )}
+                        ):null}
                         {(data?.allowed)?
                             <Buttons
                             onClick={()=>{}}>Purchased</Buttons>
