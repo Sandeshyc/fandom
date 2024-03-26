@@ -16,13 +16,23 @@ const sizes = {
     '3xl': 'text-2xl lg:text-3xl',
     '4xl': 'text-3xl lg:text-4xl',
 };
-const Text = ({ children, className, size, clamp, ...restProps }:TextProps) => { 
+
+const clampLines = {
+    1: 'line-clamp-1',
+    2: 'line-clamp-2',
+    3: 'line-clamp-3',
+    4: 'line-clamp-4',
+    5: 'line-clamp-5',
+    6: 'line-clamp-6',
+    7: 'line-clamp-7',
+    8: 'line-clamp-8',
+    9: 'line-clamp-9',
+    10: 'line-clamp-10',
+};
+const Text = ({ children, className, size, clamp=100, ...restProps }:TextProps) => { 
     if(className === undefined) className = '';
-    if(clamp){
-        className += 'line-clamp-'+clamp;
-    }
     return (
-        <p className={`${sizes[size]} ${className}`} {...restProps} >
+        <p className={`${sizes[size]} ${className} ${clampLines[clamp]}`} {...restProps} >
             {children}
         </p>
     );

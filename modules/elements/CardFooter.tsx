@@ -7,7 +7,7 @@ type Props = {
         text: string;
         type: string;
         iconType?: string;
-    }
+    } | any;
 }
 const CardFooter = ({footer}:Props) => {
     const text = footer?.text;

@@ -21,7 +21,7 @@ const MovieSummary = ({data}:dataProps) => {
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
               <div className="flex flex-wrap items-end w-full">
                 <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
-                  <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full' />
+                  <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
                 </div>
                 <div className='grow w-[100px] '>
                   <div className=' h-full mb-2 lg:mb-3'>

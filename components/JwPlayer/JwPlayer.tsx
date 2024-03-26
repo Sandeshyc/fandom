@@ -6,6 +6,7 @@ import axios from "axios";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import { getCookie } from "@/utils";
 
+
 interface VideoPlayerProps {
     image : string;
     video : {

@@ -119,7 +119,7 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
             if(navBar) {
                 const navBarBound = navBar?.getBoundingClientRect();
                 setNavbarTop(navBarBound?.top);
-                console.log('navBarBound: ', mainNavHeight, 'navbarTop: ', navbarTop);
+                // console.log('navBarBound: ', mainNavHeight, 'navbarTop: ', navbarTop);
             }
         };
 
@@ -133,7 +133,7 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
             <SpyNav sections={tabArgs} />
             {tabArgs?.map((tab:any, index:number) => {
                 return (
-                    <div id={tab?.id} className='min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
+                    <div id={tab?.id} className='min-h-[260px] md:min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
                         <div className='mt-4'> 
                             {(tab?.title)&&<Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
                             {(tab.type === 'text') && (
@@ -170,66 +170,5 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
             </div>
         </div>
     );
-    return (
-        <div className='text-white z-10 relative bg-black'>
-            <div className='container mx-auto px-4'>
-                <div className="ScrollSpyNav">
-                    <div className={`mb-8 ${(mainNavHeight > navbarTop) ? 'z-50 fixed w-full left-0 bg-black' : ''}`}
-                    style={{top: `${mainNavHeight}px`}}>
-                        <div className='container mx-auto border-b border-gray-600 flex lg:pt-4 text-base overflow-x-auto'>
-                            {(Array.isArray(tabArgs) && tabArgs.length > 0)&&(
-                                <ScrollSpy>
-                                    {
-                                    tabArgs?.map((tab:any, index:number) => {
-                                        return (
-                                            <a key={stableKeys[index]} href={`#ssection${index}`} className='block py-3 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap' ref={React.createRef()}>{tab.label}</a>
-                                        )
-                                    })
-                                    }
-                                </ScrollSpy>
-                            )}
-                            
-                        </div>
-                    </div>
-                    {tabArgs?.map((tab:any, index:number) => {
-                        return (
-                            <div id={`ssection${index}`} className='min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
-                                <div className='mt-4'> 
-                                    {(tab?.title)&&<Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
-                                    {(tab.type === 'text') && (
-                                        <div className='text-white/80'>
-                                            <Text size='lg'>{tab.content}</Text>
-                                        </div>
-                                    )}
-                                    {(tab.type === 'arrays') && (                              
-                                        <div>
-                                            {tab?.content?.map((item:any, index:number) => {
-                                                return (
-                                                    <div key={stableKeys[index]} className='my-3'>
-                                                    {(item.type === 'text' && (item?.content)) && (
-                                                        <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
-                                                        <span className="text-white">{item.label}: </span>
-                                                            {item.content}
-                                                        </p>
-                                                    )}
-                                                    {(item.type === 'array' && Array.isArray(item?.content) && item?.content?.length > 0) && (
-                                                        <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
-                                                        <span className="text-white">{item.label}: </span>
-                                                            {capFirstLetter(item?.content?.join(", "))}
-                                                        </p>
-                                                    )}
-                                                    </div>
-                                                )
-                                            })}
-                                        </div> 
-                                    )}
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>      
-            </div>      
-        </div>      
-    )
 };
 export default MovieDetailsTab;

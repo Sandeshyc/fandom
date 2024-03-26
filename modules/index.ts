@@ -21,6 +21,7 @@ import PackageMovielist from '@/modules/components/PackageMovielist';
 import PackageMovielistMobile from '@/modules/components/PackageMovielistMobile';
 import MovieListVertical from '@/modules/components/MovieListVertical';
 import MovieListVerticalGrid from '@/modules/components/MovieListVerticalGrid';
+import MultiRawRollUpcoming from '@/modules/components/MultiRawRollUpcoming';
 import MovieWatchList from '@/modules/components/MovieWatchList';
 import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import WatchAndBuy from '@/modules/components/WatchAndBuy';
@@ -49,18 +50,19 @@ const comps = {
     watchAndshare : WatchAndShare,
     shareBtnGroup : ShareBtnGroup,
     movieDetails : MovieDetails,
-    packageDetailsHeroImage : PackageDetailsHeroImage, 
     packageMovielist : PackageMovielist, 
+    packageMovielistMobile : PackageMovielist, 
+    packageDetailsHeroImage : PackageDetailsHeroImage, 
     carousel : Carousel,
     movieListVertical : MovieListVertical,
     movieListVerticalGrid : MovieListVerticalGrid,
+    multirawrollupcoming : MultiRawRollUpcoming,
     movieWatchList : MovieWatchList,
     watchAndBuy : WatchAndBuy,
     bottomNavigation : BottomNavigation,
     dealsAndOffers : DealsAndOffers,
     footer : Footer,
     packageDetailsHeroImageMobile : PackageDetailsHeroImageMobile,
-    packageMovielistMobile : PackageMovielistMobile 
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

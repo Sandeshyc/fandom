@@ -39,7 +39,7 @@ const ErrorPopUp = ({message, isRetry=true}:Props) => {
                 }}
                 />
                 <h3 className="text-white/80 text-2xl font-semibold mb-2">
-                    Opps! 
+                    oops! 
                 </h3>
                 <p className="text-white/80 text-sm md:text-base mb-6">{(message)?message:'Sorry, Something went wrong!'}</p> 
                 <div className="gap-2 flex justify-center">

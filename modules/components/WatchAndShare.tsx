@@ -22,6 +22,7 @@ type dataProps = {
     data: any;
 }
 const MovieSummary = ({data}:dataProps) => {
+    console.log('data', data);
     const [open, setOpen] = React.useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();

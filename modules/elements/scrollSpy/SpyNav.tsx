@@ -18,7 +18,7 @@ const SpyNav = ({ sections }:{sections:any}) => {
 
       const wrapperTop = wrapperElement.getBoundingClientRect().top;
       const navTop = navElement.getBoundingClientRect().top;
-      console.log('navTop', navTop);
+      // console.log('navTop', navTop);
 
       setIsFixed(wrapperTop <= mainNavHeight);
 
@@ -33,7 +33,7 @@ const SpyNav = ({ sections }:{sections:any}) => {
         if (element) {
           const elementTop = element.offsetTop - (navHeight + mainNavHeight);
           const elementBottom = elementTop + element.offsetHeight;
-          console.log('elementTop', elementTop, 'elementBottom', elementBottom, 'scrollPosition', scrollPosition);
+          // console.log('elementTop', elementTop, 'elementBottom', elementBottom, 'scrollPosition', scrollPosition);
 
           if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
             setActiveSection(id);
@@ -87,12 +87,12 @@ const SpyNav = ({ sections }:{sections:any}) => {
     <div className='secSpyNavWrapper'
     style={{ paddingTop: (isFixed)?navHeight+'px':'0px'}}
     >
-      <div ref={navRef} className={`secSpyNav w-full bg-black py-3 left-0 z-50 ${isFixed ? 'fixed' : ''}`}
+      <div ref={navRef} className={`secSpyNav w-full bg-black py-3 left-0 z-20 ${isFixed ? 'fixed' : ''}`}
       style={{ top: mainNavHeight+'px'}}
       >
         <ul className={`container mx-auto border-b border-gray-600 flex text-base overflow-x-auto ${isFixed ? 'px-4' : ''}`}>
           {sections.map(({ id, label }:{id:string, label:string}) => (
-            <li key={id} className={`block py-2 px-4 min-w-[120px] lg:min-w-[160px] text-center border-b-4 border-transparent whitespace-nowrap ${(activeSection === id) ? 'border-b-blue-600' : ''}`}>
+            <li key={id} className={`block py-3 px-2 lg:px-4 lg:min-w-[160px] text-sm lg:text-base text-center border-b-4 border-transparent whitespace-nowrap ${(activeSection === id) ? 'border-b-blue-600' : ''}`}>
               <a href={`#${id}`} onClick={clickHandler}>{label}</a>
             </li>
           ))}
