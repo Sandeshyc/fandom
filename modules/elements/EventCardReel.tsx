@@ -22,6 +22,7 @@ import { MovieInterface } from '@/types';
 import {
     dateToDay
 } from '@/utils/yearFromDate';
+import CountDownDate from '@/modules/Identities/CountDownDate';
 interface MovieCardProps {
     data: MovieInterface;
     portrait?: boolean;
@@ -206,18 +207,10 @@ const EventCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                             fontSize: '1.2rem',
                         }}
                         className='mr-1' />
-                        <span>Starts From</span>
+                        <span>Starts in</span>
                     </p>
-                    <p className='text-white/90 text-sm mb-4'>                        
-                        {/* <span>12th November 2023</span> */}
-                        {(publishDate?.day)?publishDate?.day + ' day ':''} {(publishDate?.hour)?publishDate?.hour + ' hour':''} {(publishDate?.minute)?publishDate?.minute + ' minute':''}
-                        {/* <span className='mx-2'>
-                            <FiberManualRecord 
-                            sx={{
-                                fontSize: '0.5rem',
-                            }}/>
-                        </span>
-                        <span>8:00 PM Onwards</span> */}
+                    <p className='text-white/90 text-sm mb-4'> 
+                      {(data?.publishSchedule)?<CountDownDate endDate={data?.publishSchedule} short={true}/>:null}
                     </p>
                     </>
                     }

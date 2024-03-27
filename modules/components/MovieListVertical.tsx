@@ -16,7 +16,7 @@ type Props = {
 };
 const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false }:Props) => {
     if(Array.isArray(data) && data?.length > 0 ) {
-        data = data.filter((item: any) => item && item._id);
+        data = data.filter((item: any) => item && item.itemCode);
     }
     // console.log('data', data);
     const [openTab, setOpenTab] = useState(0);
@@ -38,7 +38,7 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
         const _getAllTickets = async (userId:string) => {
             let allTickets = await getAllTickets(userId);
             if(Array.isArray(allTickets) && allTickets?.length > 0 ) {
-                allTickets = allTickets.filter((item: any) => item && item._id);
+                allTickets = allTickets.filter((item: any) => item && item.itemCode);
             }
             setAllTicketsItems(allTickets);
             setAllTicketsLoaded(true);
