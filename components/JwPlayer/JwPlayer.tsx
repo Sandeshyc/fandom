@@ -353,6 +353,70 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
 
     }, [video, autoplay, drmTokens.widevine]);
 
+    // Fast Forward
+    useEffect(() => {
+        const playerContainerSelector = '#jwplayer-container';
+        const player = window.jwplayer(playerRef.current.firstChild);
+        const playerContainer = document.querySelector(playerContainerSelector);
+        if(playerContainer){
+            const rewindContainer = playerContainer.querySelector('.jw-display-icon-rewind');
+            console.log('rewindContainer: ', rewindContainer);
+            if(rewindContainer){
+                const forwardContainer = rewindContainer.cloneNode(true);
+                console.log('forwardContainer: ', forwardContainer);
+                if(forwardContainer){
+                    const forwardDisplayButton = forwardContainer.querySelector('.jw-icon-rewind');
+                    // console.log('forwardDisplayButton: ', forwardDisplayButton);
+                    if(forwardDisplayButton){
+                        forwardDisplayButton.style.transform = "scaleX(-1)";
+                        forwardDisplayButton.ariaLabel = "Forward 10 Seconds"
+                        console.log('forwardDisplayButton: ', forwardDisplayButton);
+                        const nextContainer = playerContainer.querySelector('.jw-display-icon-next');
+                        console.log('nextContainer: ', nextContainer);
+                        if(nextContainer){
+                            nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
+                            nextContainer.style.display = 'none';
+                        }
+
+                    }
+                }
+            }
+            
+            const buttonContainer = playerContainer.querySelector('.jw-button-container');
+            if(buttonContainer){
+                const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
+                console.log('rewindControlBarButton: ', rewindControlBarButton);
+                if(rewindControlBarButton){
+                    const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
+                    if(forwardControlBarButton){
+                        forwardControlBarButton.style.transform = "scaleX(-1)";
+                        forwardControlBarButton.ariaLabel = "Forward 10 Seconds";
+                        rewindControlBarButton.parentNode.insertBefore(forwardControlBarButton, rewindControlBarButton.nextElementSibling);
+
+                        [forwardControlBarButton].forEach(button => {
+                            button.onclick = () => {
+                                if(player){
+                                    console.log('forward 10 sec', player);
+                                    player.seek((player.getPosition() + 10));
+                                }else{
+                                    console.log('forward 10 sec');
+                                }
+                            }
+                        })
+
+                    }
+                }
+            }
+
+            // add onclick handlers
+            // add onclick handlers
+            
+        }
+
+        
+
+    }, [isReady]);
+
     return (
         <>
             {/* IsPlay: {isPlaying.toString()} <br/>

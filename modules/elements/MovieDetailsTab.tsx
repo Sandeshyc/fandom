@@ -6,6 +6,7 @@ import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
 import SpyNav from '@/modules/elements/scrollSpy/SpyNav';
+import RelatedMovies from '@/modules/components/RelatedMovies';
 // @ts-ignore
 import ScrollSpy from 'react-scrollspy-navigation';
 const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean}) => {
@@ -96,12 +97,13 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
                 },
             ]
         });
-        if(!isPackage){
+        if(!isPackage && Array.isArray(data?.relatedMovies) && data?.relatedMovies?.length > 0){ 
             tempTabArgs.push({
                 id: 'section4',
                 label:'Related Movies',
-                type:'text',
-                content:'Related Movies'
+                title:'Related Movies',
+                type:'movies',
+                content: data?.relatedMovies
             });
         }
         setTabArgs(tempTabArgs as any);
@@ -146,22 +148,25 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
                                     {tab?.content?.map((item:any, index:number) => {
                                         return (
                                             <div key={stableKeys[index]} className='my-3'>
-                                            {(item.type === 'text' && (item?.content)) && (
-                                                <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
-                                                <span className="text-white">{item.label}: </span>
-                                                    {item.content}
-                                                </p>
-                                            )}
-                                            {(item.type === 'array' && Array.isArray(item?.content) && item?.content?.length > 0) && (
-                                                <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
-                                                <span className="text-white">{item.label}: </span>
-                                                    {capFirstLetter(item?.content?.join(", "))}
-                                                </p>
-                                            )}
+                                                {(item.type === 'text' && (item?.content)) && (
+                                                    <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
+                                                    <span className="text-white">{item.label}: </span>
+                                                        {item.content}
+                                                    </p>
+                                                )}
+                                                {(item.type === 'array' && Array.isArray(item?.content) && item?.content?.length > 0) && (
+                                                    <p className="mb-1 md:mb-2 last:mb-0 text-gray-300">
+                                                    <span className="text-white">{item.label}: </span>
+                                                        {capFirstLetter(item?.content?.join(", "))}
+                                                    </p>
+                                                )}
                                             </div>
                                         )
                                     })}
                                 </div> 
+                            )}
+                            {(tab.type === 'movies' && Array.isArray(tab?.content) && tab?.content?.length > 0) && (
+                                <RelatedMovies data={tab?.content} />
                             )}
                         </div>
                     </div>
