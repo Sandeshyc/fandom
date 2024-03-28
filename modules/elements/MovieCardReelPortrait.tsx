@@ -168,12 +168,12 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
 
   return (
     <div className='flex flex-col relative movieCard'>
-      <div className='mb-1'>
-      <CardHeaderMobile header={data?.header} />
+      <div className='mb-0'>
+        <CardHeaderMobile header={data?.header} />
       </div>
       <div 
       ref={thumbOuterRef}
-      className={` w-full group bg-zinc-900 rounded-md col-span relative cursor-pointer aspect-[${aspectRatio}]`} 
+      className={` w-full group bg-zinc-800 rounded-md col-span relative cursor-pointer aspect-[${aspectRatio}]`} 
       onMouseEnter={onHoverHandler} 
       onMouseLeave={onMouseLeave}
       onClick={redirectToWatch}

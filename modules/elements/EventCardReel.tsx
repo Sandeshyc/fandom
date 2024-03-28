@@ -20,7 +20,9 @@ import FavoriteButton from '@/modules/Identities/FavoriteButton';
 import Buttons from '@/modules/Identities/Buttons';
 import { MovieInterface } from '@/types';
 import {
-    dateToDay
+    dateToDay,
+    getDateFormat,
+    convertESTtoLocalTime
 } from '@/utils/yearFromDate';
 import CountDownDate from '@/modules/Identities/CountDownDate';
 interface MovieCardProps {
@@ -44,7 +46,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     let title = data?.title || '';
     let description = data?.description || '';
     let publishDate = (data?.publishSchedule)?dateToDay(data?.publishSchedule):'';
-    console.log('publishDate', publishDate);
+    // console.log('publishDate', publishDate);
 
     const thumbOuterRef = useRef(null);
     const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
@@ -201,6 +203,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                     }
                     {(data?.publishSchedule)&&
                     <>
+                    <p className='text-white/90 text-sm mb-1'>{convertESTtoLocalTime(data?.publishSchedule as string)}</p>
                     <p className='text-white/70 text-sm mb-1 flex align-top'>
                         <CalendarMonthTwoTone 
                         sx={{
@@ -210,7 +213,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                         <span>Starts in</span>
                     </p>
                     <p className='text-white/90 text-sm mb-4'> 
-                      {(data?.publishSchedule)?<CountDownDate endDate={data?.publishSchedule} short={true}/>:null}
+                      {(data?.publishSchedule)?<CountDownDate endDate={data?.publishSchedule} short={true}/>:null} 
                     </p>
                     </>
                     }

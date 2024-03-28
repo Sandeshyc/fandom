@@ -33,10 +33,31 @@ const SpyNav = ({ sections }:{sections:any}) => {
         if (element) {
           const elementTop = element.offsetTop - (navHeight + mainNavHeight);
           const elementBottom = elementTop + element.offsetHeight;
-          // console.log('elementTop', elementTop, 'elementBottom', elementBottom, 'scrollPosition', scrollPosition);
-
           if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
             setActiveSection(id);
+            // console.log('activeSection', id);
+            const navLink = document.querySelector(`.secSpyNav a[href="#${id}"]`);
+            // console.log('navLink', navLink);
+            if(navLink) {
+              const { top, height, width, left, right } = navLink.getBoundingClientRect();
+              const scrollSpyNav = document.querySelector('.secSpyNav ul');
+              if(scrollSpyNav) {
+                const scrollSpyNavWidth = scrollSpyNav?.clientWidth;
+                // console.log('parent', scrollSpyNavWidth, 'id', id, 'width', width, 'left', left, 'right', right);
+                if(scrollSpyNavWidth){
+                  if((left + width) > scrollSpyNavWidth){
+                    console.log('scrollBy Right', left, right);
+                    scrollSpyNav.scrollBy({ left: left, behavior: 'smooth' });
+                  }else if(left < 5) {
+                    console.log('scrollBy Left', left, right);
+                    scrollSpyNav.scrollBy({ left: left - scrollSpyNavWidth, behavior: 'smooth' });
+                  }else if(right > scrollSpyNavWidth) {
+                    console.log('scrollBy Left', right);
+                    scrollSpyNav.scrollBy({ left: right - scrollSpyNavWidth, behavior: 'smooth' });
+                  }
+                }                
+              }              
+            }
             break;
           }
         }

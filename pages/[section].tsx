@@ -1,113 +1,69 @@
-import React from 'react';
-import { NextPageContext } from 'next';
-import { getSession } from 'next-auth/react';
-
-import Navbar from '@/components/Navbar';
-import Billboard from '@/components/Billboard';
-import MovieList from '@/components/MovieList';
-import InfoModal from '@/components/InfoModal';
+import React, {useEffect, useState} from 'react';
+import {useRouter} from 'next/router';
 import useMovieList from '@/hooks/useMovieList';
-import useFavorites from '@/hooks/useFavorites';
-import useInfoModalStore from '@/hooks/useInfoModalStore';
-import BillboardExtended from '@/components/BillboardExtended';
-import MovieListTops from '@/components/MovieListTops';
-import Animated from '@/components/Animated';
-import SideBar from '@/components/SideBar'
+import SkeletonHome from '@/components/Skeleton/SkeletonHome';
+import useIsMobile from '@/hooks/useIsMobile';
+import getLocation from '@/services/api/location';
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import getRandomNumber from '@/utils/randomNumber';
 
-export async function getServerSideProps(context: NextPageContext) {
-  const { region = null, product = null } = context.query;
-  
-  const sectionName = context?.params?.section || '';
-  const parts = (context.pathname) || []
-  const session = await getSession(context);
+import Mapper from '@/modules/ModuleMapper';
+import {getComponent} from '@/modules';
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
+const bgImage = 'url("/images/new-bg.png")';
+
+const Section = (props:any) => {
+  const router = useRouter();
+  const { section } = router.query;
+  const [isReady, setIsReady] = useState(false);
+  const [userId, setUserId] = useState('');
+  const [myRegion, setRegion] = useState('PH');
+  const randomNumber = useState(getRandomNumber(100000, 900000));
+  const isMobile = useIsMobile();
+
+  const _location = async () => {
+    const {countryIsoCode} = await getLocation();
+    setRegion(countryIsoCode);
+  }
+  _location();
+
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo'); 
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if(userInfoObj.sub) {
+        setUserId(userInfoObj.sub);
       }
     }
-  }
-
-  return {
-    props: {region, product, sectionName}
-  }
-}
-
-const Home = (props) => {
-  const {region, product, sectionName} =  props;
-  const { data: movies = [] } = useMovieList(region, product, sectionName);
-  const { data: favorites = [] } = useFavorites();
-  const {isOpen, closeModal} = useInfoModalStore();
-
-  const getNavBar = () => {
-    const rows = movies.map(movieItem => {
-      if (movieItem.displayType == 'navigation'){
-        if (movieItem.title === 'SideBar')
-          return <SideBar />
-        else
-          return <Navbar />
-      }
-    })
-
-    return rows.filter(item => item)
-  }
-
-  const getBillboard = () => {
-    const rows = movies.map(movieItem => {
-      if (movieItem.displayType == 'billboard'){
-        return <Billboard data={movieItem.items[Math.floor(Math.random() * movieItem.items.length)]} />
-      }
-    })
-
-    return rows.filter(item => item)
-  }
-
-  const getRows = () => {
-    const rows = movies.map(movieItem => {
-
-      switch (movieItem.displayType) {
-        case 'billboard':
-          return;
-        case 'animated':
-          // return <Animated title={movieItem.title} data={movieItem} />;
-          return <p>Animated</p>
-        case 'roll':
-          return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
-        case 'extended' :
-          return <BillboardExtended data={movieItem} title={movieItem.title}/>
-        case 'potrait' :
-          return <MovieList title={movieItem.title} portrait={ true} data={movieItem.items} />
-        case 'top10' :
-          return <MovieListTops title={movieItem.title} data={movieItem.items} portrait />         
-        default:
-          return <MovieList title={movieItem.title} portrait={ false} data={movieItem.items} />
-      }
-
-      if (movieItem.displayType === 'billboard'){
-        return;
-      }
-      if (movieItem.displayType === 'animated'){
-        
-      } 
-      
-      
-      
-    })
-
-    return rows.filter(item => item)
-  }
+    setIsReady(true);
+    
+  }, []);
+  const { 
+    data: movies = [], 
+    isLoading, 
+    error 
+  } = useMovieList(myRegion, (isMobile)?'mobile':'web', section as string, userId, randomNumber.toString());
+  
   return (
     <>
-      <InfoModal visible={isOpen} onClose={closeModal} region={region}/>
-      {getNavBar()}
-      {getBillboard()}
-      <div className="pb-40">
-        {getRows()}
+      <div
+      className='bg-[#000000] text-white'
+      style={{
+        backgroundImage: bgImage,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% auto',
+        backgroundPosition: 'right '+ 30 + '%',
+      }}>
+      {(!isLoading && isReady && movies)?<>
+        <Mapper
+          modules={movies}
+          getComponent = {getComponent}
+          isLoading = {isLoading}/></> : (<SkeletonHome/>)}
+      {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
       </div>
     </>
   )
+
 }
 
-export default Home;
+export default Section;

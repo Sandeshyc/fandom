@@ -52,3 +52,29 @@ export const getDateFormat = (date: string) => {
     const formattedDate = datex.toLocaleDateString('en-GB');
     return formattedDate;
 }
+
+export const getDateTimeFormat = (date: string) => {
+    const datex = new Date(date);
+    const formattedDate = datex.toLocaleString('en-GB');
+    return formattedDate;
+}
+
+export const convertESTtoLocalTime = (estDateTimeString: string) => {
+    const date = new Date(estDateTimeString);
+
+  // Get options for desired formatting
+  const options = {
+    weekday: 'short',  // Tue
+    year: 'numeric',  // 2024
+    month: 'short',   // Apr
+    day: 'numeric',   // 09
+    hour: 'numeric',   // 20 (24-hour format)
+    minute: 'numeric', // 16
+    timeZone: 'America/New_York', // Adjust for Eastern Standard Time (EST)
+    hour12: true,     // Use 12-hour format (8 PM)
+  };
+
+  // Format the date-time string using the options
+  const formattedDateTime = date.toLocaleDateString('en-US', options as Intl.DateTimeFormatOptions);
+  return formattedDateTime;
+  }

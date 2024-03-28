@@ -49,13 +49,9 @@ const NavigationHome = () => {
                 <div className='ml-4 xl:ml-8'>
                   <div className='flex flex-row items-center gap-4 xl:gap-8'>
                     {(Array.isArray(navItemLists)) && navItemLists.map((item, index) => (
-                      <>
-                        {
                         (!item?.auth || (item?.auth && isAuthenticated))?
                         <NavItem key={stableKeys[index]} label={item?.label} route={item?.route} activeRoute={item?.activeRoute} />
                         :null
-                        }
-                      </>
                     ))}
                   </div>
                 </div>

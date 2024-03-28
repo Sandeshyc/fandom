@@ -3,7 +3,7 @@ type Props = {
     footer: {
         text: string;
         type: string;
-    }
+    } | any;
 }
 const CardFooter = ({footer}:Props) => {
     const text = footer?.text;

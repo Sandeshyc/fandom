@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { stableKeys } from '@/utils/stableKeys';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import { yearFromDate } from '@/utils/yearFromDate';
-import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
 import SpyNav from '@/modules/elements/scrollSpy/SpyNav';
 import RelatedMovies from '@/modules/components/RelatedMovies';
-// @ts-ignore
-import ScrollSpy from 'react-scrollspy-navigation';
 const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean}) => {
     const [mainNavHeight, setMainNavHeight] = useState(0);
     const [navbarTop, setNavbarTop] = useState(0);
@@ -131,11 +128,11 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
     return (
         <div className='bg-black text-white'
         >
-            <div className='container mx-auto px-4'>
+            <div className='container mx-auto px-4 pb-[50vh]'>
             <SpyNav sections={tabArgs} />
             {tabArgs?.map((tab:any, index:number) => {
                 return (
-                    <div id={tab?.id} className='min-h-[260px] md:min-h-[380px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
+                    <div id={tab?.id} className='min-h-[120px] mx-auto pb-8 mb-8 border-b border-gray-600 last:border-0 last:mb-0' key={stableKeys[index]}>
                         <div className='mt-4'> 
                             {(tab?.title)&&<Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
                             {(tab.type === 'text') && (
