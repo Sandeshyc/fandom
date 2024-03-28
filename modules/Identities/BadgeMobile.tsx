@@ -13,7 +13,9 @@ const BadgeMobile = ({
 }:Props) => {
     const themeClass = {
         blue: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white/90',
+        primary: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white/90',
         orange: 'bg-gradient-to-l from-orange-700 to-orange-500 text-white/90',
+        Orange: 'bg-gradient-to-l from-orange-700 to-orange-500 text-white/90',
         unset: ''
     }
     return (

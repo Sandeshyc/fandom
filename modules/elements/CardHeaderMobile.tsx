@@ -4,7 +4,7 @@ type Props = {
     header: {
         text: string;
         type: string;
-    }
+    } | any;
 }
 const CardHeaderMobile = ({header}:Props) => {
     const text = header?.text;

@@ -25,7 +25,7 @@ const Details = () => {
   }
   _location();
   const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web', region); // Need to upate
-  console.log('movieDetails', movieDetails);
+  // console.log('movieDetails', movieDetails);
   // console.log('isLoading', isLoading);
   // console.log('error', error);
   // const { data: movieDetails, isLoading} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web');
@@ -41,7 +41,7 @@ const Details = () => {
   }, []);
 
   useEffect(() => {
-    console.log('movieId', movieId);
+    // console.log('movieId', movieId);
     if(isLoading && !movieId){
       setIsError(true);
     }

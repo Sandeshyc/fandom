@@ -1,7 +1,7 @@
 import React from 'react';
 type Props = {
     text?: string;
-    theme: 'primary' | 'blue' | 'orange' | 'unset';
+    theme: 'primary' | 'blue' | 'orange' | 'Orange' | 'unset';
     className?: string;
     style?: React.CSSProperties;
 }
@@ -11,6 +11,7 @@ const BadgeDesktop = ({
     className, 
     style
 }:Props) => {
+    if(className === undefined) className = '';
     const themeClass = {
         blue: 'bg-gradient-to-l from-blue-700 to-blue-500 text-white shadow-indigo-500/40',
         orange: 'bg-gradient-to-l from-orange-700 to-orange-500 text-white shadow-orange-500/40',
