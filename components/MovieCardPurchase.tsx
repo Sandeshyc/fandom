@@ -45,17 +45,6 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
           </p>:
           null}  
 
-        {(data?.contentPrivider)?
-          <p className="text-[12px] sm:text-sm md:text-base mb-0 md:mb-1 flex items-center">
-            <VolunteerActivismOutlined className="mr-1"
-              sx={{
-                color: 'white',
-                fontSize: '20px',
-              }}/>
-            {data?.contentPrivider}
-          </p>:
-        null}
-
         {(data?.sourcePlatform)?
           <p className="text-[12px] sm:text-sm md:text-base mb-0 md:mb-1 flex items-center">
             <ShoppingBagOutlined className="mr-1"

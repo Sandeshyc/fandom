@@ -38,7 +38,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     }, []);
     // console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
     return (<>
-        {(isMobile)?(<PackageDetailsHeroImageMobile data={data}/>):
+        {(isMobile && 0)?(<PackageDetailsHeroImageMobile data={data}/>):
         <>
         <DetailsHeroBanner thumb={thumb} videoURL={trailerUrl}/>
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
@@ -47,14 +47,6 @@ const PackageDetailsHeroImage = ({data}:Props) => {
                 <span className="text-gray-300 mr-2 text-xl">{data?.packageShortDetails}</span>
             </p>):
             null}
-            <div className="flex flex-row items-center mb-1">
-                {(data?.publishSchedule)?
-                (<p className="text-gray-300 mr-4">{yearFromDate(data?.publishSchedule)}</p>):
-                null}
-                {(data?.quality)?(<p className="border-gray-500 border px-1 mr-1 text-xs">{data?.quality}</p>):null}
-                {(data?.contentRating)?(<p className="border-gray-500 border px-1 mr-1 text-xs">{data?.contentRating}</p>):null}
-            </div>      
-            {(data?.contentProvider)?(<p className="mb-1"><span className="text-gray-300">Content Provider:</span> {data?.contentProvider}</p>):null}
         </div>  
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
             {(data?.canBuy !== true)?(<WarningMessage 

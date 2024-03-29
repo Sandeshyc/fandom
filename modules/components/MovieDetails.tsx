@@ -7,15 +7,15 @@ type dataProps = {
     data: any;
 }
 const MovieSummary = ({data}:dataProps) => {
-    return (<MovieDetailsTab data={data}/>);
-  //   return (<div className='my-16 z-10 relative'>      
-  //   <div className="max-w-[1600px] mx-auto px-[15px]">
-  //     <div
-  //       className='rounded-md bg-black p-4 pb-8 border border-gray-800 text-white'>
-  //       <DetailsTab data={data}/>
-  //     </div>
-  //   </div>
-  // </div>);
+  return (  
+  <>
+  <div className='bg-black text-white pt-4'>      
+    <div className="container mx-auto px-4">
+      <DetailsTab data={data}/>
+    </div>
+  </div>
+  </>
+  );
   
 }
 export default MovieSummary;

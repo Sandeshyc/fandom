@@ -21,7 +21,7 @@ import checkAuthentication from '@/utils/checkAuth';
 type dataProps = {
     data: any;
 }
-const MovieSummary = ({data}:dataProps) => {
+const WatchAndShare = ({data}:dataProps) => {
     // console.log('data', data);
     const [open, setOpen] = React.useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,7 +38,7 @@ const MovieSummary = ({data}:dataProps) => {
         _checkAuthentication();
     }, []);
     return (
-        <div className='text-white z-10 relative bg-gradient-to-t from-black/90 from-50% to-black to-100% pb-8'>
+        <div className='text-white z-10 relative bg-gradient-to-t from-black from-50% to-black/90 to-100% pb-8'>
           <div className='container mx-auto px-4'>
             <div className='w-full flex flex-wrap'>      
                 {
@@ -101,75 +101,7 @@ const MovieSummary = ({data}:dataProps) => {
           </div>
         </div>
     );
-    return (<>{(isMobile)?(
-        <>
-        <WatchAndBuy data={data}/>
-        <div className='px-4'>
-            <ShareBtnGroup data={data}/>
-        </div>
-        </>
-    ):
-    <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
-      {(data?.canBuy === false && Array.isArray(data?.messages) && data?.messages.length) ?  (
-        <div className='border border-yellow-500 p-2 flex flex-wrap mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px]'>
-            <div className='w-[30px]'>
-                <ReportProblem
-                sx={{ 
-                    color: '#EAB307',
-                    fontSize: '24px',
-                    marginRight: '10px',
-                }}/>
-            </div>
-            <div className='w-[180px] flex-grow'>
-                {data.messages.map((message : string, index : number) => <p key={stableKeys[index]}>{message}</p>)}
-            </div>
-        </div>): null}
-        {(data?._id)?
-        <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
-            {(data)?<>{(data?.allowed)?(<>{data?.isPackage ? null : (data?.currentTime)?(<Buttons
-            onClick={() => router.push(`/watch/${data?._id}`)} 
-            type='white'><PlayIcon className="w-6 text-black mr-2" /> Resume</Buttons>):(<PlayButton movieId={data?._id}/>)}</>):(
-            <Buy 
-                movieId={data?._id} 
-                allowedPlans={data?.allowedPlans}
-                messages={data?.messages}
-                allowed={data?.allowed}
-                data={data}
-                />
-            )}              
-            {data?.isPackage ? 
-            null 
-            : 
-            (data?.allowed && data?.currentTime)?
-            (<Buttons
-            onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
-            type='white'>
-                <RestartAlt className="w-6 text-black mr-2" /> Restart
-            </Buttons>
-            )
-            :
-            (<WatchTrailerBtn movieId={data?._id} />)}</>:null}
-
-            <div className='flex flex-row gap-8 items-center mb-0 flex-wrap'>                
-                {(isAuthenticated)&&<FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>}
-                {(data?._id)?<>
-                    <button 
-                        onClick={handleToggle}
-                        className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
-                        <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
-                    </button>
-                    <SocialShare 
-                        open={open}
-                        setOpen={setOpen}
-                        url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
-                        title={data?.title}
-                    />
-                </>:null}
-            </div>
-        </div>:
-        <ErrorPopUp
-        message='Sorry, Something went wrong!'/>}
-    </div>}</>);
+    
   
 }
-export default MovieSummary;
+export default WatchAndShare;

@@ -10,13 +10,14 @@ const TabTitles = ({
     openTab,
     setOpenTab,
 }:tabArgsProps) => {
-    return (<ul className="flex items-center justify-start flex-wrap border-b border-white/60"
+    return (<ul className="container mx-auto border-b border-gray-600 flex text-base overflow-x-auto"
                 role="tablist">
             {tabArgs.map((tab:any, index:number) => {
                 return (
-                    <li className={`mr-4 last:mr-0`} key={stableKeys[index]}>
-                        <a
-                            className={`text-base block pb-4 px-1 min-w-full border-b ${(openTab === index) ? 'border-white' : 'border-transparent'}`}
+                    <li 
+                    className={`block text-sm lg:text-base text-center border-b-4 border-transparent whitespace-nowrap ${(openTab === index) ? 'border-b-blue-600' : ''}`} key={stableKeys[index]}>
+                        <a 
+                            className="block py-3 px-2 lg:px-4 lg:min-w-[160px]"
                             onClick={e => {
                                 e.preventDefault();
                                 setOpenTab(index);
