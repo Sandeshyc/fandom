@@ -53,6 +53,7 @@ const comps = {
     packageMovielist : PackageMovielist, 
     packageMovielistMobile : PackageMovielist, 
     packageDetailsHeroImage : PackageDetailsHeroImage, 
+    packageDetailsHeroImageMobile : PackageDetailsHeroImage,
     carousel : Carousel,
     movieListVertical : MovieListVertical,
     movieListVerticalGrid : MovieListVerticalGrid,
@@ -62,7 +63,6 @@ const comps = {
     bottomNavigation : BottomNavigation,
     dealsAndOffers : DealsAndOffers,
     footer : Footer,
-    packageDetailsHeroImageMobile : PackageDetailsHeroImageMobile,
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

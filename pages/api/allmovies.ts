@@ -15,8 +15,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     let itemcode = getValue(req.query.itemcode as string);
     if (itemcode === 'NA') itemcode = '';
+    let userId = getValue(req.query.userId as string);
+    if (userId === 'NA') userId = '';
 
     let url = `${process.env.API_URL}/page/exploreAll?itemCode=${itemcode}`;
+    if (userId !== '') {
+      url += `&userId=${userId}`;
+    }
     const moviesRes = await axios.get(url, {timeout: 10000});
     const movies = moviesRes.data;
     return res.status(200).json(movies);

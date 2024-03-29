@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import MovieCardReel from '@/modules/elements/MovieCardReel';
+import MovieCardReelPortrait from '@/modules/elements/MovieCardReelPortrait';
 import useIsMobile from '@/hooks/useIsMobile';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { stableKeys } from '@/utils/stableKeys';
+import ReelHeading from '@/modules/elements/ReelHeading';
 function SlickNextArrow(props: any) {
     const { className, style, onClick } = props;
     return (    
@@ -58,16 +60,20 @@ let settings = {
     ]
   }; 
 const RelatedMovies = ({data}:{data:any}) => {    
+  const isMobile = useIsMobile();
     return (
-        <div className="mt-4">
-            <div className="block lg:hidden">
+        <div className={`mt-8 lg:mt-16 ${(isMobile)?'portrait':''}`}>
+          <ReelHeading 
+            title='Related Movies'
+            />
+            <div className="block lg:hidden ">
                 <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
                     {data?.map((movie:any, index:number) => (
-                        <MovieCardReel key={stableKeys[index]} data={movie} />
+                        <MovieCardReelPortrait key={stableKeys[index]} data={movie} portrait={isMobile}/>
                     ))}
                 </div>
             </div>
-            <div className="hidden lg:block overflow-hidden movieBoxsInside mt-4">
+            <div className="hidden lg:block overflow-hidden movieSliderReel movieBoxsInside mt-4">
                 <div className="movieSlider">
                     <Slider {...settings}>
                         {Array.isArray(data) && data?.length > 0 && data.map((item: any, index: number) => (

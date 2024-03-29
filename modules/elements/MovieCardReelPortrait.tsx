@@ -96,7 +96,7 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
   }
   const title = data?.title || '';
   let thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
-  let aspectRatio = '143/243';
+  let aspectRatio = '6/9';
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){
     const duration:number = data?.videoDuration || 1;

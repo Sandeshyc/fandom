@@ -11,12 +11,12 @@ const bgImage = 'url("/images/new-bg.png")';
 
 const Categories = (props:any) => {  
   const [isReady, setIsReady] = React.useState(false);
-  const [userIdToken, setUserIdToken] = React.useState('');
+  const [userId, setUserId] = React.useState('');
   const router = useRouter();
   const isMobile = useIsMobile();
   const { categories } = router.query;
 
-  const { data, isLoading, error} = useAllMovie(categories as string);
+  const { data, isLoading, error} = useAllMovie(categories as string, userId as string);
   console.log('data', data);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Categories = (props:any) => {
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
-        setUserIdToken(userInfoObj.sub);
+        setUserId(userInfoObj.sub);
       }
     }
     setIsReady(true);

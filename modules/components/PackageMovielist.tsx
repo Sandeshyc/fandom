@@ -5,6 +5,7 @@ import ReelHeading from '@/modules/elements/ReelHeading';
 import useIsMobile from '@/hooks/useIsMobile';
 import PackageMovielistMobile from '@/modules/components/PackageMovielistMobile';
 import MovieDetailsTab from '@/modules/elements/MovieDetailsTab';
+import DetailsTab from '@/components/DetailsTab';
 
 type Props = {
   data: any;
@@ -44,7 +45,11 @@ const PackageMovielist = ({data, title}:Props) => {
           </div>
       </div>
     </div>
-    <MovieDetailsTab data={item} isPackage={true}/>
+    <div className='bg-black text-white pt-8'>      
+      <div className="container mx-auto px-4">
+        <DetailsTab data={item} isPackage={true}/>
+      </div>
+    </div>
     </>
   :
     null}

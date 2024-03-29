@@ -53,7 +53,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
         <div className="preview"></div>
       </div>
       <div className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition w-full`}>
-        <div className='flex flex-wrap items-end lg:pb-8'>
+        <div className='flex flex-wrap items-end lg:pb-2'>
           <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
             <div className="flex flex-wrap items-end w-full">
               <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>

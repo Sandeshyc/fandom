@@ -124,6 +124,12 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
     if (Array.isArray(data) && data?.length > 5){
       setViewAllUrl( '/categories/' + source );
     }
+    if(source === 'myPurchase'){
+      setViewAllUrl( '/mytickets' );
+    }else if(source === 'continueWatch'){
+      setViewAllUrl( '/categories/continue-watch' );
+    }
+
   }, [data]);
 
   const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
