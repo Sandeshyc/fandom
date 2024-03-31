@@ -1,14 +1,19 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NavigationHome from '@/modules/elements/NavigationHome';
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
+import useIsMobile from '@/hooks/useIsMobile';
 import { set } from 'lodash';
 import Buttons from '@/modules/Identities/Buttons';
 const bgImage = 'url("/images/new-bg.png")';
 const NotificationSettings = (props:any) => {
+    const isMobile = useIsMobile();
   return (
     <>
-      <NavigationHome />
+      {isMobile?<Header/>:<Navigation/>}
       <div className="py-16 pt-24 lg:pt-32 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
@@ -70,7 +75,7 @@ const NotificationSettings = (props:any) => {
             </div>
         </div>
       </div>
-      <Footer/>
+      {isMobile?<BottomNavigation/>:<Footer/>}
     </>
   )
 }

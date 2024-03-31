@@ -5,6 +5,7 @@ import ProfileDropDown from '@/components/navbar/ProfileDropDown';
 import SearchBox from '@/components/navbar/SearchBox';
 import useIsMobile from '@/hooks/useIsMobile';
 import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
+import Header from '@/modules/elements/Header';
 import Notification from '@/modules/elements/Notification';
 import checkAuthentication from '@/utils/checkAuth';
 import { stableKeys } from '@/utils/stableKeys';
@@ -35,7 +36,7 @@ const NavigationHome = () => {
   }, []);
 
   return (<>
-    {(isMobile)?(<NavigationHomeMobile/>):
+    {(isMobile)?(<Header/>):
     <div className={`mainHeader mainNavbar w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
         <div className='px-4'>
             <div className='flex items-center justify-between flex-wrap'>

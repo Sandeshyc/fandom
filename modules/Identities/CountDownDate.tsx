@@ -22,7 +22,7 @@ interface Props  {
 const CountDownDate = ({endDate, short = true, base = 0.5} : Props) => {
     // console.log('endDate', endDate);
     const {day, hour, minute} = dateToDay(endDate); // Day Hour Minute
-    console.log('day, hour, minuted: ', day, hour, minute);
+    // console.log('day, hour, minuted: ', day, hour, minute);
 
     let Print  = <></>;
     if(day === 0 && hour === 0 && minute === 0){

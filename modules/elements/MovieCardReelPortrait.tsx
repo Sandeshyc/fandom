@@ -168,7 +168,7 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
 
   return (
     <div className='flex flex-col relative movieCard'>
-      <div className='mb-0'>
+      <div className='mb-1'>
         <CardHeaderMobile header={data?.header} />
       </div>
       <div 

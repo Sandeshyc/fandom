@@ -43,7 +43,7 @@ export const DetailsHeroBanner = ({thumb, videoURL}:Props) => {
                     null
                 }
             </div>
-            <div className={`absolute bottom-0 left-0 w-full h-full z-10 bg-black/${(videoURL && !isMobile)?'40':'70'}`}/>
+            <div className={`absolute bottom-0 left-0 w-full h-full z-10 bg-black/${(isMobile)?'70':(videoURL)?'60':'70'}`}/>
         </div>
     );
 }

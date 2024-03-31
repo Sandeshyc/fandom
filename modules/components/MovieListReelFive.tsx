@@ -121,7 +121,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
   }, [removedItem]);
 
   useEffect(() => {
-    if (Array.isArray(data) && data?.length > 5){
+    if (Array.isArray(data) && data?.length > 0){
       setViewAllUrl( '/categories/' + source );
     }
     if(source === 'myPurchase'){
