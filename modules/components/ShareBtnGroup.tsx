@@ -69,7 +69,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
         }
     }, []);
 
-    return (<div className='bg-black py-4 pb-8'>
+    return (<div className='bg-black pt-4 pb-8 px-4'>
         <div className="text-white/80 flex justify-center items-end overflow-y-hidden overflow-x-auto relative z-10 border border-white/30 rounded-xl">
             {(isAuthenticated)&&<ShareItem 
               icon={(isInLish)?<Remove

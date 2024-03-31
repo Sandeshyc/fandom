@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import MovieSmallModal from '@/components/MovieSmallModal';
 import useIsMobile from "@/hooks/useIsMobile";
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import {
     FacebookIcon,
     InstagramIcon,
@@ -75,7 +76,7 @@ const Footer = () => {
         </div>
         <MovieSmallModal visible={isOpen} onClose={closeModal} />
         </>:
-        null}
+        <BottomNavigation/>}
     </>);
 }
 

@@ -698,3 +698,13 @@ html {
 .paymentHistoryTable tbody tr:first-child td{
   border-top: transparent 15px solid;  
 }
+
+.sameHeightSlick .slick-track{
+  display: flex !important;
+}
+.sameHeightSlick .slick-slide{
+    height: inherit !important;
+}
+.sameHeightSlick .slick-slide > div{
+  height: 100%;
+}

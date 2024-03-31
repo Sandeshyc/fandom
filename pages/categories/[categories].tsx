@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import useAllMovie from '@/hooks/useAllMovies';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
+import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import SkeletonHome from '@/components/Skeleton/SkeletonHome';
 import useIsMobile from '@/hooks/useIsMobile';
@@ -13,10 +14,17 @@ const Categories = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userId, setUserId] = React.useState('');
   const router = useRouter();
+  const [myRegion, setRegion] = useState('PH');
   const isMobile = useIsMobile();
   const { categories } = router.query;
 
-  const { data, isLoading, error} = useAllMovie(categories as string, userId as string);
+  const _location = async () => {
+    const {countryIsoCode} = await getLocation();
+    setRegion(countryIsoCode);
+  }
+  _location();
+
+  const { data, isLoading, error} = useAllMovie(categories as string, userId as string, (isMobile)?'mobile':'web', myRegion);
   console.log('data', data);
 
   useEffect(() => {

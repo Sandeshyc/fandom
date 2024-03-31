@@ -18,16 +18,16 @@ interface MovieListProps {
 }
 const MultiRawRollUpcoming: React.FC<MovieListProps> = ({ data, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
     const isMobile = useIsMobile();    
-    const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile) ? 'portrait': ""}`}>
+    const ReelContent = ()=> (<div className={`max-w-[2400px] mx-auto z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile) ? 'portrait': ""}`}>
         <div className="movieSliderInner">
             <ReelHeading 
                 title={'Upcoming'} 
                 link={''} 
                 linkText={'Explore All'}
                 />
-            <div className='flex flex-wrap py-4 mx-[-15px]'>
+            <div className='flex flex-wrap py-4 mx-[-15px] pr-4'>
                 {data?.map((movie, index) => (
-                    <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 p-[15px]">
+                    <div className="w-full md:w-1/2 xl:w-1/3 3xl:w-1/4 p-[15px]">
                         <EventCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
                     </div>
                 ))}

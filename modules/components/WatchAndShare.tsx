@@ -40,7 +40,7 @@ const WatchAndShare = ({data}:dataProps) => {
     return (
         <div className='text-white z-10 relative bg-gradient-to-t from-black from-50% to-black/90 to-100% pb-8'>
           <div className='container mx-auto px-4'>
-            <div className='w-full flex flex-wrap'>      
+            <div className='w-full flex flex-wrap items-center'>      
                 {
                 (data && data?._id)&&
                 <div className='mr-4'>

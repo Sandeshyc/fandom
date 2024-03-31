@@ -17,7 +17,7 @@ const MovieSummary = ({data}:dataProps) => {
     return (
       <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
         <div className='container mx-auto px-4'>
-          <div className='flex flex-wrap items-end pb-8'>
+          <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
               <div className="flex flex-wrap items-end w-full">
                 <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>

@@ -23,8 +23,14 @@ const PackageDetailsHeroImageMobile = ({data}:Props) => {
     }, []);
     return (<>
         <DetailsHeroBanner thumb={thumb}/>
-        <MovieSummary data={data}/>
-        <div className='relative z-10 px-2'>
+        <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
+            <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">{(data?.title)?data.title:''}</h1>
+            {(data?.packageShortDetails) ? (<p className="mb-1 flex items-center flex-wrap my-2">
+                <span className="text-gray-300 mr-2 text-xl">{data?.packageShortDetails}</span>
+            </p>):
+            null}
+        </div> 
+        <div className='relative z-10 p-2'>
             {(data?.canBuy !== true)?(<WarningMessage 
                 message={`This content is not allowed in your region`}
                 iconColor={'#EAB307'}
@@ -56,8 +62,8 @@ const PackageDetailsHeroImageMobile = ({data}:Props) => {
             message='Sorry, Something went wrong!'
             isRetry={false}
             />}
-            <ShareBtnGroup data={data}/>
         </div>
+        <ShareBtnGroup data={data}/>
     </>);
 };
 export default PackageDetailsHeroImageMobile;

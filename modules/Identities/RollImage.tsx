@@ -15,7 +15,7 @@ const RollImage = ({thumbURl, title, className}:Props) => {
             className={`w-full h-[12vw] ${className} `}
             />
         <p
-        className={`imgPlaceholder p-2 text-sm lg:text-lg flex justify-center items-center text-center text-gray-500 cursor-pointer object-contain shadow-xl rounded-md `} >
+        className={`imgPlaceholder p-2 text-sm lg:text-lg flex justify-center items-center text-center text-gray-500 cursor-pointer  shadow-xl rounded-md `} >
             {title}
         </p>
         </>

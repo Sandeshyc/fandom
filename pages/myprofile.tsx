@@ -6,6 +6,10 @@ import * as Yup from "yup";
 import useProfile from '@/hooks/useProfile';
 import useUpdateProfile from '@/hooks/useupdateProfile';
 import SideBar from '@/components/SideBar'
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
+import Footer from '@/components/Footer';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import ProfileHead from '@/components/ProfileHead'
 import ProfileName from '@/components/ProfileName';
 import ProfileEmail from '@/components//ProfileEmail';
@@ -14,17 +18,18 @@ import ProfileGender from '@/components/ProfileGender';
 import ProfileBirthday from '@/components/ProfileBirthday';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import NavigationHome from '@/modules/elements/NavigationHome';
-import Footer from '@/components/Footer';
 import { set } from 'lodash';
 import DeleteAccount from '@/modules/elements/DeleteAccount';
 import {
   CloseOutlined, 
   DeleteOutlineOutlined,
 } from '@mui/icons-material';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const bgImage = 'url("/images/new-bg.png")';
 
 const MyProfile = () => {
+  const isMobile = useIsMobile();
   const router = useRouter();
   const [isReady, setIsReady] = React.useState(false);
   // const [isLoading, setIsLoading] = React.useState(true);
@@ -181,7 +186,7 @@ const MyProfile = () => {
 
   return (<>
       {(isReady && !isLoading)?<>
-      <NavigationHome />
+      {isMobile?<Header/>:<Navigation/>}
       <div className="py-16 lg:pt-28 min-h-[80vh]"
       style={{
         backgroundImage: bgImage,
@@ -297,7 +302,9 @@ const MyProfile = () => {
           </div>
           {openDeleteAccount && <DeleteAccount open={openDeleteAccount} setOpen={setOpenDeleteAccount}/>}
         </div> */}
-      </div><Footer/></>:<SkeletonMyProfile/>}
+      </div>
+    {isMobile?<BottomNavigation/>:<Footer/>}
+  </>:<SkeletonMyProfile/>}
   </>)
 }
 
