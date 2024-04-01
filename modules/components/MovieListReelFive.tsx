@@ -11,6 +11,8 @@ import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useQuery } from '@apollo/client';
+import PLAYLIST_QUERY from '../queries/playlist';
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -22,6 +24,7 @@ interface MovieListProps {
   gradient?: boolean;
   isBoxesLayout?: boolean;
   marginTop?: boolean;
+  module: any
 }
 
 function SlickNextArrow(props: any) {
@@ -39,15 +42,28 @@ function SlickPrevArrow(props: any) {
 }
 
 // Main Component
-const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+const MovieListReelFive: React.FC<MovieListProps> = ({ module, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+
+  const { loading, error, data: gqData } = useQuery(PLAYLIST_QUERY, {variables: {input: {id: module.source}}});
+  let data = gqData?.playlist?.items;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error : {error.message}</p>;
+  console.log('GQL D********** ', data)
+
+
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
   const [viewAllUrl, setViewAllUrl] = React.useState('');
   // console.log('removedItem data: ', data);
-  if(Array.isArray(data) && data?.length > 0 ) {
-    data = data.filter((item: any) => item && item._id);
-  }
+  
+  React.useEffect(() => {
+      if (Array.isArray(data) && data?.length > 0) {
+        data = data.filter((item: any) => item && item._id);
+      }
+    setNewData(data)
+  }, [data])
+
 
   const [newData, setNewData] = React.useState(data);
   const isMobile = useIsMobile();

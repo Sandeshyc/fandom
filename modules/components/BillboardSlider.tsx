@@ -12,6 +12,9 @@ import {
   ArrowBackIosNewOutlined, 
   ArrowForwardIosOutlined 
 } from '@mui/icons-material';
+import { useQuery } from '@apollo/client';
+import PLAYLIST_QUERY from '../queries/playlist';
+
 function SlickNextArrow(props: any) {
   const { className, style, onClick } = props;
   return (    
@@ -41,8 +44,19 @@ function SlickPrevArrow(props: any) {
 }
 type Props = {
   data: any;
+  module: any
 };
-const BillboardSlider = ({data}:Props) => {
+
+
+
+const BillboardSlider = (inputProps: Props) => {
+  const {module} = inputProps
+  const { loading, error, data: gqData } = useQuery(PLAYLIST_QUERY, {variables: {input: {id: module.source}}});
+  const data = gqData?.playlist?.items;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+  console.log('GQL D********** ', data)
+
   const noOfSlides = Array.isArray(data) ? data.length : 0;
   let settings = {
     dots: noOfSlides > 1,
