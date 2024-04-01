@@ -35,7 +35,7 @@ const Watch = () => {
       setVideoReady(true);
     }
 
-    console.log('data: ', data?.allowed);
+    // console.log('data: ', data?.allowed);
     if(data?.allowed){
       setIsTrailer(false);
       const VideoURLs = {
@@ -53,7 +53,7 @@ const Watch = () => {
         });
       }
       setVideoURL(VideoURLs);
-      console.log('VideoURLs: ', VideoURLs);
+      // console.log('VideoURLs: ', VideoURLs);
     }else{
       setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
     }

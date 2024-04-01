@@ -19,7 +19,8 @@ import {
     NotificationsOutlined,
     PersonOutlineOutlined,
     LiveTvOutlined,
-    PaymentsOutlined
+    PaymentsOutlined,
+    PercentOutlined
 } from '@mui/icons-material';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from "firebase/auth";
@@ -165,6 +166,13 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     router.push('');
                 }}
                 activeRoute=''/>
+                <NavItem
+                icon={<PercentOutlined />}
+                label={'Offers'}
+                handleClick={() => {
+                    router.push('/offers');
+                }}
+                activeRoute='/offers'/>
                 {(isAuthenticated)&&
                     <>
                     <NavItem

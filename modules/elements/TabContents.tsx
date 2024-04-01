@@ -1,4 +1,6 @@
 import React from "react";
+import Episode from '@/modules/elements/Episode';
+import Pagination from '@/modules/Identities/Pagination';
 import { stableKeys } from "@/utils/stableKeys";
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import Title from '@/modules/Identities/Title';
@@ -11,7 +13,7 @@ const TabContents = ({
     tabArgs,
     openTab
 }:tabArgsProps) => {
-    return (   
+    return ( 
         <>     
         <div className="min-h-[120px] mx-auto py-6 detailsPageTabContent">
             <div className="tab-content">
@@ -21,6 +23,17 @@ const TabContents = ({
                             <div className='mt-4'> 
                                 {(tab?.title)&&
                                 <Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
+                                {(tab.type === 'episodes') && (
+                                    <div className='max-w-[1000px] mx-auto'>
+                                        <h3 className='text-xl mb-4'>Episodes (7)</h3>
+                                        {Array.from({length: 6}, (_, i) => {
+                                            return <Episode key={i}/>
+                                        })}
+                                        <div className='my-4'>
+                                            <Pagination totalPages={5} currentPage={1} setCurrentPage={() => {}}/>
+                                        </div>
+                                    </div>
+                                )}
                                 {(tab.type === 'text') && (
                                     <div className='text-white/80'>
                                         <Text size='lg'>{tab.content}</Text>
