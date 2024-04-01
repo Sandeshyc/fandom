@@ -3,18 +3,33 @@ import { yearFromDate } from '@/utils/yearFromDate';
 import TabTitles from '@/modules/elements/TabTitles';
 import TabContents from '@/modules/elements/TabContents';
 import RelatedMovies from '@/modules/components/RelatedMovies';
-const DetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean}) => {
+type Props = {
+    data: any;
+    isPackage?: boolean;
+    isShow?: boolean;
+}
+const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
     const [openTab, setOpenTab] = React.useState(0);
     const [tabArgs, setTabArgs] = React.useState([]); 
     // push tab args label and content
     useEffect(() => {
         let tempTabArgs = [];
-        tempTabArgs.push({
-            id: 'section1',
-            label:'Description', 
-            type:'text',
-            content:data?.description
-        });
+        if(isShow){
+            tempTabArgs.push({
+                id: 'section1',
+                label:'Episodes (7)',
+                type:'episodes',
+                content: data?.episodes
+            });
+        }else{
+            tempTabArgs.push({
+                id: 'section1',
+                label:'Description', 
+                type:'text',
+                content:data?.description
+            });
+        }
+        
         tempTabArgs.push({
             id: 'section2',
             label:'Cast & Crew',
@@ -77,8 +92,7 @@ const DetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean}) => {
                     label:'Language',
                     type:'text',
                     content:data?.language
-                },               
-                
+                },
                 {
                     label:'Tags',
                     type:'array',

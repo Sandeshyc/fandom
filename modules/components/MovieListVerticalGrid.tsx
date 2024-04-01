@@ -28,9 +28,9 @@ const MovieListVerticalGrid: React.FC<MovieListProps> = ({ data, title, source, 
             <div className='flex flex-wrap py-4 mx-[-15px]'>
                 {Array.from({length: 15}, (_, i) => {
                     return (
-                        <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 p-[15px]">
-                            <EventCardReel key={i}/>
-                        </div>
+                    <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 p-[15px]">
+                        <EventCardReel key={i}/>
+                    </div>
                     )
                 })}
             </div>

@@ -10,6 +10,8 @@ import Title from '@/modules/Identities/Title';
 import {
     getDateFormat
 } from '@/utils/yearFromDate';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const PaymentHistory = () => {
     const [isReady, setIsReady] = useState(false);
@@ -39,7 +41,7 @@ const PaymentHistory = () => {
             <div className='text-center mb-4 font-medium text-black/80'>
                 <Title tag='h2' size='2xl'>Payment History</Title>
             </div>
-            <div className='overflow-y-hidden overflow-x-auto'>
+            <div className='w-full overflow-y-hidden lg:overflow-x-auto'>
                 <table className='w-full text-left paymentHistoryTable'>
                     <thead className='hidden lg:table-header-group text-gray-900/70'>
                         <tr className='px-4'>
@@ -115,8 +117,116 @@ const PaymentHistory = () => {
                     </tbody>
                     :
                     <tbody>
-                        <tr>
-                            <td colSpan={6} className='text-center py-4 text-black'>Loading...</td>
+                        <tr className={`text-gray-900/70 block lg:table-row`}>
+                            <td className={cellClass} data-label={'Date'}>
+                                <div className="w-[100px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Order Number'}>
+                                <div className="w-[120px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Product Name'}>
+                                <div className="w-[140px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Payment Method'}>
+                                <div className="w-[120px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Transaction Type'}>
+                                <div className="w-[130px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Amount'}>
+                                <div className="w-[70px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Receipt'}>
+                                <div className="w-[30px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className={`text-gray-900/70 block lg:table-row bg-white/20`}>
+                            <td className={cellClass} data-label={'Date'}>
+                                <div className="w-[100px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Order Number'}>
+                                <div className="w-[120px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Product Name'}>
+                                <div className="w-[140px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Payment Method'}>
+                                <div className="w-[120px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Transaction Type'}>
+                                <div className="w-[130px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Amount'}>
+                                <div className="w-[70px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Receipt'}>
+                                <div className="w-[30px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className={`text-gray-900/70 block lg:table-row`}>
+                            <td className={cellClass} data-label={'Date'}>
+                                <div className="w-[100px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Order Number'}>
+                                <div className="w-[120px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Product Name'}>
+                                <div className="w-[140px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Payment Method'}>
+                                <div className="w-[120px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Transaction Type'}>
+                                <div className="w-[130px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Amount'}>
+                                <div className="w-[70px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
+                            <td className={cellClass} data-label={'Receipt'}>
+                                <div className="w-[30px]">
+                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                     }

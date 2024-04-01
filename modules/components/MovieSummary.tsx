@@ -3,7 +3,7 @@ import PublishDate from '@/modules/Identities/PublishDate';
 import Title from '@/modules/Identities/Title';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
-import { yearFromDate } from '@/utils/yearFromDate';
+import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
 type dataProps = {
     data: any;
 }
@@ -14,6 +14,8 @@ const MovieSummary = ({data}:dataProps) => {
     if(publishYear){
       publishYear = yearFromDate(publishYear);
     }
+    const publishRemaining = getTimeDifference(data?.publishSchedule);
+    console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
     return (
       <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
         <div className='container mx-auto px-4'>
@@ -27,6 +29,9 @@ const MovieSummary = ({data}:dataProps) => {
                   <div className=' h-full mb-2 lg:mb-3'>
                     <Title tag='h1' size='4xl'>{data?.title}</Title>
                   </div>
+                  {(publishRemaining?.day < 0 || publishRemaining?.hour < 0 || publishRemaining?.minute < 0) &&
+                    <PublishDate publishDate={data?.publishSchedule} short={true}/>
+                  }
                   <p className='mb-1 flex items-center flex-wrap my-2 text-white/70 text-xs'>
                     {(data?.quality)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.quality}</span>):null}
                     {(data?.contentRating)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.contentRating}</span>):null}

@@ -5,8 +5,8 @@ import Footer from '@/components/Footer';
 import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import { AddCircleOutlineOutlined } from '@mui/icons-material';
-import ScrollSpyComponent from '@/modules/elements/ScrollSpyComponent';
 import useIsMobile from '@/hooks/useIsMobile';
+import DetailsTab from '@/components/DetailsTab';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -83,7 +83,7 @@ const Seasons = () => {
                 />
               </div>
             </div>
-            <ScrollSpyComponent />
+            <DetailsTab data={{}} isPackage={false} isShow={true}/>
           </div>
         </div>
       </div>

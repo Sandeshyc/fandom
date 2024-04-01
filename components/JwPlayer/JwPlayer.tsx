@@ -47,7 +47,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         playready: '',
     });
 
-    console.log('video: ', video);
+    // console.log('video: ', video);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -360,19 +360,19 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         const playerContainer = document.querySelector(playerContainerSelector);
         if(playerContainer){
             const rewindContainer = playerContainer.querySelector('.jw-display-icon-rewind');
-            console.log('rewindContainer: ', rewindContainer);
+            // console.log('rewindContainer: ', rewindContainer);
             if(rewindContainer){
                 const forwardContainer = rewindContainer.cloneNode(true);
-                console.log('forwardContainer: ', forwardContainer);
+                // console.log('forwardContainer: ', forwardContainer);
                 if(forwardContainer){
                     const forwardDisplayButton = forwardContainer.querySelector('.jw-icon-rewind');
                     // console.log('forwardDisplayButton: ', forwardDisplayButton);
                     if(forwardDisplayButton){
                         forwardDisplayButton.style.transform = "scaleX(-1)";
                         forwardDisplayButton.ariaLabel = "Forward 10 Seconds"
-                        console.log('forwardDisplayButton: ', forwardDisplayButton);
+                        // console.log('forwardDisplayButton: ', forwardDisplayButton);
                         const nextContainer = playerContainer.querySelector('.jw-display-icon-next');
-                        console.log('nextContainer: ', nextContainer);
+                        // console.log('nextContainer: ', nextContainer);
                         if(nextContainer){
                             nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
                             nextContainer.style.display = 'none';
@@ -385,7 +385,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             const buttonContainer = playerContainer.querySelector('.jw-button-container');
             if(buttonContainer){
                 const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
-                console.log('rewindControlBarButton: ', rewindControlBarButton);
+                // console.log('rewindControlBarButton: ', rewindControlBarButton);
                 if(rewindControlBarButton){
                     const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
                     if(forwardControlBarButton){
