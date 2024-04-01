@@ -33,7 +33,7 @@ const DealsAndOffers = () => {
                 </div>
                 <div className='w-[100%] lg:w-[30%] lg:pl-4 lg:flex lg:justify-end'>
                     <Buttons
-                        onClick={ () => router.push('/')}
+                        onClick={ () => router.push('/offers')}
                         type='white'
                         className='min-w-[240px] h-[48px] text-[#0245F2] hover:bg-[#eee]'
                         >

@@ -5,6 +5,7 @@ import { stableKeys } from "@/utils/stableKeys";
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
+import SearchIcon from '@mui/icons-material/Search';
 type tabArgsProps = {
     tabArgs:any[],
     openTab:number,
@@ -25,7 +26,19 @@ const TabContents = ({
                                 <Title tag='h3' size='2xl'>{tab.title}</Title>}                                      
                                 {(tab.type === 'episodes') && (
                                     <div className='max-w-[1000px] mx-auto'>
-                                        <h3 className='text-xl mb-4'>Episodes (7)</h3>
+                                        <div 
+                                        className={`bg-gray-700 text-white rounded-md flex w-full max-w-full mb-8`}>
+                                        <input 
+                                            type="text" 
+                                            className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px] h-[44px]" 
+                                            placeholder="Search episodes"
+                                            />
+                                            <button
+                                            type='submit'
+                                            className="w-[40px]">
+                                                <SearchIcon className="text-gray-400 w-6 h-6" />
+                                            </button>
+                                        </div>
                                         {Array.from({length: 6}, (_, i) => {
                                             return <Episode key={i}/>
                                         })}
