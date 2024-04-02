@@ -15,7 +15,7 @@ const MovieSummary = ({data}:dataProps) => {
       publishYear = yearFromDate(publishYear);
     }
     const publishRemaining = getTimeDifference(data?.publishSchedule);
-    console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
+    // console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
     return (
       <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
         <div className='container mx-auto px-4'>

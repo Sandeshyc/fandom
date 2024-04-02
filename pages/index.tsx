@@ -35,7 +35,7 @@ const Home = () => {
     userId,
     randomNumber.toString()
   );
-  // console.log('Home Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error);
+  console.log('Home Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error, 'isReady', isReady);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem("userInfo");
@@ -50,14 +50,13 @@ const Home = () => {
 
   return (
     <div
-      className="bg-[#000000] text-white"
+      className="bg-[#000000] text-white overflow-hidden relative"
       style={{
         backgroundImage: bgImage,
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% auto",
         backgroundPosition: "right " + 30 + "%",
-      }}
-    >
+      }}>
       {!isLoading && isReady && movies ? (
         <Mapper
           modules={movies}

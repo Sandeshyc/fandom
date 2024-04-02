@@ -59,6 +59,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     let thumbW = thumbOuter?.getBoundingClientRect()?.width;
     let thumbH = thumbOuter?.getBoundingClientRect()?.height;
     let top = thumbOuter?.getBoundingClientRect()?.top + window.scrollY + (thumbH / 2);
+    // console.log('thumbW', thumbW, thumbH, top);
     let left = thumbOuter?.getBoundingClientRect()?.left + (thumbW / 2);
     // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
@@ -66,6 +67,9 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);
+    if(top < 5){
+      top = 5;
+    }
 
     left = round(left - popWidthHalf);
     left = (left < 0)? 20 : left;

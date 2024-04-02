@@ -40,7 +40,7 @@ export default function ModuleMapper ({
         const Component = getComponent(module?.displayType || "");
  
         if((moduleIndex == 0 && modules[0].displayType !== 'navigation') || moduleIndex == 1){
-            console.log('moduleIndex', moduleIndex, modules.displayType);
+            // console.log('moduleIndex', moduleIndex, modules.displayType);
             if(module.displayType !== 'detailsHeroImage' && module.displayType !== 'billboard' && module.displayType !== 'LayoutCoverflowSlider' ){
                 extraProps.marginTop = true;
             }
