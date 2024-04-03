@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { PlusIcon, CheckIcon, MinusIcon } from '@heroicons/react/24/outline';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useFavorites from '@/hooks/useFavorites';
 import {
   addToMyList,
   removeFromMyList,
-  removeFromWatchingLists,
 } from '@/services/api';
 import { 
     AddCircleOutlineOutlined,
-    RemoveCircleOutlineOutlined
+    RemoveCircleOutlineOutlined,
+    RefreshOutlined
 } from '@mui/icons-material';
 
 interface FavoriteButtonProps {
@@ -28,12 +28,9 @@ const WishListButton: React.FC<FavoriteButtonProps> = ({
   innerClass = '',
  }:FavoriteButtonProps) => {
   let tempUserId = '';
-  const [userId, setUserId] = React.useState(tempUserId);
-  const [isInLish, setIsInLish] = React.useState(isInWatchList);
-  
-  // const { mutate: mutateFavorites } = useFavorites();
-
-  // const { data: currentUser, mutate } = useCurrentUser();
+  const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState(tempUserId);
+  const [isInLish, setIsInLish] = useState(isInWatchList);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -45,13 +42,8 @@ const WishListButton: React.FC<FavoriteButtonProps> = ({
     }
   }, [movieId]);
 
-  // const isFavorite = useMemo(() => {
-  //   const list = currentUser?.favoriteIds || [];
-
-  //   return list.includes(movieId);
-  // }, [currentUser, movieId]);
-
   const toggleFavorites = async () => {
+    setIsLoading(true);
     const checkUserID = async () => {
       if(!userId) {
         const userInfo = window.localStorage.getItem('userInfo');
@@ -68,7 +60,7 @@ const WishListButton: React.FC<FavoriteButtonProps> = ({
     if (isInLish) {
       result = await removeFromMyList(userId, movieId);
       if(result.status === 'success'){
-        setIsInLish(false);
+        setIsInLish(false);        
       }
     }else{
       result = await addToMyList(userId, movieId);
@@ -76,25 +68,36 @@ const WishListButton: React.FC<FavoriteButtonProps> = ({
         setIsInLish(true);
       }   
     }
+    setIsLoading(false);
   }
   
-  const Icon = isInLish ? CheckIcon : PlusIcon;
+  const Icon = isInLish ? RemoveCircleOutlineOutlined : AddCircleOutlineOutlined;
   return (
-    <button 
-        onClick={toggleFavorites}
-        title="Watchlist" 
-        className='h-[44px] border border-blue-600 rounded-full w-[160px] mb-2 mr-4 flex items-center justify-center text-sm text-white/80 cursor-pointer hover:text-white' style={style}>
-        {(isInLish)?
-            <RemoveCircleOutlineOutlined 
-                sx={{fontSize: '20px', marginRight: '5px'}}
-            />
-            :
-            (<AddCircleOutlineOutlined
-                sx={{fontSize: '20px', marginRight: '5px'}
-            }/>)
-        }
+    
+    <>
+    {(isLoading) ? (
+      <button 
+      title="Watchlist" 
+      className='h-[44px] border border-blue-600 rounded-full w-[160px] mr-4 flex items-center justify-center text-sm text-white/80 cursor-wait' style={style}>
+        <RefreshOutlined 
+          className='animate-spin'
+          sx={{fontSize: '24px', marginRight: '5px'}}
+        />
+        <span>Loading</span>
+    </button>
+    )
+    :
+    (<button 
+      onClick={toggleFavorites}
+      title="Watchlist" 
+      className='h-[44px] border border-blue-600 rounded-full w-[160px] mr-4 flex items-center justify-center text-sm text-white/80 cursor-pointer hover:text-white' style={style}>
+        <Icon 
+            sx={{fontSize: '24px', marginRight: '5px'}}
+        />
         <span>Add to List</span>
     </button>
+    )}
+    </>
   );
 }
 

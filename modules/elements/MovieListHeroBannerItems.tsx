@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { stableKeys } from '@/utils/stableKeys';
-
+import useIsMobile from '@/hooks/useIsMobile';
 import { MovieInterface } from '@/types';
 import { get, isEmpty } from 'lodash';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
@@ -40,6 +40,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
   }
   const [current, setCurrent] = React.useState(0);
   const sliderRef = useRef(null);
+  const isMobile = useIsMobile();
   // console.log('itemEnded',title, data);
   let settings = {
     arrows: false,
@@ -132,20 +133,20 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
     <div className={`group movieSlider ${className} ${portrait ? 'portrait': ""}`}>
       <div>
         <div className={`gap-2 relative`}>
-          {current > 0 && <SlickPrevArrow onClick={hendlePrev} />}
+          {(!isMobile && current > 0) && <SlickPrevArrow onClick={hendlePrev} />}
           <div className='relative z-10'>
             <div className="block lg:hidden">
-              <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+              <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide pb-2'>
                 {getSlides()}
               </div>
             </div>
-            <div className="hidden lg:block movieSliderReel">
+            <div className="hidden lg:block movieSliderReel movieSliderInner">
               <Slider {...settings} ref={sliderRef} >
                 {getSlides()}
               </Slider>
             </div> 
           </div>          
-          {current < data.length -1 && <SlickNextArrow onClick={hendleNext} />}
+          {(!isMobile && (current < data.length -1)) && <SlickNextArrow onClick={hendleNext} />}
         </div>
       </div>
     </div>

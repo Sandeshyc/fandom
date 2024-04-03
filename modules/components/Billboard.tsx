@@ -5,44 +5,12 @@ import BillboardBanner from '@/modules/elements/BilboardBanner';
 import LinkRoute from '@/modules/Identities/LinkRoute';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
-import { useQuery, gql } from '@apollo/client';
 
-const GET_LOCATIONS = gql`
-query GetLocations {
-  playlist (input: {id: "66069190656b5733db0a786b"}) {
-    assetId
-    items {
-      assetId
-      offAirDate
-      onAirDate
-      images {
-        thumbnailLandscapeURL
-        trailerURL
-      }
-      video {
-        title
-        description
-      contentProvider
-        playbackURLs {
-          hls {
-            url
-          }
-        }
-      }
-    }
-  }
-  }
-}
-`;
 type Props = {
   data: any;
 };
 const Billboard = ({data}:Props) => {
-  console.log('Billboard********************* ')
-  const { loading, error, data: gqlData } = useQuery(GET_LOCATIONS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  console.log('GQL D********** ', gqlData)
+
 
   data = data?.[(Math.floor(Math.random() * data?.length))] ?? {}
   const itemId = data?._id;

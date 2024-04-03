@@ -17,11 +17,23 @@ import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import SocialShare from '@/modules/elements/SocialShare';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import checkAuthentication from '@/utils/checkAuth';
+import { useQuery } from '@apollo/client';
+import CONTENT_QUERY from '../queries/content';
 
 type dataProps = {
-    data: any;
+    data: any,
+    module: any
 }
-const WatchAndShare = ({data}:dataProps) => {
+const WatchAndShare = (inputProps:dataProps) => {
+
+    const {module} = inputProps
+    const { loading, error, data: gqData } = useQuery(CONTENT_QUERY, 
+      {variables: {input: {id: module.itemCode, userId: module.userId}}});
+    const data = gqData?.content;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) console.log('ERRR********** ', error.message)
+    console.log('WatchAndShare********** ', data)
+
     // console.log('data', data);
     const [open, setOpen] = React.useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,7 +52,7 @@ const WatchAndShare = ({data}:dataProps) => {
     return (
         <div className='text-white z-10 relative bg-gradient-to-t from-black from-50% to-black/90 to-100% pb-8'>
           <div className='container mx-auto px-4'>
-            <div className='w-full flex flex-wrap'>      
+            <div className='w-full flex flex-wrap items-center'>      
                 {
                 (data && data?._id)&&
                 <div className='mr-4'>

@@ -1,11 +1,23 @@
 import React from 'react';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useQuery } from '@apollo/client';
+import CONTENT_QUERY from '../queries/content';
 
 type dataProps = {
-    data: any;
+    data: any,
+    module: any
 }
-const DetailsHeroImage = ({data}:dataProps) => {
+const DetailsHeroImage = (inputProps:dataProps) => {
+    
+    const {module} = inputProps
+    const { loading, error, data: gqData } = useQuery(CONTENT_QUERY, 
+      {variables: {input: {id: module.itemCode, userId: module.userId}}});
+    const data = gqData?.content;
+    if (loading) return <p>Loading...</p>;
+    if (error) console.log('ERRR********** ', error.message)
+    console.log('GQL D********** ', data)
+
     // trailerUrl 
     let videoURL = data?.trailerUrl;
     const vidoes = data?.videoUrls;
@@ -43,7 +55,7 @@ export const DetailsHeroBanner = ({thumb, videoURL}:Props) => {
                     null
                 }
             </div>
-            <div className={`absolute bottom-0 left-0 w-full h-full z-10 bg-black/${(videoURL && !isMobile)?'40':'70'}`}/>
+            <div className={`absolute bottom-0 left-0 w-full h-full z-10 bg-black/${(isMobile)?'70':(videoURL)?'60':'70'}`}/>
         </div>
     );
 }

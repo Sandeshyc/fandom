@@ -12,7 +12,7 @@ import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
 import { useQuery } from '@apollo/client';
-import PLAYLIST_QUERY from '../queries/playlist';
+import queryMap from '../queries';
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -43,9 +43,10 @@ function SlickPrevArrow(props: any) {
 
 // Main Component
 const MovieListReelFive: React.FC<MovieListProps> = ({ module, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
-
-  const { loading, error, data: gqData } = useQuery(PLAYLIST_QUERY, {variables: {input: {id: module.source}}});
-  let data = gqData?.playlist?.items;
+console.log('module.sourceType ', module.sourceType)
+  const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
+      {variables: {input: {id: module.source, userId: module.userId}}});
+  let data = gqData?.[module.sourceType]?.items;
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error : {error.message}</p>;
   console.log('GQL D********** ', data)
@@ -137,7 +138,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ module, title, source, po
   }, [removedItem]);
 
   useEffect(() => {
-    if (Array.isArray(data) && data?.length > 5){
+    if (Array.isArray(data) && data?.length > 0){
       setViewAllUrl( '/categories/' + source );
     }
     if(source === 'myPurchase'){

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import EventCardReel from '@/modules/elements/EventCardReel';
-import ReelHeading from '@/modules/elements/ReelHeading';
-import { isEmpty } from 'lodash';
-import { stableKeys } from '@/utils/stableKeys';
-import useIsMobile from '@/hooks/useIsMobile';
-import { MovieInterface } from '@/types';
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import EventCardReel from "@/modules/elements/EventCardReel";
+import ReelHeading from "@/modules/elements/ReelHeading";
+import { isEmpty } from "lodash";
+import { stableKeys } from "@/utils/stableKeys";
+import useIsMobile from "@/hooks/useIsMobile";
+import { MovieInterface } from "@/types";
 import { useQuery } from '@apollo/client';
 import UPCOMING_QUERY from '../queries/upcoming';
 
@@ -25,105 +25,134 @@ interface MovieListProps {
 }
 
 function SlickNextArrow(props: any) {
-    const { className, style, onClick } = props;
-    return (    
-      <div className={className} onClick={onClick}><ChevronRightIcon strokeWidth={1.5}/></div>
-    );
-  }
-  
-  function SlickPrevArrow(props: any) {
-    const { className, style, onClick } = props;
-    return (
-      <div className={className} onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>
-    );
-  }
-const EventRoll: React.FC<MovieListProps> = ({ title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+  const { className, style, onClick } = props;
+  return (
+    <div className={className} onClick={onClick}>
+      <ChevronRightIcon strokeWidth={1.5} />
+    </div>
+  );
+}
 
+function SlickPrevArrow(props: any) {
+  const { className, style, onClick } = props;
+  return (
+    <div className={className} onClick={onClick}>
+      <ChevronLeftIcon strokeWidth={1.5} />
+    </div>
+  );
+}
+const EventRoll: React.FC<MovieListProps> = ({
+  
+  title,
+  source,
+  portrait,
+  link,
+  linkText,
+  gradient = false,
+  isBoxesLayout = false,
+  marginTop = false,
+}) => {
+
+
+  
   const { loading, error, data: gqData } = useQuery(UPCOMING_QUERY, {variables: {input: {id: module.source}}});
   const data = gqData?.upcoming?.items;
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error : {error.message}</p>;
   console.log('UPCOMIN D********** ', data)
 
-    const isMobile = useIsMobile();
-    let settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 5.2,
-        slidesToScroll: 5,
-        swipeToSlide: true,
-        nextArrow: <SlickNextArrow />,
-        prevArrow: <SlickPrevArrow />,
-        responsive: [
-          {
-            breakpoint: 3200,
-            settings: {
-              slidesToShow: 4.2,
-              slidesToScroll: 4,
-            },
-          },
-          {
-            breakpoint: 2400,
-            settings: {
-              slidesToShow: 3.2,
-              slidesToScroll: 3,
-            },
-          },
-          {
-            breakpoint: 1400,
-            settings: {
-              slidesToShow: 2.1,
-              slidesToScroll: 2,
-            },
-          },
-          {
-            breakpoint: 500,
-            settings: {
-              slidesToShow: 1.2,
-              slidesToScroll: 1,
-            },
-          }
-        ]
-      };
-    const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile) ? 'portrait': ""}`}>
-        <div className="movieSliderInner">
-        <ReelHeading 
-            title={title} 
-            link={'/categories/upcoming'} 
-            linkText={'Explore All'}
-            />
+  const isMobile = useIsMobile();
+  let settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5.2,
+    slidesToScroll: 5,
+    swipeToSlide: true,
+    nextArrow: <SlickNextArrow />,
+    prevArrow: <SlickPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 3200,
+        settings: {
+          slidesToShow: 4.2,
+          slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 2400,
+        settings: {
+          slidesToShow: 3.2,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 2.1,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1.2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  const ReelContent = () => (
+    <div
+      className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${
+        isMobile ? "portrait" : ""
+      }`}
+    >
+      <div className="movieSliderInner">
+        <ReelHeading
+          title={title}
+          link={"/categories/upcoming"}
+          linkText={"Explore All"}
+        />
         <div className="block lg:hidden">
-            <div className='flex overflow-y-hidden overflow-x-auto mobileEventCardsSlide py-4'>
+          <div className="flex overflow-y-hidden overflow-x-auto mobileEventCardsSlide py-4">
             {data?.map((movie, index) => (
-              <EventCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+              <EventCardReel
+                key={stableKeys[index]}
+                data={movie}
+                portrait={portrait}
+                gradient={gradient}
+              />
             ))}
-            </div>
+          </div>
         </div>
-        <div className="hidden lg:block movieSliderReel">
-            <Slider
-            {...settings}>
+        <div className="hidden lg:block movieSliderReel sameHeightSlick">
+          <Slider {...settings}>
             {data?.map((movie, index) => (
-              <EventCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
+              <EventCardReel
+                key={stableKeys[index]}
+                data={movie}
+                portrait={portrait}
+                gradient={gradient}
+              />
             ))}
-            </Slider>  
-        </div> 
+          </Slider>
         </div>
+      </div>
     </div>
-    );
-    // if (isEmpty(data)) {
-    //   return null;
-    // }
-    return(
-        <div className={`pl-4 lg:pl-16 mt-2`}
-        style={{
-          marginTop: marginTop ? ((isMobile)?'70px': '120px') : '0px',
-        }}
-        >
-            {ReelContent()}
-        </div>
-    )
-}
+  );
+  if (isEmpty(data)) {
+    return null;
+  }
+  return (
+    <div
+      className={`pl-4 lg:pl-16 mt-2`}
+      style={{
+        marginTop: marginTop ? (isMobile ? "70px" : "120px") : "0px",
+      }}
+    >
+      {ReelContent()}
+    </div>
+  );
+};
 export default EventRoll;
-
-

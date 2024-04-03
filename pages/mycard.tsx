@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import {
   DataUsage
 } from '@mui/icons-material';
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
+import useIsMobile from '@/hooks/useIsMobile';
 import NavigationHome from '@/modules/elements/NavigationHome';
 
 const bgImage = 'url("/images/new-bg.png")';
 
 const MyProfile = () => {
+  const isMobile = useIsMobile();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [userid, setUserid] = React.useState('');
   const iframeParams = `https://dev-payments.abs-cbn.com/card-management?userid=${userid}`;
@@ -27,7 +32,7 @@ const MyProfile = () => {
   },[])
 
   return (<>
-      <NavigationHome />
+      {isMobile?<Header/>:<Navigation/>}
       <div className="pt-20 lg:pt-28 min-h-full"
       style={{
         backgroundImage: bgImage,
@@ -61,7 +66,7 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      <Footer />
+    {isMobile?<BottomNavigation/>:<Footer/>}
   </>)
 }
 

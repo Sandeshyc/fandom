@@ -10,6 +10,8 @@ import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useQuery } from '@apollo/client';
+import queryMap from '../queries';
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -20,6 +22,7 @@ interface MovieListProps {
   gradient?: boolean;
   isBoxesLayout?: boolean;
   marginTop?: boolean;
+  module: any
 }
 
 function SlickNextArrow(props: any) {
@@ -37,7 +40,18 @@ function SlickPrevArrow(props: any) {
 }
 
 // Main Component
-const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+const MovieListReel: React.FC<MovieListProps> = ({ module, title, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+
+  
+  const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
+    {variables: {input: {id: module.source, userId: module.userId}}});
+  let data = gqData?.[module.sourceType]?.items;
+  console.log('&&&&&&&&&&&&&&&&&&&&&&&&', module.sourceType)
+  console.log(gqData)
+  console.log(data)
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>BillboardSlider Error : {error.message}</p>;
+
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);

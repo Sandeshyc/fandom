@@ -2,8 +2,11 @@ import React, { use, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import SideBar from '@/components/SideBar'
-import NavigationHome from '@/modules/elements/NavigationHome';
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
+import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
+import useIsMobile from '@/hooks/useIsMobile';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import { set } from 'lodash';
 import {
@@ -13,6 +16,7 @@ import {
 
 
 const MyProfile = () => {
+    const isMobile = useIsMobile();
   const router = useRouter();
   const [isReady, setIsReady] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
@@ -93,7 +97,8 @@ const MyProfile = () => {
   }, []);
 
   return (<>
-      {(isReady) && (<><NavigationHome />
+      {(isReady) && (<>
+        {isMobile?<Header/>:<Navigation/>}
       <div className="py-16  min-h-[80vh]">
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner max-w-[1200px] mx-auto mt-16">
@@ -118,7 +123,9 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
-      </div><Footer/></>)}
+      </div>
+      {isMobile?<BottomNavigation/>:<Footer/>}
+    </>)}
   </>)
 }
 
