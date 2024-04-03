@@ -14,8 +14,9 @@ const poppins = Poppins({
 type Props = {
     message: string;
     isRetry?: boolean;
+    errorMsg?: any;
 };
-const ErrorPopUp = ({message, isRetry=true}:Props) => {
+const ErrorPopUp = ({message, isRetry=true, errorMsg}:Props) => {
     const route = useRouter();
     const [open, setOpen] = React.useState(true);
     const handleClose = () => {
@@ -66,6 +67,12 @@ const ErrorPopUp = ({message, isRetry=true}:Props) => {
                         </button>
                     )}
                 </div>
+                {(errorMsg)&&(
+                    <div className="h-[300px] w-full overflow-y-auto">
+                        <h4 className="text-red-500/80 text-lg font-semibold mb-2">Error Details for dev test</h4>
+                        <pre className="text-white/80 text-xs md:text-sm text-left">{JSON.stringify(errorMsg, null, 2)}</pre>
+                    </div>
+                )}
             </div>
         </div>
       </Modal>

@@ -33,7 +33,8 @@ export default function ModuleMapper ({
             return(
                 <div key={stableKeys[moduleIndex]}>
                     <ErrorPopUp 
-                    message='Sorry, Something went wrong!'/>
+                    message='Sorry, Something went wrong!'
+                    />
                 </div>
             )
         }

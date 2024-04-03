@@ -53,7 +53,7 @@ const Movies = () => {
         modules={movies}
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonHome/>)}
-    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
+    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 
 }

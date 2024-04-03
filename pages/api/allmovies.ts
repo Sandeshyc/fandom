@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //   url += `&region=${region}`;
     // }
     // console.log('urls', url);
-    const moviesRes = await axios.get(url, {timeout: 10000});
+    const moviesRes = await axios.get(url, {timeout: 30000});
     const movies = moviesRes.data;
     // console.log('moviess', movies);
     return res.status(200).json(movies);

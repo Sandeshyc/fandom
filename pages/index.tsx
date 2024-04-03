@@ -57,7 +57,7 @@ const Home = () => {
         backgroundSize: "100% auto",
         backgroundPosition: "right " + 30 + "%",
       }}>
-      {!isLoading && isReady && movies ? (
+      {(!isLoading && isReady && movies) ? (
         <Mapper
           modules={movies}
           getComponent={getComponent}
@@ -66,7 +66,7 @@ const Home = () => {
       ) : (
         <SkeletonHome />
       )}
-      {error ? <ErrorPopUp message={"Sorry, Something went wrong!"} /> : null}
+      {error ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
     </div>
   );
 };
