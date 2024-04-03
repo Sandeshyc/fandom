@@ -40,9 +40,9 @@ const CountDownDate = ({endDate, short = true, base = 0.5} : Props) => {
     }
 
     return (
-        <p className="flex flex-wrap items-center text-xs">
+        <span className="flex flex-wrap items-center text-xs">
             {Print}
-        </p>
+        </span>
     )
 }
 

@@ -147,6 +147,10 @@ console.log('module.sourceType ', module.sourceType)
       setViewAllUrl( '/categories/continue-watch' );
     }
 
+    if(source === 'Packages'){
+      setViewAllUrl( '' );
+    }
+
   }, [data]);
 
   const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>

@@ -1,6 +1,7 @@
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import MovieDetails from '@/components/Skeleton/MovieDetails';
+import SkeletonSimpleCard from './SkeletonSimpleCard';
 
 const SkeletonDetailsMobile = () => {
   return (
@@ -26,25 +27,27 @@ const SkeletonDetailsMobile = () => {
             <div className="absolute bottom-0 left-0 w-full h-[300px] z-10 bg-gradient-to-t from-black from-30% to-transparent to-100%"/>  
         </div> 
         <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
-            <div className="w-[200px] mr-2 mb-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[26px]'/>
-            </div>
-            <div className="w-[150px] mr-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[14px]'/>
-            </div>
-            <div className="flex flex-row items-center mb-1">
-                <div className="w-[80px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]'/>
+            <div className="flex flex-wrap items-end w-full">
+                  <div className='w-[100px] sm:w-[120px] mr-3 aspect-[6/9] rounded-md overflow-hidden'>
+                    <Skeleton baseColor='#333' highlightColor='#666' height='100%'/>
+                  </div>
+                  <div className='grow w-[100px] '>
+                    <div className='h-full mb-2 lg:mb-3 max-w-[260px]'>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={40}/>
+                    </div>
+                    <div className='h-full mb-2 lg:mb-2 max-w-[240px]'>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
+                    </div>
+                    <p className='flex items-center flex-wrap my-2 text-white/70 text-xs'>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={16} width={50} className='mr-2'/>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={16} width={100}/>
+                    </p> 
+                    <p className='flex items-center flex-wrap my-2 text-white/70 text-xs'>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={16} width={50} className='mr-2'/>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={16} width={50} className='mr-2'/>
+                      <Skeleton baseColor='#333' highlightColor='#666' height={16} width={70}/>
+                    </p>                         
                 </div>
-                <div className="w-[20px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]'/>
-                </div>
-                <div className="w-[20px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]'/>
-                </div>
-            </div>      
-            <div className="w-[80px] mr-2">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[16px]'/>
             </div>
         </div>
         <div className='px-[15px] z-10 relative my-4 flex flex-wrap justify-between'>
@@ -65,27 +68,15 @@ const SkeletonDetailsMobile = () => {
                 </div>
             </div>
         </div>
-        <MovieDetails/>
+        <div className='container mx-auto px-4 mt-16'>
+            <MovieDetails/>
+        </div>
         <div className="px-4 pb-8">
             <div className="w-[200px] pb-2">
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] w-full' />
             </div>
             <div className='flex overflow-y-hidden overflow-x-auto'>
-                <div className="min-w-[220px] w-[220px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
-                </div> 
-                <div className="min-w-[220px] w-[220px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
-                </div> 
-                <div className="min-w-[220px] w-[220px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
-                </div> 
-                <div className="min-w-[220px] w-[220px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
-                </div> 
-                <div className="min-w-[220px] w-[220px] mr-2">
-                    <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[384/216] w-full' /> 
-                </div> 
+                <SkeletonSimpleCard count={6}/> 
             </div>
         </div> 
     </div>

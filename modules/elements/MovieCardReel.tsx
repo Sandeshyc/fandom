@@ -66,6 +66,9 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);
+    if(top < 5){
+      top = 5;
+    }
 
     left = round(left - popWidthHalf);
     left = (left < 0)? 20 : left;

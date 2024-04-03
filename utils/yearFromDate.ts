@@ -77,4 +77,26 @@ export const convertESTtoLocalTime = (estDateTimeString: string) => {
   // Format the date-time string using the options
   const formattedDateTime = date.toLocaleDateString('en-US', options as Intl.DateTimeFormatOptions);
   return formattedDateTime;
-  }
+}
+
+export const getTimeDifference = (date1: Date, date2?: Date) => {
+    if(!date2){
+        date2 = new Date();
+    }
+    if(!date1){
+        return {day: 0, hour: 0, minute: 0}
+    }
+    date1 = new Date(date1);
+    const diffTime = date2?.getTime() - date1?.getTime();
+    const oneDay = 1000 * 86400; // (1000 * 60 * 60 * 24)
+    const oneHour = 1000 * 3600; // (1000 * 60 * 60)
+    const oneMinute = 1000 * 60; // (1000 * 60)
+
+    const diffDays = Math.floor(diffTime / oneDay); // days (1000 * 60 * 60 * 24)
+    const remainMS = diffTime % oneDay;
+    const diffHours = Math.floor(remainMS / oneHour); // hours (1000 * 60 * 60)
+    const remainMS2 = remainMS % oneHour;
+    const diffMinutes = Math.ceil(remainMS2 / oneMinute); // minutes (1000 * 60)
+
+    return {day: diffDays, hour: diffHours, minute: diffMinutes}
+}

@@ -87,6 +87,9 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);
+    if(top < 5){
+      top = 5;
+    }
 
     left = round(left - popWidthHalf);
     left = left < 0 ? 20 : left;
