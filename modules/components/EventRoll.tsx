@@ -9,8 +9,7 @@ import { isEmpty } from "lodash";
 import { stableKeys } from "@/utils/stableKeys";
 import useIsMobile from "@/hooks/useIsMobile";
 import { MovieInterface } from "@/types";
-import { useQuery } from '@apollo/client';
-import UPCOMING_QUERY from '../queries/upcoming';
+
 
 interface MovieListProps {
   data: MovieInterface[];
@@ -42,7 +41,7 @@ function SlickPrevArrow(props: any) {
   );
 }
 const EventRoll: React.FC<MovieListProps> = ({
-  
+  data,
   title,
   source,
   portrait,
@@ -52,14 +51,6 @@ const EventRoll: React.FC<MovieListProps> = ({
   isBoxesLayout = false,
   marginTop = false,
 }) => {
-
-
-  
-  const { loading, error, data: gqData } = useQuery(UPCOMING_QUERY, {variables: {input: {id: module.source}}});
-  const data = gqData?.upcoming?.items;
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error : {error.message}</p>;
-  console.log('UPCOMIN D********** ', data)
 
   const isMobile = useIsMobile();
   let settings = {

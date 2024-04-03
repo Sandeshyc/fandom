@@ -4,8 +4,7 @@ import Title from '@/modules/Identities/Title';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
-import { useQuery } from '@apollo/client';
-import CONTENT_QUERY from '../queries/content';
+
 
 type dataProps = {
     data: any,
@@ -13,13 +12,8 @@ type dataProps = {
 }
 const MovieSummary = (inputProps:dataProps) => {
 
-  const {module} = inputProps
-  const { loading, error, data: gqData } = useQuery(CONTENT_QUERY, 
-    {variables: {input: {id: module.itemCode, userId: module.userId}}});
-  const data = gqData?.content;
-  if (loading) return <p>Loading...</p>;
-  if (error) console.log('ERRR********** ', error.message)
-  console.log('GQL D********** ', data)
+  const {data} = inputProps
+
 
 
     const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';

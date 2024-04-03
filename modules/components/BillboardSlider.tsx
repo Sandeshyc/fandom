@@ -12,8 +12,7 @@ import {
   ArrowBackIosNewOutlined, 
   ArrowForwardIosOutlined 
 } from '@mui/icons-material';
-import { useQuery } from '@apollo/client';
-import queryMap from '../queries';
+
 
 function SlickNextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -51,12 +50,8 @@ type Props = {
 
 const BillboardSlider = (inputProps: Props) => {
   
-  const {module} = inputProps
-  const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
-    {variables: {input: {id: module.source, userId: module.userId}}});
-  const data = gqData?.playlist?.items;
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>BillboardSlider Error : {error.message}</p>;
+  const {data} = inputProps
+
   
 
   // const data = fetchData(inputProps.module)

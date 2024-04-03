@@ -9,8 +9,7 @@ import MovieCardReelBorderd from '@/modules/elements/MovieCardReelBorderd';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
-import { useQuery } from '@apollo/client';
-import queryMap from '../queries';
+
 
 type Props = {
   data: MovieInterface[];
@@ -35,11 +34,7 @@ function SlickPrevArrow(props:any) {
   );
 }
 
-const RollBordered = ({ module, title, link, linkText, isBoxesLayout }:Props) => {
-
-  const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
-    {variables: {input: {id: module.source, userId: module.userId}}});
-  let data = gqData?.[module.sourceType]?.items;
+const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
 
   const router = useRouter();
   if (isEmpty(data)) {

@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import useIsMobile from '@/hooks/useIsMobile';
-import { useQuery } from '@apollo/client';
-import CONTENT_QUERY from '../queries/content';
+
 
 type dataProps = {
     data: any,
@@ -10,13 +9,8 @@ type dataProps = {
 }
 const DetailsHeroImage = (inputProps:dataProps) => {
     
-    const {module} = inputProps
-    const { loading, error, data: gqData } = useQuery(CONTENT_QUERY, 
-      {variables: {input: {id: module.itemCode, userId: module.userId}}});
-    const data = gqData?.content;
-    if (loading) return <p>Loading...</p>;
-    if (error) console.log('ERRR********** ', error.message)
-    console.log('GQL D********** ', data)
+    const {data} = inputProps
+
 
     // trailerUrl 
     let videoURL = data?.trailerUrl;

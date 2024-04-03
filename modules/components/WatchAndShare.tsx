@@ -17,8 +17,7 @@ import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 import SocialShare from '@/modules/elements/SocialShare';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import checkAuthentication from '@/utils/checkAuth';
-import { useQuery } from '@apollo/client';
-import CONTENT_QUERY from '../queries/content';
+
 
 type dataProps = {
     data: any,
@@ -26,13 +25,8 @@ type dataProps = {
 }
 const WatchAndShare = (inputProps:dataProps) => {
 
-    const {module} = inputProps
-    const { loading, error, data: gqData } = useQuery(CONTENT_QUERY, 
-      {variables: {input: {id: module.itemCode, userId: module.userId}}});
-    const data = gqData?.content;
-    // if (loading) return <p>Loading...</p>;
-    // if (error) console.log('ERRR********** ', error.message)
-    console.log('WatchAndShare********** ', data)
+    const {data} = inputProps
+
 
     // console.log('data', data);
     const [open, setOpen] = React.useState(false);
