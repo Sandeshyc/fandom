@@ -12,7 +12,9 @@ const BaseComponent = (props) => {
         {variables: {input: {id: module.itemCode ?? module.source ?? "", userId: module.userId}}});
       
       let data = gqData?.[module.sourceType]?.items;
-      if (module.sourceType === 'content' || module.sourceType === 'playlistHeader') {
+      if (module.sourceType === 'content' 
+        || module.sourceType === 'playlistHeader'
+        || module.sourceType === 'tvshows') {
         data = gqData?.[module.sourceType];
       }
       console.log('GQL DATA ', module, gqData)
