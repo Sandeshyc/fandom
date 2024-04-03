@@ -1,6 +1,6 @@
 import React, {use, useRef, useEffect} from 'react';
-import Slider from "react-slick";
 import { useRouter } from 'next/router';
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';

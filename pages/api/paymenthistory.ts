@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     let url = `https://sandbox-payments-api.abs-cbn.com/transactions/history/user/${userId}`;
-    const payHistoryRes = await axios.get(url, {timeout: 10000});
+    const payHistoryRes = await axios.get(url, {timeout: 30000});
     const payHistory = payHistoryRes?.data;
     if(payHistory?.message === 'success'){
       return res.status(200).json(payHistory?.data?.data);
