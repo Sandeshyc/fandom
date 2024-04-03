@@ -52,7 +52,7 @@ const Home = (props:any) => {
           {/* </div> */}
       </div>
       </>):(<div className='container mx-auto max-w-[2400px]'><SkeletonList/></div>)}
-      {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
+      {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/></>:null}
     </>
   )
 }

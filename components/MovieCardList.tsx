@@ -36,6 +36,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           flex
           justify-center
           items-center
+          aspect-[9/6]
           text-white/40" />
         {/* {(data?.allowed)?<PurchaseBadge/>
         :
