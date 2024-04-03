@@ -11,13 +11,19 @@ const PLAYLIST_QUERY = gql`
         title
         description
         offAirDate
-        thumbnailBannerUrl
-        trailerUrl
         onAirDate
         canBuy
         allowed
+        trailerUrl
+        thumbnailBannerUrl
+        thumbnailUrl
+        thumbnailPortraitUrl
         thumbnailLandscapeUrl
         contentRating
+        publishSchedule
+        cast
+        director
+        writer
         duration
         genre
         header {

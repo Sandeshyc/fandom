@@ -17,6 +17,8 @@ const WATCHLIST_QUERY = gql`
         canBuy
         allowed
         thumbnailLandscapeUrl
+        thumbnailUrl
+        thumbnailPortraitUrl        
         contentRating
         duration
         genre
