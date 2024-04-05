@@ -72,7 +72,7 @@ const Watch = () => {
     }
   }, [data]);
 
-  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
+  const captionURL = data?.closedCaptionUrl  ? data?.closedCaptionUrl : null;
 
   let timeout: NodeJS.Timeout;
   const onMouseMove = () => {
