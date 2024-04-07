@@ -7,11 +7,8 @@ type Props = {
     episodes:any
 }
 const itemPerPage = 10;
-const Episodes = ({episodes}:Props) => {
-    if(Array.isArray(episodes) && episodes?.length > 0 ) {
-        episodes = episodes.filter((item: any) => item && item?._id);
-    }
-    const [episodeLists, setEpisodeLists] = useState(episodes || []);
+const Episodes = ({episodes}:Props) => {    
+    const [episodeLists, setEpisodeLists] = React.useState(episodes || []);
     console.log('episodes', episodes);
     console.log('episodeLists', episodeLists);
     const [displayedEpisodes, setDisplayedEpisodes] = useState( [] as any);
@@ -25,9 +22,18 @@ const Episodes = ({episodes}:Props) => {
     const handleSearch = (e:any) => {
         setSearchKey(e.target.value);        
     };
+
+    useEffect(() => {
+        let tempEpisodes = episodes;
+        if(Array.isArray(episodes) && episodes.length > 0 ) {
+            tempEpisodes = episodes.filter((item: any) => item && item._id);
+            setEpisodeLists(tempEpisodes);
+        }
+    }, [episodes]);
+
     useEffect(() => {
         if(searchKey !== '' && searchKey !== null && searchKey !== undefined && searchKey.length > 0){
-            const filteredData = episodeLists.filter((episode:any) => {
+            const filteredData = episodes.filter((episode:any) => {
                 return episode.title.toLowerCase().includes(searchKey.toLowerCase());
             });
             setEpisodeLists(filteredData);
@@ -39,7 +45,7 @@ const Episodes = ({episodes}:Props) => {
     }, [searchKey]);
     // need to Update Search Filter for Pagination
 
-    
+
     // useEffect(() => {
     //     const indexOfLastItem = currentPage * itemPerPage;
     //     const indexOfFirstItem = indexOfLastItem - itemPerPage;
@@ -47,7 +53,7 @@ const Episodes = ({episodes}:Props) => {
     //     setDisplayedEpisodes(currentItems);
     // }, [currentPage]);
     return (
-        <div>
+        <div className='min-h-[160px]'>
             <div className={`bg-gray-700 text-white rounded-md flex w-full max-w-full mb-8`}>
                 <input 
                 type="text" 
@@ -62,7 +68,7 @@ const Episodes = ({episodes}:Props) => {
                     <SearchIcon className="text-gray-400 w-6 h-6" />
                 </button>
             </div>
-            {episodes?.map((episode:any, index:number) => (
+            {episodeLists?.map((episode:any, index:number) => (
                 <>
                 {/* <p>ddd</p> */}
                 <Episode key={stableKeys[index]} episode={episode} slNo={index+1} />
