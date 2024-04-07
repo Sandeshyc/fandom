@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useMovieList from "@/hooks/useMovieList";
-import SkeletonHome from "@/components/Skeleton/SkeletonHome";
+import useTvShows from "@/hooks/useTvShows";
+import SkeletonHeader from "@/components/Skeleton/Header";
+import SkeletonExploreAll from "@/components/Skeleton/SkeletonExploreAll";
 import useIsMobile from "@/hooks/useIsMobile";
 import getLocation from "@/services/api/location";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
@@ -28,14 +29,14 @@ const Home = () => {
     data: movies = [],
     isLoading,
     error,
-  } = useMovieList(
+  } = useTvShows(
     myRegion,
     isMobile ? "mobile" : "web",
-    "home",
+    "tvshows",
     userId,
     randomNumber.toString()
   );
-  // console.log('Home Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error, 'isReady', isReady);
+  console.log('Tv show Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error, 'isReady', isReady);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem("userInfo");
@@ -64,7 +65,10 @@ const Home = () => {
           isLoading={isLoading}
         />
       ) : (
-        <SkeletonHome />
+        <>
+        <SkeletonHeader/>
+        <SkeletonExploreAll/>
+        </>
       )}
       {error ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
     </div>

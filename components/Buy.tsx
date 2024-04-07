@@ -69,7 +69,7 @@ const Buy: React.FC<PlayButtonProps> = ({
         justify-center
         items-center
         transition
-        h-[44px]">
+        h-[36px] lg:h-[44px]">
           Rent
         </button>): <button 
         onClick={handleClickOpen}
@@ -87,7 +87,7 @@ const Buy: React.FC<PlayButtonProps> = ({
         justify-center
         items-center
         transition
-        h-[44px]
+        h-[36px] lg:h-[44px]
         active:opacity-65
         ">Rent</button>}
 <Modal

@@ -48,6 +48,7 @@ const Section = (props: any) => {
     userId,
     randomNumber.toString()
   );
+  console.log('isLoading', isLoading, 'movies', movies, 'error', error, 'isReady', isReady);
 
   return (
     <>

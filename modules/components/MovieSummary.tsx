@@ -14,8 +14,6 @@ const MovieSummary = (inputProps:dataProps) => {
 
   const {data} = inputProps
 
-
-
     const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
     let publishYear = data?.publishSchedule;
     // get year from date

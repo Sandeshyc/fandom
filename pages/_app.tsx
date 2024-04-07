@@ -23,7 +23,8 @@ export default function App({
 }: AppProps) {
 
   const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
+    // uri: "http://localhost:4000/graphql",
+    uri: "https://mjnacfpvci.execute-api.ap-southeast-1.amazonaws.com/Prod/graphql",
     cache: new InMemoryCache(),
   });
   
@@ -42,8 +43,8 @@ export default function App({
       <main className={poppins.className}>
 
         <ErrorBoundary>
-        <ApolloProvider client={client}>
-          <Component {...pageProps} />
+          <ApolloProvider client={client}>
+            <Component {...pageProps} />
           </ApolloProvider>
         </ErrorBoundary>
       </main>

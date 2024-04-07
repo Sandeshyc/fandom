@@ -73,6 +73,7 @@ const Details = () => {
       }}>
         <Mapper
         modules={movieDetails}
+        itemCode = {movieId as string}
         getComponent = {getComponent}
         isLoading = {isLoading}/>
       </div>

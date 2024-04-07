@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
-import useAllMovie from '@/hooks/useAllMovies';
+import useTvShowDetails from '@/hooks/useTvShowDetails';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import SkeletonExploreAll from '@/components/Skeleton/SkeletonExploreAll';
 import useIsMobile from '@/hooks/useIsMobile';
+import SkeletonHeader from '@/components/Skeleton/Header';
+import DetailsHeroImage from "@/modules/skeletons/components/DetailsHeroImage";
+import ShowSummary from "@/modules/skeletons/components/ShowSummary";
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -16,16 +19,15 @@ const Categories = (props:any) => {
   const router = useRouter();
   const [myRegion, setRegion] = useState('PH');
   const isMobile = useIsMobile();
-  const { categories } = router.query;
-
+  const { tvshow } = router.query;
   const _location = async () => {
     const {countryIsoCode} = await getLocation();
     setRegion(countryIsoCode);
   }
   _location();
 
-  const { data, isLoading, error} = useAllMovie(categories as string, userId as string, (isMobile)?'mobile':'web', myRegion);
-  console.log('data', data);
+  const { data, isLoading, error} = useTvShowDetails(tvshow as string, userId as string, (isMobile)?'mobile':'web', myRegion);
+  // console.log('data', data);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
@@ -49,9 +51,15 @@ const Categories = (props:any) => {
     {(!isLoading && isReady && data)?<>
       <Mapper
         modules={data}
-        itemCode={categories as string}
+        itemCode = {tvshow as string}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (<SkeletonExploreAll/>)}
+        isLoading = {isLoading}/></> : (
+          <>
+          <SkeletonHeader/>
+          <DetailsHeroImage/>
+          <ShowSummary/>
+          </>
+        )}
     {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 

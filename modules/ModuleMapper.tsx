@@ -9,14 +9,17 @@ interface ModuleWrapperProps {
   id?: string;
   colIndex?: number;
   isLoading?: boolean;
+  itemCode?: string;
 }
 
 export default function ModuleMapper({
   modules,
   getComponent,
   isLoading,
+  itemCode,
 } : ModuleWrapperProps) {
     return modules?.map((module:any, moduleIndex:number) => {
+      module.itemCode = itemCode;
         const extraProps = {
             marginTop: false,
         };
@@ -64,7 +67,7 @@ export default function ModuleMapper({
 
     if (!Component) return null;
     return (
-      <BaseComponent module={module} key="baseComp">
+      <BaseComponent module={module} key={stableKeys[moduleIndex]}>
         <Component
           key={stableKeys[moduleIndex]}
           module={module}
