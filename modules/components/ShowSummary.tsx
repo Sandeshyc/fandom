@@ -40,6 +40,10 @@ const ShowSummary = (inputProps:dataProps) => {
     }
     const handleSeason = (e:any) => {
         setSeason(e.target.value);
+        console.log('season', season);
+        // set current season
+        const currentSeason = allSeasons.find((season:any) => season?.name === e.target.value);
+        setCurrentSeason(currentSeason);
     }
     useEffect(() => {
         if(Array.isArray(allSeasons) && allSeasons.length > 0){
@@ -83,7 +87,7 @@ const ShowSummary = (inputProps:dataProps) => {
                   <select 
                   defaultValue={currentSeason?.name}
                   onChange={handleSeason}
-                  className="h-[36px] lg:h-[44px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px]">
+                  className="h-[36px] lg:h-[44px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                       {allSeasons?.map((season:any, index:number) => {
                           return <option key={index} value={season?.name}>{season?.title}</option>
                       })} 
