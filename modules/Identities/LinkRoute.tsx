@@ -19,7 +19,7 @@ const LinkRoute = ({children, href, type, className, styles}:LinkRouteProps) => 
     if(styles === undefined) styles = {};
     let commonClass = " cursor-pointer active:opacity-65";
     if(type === 'primary' || type === 'white' || type === 'outline' || type === 'hoverOutline'){
-        commonClass += " flex flex-row justify-center items-center w-auto text-center rounded-full py-2 px-3 text-base min-w-[150px] xl:min-w-[180px] h-[40px] transition ";
+        commonClass += " flex flex-row justify-center items-center w-auto text-center rounded-full py-2 px-3 text-base min-w-[150px] xl:min-w-[180px] h-[34px] lg:h-[40px] transition ";
     }
 
     return(

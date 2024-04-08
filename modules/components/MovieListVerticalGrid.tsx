@@ -20,7 +20,7 @@ interface MovieListProps {
 }
 const MovieListVerticalGrid: React.FC<MovieListProps> = ({ data, items, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
 
-    console.log('MovieListVerticalGrid data: ', data, title, source);
+    // console.log('MovieListVerticalGrid data: ', data, title, source);
     const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
   // console.log('removedItem data: ', data);
@@ -50,7 +50,7 @@ const MovieListVerticalGrid: React.FC<MovieListProps> = ({ data, items, title, s
             link={''} 
             linkText={'Explore All'}
             />
-            <div className='flex flex-wrap mx-[-15px]'>
+            <div className='flex flex-wrap mx-[-7px] lg:mx-[-15px]'>
                 {newData?.map((movie, index) => (
                     <EventCardReelMutliRaw key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} sliderRef={sliderRef} setRemovedItem={setRemovedItem}/>
                 ))}
@@ -59,7 +59,7 @@ const MovieListVerticalGrid: React.FC<MovieListProps> = ({ data, items, title, s
     </div>
     );
     return (
-        <div className={`pl-4 lg:pl-16 mt-2 min-h-[80vh]`}
+        <div className={`pl-2 lg:pl-16 pr-2 lg:pr-4 mt-2 min-h-[80vh]`}
         style={{
             marginTop: marginTop ? ((isMobile)?'70px': '120px') : '0px',
         }}

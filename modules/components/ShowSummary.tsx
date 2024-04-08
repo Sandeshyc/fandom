@@ -89,7 +89,9 @@ const ShowSummary = (inputProps:dataProps) => {
                   onChange={handleSeason}
                   className="h-[36px] lg:h-[44px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                       {allSeasons?.map((season:any, index:number) => {
-                          return <option key={index} value={season?.name}>{season?.title}</option>
+                          return <option key={index} value={season?.name}
+                          selected={season?.name === currentSeason?.name}
+                          >{season?.title}</option>
                       })} 
                   </select>
                 </div>

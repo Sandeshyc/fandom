@@ -3,11 +3,13 @@ import { useRouter } from 'next/router';
 import Notification from '@/modules/elements/Notification';
 import SearchBox from '@/components/navbar/SearchBox';
 import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 
 const logoSrc = '/images/logonew.png';
 const Header = () => {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isLoginUser = useCheckAuthentication();
   useEffect(() => {
     const _checkAuthentication = async () => {
       const isAuthenticated = await checkAuthentication();
@@ -37,7 +39,7 @@ const Header = () => {
             <div className='mr-3 sm:mr-6 relative'>
               <SearchBox/>
             </div>
-            {(isAuthenticated)&&<Notification/>}            
+            {(isLoginUser)&&<Notification/>}            
           </div>
         </div>
     </div>

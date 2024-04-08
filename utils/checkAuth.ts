@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const checkAuthentication = async () => {
     const getStatus = () => {
         let isAuthenticated = false;
+        let isLoading = true;
         const provider = localStorage.getItem('provider');
         if(provider === 'firebase') {
             const _getAuthStatus = async () => {
@@ -14,12 +15,15 @@ const checkAuthentication = async () => {
                         const userInfo = localStorage.getItem('userInfo');
                         if(userInfo){
                             isAuthenticated = true;
+                            isLoading = false;
                         }else{
                             isAuthenticated = false;
+                            isLoading = false;
                         }                     
                     }else{
                         localStorage.removeItem('userInfo');
                         isAuthenticated = false;
+                        isLoading = false;
                     }
                 });
                 return isAuthenticated;
@@ -29,8 +33,10 @@ const checkAuthentication = async () => {
             const userInfo = localStorage.getItem('userInfo');
             if(userInfo){
                 isAuthenticated = true;
+                isLoading = false;
             }else{
                 isAuthenticated = false;
+                isLoading = false;
             }
         }
         return isAuthenticated;

@@ -20,9 +20,11 @@ type Props = {
 };
 const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   const router = useRouter();
+  // console.log('data Package Movie', data);
   const [open, setOpen] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
+  const bannerThumb = data?.thumbnailLandscapeUrl || data?.thumbnailBannerUrl || data?.thumbnailUrl || '';
   let publishYear = data?.publishSchedule;
   // get year from date
   if(publishYear){
@@ -47,7 +49,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
         <div className="brightness-[60%] h-full">
           <ReactVideoPlayer
             videoURL={data?.videoUrl}
-            poster={data?.thumbnailUrl}
+            poster={bannerThumb}
           />
         </div>
         <div className="preview"></div>

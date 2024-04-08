@@ -2,8 +2,8 @@ import React, {useCallback} from 'react';
 import { useRouter } from 'next/router';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import Buttons from '@/modules/Identities/Buttons';
-import { yearFromDate, getTimeDifference, getDateFormat,
-    convertESTtoLocalTime } from '@/utils/yearFromDate';
+import {convertESTtoLocalTime } from '@/utils/yearFromDate';
+import LinkRoute from '@/modules/Identities/LinkRoute';
 type Props = {
     episode:any
     slNo:number | string
@@ -23,16 +23,12 @@ const Episode = ({episode, slNo}:Props) => {
     }else{
         slNo = slNo + '. ';
     }
-    const redirectToRent = useCallback(() => {
-        router.push(`/details/${episode?._id}?viewPlan=true`);      
-    }, [episode, slNo]);
+    const redirectToRent = `/details/${episode?._id}?viewPlan=true`;
+    const redirectToWatch = `/watch/${episode?._id}`;
     const redirectToDetails = useCallback(() => {
         router.push(`/details/${episode?._id}`);      
     }, [episode, slNo]);
     
-    const redirectToWatch = useCallback(() => {
-        router.push(`/watch/${episode?._id}`);
-    }, [episode, slNo]);
     return (
     <div className='mb-8 flex flex-wrap border-b border-white/40 pb-8 last:border-none'>
         <div className='w-full sm:w-1/2 md:w-1/3 sm:pr-4 mb-2 sm:mb-0'>
@@ -58,20 +54,19 @@ const Episode = ({episode, slNo}:Props) => {
             </div>
         </div>
         <div className='w-full lg:w-1/3 md:text-center md:pl-2'>
-            {(episode?.allowed)? (
-                <Buttons 
-                    onClick={redirectToWatch} 
-                    type='white'>
-                        Play Now
-                </Buttons>) 
-            : (     
-            <Buttons
-                type="blue"
-                className="mt-4"
-                onClick={redirectToRent}>
-                Rent
-            </Buttons>
-            )}
+            <div className='max-w-[140px] mt-4'>
+                {(episode?.allowed)?(
+                    <LinkRoute 
+                    href={redirectToWatch}
+                    type='white'
+                >Play Now</LinkRoute>
+                )
+                :(<LinkRoute 
+                    href={redirectToRent}
+                    type='primary'
+                >Rent</LinkRoute>
+                )}
+            </div>
         </div>
     </div>);
 }

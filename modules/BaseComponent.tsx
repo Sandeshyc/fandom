@@ -25,7 +25,7 @@ const BaseComponent = (props:any) => {
         data = gqData?.[module.sourceType];
         // console.log('GQL DATA dddd ');
       }
-      // console.log('GQL DATA ', module, gqData)
+      console.log('GQL DATA ', module, gqData)
       if (loading || 0 ) return (
         <>
           <GetComponent displayType={module?.displayType as string} />
