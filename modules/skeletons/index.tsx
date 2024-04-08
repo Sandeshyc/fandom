@@ -13,11 +13,15 @@ import WatchAndshare from "@/modules/skeletons/components/WatchAndshare";
 import MovieDetails from "@/modules/skeletons/components/MovieDetails";
 import PackageDetailsHeroImage from "@/modules/skeletons/components/PackageDetailsHeroImage";
 import PackageMovielist from "@/modules/skeletons/components/PackageMovielist";
+import Carousel from "@/modules/skeletons/components/Carousel";
+import MultiRawRoll from "@/modules/skeletons/components/MultiRawRoll";
+import MultiRawRollUpcoming from "@/modules/skeletons/components/MultiRawRollUpcoming";
 type Props = {
     displayType: string;
 }
 const GetComponent = ({displayType}:Props) => {
     const comps = {
+        carousel : Carousel,
         detailsHeroImage : DetailsHeroImage,
         showSummary : ShowSummary,
         movieListVerticalGrid : MovieListVerticalGrid,
@@ -33,6 +37,8 @@ const GetComponent = ({displayType}:Props) => {
         movieDetails : MovieDetails,
         packageDetailsHeroImage : PackageDetailsHeroImage,
         packageMovielist : PackageMovielist,
+        multirawroll : MultiRawRoll,
+        multirawrollupcoming : MultiRawRollUpcoming,
     }
     const Component = comps[displayType as keyof typeof comps];
     return (<>{Component && <Component />}</>)

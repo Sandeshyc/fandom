@@ -23,6 +23,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
+  const bannerThumb = data?.thumbnailLandscapeUrl || data?.thumbnailBannerUrl || data?.thumbnailUrl || '';
   let publishYear = data?.publishSchedule;
   // get year from date
   if(publishYear){
@@ -47,7 +48,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
         <div className="brightness-[60%] h-full">
           <ReactVideoPlayer
             videoURL={data?.videoUrl}
-            poster={data?.thumbnailUrl}
+            poster={bannerThumb}
           />
         </div>
         <div className="preview"></div>
@@ -63,13 +64,13 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
                 <div className=' h-full mb-2 lg:mb-3'>
                   <Title tag='h1' size='4xl'>{data?.title}</Title>
                 </div>
-                <p className='mb-1 flex items-center flex-wrap my-2 text-white/70 text-xs'>
+                <p className='mb-1 flex flex-wrap items-center my-2 text-white/70 text-xs pr-2'>
                   {(data?.quality)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.quality}</span>):null}
                   {(data?.contentRating)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.contentRating}</span>):null}
                   {(data?.duration)?(<span className='mb-1'>{data?.duration}</span>):null}
                 </p>
                 {(Array.isArray(data?.genre) && data?.genre?.length > 0)&&
-                  <div className='popUpGenre flex items-center text-contentColor/70'>
+                  <div className='popUpGenre flex flex-wrap items-center text-contentColor/70'>
                     {data?.genre?.map((itemTxt:string, index:number) => 
                     <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0">{capFirstLetter(itemTxt)}
                     </span>)}

@@ -181,10 +181,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   }, []);
 
   return (
-    <div className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/6 p-[20px] pt-0'>    
+    <div className='w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/6 p-[7px] lg:p-[15px] pt-0'>    
         <div 
         ref={thumbOuterRef}
-        className={`group bg-zinc-900 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
+        className={`group bg-zinc-800 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
         onMouseEnter={onHoverHandler} 
         onMouseLeave={onMouseLeave}
         onClick={redirectToWatch}>

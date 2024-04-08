@@ -5,7 +5,7 @@ import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
 import { Menu, Transition } from '@headlessui/react';
 import {ArrowDropDown, CreditCard, PaymentsOutlined} from '@mui/icons-material';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
     MyTicketsIcon,
     MyListIcon,
@@ -28,16 +28,11 @@ const ProfileDropDown = () => {
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
     const { data: profile, isLoading } = useProfile(userid);
+    const isLoginUser = useCheckAuthentication();
     // console.log('profile', profile, isLoading);
 
     
-    useEffect(() => {
-        const _checkAuthentication = async () => {
-            const isAuthenticated = await checkAuthentication();
-            console.log('isAuthenticated', isAuthenticated);
-            setIsLogedIn(isAuthenticated);
-        }
-        _checkAuthentication();
+    useEffect(() => {        
 
         if(!isLoading) {
             if( profile?.hasOwnProperty('firstName') || profile?.hasOwnProperty('lastName')) {
@@ -95,7 +90,7 @@ const ProfileDropDown = () => {
     }
     return (
         <>
-        {(isLogedIn)?
+        {(isLoginUser)?
         <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
                 <div className='transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/80'>

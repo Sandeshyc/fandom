@@ -4,29 +4,27 @@ import NavItem from '@/components/navbar/NavItem';
 import ProfileDropDown from '@/components/navbar/ProfileDropDown';
 import SearchBox from '@/components/navbar/SearchBox';
 import useIsMobile from '@/hooks/useIsMobile';
+// import {useUserStore} from '@/stores/UserStore';
 import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
 import Header from '@/modules/elements/Header';
 import Notification from '@/modules/elements/Notification';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import { stableKeys } from '@/utils/stableKeys';
 import navItemLists from '@/services/json/navItemLists.json';
 const logoSrc = '/images/logonew.png';
+
 const NavigationHome = () => {
-  const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();  
   const [scrollPosition, setScrollPosition] = useState(0);
   const isMobile = useIsMobile();
+  const isLoginUser = useCheckAuthentication();
+  console.log('isLoginUser', isLoginUser);
   // get scroll position in px
   const getScrollPosition = () => {
     return window?.pageYOffset;
   }
 
   useEffect(() => {
-    const _checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthentication();
-      setIsAuthenticated(isAuthenticated);
-    }
-    _checkAuthentication();
     const onScroll = () => {
       const scrollPosition = getScrollPosition();
       setScrollPosition(scrollPosition);
@@ -49,8 +47,9 @@ const NavigationHome = () => {
                 </div>
                 <div className='ml-4 xl:ml-8'>
                   <div className='flex flex-row items-center gap-4 xl:gap-8'>
+                    {/* {isLoginUser.toString()} */}
                     {(Array.isArray(navItemLists)) && navItemLists.map((item, index) => (
-                        (!item?.auth || (item?.auth && isAuthenticated))?
+                        (!item?.auth || (item?.auth && isLoginUser))?
                         <NavItem key={stableKeys[index]} label={item?.label} route={item?.route} activeRoute={item?.activeRoute} />
                         :null
                     ))}
@@ -63,7 +62,7 @@ const NavigationHome = () => {
                       <div className='mr-3 xl:mr-6 relative'>
                         <SearchBox/>
                       </div>
-                      {(isAuthenticated)?<Notification />:null}                      
+                      {(isLoginUser)?<Notification />:null}                      
                       <ProfileDropDown/>
                     </div>
                   </div>
