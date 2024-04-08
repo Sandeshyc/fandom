@@ -11,13 +11,14 @@ type Props = {
 const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
     const [openTab, setOpenTab] = React.useState(0);
     const [tabArgs, setTabArgs] = React.useState([]); 
+    // console.log('data TV', data);
     // push tab args label and content
     useEffect(() => {
         let tempTabArgs = [];
         if(isShow){
             tempTabArgs.push({
                 id: 'section1',
-                label:'Episodes (7)',
+                label:'Episodes (' + data?.episodes?.length + ')',
                 type:'episodes',
                 content: data?.episodes
             });
@@ -106,7 +107,7 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
     <>
         <TabTitles tabArgs={tabArgs} openTab={openTab} setOpenTab={setOpenTab} />
         <TabContents tabArgs={tabArgs} openTab={openTab}/>
-        {(Array.isArray(data?.relatedMovies) && data?.relatedMovies?.length > 0) && (
+        {(!isPackage && !isShow && Array.isArray(data?.relatedMovies) && data?.relatedMovies?.length > 0) && (
             <RelatedMovies data={data?.relatedMovies} />
         )}
     </>);

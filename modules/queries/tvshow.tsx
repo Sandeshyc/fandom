@@ -13,8 +13,41 @@ const TVSHOW_QUERY = gql`
       thumbnailLandscapeUrl
       thumbnailPortraitUrl
       thumbnailUrl
-      seasons: items {
+      allowed
+      canBuy
+      contentRating
+      allowedPlans {
+        currency
+        description
+        id
         name
+        price
+        priceSKU
+      }
+      seasons: items {
+        _id
+        name
+        title
+        allowed
+        canBuy
+        description
+        duration
+        isInWatchList
+        itemCode
+        publishSchedule
+        thumbnailUrl
+        messages
+        contentRating
+        trailerUrl
+        assetId
+        allowedPlans {
+          currency
+          description
+          id
+          name
+          price
+          priceSKU
+        }
         episodes: items {
           _id
           assetId

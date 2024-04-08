@@ -30,11 +30,19 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
     handleClose(null);
-    router.push(`/details/${data?._id}?viewPlan=true`);
+    if(data?.__typename === 'Series'){
+      router.push(`/tvshow/${data?._id}?viewPlan=true`);
+    }else{
+      router.push(`/details/${data?._id}?viewPlan=true`);      
+    }
   }, [router, data?._id]);
   const redirectToDetails = useCallback(() => {
     handleClose(null);
-    router.push(`/details/${data?._id}`);
+    if(data?.__typename === 'Series'){
+      router.push(`/tvshow/${data?._id}`);
+    }else{
+      router.push(`/details/${data?._id}`);      
+    }
   }, [router, data?._id]);
 
   const redirectToWatch = useCallback(() => {

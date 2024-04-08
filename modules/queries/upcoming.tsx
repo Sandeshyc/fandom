@@ -4,7 +4,6 @@ const UPCOMING_QUERY = gql`
   query ($input: QueryInput) {
     upcoming (input: $input) {
       assetId
-
       items {
         _id
         assetId
@@ -20,6 +19,9 @@ const UPCOMING_QUERY = gql`
         contentRating
         duration
         genre
+        publishSchedule
+        thumbnailPortrait
+        thumbnailPortraitUrl
         header {
           text
           type

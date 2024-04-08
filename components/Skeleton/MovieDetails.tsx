@@ -5,7 +5,7 @@ import SkeletonListCard from './ListCard';
 
 const MovieDetails = () => {
   return (
-    <div className="w-full mt-8">
+    <div className="w-full mt-0">
       <div className="flex items-center justify-start flex-wrap border-b border-white/60 pb-4">
         <div className='w-[120px] mr-4'>
           <Skeleton baseColor='#333' highlightColor='#666' height={20}/>
