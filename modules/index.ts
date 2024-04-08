@@ -29,6 +29,8 @@ import Header from '@/modules/elements/Header';
 import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import DealsAndOffers from '@/modules/components/DealsAndOffers';
 import Footer from '@/components/Footer';
+import ShowSummary from "./components/ShowSummary";
+import SeasonDetails from "./components/SeasonDetails";
 
 const comps = {
     header : Header,
@@ -63,6 +65,8 @@ const comps = {
     bottomNavigation : BottomNavigation,
     dealsAndOffers : DealsAndOffers,
     footer : Footer,
+    showSummary : ShowSummary,
+    seasonDetails : SeasonDetails
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];

@@ -11,6 +11,7 @@ import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
 
+
 interface MovieListProps {
   data: MovieInterface[];
   title: string;
@@ -20,6 +21,7 @@ interface MovieListProps {
   gradient?: boolean;
   isBoxesLayout?: boolean;
   marginTop?: boolean;
+  module: any
 }
 
 function SlickNextArrow(props: any) {
@@ -38,6 +40,9 @@ function SlickPrevArrow(props: any) {
 
 // Main Component
 const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
+
+
+
   const router = useRouter();
   const sliderRef = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);

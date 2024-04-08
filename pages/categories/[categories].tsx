@@ -49,6 +49,7 @@ const Categories = (props:any) => {
     {(!isLoading && isReady && data)?<>
       <Mapper
         modules={data}
+        itemCode={categories as string}
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonExploreAll/>)}
     {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}

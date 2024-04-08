@@ -2,10 +2,16 @@ import React from 'react';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import useIsMobile from '@/hooks/useIsMobile';
 
+
 type dataProps = {
-    data: any;
+    data: any,
+    module: any
 }
-const DetailsHeroImage = ({data}:dataProps) => {
+const DetailsHeroImage = (inputProps:dataProps) => {
+    
+    const {data} = inputProps
+
+
     // trailerUrl 
     let videoURL = data?.trailerUrl;
     const vidoes = data?.videoUrls;

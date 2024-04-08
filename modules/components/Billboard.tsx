@@ -5,10 +5,13 @@ import BillboardBanner from '@/modules/elements/BilboardBanner';
 import LinkRoute from '@/modules/Identities/LinkRoute';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
+
 type Props = {
   data: any;
 };
 const Billboard = ({data}:Props) => {
+
+
   data = data?.[(Math.floor(Math.random() * data?.length))] ?? {}
   const itemId = data?._id;
   const title = data?.title;

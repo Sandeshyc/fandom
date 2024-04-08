@@ -7,9 +7,6 @@ const SkeletonRollMultiRows = () => {
             <p className="mb-1 lg:mb-4 mr-2 w-[200px]">
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-[36px]' />
             </p>
-            <span className='mb-2 lg:mb-4 w-[100px]'>
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[20px]' />
-            </span>
         </div>
         <div className='block lg:hidden'>
           <div className='flex lg:flex flex-wrap mx-[-10px]'>

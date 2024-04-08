@@ -9,6 +9,8 @@ import { isEmpty } from "lodash";
 import { stableKeys } from "@/utils/stableKeys";
 import useIsMobile from "@/hooks/useIsMobile";
 import { MovieInterface } from "@/types";
+
+
 interface MovieListProps {
   data: MovieInterface[];
   title: string;
@@ -49,6 +51,7 @@ const EventRoll: React.FC<MovieListProps> = ({
   isBoxesLayout = false,
   marginTop = false,
 }) => {
+
   const isMobile = useIsMobile();
   let settings = {
     dots: false,

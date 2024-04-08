@@ -25,7 +25,7 @@ const SkeletonDetails = () => {
             </div>
           </div>
         </div>
-        <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px]'>
+        <div className='text-white bg-gradient-to-t from-black/90 from-50% to-transparent to-100% z-10 relative mt-[-100px] md:mt-[-250px]'>
           <div className='container mx-auto px-4'>
             <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
               <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
@@ -69,6 +69,10 @@ const SkeletonDetails = () => {
                 </div>               
               </div>
             </div>
+          </div>
+        </div>
+        <div className='text-white bg-black z-10 relative'>
+          <div className='container mx-auto px-4'>
             <MovieDetails/>
             <div className='my-8'>
               <div className="flex flex-wrap justify-between mb-4">
@@ -102,7 +106,6 @@ const SkeletonDetails = () => {
             </div> 
           </div>
         </div>
-
       </div>
     </>
   )

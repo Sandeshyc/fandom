@@ -18,10 +18,16 @@ import SocialShare from '@/modules/elements/SocialShare';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import checkAuthentication from '@/utils/checkAuth';
 
+
 type dataProps = {
-    data: any;
+    data: any,
+    module: any
 }
-const WatchAndShare = ({data}:dataProps) => {
+const WatchAndShare = (inputProps:dataProps) => {
+
+    const {data} = inputProps
+
+
     // console.log('data', data);
     const [open, setOpen] = React.useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -113,15 +113,23 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             if ( video === undefined || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
             // make track are ready
             let tracks: any = [];
+            
+
             if (caption) {
-                caption.forEach((track: any, index: number) => {
-                    tracks.push({
-                        file: track.url,
-                        label: track.label,
-                        kind: "captions",
-                        "default": index === 0 ? true : false
-                    })
-                });
+                // caption.forEach((track: any, index: number) => {
+                //     tracks.push({
+                //         file: track.url,
+                //         // label: track.label,
+                //         kind: "captions",
+                //         "default": index === 0 ? true : false
+                //     })
+                // });
+                tracks.push({
+                    file: caption,
+                    kind: "captions",
+                    "default": true,
+                    // label: "English"
+                })
             }
 
             playerRef.current.innerHTML = "<div className='h-full' />";
@@ -165,6 +173,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                             }
                         }
                     }],
+                    // multiple audio tracks
+                    tracks: tracks,
                     // tracks:[
                     //     {
                     //       "file" : "https://abs-vcms.akamaized.net/media/input/alovestory_2007_f1_restoredlocal_wmk-165229/output/Thumbnails/ALoveStory_2007_F1_RestoredLocal_000001.vtt",
@@ -185,8 +195,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 preload: "auto",
                 responsive: true,
                 repeat: true,
-                // multiple audio tracks
-                tracks: tracks,
+                
                 // enable casting
                 "cast": {},
                 // enable picture in picture

@@ -1,21 +1,25 @@
-import React from 'react';
-import { stableKeys } from '@/utils/stableKeys';
-import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import React from "react";
+import { stableKeys } from "@/utils/stableKeys";
+import ErrorPopUp from "@/modules/elements/ErrorPopUp";
+import BaseComponent from "./BaseComponent";
 
 interface ModuleWrapperProps {
-    modules: any;
-    getComponent: Function;
-    id?: string;
-    colIndex?: number;
-    isLoading?: boolean;
+  modules: any;
+  getComponent: Function;
+  id?: string;
+  colIndex?: number;
+  isLoading?: boolean;
+  itemCode?: string;
 }
 
-export default function ModuleMapper ({
+export default function ModuleMapper({
   modules,
   getComponent,
   isLoading,
+  itemCode,
 } : ModuleWrapperProps) {
     return modules?.map((module:any, moduleIndex:number) => {
+      module.itemCode = itemCode;
         const extraProps = {
             marginTop: false,
         };
@@ -47,18 +51,34 @@ export default function ModuleMapper ({
             }
         }
 
-        if(!Component) return null;
-        return (
-            <Component
-                key={stableKeys[moduleIndex]}
-                module={module}
-                id={moduleIndex}
-                data={module.items || null}
-                items={module.items || null}
-                isLoading={isLoading}
-                {...module}
-                {...extraProps}
-            />
-        );
-    });
+    if (
+      (moduleIndex == 0 && modules[0].displayType !== "navigation") ||
+      moduleIndex == 1
+    ) {
+      // console.log('moduleIndex', moduleIndex, modules.displayType);
+      if (
+        module.displayType !== "detailsHeroImage" &&
+        module.displayType !== "billboard" &&
+        module.displayType !== "LayoutCoverflowSlider"
+      ) {
+        extraProps.marginTop = true;
+      }
+    }
+
+    if (!Component) return null;
+    return (
+      <BaseComponent module={module} key={stableKeys[moduleIndex]}>
+        <Component
+          key={stableKeys[moduleIndex]}
+          module={module}
+          id={moduleIndex}
+          data={module.items || null}
+          items={module.items || null}
+          isLoading={isLoading}
+          {...module}
+          {...extraProps}
+        />
+      </BaseComponent>
+    );
+  });
 }

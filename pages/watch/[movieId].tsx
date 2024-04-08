@@ -18,7 +18,7 @@ const Watch = () => {
   const [backBtnActive, setBackBtnActive] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
-  console.log('data: ', data);
+  // console.log('data: ', data);
   const [videoURL, setVideoURL] = React.useState(
     {
       'HLS': data?.hlsVideo,
@@ -72,7 +72,7 @@ const Watch = () => {
     }
   }, [data]);
 
-  const captionURL = data?.captionsUrl?.length > 0 ? data?.captionsUrl : null;
+  const captionURL = data?.closedCaptionUrl  ? data?.closedCaptionUrl : null;
 
   let timeout: NodeJS.Timeout;
   const onMouseMove = () => {
@@ -119,7 +119,7 @@ const Watch = () => {
   return (
     <>
     {(isReady && !isLoading)?(<><div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
-      {mouseActive && (<nav className={`fixed w-full p-4 z-10 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}>
+      {mouseActive && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}>
         <ArrowLeftIcon 
           onClick={handleBack} 
           className={`w-8 md:w-12 text-white ${(backBtnActive)?'cursor-wait':'cursor-pointer'} hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1`} 

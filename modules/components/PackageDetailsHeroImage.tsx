@@ -15,6 +15,7 @@ type Props = {
     data: any;
 }
 const PackageDetailsHeroImage = ({data}:Props) => {
+    console.log('PackageDetailsHeroImage ', data)
     const [open, setOpen] = React.useState(false);
     const handleToggle = () => {
         setOpen(!open);

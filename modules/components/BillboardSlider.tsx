@@ -12,6 +12,8 @@ import {
   ArrowBackIosNewOutlined, 
   ArrowForwardIosOutlined 
 } from '@mui/icons-material';
+
+
 function SlickNextArrow(props: any) {
   const { className, style, onClick } = props;
   return (    
@@ -41,8 +43,18 @@ function SlickPrevArrow(props: any) {
 }
 type Props = {
   data: any;
+  module: any
 };
-const BillboardSlider = ({data}:Props) => {
+
+
+
+const BillboardSlider = (inputProps: Props) => {
+  
+  const {data} = inputProps
+
+  
+
+  // const data = fetchData(inputProps.module)
   const noOfSlides = Array.isArray(data) ? data.length : 0;
   let settings = {
     dots: noOfSlides > 1,

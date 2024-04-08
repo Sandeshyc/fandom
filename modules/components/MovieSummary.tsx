@@ -4,10 +4,16 @@ import Title from '@/modules/Identities/Title';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
+
+
 type dataProps = {
-    data: any;
+    data: any,
+    module: any
 }
-const MovieSummary = ({data}:dataProps) => {
+const MovieSummary = (inputProps:dataProps) => {
+
+  const {data} = inputProps
+
     const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
     let publishYear = data?.publishSchedule;
     // get year from date
