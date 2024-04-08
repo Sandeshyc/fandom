@@ -24,7 +24,7 @@ export default function App({
 
   const client = new ApolloClient({
     // uri: "http://localhost:4000/graphql",
-    uri: "https://mjnacfpvci.execute-api.ap-southeast-1.amazonaws.com/Prod/graphql",
+    uri: process.env.NEXT_PUBLIC_CONSUMER_SERVICE_API,
     cache: new InMemoryCache(),
   });
   
