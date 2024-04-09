@@ -20,6 +20,7 @@ const BaseComponent = (props:any) => {
       // console.log('GQL DATA ', module, gqData, data);
       if (module.sourceType === 'content' 
         || module.sourceType === 'playlistHeader'
+        || module.sourceType === 'bundleHeader'
         || module.sourceType === 'tvshow'
         || module.sourceType === 'tvshows') {
         data = gqData?.[module.sourceType];
