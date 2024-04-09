@@ -85,12 +85,11 @@ const ShowSummary = (inputProps:dataProps) => {
                 <div 
                   className="border border-blue-600 rounded-full bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] mb-2 mr-4">
                   <select 
-                  defaultValue={currentSeason?.name}
+                  value={currentSeason?.name}
                   onChange={handleSeason}
                   className="h-[36px] lg:h-[44px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                       {allSeasons?.map((season:any, index:number) => {
-                          return <option key={index} value={season?.name}
-                          selected={season?.name === currentSeason?.name}
+                          return <option key={stableKeys[index]} value={season?.name}
                           >{season?.title}</option>
                       })} 
                   </select>
