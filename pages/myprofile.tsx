@@ -17,14 +17,8 @@ import ProfileMobile from '@/components/ProfileMobile';
 import ProfileGender from '@/components/ProfileGender';
 import ProfileBirthday from '@/components/ProfileBirthday';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
-import NavigationHome from '@/modules/elements/NavigationHome';
-import { set } from 'lodash';
-import DeleteAccount from '@/modules/elements/DeleteAccount';
-import {
-  CloseOutlined, 
-  DeleteOutlineOutlined,
-} from '@mui/icons-material';
 import useIsMobile from '@/hooks/useIsMobile';
+import ParentalControls from '@/modules/components/ParentalControls';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -194,7 +188,7 @@ const MyProfile = () => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[4vw]`}>
+        <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="container mx-auto max-w-[996px]">
             <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-6">My Account</p>
             <div>
@@ -286,22 +280,9 @@ const MyProfile = () => {
             </div>
           </div>
         </form>
-        {/* <div className="container mx-auto max-w-[996px] px-4">
-          <div className='mb-2'>
-              <button className={`flex items-center text-red-600 cursor-pointer bg-white/80 rounded-md px-6 py-2`}
-              onClick={
-                  () => setOpenDeleteAccount(true)
-              }>
-                <DeleteOutlineOutlined 
-                sx={{
-                    fontSize: '25px',
-                    marginRight: '5px',
-                }}/>
-                <p>Delete  Account</p>
-              </button>  
-          </div>
-          {openDeleteAccount && <DeleteAccount open={openDeleteAccount} setOpen={setOpenDeleteAccount}/>}
-        </div> */}
+        <div className='container mx-auto max-w-[996px]'>
+          <ParentalControls/>            
+        </div>
       </div>
     {isMobile?<BottomNavigation/>:<Footer/>}
   </>:<SkeletonMyProfile/>}

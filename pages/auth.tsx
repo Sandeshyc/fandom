@@ -225,7 +225,7 @@ const Auth = () => {
     </div>
     <div className="relative min-h-screen h-full w-full pt-[100px] xl:pt-0 bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">      
       <div className="w-full xl:w-1/2 flex justify-center items-center">        
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center w-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
             <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to Tickets</h1>
             <GoogleIdentitySignIn setAuthLoading={setAuthLoading}/>
