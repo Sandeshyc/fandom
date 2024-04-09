@@ -7,16 +7,20 @@ import GetComponent from '@/modules/skeletons';
 const BaseComponent = (props:any) => {
   // console.log('BaseComponent ', props)
     const {module} = props
-    // console.log('BaseComponentddd ', module)
+    console.log('BaseComponentddd ', module)
     if (queryMap[module.sourceType]) {
       // console.log('BC ',{id: module.itemCode ?? module.source ?? "", userId: module.userId})
       const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
-        {variables: {input: {id: module.itemCode ?? module.source ?? "", userId: module.userId}}});
+        {variables: {input: {id: module.itemCode ?? module.source ?? "", 
+          userId: module.userId,
+          countryCode: module.countryCode
+        }}});
       // console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
       let data = gqData?.[module.sourceType]?.items;
       // console.log('GQL DATA ', module, gqData, data);
       if (module.sourceType === 'content' 
         || module.sourceType === 'playlistHeader'
+        || module.sourceType === 'bundleHeader'
         || module.sourceType === 'tvshow'
         || module.sourceType === 'tvshows') {
         data = gqData?.[module.sourceType];

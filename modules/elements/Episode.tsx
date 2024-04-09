@@ -14,9 +14,9 @@ const Episode = ({episode, slNo}:Props) => {
     const title = episode?.title;
     const thumbnail = episode?.thumbnailBannerUrl;
     const description = episode?.description;
-    let publishDate = episode?.publishSchedule;
-    if(publishDate){
-        publishDate = convertESTtoLocalTime(publishDate);
+    let onAirDate = episode?.onAirDate;
+    if(onAirDate){
+        onAirDate = convertESTtoLocalTime(onAirDate);
     }      
     if(!slNo){
         slNo = '';
@@ -44,7 +44,7 @@ const Episode = ({episode, slNo}:Props) => {
                 {(episode?.contentRating)?(<span className="border-white/80 border px-1 mr-1 mb-1 text-xs rounded-sm">{episode?.contentRating}</span>):null}
                 <span className='text-xs mb-1'>
                     {(episode?.duration)&&episode?.duration + ' . '}
-                    {publishDate}
+                    {onAirDate}
                 </span>
             </p>
             <div className='text-sm mt-4 text-white/70'>
