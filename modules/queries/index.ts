@@ -8,6 +8,8 @@ import WATCHLIST_QUERY from "./watchlist";
 import PLAYLIST_HEADER_QUERY from "./playlistHeader";
 import TVSHOWS_QUERY from "./tvshows";
 import TVSHOW_QUERY from "./tvshow";
+import BUNDLE_HEADER_QUERY from "./bundleHeader";
+import BUNDLE_QUERY from "./bundle";
 
 const queryMap = {
     playlist: PLAYLIST_QUERY,
@@ -19,7 +21,9 @@ const queryMap = {
     watchlist: WATCHLIST_QUERY,
     playlistHeader: PLAYLIST_HEADER_QUERY,
     tvshows: TVSHOWS_QUERY,
-    tvshow: TVSHOW_QUERY
+    tvshow: TVSHOW_QUERY,
+    bundle: BUNDLE_QUERY,
+    bundleHeader: BUNDLE_HEADER_QUERY
 }
 
 export default queryMap;
