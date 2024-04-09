@@ -69,10 +69,7 @@ const Episodes = ({episodes}:Props) => {
                 </button>
             </div>
             {episodeLists?.map((episode:any, index:number) => (
-                <>
-                {/* <p>ddd</p> */}
                 <Episode key={stableKeys[index]} episode={episode} slNo={index+1} />
-                </>
             ))}
             {(itemPerPage < episodes?.length) &&
             <div className='my-4'>

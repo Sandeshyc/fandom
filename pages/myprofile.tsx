@@ -19,6 +19,7 @@ import ProfileBirthday from '@/components/ProfileBirthday';
 import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import useIsMobile from '@/hooks/useIsMobile';
 import ParentalControls from '@/modules/components/ParentalControls';
+import CommunicationDetails from '@/modules/components/CommunicationDetails';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -188,7 +189,7 @@ const MyProfile = () => {
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',
       }}>
-        <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[3vw]`}>
+        <form onSubmit={handleSubmit} method="POST"  className={`px-4 md:px-12 mb-[2vw]`}>
           <div className="container mx-auto max-w-[996px]">
             <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-6">My Account</p>
             <div>
@@ -280,6 +281,9 @@ const MyProfile = () => {
             </div>
           </div>
         </form>
+        <div className='container mx-auto max-w-[996px] mb-[2vw]'>
+          <CommunicationDetails/>
+        </div>
         <div className='container mx-auto max-w-[996px]'>
           <ParentalControls/>            
         </div>

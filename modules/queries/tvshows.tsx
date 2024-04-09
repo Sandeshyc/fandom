@@ -56,6 +56,7 @@ const TVSHOWS_QUERY = gql`
             isPackage
             currentTime
             videoDuration
+            onAirDate
           }
         }
     }
