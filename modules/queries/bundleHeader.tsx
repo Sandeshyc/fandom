@@ -15,7 +15,14 @@ const BUNDLE_HEADER_QUERY = gql`
       canBuy
       allowed
       allowedPlans {
+        id
+        name
+        currency
+        description
+        currency
+        price
         priceSKU
+        googlePriceSKU
       }
       trailerUrl
       isInWatchList
