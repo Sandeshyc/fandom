@@ -7,12 +7,14 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import CardHeader from '@/modules/elements/CardHeader';
 import CardFooter from '@/modules/elements/CardFooter';
 import RollImage from '@/modules/Identities/RollImage';
+import { get } from 'lodash';
+import { getThumbnailPortrait } from '@/utils/getData';
 interface MovieCardProps {
   data: MovieInterface;
 }
 const MovieCardReelBorderd: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
-  const thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+  const thumbURl = getThumbnailPortrait(data);
   const title = data?.title || '';
 
   const redirectToWatch = useCallback(() => {

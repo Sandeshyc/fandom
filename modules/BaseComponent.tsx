@@ -33,7 +33,7 @@ const BaseComponent = (props:any) => {
           {/* <p className='text-white'>{module?.displayType} Loading Skeleton...</p> */}
         </>
       );
-      if (error) return <p>GQL Error : {error.message}</p>;
+      if (error) return <p>GQL Error :{module?.sourceType as string} {module?.displayType as string} {module?.title as string} <span className='text-red-500'>{error.message}</span></p>;
 
       const newChild = React.cloneElement(props.children, {
           data,

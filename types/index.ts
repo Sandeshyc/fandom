@@ -8,6 +8,7 @@ export interface MovieInterface {
   description: string;
   thumbnailUrl: string;
   thumbnailPotrait: string;
+  thumbnailPortrait: string;
   thumbnailPortraitUrl: string;
   thumbnailLandscapeUrl: string;
   thumbnailMotionUrl?: string;

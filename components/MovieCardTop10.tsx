@@ -9,12 +9,12 @@ import {
 import SvgNumbers from '@/utils/SvgNumbers'
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
-import BadgeMobile from '@/modules/Identities/BadgeMobile';
 import CardHeader from '@/modules/elements/CardHeader';
 import CardFooter from '@/modules/elements/CardFooter';
 import RollImage from '@/modules/Identities/RollImage';
+import {
+  getThumbnailPortrait
+} from '@/utils/getData';
 
 interface MovieCardTopProps {
   data: MovieInterface;
@@ -100,7 +100,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
   const title = data?.title || '';
   let thumbURl = '';
   if(portrait){
-    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailBannerUrl || data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
+    thumbURl = getThumbnailPortrait(data);
   }else{
     thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
   }

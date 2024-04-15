@@ -13,6 +13,9 @@ import RollImage from '@/modules/Identities/RollImage';
 import {Cancel} from '@mui/icons-material';
 import CardHeaderMobile from '@/modules/elements/CardHeaderMobile';
 import CardFooterMobile from '@/modules/elements/CardFooterMobile';
+import {
+  getThumbnailPortrait
+} from '@/utils/getData';
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -90,7 +93,7 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
     clearTimeout(timer);
   }
   const title = data?.title || '';
-  let thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailBannerUrl || data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
+  let thumbURl = getThumbnailPortrait(data);
   let aspectRatio = '6/9';
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){

@@ -22,6 +22,7 @@ import {
   convertESTtoLocalTime,
 } from "@/utils/yearFromDate";
 import CountDownDate from "@/modules/Identities/CountDownDate";
+import { getThumbnailPortrait } from "@/utils/getData";
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -47,7 +48,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
   const [watchListRequest, setWatchListRequest] = useState(false);
   const [popupIsLoading, setPopupIsLoading] = useState(false);
   const [itemRemoved, setItemRemoved] = useState(false);
-  let thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailBannerUrl || data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
+  let thumbURl = getThumbnailPortrait(data);
   let title = data?.title || "";
   let description = data?.description || "";
   let publishDate = data?.publishSchedule

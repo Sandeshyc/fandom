@@ -12,11 +12,14 @@ const PACKAGES_QUERY = gql`
         description
         offAirDate
         thumbnailBannerUrl
+        thumbnailPortrait
+        thumbnailUrl
+        thumbnailPortraitUrl
+        thumbnailLandscapeUrl
         trailerUrl
         onAirDate
         canBuy
         allowed
-        thumbnailLandscapeUrl
         contentRating
         duration
         genre

@@ -26,6 +26,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const [userId, setUserId] = React.useState('');
   const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
+  const [isHover, setIsHover] = React.useState(false);
 
   // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
@@ -139,6 +140,9 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
     handleClose(null);
   }, [router.pathname]);
 
+  useEffect(() => {
+    setIsHover(true);
+  }, [data]);
   if (!visible) {
     return null;
   }
@@ -175,10 +179,10 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
                 poster={data?.thumbnailLandscapeUrl}
                 isMute={isMute}
                 play={true}
-                className='transition-opacity duration-300 ease-in-out delay-1000'
+                className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000`}
               />
               </div>
-            </div> : <div className='aspect-[16/9]'></div>}             
+            </div> : <div className='aspect-[16/9]'></div>}
           </div> 
         </div>    
         <div className="z-10
