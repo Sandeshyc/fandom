@@ -5,9 +5,9 @@ import queryMap from './queries'
 import GetComponent from '@/modules/skeletons';
 
 const BaseComponent = (props:any) => {
-  // console.log('BaseComponent ', props)
+  // console.log('BaseComponent ', props);
     const {module} = props
-    console.log('BaseComponentddd ', module)
+    // console.log('BaseComponentddd ', module);
     if (queryMap[module.sourceType]) {
       // console.log('BC ',{id: module.itemCode ?? module.source ?? "", userId: module.userId})
       const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
@@ -33,7 +33,7 @@ const BaseComponent = (props:any) => {
           {/* <p className='text-white'>{module?.displayType} Loading Skeleton...</p> */}
         </>
       );
-      if (error) return <p>GQL Error : {error.message}</p>;
+      if (error) return <p>GQL Error :{module?.sourceType as string} {module?.displayType as string} {module?.title as string} <span className='text-red-500'>{error.message}</span></p>;
 
       const newChild = React.cloneElement(props.children, {
           data,

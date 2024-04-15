@@ -34,8 +34,8 @@ const Home = (props:any) => {
   return (
     <>
       {(!isLoading && isReady ) ? (<>
-      <div className="pt-16 lg:pt-28 min-h-[80vh]" style={{
-        backgroundImage: bgImage,
+      <div className="pt-16 lg:pt-28 min-h-[80vh] bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]" style={{
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

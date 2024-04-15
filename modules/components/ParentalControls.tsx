@@ -20,6 +20,7 @@ const ParentalControls = () => {
             setIsOn(false);
         }else{
             setIsAuthOpen(true);
+            values.password = '';
         }
     };
     const togglePassword = () => {

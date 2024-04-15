@@ -9,7 +9,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SkeletonPurchase from '@/components/Skeleton/SkeletonPurchase';
 const bgImage = 'url("/images/new-bg.png")';
-const Home = (props) => {
+const Home = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
   const router = useRouter();
@@ -36,8 +36,8 @@ const Home = (props) => {
   return (
     <>
       {(!isLoading && isReady) ? (<><Navbar/>
-      <div className="py-16 pt-28 min-h-[80vh]" style={{
-        backgroundImage: bgImage,
+      <div className="py-16 pt-28 min-h-[80vh] bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]" style={{
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

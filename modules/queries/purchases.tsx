@@ -12,6 +12,7 @@ const PURCHASES_QUERY = gql`
         description
         offAirDate
         thumbnailBannerUrl
+        thumbnailPortrait
         trailerUrl
         onAirDate
         canBuy

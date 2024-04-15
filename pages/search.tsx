@@ -99,9 +99,9 @@ const Search = (props:any) => {
   
   return (
     <>
-      <div className="py-16 lg:pt-32 text-white"
+      <div className="py-16 lg:pt-32 text-white bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

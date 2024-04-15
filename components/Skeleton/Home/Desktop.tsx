@@ -7,9 +7,9 @@ import SkeletonRollPackage from '@/components/Skeleton/SkeletonRollPackage';
 const bgImage = 'url("/images/new-bg.png")';
 const SkeletonHomeDesktop = () => {
   return (
-    <div className="bg-black"
+    <div className="bg-black bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
     style={{
-      backgroundImage: bgImage,
+      // backgroundImage: bgImage,
       backgroundRepeat: "no-repeat",
       backgroundSize: "100% auto",
       backgroundPosition: "right " + 30 + "%",

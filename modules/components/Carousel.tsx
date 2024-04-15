@@ -27,8 +27,8 @@ type CarouselProps = {
 };
 
 const Carousel = ({items}:CarouselProps) => {
-    return (<div className='pb-4 pt-[55px] bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
-        <div className='mx-[4vw] mobileCarousel scale-[0.8]'>
+    return (<div className='pb-4 pt-[75px] bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
+        <div className='mx-[1vw] mobileCarousel scale-[0.9]'>
             <Slider {...settings}>
                 {items?.map((item, index) => {
                     return <CarouselItem key={stableKeys[index]} item={item}/>
@@ -47,6 +47,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // console.log('item: ', item);
     useEffect(() => {
         const _checkAuthentication = async () => {
         const isAuthenticated = await checkAuthentication();
@@ -73,7 +74,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
             <img src={thumb} alt={item?.title} className='w-full h-full object-cover rounded-lg'/>
         </div>
         <div className='absolute bottom-0 left-0 w-full p-2 pb-4 pt-12 bg-gradient-to-t from-black/60 from-60% to-transparent to-85%'>
-            <p className='text-white text-lg font-medium text-center mb-2 drop-shadow-md'>
+            <p className='text-white text-md sm:text-lg font-medium text-center mb-2 drop-shadow-md'>
                 {item?.title}
             </p>
             <div className='flex justify-center'>

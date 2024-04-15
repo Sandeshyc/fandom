@@ -654,6 +654,9 @@ html {
 .billboardSlider .slick-next{
   right: 15px;
 }
+.billboardSlider .slick-slide{
+  padding: 0px;
+}
 .mobileEventCardsSlide > div{
   min-width: 280px;
   width: 280px;
