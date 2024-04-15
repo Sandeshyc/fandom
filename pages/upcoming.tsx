@@ -41,9 +41,9 @@ const Upcoming = () => {
 
   return (
     <div
-    className='bg-[#000000] text-white'
+    className='bg-[#000000] text-white bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]'
     style={{
-      backgroundImage: bgImage,
+      // backgroundImage: bgImage,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '100% auto',
       backgroundPosition: 'right '+ 30 + '%',

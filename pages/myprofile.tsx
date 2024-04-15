@@ -182,9 +182,9 @@ const MyProfile = () => {
   return (<>
       {(isReady && !isLoading)?<>
       {isMobile?<Header/>:<Navigation/>}
-      <div className="py-16 lg:pt-28 min-h-[80vh]"
+      <div className="py-16 lg:pt-28 min-h-[80vh] bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

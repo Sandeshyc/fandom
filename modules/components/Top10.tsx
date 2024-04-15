@@ -84,14 +84,14 @@ const Top10 = ({ data, title, portrait }:Props) => {
             <div className="block lg:hidden">
                 <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
                 {data?.map((movie, index) => (
-                    (i<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={i++} portrait={portrait} />:null
+                    (i<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={i++} portrait={true} />:null
                 ))}
                 </div>
             </div>
             <div className="hidden lg:block gap-2">
                 <Slider {...settings}>
                 {data?.map((movie, index) => (                
-                    (j<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={j++} portrait={portrait} />:null
+                    (j<=11)?<MovieCardTop10 key={stableKeys[index]} data={movie} number={j++} portrait={true} />:null
                 ))}
                 </Slider>  
             </div> 

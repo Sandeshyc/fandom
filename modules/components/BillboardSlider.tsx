@@ -48,6 +48,7 @@ type Props = {
 const BillboardSlider = (inputProps: Props) => {
   const { data } = inputProps;
   const [activeIndex, setActiveIndex] = React.useState(0);
+  console.log("activeIndex", activeIndex);
 
   // const data = fetchData(inputProps.module)
   const noOfSlides = Array.isArray(data) ? data.length : 0;

@@ -47,8 +47,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
   const [watchListRequest, setWatchListRequest] = useState(false);
   const [popupIsLoading, setPopupIsLoading] = useState(false);
   const [itemRemoved, setItemRemoved] = useState(false);
-  let thumbURl =
-    data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || "";
+  let thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailBannerUrl || data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
   let title = data?.title || "";
   let description = data?.description || "";
   let publishDate = data?.publishSchedule

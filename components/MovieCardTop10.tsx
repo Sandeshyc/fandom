@@ -100,7 +100,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
   const title = data?.title || '';
   let thumbURl = '';
   if(portrait){
-    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailBannerUrl || data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
   }else{
     thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
   }

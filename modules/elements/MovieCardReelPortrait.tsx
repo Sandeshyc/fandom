@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { round, set } from 'lodash';
 import {
   addToMyList,
@@ -9,11 +8,7 @@ import {
 } from '@/services/api';
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
-import EnititlementEndDate from '@/components/Expair';
-import PublishDate from '@/modules/Identities/PublishDate';
-import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
-import BadgeMobile from '@/modules/Identities/BadgeMobile';
 import RollImage from '@/modules/Identities/RollImage';
 import {Cancel} from '@mui/icons-material';
 import CardHeaderMobile from '@/modules/elements/CardHeaderMobile';
@@ -95,7 +90,7 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
     clearTimeout(timer);
   }
   const title = data?.title || '';
-  let thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+  let thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailBannerUrl || data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
   let aspectRatio = '6/9';
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){
@@ -167,8 +162,8 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
   }, []);
 
   return (
-    <div className='flex flex-col relative movieCard'>
-      <div className='mb-1'>
+    <div className='flex flex-col justify-end relative movieCard'>
+      <div className='mb-0'>
         <CardHeaderMobile header={data?.header} />
       </div>
       <div 

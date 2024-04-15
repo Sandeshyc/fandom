@@ -11,6 +11,7 @@ export interface MovieInterface {
   thumbnailPortraitUrl: string;
   thumbnailLandscapeUrl: string;
   thumbnailMotionUrl?: string;
+  thumbnailBannerUrl?: string;
   videoUrl: string;
   duration: string | number;
   videoDuration?: number;

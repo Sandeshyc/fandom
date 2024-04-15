@@ -175,7 +175,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
                 poster={data?.thumbnailLandscapeUrl}
                 isMute={isMute}
                 play={true}
-                className='opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000'
+                className='transition-opacity duration-300 ease-in-out delay-1000'
               />
               </div>
             </div> : <div className='aspect-[16/9]'></div>}             

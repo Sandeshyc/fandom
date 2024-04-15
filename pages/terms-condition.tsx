@@ -9,9 +9,9 @@ const Home = (props:any) => {
   return (
     <>
       <NavigationHome />
-      <div className="pt-20 lg:pt-28 min-h-[85vh] min-w-full text-white"
+      <div className="pt-20 lg:pt-28 min-h-[85vh] min-w-full text-white bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto', 
         backgroundPosition: 'right '+ 30 + '%',

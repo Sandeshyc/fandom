@@ -5,9 +5,9 @@ import queryMap from './queries'
 import GetComponent from '@/modules/skeletons';
 
 const BaseComponent = (props:any) => {
-  // console.log('BaseComponent ', props)
+  // console.log('BaseComponent ', props);
     const {module} = props
-    console.log('BaseComponentddd ', module)
+    // console.log('BaseComponentddd ', module);
     if (queryMap[module.sourceType]) {
       // console.log('BC ',{id: module.itemCode ?? module.source ?? "", userId: module.userId})
       const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
