@@ -12,6 +12,9 @@ import {
   ArrowBackIosNewOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import {
+  getThumbnailBanner
+} from "@/utils/getData";
 
 function SlickNextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -88,7 +91,7 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
   const title = data?.title;
   const description = data?.description;
   const trailerUrl = data?.trailerUrl;
-  const thumbnailUrl = data?.thumbnailBannerUrl;
+  const thumbnailUrl = getThumbnailBanner(data);
   const detailUrl = `/details/${itemId}`;
   const watchUrl = `/watch/${itemId}`;
   return (

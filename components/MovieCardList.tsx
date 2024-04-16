@@ -4,9 +4,8 @@ import { MovieInterface } from '@/types';
 import RemoveListBtn from '@/components/RemoveListButton';
 import Buttons from '@/modules/Identities/Buttons';
 import { VolunteerActivismOutlined } from '@mui/icons-material';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import CardHeader from '@/modules/elements/CardHeader';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -22,12 +21,13 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const isRemoveHandler = (isRemove: boolean) => {
     setIsRemove(isRemove);
   }
-
+  const thumb = getThumbnailLandscape(data);
   return (!isRemove?
     <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4'>
     <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white rounded-md sm:mr-4 justify-between h-full w-full">
       <div className="w-[40%] relative bg-gray-600 rounded-md">
-        <img onClick={redirectToDetails} src={data.thumbnailUrl } alt={data?.title || ' '} draggable={false} className="
+        {(thumb)?
+          <img onClick={redirectToDetails} src={thumb} alt={data?.title || ' '} draggable={false} className="
           cursor-pointer
           object-contain
           rounded-md
@@ -38,10 +38,9 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           items-center
           aspect-[9/6]
           text-white/40" />
-        {/* {(data?.allowed)?<PurchaseBadge/>
         :
-        <BadgeDesktop text="Sale" theme="orange"/>
-        } */}
+          <div onClick={redirectToDetails} className="w-full h-full bg-gray-800 text-white flex justify-center items-center cursor-pointer">{data?.title}</div>
+        }        
         <CardHeader header={data?.header} />
       </div>
       <div className="w-[58%] py-1">

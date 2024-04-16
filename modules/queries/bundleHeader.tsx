@@ -9,7 +9,11 @@ const BUNDLE_HEADER_QUERY = gql`
       name
       duration
       publishSchedule
+      thumbnailBannerUrl
+      thumbnailPortrait
       thumbnailUrl
+      thumbnailPortraitUrl
+      thumbnailLandscapeUrl
       contentRating
       noOfMovie
       canBuy

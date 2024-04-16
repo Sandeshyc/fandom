@@ -15,10 +15,11 @@ type Props = {
     linkText?: string;
 };
 const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false }:Props) => {
-    if(Array.isArray(data) && data?.length > 0 ) {
-        data = data.filter((item: any) => item && item.itemCode);
-    }
-    // console.log('data', data);
+    // console.log('data ddds', data);
+    // if(Array.isArray(data) && data?.length > 0 ) {
+    //     data = data.filter((item: any) => item && item.itemCode);
+    // }
+    // console.log('data ddd', data);
     const [openTab, setOpenTab] = useState(0);
     const [userId, setUserId] = useState('');
     const [allTicketsItems, setAllTicketsItems] = useState([]);

@@ -14,6 +14,7 @@ import SocialShare from '@/modules/elements/SocialShare';
 import checkAuthentication from '@/utils/checkAuth';
 import Title from '@/modules/Identities/Title';
 import { yearFromDate } from '@/utils/yearFromDate';
+import { getThumbnailLandscape, getThumbnailPortrait } from "@/utils/getData";
 type Props = {
   data: any;
   isComplited: any;
@@ -22,9 +23,13 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
-  const bannerThumb = data?.thumbnailLandscapeUrl || data?.thumbnailBannerUrl || data?.thumbnailUrl || '';
+  const postar = getThumbnailPortrait(data);
+  const bannerThumb = getThumbnailLandscape(data);
   let publishYear = data?.publishSchedule;
+  let trailerUrl = '';
+  if(data?.trailerUrl){
+    trailerUrl = data?.trailerUrl;    
+  }
   // get year from date
   if(publishYear){
     publishYear = yearFromDate(publishYear);
@@ -47,7 +52,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
       >
         <div className="brightness-[60%] h-full">
           <ReactVideoPlayer
-            videoURL={data?.videoUrl}
+            videoURL={trailerUrl}
             poster={bannerThumb}
           />
         </div>
@@ -58,7 +63,11 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
           <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
             <div className="flex flex-wrap items-end w-full">
               <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
-                <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
+                {(postar)?
+                  <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
+                :
+                  <div className='w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center'>{data?.title}</div>
+                }
               </div>
               <div className='grow w-[100px] '>
                 <div className=' h-full mb-2 lg:mb-3'>

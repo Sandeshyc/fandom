@@ -144,11 +144,11 @@ const Search = (props:any) => {
                   <div className={`w-full flex-wrap ${(openFilter)?'flex':'hidden lg:flex'}`}>    
                     <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px] '>
                       <div 
-                        className="bg-gray-700 rounded-md bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
+                        className="bg-gray-700 rounded-md">
                         <select 
                         defaultValue={genre}
                         onChange={(e) => setGenre(e.target.value)}
-                        className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none  pr-[20px]">
+                        className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px] bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
                           <option value="">Genre</option>
                           <option value="comedy">Comedy</option> 
                           <option value="drama">Drama</option> 
@@ -160,7 +160,7 @@ const Search = (props:any) => {
                       <input 
                       type="text" 
                       className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" 
-                      placeholder="Author Name" 
+                      placeholder="Director Name" 
                       value={author}
                       onChange={(e) => setAuthor(e.target.value)}
                       />                    
@@ -176,11 +176,11 @@ const Search = (props:any) => {
                     </div>                    
                     <div className='w-1/2 lg:w-1/4 xl:w-1/5 mb-2 px-[7px]'>
                       <div 
-                        className="bg-gray-700 rounded-md bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
+                        className="bg-gray-700 rounded-md">
                         <select 
                         defaultValue={contentType}
                         onChange={(e) => setContentType(e.target.value)}
-                        className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none  pr-[20px]">
+                        className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px] bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
                           <option value="">Content Type</option>
                           <option value="Movie">Movie</option>
                           <option value="TV Show">TV Show</option>

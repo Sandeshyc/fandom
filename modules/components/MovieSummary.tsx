@@ -4,6 +4,7 @@ import Title from '@/modules/Identities/Title';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
+import { getThumbnailPortrait } from '@/utils/getData';
 
 
 type dataProps = {
@@ -14,7 +15,7 @@ const MovieSummary = (inputProps:dataProps) => {
 
   const {data} = inputProps
 
-    const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+    const postar = getThumbnailPortrait(data);
     let publishYear = data?.publishSchedule;
     // get year from date
     if(publishYear){
@@ -23,7 +24,7 @@ const MovieSummary = (inputProps:dataProps) => {
     const publishRemaining = getTimeDifference(data?.publishSchedule);
     // console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
     return (
-      <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
+      <div className='text-white z-10 relative mt-[-80px] md:mt-[-150px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
         <div className='container mx-auto px-4'>
           <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>

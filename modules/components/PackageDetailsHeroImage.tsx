@@ -11,11 +11,12 @@ import PackageDetailsHeroImageMobile from '@/modules/components/PackageDetailsHe
 import useIsMobile from '@/hooks/useIsMobile';
 import SocialShare from '@/modules/elements/SocialShare';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import { getThumbnailLandscape } from '@/utils/getData';
 type Props = {
     data: any;
 }
 const PackageDetailsHeroImage = ({data}:Props) => {
-    console.log('PackageDetailsHeroImage ', data)
+    // console.log('PackageDetailsHeroImage ', data)
     const [open, setOpen] = React.useState(false);
     const handleToggle = () => {
         setOpen(!open);
@@ -23,7 +24,7 @@ const PackageDetailsHeroImage = ({data}:Props) => {
     const [hasMovieList, setHasMovieList] = React.useState(false);
     const [movieListOfset, setMovieListOfset] = React.useState(0);
     const movieId = data?._id || '';
-    let thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
+    let thumb = getThumbnailLandscape(data);
     const isMobile = useIsMobile();
     let trailerUrl = '';
     if(data?.trailerUrl){
