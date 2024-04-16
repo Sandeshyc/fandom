@@ -2,15 +2,12 @@ import React, {useRef} from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { stableKeys } from '@/utils/stableKeys';
-
 import { MovieInterface } from '@/types';
 import { get, isEmpty } from 'lodash';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import NotAllowed from '@/modules/Identities/NotAllowed';
-
+import { getThumbnailLandscape } from '@/utils/getData';
 interface MovieListNumberProps {
   data: MovieInterface[];
   title: string;
@@ -52,7 +49,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
   const getSlides = () => { 
     let i = 0;
     return data.map((movie:any, index:number) => {  
-    const bannerThumb = movie?.thumbnailLandscapeUrl || movie?.thumbnailBannerUrl || movie?.thumbnailUrl || ''; 
+    const bannerThumb = getThumbnailLandscape(movie); 
     return (
       <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-2'>
         <div className="w-full aspect-video cursor-pointer">
@@ -60,7 +57,11 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
             {(movie?.allowed)?<PurchaseBadge/>:
             (movie?.canBuy === false)?<NotAllowed message='Region Restricted'/>:
             null}
-            <img src={bannerThumb} className="w-full h-full object-contain rounded-lg" />
+            {(bannerThumb)?
+              <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg" />
+            :
+              <div className="w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center">{movie?.title}</div>
+            }
           </div>
         </div>
       </div>

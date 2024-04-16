@@ -16,6 +16,7 @@ const PLAYLIST_QUERY = gql`
         allowed
         trailerUrl
         thumbnailBannerUrl
+        thumbnailPortrait
         thumbnailUrl
         thumbnailPortraitUrl
         thumbnailLandscapeUrl

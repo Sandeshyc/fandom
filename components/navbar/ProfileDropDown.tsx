@@ -6,6 +6,7 @@ import useProfile from '@/hooks/useProfile';
 import { Menu, Transition } from '@headlessui/react';
 import {ArrowDropDown, CreditCard, PaymentsOutlined, DevicesOtherOutlined} from '@mui/icons-material';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
+import LogoutPopUp from '@/modules/elements/LogoutPopUp';
 import {
     MyTicketsIcon,
     MyListIcon,
@@ -29,6 +30,7 @@ const ProfileDropDown = () => {
     const [displayName, setDisplayName] = React.useState('');
     const { data: profile, isLoading } = useProfile(userid);
     const isLoginUser = useCheckAuthentication();
+    const [isLogoutPopUp, setIsLogoutPopUp] = useState(false);
     // console.log('profile', profile, isLoading);
 
     
@@ -91,6 +93,7 @@ const ProfileDropDown = () => {
     return (
         <>
         {(isLoginUser)?
+        <>
         <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
                 <div className='transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/80'>
@@ -206,7 +209,7 @@ const ProfileDropDown = () => {
                             <button 
                                 className='flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1'
                                 onClick={
-                                    () => logoutFnc()
+                                    () => setIsLogoutPopUp(true)
                                 }>
                                 <span className='mr-2'><LogoutIcon/></span>
                                 <p>Logout</p>
@@ -216,6 +219,8 @@ const ProfileDropDown = () => {
                 </Menu.Items>
             </Transition>
         </Menu>
+        {(isLogoutPopUp)&&<LogoutPopUp setIsLogoutPopUp={setIsLogoutPopUp}/>}
+        </>
         :
         <Link 
         href='/auth'

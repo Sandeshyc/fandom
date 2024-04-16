@@ -11,11 +11,11 @@ const WATCHLIST_QUERY = gql`
         title
         description
         offAirDate
-        thumbnailBannerUrl
         trailerUrl
         onAirDate
         canBuy
         allowed
+        thumbnailBannerUrl
         thumbnailLandscapeUrl
         thumbnailUrl
         thumbnailPortraitUrl        

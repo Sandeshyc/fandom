@@ -4,7 +4,6 @@ const PURCHASES_QUERY = gql`
   query ($input: QueryInput) {
     purchases (input: $input) {
       assetId
-
       items {
         _id
         assetId
@@ -12,6 +11,7 @@ const PURCHASES_QUERY = gql`
         description
         offAirDate
         thumbnailBannerUrl
+        thumbnailPortrait
         trailerUrl
         onAirDate
         canBuy
@@ -20,6 +20,7 @@ const PURCHASES_QUERY = gql`
         contentRating
         duration
         genre
+        endTime        
         header {
           text
           type

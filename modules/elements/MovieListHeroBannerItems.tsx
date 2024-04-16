@@ -10,6 +10,7 @@ import { MovieInterface } from '@/types';
 import { get, isEmpty } from 'lodash';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import NotAllowed from '@/modules/Identities/NotAllowed';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 type MovieListNumberProps = {
   data: MovieInterface[];
@@ -114,7 +115,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
     let i = 0;
     return data.map((movie:any, index:number) => {
       // console.log('movie', movie);
-      const bannerThumb = movie?.thumbnailLandscapeUrl || movie?.thumbnailBannerUrl || movie?.thumbnailUrl || '';
+      const bannerThumb = getThumbnailLandscape(movie);
       return (
         <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
           <div className="w-full aspect-video cursor-pointer">
@@ -122,7 +123,11 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
               {(movie?.allowed)?<PurchaseBadge/>:
               (movie?.canBuy === false)?<NotAllowed/>:
               null}
+              {(bannerThumb)?
               <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg text-zinc-500 flex justify-center items-center" />
+              :
+              <div className="w-full h-full bg-gray-800 rounded-lg text-zinc-500 flex justify-center items-center">{movie?.title}</div>
+              }
             </div>
           </div>
         </div>

@@ -61,8 +61,8 @@ const Watch = () => {
     if(trailer === 'true'){
       setIsTrailer(true);
       let trailerURL = data?.trailerVideo ? data?.trailerVideo : data?.trailerUrl;
-      if(!trailerURL){
-        data?.videoUrls.map((item:any) => {
+      if(!trailerURL && Array.isArray(data?.videoUrls) && data?.videoUrls.length > 0){
+        data?.videoUrls?.map((item:any) => {
           if(item?.label === 'Trailer'){
             trailerURL = item?.url;
           }

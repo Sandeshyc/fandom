@@ -1,15 +1,9 @@
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import SkeletonSimpleCard from './SkeletonSimpleCard';
-import {FilmReel} from '../../utils/CustomSVGs';
-import MovieDetails from '@/components/Skeleton/MovieDetails';
-import { useRouter } from 'next/router';
 import SkeletonHeader from '@/components/Skeleton/Header';
-import SkeletonDetailsMobile from '@/components/Skeleton/SkeletonDetailsMobile';
 import SkeletonRollMultiRows from '@/components/Skeleton/SkeletonRollMultiRows';
 
 const SkeletonExploreAll = () => {
-  const router = useRouter();
   return (
     <>
       <div className="lg:hidden  min-h-screen">

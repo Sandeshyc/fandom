@@ -18,7 +18,7 @@ const NavigationHome = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const isMobile = useIsMobile();
   const isLoginUser = useCheckAuthentication();
-  console.log('isLoginUser', isLoginUser);
+  // console.log('isLoginUser', isLoginUser);
   // get scroll position in px
   const getScrollPosition = () => {
     return window?.pageYOffset;

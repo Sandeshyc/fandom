@@ -51,9 +51,9 @@ const MyProfile = () => {
 
   return (<>
       {isMobile?<Header/>:<Navigation/>}
-      <div className="pt-28 min-h-full"
+      <div className="pt-28 min-h-full bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

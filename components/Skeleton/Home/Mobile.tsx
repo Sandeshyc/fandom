@@ -4,7 +4,7 @@ import SkeletonRoll from '@/components/Skeleton/SkeletonRoll';
 
 const SkeletonHomeMobile = () => {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]">
         <div className={`fixed top-0 left-0 z-40 w-full py-4 bg-gradient-to-b from-black to-transparent`}>
             <div className='px-4'>
                 <div className='flex items-center justify-center flex-wrap'>

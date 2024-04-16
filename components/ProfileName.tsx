@@ -65,7 +65,7 @@ const ProfileNameField = (
                     onChange={handleChange}
                     placeholder="First Name"
                     type="text" 
-                    className='w-full text-[14px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%]'/><div className="absolute top-0 left-2 flex justify-center items-center h-full">
+                    className='w-full text-[14px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%] text-white'/><div className="absolute top-0 left-2 flex justify-center items-center h-full">
                     <UserIcon/>
                 </div>
             </div>
@@ -99,7 +99,7 @@ const ProfileLastNameField = (
                     onChange={handleChange}
                     placeholder="Last Name"
                     type="text" 
-                    className='w-full text-[14px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%]'/><div className="absolute top-0 left-2 flex justify-center items-center h-full">
+                    className='w-full text-[14px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[48px] bg-[#767680] bg-opacity-[22%] text-white'/><div className="absolute top-0 left-2 flex justify-center items-center h-full ">
                     <UserIcon/>
                 </div>
             </div>
