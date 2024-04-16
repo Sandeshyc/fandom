@@ -4,6 +4,9 @@ const BUNDLE_QUERY = gql`
   query ($input: QueryInput) {
     bundle(input: $input) {
       assetId
+      name
+      description
+      title
 
       items {
         _id
