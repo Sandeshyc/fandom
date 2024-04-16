@@ -11,6 +11,8 @@ import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
+import { getThumbnailPortrait } from '@/utils/getData';
+
 let settings = {
     dots: false,
     arrows: false,
@@ -43,7 +45,7 @@ type CarouselItemProps = {
     item: any;
 };
 const CarouselItem = ({item}:CarouselItemProps) => {
-    const thumb = item?.thumbnailPortraitUrl || item?.thumbnailLandscapeUrl;
+    const thumb = getThumbnailPortrait(item);
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

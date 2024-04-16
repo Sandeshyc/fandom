@@ -4,6 +4,7 @@ import { capFirstLetter } from '@/utils/capFirstLetter';
 import { MovieInterface } from '@/types';
 import EnititlementEndDate from '@/components/Expair';
 import { VolunteerActivismOutlined, Check, ShoppingBagOutlined } from '@mui/icons-material';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -12,11 +13,12 @@ interface MovieCardProps {
 
 const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
+  const thumb = getThumbnailLandscape(data);
   const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
   return (
     <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white w-full rounded-md sm:mr-4 justify-between h-full">
       <div className="w-[40%] relative bg-gray-600 rounded-md">
-        <img onClick={redirectToWatch} src={data.thumbnailUrl } alt={data?.title || ' '} draggable={false} 
+        <img onClick={redirectToWatch} src={ thumb } alt={data?.title || ' '} draggable={false} 
           className="cursor-pointer
           object-contain
           rounded-md

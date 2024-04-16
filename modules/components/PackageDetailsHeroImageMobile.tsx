@@ -6,6 +6,7 @@ import MovieSummary from '@/modules/components/MovieSummary';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 type Props = {
     data: any;
@@ -13,7 +14,7 @@ type Props = {
 const PackageDetailsHeroImageMobile = ({data}:Props) => {
     const [hasMovieList, setHasMovieList] = useState(false);
     const [movieListOfset, setMovieListOfset] = useState(0);
-    const thumb = (data?.heroImageUrl) ? data?.heroImageUrl : (data?.thumbnailUrl) ? data?.thumbnailUrl : '';
+    const thumb = getThumbnailLandscape(data);;
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
         if((movieListHeroBanner !== null) && (movieListHeroBanner !== undefined) && (movieListHeroBanner !== '')){

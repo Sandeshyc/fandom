@@ -9,6 +9,8 @@ const CONTENT_QUERY = gql`
         thumbnailBannerUrl
         thumbnailUrl
         thumbnailPortraitUrl
+        thumbnailPortrait
+        thumbnailLandscapeUrl
         publishSchedule
         title
         contentRating
