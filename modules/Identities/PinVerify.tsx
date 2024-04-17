@@ -9,32 +9,26 @@ interface Props {
   isReset?: boolean;
   isSuccess?: boolean;
   isFail?: boolean;
-  pin?: string;
+  myPin?: string;
+  setPinMode?: (pinMode: boolean) => void;
 }
 
-const PinInput: React.FC<Props> = ({ 
+const PinVerify: React.FC<Props> = ({ 
   length = 4, 
   onChange, 
-  pin,
+  myPin,
   isReset,
   isSuccess,
-  isFail
+  isFail,
+  setPinMode
  }) => {
-  const [otp, setOtp] = useState<Array<string>>(Array(length).fill(pin || ''));
+  const [otp, setOtp] = useState<Array<string>>(Array(length).fill(''));
   const inputRefs = useRef<Array<HTMLInputElement | null>>(Array(length).fill(null));
   const [borderColorClass, setBorderColorClass] = useState('border-white/20');
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
   }, []);
-
-  useEffect(() => {
-    // Update the OTP state with the PIN value
-    if (pin) {
-      const newOtp = pin.split('').slice(0, length);
-      setOtp(newOtp.concat(Array(length - newOtp.length).fill('')));
-    }
-  }, [pin, length]);
 
   const handleInputChange = (index: number, value: string ) => {
     const newOtp = [...otp];
@@ -52,6 +46,18 @@ const PinInput: React.FC<Props> = ({
       inputRefs.current[index + 1]?.focus();
     }else if(index === length - 1 && value !== ''){
         inputRefs.current[index]?.blur();
+        console.log('joinedOtp: ', joinedOtp);
+        if(myPin === joinedOtp){
+            setBorderColorClass('border-green-500');
+            setTimeout(() => {
+                setPinMode && setPinMode(false);
+            }, 700);
+        }else{
+            setBorderColorClass('border-red-500/80');
+            setTimeout(() => {
+                setPinMode && setPinMode(true);
+            }, 700);
+        }
     }
   };
 
@@ -81,11 +87,11 @@ const PinInput: React.FC<Props> = ({
     }
   },[isSuccess, isFail]);
   return (
-    <div className='mt-4'>
+    <div className='mt-2 mx-auto'>
       {otp.map((digit, index:number) => (
         <input
           key={stableKeys[index]}
-          type="number"
+          type="password"
           inputMode='numeric'
           maxLength={1}
           value={digit}
@@ -99,4 +105,4 @@ const PinInput: React.FC<Props> = ({
   );
 };
 
-export default PinInput;
+export default PinVerify;

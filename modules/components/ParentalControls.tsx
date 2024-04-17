@@ -5,7 +5,11 @@ import {
     VisibilityOff,
     RotateLeft
 } from '@mui/icons-material';
+import {
+    updateProfile
+} from '@/services/api';
 import Text from '@/modules/Identities/Text';
+import LinkRoute from '@/modules/Identities/LinkRoute';
 import ParentControlPin from '@/modules/elements/ParentControlPin';
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -21,23 +25,25 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+type Props = {
+    pcData: any;
+}
 // Main Component
-const ParentalControls = () => {
-    const [expanded, setExpanded] = useState(true);
-    const [isOn, setIsOn] = useState(false);
+const ParentalControls = ({pcData}:Props) => {
+    // console.log('pcData: ', pcData);
+    const [userid, setUserid] = React.useState('');
+    const [expanded, setExpanded] = useState(false);
+    const [isOn, setIsOn] = useState(pcData?.isEnable);
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const [isAuthOpen, setIsAuthOpen] = useState(true);
+    const [isAuthOpen, setIsAuthOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [pinOpen, setPinOpen] = useState(false);
     const toggleExpanded = () => {
         setExpanded(!expanded);
     }
     const toggleSwitch = () => {
-        if(isOn) {
-            setIsOn(false);
-        }else{
-            setIsAuthOpen(true);
-            values.userPassword = '';
-        }
+        setIsAuthOpen(true);
+        values.userPassword = '';
     };
     const togglePassword = () => {
         setIsShowPassword(!isShowPassword);
@@ -72,9 +78,29 @@ const ParentalControls = () => {
                                     userPassword
                                 );
                                 if(userCredential?.user){
-                                    values.userPassword = '';
-                                    setIsOn(true);
-                                    setIsAuthOpen(false);
+                                    if(isOn){
+                                        let newPcData = pcData;
+                                        newPcData.isEnable = false;
+                                        const data = {
+                                            userId: userid,
+                                            parentalControl: newPcData
+                                        }
+                                        const _updateProfile = async () => {
+                                            const response = await updateProfile(data);
+                                            if(response.status === 'success') {
+                                                setIsAuthOpen(false);
+                                                setPinOpen(false);
+                                                setIsOn(false);
+                                            }else{
+                                                formiks.setErrors({userPassword: 'Something went wrong'});
+                                            }
+                                        }
+                                        _updateProfile();
+                                    }else{
+                                        setIsAuthOpen(false);
+                                        setPinOpen(true);
+                                    }
+                                    values.userPassword = '';                                    
                                 }
                             }
                         }else{
@@ -92,8 +118,17 @@ const ParentalControls = () => {
             setIsLoading(false);
         },
         enableReinitialize: true,
-      });
-      const { errors, touched, values, handleChange, handleSubmit } = formiks;
+    });
+    const { errors, touched, values, handleChange, handleSubmit } = formiks;
+    useEffect(() => {
+        const userInfo = window.localStorage.getItem('userInfo');
+        if (userInfo) {
+          const userInfoObj = JSON.parse(userInfo);
+          if(userInfoObj.sub) {
+            setUserid(userInfoObj.sub);
+          }
+        }
+    }, []);
     return (
         <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[22%]`}>  
             <div className="flex justify-between">
@@ -176,10 +211,22 @@ const ParentalControls = () => {
                             className='bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] text-white h-[42px] sm:h-[46px] xl:h-[52px] py-2 ml-1 rounded-md px-4' 
                             type="submit">Submit</button>
                         </div>
+                        <div className='text-end mt-2'>
+                            <LinkRoute 
+                            type='unset'
+                            href='/auth/forget-password'
+                            className='text-[#fff]/90 text-[14px] py-1'>Forgot Password?</LinkRoute>
+                        </div>
                         {(errors.userPassword && touched.userPassword)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPassword}</p>:null}
                     </form>
                 </div>
-                <ParentControlPin />
+                {(pinOpen)&&
+                <ParentControlPin 
+                    setIsOn={setIsOn}                    
+                    setPinOpen={setPinOpen}
+                    pcData={pcData}
+                />
+                }
             </div>
         </div>
     );
