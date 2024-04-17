@@ -14,9 +14,9 @@ const BillingDetails = () => {
         <>
         {isMobile?<Header/>:<Navigation/>}
         <div
-        className='min-h-[85vh] min-w-full text-white'
+        className='min-h-[85vh] min-w-full text-white bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]'
         style={{
-            backgroundImage: bgImage,
+            // backgroundImage: bgImage,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '100% auto',
             backgroundPosition: 'right '+ 30 + '%',

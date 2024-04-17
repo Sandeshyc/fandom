@@ -6,10 +6,15 @@ const BUNDLE_HEADER_QUERY = gql`
       assetId
       _id
       title
+      description
       name
       duration
       publishSchedule
+      thumbnailBannerUrl
+      thumbnailPortrait
       thumbnailUrl
+      thumbnailPortraitUrl
+      thumbnailLandscapeUrl
       contentRating
       noOfMovie
       canBuy

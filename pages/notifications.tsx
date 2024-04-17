@@ -9,9 +9,9 @@ const Notifications = (props:any) => {
   return (
     <>
       <NavigationHome />
-      <div className="py-16 pt-24 lg:pt-32 min-h-[80vh]"
+      <div className="py-16 pt-24 lg:pt-32 min-h-[80vh] bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

@@ -64,9 +64,9 @@ const Details = () => {
 
   return (<>
     {(isReady && !isLoading && movieDetails)?<>
-      <div className="text-white bg-[#000000] overflow-x-hidden" 
+      <div className="text-white bg-[#000000] overflow-x-hidden bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]" 
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 50 + 'vh',

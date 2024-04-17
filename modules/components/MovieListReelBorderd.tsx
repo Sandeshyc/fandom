@@ -25,7 +25,7 @@ interface MovieListProps {
   isBoxesLayout?: boolean;
 }
 
-function SlickNextArrow(props) {
+function SlickNextArrow(props:any) {
   const { className, style, onClick } = props;
   return (
     
@@ -33,7 +33,7 @@ function SlickNextArrow(props) {
   );
 }
 
-function SlickPrevArrow(props) {
+function SlickPrevArrow(props:any) {
   const { className, style, onClick } = props;
   return (
     <div className={className} onClick={onClick}><ChevronLeftIcon strokeWidth={1.5}/></div>

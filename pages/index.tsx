@@ -50,9 +50,11 @@ const Home = () => {
 
   return (
     <div
-      className="bg-[#000000] text-white overflow-hidden relative"
+      className="bg-[#050505] text-white overflow-hidden relative
+      bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]
+      "
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% auto",
         backgroundPosition: "right " + 30 + "%",
