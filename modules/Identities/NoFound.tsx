@@ -11,7 +11,7 @@ export const NoPlanFound = () => {
           font-semibold 
           mx-auto 
           lg:pl-6 
-          w-[250px] 
+          w-[300px] 
           min-h-[200px]
           flex
           justify-center
@@ -20,7 +20,7 @@ export const NoPlanFound = () => {
           bg-blue-500
           bg-opacity-10
           rounded-md'>
-          No plan found!
+          Not yet available for purchase!
         </div>
     );
 }

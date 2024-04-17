@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
   auditEntitlement
 } from '@/services/api'
@@ -15,6 +16,7 @@ const PlanItemCard = ({
     movieId,
     isPackage
   }:Props) => {
+    const isLoginUser = useCheckAuthentication();
     let descriptions:any = [];
     if(item?.description){
       // replace all , with <li>
@@ -124,7 +126,7 @@ const PlanItemCard = ({
             px-3 md:px-6
             font-light
             w-full 
-            text-[16px]">Rent
+            text-[16px]">{(!isLoginUser)&&'Login and '}Rent
             </button></>)}
         </div>
         </div>

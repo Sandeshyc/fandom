@@ -184,6 +184,8 @@ const Search = (props:any) => {
                           <option value="">Content Type</option>
                           <option value="Movie">Movie</option>
                           <option value="TV Show">TV Show</option>
+                          <option value="Event">Event</option>
+                          <option value="channel">Channel</option>
                         </select>
                       </div>
                     </div>

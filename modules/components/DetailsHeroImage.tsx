@@ -1,25 +1,21 @@
 import React from 'react';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import useIsMobile from '@/hooks/useIsMobile';
-import { getThumbnailBanner } from '@/utils/getData';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 type dataProps = {
     data: any,
     module: any
 }
-const DetailsHeroImage = (inputProps:dataProps) => {
-    
+const DetailsHeroImage = (inputProps:dataProps) => {    
     const {data} = inputProps
-
-
     // trailerUrl 
     let videoURL = data?.trailerUrl;
-    let thumb = getThumbnailBanner(data);
+    let thumb = getThumbnailLandscape(data);
     return (<DetailsHeroBanner
         thumb={thumb}
         videoURL={videoURL}
-    />);
-  
+    />);  
 }
 export default DetailsHeroImage;
 

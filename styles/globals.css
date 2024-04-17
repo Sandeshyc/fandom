@@ -711,3 +711,26 @@ html {
 .sameHeightSlick .slick-slide > div{
   height: 100%;
 }
+
+
+.no-arrows, .no-arrows:focus, .no-arrows:active, .no-arrows:visited{
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* WebKit (Chrome, Safari) */
+}
+
+.no-arrows, .no-arrows:focus, .no-arrows:active, .no-arrows:visited{
+  -moz-appearance: textfield; /* Firefox */
+}

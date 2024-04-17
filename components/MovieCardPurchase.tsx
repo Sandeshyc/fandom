@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { capFirstLetter } from '@/utils/capFirstLetter';
 import { MovieInterface } from '@/types';
 import EnititlementEndDate from '@/components/Expair';
-import { VolunteerActivismOutlined, Check, ShoppingBagOutlined } from '@mui/icons-material';
+import { Check, ShoppingBagOutlined } from '@mui/icons-material';
 import { getThumbnailLandscape } from '@/utils/getData';
 
 interface MovieCardProps {
