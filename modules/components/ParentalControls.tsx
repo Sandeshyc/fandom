@@ -2,16 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import {
     Visibility,
-    VisibilityOff
+    VisibilityOff,
+    RotateLeft
 } from '@mui/icons-material';
 import Text from '@/modules/Identities/Text';
+import ParentControlPin from '@/modules/elements/ParentControlPin';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { initializeApp } from 'firebase/app';
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+} from 'firebase/auth';
+const firebaseConfig = {
+    apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
+    authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Main Component
 const ParentalControls = () => {
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(true);
     const [isOn, setIsOn] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const [isAuthOpen, setIsAuthOpen] = useState(false);
+    const [isAuthOpen, setIsAuthOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const toggleExpanded = () => {
         setExpanded(!expanded);
     }
@@ -20,7 +36,7 @@ const ParentalControls = () => {
             setIsOn(false);
         }else{
             setIsAuthOpen(true);
-            values.password = '';
+            values.userPassword = '';
         }
     };
     const togglePassword = () => {
@@ -28,22 +44,52 @@ const ParentalControls = () => {
     };
     // start Formik
     const schema = Yup.object().shape({
-        password: Yup.string().required("Password is required"),
+        userPassword: Yup.string().required("Password is required"),
     });
     const formiks = useFormik({
         initialValues: {
-        password: '',
+            userPassword: '',
         },
         // Pass the Yup schema to validate the form
         validationSchema: schema,
-
         // Handle form submission
-        onSubmit: async ({ 
-        password,
+        onSubmit: async ({
+            userPassword,
         }) => {
-            setIsOn(true);
-            setIsAuthOpen(false);
-            values.password = '';
+            setIsLoading(true);
+            try {
+                const provider = localStorage.getItem('provider');
+                if(provider === 'firebase') {
+                    const userInfo = localStorage.getItem('userInfo');
+                    if(userInfo){
+                        const user = JSON.parse(userInfo);
+                        if(user){
+                            const userEmail = user?.email;
+                            if(userEmail){
+                                const userCredential = await signInWithEmailAndPassword(
+                                    getAuth(),
+                                    userEmail,
+                                    userPassword
+                                );
+                                if(userCredential?.user){
+                                    values.userPassword = '';
+                                    setIsOn(true);
+                                    setIsAuthOpen(false);
+                                }
+                            }
+                        }else{
+                            formiks.setErrors({userPassword: 'Invalid Password'});
+                        }
+                    }else{
+                        formiks.setErrors({userPassword: 'Invalid Password'});
+                    }
+                }else{
+                    formiks.setErrors({userPassword: 'Only Firebase Auth is allowed'});
+                }
+            } catch (err:any) {
+                formiks.setErrors({userPassword: 'Invalid Password'});                
+            }            
+            setIsLoading(false);
         },
         enableReinitialize: true,
       });
@@ -64,7 +110,7 @@ const ParentalControls = () => {
             </div>
             <div className={`text-white/80 bg-gray-700/40 p-4 rounded-md mt-4 flex justify-between flex-wrap ${(!expanded)?'hidden':'flex'}`}>
                 <div className='w-[200px] max-w-[600px] pr-4 grow'>
-                    <Text size='lg'>PIN required to set up and manage kids profiles. Turning off parental controls will clear all settings, including PIN.</Text>
+                    <Text size='base'>PIN required to set up and manage kids profiles. Turning off parental controls will clear all settings, including PIN.</Text>
                 </div>
                 <div className='w-[100px]'>
                     <div className="flex items-center space-x-2">
@@ -84,13 +130,25 @@ const ParentalControls = () => {
                 </div>
                 <div className={`w-full ${(isAuthOpen)?'flex':'hidden'} flex-wrap justify-end`}>
                     <form onSubmit={handleSubmit} method="POST">
-                        <div className="flex flex-wrap ">
+                        <div className="flex flex-wrap relative">
+                            {(isLoading)&&
+                                <p className='text-[#fff]/90 text-[14px] py-1 absolute top-0 left-0 h-full w-full z-10 bg-black/80 flex justify-center items-center'>
+                                    <RotateLeft 
+                                        className='animate-spin mr-2'
+                                        sx={{
+                                            fontSize: 22,
+                                            color: '#fff',
+                                        }}
+                                    />
+                                    Loading...
+                            </p>}
                             <div className="relative bg-gray-900 rounded-md overflow-hidden">
                                 <input 
                                     type={(!isShowPassword)?'password' : 'text'}
                                     placeholder="Password"
-                                    name='password'
-                                    value={values.password}
+                                    name='userPassword'
+                                    value={values.userPassword}
+                                    autoComplete='off'
                                     onChange={handleChange}
                                     className='w-[200px] text-white text-[14px] lg:text-[16px] py-1 pl-2 pr-10 border rounded-md border-[#767680] h-[42px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%] focus:bg-transparent active:bg-transparent'
                                 />
@@ -118,9 +176,10 @@ const ParentalControls = () => {
                             className='bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] text-white h-[42px] sm:h-[46px] xl:h-[52px] py-2 ml-1 rounded-md px-4' 
                             type="submit">Submit</button>
                         </div>
-                        {(errors.password && touched.password)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.password}</p>:null}
+                        {(errors.userPassword && touched.userPassword)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPassword}</p>:null}
                     </form>
                 </div>
+                <ParentControlPin />
             </div>
         </div>
     );

@@ -4,7 +4,8 @@ import Modal from '@mui/material/Modal';
 import { v4 as uuidv4 } from 'uuid';
 import { stableKeys } from '@/utils/stableKeys';
 import { capFirstLetter } from '@/utils/capFirstLetter';
-
+import WarningMessage from '@/modules/Identities/WarningMessage';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
   auditEntitlement
 } from '@/services/api'
@@ -25,6 +26,7 @@ const Buy: React.FC<PlayButtonProps> = ({
   data
 }:PlayButtonProps) => {
   const [open, setOpen] = useState(false);
+  const isLoginUser = useCheckAuthentication();
   const [selectedValue, setSelectedValue] = useState('s');
   // const myElementRef = useRef();
   const handleClickOpen = () => {
@@ -102,11 +104,18 @@ const Buy: React.FC<PlayButtonProps> = ({
       className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-65'>
         &times;
       </button>
-      {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<PlanItems 
+      {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<>
+        <PlanItems 
         movieId={movieId}
         items={allowedPlans}
         data={data}
-        />):(<NoPlanFound/>)}
+        />
+        {(!isLoginUser)&&
+          <WarningMessage 
+          message='You need to login to proceed with this transaction.'
+          className='mt-2 max-w-[420px] mx-auto'/>
+        }
+      </>):(<NoPlanFound/>)}
   </div>
 </Modal>
     </div>
@@ -177,6 +186,7 @@ const PlanCard = ({
   isPackage
 }:any) => {
   // console.log('item', item);
+  const isLoginUser = useCheckAuthentication();
   let descriptions = [] as any;
   if(item?.description){
     // replace all , with <li>
@@ -287,7 +297,7 @@ const PlanCard = ({
           font-light
           w-full 
           active:opacity-65
-          text-[16px]">Rent            
+          text-[16px]">{(!isLoginUser)&&'Login and '}Rent      
           </button></>)}
       </div>
       </div>
@@ -306,7 +316,7 @@ const NoPlanFound = () => {
       font-semibold 
       mx-auto 
       lg:pl-6 
-      w-[250px] 
+      w-[300px] 
       min-h-[200px]
       flex
       justify-center
@@ -316,7 +326,7 @@ const NoPlanFound = () => {
       bg-opacity-10
       rounded-md
       '>
-      Payment is not allowed...
+      Not yet available for purchase
     </div>
   )
 }

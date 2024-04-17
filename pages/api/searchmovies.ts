@@ -25,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     let url = `${process.env.API_URL}/search/content?${queryString}`;
+    // let url = `https://pe9e3giegd.execute-api.ap-southeast-1.amazonaws.com/qa/content/search?${queryString}`;
     if (product !== 'NA') url = `${url}&product=${product}`;
 
     // console.log(region, product, userID, url)

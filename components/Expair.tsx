@@ -1,10 +1,11 @@
 import React from 'react'
 import { ClockIcon } from '@heroicons/react/24/outline';
-import {dateToDay, yearFromDate} from 'utils/yearFromDate';
+import {dateToDay} from 'utils/yearFromDate';
 
 interface TextHighlightProps {
     children: React.ReactNode,
     className?: string,
+    style?: React.CSSProperties,
 }
 
 const TxtHL = ({children, style, className,} : TextHighlightProps) => {
@@ -28,14 +29,15 @@ const EnititlementEndDate = ({endDate, short = true, base = 0.5} : EnititlementE
         Print = <><span className="text-red-500 lg:font-bold"> Expired!</span></>
     }else if(short){
         if(day === 0 && hour === 0){
-            Print = <><TxtHL>{minute}</TxtHL> minutes left to watch!</>
+            Print = <><TxtHL>{minute}</TxtHL> {minute > 1 ? ' minutes' : ' minute'} left to watch!</>
         }else if(day === 0){
-            Print = <><TxtHL>{hour}</TxtHL> hours left to watch!</>
+            Print = <><TxtHL>{hour}</TxtHL> {hour > 1 ? ' hours' : ' hour'} left to watch!</>
         }else{
-            Print = <><TxtHL>{day}</TxtHL> days left to watch!</>
+            Print = <><TxtHL>{day}</TxtHL> 
+            {day > 1 ? ' days' : ' day'} left to watch!</>
         }
     }else{
-        Print = <><TxtHL>{day}</TxtHL> days, <TxtHL>{hour}</TxtHL> hours &  <TxtHL>{minute}</TxtHL> minutes left to watch!</>
+        Print = <><TxtHL>{day}</TxtHL> {day > 1 ? 'days' : 'day'}, <TxtHL>{hour}</TxtHL> {hour > 1 ? 'hours' : 'hour'} &  <TxtHL>{minute}</TxtHL> {minute > 1 ? 'minutes' : 'minute'} left to watch!</>
     }
 
     return (

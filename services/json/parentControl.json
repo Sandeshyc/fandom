@@ -1,0 +1,45 @@
+[
+    {
+        "id": 1,
+        "roleId": "adult",
+        "roleName": "Adult",
+        "roles":[
+            "R-21"
+        ]
+    },
+    {
+        "id": 2,
+        "roleId": "teens",
+        "roleName": "Teens",
+        "roles":[
+            "R-16",
+            "R-18",
+            "R-21"
+        ]
+    },
+    {
+        "id": 3,
+        "roleId": "older-kids",
+        "roleName": "Older kids",
+        "roles":[
+            "R-13",
+            "R-16",
+            "R-18",
+            "R-21"
+        ]
+    },
+    {
+        "id": 4,
+        "roleId": "all-kids",
+        "roleName": "All kids",
+        "roles":[
+            "GP",
+            "PG-13",
+            "R-13",
+            "R-16",
+            "R-18",
+            "R-21"
+        ]
+    }
+
+]

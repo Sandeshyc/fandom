@@ -18,7 +18,7 @@ const Watch = () => {
   const [backBtnActive, setBackBtnActive] = React.useState(false);
   
   const { data, error, isLoading } = useMovie(movieId as string, userId as string); 
-  // console.log('data: ', data);
+  console.log('data: ', data);
   const [videoURL, setVideoURL] = React.useState(
     {
       'HLS': data?.hlsVideo,

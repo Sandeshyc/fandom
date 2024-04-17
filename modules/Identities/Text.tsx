@@ -3,13 +3,14 @@ import React from "react";
 type TextProps = {
     children: React.ReactNode,
     className?: string,
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl',
+    size: 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl',
     clamp?: number,
 };
 const sizes = {
     'xs': 'text-[10px] lg:text-xs',
     'sm': 'text-xs lg:text-sm',
     'md': 'text-sm lg:text-md',
+    'base': 'text-md lg:text-base',
     'lg': 'text-md lg:text-lg',
     'xl': 'text-lg lg:text-xl',
     '2xl': 'text-xl lg:text-2xl',
