@@ -28,7 +28,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
   const sliderRef = useRef(null);
 
   const hendleSlideChange = (e, movie) => {
-    console.log('e', e.currentTarget.dataset.index, current);
+    // console.log('e', e.currentTarget.dataset.index, current);
     setCurrentMovie(movie);
     setCurrent(parseInt(e.currentTarget.dataset.index));
   }
@@ -51,7 +51,8 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
 
   const getSlides = () => { 
     let i = 0;
-    return data.map((movie:any, index:number) => {   
+    return data.map((movie:any, index:number) => {  
+    const bannerThumb = movie?.thumbnailLandscapeUrl || movie?.thumbnailBannerUrl || movie?.thumbnailUrl || ''; 
     return (
       <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-2'>
         <div className="w-full aspect-video cursor-pointer">
@@ -59,7 +60,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
             {(movie?.allowed)?<PurchaseBadge/>:
             (movie?.canBuy === false)?<NotAllowed message='Region Restricted'/>:
             null}
-            <img src={get(movie, 'thumbnailUrl')} className="w-full h-full object-contain rounded-lg" />
+            <img src={bannerThumb} className="w-full h-full object-contain rounded-lg" />
           </div>
         </div>
       </div>

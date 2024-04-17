@@ -5,7 +5,7 @@ import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
-import SkeletonHome from '@/components/Skeleton/SkeletonHome';
+import SkeletonExploreAll from '@/components/Skeleton/SkeletonExploreAll';
 import useIsMobile from '@/hooks/useIsMobile';
 
 const bgImage = 'url("/images/new-bg.png")';
@@ -49,9 +49,10 @@ const Categories = (props:any) => {
     {(!isLoading && isReady && data)?<>
       <Mapper
         modules={data}
+        itemCode={categories as string}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (<SkeletonHome/>)}
-    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'}/>:null}
+        isLoading = {isLoading}/></> : (<SkeletonExploreAll/>)}
+    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 
 }

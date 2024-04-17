@@ -83,7 +83,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
   };
 
   const hendleSlideChange = (e:any, movie:any) => {
-    console.log('e', e.currentTarget.dataset.index, current);
+    // console.log('e', e.currentTarget.dataset.index, current);
     setCurrentMovie(movie);
     setCurrent(parseInt(e.currentTarget.dataset.index));
   }
@@ -113,7 +113,8 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
   const getSlides = () => { 
     let i = 0;
     return data.map((movie:any, index:number) => {
-   
+      // console.log('movie', movie);
+      const bannerThumb = movie?.thumbnailLandscapeUrl || movie?.thumbnailBannerUrl || movie?.thumbnailUrl || '';
       return (
         <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
           <div className="w-full aspect-video cursor-pointer">
@@ -121,7 +122,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
               {(movie?.allowed)?<PurchaseBadge/>:
               (movie?.canBuy === false)?<NotAllowed/>:
               null}
-              <img src={get(movie, 'thumbnailUrl')} alt={movie?.title} className="w-full h-full object-contain rounded-lg text-zinc-500 flex justify-center items-center" />
+              <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg text-zinc-500 flex justify-center items-center" />
             </div>
           </div>
         </div>

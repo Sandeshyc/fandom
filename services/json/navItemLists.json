@@ -16,8 +16,8 @@
     {
         "id": 4,
         "label": "TV Shows",
-        "route": "/season",
-        "activeRoute": "/season",
+        "route": "/tvshows",
+        "activeRoute": "/tvshows",
         "auth": false
     },
     {

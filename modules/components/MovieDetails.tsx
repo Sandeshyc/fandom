@@ -2,10 +2,16 @@ import React from 'react';
 import DetailsTab from '@/components/DetailsTab';
 import MovieDetailsTab from '@/modules/elements/MovieDetailsTab';
 
+
 type dataProps = {
-    data: any;
+    data: any,
+    module: any
 }
-const MovieSummary = ({data}:dataProps) => {
+const MovieSummary = (inputProps:dataProps) => {
+
+  const {data} = inputProps
+
+
   return (  
   <>
   <div className='bg-black text-white pt-4'>      

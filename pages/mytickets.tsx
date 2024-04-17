@@ -47,7 +47,7 @@ const Home = (props:any) => {
             isLoading = {isLoading}/>
           {/* </div>      */}
       </div></>) : (<div className='container mx-auto max-w-[2400px]'><SkeletonPurchase/></div>)}
-      {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'}/></>:null}
+      {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/></>:null}
     </>
   )
 }

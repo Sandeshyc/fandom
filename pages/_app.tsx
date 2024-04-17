@@ -3,6 +3,12 @@ import Script from "next/script";
 import type { AppProps } from "next/app";
 import { Poppins } from "next/font/google";
 import ErrorBoundary from "@/modules/elements/ErrorBoundary";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
 
 import "../styles/globals.css";
 
@@ -15,6 +21,13 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
+
+  const client = new ApolloClient({
+    // uri: "http://localhost:4000/graphql",
+    uri: process.env.NEXT_PUBLIC_CONSUMER_SERVICE_API,
+    cache: new InMemoryCache(),
+  });
+  
   return (
     <>
       <Head>
@@ -28,8 +41,11 @@ export default function App({
         src="https://cdn.jwplayer.com/libraries/kLxY4wBD.js"
       />
       <main className={poppins.className}>
+
         <ErrorBoundary>
-          <Component {...pageProps} />
+          <ApolloProvider client={client}>
+            <Component {...pageProps} />
+          </ApolloProvider>
         </ErrorBoundary>
       </main>
     </>

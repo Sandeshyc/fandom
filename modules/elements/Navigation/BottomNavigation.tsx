@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import checkAuthentication from '@/utils/checkAuth';
 import MobileCollapse from '@/modules/elements/Navigation/MobileCollapse';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
     HomeOutlined,
     ConfirmationNumberOutlined,
@@ -13,7 +14,8 @@ import {
 const BottomNavigation = () => {
     const router = useRouter();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isCollapseOpen, setIsCollapseOpen] = useState(false);    
+    const [isCollapseOpen, setIsCollapseOpen] = useState(false);
+    const isLoginUser = useCheckAuthentication();    
     
     useEffect(() => {
         setIsCollapseOpen(false);
@@ -49,7 +51,7 @@ const BottomNavigation = () => {
                     <span
                     className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Home</span>
                 </button>
-                {(isAuthenticated)?
+                {(isLoginUser)?
                 (<>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
                 onClick={() => router.push('/mytickets')}>

@@ -20,9 +20,11 @@ type Props = {
 };
 const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   const router = useRouter();
+  // console.log('data Package Movie', data);
   const [open, setOpen] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const postar = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || '';
+  const bannerThumb = data?.thumbnailLandscapeUrl || data?.thumbnailBannerUrl || data?.thumbnailUrl || '';
   let publishYear = data?.publishSchedule;
   // get year from date
   if(publishYear){
@@ -42,12 +44,12 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   return (
     <div className={`relative billboardSec`}>
       <div
-        className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh]`}
+        className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh] bg-zinc-800`}
       >
         <div className="brightness-[60%] h-full">
           <ReactVideoPlayer
             videoURL={data?.videoUrl}
-            poster={data?.thumbnailUrl}
+            poster={bannerThumb}
           />
         </div>
         <div className="preview"></div>

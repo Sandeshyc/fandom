@@ -202,15 +202,22 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     >
       <div className="flex flex-wrap flex-col sm:flex-row sm:h-full">
         <div
-          className="w-full h-auto sm:w-1/3 sm:bg-zinc-700 sm:aspect-[6/9] sm:scale-105 cursor-pointer relative"
+          className="w-full h-auto sm:w-1/3 sm:bg-zinc-700 sm:aspect-[6/9] sm:scale-105 cursor-pointer relative rounded-md overflow-hidden"
           onClick={redirectToDetails}
         >
           <CardHeader header={data?.header} />
-          <img
-            src={thumbURl}
-            alt={title}
-            className="w-1/2 sm:w-full sm:h-full  object-cover rounded-md bg-zinc-500 mx-auto"
-          />
+          {(thumbURl)?
+            <img
+              src={thumbURl}
+              alt={title}
+              className="w-1/2 sm:w-full sm:h-full  object-cover rounded-md bg-zinc-500 mx-auto aspect-[6/9]"
+            />
+          :
+            <p
+          className={`imgPlaceholder p-2 text-sm lg:text-lg flex justify-center items-center text-center text-gray-300 cursor-pointer  shadow-xl rounded-md w-1/2 sm:w-full sm:h-full aspect-[6/9]  bg-zinc-500 mx-auto`} >
+              {title}
+          </p>
+          }
           <div className="absolute z-30 bottom-0 right-0 w-full ">
             <CardFooter footer={data?.footer} />
           </div>

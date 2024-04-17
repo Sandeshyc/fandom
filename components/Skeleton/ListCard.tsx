@@ -18,9 +18,10 @@ const SkeletonListCard = ({
                         <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[16/9] w-full rounded-md' />
                     </div>
                     <div className="w-[58%] pt-0 pr-4 pb-1">
-                        <Skeleton baseColor='#333' highlightColor='#666' className='w-[80%] h-[10px]' count={2}/>
-                        <div className="w-[80px]">
-                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[25px]' borderRadius={50}/>
+                        <Skeleton baseColor='#333' highlightColor='#666' className='w-[80%] h-[30px] mb-2'/>
+                        <Skeleton baseColor='#333' highlightColor='#666' className='w-[80%] h-[18px]' count={2}/>
+                        <div className="w-[120px]">
+                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[34px]' borderRadius={50}/>
                         </div>
                     </div>
                 </div>

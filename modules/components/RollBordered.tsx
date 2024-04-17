@@ -10,12 +10,14 @@ import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 
+
 type Props = {
   data: MovieInterface[];
   title: string;
   link?: string;
   linkText?: string;
   isBoxesLayout?: boolean;
+  module: any
 }
 
 function SlickNextArrow(props:any) {
@@ -33,6 +35,7 @@ function SlickPrevArrow(props:any) {
 }
 
 const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
+
   const router = useRouter();
   if (isEmpty(data)) {
     return null;

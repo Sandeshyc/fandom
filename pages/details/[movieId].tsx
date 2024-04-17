@@ -73,11 +73,12 @@ const Details = () => {
       }}>
         <Mapper
         modules={movieDetails}
+        itemCode = {movieId as string}
         getComponent = {getComponent}
         isLoading = {isLoading}/>
       </div>
     </>:<SkeletonDetails/>}
-    {(error || isError) && <ErrorPopUp message={'Sorry, Something went wrong!'}/>}
+    {(error || isError) && <ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>}
   </>
   )
 }

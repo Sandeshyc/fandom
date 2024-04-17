@@ -221,13 +221,13 @@ const Auth = () => {
         <Link href={'/'}>
         <img src="/images/logonew.png" className="h-[60px] sm:h-[80px] lg:h-[90px] xl:h-[100px] mr-2" alt="Logo" />
         </Link>
-        <p className='text-white font-semibold text-xl xl:text-2xl'>iWantTFC Tickets</p>
+        <p className='text-white font-semibold text-xl xl:text-2xl'>Tickets</p>
     </div>
     <div className="relative min-h-screen h-full w-full pt-[100px] xl:pt-0 bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] xl:flex xl:flex-wrap">      
       <div className="w-full xl:w-1/2 flex justify-center items-center">        
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center w-full">
           <div className="w-full max-w-[315px] sm:max-w-[448px] text-center self-center">
-            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to iWantTFC Tickets</h1>
+            <h1 className='text-white text-[18px] sm:text[24px] xl:text-[30px] mb-4 sm:mb-8 font-semibold'>Welcome to Tickets</h1>
             <GoogleIdentitySignIn setAuthLoading={setAuthLoading}/>
             <div className='my-4'>
               <p className='text-center text-white/80 text-sm'>or</p>
