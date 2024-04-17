@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useMovieList from "@/hooks/useMovieList";
 import SkeletonHome from "@/components/Skeleton/SkeletonHome";
 import useIsMobile from "@/hooks/useIsMobile";
-import getLocation from "@/services/api/location";
+import useClientLocaion from "@/hooks/useClientLocaion";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import getRandomNumber from "@/utils/randomNumber";
 
@@ -14,22 +14,20 @@ const bgImage = 'url("/images/new-bg.png")';
 const Home = () => {
   const [isReady, setIsReady] = useState(false);
   const [userId, setUserId] = useState("");
-  const [myRegion, setRegion] = useState("PH");
+  // const [myRegion, setRegion] = useState("PH");
   const randomNumber = useState(getRandomNumber(100000, 900000));
   const isMobile = useIsMobile();
 
-  const _location = async () => {
-    const { countryIsoCode } = await getLocation();
-    setRegion(countryIsoCode);
-  };
-  _location();
+  const {data: clientLocation} = useClientLocaion();
+  console.log('clientLocation: ', clientLocation);
+  const region = clientLocation?.country?.isoCode || 'PH';
 
   const {
     data: movies = [],
     isLoading,
     error,
   } = useMovieList(
-    myRegion,
+    region,
     isMobile ? "mobile" : "web",
     "home",
     userId,
