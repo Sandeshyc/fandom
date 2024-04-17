@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     console.log('client Location :: ip = ', ip);
-    console.log('client Location :: req.headers = ', req.headers);
+    console.log('client Location :: req.headers = ', forwardedFor, req.socket.remoteAddress);
    
     // await serverAuth(req, res);
     // const region = req.query.region;

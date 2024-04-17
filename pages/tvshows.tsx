@@ -3,7 +3,8 @@ import useTvShows from "@/hooks/useTvShows";
 import SkeletonHeader from "@/components/Skeleton/Header";
 import SkeletonExploreAll from "@/components/Skeleton/SkeletonExploreAll";
 import useIsMobile from "@/hooks/useIsMobile";
-import getLocation from "@/services/api/location";
+// import getLocation from "@/services/api/location";
+import useClientLocaion from "@/hooks/useClientLocaion";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import getRandomNumber from "@/utils/randomNumber";
 
@@ -15,22 +16,20 @@ const bgImage = 'url("/images/new-bg.png")';
 const Home = () => {
   const [isReady, setIsReady] = useState(false);
   const [userId, setUserId] = useState("");
-  const [myRegion, setRegion] = useState("PH");
+  // const [myRegion, setRegion] = useState("PH");
   const randomNumber = useState(getRandomNumber(100000, 900000));
   const isMobile = useIsMobile();
 
-  const _location = async () => {
-    const { countryIsoCode } = await getLocation();
-    setRegion(countryIsoCode);
-  };
-  _location();
+  const {data: clientLocation} = useClientLocaion();
+  console.log('clientLocation: ', clientLocation);
+  const region = clientLocation?.country?.isoCode || 'PH';
 
   const {
     data: movies = [],
     isLoading,
     error,
   } = useTvShows(
-    myRegion,
+    region,
     isMobile ? "mobile" : "web",
     "tvshows",
     userId,
