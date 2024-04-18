@@ -175,7 +175,7 @@ const Watch = () => {
         </nav>
         <div className='absolute top-0 left-0 w-full h-full bg-black/80 z-10 py-[150px] px-8 flex justify-center items-center'>
           <div className='py-2 px-4 bg-black/90 w-[280px] sm:w-[420px] max-w-full flex justify-center flex-col'>
-            <Title tag='h3' size='xl' className='text-white text-center'>Parentail Control</Title>
+            <Title tag='h3' size='xl' className='text-white text-center'>Parental Control</Title>
             <Text size='base' className='text-white text-center'>Enter your PIN</Text>
             <PinVerify 
               myPin={pcPin}

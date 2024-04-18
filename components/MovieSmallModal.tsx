@@ -10,6 +10,7 @@ import Buttons from '@/modules/Identities/Buttons';
 import {CloseOutlined, LoopOutlined} from '@mui/icons-material';
 import { _id } from '@next-auth/mongodb-adapter';
 import checkAuthentication from '@/utils/checkAuth';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 interface movieSmallModalProps {
   visible?: boolean;
@@ -27,7 +28,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
   const [isHover, setIsHover] = React.useState(false);
-
+  console.log('data zoom', data);
   // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
     if(data?.__typename === 'Series'){
@@ -144,6 +145,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   if (!visible) {
     return null;
   }
+  const thumbUrl = getThumbnailLandscape(data);
   return (
     <div ref={thumbRef} 
       onMouseLeave={handleClose}  
@@ -167,20 +169,15 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
           isMute={isMute}
           toggleMute={toggleMute}
           />
-          <div 
-          className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
-          style={{
-            backgroundImage: `url(${data?.thumbnailLandscapeUrl})`, 
-            backgroundSize: 'cover', 
-            backgroundPosition: 'center'
-          }}
-          onClick={redirectToDetails} >
+          <div className="bg-zinc-800 shadow-md rounded-t-lg jk_player cursor-pointer"
+          style={{backgroundImage: `url(${thumbUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+          onClick={redirectToDetails}>
             {data?.trailerUrl ? <div className='relative h-0 w-full pt-[56.56%]'>
               <div className='absolute top-0 left-0 w-full h-full'>
                 <ReactVideoPlayer 
                 videoURL={data?.trailerUrl} 
                 control={false} 
-                poster={data?.thumbnailLandscapeUrl}
+                poster={thumbUrl}
                 isMute={isMute}
                 play={true}
                 // className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000 animate-fade-out`}
