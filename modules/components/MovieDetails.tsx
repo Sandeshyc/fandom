@@ -13,13 +13,11 @@ const MovieSummary = (inputProps:dataProps) => {
 
 
   return (  
-  <>
-  <div className='bg-black text-white pt-4'>      
-    <div className="container mx-auto px-4">
-      <DetailsTab data={data}/>
+    <div className='bg-black text-white pt-4'>      
+      <div className="container mx-auto px-4">
+        <DetailsTab data={data}/>
+      </div>
     </div>
-  </div>
-  </>
   );
   
 }

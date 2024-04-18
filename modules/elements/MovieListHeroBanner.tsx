@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useRouter } from "next/router";
+import { Waypoint } from "react-waypoint";
 import ReactVideoPlayer from "@/components/ReactPlayer";
 import { stableKeys } from "@/utils/stableKeys";
 import { capFirstLetter } from "@/utils/capFirstLetter";
@@ -21,6 +22,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   // console.log('data Package Movie', data);
   const [open, setOpen] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [inView, setInView] = React.useState(false);
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
   let publishYear = data?.publishSchedule;
@@ -36,6 +38,17 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   const handleToggle = () => {
     setOpen(!open);
   }
+
+  const handleWaypointEnter = () => {
+      console.log('enter mobile list');
+      setInView(true);
+  }
+
+  const handleWaypointLeave = () => {
+      console.log('leave mobile list');
+      setInView(false);
+  }
+
   useEffect(() => {
     const _checkAuthentication = async () => {
       const isAuthenticated = await checkAuthentication();
@@ -48,12 +61,21 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
       <div
         className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh] bg-zinc-800`}
       >
-        <div className="brightness-[60%] h-full">
-          <ReactVideoPlayer
-            videoURL={trailerUrl}
-            poster={bannerThumb}
-          />
-        </div>
+        <Waypoint 
+        scrollableAncestor={window}
+        onEnter={handleWaypointEnter} 
+        onLeave={handleWaypointLeave}
+        topOffset= {300}
+        bottomOffset={300}
+        >
+          <div className="brightness-[60%] h-full">
+            <ReactVideoPlayer
+              videoURL={trailerUrl}
+              poster={bannerThumb}
+              play={inView}
+            />
+          </div>
+        </Waypoint>
         <div className="preview"></div>
       </div>
       <div className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition w-full`}>

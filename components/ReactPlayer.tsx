@@ -22,7 +22,6 @@ const ReactVideoPlayer = (
 ) => {
     const { innerWidth: width, innerHeight: height } = window;
     return (
-        <>
         <div className={`w-full h-full overflow-hidden ${className}`}>
             <div className='relative h-full w-full ReactPlayerVideoCover'>
                 <div className={`absolute top-0 left-0 w-full h-full z-0 hidden sm:block`} 
@@ -61,7 +60,6 @@ const ReactVideoPlayer = (
                     }}></div>
             </div>
         </div>
-        </>
     )
 }
 

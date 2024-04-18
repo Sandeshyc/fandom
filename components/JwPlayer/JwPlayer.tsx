@@ -113,23 +113,22 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             if ( video === undefined || !playerRef.current || typeof window === "undefined" || !drmTokens.widevine ) return;
             // make track are ready
             let tracks: any = [];
-            
 
-            if (caption) {
-                // caption.forEach((track: any, index: number) => {
-                //     tracks.push({
-                //         file: track.url,
-                //         // label: track.label,
-                //         kind: "captions",
-                //         "default": index === 0 ? true : false
-                //     })
-                // });
-                tracks.push({
-                    file: caption,
-                    kind: "captions",
-                    "default": true,
-                    // label: "English"
-                })
+            if (caption && Array.isArray(caption) && caption.length > 0){
+                caption.forEach((track: any, index: number) => {
+                    tracks.push({
+                        file: track.url,
+                        label: track.caption,
+                        kind: "captions",
+                        "default": index === 0,
+                    })
+                });
+                // tracks.push({
+                //     file: caption,
+                //     kind: "captions",
+                //     "default": true,
+                //     // label: "English"
+                // })
             }
 
             playerRef.current.innerHTML = "<div className='h-full' />";
