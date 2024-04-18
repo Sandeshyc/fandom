@@ -378,6 +378,8 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                     if(forwardDisplayButton){
                         forwardDisplayButton.style.transform = "scaleX(-1)";
                         forwardDisplayButton.ariaLabel = "Forward 10 Seconds"
+                        // add class to forward button
+                        // forwardDisplayButton.classList.add('custom-forward-button');
                         // console.log('forwardDisplayButton: ', forwardDisplayButton);
                         const nextContainer = playerContainer.querySelector('.jw-display-icon-next');
                         // console.log('nextContainer: ', nextContainer);

@@ -281,11 +281,15 @@ const MyProfile = () => {
             </div>
           </div>
         </form>
-        <div className='container mx-auto max-w-[996px] mb-[2vw]'>
-          <CommunicationDetails/>
+        <div className='px-4 md:px-12 mb-[2vw]'>
+          <div className='container mx-auto max-w-[996px]'>
+            <CommunicationDetails/>
+          </div>
         </div>
-        <div className='container mx-auto max-w-[996px]'>
-          <ParentalControls/>            
+        <div className='px-4 md:px-12'>
+          <div className='container mx-auto max-w-[996px]'>
+            <ParentalControls pcData={profile?.parentalControl}/>            
+          </div>
         </div>
       </div>
     {isMobile?<BottomNavigation/>:<Footer/>}

@@ -9,9 +9,9 @@ const SkeletonMyProfile = () => {
       <div className='lg:hidden'>
         <SkeletonMyProfileMobile/>
       </div>
-      <div className="py-16 pt-28 min-h-[80vh] hidden lg:block"
+      <div className="py-16 pt-28 min-h-[80vh] hidden lg:block bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
       style={{
-        backgroundImage: bgImage,
+        // backgroundImage: bgImage,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% auto',
         backgroundPosition: 'right '+ 30 + '%',

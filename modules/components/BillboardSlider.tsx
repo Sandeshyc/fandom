@@ -11,7 +11,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import {
-  getThumbnailBanner
+  getThumbnailLandscape
 } from "@/utils/getData";
 
 import "slick-carousel/slick/slick.css";
@@ -94,7 +94,7 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
   const title = data?.title;
   const description = data?.description;
   const trailerUrl = data?.trailerUrl;
-  const thumbnailUrl = getThumbnailBanner(data);
+  const thumbnailUrl = getThumbnailLandscape(data);
   const detailUrl = `/details/${itemId}`;
   const watchUrl = `/watch/${itemId}`;
 

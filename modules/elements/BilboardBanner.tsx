@@ -27,7 +27,7 @@ const BillboardBanner = ({thumbnailUrl, trailerUrl, isActive}:Props) => {
     topOffset= {300}
     // bottomOffset='20%'
     >
-      <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[250px] sm:h-[300px] md:h-[85vh] md:min-h-[700px] max-h-[85vh]`}>
+      <div className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[250px] sm:h-[300px] md:h-[90vh] md:min-h-[700px] max-h-[90vh]`}>
         <div className='brightness-[60%] h-full'>
           {(isActive) &&
             <ReactVideoPlayer videoURL={trailerUrl || ''} poster={thumbnailUrl} play={isActive && inView}/>

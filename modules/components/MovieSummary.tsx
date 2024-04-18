@@ -5,7 +5,7 @@ import {capFirstLetter} from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
 import { getThumbnailPortrait } from '@/utils/getData';
-
+import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 
 type dataProps = {
     data: any,
@@ -23,7 +23,8 @@ const MovieSummary = (inputProps:dataProps) => {
     }
     const publishRemaining = getTimeDifference(data?.publishSchedule);
     // console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
-    return (
+    return (<>
+      {(data?._id)?(
       <div className='text-white z-10 relative mt-[-80px] md:mt-[-150px] bg-gradient-to-t from-black/90 from-30% to-transparent to-75%'>
         <div className='container mx-auto px-4'>
           <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
@@ -58,6 +59,12 @@ const MovieSummary = (inputProps:dataProps) => {
           </div>
         </div>
       </div>
+      )
+      :
+      (
+        <ErrorPopUp message={"Sorry, Something went wrong!"}/>
+      )}
+      </>
     );
   
 }

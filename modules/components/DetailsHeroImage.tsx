@@ -2,7 +2,7 @@ import React from 'react';
 import { Waypoint } from 'react-waypoint';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 import useIsMobile from '@/hooks/useIsMobile';
-import { getThumbnailBanner } from '@/utils/getData';
+import { getThumbnailLandscape } from '@/utils/getData';
 
 type dataProps = {
     data: any,
@@ -13,12 +13,11 @@ const DetailsHeroImage = (inputProps:dataProps) => {
 
     // trailerUrl 
     let videoURL = data?.trailerUrl;
-    let thumb = getThumbnailBanner(data);
+    let thumb = getThumbnailLandscape(data);
     return (<DetailsHeroBanner
         thumb={thumb}
         videoURL={videoURL}
-    />);
-  
+    />);  
 }
 export default DetailsHeroImage;
 
