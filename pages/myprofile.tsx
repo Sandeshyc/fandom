@@ -101,12 +101,15 @@ const MyProfile = () => {
   const schema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string(),
-    userPhone: Yup.number().typeError("Phone number must be a number"),
-    userCountryCode: Yup.string().when('userPhone', {
-      is: (val:string) => (val && val.length > 0 ? true : false),
-      then: (schema) => schema.required("Country Code is required"),
-      otherwise: (schema) => schema
-    }),
+    // userPhone: Yup.number().typeError("Phone number must be a number"),
+    // userCountryCode: Yup.string().when('userPhone', {
+    //   is: (val:string) => (val && val.length > 0 ? true : false),
+    //   then: (schema) => schema.required("Country Code is required"),
+    //   otherwise: (schema) => schema
+    // }),
+    userPhone: Yup.string(),
+    userCountryCode: Yup.string(),
+    
     userGender: Yup.string(),
     userBirthday: Yup.string() || Yup.date(),
     userEmail: Yup.string().email("Invalid email").required("Email is required"),
@@ -135,6 +138,7 @@ const MyProfile = () => {
         userGender,
         userBirthday,
       }) => {
+        console.log('Testing');
         setIsUpdating(true);
         // console.log('userPhone: ', userPhone);
       const headers = {
@@ -150,7 +154,7 @@ const MyProfile = () => {
         "countryCode": userCountryCode || '+1',
         "birthday":userBirthday?.split('T')[0], 
       };
-      // console.log('data: ', data);
+      console.log('data: ', data);
       // setIsUpdating(false);
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, data, { headers })
           .then(response => {
@@ -283,7 +287,9 @@ const MyProfile = () => {
         </form>
         <div className='px-4 md:px-12 mb-[2vw]'>
           <div className='container mx-auto max-w-[996px]'>
-            <CommunicationDetails/>
+            <CommunicationDetails 
+            profileData={profile}
+            />
           </div>
         </div>
         <div className='px-4 md:px-12'>

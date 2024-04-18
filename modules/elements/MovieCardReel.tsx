@@ -9,15 +9,11 @@ import {
 } from '@/services/api';
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
-import EnititlementEndDate from '@/components/Expair';
-import PublishDate from '@/modules/Identities/PublishDate';
-import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import CardHeader from '@/modules/elements/CardHeader';
 import CardFooter from '@/modules/elements/CardFooter';
 import {Cancel} from '@mui/icons-material';
+import { getThumbnailLandscape, getThumbnailPortrait } from '@/utils/getData';
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -101,10 +97,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   let aspectRatio = '384/216';
   const title = data?.title || '';
   if(portrait){
-    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+    thumbURl = getThumbnailPortrait(data);
     aspectRatio = '240/360';
   }else{
-    thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
+    thumbURl = getThumbnailLandscape(data);
   }
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){
@@ -178,7 +174,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   return (
     <div 
     ref={thumbOuterRef}
-    className={`group bg-zinc-900 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
+    className={`group bg-zinc-800 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
     onMouseEnter={onHoverHandler} 
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}>

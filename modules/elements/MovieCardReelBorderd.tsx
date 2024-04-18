@@ -35,11 +35,11 @@ const MovieCardReelBorderd: React.FC<MovieCardProps> = ({ data }) => {
         </p>
       }
       </div>
-      <div className={`absolute z-20 bottom-0 left-0 w-full px-[2.4vw] pb-[1.8vw] pt-[1.8vw] bg-gradient-to-t from-black from-45% via-black/80 via-75% to-transparent to-98% cursor-pointer`}>
+      <div className={`absolute z-20 bottom-0 left-0 w-full px-[2.4vw] pb-[1.8vw] pt-[1.8vw] bg-gradient-to-t from-black from-45% via-black/80 via-75% to-transparent to-98% cursor-pointer  group-hover:pr-[1.8vw] group-hover:pl-[1.8vw] transition-all`}>
           <CardFooter footer={data?.footer} />
           <div className='flex justify-between'>
-            <p className="text-white text-xl font-medium mr-2">{data?.title}</p>
-            <ArrowRightIcon onClick={() => {}} className="w-4 md:w-8 text-white cursor-pointer transition-all duration-500 group-hover:mr-[-20px]" />
+            <p className="text-white text-xl font-medium mr-2 group-hover:pr-[1.2vw] transition-all">{data?.title}</p>
+            <ArrowRightIcon onClick={() => {}} className="w-4 md:w-8 text-white cursor-pointer  duration-500" />
           </div>
       </div>
     </button>

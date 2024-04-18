@@ -1,22 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-const CommunicationDetails = () => {
+import {
+    updateProfile
+} from '@/services/api';
+type Props = {
+    profileData: any;
+}
+const CommunicationDetails = ({profileData}:Props) => {
+    // console.log('profileData: ', profileData);    
+    const [userid, setUserid] = React.useState('');
     const [expanded, setExpanded] = useState(false);
-    const [field1, setField1] = useState(false);
-    const [field2, setField2] = useState(true);
-    const [field3, setField3] = useState(false);
+    const [marketing, setMarketing] = useState(profileData?.marketing);
+    const [validateError, setValidateError] = useState('');
     const toggleExpanded = () => {
         setExpanded(!expanded);
     }
-    const toggleField1 = () => {
-        setField1(!field1);
+    const toggleMarketingHandle = () => {
+        const data = {
+            userId: userid,
+            marketing: (!marketing)?true:false
+        }
+        // console.log('data: ', data);
+        const _updateProfile = async () => {
+            const response = await updateProfile(data);
+            // console.log('response: ', response);
+            if(response.status === 'success') {
+                setMarketing(!marketing); 
+                setValidateError('');         
+            }else{
+                setValidateError('Something went wrong');
+            }
+        }
+        _updateProfile();
     }
-    const toggleField2 = () => {
-        setField2(!field2);
-    }
-    const toggleField3 = () => {
-        setField3(!field3);
-    }
+    useEffect(() => {
+        const userInfo = window.localStorage.getItem('userInfo');
+        if (userInfo) {
+          const userInfoObj = JSON.parse(userInfo);
+          if(userInfoObj.sub) {
+            setUserid(userInfoObj.sub);
+          }
+        }
+    }, []);
     return (
         <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[22%]`}>  
             <div className="flex justify-between">
@@ -33,24 +58,14 @@ const CommunicationDetails = () => {
             </div>
             <div className={`text-white/80 bg-gray-700/40 p-4 rounded-md mt-4 flex justify-between flex-wrap ${(!expanded)?'hidden':'flex'}`}>
                 <InputCheckbox 
-                    id='field1'
-                    label="lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    checked={field1}
-                    onChange={toggleField1}
-
+                    id='marketing'
+                    label="I agree to receive marketing communications (until I unsubscribe)."
+                    checked={marketing}
+                    onChange={toggleMarketingHandle}
                 />
-                <InputCheckbox 
-                    id='field2'
-                    label="lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    checked={field2}
-                    onChange={toggleField2}
-                />
-                <InputCheckbox 
-                    id='field3'
-                    label="lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    checked={field3}
-                    onChange={toggleField3}
-                />
+                {(validateError)&&(
+                    <p className='w-full text-sm text-red-600'>{validateError}</p>
+                )}
             </div>
         </div>
     );
@@ -66,7 +81,7 @@ type InputCheckboxProps = {
 const InputCheckbox = ({id, label, checked, onChange}:InputCheckboxProps) => {
     return (
         <div className="flex flex-wrap w-full mb-4">            
-            <div className='w-[70px] mt-2'>
+            <div className='w-[70px] mt-1'>
                 <input 
                     type="checkbox"
                     checked={checked}
