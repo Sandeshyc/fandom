@@ -1,7 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import BillboardBanner from "@/modules/elements/BilboardBanner";
 import LinkRoute from "@/modules/Identities/LinkRoute";
@@ -15,6 +13,9 @@ import {
 import {
   getThumbnailBanner
 } from "@/utils/getData";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function SlickNextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -48,6 +49,7 @@ type Props = {
   module: any;
 };
 
+// main component
 const BillboardSlider = (inputProps: Props) => {
   const { data } = inputProps;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -81,6 +83,7 @@ const BillboardSlider = (inputProps: Props) => {
   );
 };
 export default BillboardSlider;
+
 type ItemProps = {
   data: any;
   activeIndex?: number;
@@ -94,6 +97,7 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
   const thumbnailUrl = getThumbnailBanner(data);
   const detailUrl = `/details/${itemId}`;
   const watchUrl = `/watch/${itemId}`;
+
   return (
     <div className={`relative billboardSec billboardSliderItem`}>
       <BillboardBanner thumbnailUrl={thumbnailUrl} trailerUrl={trailerUrl} isActive={activeIndex === slideIndex}/>
