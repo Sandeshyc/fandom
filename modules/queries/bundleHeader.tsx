@@ -6,6 +6,7 @@ const BUNDLE_HEADER_QUERY = gql`
       assetId
       _id
       title
+      description
       name
       duration
       publishSchedule
@@ -19,7 +20,14 @@ const BUNDLE_HEADER_QUERY = gql`
       canBuy
       allowed
       allowedPlans {
+        id
+        name
+        currency
+        description
+        currency
+        price
         priceSKU
+        googlePriceSKU
       }
       trailerUrl
       isInWatchList

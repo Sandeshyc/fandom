@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import useTvShowDetails from '@/hooks/useTvShowDetails';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
-import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import SkeletonExploreAll from '@/components/Skeleton/SkeletonExploreAll';
 import useIsMobile from '@/hooks/useIsMobile';
+import useClientLocaion from '@/hooks/useClientLocaion';
 import SkeletonHeader from '@/components/Skeleton/Header';
 import DetailsHeroImage from "@/modules/skeletons/components/DetailsHeroImage";
 import ShowSummary from "@/modules/skeletons/components/ShowSummary";
@@ -17,16 +17,14 @@ const Categories = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userId, setUserId] = React.useState('');
   const router = useRouter();
-  const [myRegion, setRegion] = useState('PH');
   const isMobile = useIsMobile();
   const { tvshow } = router.query;
-  const _location = async () => {
-    const {countryIsoCode} = await getLocation();
-    setRegion(countryIsoCode);
-  }
-  _location();
+  
+  const {data: clientLocation} = useClientLocaion();
+  console.log('clientLocation: ', clientLocation);
+  const region = clientLocation?.country?.isoCode || 'PH';
 
-  const { data, isLoading, error} = useTvShowDetails(tvshow as string, userId as string, (isMobile)?'mobile':'web', myRegion);
+  const { data, isLoading, error} = useTvShowDetails(tvshow as string, userId as string, (isMobile)?'mobile':'web', region);
   // console.log('data', data);
 
   useEffect(() => {

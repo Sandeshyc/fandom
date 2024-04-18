@@ -31,15 +31,16 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   console.log('data zoom', data);
   // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
-    handleClose(null);
     if(data?.__typename === 'Series'){
       router.push(`/tvshow/${data?._id}?viewPlan=true`);
     }else{
       router.push(`/details/${data?._id}?viewPlan=true`);      
     }
-  }, [router, data?._id]);
-  const redirectToDetails = useCallback(() => {
     handleClose(null);
+  }, [router, data?._id]);
+
+  const redirectToDetails = useCallback(() => {
+    // handleClose(null);
     if(data?.__typename === 'Series'){
       router.push(`/tvshow/${data?._id}`);
     }else{
@@ -48,23 +49,19 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   }, [router, data?._id]);
 
   const redirectToWatch = useCallback(() => {
-    handleClose(null);
     router.push(`/watch/${data?._id}`);
+    handleClose(null);
   }, [router, data?._id]);
 
   useEffect(() => {
     setIsDeleting(false);
   }, [data]);
 
-  
-
   let zoomScale = 1;
   if(data?.xy?.width && data?.xy?.thumbW && data?.xy?.width>0 && data?.xy?.thumbW > 0){
     zoomScale = data?.xy?.thumbW / data?.xy?.width;
   }
-  // console.log('zoomScale', zoomScale);
-
-  // console.log('region', region);
+  
   useEffect(() => {
     setIsVisible(!!visible);
   }, [visible]);
@@ -76,9 +73,10 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
           // console.log('This is ');
         }else{
           // console.log('This is not');
-          setIsVisible(false);
+          
           setTimeout(() => {
             onClose();
+            setIsVisible(false);
           }, 10);
         }
       }      
@@ -151,16 +149,17 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   return (
     <div ref={thumbRef} 
       onMouseLeave={handleClose}  
-      className={`movieSmallModal group z-50 transition-all duration-300 absolute inset-0`} data-button="close" style={
-      {
+      className={`movieSmallModal group z-50  absolute inset-0`}
+      data-button="close"
+      style={{
         left: data?.xy?.x ?? 20, 
         top: data?.xy?.y ?? 20,
         width: data?.xy?.width ?? 400,
-        transition: 'all 1.3s ease-in-out',
-      }
-    }>
+        // transition: 'all 0.4s ease-in-out',
+      }}
+      >
       <div className="relative w-full ">
-        <div className={`rounded-md overflow-hidden transition-all relative flex-auto bg-zinc-900 drop-shadow-md !scale-100 opacity-100 ${isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
+        <div className={`rounded-md overflow-hidden transition-all relative flex-auto bg-zinc-900 drop-shadow-md !scale-100 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         style={{
           // transform: `scale(${zoomScale})`,
         }}>
@@ -181,20 +180,15 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
                 poster={thumbUrl}
                 isMute={isMute}
                 play={true}
-                className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000`}
+                // className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-1000 animate-fade-out`}
+                className={`animate-player-fade-in`}
               />
               </div>
             </div> : <div className='aspect-[16/9]'></div>}
           </div> 
-        </div>    
-        <div className="z-10
-          bg-zinc-800
-          relative
-          p-2
-          lg:p-4
-          transition
-          shadow-md
-          rounded-b-lg">
+        </div>
+        
+        <div className={cssTextPart}>
           <div className='mb'>
             <p className="text-3xl mb-1">{data?.title || ""}</p>
             {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0 text-white/80">
@@ -202,22 +196,18 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
               </span>)}</div>:null}
             {(data?.description) && <p className="font-normal	text-sm mt-2 mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
           </div>
-          <div className='flex flex-wrap justify-between items-center'>
+
+          <div className={cssBottomRow}>
             <div className='mb-1'>              
               <div className='flex flex-row items-center gap-2'>
                 {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
                 {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
               </div>           
             </div>
-            <div className='flex flex-row items-center gap-2 mb-1'>
 
+            <div className={cssBottomLeft}>
               {(data?.currentTime || data?.currentTime === 0) &&
-              <button 
-                title='Remove from Row' 
-                onClick={handelRemoveWatchingListFunc} 
-                className={`cursor-pointer group/item w-8 h-8 border-white/60 border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 `}> 
-                <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
-              </button>}
+              <RemoveFromContinueWatching onClick={handelRemoveWatchingListFunc} />}
 
               {(isAuthenticated && data?._id) && (
                 <FavoriteButton isInWatchList={data?.isInWatchListTemp} onClick={handleWatchListItemFunc} />
@@ -229,18 +219,13 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
                 <Buttons onClick={redirectToRent}>Rent</Buttons>
               )}
 
-              {(data?.popupIsLoading)?<div className='absolute inset-0 bg-black/30 flex justify-center items-center cursor-wait'>
-                <LoopOutlined
-                sx={{
-                  animation: 'spin 1s linear infinite',
-                  fontSize: 40,
-                  color: 'white',
-                }}
-                />
+              {(data?.popupIsLoading)?<div className={cssPopupIsLoading}>
+                <LoopOutlined sx={sxIsLoading} />
               </div>:null}
             </div>
           </div>
         </div>
+
         </div>
       </div>
     </div>
@@ -248,3 +233,23 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
 }
 
 export default MovieSmallModal;
+
+const RemoveFromContinueWatching = ({onClick}: {onClick: () => void}) => <button 
+  title='Remove from Row' 
+  onClick={onClick} 
+  className={`cursor-pointer group/item w-8 h-8 border-white/60 border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300 `}> 
+    <CloseOutlined className={`text-white group-hover/item:text-neutral-300 w-6`} />
+</button>;
+
+
+// move tailwind class to clenup HTML
+const cssTextPart = `z-10 bg-zinc-800 relative p-2 lg:p-4 transition shadow-md rounded-b-lg`
+const cssBottomRow = `flex flex-wrap justify-between items-center`;
+const cssBottomLeft = `flex flex-row items-center gap-2 mb-1`;
+const cssPopupIsLoading = `absolute inset-0 bg-black/30 flex justify-center items-center cursor-wait`;
+
+const sxIsLoading = {
+  animation: 'spin 1s linear infinite',
+  fontSize: 40,
+  color: 'white',
+}

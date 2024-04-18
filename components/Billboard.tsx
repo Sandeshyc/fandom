@@ -1,14 +1,9 @@
 import React, { useCallback } from 'react';
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
-import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import PlayButton from '@/components/PlayButton';
 import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
-import useBillboard from '@/hooks/useBillboard';
-import { BanknotesIcon } from '@heroicons/react/24/outline';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
 import Locked from '@/components/Locked';
-import Buy from '@/components/Buy';
 import ReactVideoPlayer from '@/components/ReactPlayer';
 
 const Billboard: React.FC = ({data, extended, isComplited}) => {
