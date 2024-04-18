@@ -22,6 +22,7 @@ const Watch = () => {
   const [trailerUrl, setTrailerUrl] = React.useState('');
   const [videoReady, setVideoReady] = React.useState(false);
   const [backBtnActive, setBackBtnActive] = React.useState(false);
+  const [movieContentRating, setMovieContentRating] = React.useState('');
 
   const [pcEnable, setPcEnable] = useState(false); 
   const [pcPinEnable, setPcPinEnable] = useState(false);
@@ -140,16 +141,17 @@ const Watch = () => {
     setPcEnable(profileData?.parentalControl?.isEnable);
     setPcPinEnable(profileData?.parentalControl?.pinRequire);
     setPcPin(profileData?.parentalControl?.pin);
-    setPcRoles(profileData?.parentalControl?.role);    
-  }, [profileData]);
+    setPcRoles(profileData?.parentalControl?.role); 
+    setMovieContentRating(data?.contentRating);
+  }, [profileData, data]);
 
   useEffect(() => {
-    if(pcEnable && pcPinEnable && pcPin && Array.isArray(pcRoles) && pcRoles.length > 0){
+    if(pcEnable && pcPinEnable && pcPin && Array.isArray(pcRoles) && pcRoles.length > 0 && movieContentRating && pcRoles.includes(movieContentRating as never)){
       setPinMode(true);
     }else{
       setPinMode(false);
     }
-  }, [pcEnable, pcPinEnable, pcPin, pcRoles]);
+  }, [pcEnable, pcPinEnable, pcPin, pcRoles, movieContentRating]);
   return (
     <>
     {(pinMode)?(
