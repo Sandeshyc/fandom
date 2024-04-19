@@ -38,7 +38,7 @@ const Watch = () => {
     error: profileError,
     isLoading: profileLoading
   } = useProfile(userId);
-  console.log('profileData: ', profileData);
+  // console.log('profileData: ', profileData);
   const [videoURL, setVideoURL] = React.useState(
     {
       'HLS': data?.hlsVideo,
@@ -147,7 +147,7 @@ const Watch = () => {
   }, [profileData, data]);
 
   useEffect(() => {
-    if(pcEnable && pcPinEnable && pcPin && Array.isArray(pcRoles) && pcRoles.length > 0 && movieContentRating && pcRoles.includes(movieContentRating as never)){
+    if(!isTrailer && pcEnable && pcPinEnable && pcPin && Array.isArray(pcRoles) && pcRoles.length > 0 && movieContentRating && pcRoles.includes(movieContentRating as never)){
       setPinMode(true);
     }else{
       setPinMode(false);
