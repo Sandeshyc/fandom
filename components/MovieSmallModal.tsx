@@ -28,7 +28,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
   const [isHover, setIsHover] = React.useState(false);
-  console.log('data zoom', data);
+  // console.log('data zoom', data);
   // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
   const redirectToRent = useCallback(() => {
     if(data?.__typename === 'Series'){

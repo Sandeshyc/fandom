@@ -95,20 +95,36 @@ const MovieListReel: React.FC<MovieListProps> = ({ data, title, portrait, link, 
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
           {data?.map((movie, index) => (
-            <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} isSquare={isSquare}/>
+            <MovieCardReelBorderd key={stableKeys[index]} data={movie}/>
           ))}
         </div>
       </div>
       <div className="hidden lg:block movieSliderReel">
         <Slider {...settings}>
           {data?.map((movie, index) => (
-            <MovieCardReelBorderd key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} isSquare={isSquare}/>
+            <MovieCardReelBorderd key={stableKeys[index]} data={movie} />
           ))}
         </Slider>  
       </div> 
     </div>
   </div>);
-  return (<>{(Array.isArray(data) && data.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 md:pl-16 mt-2'>{ReelContent()}</div>:null}</>);
+  return (<>
+    {(Array.isArray(data) && data.length > 0)?
+      (isBoxesLayout === true)?
+        <div className="w-full overflow-hidden">
+          <div className="max-w-[1600px] mx-auto px-[15px]">
+            <div className="overflow-hidden movieBoxsInside">
+              {ReelContent()}
+            </div>
+          </div>
+        </div>
+      :
+        <div className='pl-4 md:pl-16 mt-2'>
+          {ReelContent()}
+        </div>
+    :
+      null
+  }</>);
 }
 
 export default MovieListReel;

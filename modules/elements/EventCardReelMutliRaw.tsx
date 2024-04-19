@@ -18,6 +18,7 @@ import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import CardHeader from '@/modules/elements/CardHeader';
 import CardFooter from '@/modules/elements/CardFooter';
 import {Cancel} from '@mui/icons-material';
+import { getThumbnailLandscape, getThumbnailPortrait } from '@/utils/getData';
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -102,10 +103,10 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   let aspectRatio = '384/216';
   const title = data?.title || '';
   if(portrait){
-    thumbURl = data?.thumbnailPortraitUrl || data?.thumbnailLandscapeUrl || '';
+    thumbURl = getThumbnailPortrait(data);
     aspectRatio = '240/360';
   }else{
-    thumbURl = data?.thumbnailLandscapeUrl || data?.thumbnailPortraitUrl || '';
+    thumbURl = getThumbnailLandscape(data);
   }
   let progress = 0;
   if(data?.currentTime && data?.videoDuration){

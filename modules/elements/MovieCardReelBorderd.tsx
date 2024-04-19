@@ -1,13 +1,9 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { MovieInterface } from '@/types';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import CardHeader from '@/modules/elements/CardHeader';
 import CardFooter from '@/modules/elements/CardFooter';
-import RollImage from '@/modules/Identities/RollImage';
-import { get } from 'lodash';
 import { getThumbnailPortrait } from '@/utils/getData';
 interface MovieCardProps {
   data: MovieInterface;
