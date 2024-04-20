@@ -22,6 +22,7 @@ const Watch = () => {
   const [trailerUrl, setTrailerUrl] = React.useState('');
   const [videoReady, setVideoReady] = React.useState(false);
   const [backBtnActive, setBackBtnActive] = React.useState(false);
+  const [movieContentRating, setMovieContentRating] = React.useState('');
 
   const [pcEnable, setPcEnable] = useState(false); 
   const [pcPinEnable, setPcPinEnable] = useState(false);
@@ -37,7 +38,7 @@ const Watch = () => {
     error: profileError,
     isLoading: profileLoading
   } = useProfile(userId);
-  console.log('profileData: ', profileData);
+  // console.log('profileData: ', profileData);
   const [videoURL, setVideoURL] = React.useState(
     {
       'HLS': data?.hlsVideo,
@@ -92,7 +93,8 @@ const Watch = () => {
     }
   }, [data]);
 
-  const captionURL = data?.closedCaptionUrl  ? data?.closedCaptionUrl : null;
+  // const captionURL = data?.closedCaptionUrl  ? data?.closedCaptionUrl : null;
+  const captionURL = Array.isArray(data?.closedCaptionUrl) && data.closedCaptionUrl.length > 0 ? data?.closedCaptionUrl : null;
 
   let timeout: NodeJS.Timeout;
   const onMouseMove = () => {
@@ -140,16 +142,17 @@ const Watch = () => {
     setPcEnable(profileData?.parentalControl?.isEnable);
     setPcPinEnable(profileData?.parentalControl?.pinRequire);
     setPcPin(profileData?.parentalControl?.pin);
-    setPcRoles(profileData?.parentalControl?.role);    
-  }, [profileData]);
+    setPcRoles(profileData?.parentalControl?.role); 
+    setMovieContentRating(data?.contentRating);
+  }, [profileData, data]);
 
   useEffect(() => {
-    if(pcEnable && pcPinEnable && pcPin && Array.isArray(pcRoles) && pcRoles.length > 0){
+    if(!isTrailer && pcEnable && pcPinEnable && pcPin && Array.isArray(pcRoles) && pcRoles.length > 0 && movieContentRating && pcRoles.includes(movieContentRating as never)){
       setPinMode(true);
     }else{
       setPinMode(false);
     }
-  }, [pcEnable, pcPinEnable, pcPin, pcRoles]);
+  }, [pcEnable, pcPinEnable, pcPin, pcRoles, movieContentRating]);
   return (
     <>
     {(pinMode)?(
@@ -172,7 +175,7 @@ const Watch = () => {
         </nav>
         <div className='absolute top-0 left-0 w-full h-full bg-black/80 z-10 py-[150px] px-8 flex justify-center items-center'>
           <div className='py-2 px-4 bg-black/90 w-[280px] sm:w-[420px] max-w-full flex justify-center flex-col'>
-            <Title tag='h3' size='xl' className='text-white text-center'>Parentail Control</Title>
+            <Title tag='h3' size='xl' className='text-white text-center'>Parental Control</Title>
             <Text size='base' className='text-white text-center'>Enter your PIN</Text>
             <PinVerify 
               myPin={pcPin}

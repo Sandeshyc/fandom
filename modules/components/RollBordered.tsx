@@ -110,7 +110,7 @@ const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
       </div> 
     </div>
   </div>);
-  return (<>{(Array.isArray(data) && data.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 md:pl-16 mt-2'>{ReelContent()}</div>:null}</>);
+  return (<>{(Array.isArray(data) && data.length > 0)?(isBoxesLayout === true)?<><div className="w-full overflow-hidden"><div className="max-w-[1600px] mx-auto px-[15px]"><div className="overflow-hidden movieBoxsInside">{ReelContent()}</div></div></div></>:<div className='pl-4 md:pl-16 mt-2 pr-2'>{ReelContent()}</div>:null}</>);
 }
 
 export default RollBordered;

@@ -7,8 +7,16 @@ import { capFirstLetter } from '@/utils/capFirstLetter';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
-  auditEntitlement
+  auditEntitlement,
+  getProfile
 } from '@/services/api'
+import {
+  AutorenewOutlined
+} from '@mui/icons-material';
+import PinVerifyRent from '@/modules/Identities/PinVerifyRent';
+import Title from '@/modules/Identities/Title';
+import Text from '@/modules/Identities/Text';
+import LinkRoute from '@/modules/Identities/LinkRoute';
 
 interface PlayButtonProps {
   movieId: string;
@@ -187,19 +195,59 @@ const PlanCard = ({
 }:any) => {
   // console.log('item', item);
   const isLoginUser = useCheckAuthentication();
+  const [isLoading, setIsLoading] = useState(false); 
+  const [isRentPinEnable, setIsRentPinEnable] = useState(false);
+  const [rentPin, setRentPin] = useState('');
+  const [isRentPinPopup, setIsRentPinPopup] = useState(false);
+  const [userId, setUserId] = useState('');
+  const [isPinSuccess, setIsPinSuccess] = useState(false);
+  const [rentProductId, setRentProductId] = useState('');
+  const [rentTransactionId, setRentTransactionId] = useState('');
   let descriptions = [] as any;
   if(item?.description){
     // replace all , with <li>
     descriptions = [...item?.description?.split(',')];
   }
   const router = useRouter();
+  const handleOtpChange = (otp:string) => {
+    if(rentPin === otp){
+      setIsPinSuccess(true);
+      const _auditEntitlementCall = async () => {          
+        const data = {
+            "userID": userId,
+            "itemCode": movieId,
+            "priceSKU": rentProductId,
+            "isPackage": isPackage,
+            "transactionId": rentTransactionId,
+        };
+        const res = await auditEntitlement(data);
+        if(res.status === 'success'){
+          window.localStorage.setItem('itemCode', movieId);
+          let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userId}&productId=${rentProductId}&transactionId=${rentTransactionId}`;
+          if(process.env.NODE_ENV === 'development'){
+            forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
+          }
+          router.replace(forwordPurchaseUrl);
+        }else{
+          window.location.reload();
+        }
+      }
+      _auditEntitlementCall();
+    }else{
+      setIsPinSuccess(false);    
+    }
+  }
   const goPurchase = (productId:string) => {
     const userInfor = localStorage.getItem('userInfo');
     const transactionId = uuidv4();
+    setIsLoading(true);
     if(userInfor){
       const userInfo = JSON.parse(userInfor);
       const {sub} = userInfo;
       if(sub){
+        setUserId(sub);
+        setRentProductId(productId);
+        setRentTransactionId(transactionId);
         const _auditEntitlementCall = async () => {          
           const data = {
               "userID": sub,
@@ -220,7 +268,26 @@ const PlanCard = ({
             window.location.reload();
           }
         }
-        _auditEntitlementCall();        
+        const _getProfile = async () => {
+          const res = await getProfile(sub);
+          // console.log('res', res);
+          if(res.status === 'success'){
+            const {data:profile} = res;
+            // console.log('profile', profile);
+            if(profile?.parentalControl?.isEnable && profile?.parentalControl?.pinRequireRent){
+              setIsRentPinEnable(true);
+              setRentPin(profile?.parentalControl?.pin);
+              setIsRentPinPopup(true);
+            }else{
+              _auditEntitlementCall();
+            }
+          }else{
+            window.location.reload();
+          }
+          setIsLoading(false); 
+        }
+        _getProfile();
+        // _auditEntitlementCall(); 
       }else{
         window.location.reload();
       }
@@ -237,8 +304,40 @@ const PlanCard = ({
     }
   }
   return (<>
-    <div className='text-white px-6 mb-4 w-[280px] min-w-[260px]'>
-      <div className=''>
+    {(isRentPinPopup)&&(
+      <div className='!fixed top-0 left-0 w-full h-full bg-black/80 z-50 py-[150px] px-8 flex justify-center items-center'>
+      <div className='py-2 px-4 bg-gray-800 w-[280px] sm:w-[420px] max-w-full flex justify-center flex-col rounded-md'>
+        <Title tag='h3' size='xl' className='text-white text-center'>Parental Control</Title>
+        <Text size='base' className='text-white text-center'>Enter your PIN</Text>
+        <PinVerifyRent
+          length={4}
+          onChange={handleOtpChange}
+          myPin={rentPin}
+        />
+        <div className='mt-4 justify-center flex flex-col items-center'>
+          {(isPinSuccess)&&(
+            <p className='text-green-500 text-[14px]'>PIN Success, Please wait a moment...</p>
+          )}
+          <LinkRoute 
+            type='unset'
+            href='/myprofile'
+            className='text-[#fff]/90 text-[14px] py-1'>Forgot PIN?</LinkRoute>
+          <button 
+            onClick={() => setIsRentPinPopup(false)}
+            className='text-[#fff]/70 text-[14px] py-1'>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    )}
+    <div className='text-white px-6 mb-4 w-[280px] min-w-[260px] '>
+      <div className='relative'>
+      {(isLoading)&&(<div className='absolute top-0 left-0 w-full h-full bg-black/80 flex justify-center items-center z-10 cursor-wait'>
+        <AutorenewOutlined 
+          className='animate-spin'
+          sx={{ color: 'white', fontSize: 40 }}/>
+      </div>)}
       <div className='bg-[#0F0F0F] flex-grow w-full rounded-md overflow-hidden py-4 px-2 border-2 border-b-0 border-[#262626]'>
         <div className='text-xl font-semibold mb-4'>{item?.name}</div>
         <div className='text-white text-base text-left'>

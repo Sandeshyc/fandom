@@ -1,7 +1,5 @@
 import React, {use, useRef, useEffect} from 'react';
-import EventCardReel from '@/modules/elements/EventCardReel';
 import ReelHeading from '@/modules/elements/ReelHeading';
-import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
 import EventCardReelMutliRaw from '@/modules/elements/EventCardReelMutliRaw';

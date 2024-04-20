@@ -27,7 +27,7 @@ const useUserInfo = () => {
             "tnc": tnc,
             "marketing": marketing,
         };
-        console.log('data', data);
+        // console.log('data', data);
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, data, { headers })
         .then(response => {
         // console.log('response', response);

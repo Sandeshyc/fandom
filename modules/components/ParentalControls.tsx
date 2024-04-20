@@ -3,7 +3,8 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import {
     Visibility,
     VisibilityOff,
-    RotateLeft
+    RotateLeft,
+    Lock
 } from '@mui/icons-material';
 import {
     updateProfile
@@ -11,6 +12,7 @@ import {
 import Text from '@/modules/Identities/Text';
 import LinkRoute from '@/modules/Identities/LinkRoute';
 import ParentControlPin from '@/modules/elements/ParentControlPin';
+import ParentControlReadOnly from '@/modules/elements/ParentControlReadOnly';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { initializeApp } from 'firebase/app';
@@ -38,6 +40,7 @@ const ParentalControls = ({pcData}:Props) => {
     const [isAuthOpen, setIsAuthOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [pinOpen, setPinOpen] = useState(false);
+    const [readPcData, setReadPcData] = useState(pcData);
     const toggleExpanded = () => {
         setExpanded(!expanded);
     }
@@ -129,6 +132,9 @@ const ParentalControls = ({pcData}:Props) => {
           }
         }
     }, []);
+    useEffect(() => {
+        setReadPcData(pcData);
+    }, [pcData]);
     return (
         <div className={`p-4 border border-[#C6BCC6] rounded-md bg-[#767680] bg-opacity-[22%]`}>  
             <div className="flex justify-between">
@@ -225,7 +231,13 @@ const ParentalControls = ({pcData}:Props) => {
                     setIsOn={setIsOn}                    
                     setPinOpen={setPinOpen}
                     pcData={pcData}
+                    setReadPcData={setReadPcData}
                 />
+                }
+                {((pcData?.isEnable || isOn) && !pinOpen)&&
+                <ParentControlReadOnly 
+                    pcData={readPcData}
+                />    
                 }
             </div>
         </div>
