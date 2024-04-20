@@ -13,12 +13,15 @@ type Props = {
     setIsOn: (isOn: boolean) => void;
     setPinOpen: (pinOpen: boolean) => void;
     pcData: any;
+    setReadPcData: (pcData: any) => void;
 }
 const ParentControlPin = (
-    {setIsOn, setPinOpen, pcData}: Props
+    {setIsOn, setPinOpen, pcData, setReadPcData}: Props
 ) => {
     const [userid, setUserid] = React.useState('');
     const [pinRequire, setPinRequire] = useState(pcData?.pinRequire);
+    const [pinRequireRent, setPinRequireRent] = useState(pcData?.pinRequireRent || false);
+    // console.log('pinRequireRent: ', pinRequireRent)
     const [roleName, setRoleName] = useState(pcData?.roleId);
     const [pin, setPin] = useState(pcData?.pin);
     const [validateError, setValidateError] = useState('');
@@ -32,12 +35,13 @@ const ParentControlPin = (
                 parentalControl = {
                     "isEnable": true,
                     "pinRequire": true,
+                    "pinRequireRent": (pinRequireRent)?true:false,
                     "pin": pin,
                     "roleId": selectedRoles[0]?.roleId,
                     "roleName": selectedRoles[0]?.roleName,
                     "role": selectedRoles[0]?.roles
                 }
-                console.log('data: ', parentalControl);
+                // console.log('data: ', parentalControl);
                 setValidateError('');
             }else{
                 setValidateError('Please select a role');
@@ -46,12 +50,13 @@ const ParentControlPin = (
             parentalControl = {
                 "isEnable": true,
                 "pinRequire": false,
+                "pinRequireRent": (pinRequireRent)?true:false,
                 "pin": pin,
                 "roleId": '',
                 "roleName": '',
                 "role": []
             }
-            console.log('data: ', parentalControl);
+            // console.log('data: ', parentalControl);
             setValidateError('');        
         }
         const data = {
@@ -59,10 +64,12 @@ const ParentControlPin = (
             parentalControl: parentalControl
         }
         const _updateProfile = async () => {
+            // console.log('data: ', data);
             const response = await updateProfile(data);
             if(response.status === 'success') {
                 setPinOpen(false);
-                setIsOn(true);                
+                setIsOn(true);    
+                setReadPcData(parentalControl);            
             }else{
                 setValidateError('Something went wrong');
             }
@@ -109,6 +116,13 @@ const ParentControlPin = (
                     <div className='absolute top-0 left-0 w-full h-full bg-black/50 z-10 rounded-md cursor-not-allowed'/>
                 )}
                 <div className='flex flex-wrap mb-4'>
+                    <input type="checkbox" 
+                        checked={pinRequireRent}
+                        onChange={() => setPinRequireRent(!pinRequireRent)}
+                        className='default:ring-2 w-[20px]' id='pinRequireRent'/>
+                    <label htmlFor="pinRequireRent" className='w-[180px] grow pl-2'>Require PIN to Rent content.</label>
+                </div>
+                <div className='flex flex-wrap mb-0'>
                     <input type="checkbox" 
                         checked={pinRequire}
                         onChange={() => setPinRequire(!pinRequire)}
