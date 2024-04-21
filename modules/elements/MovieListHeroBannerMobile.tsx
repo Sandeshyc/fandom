@@ -66,7 +66,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
                 {(postar)?
                   <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
                 :
-                  <div className='w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center'>{data?.title}</div>
+                  <div className='w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center text-center'>{data?.title}</div>
                 }
               </div>
               <div className='grow w-[100px] '>

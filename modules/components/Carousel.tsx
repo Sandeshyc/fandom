@@ -7,8 +7,8 @@ import checkAuthentication from '@/utils/checkAuth';
 import { stableKeys } from '@/utils/stableKeys';
 import PlayButtonSmall from '@/components/PlayButtonSmall';
 import FavoriteButton from '@/components/FavoriteButton';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
+import CardHeader from '@/modules/elements/CardHeader';
+import CardFooter from '@/modules/elements/CardFooter';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
 import { getThumbnailPortrait } from '@/utils/getData';
@@ -60,18 +60,14 @@ const CarouselItem = ({item}:CarouselItemProps) => {
     const handleToggle = () => {
         setOpen(!open);
     }
-    return (<div className='w-full aspect-[6/9] bg-zinc-900 rounded-md relative' >
-        {(item?.allowed)?<PurchaseBadge 
-        className='!w-[100px] text-center rounded-br-xl rounded-tr-none'
-        style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-        }}/>:
-        <BadgeDesktop text="Sale" theme="orange" className='!w-[100px] text-center rounded-br-xl rounded-tr-none'
-        style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-        }}/>}
+    return (<div className='w-full aspect-[6/9] bg-zinc-900 rounded-md relative' >        
+        <CardHeader header={item?.header} 
+            style={{
+                left: '50%',
+                transform: 'translateX(-50%)',
+                borderRadius: ' 0 0 0.5rem 0.5rem',
+            }}
+        />
         <div className='w-full h-full rounded-lg cursor-pointer' onClick={() => router.push(`/details/${item?._id}`)}>
             <img src={thumb} alt={item?.title} className='w-full h-full object-cover rounded-lg'/>
         </div>

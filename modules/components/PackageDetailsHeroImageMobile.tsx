@@ -14,7 +14,7 @@ type Props = {
 const PackageDetailsHeroImageMobile = ({data}:Props) => {
     const [hasMovieList, setHasMovieList] = useState(false);
     const [movieListOfset, setMovieListOfset] = useState(0);
-    const thumb = getThumbnailLandscape(data);;
+    const thumb = getThumbnailLandscape(data);
     useEffect(() => {
         const movieListHeroBanner = document.querySelector('.movieListHeroBanner');
         if((movieListHeroBanner !== null) && (movieListHeroBanner !== undefined) && (movieListHeroBanner !== '')){

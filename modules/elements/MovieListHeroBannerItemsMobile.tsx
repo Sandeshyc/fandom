@@ -60,7 +60,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
             {(bannerThumb)?
               <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg" />
             :
-              <div className="w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center">{movie?.title}</div>
+              <div className="w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center text-center">{movie?.title}</div>
             }
           </div>
         </div>
