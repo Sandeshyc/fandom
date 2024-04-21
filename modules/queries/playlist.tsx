@@ -22,6 +22,7 @@ const PLAYLIST_QUERY = gql`
         thumbnailLandscapeUrl
         contentRating
         publishSchedule
+        releaseDate
         cast
         director
         writer

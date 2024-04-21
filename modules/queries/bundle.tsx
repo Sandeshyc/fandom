@@ -25,6 +25,7 @@ const BUNDLE_QUERY = gql`
         thumbnailLandscapeUrl
         contentRating
         publishSchedule
+        releaseDate
         cast
         director
         writer

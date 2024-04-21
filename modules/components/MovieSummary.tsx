@@ -18,8 +18,9 @@ const MovieSummary = (inputProps:dataProps) => {
     const postar = getThumbnailPortrait(data);
     let publishYear = data?.publishSchedule;
     // get year from date
-    if(publishYear){
-      publishYear = yearFromDate(publishYear);
+    let releaseYear = data?.releaseDate;
+    if(releaseYear){
+      releaseYear = yearFromDate(releaseYear);
     }
     const publishRemaining = getTimeDifference(data?.publishSchedule);
     // console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
@@ -50,7 +51,7 @@ const MovieSummary = (inputProps:dataProps) => {
                       {data?.genre?.map((itemTxt:string, index:number) => 
                       <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0">{capFirstLetter(itemTxt)}
                       </span>)}
-                      {(publishYear)&&<span className="inline-flex items-center text-sm mr-2 last:mr-0">{publishYear}
+                      {(releaseYear)&&<span className="inline-flex items-center text-sm mr-2 last:mr-0">{releaseYear}
                       </span>}
                     </div>}
                 </div>

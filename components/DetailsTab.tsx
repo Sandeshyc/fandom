@@ -67,7 +67,7 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
                 {
                     label:'Release year',
                     type:'text',
-                    content: (data?.publishSchedule)?yearFromDate(data?.publishSchedule as string):'' as string
+                    content: (data?.releaseDate)?yearFromDate(data?.releaseDate as string):'' as string
                 },
                 {
                     label:'Duration',
