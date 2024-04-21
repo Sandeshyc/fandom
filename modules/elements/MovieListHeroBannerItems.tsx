@@ -118,7 +118,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
       const bannerThumb = getThumbnailLandscape(movie);
       return (
         <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-[-6px]'>
-          <div className="w-full aspect-video cursor-pointer">
+          <div className="w-full aspect-[16/9] cursor-pointer">
             <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
               {(movie?.allowed)?<PurchaseBadge/>:
               (movie?.canBuy === false)?<NotAllowed/>:

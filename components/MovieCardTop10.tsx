@@ -188,7 +188,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
               <CardFooter footer={data?.footer} />
             </div>
           </div> 
-          <RollImage thumbURl={thumbURl} title={title}/>
+          <RollImage thumbURl={thumbURl} title={title} className='rounded-bl-none' />
         </div>
       </div>
     </div>

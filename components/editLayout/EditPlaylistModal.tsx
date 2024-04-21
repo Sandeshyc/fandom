@@ -123,7 +123,7 @@ const EditPlaylistModal: React.FC<EditChangePlaylistModalProps> = ({ visible, on
                 </div>
                 <h3 className="text-3xl  px-5">Edit a Playlist</h3>
               </div>
-              <iframe className=" top-0 left-0 w-full h-full" src={`https://d1ej2uyebavk7j.cloudfront.net/playlist-details/${playlist?._id}`}  />
+              <iframe className="top-0 left-0 w-full h-full" src={`https://d1ej2uyebavk7j.cloudfront.net/playlist-details/${playlist?._id}`}  />
             </div>
           </div>
         </div>
