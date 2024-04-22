@@ -18,9 +18,8 @@ const Home = () => {
   // const [myRegion, setRegion] = useState("PH");
   const isMobile = useIsMobile();
 
-  const {data: clientLocation} = useClientLocaion();
-  console.log('clientLocation: ', clientLocation);
-  const region = clientLocation?.country?.isoCode || 'PH';
+  const {data: clientLocation, error: locationError}:any = useClientLocaion();
+  const region = clientLocation?.country?.isoCode;
 
   const {
     data: movies = [],
@@ -33,18 +32,6 @@ const Home = () => {
     userId,
     randomNumber.toString()
   );
-  // const {
-  //   data: movies = [],
-  //   isLoading,
-  //   error,
-  // } = useMovieList(
-  //   region,
-  //   "mobile",
-  //   "home",
-  //   "6B4223FA-EBD3-4C8E-813D-CCFC7AEF3BE4",
-  //   randomNumber.toString()
-  // );
-  // console.log('Home Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error, 'isReady', isReady);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem("userInfo");
@@ -59,15 +46,8 @@ const Home = () => {
 
   return (
     <div
-      className="bg-[#050505] text-white overflow-hidden relative
-      bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]
-      "
-      style={{
-        // backgroundImage: bgImage,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% auto",
-        backgroundPosition: "right " + 30 + "%",
-      }}>
+      className={cssBoxBg}
+      style={styleBoxBg}>
       {(!isLoading && isReady && movies) ? (
         <Mapper
           modules={movies}
@@ -75,11 +55,19 @@ const Home = () => {
           isLoading={isLoading}
         />
       ) : (
-        <SkeletonHome />
+        <></>
       )}
-      {error ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
+      {(error || locationError) ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
     </div>
   );
 };
 
 export default Home;
+
+const cssBoxBg = `bg-[#050505] text-white overflow-hidden relative bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]`;
+const styleBoxBg = {
+  // backgroundImage: bgImage,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "100% auto",
+  backgroundPosition: "right " + 30 + "%",
+}
