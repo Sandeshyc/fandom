@@ -20,9 +20,8 @@ const Categories = (props:any) => {
   const isMobile = useIsMobile();
   const { tvshow } = router.query;
   
-  const {data: clientLocation} = useClientLocaion();
-  console.log('clientLocation: ', clientLocation);
-  const region = clientLocation?.country?.isoCode || 'PH';
+  const {data: clientLocation, error: locationError}:any = useClientLocaion();
+  const region = clientLocation?.country?.isoCode;
 
   const { data, isLoading, error} = useTvShowDetails(tvshow as string, userId as string, (isMobile)?'mobile':'web', region);
   // console.log('data', data);
@@ -58,7 +57,7 @@ const Categories = (props:any) => {
           <ShowSummary/>
           </>
         )}
-    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
+    {(error || locationError)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 
 }

@@ -17,9 +17,8 @@ const Categories = (props:any) => {
   const isMobile = useIsMobile();
   const { categories } = router.query;
 
-  const {data: clientLocation} = useClientLocaion();
-  console.log('clientLocation: ', clientLocation);
-  const region = clientLocation?.country?.isoCode || 'PH';
+  const {data: clientLocation, error: locationError}:any = useClientLocaion();
+  const region = clientLocation?.country?.isoCode;
 
   const { data, isLoading, error} = useAllMovie(categories as string, userId as string, (isMobile)?'mobile':'web', region);
   console.log('data', data);
@@ -49,7 +48,7 @@ const Categories = (props:any) => {
         itemCode={categories as string}
         getComponent = {getComponent}
         isLoading = {isLoading}/></> : (<SkeletonExploreAll/>)}
-    {(error)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
+    {(error || locationError)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 
 }

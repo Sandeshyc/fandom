@@ -20,9 +20,8 @@ const Home = () => {
   const randomNumber = useState(getRandomNumber(100000, 900000));
   const isMobile = useIsMobile();
 
-  const {data: clientLocation} = useClientLocaion();
-  console.log('clientLocation: ', clientLocation);
-  const region = clientLocation?.country?.isoCode || 'PH';
+  const {data: clientLocation, error: locationError}:any = useClientLocaion();
+  const region = clientLocation?.country?.isoCode;
 
   const {
     data: movies = [],
@@ -69,7 +68,7 @@ const Home = () => {
         <SkeletonExploreAll/>
         </>
       )}
-      {error ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
+      {(error || locationError) ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
     </div>
   );
 };
