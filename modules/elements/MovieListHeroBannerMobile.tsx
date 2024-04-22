@@ -25,14 +25,14 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
-  let publishYear = data?.publishSchedule;
+  let releaseYear = data?.releaseDate;
   let trailerUrl = '';
   if(data?.trailerUrl){
     trailerUrl = data?.trailerUrl;    
   }
   // get year from date
-  if(publishYear){
-    publishYear = yearFromDate(publishYear);
+  if(releaseYear){
+    releaseYear = yearFromDate(releaseYear);
   }
 
   const handleToggle = () => {
@@ -83,7 +83,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
                     {data?.genre?.map((itemTxt:string, index:number) => 
                     <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0">{capFirstLetter(itemTxt)}
                     </span>)}
-                    {(publishYear)&&<span className="inline-flex items-center text-sm mr-2 last:mr-0">{publishYear}
+                    {(releaseYear)&&<span className="inline-flex items-center text-sm mr-2 last:mr-0">{releaseYear}
                     </span>}
                   </div>}
               </div>

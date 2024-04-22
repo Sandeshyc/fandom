@@ -13,8 +13,8 @@ const MovieDetailsTab = ({data, isPackage=false}:{data:any, isPackage?:boolean})
     const [relaseYear, setRelaseYear] = useState('');
     
     useEffect(() => {
-        if(data?.publishSchedule){
-            setRelaseYear(yearFromDate(data?.publishSchedule as string) as any);
+        if(data?.releaseDate){
+            setRelaseYear(yearFromDate(data?.releaseDate as string) as any);
         }
         let tempTabArgs = [];
         tempTabArgs.push({

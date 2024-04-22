@@ -12,6 +12,7 @@ const CONTENT_QUERY = gql`
         thumbnailPortrait
         thumbnailLandscapeUrl
         publishSchedule
+        releaseDate
         title
         contentRating
         quality

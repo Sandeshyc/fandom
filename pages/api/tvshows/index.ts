@@ -17,10 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let sectionName = getValue(req.query.sectionName as string);
     let userID = getValue(req.query.userId as string);
     let region = getValue(req.query.region as string);
+
+    if(region === 'NA'){
+      return res.status(204).end();
+    }
     
     if (sectionName === 'NA') sectionName = 'home';
     if (userID === 'NA') userID = '';
-    if (region === 'NA') region = 'PH';
+    // if (region === 'NA') region = 'PH';
     if (product === 'NA') product = 'web';
 
     let url = `${process.env.API_URL}/page/${sectionName}?product=${product}`;

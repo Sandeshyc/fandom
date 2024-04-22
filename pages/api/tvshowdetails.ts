@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
     
-    const ipAddress = req.headers["x-forwarded-for"] as string;
+    // const ipAddress = req.headers["x-forwarded-for"] as string;
     // console.log('ipAddress ', ipAddress)
     // const {countryIsoCode} = await getLocation();
     // console.log('countryIsoCode ', countryIsoCode)
@@ -26,6 +26,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let product = getValue(req.query.product as string);    
     let region = getValue(req.query.region as string);    
     
+    // if(region === 'NA'){
+    //   return res.status(204).end();
+    // }
+
     let url = `${process.env.API_URL}/page/tvshow?itemCode=${movieID}&userId=${userID}`;
     // url = `${url}&region=${(region)?region:'PH'}`;
     if( product ){

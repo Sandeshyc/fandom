@@ -26,19 +26,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     console.log('client Location :: ip = ', ip);
     console.log('client Location :: req.headers = ', forwardedFor, req.socket.remoteAddress);
-   
-    // await serverAuth(req, res);
-    // const region = req.query.region;
-    // console.log(region)
 
     let ipaddress = ip;
-    if(ip === "Unknown" || ip === "::1" || ip === " ::ffff:" || ip.length < 7){
+    if(ip === "Unknown" || ip === "::1" || ip.indexOf("::ffff:") >=0 || ip.length < 7){
       ipaddress = 'get';
     }
-    
-    const response = await axios.get(`https://geoip.kapamilya.com/api/location/${ipaddress}?api-version=1.0`);
 
-    console.log('client Location :: locationAPI = ',response.data.data);
+    const URL = `https://geoip.kapamilya.com/api/location/${ipaddress}?api-version=1.0`;
+    const response = await axios.get(URL, {timeout: 20000});
 
     return res.status(200).json(response.data?.data || {});
   } catch (error) {

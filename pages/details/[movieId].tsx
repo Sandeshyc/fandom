@@ -33,15 +33,9 @@ const Details = () => {
   const [isError, setIsError] = React.useState(false);
   const [userIdToken, setUserIdToken] = React.useState('');
 
-  // const _location = async () => {
-  //   const {countryIsoCode} = await getLocation();
-  //   // console.log('countryIsoCode ', countryIsoCode);
-  //   setRegion(countryIsoCode);
-  // }
-  // _location();
-  const {data: clientLocation} = useClientLocaion();
-  console.log('clientLocation: ', clientLocation);
-  const region = clientLocation?.country?.isoCode || 'PH';
+  const {data: clientLocation, error: locationError}:any = useClientLocaion();
+  const region = clientLocation?.country?.isoCode;
+
   const { data: movieDetails, isLoading, error} = useMovieDetails(movieId as string, userIdToken, (isMobile)?'mobile':'web', region); // Need to upate
   console.log('isLoading', isLoading, 'movieDetails', movieDetails, 'error', error);
   // console.log('movieDetails', movieDetails);
@@ -96,7 +90,7 @@ const Details = () => {
         isLoading = {isLoading}/>
       </div>
     </>:<SkeletonDetails/>}
-    {(error || isError) && <ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>}
+    {(error || isError || locationError) && <ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>}
   </>
   )
 }
