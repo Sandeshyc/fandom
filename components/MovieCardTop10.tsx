@@ -62,6 +62,10 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
     // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
     popWidth = (popWidth < 400)? 400 : popWidth;
+    const itemWidth = thumbOuter?.getBoundingClientRect()?.width;
+    if(itemWidth){
+      popWidth = itemWidth * 1.3;
+    }
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);

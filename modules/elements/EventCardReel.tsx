@@ -84,6 +84,10 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
     popWidth = popWidth < 400 ? 400 : popWidth;
+    const itemWidth = thumbOuter?.getBoundingClientRect()?.width;
+    if(itemWidth){
+      popWidth = itemWidth * 1.1;
+    }
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);

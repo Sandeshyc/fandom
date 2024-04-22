@@ -60,6 +60,10 @@ const MovieCardReelSale: React.FC<MovieCardProps> = ({ data, portrait, gradient,
     // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
     popWidth = (popWidth < 400)? 400 : popWidth;
+    const itemWidth = thumbOuter?.getBoundingClientRect()?.width;
+    if(itemWidth){
+      popWidth = itemWidth * 1.5;
+    }
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);
