@@ -75,10 +75,8 @@ const ParentControlPin = (
             }
         }
         if(Object.hasOwnProperty.call(parentalControl, 'isEnable')){
-            // console.log('parentalControl: ', parentalControl);
             _updateProfile();
         }else{
-            // console.log('parentalControl: ddd', parentalControl);
             setValidateError('Please select a role');        
         }
     }

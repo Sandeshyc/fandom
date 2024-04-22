@@ -1,7 +1,6 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import * as oidcApi from 'pages/api/auth/oidcApi';
 import useProfile from '@/hooks/useProfile';
 import { Menu, Transition } from '@headlessui/react';
 import {ArrowDropDown, CreditCard, PaymentsOutlined, DevicesOtherOutlined} from '@mui/icons-material';
@@ -14,14 +13,6 @@ import {
     HelpCenterIcon,
     LogoutIcon
 } from '@/utils/CustomSVGs';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signOut } from "firebase/auth";
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
-  authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
-};
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 const ProfileDropDown = () => {
     const router = useRouter();
@@ -58,38 +49,6 @@ const ProfileDropDown = () => {
           }
         }
     }, []);
-
-    const logoutFnc = () => {
-        const provider = localStorage.getItem('provider');
-        const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
-        const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
-        localStorage.removeItem('userInfo');        
-        localStorage.removeItem('provider');
-        if(provider === 'oneLogin'){
-            localStorage.removeItem('oneLogInAccessToken');
-            if(oneLogInAccessToken){
-                oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
-            }else{
-                oidcApi.logoutAuth();
-            }            
-        }else{
-            localStorage.removeItem('googleIndentityAccessToken');
-            const _signOut = async () => {
-                await signOut(getAuth()).then(() => {
-                    console.log('signout');
-                    localStorage.removeItem('googleIndentityAccessToken');
-                    // router.push('/');
-                    window.location.replace(window.location.href);
-                }
-                ).catch((error) => {
-                    console.log('signout error', error);
-                    localStorage.removeItem('googleIndentityAccessToken');
-                    router.push('/auth');
-                });
-            }
-            _signOut();
-        }    
-    }
     return (
         <>
         {(isLoginUser)?

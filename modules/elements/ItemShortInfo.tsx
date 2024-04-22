@@ -24,7 +24,7 @@ const ItemShortInfo = ({data}:Props) => {
             {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
             {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
           </div>
-          {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt:string, index:number) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+          {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex flex-wrap items-center'>{data?.genre?.map((itemTxt:string, index:number) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
             {capFirstLetter(itemTxt)}
           </span>)}</div>:null} 
         </div>

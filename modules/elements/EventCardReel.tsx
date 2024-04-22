@@ -124,7 +124,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
   };
 
   const handelAddMyList = async (isInLish: boolean) => {
-    console.log("handelAddMyList", isInWatchListTemp, userId, data?._id);
+    // console.log("handelAddMyList", isInWatchListTemp, userId, data?._id);
     dataExtend.popupIsLoading = true;
     updateModal(dataExtend);
     let response;

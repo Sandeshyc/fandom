@@ -10,11 +10,11 @@ import Mapper from "@/modules/ModuleMapper";
 import { getComponent } from "@/modules";
 
 const bgImage = 'url("/images/new-bg.png")';
+const randomNumber = getRandomNumber(100000, 900000);
 // Main Component of Home page
 const Home = () => {
   const [isReady, setIsReady] = useState(false);
   const [userId, setUserId] = useState("");
-  const randomNumber = useState(getRandomNumber(100000, 900000));
   // const [myRegion, setRegion] = useState("PH");
   const isMobile = useIsMobile();
 
@@ -33,17 +33,6 @@ const Home = () => {
     userId,
     randomNumber.toString()
   );
-  // const {
-  //   data: movies = [],
-  //   isLoading,
-  //   error,
-  // } = useMovieList(
-  //   region,
-  //   "mobile",
-  //   "home",
-  //   "6B4223FA-EBD3-4C8E-813D-CCFC7AEF3BE4",
-  //   randomNumber.toString()
-  // );
   // console.log('Home Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error, 'isReady', isReady);
 
   useEffect(() => {

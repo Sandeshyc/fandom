@@ -104,17 +104,31 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
       <div
         className={`absolute bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25 pl-4 md:pl-16 transition`}
       >
-        <div className="mb-8 w-[90%] md:w-[80%] lg:w-[50%] xl:w-[40%] text-contentColor">
-          {title && (
-            <Title tag="h1" size="6xl" className="mb-2">
-              {title}
-            </Title>
-          )}
-          {description && (
-            <Text size="xl" clamp={4}>
-              {description}
-            </Text>
-          )}
+        <div className="mb-4 lg:mb-8 w-[90%] md:w-[80%] lg:w-[50%] xl:w-[40%] text-contentColor">
+          <div className="hidden md:block">
+            {title && (
+              <Title tag="h1" size="6xl" className="mb-2">
+                {title}
+              </Title>
+            )}
+            {description && (
+              <Text size="xl" clamp={4}>
+                {description}
+              </Text>
+            )}
+          </div>
+          <div className="block md:hidden">
+            {title && (
+              <Title tag="h1" size="3xl" className="mb-1">
+                {title}
+              </Title>
+            )}
+            {description && (
+              <Text size="sm" clamp={4}>
+                {description}
+              </Text>
+            )}
+          </div>
         </div>
         {itemId && (
           <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">

@@ -47,25 +47,25 @@ const BottomNavigation = () => {
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
                 onClick={() => router.push('/')}>
                     <HomeOutlined
-                    className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                    className={`${('/' === router.asPath)?'text-blue-700':'text-white'} text-xl`}/>
                     <span
-                    className={`${('/' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Home</span>
+                    className={`${('/' === router.asPath)?'text-blue-500':'text-white'} font-regular text-xs mt-1`}>Home</span>
                 </button>
                 {(isLoginUser)?
                 (<>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
                 onClick={() => router.push('/mytickets')}>
                     <ConfirmationNumberOutlined
-                    className={`${('/mytickets' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                    className={`${('/mytickets' === router.asPath)?'text-blue-700':'text-white'} text-xl`}/>
                     <span
-                    className={`${('/mytickets' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My Tickets</span>
+                    className={`${('/mytickets' === router.asPath)?'text-blue-500':'text-white'} font-regular text-xs mt-1`}>My Tickets</span>
                 </button>
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
                 onClick={() => router.push('/list')}>
                     <List
-                    className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                    className={`${('/list' === router.asPath)?'text-blue-700':'text-white'} text-xl`}/>
                     <span
-                    className={`${('/list' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>My List</span>
+                    className={`${('/list' === router.asPath)?'text-blue-500':'text-white'} font-regular text-xs mt-1`}>My List</span>
                 </button>
                 </>)
                 :
@@ -75,9 +75,9 @@ const BottomNavigation = () => {
                     router.push('/auth');
                 }}>
                     <AccountCircleOutlined
-                    className={`${('/auth' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                    className={`${('/auth' === router.asPath)?'text-blue-700':'text-white'} text-xl`}/>
                     <span
-                    className={`${('/auth' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>Login</span>
+                    className={`${('/auth' === router.asPath)?'text-blue-500':'text-white'} font-regular text-xs mt-1`}>Login</span>
                 </button>
                 }                
                 <button className='flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65'
@@ -85,9 +85,9 @@ const BottomNavigation = () => {
                     setIsCollapseOpen(true);
                 }}>
                     <MoreHoriz
-                    className={`${('/ddd' === router.asPath)?'text-[#42AD9B]':'text-white'} text-xl`}/>
+                    className={`${('/ddd' === router.asPath)?'text-blue-700':'text-white'} text-xl`}/>
                     <span
-                    className={`${('/ddd' === router.asPath)?'text-[#42AD9B]':'text-white'} font-regular text-xs mt-1`}>More</span>
+                    className={`${('/ddd' === router.asPath)?'text-blue-500':'text-white'} font-regular text-xs mt-1`}>More</span>
                 </button>
             </div>
         </div>

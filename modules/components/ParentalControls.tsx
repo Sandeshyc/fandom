@@ -84,6 +84,12 @@ const ParentalControls = ({pcData}:Props) => {
                                     if(isOn){
                                         let newPcData = pcData;
                                         newPcData.isEnable = false;
+                                        newPcData.pinRequire = false;
+                                        newPcData.pinRequireRent = false;
+                                        newPcData.pin = '';
+                                        newPcData.roleId = '';
+                                        newPcData.roleName = '';
+                                        newPcData.role = {};
                                         const data = {
                                             userId: userid,
                                             parentalControl: newPcData

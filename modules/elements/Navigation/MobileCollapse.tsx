@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import useProfile from '@/hooks/useProfile';
-import * as oidcApi from 'pages/api/auth/oidcApi';
 import checkAuthentication from '@/utils/checkAuth';
+import LogoutPopUp from '@/modules/elements/LogoutPopUp';
 import {
     Search,
     CloseOutlined,
@@ -23,14 +23,6 @@ import {
     PercentOutlined,
     DevicesOtherOutlined
 } from '@mui/icons-material';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signOut } from "firebase/auth";
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
-  authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
-};
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 type Props = {
     isCollapseOpen: boolean;
@@ -41,6 +33,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLogoutPopUp, setIsLogoutPopUp] = useState(false);
 
     const { data: profile, isLoading } = useProfile(userid);
     useEffect(() => {
@@ -72,36 +65,6 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
           }
           _checkAuthentication();
     }, []);
-    
-    const logoutFnc = () => {
-        const provider = localStorage.getItem('provider');
-        const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
-        const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
-        localStorage.removeItem('userInfo');
-        localStorage.removeItem('oneLogInAccessToken');
-        if(provider === 'oneLogin'){
-            if(oneLogInAccessToken){
-                oidcApi.logoutAuthToken({id_token_hint: oneLogInAccessToken});      
-            }else{
-                oidcApi.logoutAuth();
-            }            
-        }else{
-            const _signOut = async () => {
-                await signOut(getAuth()).then(() => {
-                    console.log('signout');
-                    localStorage.removeItem('googleIndentityAccessToken');
-                    // router.push('/');
-                    window.location.replace(window.location.href);
-                }
-                ).catch((error) => {
-                    console.log('signout error', error);
-                    localStorage.removeItem('googleIndentityAccessToken');
-                    router.push('/auth');
-                });
-            }
-            _signOut();
-        }   
-    };
 
     return (<>
         <div className='fixed left-0 top-0 w-screen h-screen text-white bg-gradient-to-t from-black to-black/80 pt-6 pb-12 px-8 z-50'>
@@ -235,12 +198,13 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     icon={<Logout />}
                     label={'Logout'}
                     handleClick={() => {
-                        logoutFnc();
+                        setIsLogoutPopUp(true);
                     }}  
                     activeRoute=''/>
                 }
                 
             </div>
+            {(isLogoutPopUp)&&<LogoutPopUp setIsLogoutPopUp={setIsLogoutPopUp}/>}
         </div>
     </>);
 };
