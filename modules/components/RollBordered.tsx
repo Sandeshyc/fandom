@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { MovieInterface } from '@/types';
 import MovieCardReelBorderd from '@/modules/elements/MovieCardReelBorderd';
+import MovieCardReelPortrait from '@/modules/elements/MovieCardReelPortrait';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
@@ -97,7 +98,7 @@ const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
           {data?.map((movie, index) => (
-            <MovieCardReelBorderd key={stableKeys[index]} data={movie}/>
+            <MovieCardReelPortrait key={stableKeys[index]} data={movie}/>
           ))}
         </div>
       </div>

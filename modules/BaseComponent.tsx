@@ -1,8 +1,8 @@
 import React from 'react'
 import { useQuery } from '@apollo/client';
 import queryMap from './queries'
-
 import GetComponent from '@/modules/skeletons';
+import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 
 const BaseComponent = (props:any) => {
   // console.log('BaseComponent ', props);
@@ -26,14 +26,16 @@ const BaseComponent = (props:any) => {
         data = gqData?.[module.sourceType];
         // console.log('GQL DATA dddd ');
       }
-      console.log('GQL DATA ', module, gqData)
+      // console.log('GQL DATA ', module, gqData)
       if (loading || 0 ) return (
         <>
           <GetComponent displayType={module?.displayType as string} />
           {/* <p className='text-white'>{module?.displayType} Loading Skeleton...</p> */}
         </>
       );
-      if (error) return <p>GQL Error :{module?.sourceType as string} {module?.displayType as string} {module?.title as string} <span className='text-red-500'>{error.message}</span></p>;
+      if (error) return (
+        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error?.message}`}/>
+      );
 
       const newChild = React.cloneElement(props.children, {
           data,

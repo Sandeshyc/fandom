@@ -47,7 +47,7 @@ const MovieSummary = (inputProps:dataProps) => {
                     {(data?.duration)?(<span className='mb-1'>{data?.duration}</span>):null}
                   </p>
                   {(Array.isArray(data?.genre) && data?.genre?.length > 0)&&
-                    <div className='popUpGenre flex items-center text-contentColor/70'>
+                    <div className='popUpGenre flex flex-wrap items-center text-contentColor/70'>
                       {data?.genre?.map((itemTxt:string, index:number) => 
                       <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0">{capFirstLetter(itemTxt)}
                       </span>)}

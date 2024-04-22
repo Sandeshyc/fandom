@@ -84,6 +84,10 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
     popWidth = popWidth < 400 ? 400 : popWidth;
+    const itemWidth = thumbOuter?.getBoundingClientRect()?.width;
+    if(itemWidth){
+      popWidth = itemWidth * 1.1;
+    }
     const popWidthHalf = popWidth / 2;
 
     top = round(top - popWidthHalf);
@@ -124,7 +128,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
   };
 
   const handelAddMyList = async (isInLish: boolean) => {
-    console.log("handelAddMyList", isInWatchListTemp, userId, data?._id);
+    // console.log("handelAddMyList", isInWatchListTemp, userId, data?._id);
     dataExtend.popupIsLoading = true;
     updateModal(dataExtend);
     let response;

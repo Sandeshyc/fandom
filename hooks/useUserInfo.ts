@@ -65,10 +65,14 @@ const useUserInfo = () => {
                   const res = await auditEntitlement(data);
                   if(res.status === 'success'){
                     window.localStorage.setItem('itemCode', itemCode);
-                    let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userInfoData?.userId}&productId=${priceSKU}&transactionId=${transactionId}`;
-                    if(process.env.NODE_ENV === 'development'){
-                      forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
+                    // let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userInfoData?.userId}&productId=${priceSKU}&transactionId=${transactionId}`;
+                    let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}`;
+                    if(itemCode){
+                      forwordPurchaseUrl += `/details/`+ itemCode +`?viewPlan=true`;
                     }
+                    // if(process.env.NODE_ENV === 'development'){
+                    //   forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
+                    // }
                     localStorage.removeItem('callbackAction');
                     localStorage.removeItem('callbackParams');
                     window.location.replace(forwordPurchaseUrl);

@@ -105,7 +105,7 @@ const MovieCardPopOver: React.FC<MovieCardProps> = ({ data, autoplay, parentRef,
           rounded-b-lg">
           <div className='mb'>
             <p className="font-medium text-3xl mb-1">{data?.title || ""}</p>
-            {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+            {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex flex-wrap items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
                 {capFirstLetter(itemTxt)}
               </span>)}</div>:null}
             {(data?.description) && <p className="font-normal	text-sm mt-2 mb-2 text-white/80 line-clamp-2">{data?.description}</p>}

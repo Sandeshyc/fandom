@@ -163,7 +163,7 @@ return (<>
             {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
             {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
           </div>
-          {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
+          {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex flex-wrap items-center'>{data?.genre?.map((itemTxt:any, index:number) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
             {capFirstLetter(itemTxt)}
           </span>)}</div>:null} 
         </div>
@@ -174,7 +174,7 @@ return (<>
     </div>
     
     <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
-      {items?.map((item, index)=>{
+      {items?.map((item:any, index:number)=>{
         return (<PlanCard 
           item={item}
           movieId={movieId}

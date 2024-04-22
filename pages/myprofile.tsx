@@ -1,11 +1,11 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import {
+  updateProfile
+} from '@/services/api';
 import useProfile from '@/hooks/useProfile';
-import useUpdateProfile from '@/hooks/useupdateProfile';
-import SideBar from '@/components/SideBar'
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
@@ -48,7 +48,7 @@ const MyProfile = () => {
   const { data: profile, isLoading } = useProfile(userid);
   // console.log('profile: ', profile);
 
-  const updateProfile = (flag:boolean) => {
+  const updateProfileHandle = (flag:boolean) => {
     setIsUpdateMode(flag);  
   }
   const toggleProfile = () => {
@@ -73,8 +73,7 @@ const MyProfile = () => {
     }
     if(profile?.hasOwnProperty('gender')){
       setGender(profile?.gender);
-    }
-      
+    }      
   }, [profile]);
   
   useEffect(() => {
@@ -138,45 +137,37 @@ const MyProfile = () => {
         userGender,
         userBirthday,
       }) => {
-        console.log('Testing');
-        setIsUpdating(true);
-        // console.log('userPhone: ', userPhone);
-      const headers = {
-        'Content-Type': 'application/json',
-      };      
-      const data = {
-        "userId":userid,
-        "email":userEmail,
-        "firstName":firstName,
-        "lastName":lastName,
-        "gender":userGender,
-        "phone":userPhone,
-        "countryCode": userCountryCode || '+1',
-        "birthday":userBirthday?.split('T')[0], 
-      };
-      console.log('data: ', data);
-      // setIsUpdating(false);
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, data, { headers })
-          .then(response => {
-          if(response.status === 200) {
-            setIsSuccess(true);
-            setIsError(false);
-            setTimeout(() => {
+        setIsUpdating(true);     
+        const data = {
+          "userId":userid,
+          "email":userEmail,
+          "firstName":firstName,
+          "lastName":lastName,
+          "gender":userGender,
+          "phone":userPhone,
+          "countryCode": userCountryCode || '+1',
+          "birthday":userBirthday?.split('T')[0], 
+        };
+        const _updateProfile = async () => {
+            const response = await updateProfile(data);
+            // console.log('response: ', response);
+            if(response?.status === 'success') {
+              setIsSuccess(true);
+              setIsError(false);
+              setTimeout(() => {
+                setIsSuccess(false);
+              }, 3000);        
+              setIsUpdating(false);
+            }else{
+              setIsUpdating(false);
               setIsSuccess(false);
-            }, 3000);
-          }
-          setIsUpdating(false);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          setIsUpdating(false);
-          setIsSuccess(false);
-          setIsError(true);
-          setTimeout(() => {
-            setIsError(false);
-          }, 3000);
-      }); 
-      
+              setIsError(true);
+              setTimeout(() => {
+                setIsError(false);
+              }, 3000);
+            }
+        }
+        _updateProfile();              
     },
     enableReinitialize: true,
   });
@@ -245,7 +236,7 @@ const MyProfile = () => {
                     
                     <div className={`mt-4 w-full flex flex-wrap ${(isUpdateMode)?'justify-end':null}`}>
                       {(isUpdateMode)?<button  
-                        onClick={()=>updateProfile(false)}
+                        onClick={()=>updateProfileHandle(false)}
                         className="bg-transparent border text-white w-[48%] sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px] mr-[2%] sm:mr-[10px]">Cancel</button>:null}
                       
                       {(isUpdateMode)?<>
@@ -259,7 +250,7 @@ const MyProfile = () => {
                       </>:
                       <div className='flex flex-wrap items-center'>
                       <span 
-                        onClick={()=>updateProfile(true)}
+                        onClick={()=>updateProfileHandle(true)}
                         className={`bg-[#2D45F2] text-white cursor-pointer text-center w-full sm:w-auto sm:min-w-[150px] px-8 py-2 sm:py-3 rounded-[50px]`}>
                           Edit Profile
                       </span>
