@@ -1,192 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from "react";
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
-import Modal from '@mui/material/Modal';
-import { stableKeys } from '@/utils/stableKeys';
-import { capFirstLetter } from '@/utils/capFirstLetter';
-import WarningMessage from '@/modules/Identities/WarningMessage';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
-  auditEntitlement,
-  getProfile
-} from '@/services/api';
-import {
-  AutorenewOutlined
-} from '@mui/icons-material';
-import PinVerifyRent from '@/modules/Identities/PinVerifyRent';
+    auditEntitlement,
+    getProfile
+  } from '@/services/api';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
 import LinkRoute from '@/modules/Identities/LinkRoute';
+import PinVerifyRent from '@/modules/Identities/PinVerifyRent';
+import {
+    AutorenewOutlined
+} from '@mui/icons-material';
+import { stableKeys } from '@/utils/stableKeys';
 
-interface PlayButtonProps {
-  movieId: string;
-  allowedPlans: any;
-  messages?: any;
-  allowed?: boolean;
-  data: any;
+type Props = {
+    item: any;
+    movieId: string;
+    isPackage?: boolean;
 }
-
-const Buy: React.FC<PlayButtonProps> = ({ 
-  movieId, 
-  allowedPlans,
-  messages,
-  allowed,
-  data
-}:PlayButtonProps) => {
-  const [open, setOpen] = useState(false);
-  const isLoginUser = useCheckAuthentication();
-  const [selectedValue, setSelectedValue] = useState('s');
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  useEffect(() => {
-    // URLSearchParams perchasePlan 
-    const urlParams = new URLSearchParams(window?.location?.search);
-    if(urlParams?.get('viewPlan') === 'true' && (Array.isArray(allowedPlans) && allowedPlans.length > 0 && !(Array.isArray(messages) && messages?.length))){
-      setTimeout(() => {
-        setOpen(true);
-      }, 1000);
-    }
-  }, [allowedPlans]);
-
-  const handleClose = (value: string) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
-
-  return (
-    <div>      
-        {(allowed !== true && Array.isArray(messages) && messages?.length) ?  (<button
-        disabled={true}
-        className=" cursor-not-allowed bg-gradient-to-r from-blue-700 to-blue-500
-        text-white
-        rounded-full 
-        py-1
-        px-3
-        w-[100px]
-        lg:w-[220px]
-        text-base
-        flex
-        flex-row
-        justify-center
-        items-center
-        transition
-        h-[36px] lg:h-[44px]">
-          Rent
-        </button>): <button 
-        onClick={handleClickOpen}
-        className="
-        bg-gradient-to-r from-blue-700 to-blue-500
-        text-white
-        rounded-full 
-        py-1
-        px-3
-        w-[120px]
-        lg:w-[220px]
-        text-base
-        flex
-        flex-row
-        justify-center
-        items-center
-        transition
-        h-[36px] lg:h-[44px]
-        active:opacity-65
-        ">Rent</button>}
-<Modal
-  open={open}
-  aria-labelledby="simple-modal-title"
-  aria-describedby="simple-modal-description"
-  onClose={handleClose}
-  className='flex justify-center jkBuyModal'>
-    <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative '>
-      <button
-      onClick={handleClose}
-      className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-65'>
-        &times;
-      </button>
-      {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<>
-        <PlanItems 
-        movieId={movieId}
-        items={allowedPlans}
-        data={data}
-        />
-        {(!isLoginUser)&&
-          <WarningMessage 
-          message='You need to login to proceed with this transaction.'
-          className='mt-2 max-w-[420px] mx-auto'/>
-        }
-      </>):(<NoPlanFound/>)}
-  </div>
-</Modal>
-    </div>
-  );
-}
-export default Buy;
-
-const PlanItems = ({
-  items,
-  movieId,
-  data
-}:any) => {
-  let thumbURl = data?.thumbnailPotrait;
-  if(!thumbURl){
-    thumbURl = data?.thumbnailUrl;
-  }
-
-return (<>
-  <div 
-    className='
-    text-white
-    mb-2
-    w-full'>
-    <h3 className='text-xl md:text-2xl font-semibold '>Choose Your Plan</h3>
-  </div>
-  <div className=''>
-    <div className='bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center'>
-      {(thumbURl)?(<div className='mr-2 w-[80px]'>
-        <img src={thumbURl} alt={data?.title} className='w-[72px] rounded-md aspect-[6/9] object-cover'/>
-      </div>):null}
-      <div className='flex-grow flex flex-wrap w-[200px]'>
-        <div className='w-full flex flex-wrap'>
-          <div className='mr-6'>
-            <p className="font-medium text-3xl">{data?.title || ""}</p>
-          </div>
-          <div className='flex flex-row items-center gap-2 mr-6'>
-            {(data?.contentRating)?(<p className="leading-normal py-1 px-2 text-xs font-medium text-white/80 rounded-md border border-white/80">{data?.contentRating}</p>):null}
-            {(data?.duration)?(<p className="text-sm font-medium text-white/80">{data?.duration}</p>):null}
-          </div>
-          {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex flex-wrap items-center'>{data?.genre?.map((itemTxt:any, index:number) => <span key={stableKeys[index]} className="inline-flex items-center text-sm font-medium mr-2 last:mr-0 text-white/80">
-            {capFirstLetter(itemTxt)}
-          </span>)}</div>:null} 
-        </div>
-        <div className='w-full mt-2'>
-          {(data?.description) && <p className="font-normal	text-sm mb-2 text-white/80 line-clamp-2">{data?.description}</p>}
-        </div>
-      </div>
-    </div>
-    
-    <div className={`${items?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
-      {items?.map((item:any, index:number)=>{
-        return (<PlanCard 
-          item={item}
-          movieId={movieId}
-          isPackage={data?.isPackage}
-          key={stableKeys[index]}
-          />)
-      })}
-    </div>
-    
-  </div>
-  </>)
-}
-
-const PlanCard = ({
-  item,
-  movieId,
-  isPackage
-}:any) => {
-  // console.log('item', item);
+const PlanItem = ({
+    item,
+    movieId,
+    isPackage
+}:Props) => {
+    // console.log('item', item);
   const isLoginUser = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false); 
   const [isRentPinEnable, setIsRentPinEnable] = useState(false);
@@ -394,33 +233,6 @@ const PlanCard = ({
       </div>
       </div>
     </div></>
-  )
-}
-
-const NoPlanFound = () => {
-  return (
-    <div 
-      className='
-      text-white 
-      text-xl 
-      md:text-2xl 
-      lg:text-2xl 
-      font-semibold 
-      mx-auto 
-      lg:pl-6 
-      w-[300px] 
-      min-h-[200px]
-      flex
-      justify-center
-      items-center
-      border border-blue-500
-      bg-blue-500
-      bg-opacity-10
-      rounded-md
-      '>
-      Not yet available for purchase
-    </div>
-  )
-}
-
-
+    );
+};
+export default PlanItem;

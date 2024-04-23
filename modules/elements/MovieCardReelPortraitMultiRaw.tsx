@@ -169,10 +169,10 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrai
       }
     }
   }, []);
-
+  const className = ' flex justify-center items-center text-center text-transparent cursor-pointer object-contain shadow-xl rounded-md z-10';
   return (
-    <div className='p-[10px] flex flex-col relative movieCard w-1/2 sm:w-1/3  md:w-1/4'>
-      <div className='mb-1'>
+    <div className='p-[10px] flex flex-col justify-end relative movieCard w-1/2 sm:w-1/3  md:w-1/4'>
+      <div className='mb-0'>
       <CardHeaderMobile header={data?.header} />
       </div>
       <div 
@@ -182,7 +182,7 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrai
       onMouseLeave={onMouseLeave}
       onClick={redirectToWatch}
       > 
-        <div className='img relative h-full w-full'>        
+        <div className='relative w-full'>        
           <div className='absolute z-30 bottom-0 left-0 w-full '>
             <CardFooterMobile footer={data?.footer} />
             {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
@@ -195,7 +195,19 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrai
                 </div>
               </div> : null}
           </div> 
-          <RollImage thumbURl={thumbURl} title={title} />
+          {/* <RollImage thumbURl={thumbURl} title={title} /> */}
+          <>
+          {(thumbURl)?
+            <img src={thumbURl}
+            alt={title}
+            draggable={false}
+            className={`w-full aspect-[6/9] ${className} `}
+            />:<p
+            className={`imgPlaceholder p-2 text-sm lg:text-lg flex justify-center items-center text-center text-gray-500 cursor-pointer  shadow-xl rounded-md aspect-[6/9]`} >
+                {title}
+            </p>
+          }
+          </>
           {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
         </div>
       </div>
