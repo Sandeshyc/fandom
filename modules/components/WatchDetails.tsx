@@ -71,7 +71,7 @@ const WatchDetails = (inputProps:dataProps) => {
         }
     
         // console.log('data: ', data?.allowed);
-        if(data?.allowed){
+        if(data?.allowed?.allowed && data?.allowed?.canPlay){
           setIsTrailer(false);
           const VideoURLs = {
             'HLS': data?.hlsVideo,
@@ -88,7 +88,6 @@ const WatchDetails = (inputProps:dataProps) => {
             });
           }
           setVideoURL(VideoURLs);
-          // console.log('VideoURLs: ', VideoURLs);
         }else{
           setTrailerUrl(data?.trailerUrl ? data?.trailerUrl : '');
         }
@@ -158,11 +157,18 @@ const WatchDetails = (inputProps:dataProps) => {
                     isReset={false}
                     setPinMode={setPinMode}
                   />
-                  <div className='mt-4 justify-center flex'>
+                  <div className='mt-4 justify-center items-center flex-col flex'>
                     <LinkRoute 
                       type='unset'
                       href='/myprofile'
                       className='text-[#fff]/90 text-[14px] py-1'>Forgot PIN?</LinkRoute>
+                      <button 
+                        onClick={() => 
+                          router.push(`/details/${data?._id}`)
+                        }
+                        className='text-[#fff]/70 text-[14px] py-1'>
+                        Cancel
+                      </button>
                   </div>
                 </div>
               </div>

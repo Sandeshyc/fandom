@@ -13,7 +13,7 @@ const buttonClass = {
     'white' : "bg-white text-black hover:bg-neutral-300",
     'outline' : "border border-white text-white hover:bg-white hover:text-black",
     'hoverOutline' : "border border-transparent text-white hover:border-white/50",
-    'unset' : "hover:underline"
+    'unset' : "hover:underline min-w-fit xl:min-w-fit"
 };
 const buttonSize = {
     'sm' : "min-w-[75px] xl:min-w-[100px] h-[34px] lg:h-[40px]",

@@ -11,6 +11,7 @@ import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import checkAuthentication from '@/utils/checkAuth';
 import RentPlayButtonAction from '@/modules/elements/Purchase/RentPlayButtonAction';
 import RentPlayNotice from '@/modules/elements/Purchase/RentPlayNotice';
+import TrailerRestartButton from '@/modules/elements/Purchase/TrailerRestartButton';
 
 
 type dataProps = {
@@ -50,24 +51,13 @@ const WatchAndShare = (inputProps:dataProps) => {
                                 size='lg'
                             />                                                       
                         </div>
-                        {
-                        (!(data?.isPackage) && data?.allowed && data?.currentTime)?
-                            (
-                            <div className='mr-4'>
-                                <Buttons
-                                onClick={() => router.push(`/watch/${data?._id}?t=restart`)} 
-                                type='white'>
-                                    <RestartAlt className="w-6 text-black mr-2" /> Restart
-                                </Buttons>
-                            </div>
-                            )
-                        :
-                            (
-                            <div className='mr-4'>
-                                <WatchTrailerBtn movieId={data?._id} />
-                            </div>
-                            )
-                        }
+                        <div className='mr-4'>
+                            <TrailerRestartButton
+                                data={data?.allowed}
+                                itemId={data?._id}
+                                currentTime={data?.currentTime}
+                            />
+                        </div>                        
                         {(isAuthenticated)&&<WishListButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>}
                         <button 
                             onClick={handleToggle}

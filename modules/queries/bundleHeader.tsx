@@ -18,7 +18,13 @@ const BUNDLE_HEADER_QUERY = gql`
       contentRating
       noOfMovie
       canBuy
-      allowed
+      allowed {
+        allowed
+        canBuy
+        canPlay
+        message
+        bought
+      }
       allowedPlans {
         id
         name

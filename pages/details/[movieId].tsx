@@ -7,7 +7,7 @@ import useClientLocaion from '@/hooks/useClientLocaion';
 import useIsMobile from '@/hooks/useIsMobile';
 import getLocation from '@/services/api/location';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
-import SkeletonDetails from '@/components/Skeleton/SkeletonDetails';
+import Preloader from "@/modules/skeletons/Preloader";
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -89,7 +89,7 @@ const Details = () => {
         getComponent = {getComponent}
         isLoading = {isLoading}/>
       </div>
-    </>:<SkeletonDetails/>}
+    </>:<Preloader/>}
     {(error || isError || locationError) && <ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>}
   </>
   )
