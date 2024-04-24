@@ -13,8 +13,6 @@ import CardHeader from "@/modules/elements/CardHeader";
 import CardFooter from "@/modules/elements/CardFooter";
 import Text from "@/modules/Identities/Text";
 import Title from "@/modules/Identities/Title";
-import FavoriteButton from "@/modules/Identities/FavoriteButton";
-import Buttons from "@/modules/Identities/Buttons";
 import { MovieInterface } from "@/types";
 import {
   dateToDay,
@@ -23,6 +21,9 @@ import {
 } from "@/utils/yearFromDate";
 import CountDownDate from "@/modules/Identities/CountDownDate";
 import { getThumbnailPortrait } from "@/utils/getData";
+import RentPlayButtonLink from "@/modules/elements/Purchase/RentPlayButtonLink";
+import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
+
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -258,19 +259,15 @@ const EventCardReel: React.FC<MovieCardProps> = ({
               </p>
             </>
           )}
-          <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 sm:mt-6">
-            {isAuthenticated && data?._id && 0 ? (
-              <FavoriteButton
-                isInWatchList={data?.isInWatchListTemp}
-                onClick={handleWatchListItemFunc}
-              />
-            ) : null}
-            {data?.allowed ? (
-              <Buttons onClick={() => {}}>Purchased</Buttons>
-            ) : (
-              <Buttons onClick={redireactToRent}>Rent</Buttons>
+          <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 sm:mt-4 mb-2">
+            {(data?._id)&&(
+                <RentPlayButtonLink
+                itemId={data?._id} 
+                size="md"
+                data={data?.allowed} />
             )}
           </div>
+          <RentPlayNotice data={data?.allowed} />
         </div>
       </div>
     </div>

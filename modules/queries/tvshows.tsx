@@ -52,7 +52,13 @@ const TVSHOWS_QUERY = gql`
               googlePriceSKU
             }
             messages
-            allowed
+            allowed {
+              allowed
+              canBuy
+              canPlay
+              message
+              bought
+            }
             isPackage
             currentTime
             videoDuration

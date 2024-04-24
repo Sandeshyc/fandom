@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import useMovieList from '@/hooks/useMovieList';
-import SkeletonHome from '@/components/Skeleton/SkeletonHome';
+import Preloader from "@/modules/skeletons/Preloader";
 import useIsMobile from '@/hooks/useIsMobile';
 import useClientLocaion from '@/hooks/useClientLocaion';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
@@ -49,7 +49,7 @@ const Movies = () => {
       <Mapper
         modules={movies}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (<SkeletonHome/>)}
+        isLoading = {isLoading}/></> : (<Preloader/>)}
     {(error || locationError)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 

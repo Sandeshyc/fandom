@@ -33,10 +33,20 @@ const CONTENT_QUERY = gql`
           googlePriceSKU
         }
         messages
-        allowed
+        allowed {
+          allowed
+          canPlay
+          canBuy
+          bought
+          message
+        }
         isPackage
         currentTime
         videoDuration
+        hlsVideo
+        dashVideo
+        videoUrl
+        trailerVideo
       }
   }
 `;

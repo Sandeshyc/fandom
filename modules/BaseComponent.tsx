@@ -34,7 +34,7 @@ const BaseComponent = (props:any) => {
         </>
       );
       if (error) return (
-        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error?.message}`}/>
+        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>
       );
 
       const newChild = React.cloneElement(props.children, {

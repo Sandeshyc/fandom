@@ -37,6 +37,13 @@ const PackagesPopup = ({
                 className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-65'>
                     &times;
                 </button>
+                <div 
+                    className='
+                    text-white
+                    mb-2
+                    w-full'>
+                    <h3 className='text-xl md:text-2xl font-semibold '>Choose Your Plan</h3>
+                </div>
                 <ItemDetails data={data}/>
                 {(Array.isArray(allowedPlans) && allowedPlans?.length > 0) ? (<>
                     <div className={`${allowedPlans?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>

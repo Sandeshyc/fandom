@@ -2,10 +2,11 @@ import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { MovieInterface } from '@/types';
 import RemoveListBtn from '@/components/RemoveListButton';
-import Buttons from '@/modules/Identities/Buttons';
 import { VolunteerActivismOutlined } from '@mui/icons-material';
 import CardHeader from '@/modules/elements/CardHeader';
 import { getThumbnailLandscape } from '@/utils/getData';
+import RentPlayButtonLink from "@/modules/elements/Purchase/RentPlayButtonLink";
+import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -50,18 +51,15 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
         >{data.title}</p>    
         {(data?.contentPrivider)?<p className="text-xs sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center"><VolunteerActivismOutlined className="w-[16px] h-[16px] text-white mr-1 pl-[3px]"/>{data?.contentPrivider}</p>:null}
         <RemoveListBtn movieId={data?._id} isRemoveHandler={isRemoveHandler} />
-        {data?.allowed? (
-          <Buttons 
-            onClick={redirectToDetails} 
-            type='white'
-            className="mt-2 min-w-[90px] text-sm py-1"           
-            styles={{width: 'fit-content', height: '34px'}} >Play Now</Buttons>
-        ) : (
-          <Buttons 
-            onClick={redirectToRent}
-            className="mt-2 min-w-[90px] text-sm py-1"
-            styles={{width: 'fit-content', height: '34px'}}>Rent</Buttons>
+        {(data?._id)&&(
+          <div className='my-2'>
+            <RentPlayButtonLink
+            itemId={data?._id} 
+            data={data?.allowed} 
+            size='md'/>
+          </div>
         )}
+        <RentPlayNotice data={data?.allowed} />
       </div>
     </div></div>:null
   )

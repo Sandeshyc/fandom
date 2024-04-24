@@ -13,7 +13,13 @@ const PLAYLIST_HEADER_QUERY = gql`
       contentRating
       noOfMovie
       canBuy
-      allowed
+      allowed {
+        allowed
+        canBuy
+        canPlay
+        message
+        bought
+      }
       allowedPlans {
         priceSKU
       }

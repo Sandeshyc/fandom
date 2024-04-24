@@ -13,7 +13,13 @@ const PLAYLIST_QUERY = gql`
         offAirDate
         onAirDate
         canBuy
-        allowed
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
         trailerUrl
         thumbnailBannerUrl
         thumbnailPortrait

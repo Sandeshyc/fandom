@@ -9,12 +9,7 @@ import {
 } from '@/services/api';
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
-import EnititlementEndDate from '@/components/Expair';
-import PublishDate from '@/modules/Identities/PublishDate';
-import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
-import BadgeDesktop from '@/modules/Identities/BadgeDesktop';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import CardHeader from '@/modules/elements/CardHeader';
 import CardFooter from '@/modules/elements/CardFooter';
 import {Cancel} from '@mui/icons-material';
@@ -207,7 +202,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
                     <Cancel className={`text-white w-4`} />
                 </div>
                 </div> : null}
-            </div>  
+            </div> 
             <RollImage thumbURl={thumbURl} title={title} />
             {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
         </div>

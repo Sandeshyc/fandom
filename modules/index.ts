@@ -31,11 +31,14 @@ import DealsAndOffers from '@/modules/components/DealsAndOffers';
 import Footer from '@/components/Footer';
 import ShowSummary from "./components/ShowSummary";
 import SeasonDetails from "./components/SeasonDetails";
+import BackNavigation from "./components/BackNavigation";
+import WatchDetails from "./components/WatchDetails";
 
 const comps = {
     header : Header,
     navigation : Navigation,
-    backNavigation : NavigationBack,
+    backNavigation : BackNavigation,
+    watchDetails : WatchDetails,
     roll : Roll,
     multirawroll : MultiRawRoll,
     eventroll : Eventroll,

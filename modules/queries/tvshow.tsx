@@ -13,7 +13,13 @@ const TVSHOW_QUERY = gql`
       thumbnailLandscapeUrl
       thumbnailPortraitUrl
       thumbnailUrl
-      allowed
+      allowed {
+        allowed
+        canBuy
+        canPlay
+        message
+        bought
+      }
       canBuy
       contentRating
       allowedPlans {
@@ -28,7 +34,13 @@ const TVSHOW_QUERY = gql`
         _id
         name
         title
-        allowed
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
         canBuy
         description
         duration
@@ -76,7 +88,13 @@ const TVSHOW_QUERY = gql`
             googlePriceSKU
           }
           messages
-          allowed
+          allowed {
+            allowed
+            canBuy
+            canPlay
+            message
+            bought
+          }
           isPackage
           currentTime
           videoDuration
