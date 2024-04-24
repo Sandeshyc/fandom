@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useMovieList from "@/hooks/useMovieList";
-import SkeletonHome from "@/components/Skeleton/SkeletonHome";
+import Preloader from "@/modules/skeletons/Preloader";
 import useIsMobile from "@/hooks/useIsMobile";
 import useClientLocaion from "@/hooks/useClientLocaion";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
@@ -56,7 +56,7 @@ const Home = () => {
           isLoading={isLoading}
         />
       ) : (
-        <></>
+        <Preloader/>
       )}
       {(error || locationError) ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
     </div>

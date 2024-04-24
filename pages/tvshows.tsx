@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useTvShows from "@/hooks/useTvShows";
-import SkeletonHeader from "@/components/Skeleton/Header";
-import SkeletonExploreAll from "@/components/Skeleton/SkeletonExploreAll";
+import Preloader from "@/modules/skeletons/Preloader";
 import useIsMobile from "@/hooks/useIsMobile";
 // import getLocation from "@/services/api/location";
 import useClientLocaion from "@/hooks/useClientLocaion";
@@ -63,10 +62,7 @@ const Home = () => {
           isLoading={isLoading}
         />
       ) : (
-        <>
-        <SkeletonHeader/>
-        <SkeletonExploreAll/>
-        </>
+        <Preloader/>
       )}
       {(error || locationError) ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
     </div>

@@ -15,7 +15,13 @@ const PURCHASES_QUERY = gql`
         trailerUrl
         onAirDate
         canBuy
-        allowed
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
         thumbnailLandscapeUrl
         contentRating
         duration

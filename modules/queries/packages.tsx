@@ -19,7 +19,13 @@ const PACKAGES_QUERY = gql`
         trailerUrl
         onAirDate
         canBuy
-        allowed
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
         contentRating
         duration
         genre

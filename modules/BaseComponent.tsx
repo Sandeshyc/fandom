@@ -17,7 +17,7 @@ const BaseComponent = (props:any) => {
         }}});
       // console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
       let data = gqData?.[module.sourceType]?.items;
-      // console.log('GQL DATA ', module, gqData, data);
+      console.log('GQL DATA ', module, gqData, data);
       if (module.sourceType === 'content' 
         || module.sourceType === 'playlistHeader'
         || module.sourceType === 'bundleHeader'
@@ -34,7 +34,7 @@ const BaseComponent = (props:any) => {
         </>
       );
       if (error) return (
-        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error?.message}`}/>
+        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>
       );
 
       const newChild = React.cloneElement(props.children, {

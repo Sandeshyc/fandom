@@ -4,7 +4,6 @@ const WATCHLIST_QUERY = gql`
   query ($input: QueryInput) {
     watchlist (input: $input) {
       assetId
-
       items {
         _id
         assetId
@@ -14,7 +13,13 @@ const WATCHLIST_QUERY = gql`
         trailerUrl
         onAirDate
         canBuy
-        allowed
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
         thumbnailBannerUrl
         thumbnailLandscapeUrl
         thumbnailUrl

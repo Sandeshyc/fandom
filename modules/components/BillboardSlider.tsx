@@ -6,6 +6,8 @@ import LinkRoute from "@/modules/Identities/LinkRoute";
 import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
 import { stableKeys } from "@/utils/stableKeys";
+import RentPlayButtonLink from "@/modules/elements/Purchase/RentPlayButtonLink";
+import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
 import {
   ArrowBackIosNewOutlined,
   ArrowForwardIosOutlined,
@@ -131,23 +133,18 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
           </div>
         </div>
         {itemId && (
+          <>
+          <RentPlayNotice data={data?.allowed} />          
           <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-            {data?.allowed ? (
-              <LinkRoute href={watchUrl} type="white">
-                <PlayIcon className="w-5 text-black mr-2" />
-                Play Now
-              </LinkRoute>
-            ) : (
-              <LinkRoute href={`${detailUrl}/?viewPlan=true`} type="primary">
-                Rent
-              </LinkRoute>
-            )}
-
+            <RentPlayButtonLink
+            itemId={itemId} 
+            data={data?.allowed} />
             <LinkRoute href={`${detailUrl}`} type="hoverOutline">
               Know More
               <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />
             </LinkRoute>
           </div>
+          </>
         )}
       </div>
     </div>

@@ -9,11 +9,12 @@ interface ButtonsProps {
     children: React.ReactNode
     onClick : () => void
     type?: 'white' | 'blue',
+    disabled?: boolean,
     className?: string,
     styles?: React.CSSProperties
 }
 
-const Buttons = ({children, onClick, type='blue', className, styles} : ButtonsProps) => {
+const Buttons = ({children, onClick, type='blue', className, styles, disabled=false} : ButtonsProps) => {
   return (
     <button 
       onClick={onClick} 

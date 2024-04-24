@@ -12,7 +12,14 @@ import SocialShare from '@/modules/elements/SocialShare';
 import checkAuthentication from '@/utils/checkAuth';
 import Title from '@/modules/Identities/Title';
 import { yearFromDate } from '@/utils/yearFromDate';
+import LinkRoute from "@/modules/Identities/LinkRoute";
+import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
+import TrailerPlayButton from "@/modules/elements/Purchase/TrailerPlayButton";
 import { getThumbnailLandscape, getThumbnailPortrait } from "@/utils/getData";
+import {
+  ArrowForwardIosOutlined,
+} from "@mui/icons-material";
+
 type Props = {
   data: any;
   isComplited: any;
@@ -25,6 +32,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   const [inView, setInView] = React.useState(false);
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
+  const detailUrl = `/details/${data?._id}`;
   let releaseYear = data?.releaseDate;
   let trailerUrl = '';
   if(data?.trailerUrl){
@@ -110,13 +118,15 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
             </div>                
           </div>
         </div>
-
+        <RentPlayNotice data={data?.allowed} />             
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          {data?.allowed === true ? (
-            <>
-              <PlayButton movieId={data?._id} />
-            </>
-          ) : (<WatchTrailerBtn movieId={data?._id}/>)}
+          <div className="mr-2">
+            <TrailerPlayButton data={data?.allowed} itemId={data?._id}/>
+          </div>
+          <LinkRoute href={`${detailUrl}`} type="hoverOutline">
+              Know More
+              <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />
+          </LinkRoute>
           {(isAuthenticated)&&<FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>}
           {(data?._id)?<>
               <button 
