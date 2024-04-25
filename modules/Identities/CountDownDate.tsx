@@ -29,14 +29,14 @@ const CountDownDate = ({endDate, short = true, base = 0.5} : Props) => {
         Print = <><span className="text-green-500 lg:font-bold"> Published!</span></>
     }else if(short){
         if(day === 0 && hour === 0){
-            Print = <><TxtHL>{minute}</TxtHL> {(minute > 1)?'minutes':'minute'} left!</>
+            Print = <><TxtHL>{minute}</TxtHL> {(minute > 1)?'minutes':'minute'}</>
         }else if(day === 0){
-            Print = <><TxtHL>{hour}</TxtHL> {(hour > 1)?'hours':'hour'} left!</>
+            Print = <><TxtHL>{hour}</TxtHL> {(hour > 1)?'hours':'hour'}</>
         }else{
-            Print = <><TxtHL>{day}</TxtHL> {(day > 1)?'days':'day'} left!</>
+            Print = <><TxtHL>{day}</TxtHL> {(day > 1)?'days':'day'}</>
         }
     }else{
-        Print = <><TxtHL>{day}</TxtHL> {(day > 1)?'days':'day'}, <TxtHL>{hour}</TxtHL> {(hour > 1)?'hours':'hour'} &  <TxtHL>{minute}</TxtHL> {(minute > 1)?'minutes':'minute'} left!</>
+        Print = <><TxtHL>{day}</TxtHL> {(day > 1)?'days':'day'}, <TxtHL>{hour}</TxtHL> {(hour > 1)?'hours':'hour'} &  <TxtHL>{minute}</TxtHL> {(minute > 1)?'minutes':'minute'}</>
     }
 
     return (

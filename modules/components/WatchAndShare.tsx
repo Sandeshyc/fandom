@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { useRouter } from 'next/router';
-import WatchTrailerBtn from '@/components/WatchTrailerBtn';
 import WishListButton from '@/modules/Identities/WishListButton';
-import Buttons from '@/modules/Identities/Buttons';
-import { ThumbUp, RestartAlt } from '@mui/icons-material';
 import { ShareIcon } from '@heroicons/react/24/solid';
-import useIsMobile from '@/hooks/useIsMobile';
 import SocialShare from '@/modules/elements/SocialShare';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 import checkAuthentication from '@/utils/checkAuth';
@@ -26,8 +21,6 @@ const WatchAndShare = (inputProps:dataProps) => {
     // console.log('data', data);
     const [open, setOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const router = useRouter();
-    const isMobile = useIsMobile();
     const handleToggle = () => {
         setOpen(!open);
     }

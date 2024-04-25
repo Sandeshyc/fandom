@@ -86,7 +86,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
         </Waypoint>
         <div className="preview"></div>
       </div>
-      <div className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 md:pl-16 transition w-full`}>
+      <div className={`absolute bottom-[160px] sm:bottom-[220px] xl:bottom-[15vw] pl-4 pr-2 md:pl-16 md:pr-4 transition w-full`}>
         <div className='flex flex-wrap items-end lg:pb-2'>
           <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
             <div className="flex flex-wrap items-end w-full">
@@ -98,7 +98,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
                 }
               </div>
               <div className='grow w-[100px] '>
-                <div className=' h-full mb-2 lg:mb-3'>
+                <div className='h-full mb-2 lg:mb-3'>
                   <Title tag='h1' size='4xl'>{data?.title}</Title>
                 </div>
                 <p className='mb-1 flex items-center flex-wrap my-2 text-white/70 text-xs'>
@@ -119,7 +119,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
           </div>
         </div>
         <RentPlayNotice data={data?.allowed} />             
-        <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
+        <div className="flex flex-row flex-wrap items-center mt-3 md:mt-4 gap-3">
           <div className="mr-2">
             <TrailerPlayButton data={data?.allowed} itemId={data?._id}/>
           </div>

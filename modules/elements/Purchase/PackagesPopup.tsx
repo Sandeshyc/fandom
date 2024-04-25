@@ -31,7 +31,7 @@ const PackagesPopup = ({
             aria-describedby="simple-modal-description"
             onClose={handleClose}
             className='flex justify-center jkBuyModal'>
-                <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A]  px-[20px] py-[30px] relative '>
+                <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A] px-[10px] lg:px-[20px] py-[30px] relative '>
                 <button
                 onClick={handleClose}
                 className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-65'>

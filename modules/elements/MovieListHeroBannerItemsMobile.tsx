@@ -14,6 +14,7 @@ interface MovieListNumberProps {
   portrait: boolean;
   setCurrentMovie: Function;
   className : string;
+  itemEnded: number;
 }
 
 

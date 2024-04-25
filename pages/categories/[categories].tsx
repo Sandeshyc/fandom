@@ -5,7 +5,7 @@ import useClientLocaion from '@/hooks/useClientLocaion';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
-import SkeletonExploreAll from '@/components/Skeleton/SkeletonExploreAll';
+import Preloader from "@/modules/skeletons/Preloader";
 import useIsMobile from '@/hooks/useIsMobile';
 
 const bgImage = 'url("/images/new-bg.png")';
@@ -47,7 +47,7 @@ const Categories = (props:any) => {
         modules={data}
         itemCode={categories as string}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (<SkeletonExploreAll/>)}
+        isLoading = {isLoading}/></> : (<Preloader/>)}
     {(error || locationError)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 

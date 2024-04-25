@@ -7,7 +7,7 @@ import RentButton from '@/modules/elements/Purchase/RentButton';
 type Props = {
     data: any;
     allowedData: any;
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'sm' | 'md' | 'lg' | 'full';
 };
 const PackageRentPlayButtonAction = (inputProps: Props) => {
     const { data, size, allowedData } = inputProps;
@@ -41,6 +41,7 @@ const PackageRentPlayButtonAction = (inputProps: Props) => {
             <>
             {(allowedData?.canBuy)?(
                 <RentButton type='active'
+                    size={size}
                     onClick={() => setIsPackagePopupOpen(true)}
                 >Rent</RentButton>
             )

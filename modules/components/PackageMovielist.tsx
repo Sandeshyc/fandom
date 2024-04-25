@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import MovieListHeroBanner from '@/modules/elements/MovieListHeroBanner';
 import MovieListHeroBannerItems from '@/modules/elements/MovieListHeroBannerItems';
 import ReelHeading from '@/modules/elements/ReelHeading';
@@ -6,6 +6,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 import PackageMovielistMobile from '@/modules/components/PackageMovielistMobile';
 import MovieDetailsTab from '@/modules/elements/MovieDetailsTab';
 import DetailsTab from '@/components/DetailsTab';
+import { usePackageMovielist } from '@/stores/UserStore';
 
 type Props = {
   data: any;
@@ -23,6 +24,14 @@ const PackageMovielist = ({data, title}:Props) => {
       setItemEnded(itemEnded + 1);
     }
   }
+  useEffect(() => {
+    if(Array.isArray(data) && data.length > 0){
+      usePackageMovielist.setState({
+        hasMovieList: true,
+        movieListOfset: (document.querySelector(".movieListHeroBanner")?.getBoundingClientRect()?.top || 0) + window.scrollY
+      });
+    }
+  }, [data]);
   return (<>
     {(item?._id)?(isMobile && 0)?(<PackageMovielistMobile data={data} title={titleMobile}/>):
     <>

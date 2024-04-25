@@ -16,7 +16,6 @@ const MovieSummary = (inputProps:dataProps) => {
   const {data} = inputProps
 
     const postar = getThumbnailPortrait(data);
-    let publishYear = data?.publishSchedule;
     // get year from date
     let releaseYear = data?.releaseDate;
     if(releaseYear){
@@ -34,8 +33,11 @@ const MovieSummary = (inputProps:dataProps) => {
                 <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
                   <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
                 </div>
-                <div className='grow w-[100px] '>
-                  <div className=' h-full mb-2 lg:mb-3'>
+                <div className='grow w-[100px]'>
+                  <div className='block lg:hidden h-full mb-2 lg:mb-3'>
+                    <Title tag='h1' size='xl'>{data?.title}</Title>
+                  </div>
+                  <div className='hidden lg:block h-full mb-2 lg:mb-3'>
                     <Title tag='h1' size='4xl'>{data?.title}</Title>
                   </div>
                   {(publishRemaining?.day < 0 || publishRemaining?.hour < 0 || publishRemaining?.minute < 0) &&

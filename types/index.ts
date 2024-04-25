@@ -4,6 +4,7 @@ export interface MovieInterface {
   title: string;
   header: {};
   publishSchedule?: string;
+  onAirDate?: string;
   allowed?: boolean;
   description: string;
   thumbnailUrl: string;

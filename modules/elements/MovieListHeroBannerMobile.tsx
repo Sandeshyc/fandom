@@ -14,7 +14,13 @@ import SocialShare from '@/modules/elements/SocialShare';
 import checkAuthentication from '@/utils/checkAuth';
 import Title from '@/modules/Identities/Title';
 import { yearFromDate } from '@/utils/yearFromDate';
+import LinkRoute from "@/modules/Identities/LinkRoute";
+import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
+import TrailerPlayButton from "@/modules/elements/Purchase/TrailerPlayButton";
 import { getThumbnailLandscape, getThumbnailPortrait } from "@/utils/getData";
+import {
+  ArrowForwardIosOutlined,
+} from "@mui/icons-material";
 type Props = {
   data: any;
   isComplited: any;
@@ -26,6 +32,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
   let releaseYear = data?.releaseDate;
+  const detailUrl = `/details/${data?._id}`;
   let trailerUrl = '';
   if(data?.trailerUrl){
     trailerUrl = data?.trailerUrl;    
@@ -58,7 +65,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
         </div>
         <div className="preview"></div>
       </div>
-      <div className={`absolute bottom-0 pl-4 md:pl-16 transition w-full`}>
+      <div className={`absolute bottom-0 pl-4 pr-2 md:pl-16 transition w-full`}>
         <div className='flex flex-wrap items-end lg:pb-2'>
           <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
             <div className="flex flex-wrap items-end w-full">
@@ -71,7 +78,7 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
               </div>
               <div className='grow w-[100px] '>
                 <div className=' h-full mb-2 lg:mb-3'>
-                  <Title tag='h1' size='4xl'>{data?.title}</Title>
+                  <Title tag='h1' size='xl'>{data?.title}</Title>
                 </div>
                 <p className='mb-1 flex flex-wrap items-center my-2 text-white/70 text-xs pr-2'>
                   {(data?.quality)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.quality}</span>):null}
@@ -90,13 +97,15 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
             </div>                
           </div>
         </div>
-
-        <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          {data?.allowed === true ? (
-            <>
-              <PlayButton movieId={data?._id} />
-            </>
-          ) : (<WatchTrailerBtn movieId={data?._id}/>)}
+        <RentPlayNotice data={data?.allowed} />               
+        <div className="flex flex-row flex-wrap items-center mt-3 md:mt-4 gap-3">
+          <div className="mr-2">
+            <TrailerPlayButton data={data?.allowed} itemId={data?._id}/>
+          </div>
+          <LinkRoute href={`${detailUrl}`} type="hoverOutline">
+              Know More
+              <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />
+          </LinkRoute>
           {(isAuthenticated)&&<FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>}
           {(data?._id)?<>
               <button 
