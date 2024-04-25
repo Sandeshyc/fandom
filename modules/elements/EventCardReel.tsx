@@ -23,6 +23,9 @@ import CountDownDate from "@/modules/Identities/CountDownDate";
 import { getThumbnailPortrait } from "@/utils/getData";
 import RentPlayButtonLink from "@/modules/elements/Purchase/RentPlayButtonLink";
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
+import {
+  isOnAir
+} from "@/utils/dataTimeChecking";
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -238,28 +241,30 @@ const EventCardReel: React.FC<MovieCardProps> = ({
               </Text>
             </div>
           )}
-          {data?.publishSchedule && (
+          {data?.onAirDate && (
             <>
               <p className="text-white/90 text-sm mb-1">
-                {convertESTtoLocalTime(data?.publishSchedule as string)}
+                {convertESTtoLocalTime(data?.onAirDate as string)}
               </p>
-              <p className="text-white/70 text-sm mb-1 flex align-top">
-                <CalendarMonthTwoTone
-                  sx={{
-                    fontSize: "1.2rem",
-                  }}
-                  className="mr-1"
-                />
-                <span>Starts in</span>
-              </p>
-              <p className="text-white/90 text-sm mb-4">
-                {data?.publishSchedule ? (
-                  <CountDownDate endDate={data?.publishSchedule} short={true} />
-                ) : null}
-              </p>
+              {!isOnAir(data?.onAirDate) && (
+                <p className="text-white/70 text-sm mb-2 flex items-center">
+                  <CalendarMonthTwoTone
+                    sx={{
+                      fontSize: "1.2rem",
+                    }}
+                    className="mr-1"
+                  />
+                  <span>Starts in </span>
+                  <span className="text-white/90">
+                    {data?.onAirDate ? (
+                      <CountDownDate endDate={data?.onAirDate} short={true} />
+                    ) : null}
+                  </span>
+                </p>
+              )}
             </>
           )}
-          <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 sm:mt-4 mb-2">
+          <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 mb-4 lg:mb-6">
             {(data?._id)&&(
                 <RentPlayButtonLink
                 itemId={data?._id} 

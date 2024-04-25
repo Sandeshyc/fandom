@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import usePurchaseMovies from '@/hooks/usePurchaseMovies';
 import Footer from '@/components/Footer';
-import SkeletonPurchase from '@/components/Skeleton/SkeletonPurchase';
+import Preloader from "@/modules/skeletons/Preloader";
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
@@ -46,7 +46,7 @@ const Home = (props:any) => {
             getComponent = {getComponent}
             isLoading = {isLoading}/>
           {/* </div>      */}
-      </div></>) : (<div className='container mx-auto max-w-[2400px]'><SkeletonPurchase/></div>)}
+      </div></>) : (<div className='container mx-auto max-w-[2400px]'><Preloader/></div>)}
       {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/></>:null}
     </>
   )

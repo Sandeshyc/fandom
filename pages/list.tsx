@@ -2,7 +2,7 @@ import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useListMovies from '@/hooks/useListMovies';
 import { Info } from '@mui/icons-material';
-import SkeletonList from '@/components/Skeleton/SkeletonList';
+import Preloader from '@/modules/skeletons/Preloader';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
@@ -51,7 +51,7 @@ const Home = (props:any) => {
             isLoading = {isLoading}/> 
           {/* </div> */}
       </div>
-      </>):(<div className='container mx-auto max-w-[2400px]'><SkeletonList/></div>)}
+      </>):(<div className='container mx-auto max-w-[2400px]'><Preloader/></div>)}
       {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/></>:null}
     </>
   )

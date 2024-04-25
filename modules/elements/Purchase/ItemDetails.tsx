@@ -9,7 +9,7 @@ const ItemDetails = ({ data }: Props) => {
   const thumbURl = getThumbnailPortrait(data);
   return (
     <div className="bg-[#0F0F0F] text-white p-4 border-[3px] border-[#262626] rounded-md mb-6 flex flex-wrap items-center">
-      {thumbURl ? (
+      {(thumbURl) ? (
         <div className="mr-2 w-[80px]">
           <img
             src={thumbURl}
@@ -18,10 +18,10 @@ const ItemDetails = ({ data }: Props) => {
           />
         </div>
       ) : null}
-      <div className="flex-grow flex flex-wrap w-[200px]">
+      <div className="flex-grow flex flex-wrap w-[170px]">
         <div className="w-full flex flex-wrap">
-          <div className="mr-6">
-            <p className="font-medium text-3xl">{data?.title || ""}</p>
+          <div className="lg:mr-6 mb-2 lg:mb-0 w-full lg:w-auto">
+            <p className="font-medium text-md lg:text-xl 2xl:text-2xl leading-5">{data?.title || ""}</p>
           </div>
           <div className="flex flex-row items-center gap-2 mr-6">
             {data?.contentRating ? (

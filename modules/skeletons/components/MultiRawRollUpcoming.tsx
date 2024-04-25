@@ -15,7 +15,7 @@ const MultiRawRollUpcoming = () => {
             <div className='block lg:hidden'>
               <div className='flex flex-wrap'>
                   {(new Array(8)).fill(0).map((_, index) => (
-                    <div className='w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/6 p-[7px] lg:p-[15px] aspect-[6/9] min-w-[150px]'>
+                    <div key={index} className='w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/6 p-[7px] lg:p-[15px] aspect-[6/9] min-w-[150px]'>
                       <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[6/9] w-full' /> 
                     </div>
                   ))  
@@ -25,7 +25,7 @@ const MultiRawRollUpcoming = () => {
             <div className='hidden lg:block'>
               <div className='flex flex-wrap mx-[-7px] lg:mx-[-15px]'>
                   {(new Array(9)).fill(0).map((_, index) => (
-                    <div className='w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 p-[7px] lg:p-[15px] pt-0'>
+                    <div key={index} className='w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 p-[7px] lg:p-[15px] pt-0'>
                       <EventRollCard/> 
                     </div>
                   ))  

@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {use, useEffect} from 'react';
 import MovieListHeroBannerMobile from '@/modules/elements/MovieListHeroBannerMobile';
 import MovieListHeroBannerItemsMobile from '@/modules/elements/MovieListHeroBannerItemsMobile';
 import DetailsTab from '@/components/DetailsTab';
-
+import {
+  usePackageMovielist
+} from '@/stores/UserStore';
 type Props = {
   data: any;
   title: string;
 }
 const PackageMovielistMobile = ({data, title}:Props) => {
-  // console.log('data BillboardExtended', data);
   if(!data) return null;
   const [item, setItem] = React.useState(data[0] || {}); 
   const [itemEnded, setItemEnded] = React.useState(1);
@@ -18,6 +19,14 @@ const PackageMovielistMobile = ({data, title}:Props) => {
     }
   }
   title += data?.length > 0 ? ' ('+data?.length+')' : '';
+  useEffect(() => {
+    if(Array.isArray(data) && data.length > 0){
+      usePackageMovielist.setState({
+        hasMovieList: true,
+        movieListOfset: (document.querySelector(".movieListHeroBanner")?.getBoundingClientRect()?.top || 0) + window.scrollY
+      });
+    }
+  }, [data]);
   return (
     (item?._id)?
     <>

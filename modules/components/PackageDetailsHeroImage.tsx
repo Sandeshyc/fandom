@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import FavoriteButton from "@/components/FavoriteButton";
-import PackageRentButton from "@/modules/Identities/PackageRentButton";
 import { ShareIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import WarningMessage from "@/modules/Identities/WarningMessage";
 import { DetailsHeroBanner } from "@/modules/components/DetailsHeroImage";
 import PackageDetailsHeroImageMobile from "@/modules/components/PackageDetailsHeroImageMobile";
 import useIsMobile from "@/hooks/useIsMobile";
@@ -12,6 +10,9 @@ import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import { getThumbnailLandscape } from "@/utils/getData";
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
 import PackageRentPlayButtonAction from "@/modules/elements/Purchase/PackageRentPlayButtonAction";
+import {
+  usePackageMovielist
+} from '@/stores/UserStore';
 type Props = {
   data: any;
 };
@@ -21,8 +22,8 @@ const PackageDetailsHeroImage = ({ data }: Props) => {
   const handleToggle = () => {
     setOpen(!open);
   };
-  const [hasMovieList, setHasMovieList] = React.useState(false);
-  const [movieListOfset, setMovieListOfset] = React.useState(0);
+  const hasMovieList = usePackageMovielist((state) => state.hasMovieList);
+  const movieListOfset = usePackageMovielist((state) => state.movieListOfset);
   const movieId = data?._id || "";
   let thumb = getThumbnailLandscape(data);
   const isMobile = useIsMobile();
@@ -31,21 +32,6 @@ const PackageDetailsHeroImage = ({ data }: Props) => {
     trailerUrl = data?.trailerUrl;
   }
 
-  useEffect(() => {
-    const movieListHeroBanner = document.querySelector(".movieListHeroBanner");
-    if (
-      movieListHeroBanner !== null &&
-      movieListHeroBanner !== undefined &&
-      movieListHeroBanner !== ""
-    ) {
-      setHasMovieList(true);
-      setMovieListOfset(
-        (movieListHeroBanner?.getBoundingClientRect()?.top || 0) +
-          window.scrollY
-      );
-    }
-  }, []);
-  // console.log('PackageDetailsHeroBanner', movieListOfset, hasMovieList);
   return (
     <>
       {isMobile ? (
