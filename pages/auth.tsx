@@ -83,8 +83,8 @@ const Auth = () => {
                   if(connectResponse.status === 'success'){
                       const userResponse = await checkUser(
                           connectResponse?.data?.user?.id,
-                          'iWantTFC',
-                          connectResponse?.data?.user?.contact[0]?.email || 'test@domain.com',
+                          decode?.uid,
+                          connectResponse?.data?.user?.contact[0]?.email || 'no@domain.com',
                           provider,
                           true,
                           '',
@@ -114,8 +114,8 @@ const Auth = () => {
 
                       const userResponse = await checkUser(
                         connectResponse?.data?.user?.id,
-                        'iWantTFC',
-                        connectResponse?.data?.user?.contact[0]?.email || 'test@domain.com',
+                        decode?.uid,
+                        connectResponse?.data?.user?.contact[0]?.email || 'no@domain.com',
                         provider,
                         true,
                         '',

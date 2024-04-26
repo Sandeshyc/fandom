@@ -17,18 +17,18 @@ const WarningMessage = ({
     iconColor = iconColor || '#EAB307';
     textColor = textColor || '#fff';
     return (
-        <div className={`border border-yellow-500 p-2 flex flex-wrap mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px] ${className} `} style={styles}>
-            <div className='w-[30px]'>
+        <div className={`border border-yellow-500/70 p-2 py-1 flex flex-wrap items-center mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px] ${className} `} style={styles}>
+            <div className='w-[25px]'>
                 <ReportProblem
                 sx={{ 
                     color: iconColor,
-                    fontSize: '24px',
-                    marginRight: '10px',
+                    fontSize: '20px',
+                    marginRight: '8px',
                 }}/>
             </div>
             <div className='w-[180px] flex-grow'>
                 <p
-                className='text-sm xl:text-base'
+                className='text-xs xl:text-sm'
                 style={{
                     color: textColor,                
                 }}

@@ -13,7 +13,7 @@ const getConnect = async (accessToken:string) => {
 
     try { 
         const response = await axios.post(url, {}, {headers: headers});
-        console.log("Connect Response: ", response);
+        // console.log("Connect Response: ", response);
         if (response?.status === 200) {
             returnResponse = {
                 status: 'success',

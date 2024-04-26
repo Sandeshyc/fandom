@@ -10,6 +10,8 @@ const RentPlayNotice = (inputProps: Props) => {
         {((data?.allowed && !data?.canPlay) || (!data?.allowed && !data?.canBuy))&&(
             <WarningMessage 
                 message={data?.message}
+                textColor='#ffffffbb'
+                iconColor='#B38B18'
             />
         )}
         </>

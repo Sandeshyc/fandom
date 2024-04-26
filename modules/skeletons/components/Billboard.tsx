@@ -3,7 +3,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const Billboard = () => {
     return (
         <div className={`relative billboardSec billboardSliderItem`}> 
-            <div className='relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[250px] sm:h-[300px] md:h-[85vh] md:min-h-[700px] max-h-[85vh]'>
+            <div className='relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[250px] sm:h-[300px] md:h-[90vh] md:min-h-[700px] max-h-[90vh]'>
             <div className='brightness-[60%] h-full'>
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-full' />
             </div>

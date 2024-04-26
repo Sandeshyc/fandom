@@ -20,10 +20,12 @@ const WATCHLIST_QUERY = gql`
           message
           bought
         }
+        trailerUrl
         thumbnailBannerUrl
-        thumbnailLandscapeUrl
+        thumbnailPortrait
         thumbnailUrl
-        thumbnailPortraitUrl        
+        thumbnailPortraitUrl
+        thumbnailLandscapeUrl        
         contentRating
         duration
         genre

@@ -8,6 +8,7 @@ import Gradient from "@/modules/components/Gradient";
 import Portrait from "@/modules/components/Portrait";
 import Top10 from "@/modules/components/Top10";
 import RollBordered from "@/modules/components/RollBordered";
+import RollBorderedMulti from "@/modules/components/RollBorderedMulti";
 import Navigation from "@/modules/components/Navigation";
 import NavigationBack from '@/modules/elements/NavigationBack';
 import DetailsHeroImage from "@/modules/components/DetailsHeroImage";
@@ -48,6 +49,7 @@ const comps = {
     portrait : Portrait,
     top10 : Top10,
     rollBordered : RollBordered,
+    rollBorderedMulti : RollBorderedMulti,
     billboard : BillboardSlider,
     extended : Extended,
     detailsHeroImage : DetailsHeroImage, 
