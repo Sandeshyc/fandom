@@ -22,7 +22,7 @@ const Categories = (props:any) => {
   const region = clientLocation?.country?.isoCode;
 
   const { data, isLoading, error} = useAllMovie(categories as string, userId as string, (isMobile)?'mobile':'web', region);
-  console.log('data', data);
+  console.log('data dddd', data);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
