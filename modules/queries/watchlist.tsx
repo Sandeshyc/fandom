@@ -36,6 +36,7 @@ const WATCHLIST_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }

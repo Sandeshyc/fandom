@@ -35,6 +35,7 @@ const UPCOMING_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }

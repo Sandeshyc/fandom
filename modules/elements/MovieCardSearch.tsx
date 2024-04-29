@@ -9,6 +9,8 @@ import {
 import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import CardHeader from "@/modules/elements/CardHeader";
+import CardFooter from "@/modules/elements/CardFooter";
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -143,7 +145,7 @@ const MovieCardSearch: React.FC<MovieCardProps> = ({ data, portrait, gradient })
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {(data?.allowed)?<PurchaseBadge/>:null}  
+      <CardHeader header={data?.header}/> 
       <div className='img relative h-full w-full'>            
         <img src={thumbURl} alt="Movie" draggable={false} className={`cursor-pointer object-contain shadow-xl rounded-md w-full h-[12vw] z-10`}/>      
       </div>

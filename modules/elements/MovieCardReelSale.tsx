@@ -13,7 +13,8 @@ import EnititlementEndDate from '@/components/Expair';
 import PublishDate from '@/modules/Identities/PublishDate';
 import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
 import ProgressBar from '@/components/elements/ProgressBar';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import CardHeader from "@/modules/elements/CardHeader";
+import CardFooter from "@/modules/elements/CardFooter";
 import {Cancel} from '@mui/icons-material';
 interface MovieCardProps {
   data: MovieInterface;
@@ -181,7 +182,7 @@ const MovieCardReelSale: React.FC<MovieCardProps> = ({ data, portrait, gradient,
     onMouseLeave={onMouseLeave}
     onClick={redirectToWatch}
     >
-      {(data?.allowed)?<PurchaseBadge/>:null}  
+      <CardHeader header={data?.header} /> 
       <div className='img relative h-full w-full'>        
         <div className='absolute z-30 bottom-0 left-0 w-full '>
           {(data?.endTime)?<div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-2 rounded-md ${noGradientClass}`}><EnititlementEndDate endDate={data?.endTime} short={true} /></div>:null}

@@ -79,6 +79,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
                 itemId={data?._id}
                 data={data?.allowed}
                 size="md"
+                onAirDate={data?.onAirDate}
               />
             </div>
           )}

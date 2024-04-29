@@ -16,6 +16,7 @@ const Categories = (props:any) => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { categories } = router.query;
+  console.log('categories', categories);
 
   const {data: clientLocation, error: locationError}:any = useClientLocaion();
   const region = clientLocation?.country?.isoCode;

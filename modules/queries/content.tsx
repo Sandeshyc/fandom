@@ -47,6 +47,7 @@ const CONTENT_QUERY = gql`
         dashVideo
         videoUrl
         trailerVideo
+        onAirDate
       }
   }
 `;

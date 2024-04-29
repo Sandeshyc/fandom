@@ -7,7 +7,7 @@ const RentPlayNotice = (inputProps: Props) => {
     const { data } = inputProps;
     return (
         <>
-        {((data?.allowed && !data?.canPlay) || (!data?.allowed && !data?.canBuy))&&(
+        {(data?.message)&&(
             <WarningMessage 
                 message={data?.message}
                 textColor='#ffffffbb'

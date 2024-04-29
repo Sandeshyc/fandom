@@ -41,9 +41,21 @@ const ParentalControls = ({pcData}:Props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [pinOpen, setPinOpen] = useState(false);
     const [readPcData, setReadPcData] = useState(pcData);
+    const [isEdit, setIsEdit] = useState(false);
     const toggleExpanded = () => {
         setExpanded(!expanded);
     }
+    const openEditHandler = () => {
+        setIsEdit(true);
+        setIsAuthOpen(true);
+        values.userPassword = '';
+    }
+    const closeEditHandler = () => {
+        setIsEdit(false);
+        setIsAuthOpen(false);
+        values.userPassword = '';
+    }
+
     const toggleSwitch = () => {
         setIsAuthOpen(true);
         values.userPassword = '';
@@ -80,34 +92,42 @@ const ParentalControls = ({pcData}:Props) => {
                                     userEmail,
                                     userPassword
                                 );
-                                if(userCredential?.user){
-                                    if(isOn){
-                                        let newPcData = pcData;
-                                        newPcData.isEnable = false;
-                                        newPcData.pinRequire = false;
-                                        newPcData.pinRequireRent = false;
-                                        newPcData.pin = '';
-                                        newPcData.roleId = '';
-                                        newPcData.roleName = '';
-                                        newPcData.role = {};
-                                        const data = {
-                                            userId: userid,
-                                            parentalControl: newPcData
-                                        }
-                                        const _updateProfile = async () => {
-                                            const response = await updateProfile(data);
-                                            if(response.status === 'success') {
-                                                setIsAuthOpen(false);
-                                                setPinOpen(false);
-                                                setIsOn(false);
-                                            }else{
-                                                formiks.setErrors({userPassword: 'Something went wrong'});
-                                            }
-                                        }
-                                        _updateProfile();
-                                    }else{
-                                        setIsAuthOpen(false);
+                                if(userCredential?.user){                                    
+                                    if(isEdit){
+                                        setIsEdit(false);
                                         setPinOpen(true);
+                                        setIsAuthOpen(false);
+                                        
+                                    }else{
+                                        if(isOn){
+                                            let newPcData = pcData;
+                                            newPcData.isEnable = false;
+                                            newPcData.pinRequire = false;
+                                            newPcData.pinRequireRent = false;
+                                            newPcData.pin = '';
+                                            newPcData.roleId = '';
+                                            newPcData.roleName = '';
+                                            newPcData.role = {};
+                                            const data = {
+                                                userId: userid,
+                                                parentalControl: newPcData
+                                            }
+                                            const _updateProfile = async () => {
+                                                const response = await updateProfile(data);
+                                                if(response.status === 'success') {
+                                                    setIsAuthOpen(false);
+                                                    setPinOpen(false);
+                                                    setIsOn(false);
+                                                    setReadPcData(newPcData);
+                                                }else{
+                                                    formiks.setErrors({userPassword: 'Something went wrong'});
+                                                }
+                                            }
+                                            _updateProfile();
+                                        }else{
+                                            setIsAuthOpen(false);
+                                            setPinOpen(true);
+                                        }
                                     }
                                     values.userPassword = '';                                    
                                 }
@@ -159,7 +179,7 @@ const ParentalControls = ({pcData}:Props) => {
                 <div className='w-[200px] max-w-[600px] pr-4 grow'>
                     <Text size='base'>PIN required to set up and manage kids profiles. Turning off parental controls will clear all settings, including PIN.</Text>
                 </div>
-                <div className='w-[100px]'>
+                <div className='w-[140px] flex flex-wrap justify-end'>                    
                     <div className="flex items-center space-x-2">
                         <span>{isOn ? 'On' : 'Off'}</span>
                         <button
@@ -232,19 +252,40 @@ const ParentalControls = ({pcData}:Props) => {
                         {(errors.userPassword && touched.userPassword)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.userPassword}</p>:null}
                     </form>
                 </div>
-                {(pinOpen)&&
-                <ParentControlPin 
-                    setIsOn={setIsOn}                    
-                    setPinOpen={setPinOpen}
-                    pcData={pcData}
-                    setReadPcData={setReadPcData}
-                />
-                }
-                {((pcData?.isEnable || isOn) && !pinOpen)&&
-                <ParentControlReadOnly 
-                    pcData={readPcData}
-                />    
-                }
+                <div className='relative block w-full'>
+                    {(isOn && !pinOpen)&&(
+                        <>
+                        {(isEdit)?(
+                            <button
+                        className='absolute top-6 right-0 text-blue-600 text-base underline hover:text-blue-500 focus:outline-none px-1 mr-4 z-20'
+                        onClick={closeEditHandler}>                            
+                            Cancel
+                        </button>
+                        )
+                        :(
+                            <button
+                        className='absolute top-6 right-0 text-blue-600 text-base underline hover:text-blue-500 focus:outline-none px-1 mr-4 z-20'
+                        onClick={openEditHandler}>                            
+                            Edit
+                        </button>
+                        )}
+                        </>
+                    )}
+                    {(pinOpen)&&
+                    <ParentControlPin 
+                        setIsOn={setIsOn}                    
+                        setPinOpen={setPinOpen}
+                        pcData={readPcData}
+                        setReadPcData={setReadPcData}
+                        setIsEdit={setIsEdit}
+                    />
+                    }
+                    {((pcData?.isEnable || isOn) && !pinOpen)&&
+                    <ParentControlReadOnly 
+                        pcData={readPcData}
+                    />    
+                    }
+                </div>
             </div>
         </div>
     );

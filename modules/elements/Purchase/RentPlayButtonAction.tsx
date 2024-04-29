@@ -4,6 +4,7 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import DisabledButton from "@/modules/elements/Purchase/DisabledButton";
 import PackagesPopup from '@/modules/elements/Purchase/PackagesPopup';
 import RentButton from '@/modules/elements/Purchase/RentButton';
+import { isOnAir } from "@/utils/dataTimeChecking";
 type Props = {
     data: any;
     allowedData: any;
@@ -13,6 +14,11 @@ const RentPlayButtonAction = (inputProps: Props) => {
     const { data, size, allowedData } = inputProps;
     const [isPackagePopupOpen, setIsPackagePopupOpen] = useState(false);
     const watchUrl = `/watch/${data?._id}`;
+    let rentBtnTxt = "Rent";
+    const onAirDate = data?.onAirDate;
+    if(onAirDate && !isOnAir(onAirDate)){
+        rentBtnTxt = "Pre-book";
+    }
     useEffect(() => {
         // URLSearchParams perchasePlan 
         const urlParams = new URLSearchParams(window?.location?.search);
@@ -55,7 +61,9 @@ const RentPlayButtonAction = (inputProps: Props) => {
                 <RentButton type='active'
                     size={size}
                     onClick={() => setIsPackagePopupOpen(true)}
-                >Rent</RentButton>
+                >
+                    {rentBtnTxt}
+                </RentButton>
             )
             :
             (

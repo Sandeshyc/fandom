@@ -138,7 +138,9 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
           <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
             <RentPlayButtonLink
             itemId={itemId} 
-            data={data?.allowed} />
+            data={data?.allowed} 
+            onAirDate={data?.onAirDate}
+            />
             <LinkRoute href={`${detailUrl}`} type="hoverOutline">
               Know More
               <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />

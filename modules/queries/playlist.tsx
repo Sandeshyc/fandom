@@ -41,6 +41,7 @@ const PLAYLIST_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }
