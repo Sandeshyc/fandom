@@ -1,5 +1,6 @@
 import React from 'react';
 import WarningMessage from '@/modules/Identities/WarningMessage';
+import InfoMessage from '@/modules/Identities/InfoMessage';
 type Props = {
     data: any;
 };
@@ -8,11 +9,21 @@ const RentPlayNotice = (inputProps: Props) => {
     return (
         <>
         {(data?.message)&&(
-            <WarningMessage 
-                message={data?.message}
-                textColor='#ffffffbb'
-                iconColor='#B38B18'
-            />
+            <>
+            {(data?.message === 'Coming soon!')?(
+                <InfoMessage 
+                    message={data?.message}
+                    textColor='#ffffffbb'
+                    iconColor='#eee'
+                />
+            ):(
+                <WarningMessage 
+                    message={data?.message}
+                    textColor='#ffffffbb'
+                    iconColor='#B38B18'
+                />
+            )}
+            </>
         )}
         </>
     );

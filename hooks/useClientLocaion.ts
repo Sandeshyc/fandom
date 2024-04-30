@@ -11,7 +11,7 @@ const useMediaItems = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const clientLocation = window?.localStorage?.getItem('clientLocation');
+        const clientLocation = window?.sessionStorage?.getItem('clientLocation');
         if (clientLocation) {
           setData(JSON.parse(clientLocation));
           setIsLoading(false);
@@ -21,7 +21,7 @@ const useMediaItems = () => {
         setIsLoading(true);
         const response = await fetcher('/api/clientLocation');
         setData(response);
-        window?.localStorage?.setItem('clientLocation', JSON.stringify(response));
+        window?.sessionStorage?.setItem('clientLocation', JSON.stringify(response));
       } catch (error: any) {
         setError(error);
       } finally {

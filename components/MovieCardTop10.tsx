@@ -188,7 +188,7 @@ const MovieCardTop10: React.FC<MovieCardTopProps> = ({ data, portrait, number, g
         <div className='img relative bg-zinc-700 rounded-md' onClick={redirectToWatch}>
           <div className='hidden lg:block'>
             <CardHeader header={data?.header} />
-            <div className='absolute bottom-0 right-0 z-20'>
+            <div className='absolute bottom-0 right-0 z-20 w-full'>
               <CardFooter footer={data?.footer} />
             </div>
           </div> 

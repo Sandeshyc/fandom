@@ -19,11 +19,17 @@ type Props = {
     item: any;
     movieId: string;
     isPackage?: boolean;
+    isTvshow?: boolean;
+    isEpisode?: boolean;
+    rentText?: string;
 }
 const PlanItem = ({
     item,
     movieId,
-    isPackage
+    isPackage,
+    isTvshow,
+    isEpisode,
+    rentText='Rent'
 }:Props) => {
     // console.log('item', item);
   const isLoginUser = useCheckAuthentication();
@@ -86,6 +92,8 @@ const PlanItem = ({
               "itemCode": movieId,
               "priceSKU": productId,
               "isPackage": isPackage,
+              "isTvshow": isTvshow,
+              "isEpisode": isEpisode,
               "transactionId": transactionId,
           };
           const res = await auditEntitlement(data);
@@ -228,7 +236,7 @@ const PlanItem = ({
           font-light
           w-full 
           active:opacity-65
-          text-[16px]">{(!isLoginUser)&&'Login and '}Rent      
+          text-[16px]">{(!isLoginUser)&&'Login and '}{rentText}      
           </button></>)}
       </div>
       </div>

@@ -228,7 +228,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             player?.on('ready', function() {
                 console.log('Video Ready');
                 setIsReady(true);
-                if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
+                if(isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
                     player.seek(data?.currentTime);
                 }
             });
@@ -259,7 +259,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 // console.log('play');
                 // show the player once it's ready
                 playerRef.current.style ="opacity: 1"
-                if(x && x.current === 0){
+                if(x !== null && x !== undefined && x.current === 0){
                     setTimeout(() => {
                         // console.log('set volume', x.current);
                         player.setVolume(50);
