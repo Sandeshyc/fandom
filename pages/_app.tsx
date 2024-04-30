@@ -34,6 +34,10 @@ export default function App({
         <title>iWantTFC Tickets</title>
         <meta name="description" content="iWantTFC Tickets" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex" />
+        
       </Head>
       <Script
         id="jw-player"
