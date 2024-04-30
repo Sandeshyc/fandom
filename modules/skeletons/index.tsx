@@ -6,6 +6,7 @@ import Roll from "@/modules/skeletons/components/Roll";
 import EventRoll from "@/modules/skeletons/components/EventRoll";
 import Top10 from "@/modules/skeletons/components/Top10";
 import RollBordered from "@/modules/skeletons/components/RollBordered";
+import RollBorderedMulti from "@/modules/skeletons/components/RollBorderedMulti";
 import MovieListVertical from "@/modules/skeletons/components/MovieListVertical";
 import MovieWatchList from "@/modules/skeletons/components/MovieWatchList";
 import MovieSummary from "@/modules/skeletons/components/MovieSummary";
@@ -30,6 +31,7 @@ const GetComponent = ({displayType}:Props) => {
         eventroll : EventRoll,
         top10 : Top10,
         rollBordered : RollBordered,
+        rollBorderedMulti : RollBorderedMulti,
         movieListVertical : MovieListVertical,
         movieWatchList : MovieWatchList,
         movieSummary : MovieSummary,

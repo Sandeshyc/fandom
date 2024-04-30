@@ -44,6 +44,7 @@ const BUNDLE_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }

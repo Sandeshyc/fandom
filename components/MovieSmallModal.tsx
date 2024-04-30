@@ -216,7 +216,9 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
                 <RentPlayButtonLink
                 itemId={data?._id} 
                 data={data?.allowed} 
-                size='md'/>
+                size='md'
+                onAirDate={data?.onAirDate}
+                />
               )}
               {(data?.popupIsLoading)?<div className={cssPopupIsLoading}>
                 <LoopOutlined sx={sxIsLoading} />

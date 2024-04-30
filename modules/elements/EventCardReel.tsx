@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 import { round, set } from "lodash";
+import Link from "next/link";
 import useMoviePopupStore from "@/hooks/useMoviePopupStore";
 import {
   addToMyList,
@@ -90,7 +91,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     popWidth = popWidth < 400 ? 400 : popWidth;
     const itemWidth = thumbOuter?.getBoundingClientRect()?.width;
     if(itemWidth){
-      popWidth = itemWidth * 1.1;
+      popWidth = itemWidth * 2.5;
     }
     const popWidthHalf = popWidth / 2;
 
@@ -203,16 +204,15 @@ const EventCardReel: React.FC<MovieCardProps> = ({
   }, []);
   return (
     <div
-      ref={thumbOuterRef}
-      onMouseEnter={onHoverHandler}
-      onMouseLeave={onMouseLeave}
       className={`group sm:h-full bg-zinc-900 rounded-md relative border border-contentColor/10`}
     >
       <div className="flex flex-wrap flex-col sm:flex-row sm:h-full">
         <div
+          ref={thumbOuterRef}
+          onMouseEnter={onHoverHandler}
+          onMouseLeave={onMouseLeave}
           className="w-full h-auto sm:w-1/3 sm:bg-zinc-700 sm:aspect-[6/9] sm:scale-105 cursor-pointer relative rounded-md overflow-hidden"
-          onClick={redirectToDetails}
-        >
+          onClick={redirectToDetails}>
           <CardHeader header={data?.header} />
           {(thumbURl)?
             <img
@@ -232,7 +232,10 @@ const EventCardReel: React.FC<MovieCardProps> = ({
         </div>
         <div className="sm:w-2/3 p-4">
           <Title tag="h3" size="xl">
-            {title}
+            <Link 
+              href={`/details/${data?._id}`}>
+              {title}
+            </Link>
           </Title>
           {description && (
             <div className="mt-2 mb-4 text-white/60">
@@ -264,15 +267,19 @@ const EventCardReel: React.FC<MovieCardProps> = ({
               )}
             </>
           )}
-          <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 mb-4 lg:mb-6">
-            {(data?._id)&&(
-                <RentPlayButtonLink
-                itemId={data?._id} 
-                size="md"
-                data={data?.allowed} />
-            )}
+          <div className="hidden lg:block">
+            <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 mb-4 lg:mb-6">
+              {(data?._id)&&(
+                  <RentPlayButtonLink
+                  itemId={data?._id} 
+                  size="md"
+                  data={data?.allowed}
+                  onAirDate={data?.onAirDate}
+                  />
+              )}
+            </div>
+            <RentPlayNotice data={data?.allowed} />
           </div>
-          <RentPlayNotice data={data?.allowed} />
         </div>
       </div>
     </div>

@@ -10,7 +10,8 @@ import { stableKeys } from '@/utils/stableKeys';
 
 import { MovieInterface } from '@/types';
 import { get, isEmpty } from 'lodash';
-import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
+import CardHeader from "@/modules/elements/CardHeader";
+import CardFooter from "@/modules/elements/CardFooter";
 
 type Props = {
   data: MovieInterface[];
@@ -124,7 +125,7 @@ const ExtendedBillboardRoll = ({ data, portrait, setCurrentMovie, className, ite
             <SvgNumberModak item={i + 1} />
           </span>
           <div className={`bg-zinc-900/80 rounded-md col-span-9 relative z-20 shadow-lg  transition origin-left -translate-x-4  ${i++ === parseInt(current)? 'translate-x-2 scale-105' : ''}`}>
-            {(movie?.allowed)?<PurchaseBadge data={movie}/>:null}
+            <CardHeader header={movie?.header} />
             <img src={get(movie, 'thumbnailUrl')} className="w-full  object-contain rounded-lg" />
           </div>
         </div>

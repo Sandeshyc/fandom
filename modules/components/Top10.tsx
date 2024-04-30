@@ -37,18 +37,38 @@ const Top10 = ({ data, title, portrait }:Props) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 4,
+    slidesToShow: 7.2,
+    slidesToScroll: 7,
     swipeToSlide: true,
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
-
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 3200,
         settings: {
-          slidesToShow: 4.3,
+          slidesToShow: 6.2,
+          slidesToScroll: 6,
+        },
+      },
+      {
+        breakpoint: 2400,
+        settings: {
+          slidesToShow: 5.2,
+          slidesToScroll: 5,
+        },
+      },
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 4.2,
           slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 1140,
+        settings: {
+          slidesToShow: 3.3,
+          slidesToScroll: 3,
         },
       },
       {

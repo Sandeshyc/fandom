@@ -38,6 +38,7 @@ const BUNDLE_HEADER_QUERY = gql`
       trailerUrl
       isInWatchList
       packageShortDetails
+      isPackage
     }
   }
 `;

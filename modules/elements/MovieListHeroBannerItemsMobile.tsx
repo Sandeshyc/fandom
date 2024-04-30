@@ -8,6 +8,8 @@ import { get, isEmpty } from 'lodash';
 import PurchaseBadge from '@/modules/Identities/PurchaseBadge';
 import NotAllowed from '@/modules/Identities/NotAllowed';
 import { getThumbnailLandscape } from '@/utils/getData';
+import CardHeader from "@/modules/elements/CardHeader";
+import CardFooter from "@/modules/elements/CardFooter";
 interface MovieListNumberProps {
   data: MovieInterface[];
   title: string;
@@ -55,14 +57,15 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
       <div key={stableKeys[index]} data-index={i}  onClick={e => hendleSlideChange(e, movie)} className='movieCardNumber mb-2'>
         <div className="w-full aspect-video cursor-pointer">
           <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-2 border-white/80':'z-20 shadow-lg'}`}>
-            {(movie?.allowed)?<PurchaseBadge/>:
-            (movie?.canBuy === false)?<NotAllowed message='Region Restricted'/>:
-            null}
+            <CardHeader header={movie?.header} />
             {(bannerThumb)?
               <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg" />
             :
               <div className="w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center text-center">{movie?.title}</div>
             }
+            <div className="absolute left-0 bottom-0 w-full">
+              <CardFooter footer={movie?.footer} />
+            </div>
           </div>
         </div>
       </div>

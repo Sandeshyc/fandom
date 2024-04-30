@@ -70,7 +70,6 @@ export const convertESTtoLocalTime = (estDateTimeString: string) => {
     day: 'numeric',   // 09
     hour: 'numeric',   // 20 (24-hour format)
     minute: 'numeric', // 16
-    timeZone: 'America/New_York', // Adjust for Eastern Standard Time (EST)
     hour12: true,     // Use 12-hour format (8 PM)
   };
 

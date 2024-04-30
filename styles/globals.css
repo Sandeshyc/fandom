@@ -47,7 +47,12 @@ html {
   @apply h-full;
 } */
 .jk_jwp_full .jwplayer.jw-flag-aspect-mode{
-  max-height: 100vh !important;
+  height: 100vh !important;
+}
+
+/* Need to Update */
+.jwplayer.jw-stretch-fill .jw-media video{
+  object-fit: contain !important;
 }
 .mainNav{
   background: linear-gradient(180deg,#181818,transparent 100%);

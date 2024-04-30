@@ -36,6 +36,7 @@ const PACKAGES_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }

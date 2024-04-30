@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Slider from "react-slick";
 import { useRouter } from 'next/router';
 import "slick-carousel/slick/slick.css";
@@ -36,7 +36,7 @@ function SlickPrevArrow(props:any) {
 }
 
 const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
-
+  const [viewAllUrl, setViewAllUrl] = React.useState('');
   const router = useRouter();
   if (isEmpty(data)) {
     return null;
@@ -88,12 +88,17 @@ const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
       },
     ]
   }; 
+  useEffect(() => {
+    if (Array.isArray(data) && data?.length > 0){
+      setViewAllUrl( '/categories/bundle');
+    }
+  }, [data]);
   const ReelContent = ()=> (<div className={`mt-[2vw] mb-[3vw] movieSlider portrait`}>
     <div className="movieSliderInner">
       <ReelHeading 
         title={title}
-        link={link}
-        linkText={linkText}
+        link={viewAllUrl}
+        linkText={'Explore All'}
         />
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>

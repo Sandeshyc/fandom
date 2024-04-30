@@ -2,15 +2,21 @@ import React from "react";
 import LinkRoute from "@/modules/Identities/LinkRoute";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import DisabledButton from "@/modules/elements/Purchase/DisabledButton";
+import { isOnAir } from "@/utils/dataTimeChecking";
 type Props = {
     data: any;
     itemId: string;
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'sm' | 'md' | 'lg';
+    onAirDate?: string; 
 };
 const RentPlayButtonLink = (inputProps: Props) => {
-    const { data, itemId, size } = inputProps;
+    const { data, itemId, size, onAirDate } = inputProps;
     const detailUrl = `/details/${itemId}`;
     const watchUrl = `/watch/${itemId}`;
+    let rentBtnTxt = "Rent";
+    if(onAirDate && !isOnAir(onAirDate)){
+        rentBtnTxt = "Pre-book";
+    }
     return (
         <>
         {(data?.allowed) ? (
@@ -33,13 +39,13 @@ const RentPlayButtonLink = (inputProps: Props) => {
             <>
             {(data?.canBuy)?(
                 <LinkRoute href={`${detailUrl}/?viewPlan=true`} type="primary" size={size}>
-                    Rent
+                    {rentBtnTxt}
                 </LinkRoute>
             )
             :
             (
                 <DisabledButton stage="rent" size={size}>
-                    Rent
+                    {rentBtnTxt}
                 </DisabledButton>
             )}
             </>

@@ -14,9 +14,10 @@ type Props = {
     setPinOpen: (pinOpen: boolean) => void;
     pcData: any;
     setReadPcData: (pcData: any) => void;
+    setIsEdit: (isEdit: boolean) => void;
 }
 const ParentControlPin = (
-    {setIsOn, setPinOpen, pcData, setReadPcData}: Props
+    {setIsOn, setPinOpen, pcData, setReadPcData, setIsEdit}: Props
 ) => {
     const [userid, setUserid] = React.useState('');
     const [pinRequire, setPinRequire] = useState(pcData?.pinRequire);
@@ -69,7 +70,8 @@ const ParentControlPin = (
             if(response.status === 'success') {
                 setPinOpen(false);
                 setIsOn(true);    
-                setReadPcData(parentalControl);            
+                setReadPcData(parentalControl);   
+                setIsEdit(false);         
             }else{
                 setValidateError('Something went wrong');
             }

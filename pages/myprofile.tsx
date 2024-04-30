@@ -20,6 +20,7 @@ import SkeletonMyProfile from '@/components/Skeleton/SkeletonMyProfile';
 import useIsMobile from '@/hooks/useIsMobile';
 import ParentalControls from '@/modules/components/ParentalControls';
 import CommunicationDetails from '@/modules/components/CommunicationDetails';
+import DeleteAccount from '@/modules/elements/DeleteAccount';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -274,6 +275,7 @@ const MyProfile = () => {
                 </div>
               </div>
             </div>
+            {openDeleteAccount && <DeleteAccount open={openDeleteAccount} setOpen={setOpenDeleteAccount}/>}
           </div>
         </form>
         <div className='px-4 md:px-12 mb-[2vw]'>

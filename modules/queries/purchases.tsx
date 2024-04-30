@@ -34,6 +34,7 @@ const PURCHASES_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }

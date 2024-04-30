@@ -14,15 +14,15 @@ type Props = {
 };
 const MovieWatchList = ({ data, title, link, linkText, isBoxesLayout = false }:Props) => {
     
-    const ReelContent = () => (<div className={` z-10 relative mb-[3vw]`}>
-        <div className='px-2'>
+    const ReelContent = () => (<div className={`z-10 relative mb-[3vw]`}>
+        <div className='px-0'>
             <ReelHeading 
             title={title} 
             link={link}
             linkText={linkText}
             />
         </div>
-        <div className={`flex flex-wrap`}>
+        <div className={`flex flex-wrap sm:mx-[-7px]`}>
             {(Array.isArray(data) && data?.length > 0)?data.map((item:MovieInterface, index:number) => (
                 <MovieCardList
                 key={stableKeys[index]}
@@ -42,7 +42,7 @@ const MovieWatchList = ({ data, title, link, linkText, isBoxesLayout = false }:P
         </div>
     </div>
     :
-    <div className='container mx-auto max-w-[2400px] px-4 mt-2 min-h-[80vh]'>{ReelContent()}</div>
+    <div className='container mx-auto max-w-[2400px] px-4 min-h-[80vh]'>{ReelContent()}</div>
     }
     </>
   );

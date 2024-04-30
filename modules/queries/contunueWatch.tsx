@@ -36,6 +36,7 @@ const CONTINUE_WATCH_QUERY = gql`
         footer {
           text
           iconType
+          textType
         }
       }
     }
