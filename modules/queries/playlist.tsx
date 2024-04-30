@@ -34,6 +34,7 @@ const PLAYLIST_QUERY = gql`
         writer
         duration
         genre
+        isInWatchList
         header {
           text
           type

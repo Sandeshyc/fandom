@@ -11,6 +11,8 @@ import { ShareIcon } from '@heroicons/react/24/solid';
 import Buy from '@/components/Buy';
 import Title from '@/modules/Identities/Title';
 import DetailsTab from '@/components/DetailsTab';
+import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
+import PackageRentPlayButtonAction from "@/modules/elements/Purchase/PackageRentPlayButtonAction";
 
 type dataProps = {
     data: any,
@@ -62,7 +64,7 @@ const ShowSummary = (inputProps:dataProps) => {
         <div className='container mx-auto px-4'>
           <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
-              <div className="flex flex-wrap items-end w-full">
+              <div className="flex flex-wrap items-end w-full mb-4">
                 <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
                   <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
                 </div>
@@ -81,13 +83,14 @@ const ShowSummary = (inputProps:dataProps) => {
                   </p>
                 </div>
               </div> 
-              <div className='w-full mt-4 lg:mt-8 flex flex-wrap items-center'>
+              <RentPlayNotice data={data?.allowed} />
+              <div className='w-full mt-4 flex flex-wrap items-center'>
                 <div 
                   className="border border-blue-600 rounded-full bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] mb-2 mr-4">
                   <select 
                   value={currentSeason?.name}
                   onChange={handleSeason}
-                  className="h-[36px] lg:h-[44px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
+                  className="h-[34px] lg:h-[40px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                       {allSeasons?.map((season:any, index:number) => {
                           return <option key={stableKeys[index]} value={season?.name}
                           >{season?.title}</option>
@@ -95,20 +98,14 @@ const ShowSummary = (inputProps:dataProps) => {
                   </select>
                 </div>
                 {(data?._id)?<>
-                  {(data?.allowed)?
-                      (<div className='bg-gradient-to-r from-blue-700/50 to-blue-500/50 text-white rounded-full px-2 sm:px-4 w-[160px] lg:w-[220px] text-sm flex flex-row justify-center items-center transition active:opacity-65 h-[36px] lg:h-[44px] cursor-not-allowed mb-2 mr-4'>
-                      <span>Purchased</span>
-                      </div>)
-                  :
-                      (<div className='mb-2 mr-4'><Buy 
-                      movieId={data?._id} 
-                      allowedPlans={data?.allowedPlans}
-                      messages={data?.messages}
-                      allowed={data?.allowed}
-                      data={data}
-                      /></div>)
-                  }
                   </>:null}
+                  <div className='mr-4'>
+                    <PackageRentPlayButtonAction 
+                      data={data} 
+                      allowedData={data?.allowed}
+                      size="lg"
+                      />
+                  </div>
                                       
                 {(isAuthenticated && data?._id)&&<div className='mb-2'><WishListButton movieId={data?._id} isInWatchList={data?.isInWatchList}/></div>}
                   {(data?._id)?<>

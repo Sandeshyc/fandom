@@ -12,7 +12,6 @@ import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
 
-
 interface MovieListProps {
   data: MovieInterface[];
   title: string;
@@ -45,8 +44,11 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
 
   const router = useRouter();
   const sliderRef = useRef(null);
+  const sliderRefOuter = useRef(null);
   const [removedItem, setRemovedItem] = React.useState(null);
   const [viewAllUrl, setViewAllUrl] = React.useState('');
+  const [sliderWidth, setSliderWidth] = React.useState(0);
+  const [sliderWidthOuter, setSliderWidthOuter] = React.useState(0);
   // console.log('removedItem data: ', data);
   
   React.useEffect(() => {
@@ -136,21 +138,29 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
       setViewAllUrl( '/mytickets' );
     }else if(source === 'continueWatch'){
       setViewAllUrl( '/categories/continue-watch' );
-    }
-
+    }    
     if(source === 'Packages'){
-      setViewAllUrl( '' );
+      setViewAllUrl( '/categories/bundle' );
     }
-
   }, [data]);
+  useEffect(() => {
+    const sliderRefCurrent = sliderRef.current;
+    const sliderRefCurrentOuter = sliderRefOuter.current;
+    if (sliderRefCurrent && sliderRefCurrentOuter) {
+      setSliderWidth(sliderRefCurrent?.innerSlider.list.clientWidth);
+      setSliderWidthOuter(sliderRefCurrentOuter?.getBoundingClientRect()?.width);
+    }
+  }, [document, window]);
 
   const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
     <div className="movieSliderInner">
-      <ReelHeading 
+      {(sliderWidth > sliderWidthOuter || 1)&&(
+        <ReelHeading 
         title={title} 
         link={viewAllUrl} 
         linkText={'Explore All'}
         />
+      )}
       <div className="block lg:hidden">
         <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
           {newData?.map((movie, index) => (
@@ -158,7 +168,7 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
           ))}
         </div>
       </div>
-      <div className="hidden lg:block movieSliderReel">
+      <div className="hidden lg:block movieSliderReel" ref={sliderRefOuter}>
         <Slider
         ref={sliderRef}
         key={newData?.length}

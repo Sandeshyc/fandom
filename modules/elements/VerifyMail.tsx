@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 import Modal from '@mui/material/Modal';
 import { Poppins } from 'next/font/google';
 import {
@@ -34,8 +35,10 @@ const VerifyMail = ({email}:Props) => {
     const [isReSend, setIsReSend] = useState(false);
     const [open, setOpen] = React.useState(true);
     const [errorMessage, setErrorMessage] = useState('');
+    const router = useRouter();
     const handleClose = () => {
-        setOpen(true);
+        setOpen(false);
+        window.location.href = '/auth';
     };
     const sentVerifyEmail = async () => {
         try {
@@ -63,8 +66,12 @@ const VerifyMail = ({email}:Props) => {
         aria-describedby="Email Verify Modal"
         onClose={handleClose}
         className={`flex justify-center items-center ${poppins.className}`}>
-          <div className='rounded-md w-[90%] max-w-[540px] bg-gray-900 relative text-white border border-white/70'>
-            
+          <div className='rounded-md w-[90%] max-w-[540px] bg-gray-900 relative text-white border border-white/70'> 
+              <div className="absolute top-2 right-2 cursor-pointer" onClick={handleClose}>
+                    <CloseOutlined 
+                    sx={{fontSize: 28}}
+                    className="text-red-500"/>
+                </div>           
             <div className="p-4 pt-8">
                 <h3 className="text-white text-center text-2xl font-semibold mb-4">
                     Check your email <br/>inbox

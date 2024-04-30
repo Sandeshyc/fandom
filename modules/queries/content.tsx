@@ -41,6 +41,7 @@ const CONTENT_QUERY = gql`
           message
         }
         isPackage
+        isInWatchList
         currentTime
         videoDuration
         hlsVideo

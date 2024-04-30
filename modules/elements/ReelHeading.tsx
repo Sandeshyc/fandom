@@ -8,8 +8,8 @@ type Props = {
 };
 
 const ReelHeading: React.FC<Props> = ({ title, link, linkText }) => {
-    return (<>{(title)?<div className='flex items-center justify-between pr-4 lg:pr-8'>
-          <p className="text-white text-xl lg:text-2xl	font-medium mb-1 lg:mb-4 mr-2">{title}</p>
+    return (<>{(title)?<div className='flex items-center justify-between pr-1 sm:pr-4 lg:pr-8'>
+          <p className="text-white text-lg sm:text-xl lg:text-2xl font-medium mb-1 lg:mb-4 mr-2">{title}</p>
           {(link)?<Link className="text-contentColor/80 text-sm xl:text-base font-regular mb-2 lg:mb-4 cursor-pointer hover:underline transition-all"
             href={link}
             style={{

@@ -6,6 +6,7 @@ import NoPlanFound from '@/modules/elements/Purchase/NoPlanFound';
 import ItemDetails from '@/modules/elements/Purchase/ItemDetails';
 import WarningMessage from '@/modules/Identities/WarningMessage';
 import { stableKeys } from '@/utils/stableKeys';
+import { isOnAir } from "@/utils/dataTimeChecking";
 type Props = {
     allowedPlans: any;
     data: any;
@@ -20,6 +21,11 @@ const PackagesPopup = ({
     setIsPackagePopupOpen,
     isPackagePopupOpen
 }:Props) => {
+    let rentBtnTxt = "Rent";
+    const onAirDate = data?.onAirDate;
+    if(onAirDate && !isOnAir(onAirDate)){
+        rentBtnTxt = "Pre-book";
+    }
     const isLoginUser = useCheckAuthentication();
     const handleClose = () => {
         setIsPackagePopupOpen && setIsPackagePopupOpen();
@@ -31,7 +37,7 @@ const PackagesPopup = ({
             aria-describedby="simple-modal-description"
             onClose={handleClose}
             className='flex justify-center jkBuyModal'>
-                <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A] px-[10px] lg:px-[20px] py-[30px] relative '>
+                <div className='border-[3px] border-[#262626] rounded-md  bg-opacity-[100%] w-[90%] max-w-[1200px] bg-[#1A1A1A] px-[10px] lg:px-[20px] py-[30px] relative'>
                 <button
                 onClick={handleClose}
                 className='absolute top-0 right-0 text-white text-4xl px-2 py-1 active:opacity-65'>
@@ -52,6 +58,7 @@ const PackagesPopup = ({
                             item={item}
                             movieId={movieId}
                             isPackage={data?.isPackage}
+                            rentText={rentBtnTxt}
                             key={stableKeys[index]}
                             />)
                         })}

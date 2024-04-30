@@ -13,7 +13,13 @@ const TVSHOWS_QUERY = gql`
         thumbnailLandscapeUrl
         thumbnailPortraitUrl
         thumbnailUrl
-        allowed
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
         isInWatchList
         contentRating
         header {

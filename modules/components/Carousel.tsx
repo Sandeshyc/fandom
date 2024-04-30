@@ -71,10 +71,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
         <div className='w-full h-full rounded-lg cursor-pointer' onClick={() => router.push(`/details/${item?._id}`)}>
             <img src={thumb} alt={item?.title} className='w-full h-full object-cover rounded-lg'/>
         </div>
-        <div className='absolute bottom-0 left-0 w-full p-2 pb-4 pt-12 bg-gradient-to-t from-black/60 from-60% to-transparent to-85%'>
-            <p className='text-white text-md sm:text-lg font-medium text-center mb-2 drop-shadow-md'>
-                {item?.title}
-            </p>
+        <div className='absolute bottom-0 left-0 w-full p-2 pb-2 pt-6 bg-gradient-to-t from-black/90 to-transparent'>
             <div className='flex justify-center'>
                 <PlayButtonSmall 
                     movieId={item?._id}
