@@ -8,7 +8,6 @@ import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
 import checkAuthentication from '@/utils/checkAuth';
 import SocialShare from '@/modules/elements/SocialShare';
 import { ShareIcon } from '@heroicons/react/24/solid';
-import Buy from '@/components/Buy';
 import Title from '@/modules/Identities/Title';
 import DetailsTab from '@/components/DetailsTab';
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
@@ -86,11 +85,11 @@ const ShowSummary = (inputProps:dataProps) => {
               <RentPlayNotice data={data?.allowed} />
               <div className='w-full mt-4 flex flex-wrap items-center'>
                 <div 
-                  className="border border-blue-600 rounded-full bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] mb-2 mr-4">
+                  className="rounded-full border border-blue-600 mb-2 mr-4">
                   <select 
                   value={currentSeason?.name}
                   onChange={handleSeason}
-                  className="h-[34px] lg:h-[40px] w-full bg-transparent text-white/70 rounded-md px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
+                  className="h-[34px] lg:h-[40px] rounded-full bg-black/90 bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] text-white/70 px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                       {allSeasons?.map((season:any, index:number) => {
                           return <option key={stableKeys[index]} value={season?.name}
                           >{season?.title}</option>
