@@ -124,7 +124,7 @@ const MovieListHeroBannerItems = ({ data, title, portrait, setCurrentMovie, clas
             <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-4 border-white/80':'z-20 shadow-lg'}`}>
               <CardHeader header={movie?.header} />
               {bannerThumb ?
-              <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg text-zinc-500 flex justify-center items-center" />
+              <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-cover rounded-lg text-zinc-500 flex justify-center items-center" />
               :
               <div className="w-full h-full bg-gray-800 rounded-lg text-zinc-500 flex justify-center items-center">{movie?.title}</div>
               }

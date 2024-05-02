@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // if( !userID ){
     //   return res.status(200).json([]);
     // }
-    // console.log(url)
+    // console.log('URL: ', url);
     const moviesRes = await axios.get(url, {timeout: 30000});
     // const moviesRes = await axios.get(url);
     const movies = moviesRes.data;

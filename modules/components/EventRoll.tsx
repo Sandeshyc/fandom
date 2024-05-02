@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -51,8 +51,13 @@ const EventRoll: React.FC<MovieListProps> = ({
   isBoxesLayout = false,
   marginTop = false,
 }) => {
-
   const isMobile = useIsMobile();
+  const mobileSliderRef = useRef(null as any);
+  const mobileSliderOuterRef = useRef(null as any);
+  const sliderRef = useRef(null as any)
+  const sliderRefOuter = useRef(null as any);
+  const [sliderWidth, setSliderWidth] = useState(0);
+  const [sliderWidthOuter, setSliderWidthOuter] = useState(0);
   let settings = {
     dots: false,
     infinite: false,
@@ -93,6 +98,23 @@ const EventRoll: React.FC<MovieListProps> = ({
       },
     ],
   };
+  useEffect(() => {    
+    if(isMobile){
+      const mobileSliderRefCurrent = mobileSliderRef.current;
+      const tempSliderWidth = mobileSliderRefCurrent?.scrollWidth;
+      setSliderWidth(tempSliderWidth);
+      const mobileSliderOuterRefCurrent = mobileSliderOuterRef.current;
+      const tempSliderWidthOuter = mobileSliderOuterRefCurrent?.clientWidth;
+      setSliderWidthOuter(tempSliderWidthOuter);
+    }else{
+      const sliderRefCurrent = sliderRef.current;
+      const tempSliderWidth = sliderRefCurrent?.innerSlider?.list?.children[0]?.clientWidth;
+      setSliderWidth(tempSliderWidth);
+      const sliderRefCurrentOuter = sliderRefOuter.current;
+      const tempSliderWidthOuter = sliderRefCurrentOuter?.getBoundingClientRect()?.width;
+      setSliderWidthOuter(tempSliderWidthOuter);
+    }
+  }, [document, window, isMobile]);
   const ReelContent = () => (
     <div
       className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${
@@ -102,11 +124,11 @@ const EventRoll: React.FC<MovieListProps> = ({
       <div className="movieSliderInner">
         <ReelHeading
           title={title}
-          link={"/categories/upcoming"}
+          link={((sliderWidth - sliderWidthOuter) > 60)?'/categories/upcoming':''}
           linkText={"Explore All"}
         />
-        <div className="block lg:hidden">
-          <div className="flex overflow-y-hidden overflow-x-auto mobileEventCardsSlide py-4">
+        <div className="block lg:hidden" ref={mobileSliderOuterRef}>
+          <div className="flex overflow-y-hidden overflow-x-auto mobileEventCardsSlide py-4" ref={mobileSliderRef}>
             {data?.map((movie, index) => (
               <EventCardReel
                 key={stableKeys[index]}
@@ -117,8 +139,10 @@ const EventRoll: React.FC<MovieListProps> = ({
             ))}
           </div>
         </div>
-        <div className="hidden lg:block movieSliderReel sameHeightSlick">
-          <Slider {...settings}>
+        <div className="hidden lg:block movieSliderReel sameHeightSlick" ref={sliderRefOuter}>
+          <Slider 
+          ref={sliderRef}
+          {...settings}>
             {data?.map((movie, index) => (
               <EventCardReel
                 key={stableKeys[index]}

@@ -14,7 +14,7 @@ const RentPlayNotice = (inputProps: Props) => {
                 <InfoMessage 
                     message={data?.message}
                     textColor='#ffffffbb'
-                    iconColor='#eee'
+                    iconColor='#fff'
                 />
             ):(
                 <WarningMessage 

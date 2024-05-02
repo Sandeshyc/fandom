@@ -21,15 +21,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const region = getValue(req.query.region as string);
     const product = getValue(req.query.product as string);
     let userId = getValue(req.query.userId as string);
-    // console.log(region, product, userID)
     
-    if (userId === 'NA') userId = '0';
-    let url = `${process.env.API_URL}/page/list?userId=${userId}`;
-    // let url = `${process.env.API_URL}/user/151937500/watchlist/?`;
-    if (region !== 'NA') url = `${url}&region=${region}`;
-    if (product !== 'NA') url = `${url}&product=${product}`;
+    if(region === 'NA'){
+      return res.status(204).end();
+    }
+    if(userId === 'NA'){
+      return res.status(204).end();
+    }
+    let url = `${process.env.API_URL}/page/list?region=${region}`;
+    if(userId){
+      url = `${url}&userId=${userId}`;
+    }
+    if(product){
+      url = `${url}&product=${product}`;
+    }
     
-    // console.log(region, product, userID, url)
+    console.log('URL:', url)
     const moviesRes = await axios.get(url, { timeout: 10000 })
     const movies = moviesRes.data;
 

@@ -9,7 +9,7 @@ import ReactVideoPlayer from '@/components/ReactPlayer';
 import Buttons from '@/modules/Identities/Buttons';
 import {CloseOutlined, LoopOutlined} from '@mui/icons-material';
 import { _id } from '@next-auth/mongodb-adapter';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import { getThumbnailLandscape } from '@/utils/getData';
 import RentPlayButtonLink from "@/modules/elements/Purchase/RentPlayButtonLink";
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
@@ -22,7 +22,7 @@ interface movieSmallModalProps {
 
 const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, reelItem}) => {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isLoginUser = useCheckAuthentication();
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const [isMute, setIsMute] = React.useState(true);
   const thumbRef = React.useRef<HTMLDivElement>(null);
@@ -91,11 +91,6 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   // console.log('xy ', data?.xy);
   
   useEffect(() => {
-    const _checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthentication();
-      setIsAuthenticated(isAuthenticated);
-    }
-    _checkAuthentication();
     const userInfo = window.localStorage.getItem('userInfo');
     if(userInfo) {
       const userInfoObj = JSON.parse(userInfo);
@@ -209,7 +204,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
             <div className={cssBottomLeft}>
               {(data?.currentTime || data?.currentTime === 0) &&
               <RemoveFromContinueWatching onClick={handelRemoveWatchingListFunc} />}
-              {(isAuthenticated && data?._id) && (
+              {(isLoginUser && data?._id) && (
                 <FavoriteButton isInWatchList={data?.isInWatchListTemp} onClick={handleWatchListItemFunc} />
               )}
               {(data?._id)&&(

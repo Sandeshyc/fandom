@@ -17,7 +17,7 @@ const BUNDLE_HEADER_QUERY = gql`
       thumbnailLandscapeUrl
       contentRating
       noOfMovie
-      canBuy
+      isInWatchList
       allowed {
         allowed
         canBuy
@@ -36,7 +36,6 @@ const BUNDLE_HEADER_QUERY = gql`
         googlePriceSKU
       }
       trailerUrl
-      isInWatchList
       packageShortDetails
       isPackage
     }

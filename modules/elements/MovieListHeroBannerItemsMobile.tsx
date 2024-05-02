@@ -59,7 +59,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
           <div className={`bg-gray-800 w-full h-full rounded-md col-span-9 relative ${i++ === parseInt(current)?'scale-105 z-30 shadow-2xl border-2 border-white/80':'z-20 shadow-lg'}`}>
             <CardHeader header={movie?.header} />
             {(bannerThumb)?
-              <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-contain rounded-lg" />
+              <img src={bannerThumb} alt={movie?.title} className="w-full h-full object-cover rounded-lg" />
             :
               <div className="w-full h-full bg-gray-800 text-zinc-500 flex justify-center items-center text-center">{movie?.title}</div>
             }

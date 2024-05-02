@@ -5,7 +5,7 @@ const useListMovies = (region?: string, product?: string, userId?: string, ranNu
   const { data, error, isLoading } = 
     useSwr(`/api/listmovies?region=${region}&product=${product}&userId=${userId}&ranNum=${ranNum}`, 
     fetcher, {
-      revalidateIfStale: true,
+      revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     });

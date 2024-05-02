@@ -26,7 +26,8 @@ const PURCHASES_QUERY = gql`
         contentRating
         duration
         genre
-        endTime        
+        endTime  
+        isInWatchList      
         header {
           text
           type

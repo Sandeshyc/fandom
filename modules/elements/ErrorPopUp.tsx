@@ -30,6 +30,10 @@ const ErrorPopUp = ({message, isRetry=true, errorMsg}:Props) => {
         aria-labelledby="Email Verify Modal"
         aria-describedby="Email Verify Modal"
         onClose={handleClose}
+        style={{
+            backdropFilter: 'blur(15px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }}
         className={`flex justify-center items-center ${poppins.className}`}>
           <div className='rounded-md w-[90%] max-w-[540px] bg-gray-900 relative text-white border border-white/70'>
             <div className="p-4 py-8 text-center">

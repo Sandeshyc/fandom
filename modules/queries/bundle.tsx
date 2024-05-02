@@ -7,7 +7,6 @@ const BUNDLE_QUERY = gql`
       name
       description
       title
-
       items {
         _id
         assetId
@@ -15,7 +14,7 @@ const BUNDLE_QUERY = gql`
         description
         offAirDate
         onAirDate
-        canBuy
+        isInWatchList
         allowed {
           allowed
           canBuy
