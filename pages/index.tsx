@@ -32,7 +32,6 @@ const Home = () => {
     userId,
     randomNumber.toString()
   );
-  console.log('Home Page: ', userId, 'isLoading: ', isLoading, 'movies: ', movies, 'error: ', error, 'isReady', isReady);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem("userInfo");

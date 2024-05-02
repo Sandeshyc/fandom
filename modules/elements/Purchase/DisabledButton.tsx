@@ -22,7 +22,7 @@ const DisabledButton = ({
     return (
         <button 
             type='button'
-            className={`${buttonClass[stage]} ${buttonSize[size]} flex flex-row justify-center items-center text-center rounded-full p-2 cursor-not-allowed`}
+            className={`${buttonClass[stage]} ${buttonSize[size]} flex flex-row justify-center items-center text-center rounded-full p-2 cursor-not-allowed whitespace-nowrap`}
             disabled
             >
             {children}

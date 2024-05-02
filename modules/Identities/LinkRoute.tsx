@@ -26,7 +26,7 @@ const LinkRoute = ({children, href, type, className, styles, size='lg'}:LinkRout
     if(styles === undefined) styles = {};
     let commonClass = " cursor-pointer active:opacity-65";
     if(type === 'primary' || type === 'white' || type === 'outline' || type === 'hoverOutline'){
-        commonClass += " flex flex-row justify-center items-center text-center rounded-full p-2  transition";
+        commonClass += " flex flex-row justify-center items-center text-center rounded-full p-2  transition whitespace-nowrap";
     }
 
     return(

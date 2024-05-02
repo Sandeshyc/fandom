@@ -98,11 +98,11 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     clearTimeout(timer);
   }
   let thumbURl = '';
-  let aspectRatio = '384/216';
+  let aspectRatio = '16/9';
   const title = data?.title || '';
   if(portrait){
     thumbURl = getThumbnailPortrait(data);
-    aspectRatio = '240/360';
+    aspectRatio = '6/9';
   }else{
     thumbURl = getThumbnailLandscape(data);
   }
@@ -184,7 +184,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     onClick={redirectToWatch}>
       <CardHeader header={data?.header} />
       <div className='img relative h-full w-full'>        
-        <div className='absolute z-30 bottom-0 right-0 w-full '>
+        <div className='absolute z-30 bottom-0 right-0 w-full'>
           <CardFooter footer={data?.footer} />
           {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
             <ProgressBar done={progress} />

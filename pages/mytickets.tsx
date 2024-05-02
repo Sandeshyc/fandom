@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import usePurchaseMovies from '@/hooks/usePurchaseMovies';
-import Footer from '@/components/Footer';
+import useIsMobile from "@/hooks/useIsMobile";
+import useClientLocaion from "@/hooks/useClientLocaion";
 import Preloader from "@/modules/skeletons/Preloader";
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
@@ -9,17 +10,20 @@ import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 const bgImage = 'url("/images/new-bg.png")';
 const Home = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
-  const [userIdToken, setUserIdToken] = React.useState('');
+  const [userId, setUserId] = React.useState("");
   const router = useRouter();
-  const { region, product } =  props; 
-  const { data: movies = [], isLoading, error } = usePurchaseMovies(region, 'web', userIdToken );
+  const isMobile = useIsMobile();
+  const {data: clientLocation, error: locationError}:any = useClientLocaion();
+  const region = clientLocation?.country?.isoCode;
+
+  const { data: movies = [], isLoading, error } = usePurchaseMovies(region, isMobile ? "mobile" : "web", userId );
   // console.log('movies: ', movies);
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if(userInfoObj.sub) {
-        setUserIdToken(userInfoObj.sub);
+        setUserId(userInfoObj.sub);
       }else{
         router.push('/');
       }

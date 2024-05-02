@@ -27,16 +27,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // if (region === 'NA') region = 'PH';
     if (product === 'NA') product = 'web';
 
-    let url = `${process.env.API_URL}/page/${sectionName}?product=${product}`;
+    let url = `${process.env.API_URL}/page/${sectionName}?region=${region}`;
     if(userID){
       url = `${url}&userId=${userID}`;
     }
-    
+    if(product){
+      url = `${url}&product=${product}`;
+    }
     // console.log('TV ', region, product, sectionName, url)
     // if( !userID ){
     //   return res.status(200).json([]);
     // }
-    // console.log(url)
+    // console.log('URL: ', url);
     const moviesRes = await axios.get(url, {timeout: 30000});
     // const moviesRes = await axios.get(url);
     const movies = moviesRes.data;

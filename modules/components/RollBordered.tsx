@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Slider from "react-slick";
-import { useRouter } from 'next/router';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
@@ -10,7 +9,7 @@ import MovieCardReelPortrait from '@/modules/elements/MovieCardReelPortrait';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import { isEmpty } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
-
+import useIsMobile from '@/hooks/useIsMobile';
 
 type Props = {
   data: MovieInterface[];
@@ -36,8 +35,14 @@ function SlickPrevArrow(props:any) {
 }
 
 const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
-  const [viewAllUrl, setViewAllUrl] = React.useState('');
-  const router = useRouter();
+  const [viewAllUrl, setViewAllUrl] = useState('');
+  const isMobile = useIsMobile();
+  const mobileSliderRef = useRef(null as any);
+  const mobileSliderOuterRef = useRef(null as any);
+  const sliderRef = useRef(null as any)
+  const sliderRefOuter = useRef(null as any);
+  const [sliderWidth, setSliderWidth] = useState(0);
+  const [sliderWidthOuter, setSliderWidthOuter] = useState(0);
   if (isEmpty(data)) {
     return null;
   }
@@ -93,22 +98,41 @@ const RollBordered = ({ data, title, link, linkText, isBoxesLayout }:Props) => {
       setViewAllUrl( '/categories/bundle');
     }
   }, [data]);
+  useEffect(() => {    
+    if(isMobile){
+      const mobileSliderRefCurrent = mobileSliderRef.current;
+      const tempSliderWidth = mobileSliderRefCurrent?.scrollWidth;
+      setSliderWidth(tempSliderWidth);
+      const mobileSliderOuterRefCurrent = mobileSliderOuterRef.current;
+      const tempSliderWidthOuter = mobileSliderOuterRefCurrent?.clientWidth;
+      setSliderWidthOuter(tempSliderWidthOuter);
+    }else{
+      const sliderRefCurrent = sliderRef.current;
+      const tempSliderWidth = sliderRefCurrent?.innerSlider?.list?.children[0]?.clientWidth;
+      setSliderWidth(tempSliderWidth);
+      const sliderRefCurrentOuter = sliderRefOuter.current;
+      const tempSliderWidthOuter = sliderRefCurrentOuter?.getBoundingClientRect()?.width;
+      setSliderWidthOuter(tempSliderWidthOuter);
+    }
+  }, [document, window, isMobile]);
   const ReelContent = ()=> (<div className={`mt-[2vw] mb-[3vw] movieSlider portrait`}>
     <div className="movieSliderInner">
       <ReelHeading 
         title={title}
-        link={viewAllUrl}
+        link={((sliderWidth - sliderWidthOuter) > 60)?viewAllUrl:''} 
         linkText={'Explore All'}
         />
-      <div className="block lg:hidden">
-        <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+      <div className="block lg:hidden" ref={mobileSliderOuterRef}>
+        <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide' ref={mobileSliderRef}>
           {data?.map((movie, index) => (
             <MovieCardReelPortrait key={stableKeys[index]} data={movie}/>
           ))}
         </div>
       </div>
-      <div className="hidden lg:block movieSliderReel">
-        <Slider {...settings}>
+      <div className="hidden lg:block movieSliderReel" ref={sliderRefOuter}>
+        <Slider 
+        ref={sliderRef}
+        {...settings}>
           {data?.map((movie, index) => (
             <MovieCardReelBorderd key={stableKeys[index]} data={movie}/>
           ))}

@@ -1,5 +1,4 @@
 import React, {use, useRef, useEffect} from 'react';
-import { useRouter } from 'next/router';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,7 +7,7 @@ import { MovieInterface } from '@/types';
 import MovieCardReel from '@/modules/elements/MovieCardReel';
 import MovieCardReelPortrait from '@/modules/elements/MovieCardReelPortrait';
 import ReelHeading from '@/modules/elements/ReelHeading';
-import { isEmpty } from 'lodash';
+import { isEmpty, set } from 'lodash';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
 
@@ -41,14 +40,14 @@ function SlickPrevArrow(props: any) {
 
 // Main Component
 const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, portrait, link, linkText, gradient = false, isBoxesLayout = false, marginTop=false }) => {
-
-  const router = useRouter();
-  const sliderRef = useRef(null);
-  const sliderRefOuter = useRef(null);
-  const [removedItem, setRemovedItem] = React.useState(null);
-  const [viewAllUrl, setViewAllUrl] = React.useState('');
+  const sliderRef = useRef(null as any)
+  const mobileSliderRef = useRef(null as any);
+  const sliderRefOuter = useRef(null as any);
+  const mobileSliderOuterRef = useRef(null as any);
   const [sliderWidth, setSliderWidth] = React.useState(0);
   const [sliderWidthOuter, setSliderWidthOuter] = React.useState(0);
+  const [removedItem, setRemovedItem] = React.useState(null);
+  const [viewAllUrl, setViewAllUrl] = React.useState('');  
   // console.log('removedItem data: ', data);
   
   React.useEffect(() => {
@@ -57,7 +56,6 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
       }
     setNewData(data)
   }, [data])
-
 
   const [newData, setNewData] = React.useState(data);
   const isMobile = useIsMobile();
@@ -143,26 +141,33 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
       setViewAllUrl( '/categories/bundle' );
     }
   }, [data]);
-  useEffect(() => {
-    const sliderRefCurrent = sliderRef.current;
-    const sliderRefCurrentOuter = sliderRefOuter.current;
-    if (sliderRefCurrent && sliderRefCurrentOuter) {
-      setSliderWidth(sliderRefCurrent?.innerSlider.list.clientWidth);
-      setSliderWidthOuter(sliderRefCurrentOuter?.getBoundingClientRect()?.width);
+  useEffect(() => {    
+    if(isMobile){
+      const mobileSliderRefCurrent = mobileSliderRef.current;
+      const tempSliderWidth = mobileSliderRefCurrent?.scrollWidth;
+      setSliderWidth(tempSliderWidth);
+      const mobileSliderOuterRefCurrent = mobileSliderOuterRef.current;
+      const tempSliderWidthOuter = mobileSliderOuterRefCurrent?.clientWidth;
+      setSliderWidthOuter(tempSliderWidthOuter);
+    }else{
+      const sliderRefCurrent = sliderRef.current;
+      const tempSliderWidth = sliderRefCurrent?.innerSlider?.list?.children[0]?.clientWidth;
+      setSliderWidth(tempSliderWidth);
+      const sliderRefCurrentOuter = sliderRefOuter.current;
+      const tempSliderWidthOuter = sliderRefCurrentOuter?.getBoundingClientRect()?.width;
+      setSliderWidthOuter(tempSliderWidthOuter);
     }
-  }, [document, window]);
+  }, [document, window, isMobile]);
 
   const ReelContent = ()=> (<div className={` z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile || portrait) ? 'portrait': ""}`}>
     <div className="movieSliderInner">
-      {(sliderWidth > sliderWidthOuter || 1)&&(
-        <ReelHeading 
+      <ReelHeading 
         title={title} 
-        link={viewAllUrl} 
+        link={((sliderWidth - sliderWidthOuter) > 60)?viewAllUrl:''} 
         linkText={'Explore All'}
         />
-      )}
-      <div className="block lg:hidden">
-        <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
+      <div className="block lg:hidden" ref={mobileSliderOuterRef}>
+        <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide' ref={mobileSliderRef}>
           {newData?.map((movie, index) => (
             <MovieCardReelPortrait key={stableKeys[index]} data={movie} portrait={isMobile || portrait} gradient={gradient} setRemovedItem={setRemovedItem}/>
           ))}

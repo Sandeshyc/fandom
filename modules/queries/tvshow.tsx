@@ -13,6 +13,7 @@ const TVSHOW_QUERY = gql`
       thumbnailLandscapeUrl
       thumbnailPortraitUrl
       thumbnailUrl
+      isInWatchList
       allowed {
         allowed
         canBuy
@@ -44,7 +45,6 @@ const TVSHOW_QUERY = gql`
         canBuy
         description
         duration
-        isInWatchList
         itemCode
         publishSchedule
         thumbnailUrl

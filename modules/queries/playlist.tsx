@@ -12,7 +12,6 @@ const PLAYLIST_QUERY = gql`
         description
         offAirDate
         onAirDate
-        canBuy
         allowed {
           allowed
           canBuy

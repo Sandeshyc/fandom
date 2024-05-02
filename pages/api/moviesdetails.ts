@@ -30,15 +30,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(204).end();
     }
     
-    let url = `${process.env.API_URL}/page/details?userId=${userID}&itemCode=${movieID}`;
+    let url = `${process.env.API_URL}/page/details?itemCode=${movieID}`;
     url = `${url}&region=${region}`;
-    if( product ){
+    if( product !== 'NA'){
       url = url + `&product=${product}`;
     }
-    if( !userID ){
-      return res.status(200).json([]);
+    if(userID !== 'NA'){
+      url = `${url}&userId=${userID}`;
     }
-    // console.log(url);
+    // if( !userID ){
+    //   return res.status(200).json([]);
+    // }
+    // console.log('URL: ', url);
     const moviesRes = await axios.get(url, {timeout: 30000});
     const movies = moviesRes.data;
     return res.status(200).json(movies);

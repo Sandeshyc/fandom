@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReportProblem, HelpOutlined } from '@mui/icons-material';
+import { ReportProblem, HelpOutlined, Info, ContactSupportOutlined, InfoOutlined } from '@mui/icons-material';
 type Props = {
     message: string;
     iconColor?: string;
@@ -17,16 +17,16 @@ const InfoMessage = ({
     iconColor = iconColor || '#EAB307';
     textColor = textColor || '#fff';
     return (
-        <div className={`p-2 flex flex-wrap items-center mb-2 max-w-[410px] ${className} `} style={styles}>
-            <div className='w-[25px]'>
-                <HelpOutlined
+        <div className={`flex flex-wrap justify-start items-center w-[150px] max-w-full ${className} `} style={styles}>
+            <div className='w-[25px] flex justify-start items-center'>
+                <Info
                 sx={{ 
                     color: iconColor,
                     fontSize: '20px',
                     marginRight: '8px',
                 }}/>
             </div>
-            <div className='w-[180px] flex-grow'>
+            <div className='w-[80px] grow'>
                 <p
                 className='text-xs xl:text-sm'
                 style={{

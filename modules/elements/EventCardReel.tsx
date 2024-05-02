@@ -268,7 +268,10 @@ const EventCardReel: React.FC<MovieCardProps> = ({
             </>
           )}
           <div className="hidden lg:block">
-            <div className="flex flex-row items-center sm:justify-end gap-2 mt-2 mb-4 lg:mb-6">
+            <div className="flex flex-row items-center gap-2 mt-2 mb-4 lg:mb-6">
+              {(data?.allowed?.message === 'Coming soon!')&&(
+                <RentPlayNotice data={data?.allowed} />
+              )}
               {(data?._id)&&(
                   <RentPlayButtonLink
                   itemId={data?._id} 
@@ -278,7 +281,9 @@ const EventCardReel: React.FC<MovieCardProps> = ({
                   />
               )}
             </div>
-            <RentPlayNotice data={data?.allowed} />
+            {(data?.allowed?.message !== 'Coming soon!')&&(
+                <RentPlayNotice data={data?.allowed} />
+            )}
           </div>
         </div>
       </div>
