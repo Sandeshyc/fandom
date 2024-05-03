@@ -11,6 +11,8 @@ import TVSHOW_QUERY from "./tvshow";
 import BUNDLE_HEADER_QUERY from "./bundleHeader";
 import BUNDLE_QUERY from "./bundle";
 import SEARCH_CONTENT from "./searchContent";
+import CHANNELS_QUERY from "./channels";
+import CHANNEL_QUERY from "./channel";
 
 const queryMap = {
     playlist: PLAYLIST_QUERY,
@@ -25,7 +27,9 @@ const queryMap = {
     tvshow: TVSHOW_QUERY,
     bundle: BUNDLE_QUERY,
     bundleHeader: BUNDLE_HEADER_QUERY,
-    searchContent: SEARCH_CONTENT
+    searchContent: SEARCH_CONTENT,
+    channels: CHANNELS_QUERY,
+    channel: CHANNEL_QUERY
 }
 
 export default queryMap;
