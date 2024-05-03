@@ -47,7 +47,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
         playready: '',
     });
 
-    // console.log('video: ', video);
+    console.log('video: ', image);
     const styling={
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",

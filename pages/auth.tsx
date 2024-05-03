@@ -15,6 +15,7 @@ const imgLogBG = '/images/loginbgnew.png';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { set } from 'lodash';
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
   authDomain: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_AUTH_DOMAIN,
@@ -77,8 +78,8 @@ const Auth = () => {
           const provider = params.iwanttfc_provider;            
           const _checkAccessToken = async (accessToken:string) => {
               const decode = await checkAccessToken(accessToken);
+              console.log('decode', decode);
               if(decode){
-                  console.log('decode', decode);
                   const connectResponse = await getConnect(accessToken);
                   if(connectResponse.status === 'success'){
                       const userResponse = await checkUser(
@@ -96,8 +97,10 @@ const Auth = () => {
                           router.replace('/');
                           console.log('success');
                       }else{
-                          // setIsSuccess(false);
-                          // setIsLoginFail(true);
+                          setAuthLoading(false);
+                          setTfcLoading(false);
+                          setIsSuccess(false);
+                          setIsSubmit(true);
                           router.replace('/auth');
                           console.log('failed');
                       }
@@ -127,14 +130,20 @@ const Auth = () => {
                         router.replace('/');
                         console.log('success');
                     }else{
-                        // setIsSuccess(false);
-                        // setIsLoginFail(true);
+                        setAuthLoading(false);
+                        setTfcLoading(false);
+                        setIsSuccess(false);
+                        setIsSubmit(true);
                         router.replace('/auth');
                         console.log('failed');
                     }
                   }
               }else{
-                  router.push('/auth');
+                setAuthLoading(false);
+                setTfcLoading(false);
+                setIsSuccess(false);
+                setIsSubmit(true);
+                router.push('/auth');
               }              
           }
           _checkAccessToken(accessToken);

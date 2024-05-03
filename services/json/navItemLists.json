@@ -23,8 +23,8 @@
     {
         "id": 5,
         "label": "Channel",
-        "route": "",
-        "activeRoute": "",
+        "route": "/channel",
+        "activeRoute": "/channel",
         "auth": false
     },
     {
