@@ -55,11 +55,11 @@ const PackagesPopup = ({
                     <div className={`${allowedPlans?.length<5 ? 'justify-center' : ''} flex overflow-x-auto planListsWrapper`}>
                         {allowedPlans?.map((item:any, index:number)=>{
                             return (<PlanItem 
-                                key={stableKeys[index]}
-                                item={item}
-                                movieId={movieId}
-                                rentText={rentBtnTxt}
-                                itemData={data}
+                            item={item}
+                            movieId={movieId}
+                            isPackage={data?.isPackage}
+                            rentText={rentBtnTxt}
+                            key={stableKeys[index]}
                             />)
                         })}
                     </div>

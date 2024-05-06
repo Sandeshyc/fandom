@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from "react";
+import LinkRoute from "@/modules/Identities/LinkRoute";
+import { PlayIcon } from "@heroicons/react/24/solid";
 import DisabledButton from "@/modules/elements/Purchase/DisabledButton";
 import PackagesPopup from '@/modules/elements/Purchase/PackagesPopup';
 import RentButton from '@/modules/elements/Purchase/RentButton';

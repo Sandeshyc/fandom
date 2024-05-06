@@ -18,14 +18,18 @@ import { stableKeys } from '@/utils/stableKeys';
 type Props = {
     item: any;
     movieId: string;
+    isPackage?: boolean;
+    isTvshow?: boolean;
+    isEpisode?: boolean;
     rentText?: string;
-    itemData?: any;
 }
 const PlanItem = ({
     item,
     movieId,
-    rentText='Rent',
-    itemData
+    isPackage,
+    isTvshow,
+    isEpisode,
+    rentText='Rent'
 }:Props) => {
     // console.log('item', item);
   const isLoginUser = useCheckAuthentication();
@@ -46,15 +50,14 @@ const PlanItem = ({
   const handleOtpChange = (otp:string) => {
     if(rentPin === otp){
       setIsPinSuccess(true);
-      const _auditEntitlementCall = async () => {
+      const _auditEntitlementCall = async () => {          
         const data = {
-          "userID": userId,
-          "contentId": movieId,
-          "planId": rentProductId,
-          "transactionId": rentTransactionId,
-          "contentType" : itemData?.contentType
+            "userID": userId,
+            "itemCode": movieId,
+            "priceSKU": rentProductId,
+            "isPackage": isPackage,
+            "transactionId": rentTransactionId,
         };
-        // console.log('data', data);
         const res = await auditEntitlement(data);
         if(res.status === 'success'){
           window.localStorage.setItem('itemCode', movieId);
@@ -86,12 +89,13 @@ const PlanItem = ({
         const _auditEntitlementCall = async () => {          
           const data = {
               "userID": sub,
-              "contentId": movieId,
-              "planId": productId,
+              "itemCode": movieId,
+              "priceSKU": productId,
+              "isPackage": isPackage,
+              "isTvshow": isTvshow,
+              "isEpisode": isEpisode,
               "transactionId": transactionId,
-              "contentType" : itemData?.contentType
           };
-          // console.log('data', data);
           const res = await auditEntitlement(data);
           if(res.status === 'success'){
             window.localStorage.setItem('itemCode', movieId);
@@ -132,6 +136,7 @@ const PlanItem = ({
       const callbackParams = {
           "itemCode": movieId,
           "priceSKU": productId,
+          "isPackage": isPackage,
           "transactionId": transactionId
       };
       localStorage.setItem('callbackParams', JSON.stringify(callbackParams));
