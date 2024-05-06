@@ -13,13 +13,12 @@ const data = {
     "thumbnailLandscapeUrl": "https://qa-static2.abs-cbn.com/a62df610-3e00-4dde-87f8-f346ad2b1b6b/Thumbnails/Karnal20Thumbnail.png",
     "publishSchedule": "2024-04-06T04:00:00.000Z",
     "releaseDate": "1983-12-25T05:00:00.000Z",
-    "title": "KARNAL",
+    "title": "ABCD",
     "contentRating": "R-18",
     "quality": null,
     "genre": [
         "Drama"
     ],
-    "canBuy": false,
     "cast": [
         "Philip Salvador",
         "Vic Silayan",
@@ -44,8 +43,8 @@ const data = {
     "messages": null,
     "allowed": {
         "__typename": "PlayRentBtns",
-        "allowed": false,
-        "canPlay": false,
+        "allowed": true,
+        "canPlay": true,
         "canBuy": true,
         "bought": false,
         "message": ""

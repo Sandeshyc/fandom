@@ -22,6 +22,7 @@ const TVSHOWS_QUERY = gql`
         }
         isInWatchList
         contentRating
+        contentType
         header {
           text
           type
@@ -42,7 +43,7 @@ const TVSHOWS_QUERY = gql`
             contentRating
             quality
             genre
-            canBuy
+            contentType
             cast
             writer
             director
