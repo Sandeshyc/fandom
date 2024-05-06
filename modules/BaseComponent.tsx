@@ -22,7 +22,9 @@ const BaseComponent = (props:any) => {
         || module.sourceType === 'playlistHeader'
         || module.sourceType === 'bundleHeader'
         || module.sourceType === 'tvshow'
-        || module.sourceType === 'tvshows') {
+        || module.sourceType === 'tvshows'
+        || module.sourceType === 'channel'
+        || module.sourceType === 'channels') {
         data = gqData?.[module.sourceType];
         // console.log('GQL DATA dddd ');
       }
