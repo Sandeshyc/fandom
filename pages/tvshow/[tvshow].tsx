@@ -24,7 +24,7 @@ const Categories = (props:any) => {
   const region = clientLocation?.country?.isoCode;
 
   const { data, isLoading, error} = useTvShowDetails(tvshow as string, userId as string, (isMobile)?'mobile':'web', region);
-  // console.log('data', data);
+  console.log('region', region, 'data', data);
 
   useEffect(() => {
     const userInfo = window.localStorage.getItem('userInfo');

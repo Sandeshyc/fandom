@@ -21,7 +21,7 @@ const TVSHOW_QUERY = gql`
         message
         bought
       }
-      contentType
+      
       contentRating
       allowedPlans {
         currency
@@ -42,7 +42,7 @@ const TVSHOW_QUERY = gql`
           message
           bought
         }
-        contentType
+        
         description
         duration
         itemCode
@@ -72,7 +72,7 @@ const TVSHOW_QUERY = gql`
           contentRating
           quality
           genre
-          contentType
+          
           cast
           writer
           director
