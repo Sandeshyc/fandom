@@ -2,16 +2,14 @@ import React, {use, useEffect, useRef, useState} from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
-import useMovie from '@/hooks/useMovie';
 import useProfile from '@/hooks/useProfile';
-import SkeletonWatch from '@/components/Skeleton/SkeletonWatch';
 import ReactMainVideoPlayer from '@/components/ReactMainPlayer';
 import { getThumbnailLandscape } from '@/utils/getData';
 import PinVerify from '@/modules/Identities/PinVerify';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
 import LinkRoute from '@/modules/Identities/LinkRoute';
-
+import MovieStartPopup from '@/modules/elements/MovieStartPopup';
 type dataProps = {
     data: any
 }
@@ -31,6 +29,8 @@ const WatchDetails = (inputProps:dataProps) => {
     const [pcPin, setPcPin] = useState('');
     const [pcRoles, setPcRoles] = useState([]);
     const [pinMode, setPinMode] = useState(false);
+
+    const [isMovieStartPopUp, setIsMovieStartPopUp] = useState(true);
     
     let timeout: NodeJS.Timeout;
     const onMouseMove = () => {
@@ -139,7 +139,21 @@ const WatchDetails = (inputProps:dataProps) => {
 
     return (
         <>
-        {(pinMode)?(
+        {(!pinMode && isMovieStartPopUp)&&(
+          <div className="h-screen w-screen bg-black flex items-center relative" 
+          style={{
+            backgroundImage: `url(${thumb})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}>
+          <MovieStartPopup
+          setIsMovieStartPopUp={setIsMovieStartPopUp} 
+          backUrl={`/details/${data?._id}`}
+          />
+          </div>
+        )}
+        {(pinMode)&&(
             <div className="h-screen w-screen bg-black flex items-center relative" 
             style={{
               backgroundImage: `url(${thumb})`,
@@ -173,8 +187,8 @@ const WatchDetails = (inputProps:dataProps) => {
                 </div>
               </div>
             </div>
-        )
-        :(
+        )}
+        {(!pinMode && !isMovieStartPopUp)&&(
             <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
                 {mouseActive && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}>
                     <ArrowLeftIcon 
@@ -219,8 +233,7 @@ const WatchDetails = (inputProps:dataProps) => {
                     :null}
                 </div>
             </div>
-        )
-        }
+        )}
         </>
     );
 }

@@ -15,6 +15,7 @@ const CONTENT_QUERY = gql`
         releaseDate
         title
         contentRating
+        
         quality
         genre
         canBuy

@@ -18,7 +18,7 @@ const PACKAGES_QUERY = gql`
         thumbnailLandscapeUrl
         trailerUrl
         onAirDate
-        canBuy
+        
         allowed {
           allowed
           canBuy

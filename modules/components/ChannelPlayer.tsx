@@ -4,7 +4,11 @@ import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/JwPlayer/JwPlayer';
 import { getThumbnailLandscape } from '@/utils/getData';
 const captionURL = null;
-const ChannelPlayer = (inputProps:any) => {
+type dataProps = {
+    data: any,
+    module: any
+}
+const ChannelPlayer = (inputProps:dataProps) => {
     const {data} = inputProps;
     const router = useRouter();
     const [backBtnActive, setBackBtnActive] = React.useState(false);

@@ -13,7 +13,7 @@ const UPCOMING_QUERY = gql`
         thumbnailBannerUrl
         trailerUrl
         onAirDate
-        canBuy
+        
         allowed {
           allowed
           canBuy

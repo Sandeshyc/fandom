@@ -12,7 +12,7 @@ const PLAYLIST_HEADER_QUERY = gql`
       thumbnailUrl
       contentRating
       noOfMovie
-      canBuy
+      
       allowed {
         allowed
         canBuy

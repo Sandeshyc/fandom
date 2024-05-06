@@ -10,8 +10,11 @@ import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
 import PackageRentPlayButtonAction from '@/modules/elements/Purchase/PackageRentPlayButtonAction';
 import RentPlayNotice from '@/modules/elements/Purchase/RentPlayNotice';
-
-const ChannelDetails = (inputProps:any) => {
+type dataProps = {
+  data: any,
+  module: any
+}
+const ChannelDetails = (inputProps:dataProps) => {
     const {data} = inputProps;
     const isLoginUser = useCheckAuthentication();
     const postar = getThumbnailPortrait(data);

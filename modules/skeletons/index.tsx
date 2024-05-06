@@ -17,6 +17,8 @@ import PackageMovielist from "@/modules/skeletons/components/PackageMovielist";
 import Carousel from "@/modules/skeletons/components/Carousel";
 import MultiRawRoll from "@/modules/skeletons/components/MultiRawRoll";
 import MultiRawRollUpcoming from "@/modules/skeletons/components/MultiRawRollUpcoming";
+import ChannelPlayer from "@/modules/skeletons/components/ChannelPlayer";
+import ChannelDetails from "@/modules/skeletons/components/ChannelDetails";
 type Props = {
     displayType: string;
 }
@@ -41,6 +43,8 @@ const GetComponent = ({displayType}:Props) => {
         packageMovielist : PackageMovielist,
         multirawroll : MultiRawRoll,
         multirawrollupcoming : MultiRawRollUpcoming,
+        ChannelPlayer : ChannelPlayer,
+        ChannelDetails : ChannelDetails,
     }
     const Component = comps[displayType as keyof typeof comps];
     return (<>{Component && <Component />}</>)

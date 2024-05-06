@@ -18,6 +18,7 @@ const BUNDLE_HEADER_QUERY = gql`
       contentRating
       noOfMovie
       isInWatchList
+      
       allowed {
         allowed
         canBuy

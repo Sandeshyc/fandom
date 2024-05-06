@@ -26,17 +26,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let product = getValue(req.query.product as string);    
     let region = getValue(req.query.region as string);    
     
-    // if(region === 'NA'){
-    //   return res.status(204).end();
-    // }
+    if(region === 'NA'){
+      return res.status(204).end();
+    }
 
-    let url = `${process.env.API_URL}/page/tvshow?itemCode=${movieID}&userId=${userID}`;
-    // url = `${url}&region=${(region)?region:'PH'}`;
-    if( product ){
+    let url = `${process.env.API_URL}/page/tvshow?itemCode=${movieID}&region=${region}`;
+    if( product !== 'NA'){
       url = url + `&product=${product}`;
     }
-    if( !userID ){
-      return res.status(200).json([]);
+    if(userID !== 'NA'){
+      url = `${url}&userId=${userID}`;
     }
     // console.log('URL', url);
     const moviesRes = await axios.get(url, {timeout: 30000});

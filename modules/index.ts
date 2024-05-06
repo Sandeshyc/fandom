@@ -34,6 +34,8 @@ import ShowSummary from "./components/ShowSummary";
 import SeasonDetails from "./components/SeasonDetails";
 import BackNavigation from "./components/BackNavigation";
 import WatchDetails from "./components/WatchDetails";
+import ChannelPlayer from "./components/ChannelPlayer";
+import ChannelDetails from "./components/ChannelDetails";
 
 const comps = {
     header : Header,
@@ -71,7 +73,9 @@ const comps = {
     dealsAndOffers : DealsAndOffers,
     footer : Footer,
     showSummary : ShowSummary,
-    seasonDetails : SeasonDetails
+    seasonDetails : SeasonDetails,
+    ChannelPlayer : ChannelPlayer,
+    ChannelDetails : ChannelDetails
 }
 
 const getComponent = (compName : string) => comps[compName as keyof typeof comps];
