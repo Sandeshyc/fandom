@@ -4,7 +4,7 @@ const CHANNELS_QUERY = gql`
   query ($input: QueryInput) {
     channels(input: $input) {
         _id
-        name
+        
         title
         description
         genre
