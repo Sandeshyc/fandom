@@ -7,6 +7,7 @@ import CardHeader from "@/modules/elements/CardHeader";
 import { getThumbnailLandscape, getThumbnailPortrait } from "@/utils/getData";
 import RentPlayButtonLink from "@/modules/elements/Purchase/RentPlayButtonLink";
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
+import CardFooterMobile from "@/modules/elements/CardFooterMobile";
 
 interface MovieCardProps {
   data: MovieInterface;
@@ -27,8 +28,8 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const thumb = getThumbnailPortrait(data);
   return !isRemove ? (
     <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:px-[7px] mb-[14px]">
-      <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white rounded-md sm:mr-4 justify-between h-full w-full">
-        <div className="w-[100px] sm:w-[120px] 2xl:w-[160px] relative bg-gray-600 rounded-md aspect-[6/9]">
+      <div className="group bg-gray-800 relative flex flex-wrap text-white rounded-md justify-between w-full">
+        <div className="w-[100px] sm:w-[120px] 2xl:w-[160px] bg-gray-600 rounded-md aspect-[6/9] relative">
           {thumb ? (
             <img
               onClick={redirectToDetails}
@@ -49,12 +50,14 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           ) : (
             <div
               onClick={redirectToDetails}
-              className="w-full h-full text-white text-center flex justify-center items-center cursor-pointer p-1"
-            >
+              className="w-full h-full text-white text-center flex justify-center items-center cursor-pointer p-1">
               {data?.title}
             </div>
           )}
           <CardHeader header={data?.header} />
+          <div className="absolute z-10 bottom-0 left-0 w-full">
+            <CardFooterMobile footer={data?.footer} />
+          </div>
         </div>
         <div className="w-[150px] px-2 py-1 grow">
           <p
@@ -78,7 +81,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
               <RentPlayButtonLink
                 itemId={data?._id}
                 data={data?.allowed}
-                size="md"
+                size="sm"
                 onAirDate={data?.onAirDate}
               />
             </div>

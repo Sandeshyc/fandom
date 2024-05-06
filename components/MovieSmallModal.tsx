@@ -35,6 +35,8 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const redirectToRent = useCallback(() => {
     if(data?.__typename === 'Series'){
       router.push(`/tvshow/${data?._id}?viewPlan=true`);
+    }else if(data?.__typename === 'Channel'){
+      router.push(`/channel/${data?._id}?viewPlan=true`);
     }else{
       router.push(`/details/${data?._id}?viewPlan=true`);      
     }
@@ -45,6 +47,8 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
     // handleClose(null);
     if(data?.__typename === 'Series'){
       router.push(`/tvshow/${data?._id}`);
+    }else if(data?.__typename === 'Channel'){
+      router.push(`/channel/${data?._id}`);
     }else{
       router.push(`/details/${data?._id}`);      
     }
@@ -81,7 +85,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
             setIsVisible(false);
           }, 10);
         }
-      }      
+      }    
     }
     window.addEventListener('mousemove', moveLayers);
     return () => {

@@ -9,7 +9,7 @@ const buttonClass = {
     'play' : "bg-gray-400/90 text-black/80"
 };
 const buttonSize = {
-    'sm' : "min-w-[75px] xl:min-w-[100px] h-[34px] lg:h-[40px] w-fit",
+    'sm' : "min-w-[75px] xl:min-w-[100px] h-[30px] lg:h-[34px] w-fit text-sm",
     'md' : "min-w-[80px] xl:min-w-[120px] h-[34px] lg:h-[40px] text-sm w-fit",
     'lg' : "min-w-[150px] xl:min-w-[180px] h-[34px] lg:h-[40px] w-fit",
     'full' : "w-full h-[34px] lg:h-[40px]"

@@ -14,7 +14,7 @@ const PURCHASES_QUERY = gql`
         thumbnailPortrait
         trailerUrl
         onAirDate
-        contentType
+        
         allowed {
           allowed
           canBuy

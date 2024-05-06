@@ -15,7 +15,7 @@ const BUNDLE_QUERY = gql`
         offAirDate
         onAirDate
         isInWatchList
-        contentType
+        
         allowed {
           allowed
           canBuy

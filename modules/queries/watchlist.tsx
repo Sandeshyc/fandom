@@ -12,7 +12,7 @@ const WATCHLIST_QUERY = gql`
         offAirDate
         trailerUrl
         onAirDate
-        contentType
+        
         allowed {
           allowed
           canBuy
