@@ -175,11 +175,14 @@ const ParentalControls = ({pcData}:Props) => {
                     className={`active:opacity-65 h-6 w-6 text-white ${(expanded)?'rotate-180':null}`}/>
                 </button>
             </div>
-            <div className={`text-white/80 bg-gray-700/40 p-4 rounded-md mt-4 flex justify-between flex-wrap ${(!expanded)?'hidden':'flex'}`}>
-                <div className='w-[200px] max-w-[600px] pr-4 grow'>
+            <div className={`text-white/80 bg-gray-700/40 p-2 sm:p-4 rounded-md mt-4 flex justify-between flex-wrap ${(!expanded)?'hidden':'flex'}`}>
+                <div className='w-full sm:hidden mb-4'>
+                    <Text size='md'>PIN required to set up and manage kids profiles. Turning off parental controls will clear all settings, including PIN.</Text>
+                </div>
+                <div className='w-[200px] max-w-[600px] pr-4 grow hidden sm:block'>
                     <Text size='base'>PIN required to set up and manage kids profiles. Turning off parental controls will clear all settings, including PIN.</Text>
                 </div>
-                <div className='w-[140px] flex flex-wrap justify-end'>                    
+                <div className='w-[140px] flex flex-wrap justify-end ml-auto mr-0 mb-2'>                    
                     <div className="flex items-center space-x-2">
                         <span>{isOn ? 'On' : 'Off'}</span>
                         <button
@@ -217,7 +220,7 @@ const ParentalControls = ({pcData}:Props) => {
                                     value={values.userPassword}
                                     autoComplete='off'
                                     onChange={handleChange}
-                                    className='w-[200px] text-white text-[14px] lg:text-[16px] py-1 pl-2 pr-10 border rounded-md border-[#767680] h-[42px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%] focus:bg-transparent active:bg-transparent'
+                                    className='w-[160px] sm:w-[200px] text-white text-[14px] lg:text-[16px] py-1 pl-2 pr-10 border rounded-md border-[#767680] h-[38px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%] focus:bg-transparent active:bg-transparent'
                                 />
                                 <div className="absolute top-[8px] sm:top-[11px] xl:top-[14px] right-0 px-2 flex justify-center items-center h-[24px] border-l border-[#5F576F] text-[10px]">
                                     {(!isShowPassword)?<><span 
@@ -240,7 +243,7 @@ const ParentalControls = ({pcData}:Props) => {
                                 </div>
                             </div>
                             <button
-                            className='bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] text-white h-[42px] sm:h-[46px] xl:h-[52px] py-2 ml-1 rounded-md px-4' 
+                            className='bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] text-white h-[38px] sm:h-[46px] xl:h-[52px] py-2 ml-1 rounded-md px-2 sm:px-4 text-sm sm:text-base' 
                             type="submit">Submit</button>
                         </div>
                         <div className='text-end mt-2'>
