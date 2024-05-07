@@ -1,6 +1,5 @@
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import SkeletonRoll from '@/components/Skeleton/SkeletonRoll';
 const Carousel = () => {
     return (
         <div className='bg-gradient-to-t from-black from-50% to-gray-800 to-100% overflow-hidden'>
@@ -13,12 +12,9 @@ const Carousel = () => {
                     }}>
                         <Skeleton baseColor='#222' highlightColor='#555' className='aspect-[6/9] rounded-md'/>
                     </div>
-                    <div className="w-[65vw] relative z-10 rounded-md">
+                    <div className="w-[78vw] relative z-10 rounded-md">
                         <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[6/9] rounded-md'/>
                         <div className='absolute bottom-0 left-0 w-full p-2 pb-4 pt-12 bg-gradient-to-t from-black/60 from-60% to-transparent to-85% text-center'>
-                            <div className='w-[60%] mx-auto'>
-                                <Skeleton baseColor='#777' highlightColor='#aaa' className='h-[20px]'/>
-                            </div>
                             <div className='flex justify-center mt-2'>
                                 <div className='w-[30px]'>
                                     <Skeleton baseColor='#777' highlightColor='#aaa' className='h-[30px]' borderRadius={50}/>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import { stableKeys } from '@/utils/stableKeys';
 import PlayButtonSmall from '@/components/PlayButtonSmall';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -48,15 +48,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
     const thumb = getThumbnailPortrait(item);
     const router = useRouter();
     const [open, setOpen] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    // console.log('item: ', item);
-    useEffect(() => {
-        const _checkAuthentication = async () => {
-        const isAuthenticated = await checkAuthentication();
-        setIsAuthenticated(isAuthenticated);
-        }
-        _checkAuthentication();
-    }, []);
+    const isLoginUser = useCheckAuthentication();
     const handleToggle = () => {
         setOpen(!open);
     }
@@ -78,7 +70,7 @@ const CarouselItem = ({item}:CarouselItemProps) => {
                     classes='mr-4 bg-white/40 hover:bg-white/50'
                     innerClass='text-white'
                 />
-                {(isAuthenticated)&&
+                {(isLoginUser)&&
                 <FavoriteButton 
                     movieId={item?._id}
                     classes='mr-4 bg-white/40 hover:bg-white/50'

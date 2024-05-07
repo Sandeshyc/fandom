@@ -60,6 +60,18 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     ? dateToDay(data?.publishSchedule)
     : "";
   // console.log('publishDate', publishDate);
+  const date = new Date();
+  let timeZoneOffset = date.getTimezoneOffset();
+  timeZoneOffset = -(timeZoneOffset / 60);
+  if (timeZoneOffset > 0) {
+    timeZoneOffset = "GMT +" + timeZoneOffset;
+  }else if(timeZoneOffset < 0){
+    timeZoneOffset = "GMT -" + timeZoneOffset;
+  }else{
+    timeZoneOffset = "GMT " + timeZoneOffset;
+  }
+
+
 
   const thumbOuterRef = useRef(null);
   const thumbOuter = thumbOuterRef.current as unknown as HTMLElement;
@@ -202,6 +214,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
       }
     }
   }, []);
+  
   return (
     <div
       className={`group sm:h-full bg-zinc-900 rounded-md relative border border-contentColor/10`}
@@ -247,7 +260,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
           {data?.onAirDate && (
             <>
               <p className="text-white/90 text-sm mb-1">
-                {convertESTtoLocalTime(data?.onAirDate as string)}
+                {convertESTtoLocalTime(data?.onAirDate as string)} ({timeZoneOffset})
               </p>
               {!isOnAir(data?.onAirDate) && (
                 <p className="text-white/70 text-sm mb-2 flex items-center">

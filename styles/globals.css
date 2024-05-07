@@ -781,3 +781,42 @@ html {
       transform: translate(-50%, -50%) scale(1)
   }
 }
+
+.castCarousel .slick-list{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.castCarousel .slick-slide {
+  padding-left:10px;
+  padding-right:10px;
+} 
+.castCarousel .slick-next{
+  right: 0;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: "#0000002a";
+}
+.castCarousel .slick-prev{
+  left: 0;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: "#0000002a";
+}
+.castCarousel .slick-next::before, .castCarousel .slick-prev::before{
+  display: none;
+}
+.castCarousel .slick-disabled{
+  display: none !important;
+}

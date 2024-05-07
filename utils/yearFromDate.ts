@@ -70,11 +70,11 @@ export const convertESTtoLocalTime = (estDateTimeString: string) => {
     day: 'numeric',   // 09
     hour: 'numeric',   // 20 (24-hour format)
     minute: 'numeric', // 16
-    hour12: true,     // Use 12-hour format (8 PM)
+    hour12: true,     // Use 12-hour format (8 PM)    
   };
-
   // Format the date-time string using the options
   const formattedDateTime = date.toLocaleDateString('en-US', options as Intl.DateTimeFormatOptions);
+
   return formattedDateTime;
 }
 
