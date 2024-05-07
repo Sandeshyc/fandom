@@ -62,12 +62,11 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
         <div className="w-[150px] px-2 py-1 grow">
           <p
             onClick={redirectToDetails}
-            className="text-white text-base xl:text-xl 2xl:text-2xl mb-1 cursor-pointer"
-          >
+            className="text-white text-base xl:text-lg mb-2 cursor-pointer line-clamp-2 leading-7">
             {data.title}
           </p>
           {data?.contentPrivider ? (
-            <p className="text-xs sm:text-sm md:text-base xl:text-lg mb-0 md:mb-1 flex items-center">
+            <p className="text-xs sm:text-sm mb-0 md:mb-1 flex items-center">
               <VolunteerActivismOutlined className="w-[16px] h-[16px] text-white mr-1 pl-[3px]" />
               {data?.contentPrivider}
             </p>
@@ -77,7 +76,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
             isRemoveHandler={isRemoveHandler}
           />
           {data?._id && (
-            <div className="my-2">
+            <div className="mb-2 mt-4">
               <RentPlayButtonLink
                 itemId={data?._id}
                 data={data?.allowed}
@@ -86,7 +85,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
               />
             </div>
           )}
-          <RentPlayNotice data={data?.allowed} />
+          {/* <RentPlayNotice data={data?.allowed} /> */}
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ const CardFooter = ({footer}:Props) => {
         )
     }
     return (
-        <div className={`inline-block mb-2 mx-2 text-white bg-opacity-80 px-1 rounded-md  bg-black py-1`}>
+        <div className={`inline-block mb-1 mx-1 sm:mb-2 sm:mx-2 text-white bg-opacity-80 px-1 rounded-md  bg-black py-1`}>
             <p className='flex flex-wrap items-center text-[9px] lg:text-xs'>
                 {(footer?.iconType === 'clock')&&<AccessTimeOutlined className='mr-1' 
                     sx={{fontSize: '0.8rem'}}

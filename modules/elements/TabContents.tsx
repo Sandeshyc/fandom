@@ -4,6 +4,7 @@ import { stableKeys } from "@/utils/stableKeys";
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import Title from '@/modules/Identities/Title';
 import Text from '@/modules/Identities/Text';
+import CastCarousels from '@/modules/elements/CastCarousel/CastCarousels';
 type tabArgsProps = {
     tabArgs:any[],
     openTab:number,
@@ -48,6 +49,9 @@ const TabContents = ({
                                                         <span className="text-white/90">{item.label}: </span>
                                                             {capFirstLetter(item?.content?.join(", "))}
                                                         </p>
+                                                    )}
+                                                    {(item.type === 'castCarousel') && (
+                                                        <CastCarousels/>
                                                     )}
                                                 </div>
                                             )

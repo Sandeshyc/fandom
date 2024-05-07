@@ -2,21 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Notification from '@/modules/elements/Notification';
 import SearchBox from '@/components/navbar/SearchBox';
-import checkAuthentication from '@/utils/checkAuth';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 
 const logoSrc = '/images/logonew.png';
 const Header = () => {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const isLoginUser = useCheckAuthentication();
-  useEffect(() => {
-    const _checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthentication();
-      setIsAuthenticated(isAuthenticated);
-    }
-    _checkAuthentication();
-  }, []);
 
   return (
     <>
