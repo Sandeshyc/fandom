@@ -29,8 +29,7 @@ const WatchDetails = (inputProps:dataProps) => {
     const [pcPin, setPcPin] = useState('');
     const [pcRoles, setPcRoles] = useState([]);
     const [pinMode, setPinMode] = useState(false);
-
-    const [isMovieStartPopUp, setIsMovieStartPopUp] = useState(true);
+    const [isMovieStartPopUp, setIsMovieStartPopUp] = useState(false);
     
     let timeout: NodeJS.Timeout;
     const onMouseMove = () => {
@@ -135,7 +134,16 @@ const WatchDetails = (inputProps:dataProps) => {
         }else{
           setPinMode(false);
         }
+
       }, [pcEnable, pcPinEnable, pcPin, pcRoles, movieContentRating]);
+
+      useEffect(() => {
+        if(!isTrailer && data?.allowed?.allowed && data?.allowed?.canPlay && data?.allowed?.bought && !(data?.allowed?.validityAccepted)){
+          setIsMovieStartPopUp(true);
+        }else{
+          setIsMovieStartPopUp(false);
+        }
+      }, [data, pinMode, isTrailer]);
 
     return (
         <>
@@ -150,6 +158,10 @@ const WatchDetails = (inputProps:dataProps) => {
           <MovieStartPopup
           setIsMovieStartPopUp={setIsMovieStartPopUp} 
           backUrl={`/details/${data?._id}`}
+          validityPeriod={data?.allowed?.validityPeriod}
+          userId={userId}
+          contentId={data?._id}
+          transactionId={data?.allowed?.transactionId}          
           />
           </div>
         )}

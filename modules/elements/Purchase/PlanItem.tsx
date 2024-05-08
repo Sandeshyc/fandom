@@ -16,20 +16,16 @@ import {
 import { stableKeys } from '@/utils/stableKeys';
 
 type Props = {
-    item: any;
-    movieId: string;
-    isPackage?: boolean;
-    isTvshow?: boolean;
-    isEpisode?: boolean;
-    rentText?: string;
+  item: any;
+  movieId: string;
+  rentText?: string;
+  itemData?: any;
 }
 const PlanItem = ({
-    item,
-    movieId,
-    isPackage,
-    isTvshow,
-    isEpisode,
-    rentText='Rent'
+  item,
+  movieId,
+  rentText='Rent',
+  itemData
 }:Props) => {
     // console.log('item', item);
   const isLoginUser = useCheckAuthentication();
@@ -52,16 +48,21 @@ const PlanItem = ({
       setIsPinSuccess(true);
       const _auditEntitlementCall = async () => {          
         const data = {
-            "userID": userId,
-            "itemCode": movieId,
-            "priceSKU": rentProductId,
-            "isPackage": isPackage,
-            "transactionId": rentTransactionId,
+          "userID": userId,
+          "contentId": movieId,
+          "planId": rentProductId,
+          "transactionId": rentTransactionId,
+          "contentType" : itemData?.contentType
         };
+        console.log('data s', data);
         const res = await auditEntitlement(data);
-        if(res.status === 'success'){
+        console.log('res', res);
+        if(res.status === 'success' || res.status === 'process'){
+          if(res.status === 'process'){
+            setRentTransactionId(res.transitionId);
+          }
           window.localStorage.setItem('itemCode', movieId);
-          let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userId}&productId=${rentProductId}&transactionId=${rentTransactionId}`;
+          let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userId}&productId=${rentProductId}&transactionId=${(res.status === 'process')?res.transitionId:rentTransactionId}`;
           if(process.env.NODE_ENV === 'development'){
             forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
           }
@@ -88,18 +89,21 @@ const PlanItem = ({
         setRentTransactionId(transactionId);
         const _auditEntitlementCall = async () => {          
           const data = {
-              "userID": sub,
-              "itemCode": movieId,
-              "priceSKU": productId,
-              "isPackage": isPackage,
-              "isTvshow": isTvshow,
-              "isEpisode": isEpisode,
-              "transactionId": transactionId,
+            "userID": sub,
+            "contentId": movieId,
+            "planId": productId,
+            "transactionId": transactionId,
+            "contentType" : itemData?.contentType
           };
+          console.log('data', data);
           const res = await auditEntitlement(data);
-          if(res.status === 'success'){
+          console.log('res', res);
+          if(res.status === 'success' || res.status === 'process'){
+            if(res.status === 'process'){
+              setRentTransactionId(res.transitionId);
+            }
             window.localStorage.setItem('itemCode', movieId);
-            let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${transactionId}`;
+            let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${(res.status === 'process')?res.transitionId:transactionId}`;
             if(process.env.NODE_ENV === 'development'){
               forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
             }
@@ -134,11 +138,10 @@ const PlanItem = ({
     }else{
       localStorage.setItem('callbackAction', 'rent');
       const callbackParams = {
-          "itemCode": movieId,
-          "priceSKU": productId,
-          "isPackage": isPackage,
-          "transactionId": transactionId
-      };
+        "itemCode": movieId,
+        "priceSKU": productId,
+        "transactionId": transactionId
+    };
       localStorage.setItem('callbackParams', JSON.stringify(callbackParams));
       router.push('/auth');    
     }
