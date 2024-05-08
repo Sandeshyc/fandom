@@ -10,7 +10,7 @@ const Top10Card = ({number}:{
             <div className='number'>
               <SvgNumbers item={number as number} />
             </div>
-            <div className='img relative bg-zinc-700 rounded-md'>
+            <div className='img relative bg-zinc-700 rounded-md overflow-hidden'>
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-full w-full' />
             </div>
           </div>

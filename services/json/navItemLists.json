@@ -21,13 +21,6 @@
         "auth": false
     },
     {
-        "id": 5,
-        "label": "Channel",
-        "route": "/channel",
-        "activeRoute": "/channel",
-        "auth": false
-    },
-    {
         "id": 6,
         "label": "Offers",
         "route": "/offers",

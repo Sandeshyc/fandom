@@ -15,7 +15,7 @@ const Billboard = () => {
                 <Skeleton baseColor='#333' highlightColor='#666' className='h-[48px] w-full' /> 
                 </div>
                 <div className="w-[500px] pb-4">
-                <Skeleton baseColor='#333' highlightColor='#666' className='h-[18px] w-full' count={4}/>
+                <Skeleton baseColor='#333' highlightColor='#666' className='h-[18px] w-full' count={3}/>
                 </div>
             </div> 
             <div className="flex flex-row items-center gap-3">

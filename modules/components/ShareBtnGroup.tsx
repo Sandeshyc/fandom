@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import {
   addToMyList,
   removeFromMyList,
-  removeFromWatchingLists,
 } from '@/services/api';
 import {
     ThumbUpOffAlt,
@@ -23,7 +22,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
     const [isInLish, setIsInLish] = React.useState(data?.isInWatchList);
     const movieId = data?._id;
     const [open, setOpen] = React.useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const isLoginUser = useCheckAuthentication();
     const handleToggle = () => {
         setOpen(!open);
     }
@@ -55,11 +54,6 @@ const ShareBtnGroup = ({data}:dataProps) => {
     }
 
     useEffect(() => {
-      const _checkAuthentication = async () => {
-        const isAuthenticated = await checkAuthentication();
-        setIsAuthenticated(isAuthenticated);
-      }
-      _checkAuthentication();
         const userInfo = window.localStorage.getItem('userInfo');
         if(userInfo) {
           const userInfoObj = JSON.parse(userInfo);
@@ -69,9 +63,12 @@ const ShareBtnGroup = ({data}:dataProps) => {
         }
     }, []);
 
-    return (<div className='bg-black pt-4 pb-8 px-4'>
+    return (<div className='bg-black pt-4 pb-8'>
+        <div className='px-4 container mx-auto'>
+
+        
         <div className="text-white/80 flex justify-center items-end overflow-y-hidden overflow-x-auto relative z-10 border border-white/30 rounded-xl">
-            {(isAuthenticated)&&<ShareItem 
+            {(isLoginUser)&&<ShareItem 
               icon={(isInLish)?<Remove
                   sx={{
                       fontSize: 28,
@@ -110,6 +107,7 @@ const ShareBtnGroup = ({data}:dataProps) => {
                       title={data?.title}
                   />
               </>:null}
+        </div>
         </div>
     </div>);
 };

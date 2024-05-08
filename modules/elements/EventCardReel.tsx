@@ -217,8 +217,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
   
   return (
     <div
-      className={`group sm:h-full bg-zinc-900 rounded-md relative border border-contentColor/10`}
-    >
+      className={`group sm:h-full bg-zinc-900 rounded-md relative border border-contentColor/10`}>
       <div className="flex flex-wrap flex-col sm:flex-row sm:h-full">
         <div
           ref={thumbOuterRef}
@@ -259,7 +258,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
           )}
           {data?.onAirDate && (
             <>
-              <p className="text-white/90 text-sm mb-1">
+              <p className="text-white/90 text-xs mb-1">
                 {convertESTtoLocalTime(data?.onAirDate as string)} ({timeZoneOffset})
               </p>
               {!isOnAir(data?.onAirDate) && (

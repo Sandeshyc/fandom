@@ -19,16 +19,19 @@ import MultiRawRoll from "@/modules/skeletons/components/MultiRawRoll";
 import MultiRawRollUpcoming from "@/modules/skeletons/components/MultiRawRollUpcoming";
 import ChannelPlayer from "@/modules/skeletons/components/ChannelPlayer";
 import ChannelDetails from "@/modules/skeletons/components/ChannelDetails";
+import WatchAndBuy from "@/modules/skeletons/components/WatchAndBuy";
+import ShareBtnGroup from "@/modules/skeletons/components/ShareBtnGroup";
 type Props = {
     displayType: string;
 }
 const GetComponent = ({displayType}:Props) => {
     const comps = {
+        billboard : Billboard,
         carousel : Carousel,
         detailsHeroImage : DetailsHeroImage,
+        movieSummary : MovieSummary,
         showSummary : ShowSummary,
         movieListVerticalGrid : MovieListVerticalGrid,
-        billboard : Billboard,
         roll : Roll,
         eventroll : EventRoll,
         top10 : Top10,
@@ -36,7 +39,6 @@ const GetComponent = ({displayType}:Props) => {
         rollBorderedMulti : RollBorderedMulti,
         movieListVertical : MovieListVertical,
         movieWatchList : MovieWatchList,
-        movieSummary : MovieSummary,
         watchAndshare : WatchAndshare,
         movieDetails : MovieDetails,
         packageDetailsHeroImage : PackageDetailsHeroImage,
@@ -45,6 +47,8 @@ const GetComponent = ({displayType}:Props) => {
         multirawrollupcoming : MultiRawRollUpcoming,
         ChannelPlayer : ChannelPlayer,
         ChannelDetails : ChannelDetails,
+        watchAndBuy : WatchAndBuy,
+        shareBtnGroup : ShareBtnGroup,
     }
     const Component = comps[displayType as keyof typeof comps];
     return (<>{Component && <Component />}</>)

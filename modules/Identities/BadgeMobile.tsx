@@ -19,7 +19,7 @@ const BadgeMobile = ({
         unset: ''
     }
     return (
-        <p className={`rounded-md p-1 text-center text-xs sm:text-sm ${themeClass[theme]} ${className}`}
+        <p className={`rounded-md p-1 text-center text-xs ${themeClass[theme]} ${className}`}
         style={style}>
             {text}
         </p>
