@@ -14,13 +14,6 @@
         "auth": false
     },
     {
-        "id": 4,
-        "label": "TV Shows",
-        "route": "/tvshows",
-        "activeRoute": "/tvshows",
-        "auth": false
-    },
-    {
         "id": 6,
         "label": "Offers",
         "route": "/offers",

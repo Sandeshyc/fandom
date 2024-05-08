@@ -103,7 +103,7 @@ const ShowSummary = (inputProps:dataProps) => {
                 )}
                 {(data?._id)?<>
                   </>:null}
-                  <div className='mr-4'>
+                  <div className='mr-4 mb-2'>
                     <PackageRentPlayButtonAction 
                       data={data} 
                       allowedData={data?.allowed}
