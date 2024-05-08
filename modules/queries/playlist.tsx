@@ -29,7 +29,7 @@ const PLAYLIST_QUERY = gql`
         contentRating
         publishSchedule
         releaseDate
-        cast
+        
         director
         writer
         duration

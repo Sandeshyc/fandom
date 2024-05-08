@@ -44,7 +44,7 @@ const TVSHOWS_QUERY = gql`
             quality
             genre
             contentType
-            cast
+            
             writer
             director
             description

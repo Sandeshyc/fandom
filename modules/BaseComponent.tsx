@@ -32,7 +32,6 @@ const BaseComponent = (props:any) => {
       if (loading || 0 ) return (
         <>
           <GetComponent displayType={module?.displayType as string} />
-          {/* <p className='text-white'>{module?.displayType} Loading Skeleton...</p> */}
         </>
       );
       if (error) return (
@@ -43,6 +42,7 @@ const BaseComponent = (props:any) => {
           data,
           items: data,
         });
+      // return <>{newChild}<GetComponent displayType={module?.displayType as string} /></>
       return <>{newChild}</>
     } else {
       return <>{props.children}</>

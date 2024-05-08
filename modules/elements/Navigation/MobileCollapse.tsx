@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import useProfile from '@/hooks/useProfile';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import LogoutPopUp from '@/modules/elements/LogoutPopUp';
 import {
     Search,
@@ -30,10 +30,13 @@ type Props = {
 }
 const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {    
     const router = useRouter();
+    const profileRef = useRef(null as any);
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const isLoginUser = useCheckAuthentication();
     const [isLogoutPopUp, setIsLogoutPopUp] = useState(false);
+    const [screenHeight, setScreenHeight] = useState(0);
+    const [profileHeadHeight, setProfileHeadHeight] = useState(0);
 
     const { data: profile, isLoading } = useProfile(userid);
     useEffect(() => {
@@ -59,17 +62,16 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
             setUserid(userInfoObj?.sub);
           }
         }
-        const _checkAuthentication = async () => {
-            const isAuthenticated = await checkAuthentication();
-            setIsAuthenticated(isAuthenticated);
-          }
-          _checkAuthentication();
+        const height = window.innerHeight;
+        setScreenHeight(height - 48);
+        const profileRefHeight = profileRef.current?.clientHeight;
+        setProfileHeadHeight(profileRefHeight);
     }, []);
 
     return (<>
-        <div className='fixed left-0 top-0 w-screen h-screen text-white bg-gradient-to-t from-black to-black/80 pt-6 pb-12 px-8 z-50'>
-            <div className='flex justify-end items-center mb-6'>
-                {(isAuthenticated)&&
+        <div className='fixed left-0 top-0 w-screen h-screen text-white bg-gradient-to-t from-black to-black/80 py-6 px-8 z-50'>
+            <div className='flex justify-end items-center pb-6' ref={profileRef}>
+                {(isLoginUser)&&
                     <div className='flex items-center w-[150px] grow'>
                         <div className='transition w-[64px] h-[64px] mr-[10px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
                             <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
@@ -100,7 +102,11 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     </button>
                 </div>    
             </div> 
-            <div className="overflow-y-auto overflow-x-hidden h-full pb-8">
+            <div className="overflow-y-auto overflow-x-hidden pb-4" 
+            style={{
+                height: `calc(${screenHeight}px - ${profileHeadHeight}px)`         
+            }}
+            >
                 <NavItem
                 icon={<Home />}
                 label={'Home'}
@@ -137,7 +143,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     router.push('/offers');
                 }}
                 activeRoute='/offers'/>
-                {(isAuthenticated)&&
+                {(isLoginUser)&&
                     <>
                     <NavItem
                     icon={<ShoppingCart />}
@@ -193,7 +199,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                     window.open('https://iconnconvergence-support.freshdesk.com/support/home', '_blank');
                 }}
                 activeRoute=''/>
-                {(isAuthenticated)&&
+                {(isLoginUser)&&
                     <NavItem
                     icon={<Logout />}
                     label={'Logout'}

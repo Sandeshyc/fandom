@@ -12,15 +12,11 @@ const MovieSummary= () => {
                 </div>
                 <div className='grow w-[100px] '>
                   <div className=' h-full mb-2 lg:mb-3'>
-                    <div className='h-full mb-2 lg:mb-3 max-w-[260px]'>
-                        <Skeleton baseColor='#333' highlightColor='#666' height={40}/>
+                    <div className='h-full mb-2 lg:mb-3 max-w-[200px]'>
+                        <Skeleton baseColor='#333' highlightColor='#666' height={30}/>
                     </div>
                   </div>
-                    <div className='h-full mb-2 lg:mb-3 max-w-[200px]'>
-                        <Skeleton baseColor='#333' highlightColor='#666' height={18}/>
-                    </div>
                     <p className='flex items-center flex-wrap my-2 text-white/70 text-xs'>
-                        <Skeleton baseColor='#333' highlightColor='#666' height={16} width={50} className='mr-2'/>
                         <Skeleton baseColor='#333' highlightColor='#666' height={16} width={50} className='mr-2'/>
                         <Skeleton baseColor='#333' highlightColor='#666' height={16} width={70}/>
                     </p>
@@ -34,7 +30,7 @@ const MovieSummary= () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>      
     );
 }
 export default MovieSummary;

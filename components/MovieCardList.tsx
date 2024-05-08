@@ -29,7 +29,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   return !isRemove ? (
     <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:px-[7px] mb-[14px]">
       <div className="group bg-gray-800 relative flex flex-wrap text-white rounded-md justify-between w-full">
-        <div className="w-[100px] sm:w-[120px] 2xl:w-[160px] bg-gray-600 rounded-md aspect-[6/9] relative">
+        <div className="w-[110px] sm:w-[130px] 2xl:w-[160px] bg-gray-600 rounded-md aspect-[6/9] relative">
           {thumb ? (
             <img
               onClick={redirectToDetails}
