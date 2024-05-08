@@ -4,12 +4,9 @@ import useTvShowDetails from '@/hooks/useTvShowDetails';
 import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
-import SkeletonExploreAll from '@/components/Skeleton/SkeletonExploreAll';
 import useIsMobile from '@/hooks/useIsMobile';
 import useClientLocaion from '@/hooks/useClientLocaion';
-import SkeletonHeader from '@/components/Skeleton/Header';
-import DetailsHeroImage from "@/modules/skeletons/components/DetailsHeroImage";
-import ShowSummary from "@/modules/skeletons/components/ShowSummary";
+import Preloader from "@/modules/skeletons/Preloader";
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -50,13 +47,7 @@ const Categories = (props:any) => {
         modules={data}
         itemCode = {tvshow as string}
         getComponent = {getComponent}
-        isLoading = {isLoading}/></> : (
-          <>
-          <SkeletonHeader/>
-          <DetailsHeroImage/>
-          <ShowSummary/>
-          </>
-        )}
+        isLoading = {isLoading}/></> : (<Preloader/>)}
     {(error || locationError)?<ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>:null}
     </div>
     </>) 

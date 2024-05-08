@@ -15,10 +15,14 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
     // push tab args label and content
     useEffect(() => {
         let tempTabArgs = [];
+        let tempEpisodes = [];
+        if(Array.isArray(data?.episodes) && data?.episodes?.length > 0){
+            tempEpisodes = data?.episodes.filter((item: any) => item && item._id);            
+        }
         if(isShow){
             tempTabArgs.push({
                 id: 'section1',
-                label:'Episodes (' + data?.episodes?.length + ')',
+                label:'Episodes (' + tempEpisodes?.length + ')',
                 type:'episodes',
                 content: data?.episodes
             });

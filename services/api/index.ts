@@ -4,6 +4,7 @@ import removeFromWatchingLists from './removeFromWatchingList';
 import auditEntitlement from './auditEntitlement';
 import updateProfile from './updateProfile';
 import getProfile from './getProfile';
+import setEntitlementValidity from './setEntitlementValidity';
 
 export {
     addToMyList,
@@ -11,5 +12,6 @@ export {
     removeFromWatchingLists,
     auditEntitlement,
     updateProfile,
-    getProfile
+    getProfile,
+    setEntitlementValidity
 };

@@ -3,7 +3,8 @@ import client from './client';
 const auditEntitlement = async (data:object) => {
     const url = `/entitlement/audit`;
     let returnResponse = {
-        status: ''
+        status: '',
+        transitionId: ''
     };
     try {
         const response = await client.post(url, data);
@@ -11,18 +12,33 @@ const auditEntitlement = async (data:object) => {
             console.log("Success case: ", response);
             returnResponse = {
                 status: 'success',
+                transitionId: ''
             };
         }else {
             console.log("Error try: ", response);
             returnResponse = {
                 status: 'error',
+                transitionId: ''
             };
         }
-    } catch (error) {
+    } catch (error:any) {
         console.log("Error case: ", error); 
         returnResponse = {
             status: 'error',
+            transitionId: ''
         };
+        if(error?.response?.status === 400) {
+            console.log("trainsitionId: ", error?.response?.data?.data?.transactionId);
+            returnResponse = {
+                status: (error?.response?.data?.data?.transactionId) ? 'process' : 'error',
+                transitionId: error?.response?.data?.data?.transactionId
+            };
+        }else{
+            returnResponse = {
+                status: 'error',
+                transitionId: ''
+            };
+        }
     }
     return returnResponse;
 }

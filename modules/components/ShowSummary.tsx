@@ -56,7 +56,7 @@ const ShowSummary = (inputProps:dataProps) => {
             setIsAuthenticated(isAuthenticated);
         }
         _checkAuthentication();
-    }, []);
+    }, [data]);
     return (
       <>
       <div className='text-white z-10 relative mt-[-100px] md:mt-[-250px] bg-gradient-to-t from-black/90 from-50% to-transparent to-100%'>
@@ -70,13 +70,17 @@ const ShowSummary = (inputProps:dataProps) => {
                 <div className='grow w-[100px]'>
                   <div className=' h-full mb-2 lg:mb-3'>
                     <Title tag='h1' size='4xl'>
-                      {title}: {currentSeason?.title || ''}
+                      {title}{(noOfSeasons > 1) &&
+                          <>
+                          : {currentSeason?.title}
+                          </>                    
+                      }
                     </Title>
                   </div>
                   <p className='mb-1 flex items-center flex-wrap my-2 text-white/70 text-xs'>
                       {(data?.quality)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.quality}</span>):null}
                       {(data?.contentRating)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.contentRating}</span>):null}
-                      {(noOfSeasons) &&
+                      {(noOfSeasons > 1) &&
                           <span className='mb-1'>{noOfSeasons} Seasons</span>                      
                       }
                   </p>
@@ -84,18 +88,19 @@ const ShowSummary = (inputProps:dataProps) => {
               </div> 
               <RentPlayNotice data={data?.allowed} />
               <div className='w-full mt-4 flex flex-wrap items-center'>
-                <div 
-                  className="rounded-full border border-blue-600 mb-2 mr-4">
-                  <select 
-                  value={currentSeason?.name}
-                  onChange={handleSeason}
-                  className="h-[34px] lg:h-[40px] rounded-full bg-black/90 bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] text-white/70 px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
-                      {allSeasons?.map((season:any, index:number) => {
-                          return <option key={stableKeys[index]} value={season?.name}
-                          >{season?.title}</option>
-                      })} 
-                  </select>
-                </div>
+                {(noOfSeasons > 1)&&(
+                  <div className="rounded-full border border-blue-600 mb-2 mr-4">
+                    <select 
+                    value={currentSeason?.name}
+                    onChange={handleSeason}
+                    className="h-[34px] lg:h-[40px] rounded-full bg-black/90 bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] text-white/70 px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
+                        {allSeasons?.map((season:any, index:number) => {
+                            return <option key={stableKeys[index]} value={season?.name}
+                            >{season?.title}</option>
+                        })} 
+                    </select>
+                  </div>
+                )}
                 {(data?._id)?<>
                   </>:null}
                   <div className='mr-4'>

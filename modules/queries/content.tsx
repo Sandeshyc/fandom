@@ -15,7 +15,7 @@ const CONTENT_QUERY = gql`
         releaseDate
         title
         contentRating
-        
+        contentType
         quality
         genre
         canBuy
@@ -39,7 +39,10 @@ const CONTENT_QUERY = gql`
           canPlay
           canBuy
           bought
+          validityAccepted
+          transactionId
           message
+          validityPeriod
         }
         isPackage
         isInWatchList
