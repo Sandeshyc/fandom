@@ -29,9 +29,6 @@ const PLAYLIST_QUERY = gql`
         contentRating
         publishSchedule
         releaseDate
-        
-        director
-        writer
         duration
         genre
         isInWatchList
