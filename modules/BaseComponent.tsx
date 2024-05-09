@@ -17,7 +17,7 @@ const BaseComponent = (props:any) => {
         }}});
       // console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
       let data = gqData?.[module.sourceType]?.items;
-      console.log('GQL DATA: ', module, 'gqData: ',gqData, 'data:',data);
+      // console.log('GQL DATA: ', module, 'gqData: ',gqData, 'data:',data);
       if (module.sourceType === 'content' 
         || module.sourceType === 'playlistHeader'
         || module.sourceType === 'bundleHeader'
