@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import CastCarouselItem from '@/modules/elements/CastCarousel/CastCarouselItem';
 import CastCarouselItemMobile from '@/modules/elements/CastCarousel/CastCarouselItemMobile';
 import {
     ArrowForwardIos,
     ArrowBackIosNew
 } from '@mui/icons-material';
+import { stableKeys } from "@/utils/stableKeys";
 const SlickNextArrow = (props: any) => {
     const { className, style, onClick } = props;
     return (    
@@ -75,31 +75,86 @@ let settings = {
       },
     ]
 };
-const CastCarousels = () => {
+type Props = {
+  casts: any,
+  directors: any,
+  writers: any,
+}
+const CastCarousels = ({
+  casts,
+  directors,
+  writers
+}:Props) => {
     const sliderRef = useRef(null as any)
     return (
         <div className="text-white">
             <div className="lg:hidden flex justify-start overflow-y-hidden pb-1 overflow-x-auto
             ">
-                {
-                    Array(10).fill(0).map((_, index) => {
-                        return (
-                            <CastCarouselItemMobile key={index}/>
-                        )
-                    })
+              {(Array.isArray(directors) && directors.length > 0) && (
+                directors.map((director:any, index:number) => {
+                  return (
+                      <CastCarouselItemMobile 
+                      key={director?._id || stableKeys[index]} 
+                      cast={director}
+                      designation="Director"/>
+                  )                        
                 }
+              ))}
+              {(Array.isArray(writers) && writers.length > 0) && (
+                writers.map((writer:any, index:number) => {
+                  return (
+                      <CastCarouselItemMobile 
+                      key={writer?._id || stableKeys[index]} 
+                      cast={writer}
+                      designation="Writer"/>
+                  )                        
+                }
+              ))}
+              {(Array.isArray(casts) && casts.length > 0) && (
+                casts.map((cast:any, index:number) => {
+                  return (
+                      <CastCarouselItemMobile 
+                      key={cast?._id || stableKeys[index]} 
+                      cast={cast}
+                      designation="Actor"/>
+                  )                        
+                }
+              ))}
             </div>
             <div className="hidden lg:block castCarousel overflow-hidden">
                 <Slider
                 ref={sliderRef}
                 {...settings}>
-                    {
-                        Array(10).fill(0).map((_, index) => {
-                            return (
-                                <CastCarouselItem key={index}/>
-                            )
-                        })
+                  {(Array.isArray(directors) && directors.length > 0) && (
+                    directors.map((director:any, index:number) => {
+                      return (
+                          <CastCarouselItem 
+                          key={director?._id || stableKeys[index]} 
+                          cast={director}
+                          designation="Director"/>
+                      )                        
                     }
+                  ))}
+                  {(Array.isArray(writers) && writers.length > 0) && (
+                    writers.map((writer:any, index:number) => {
+                      return (
+                          <CastCarouselItem 
+                          key={writer?._id || stableKeys[index]} 
+                          cast={writer}
+                          designation="Writer"/>
+                      )                        
+                    }
+                  ))}
+                  {(Array.isArray(casts) && casts.length > 0) && (
+                    casts.map((cast:any, index:number) => {
+                      return (
+                          <CastCarouselItem 
+                          key={cast?._id || stableKeys[index]} 
+                          cast={cast}
+                          designation="Actor"/>
+                      )                        
+                    }
+                  ))}
                 </Slider>  
             </div> 
         </div>

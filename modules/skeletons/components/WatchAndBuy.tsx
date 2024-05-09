@@ -6,14 +6,12 @@ const WatchAndBuy = () => {
             <div className="container mx-auto px-4">
                 <div className="flex flex-row items-center lg:mb-5 flex-wrap justify-between mx-[-7px]">
                     <div className="w-1/2 px-[7px]">
-                        <div className='rounded-full overflow-hidden'>
-                            <Skeleton baseColor='#333' highlightColor='#666' height={34}/>
-                        </div>
+                        <Skeleton baseColor='#333' highlightColor='#666' height={34} 
+                        style={{borderRadius: '50px'}}/>
                     </div>
                     <div className="w-1/2 px-[7px]">
-                        <div className='rounded-full overflow-hidden'>
-                            <Skeleton baseColor='#333' highlightColor='#666' height={34}/>
-                        </div>
+                        <Skeleton baseColor='#333' highlightColor='#666' height={34} 
+                        style={{borderRadius: '50px'}}/>
                     </div>
                 </div>
             </div>

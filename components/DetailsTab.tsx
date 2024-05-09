@@ -37,13 +37,15 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
         
         tempTabArgs.push({
             id: 'section2',
-            label:'Cast',
+            label:'Cast & Crew',
             type:'arrays',
             content: [
                 {
                     label:'Cast',
                     type:'castCarousel',
-                    content:data?.cast
+                    director: data?.director,
+                    writer: data?.writer,
+                    cast: data?.cast
                 }
             ]
         });
@@ -52,17 +54,7 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
             label:'More Info', 
             type:'arrays',
             title: 'More Info',
-            content:[                
-                {
-                    label:'Director',
-                    type:'text',
-                    content:data?.director
-                },
-                {
-                    label:'Writer',
-                    type:'text',
-                    content:data?.writer
-                },
+            content:[
                 {
                     label:'Genres',
                     type:'array',

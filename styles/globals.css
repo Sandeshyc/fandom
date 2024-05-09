@@ -708,6 +708,11 @@ html {
 .paymentHistoryTable tbody tr:first-child td{
   border-top: transparent 15px solid;  
 }
+@media screen and (max-width: 959px) {
+  .paymentHistoryTable tbody tr:first-child td{
+    border-top: transparent 0px solid;  
+  }
+}
 
 .sameHeightSlick .slick-track{
   display: flex !important;

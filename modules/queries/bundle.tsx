@@ -32,9 +32,6 @@ const BUNDLE_QUERY = gql`
         contentRating
         publishSchedule
         releaseDate
-        cast
-        director
-        writer
         duration
         genre
         header {
@@ -45,6 +42,39 @@ const BUNDLE_QUERY = gql`
           text
           iconType
           textType
+        }
+        director {
+          _id
+          celebrityId
+          fullname
+          imageUrl
+          imageUrlMobile
+          imageThumbnailSmall
+          imageThumbnailMedium
+          imageBackground
+          isIndividual
+        }
+        cast {
+          _id
+          celebrityId
+          fullname
+          imageBackground
+          imageThumbnailMedium
+          imageThumbnailSmall
+          imageUrl
+          imageUrlMobile
+          isIndividual
+        }
+        writer {
+          _id
+          celebrityId
+          fullname
+          imageBackground
+          imageThumbnailMedium
+          imageThumbnailSmall
+          imageUrl
+          imageUrlMobile
+          isIndividual
         }
       }
     }

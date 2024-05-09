@@ -44,9 +44,6 @@ const TVSHOWS_QUERY = gql`
             quality
             genre
             contentType
-            
-            writer
-            director
             description
             allowedPlans {
               id

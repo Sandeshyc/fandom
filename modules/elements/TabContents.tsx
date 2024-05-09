@@ -51,7 +51,11 @@ const TabContents = ({
                                                         </p>
                                                     )}
                                                     {(item.type === 'castCarousel') && (
-                                                        <CastCarousels/>
+                                                        <CastCarousels
+                                                            casts={item.cast}
+                                                            directors={item.director}
+                                                            writers={item.writer}
+                                                        />
                                                     )}
                                                 </div>
                                             )

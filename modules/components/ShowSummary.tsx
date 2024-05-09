@@ -5,13 +5,13 @@ import {capFirstLetter} from '@/utils/capFirstLetter';
 import WishListButton from '@/modules/Identities/WishListButton';
 import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
-import checkAuthentication from '@/utils/checkAuth';
 import SocialShare from '@/modules/elements/SocialShare';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import Title from '@/modules/Identities/Title';
 import DetailsTab from '@/components/DetailsTab';
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
 import PackageRentPlayButtonAction from "@/modules/elements/Purchase/PackageRentPlayButtonAction";
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 
 type dataProps = {
     data: any,
@@ -19,6 +19,7 @@ type dataProps = {
 }
 const ShowSummary = (inputProps:dataProps) => {
     const {data} = inputProps
+    const isLoginUser = useCheckAuthentication();
     const allSeasons = data?.seasons;
     const [noOfSeasons, setNoOfSeasons] = useState(0);
     const [currentSeason, setCurrentSeason] = useState({} as any);
@@ -26,7 +27,6 @@ const ShowSummary = (inputProps:dataProps) => {
     const [open, setOpen] = React.useState(false);
     const [season, setSeason] = React.useState('Season 1');
     const isMobile = useIsMobile();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const postar = data?.thumbnailPortraitUrl;
     let publishYear = data?.publishSchedule;
     // get year from date
@@ -43,7 +43,7 @@ const ShowSummary = (inputProps:dataProps) => {
         setSeason(e.target.value);
         console.log('season', season);
         // set current season
-        const currentSeason = allSeasons.find((season:any) => season?.name === e.target.value);
+        const currentSeason = allSeasons.find((season:any) => season?._id === e.target.value);
         setCurrentSeason(currentSeason);
     }
     useEffect(() => {
@@ -51,11 +51,6 @@ const ShowSummary = (inputProps:dataProps) => {
             setCurrentSeason(allSeasons[allSeasons.length - 1]);
             setNoOfSeasons(allSeasons.length);
         }
-        const _checkAuthentication = async () => {
-            const isAuthenticated = await checkAuthentication();
-            setIsAuthenticated(isAuthenticated);
-        }
-        _checkAuthentication();
     }, [data]);
     return (
       <>
@@ -91,11 +86,11 @@ const ShowSummary = (inputProps:dataProps) => {
                 {(noOfSeasons > 1)&&(
                   <div className="rounded-full border border-blue-600 mb-2 mr-4">
                     <select 
-                    value={currentSeason?.name}
+                    value={currentSeason?._id}
                     onChange={handleSeason}
                     className="h-[34px] lg:h-[40px] rounded-full bg-black/90 bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] text-white/70 px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                         {allSeasons?.map((season:any, index:number) => {
-                            return <option key={stableKeys[index]} value={season?.name}
+                            return <option key={stableKeys[index]} value={season?._id}
                             >{season?.title}</option>
                         })} 
                     </select>
@@ -111,7 +106,7 @@ const ShowSummary = (inputProps:dataProps) => {
                       />
                   </div>
                                       
-                {(isAuthenticated && data?._id)&&<div className='mb-2'><WishListButton movieId={data?._id} isInWatchList={data?.isInWatchList}/></div>}
+                {(isLoginUser && data?._id)&&<div className='mb-2'><WishListButton movieId={data?._id} isInWatchList={data?.isInWatchList}/></div>}
                   {(data?._id)?<>
                       <button 
                           onClick={handleToggle}

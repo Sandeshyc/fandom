@@ -19,9 +19,6 @@ const CONTENT_QUERY = gql`
         quality
         genre
         canBuy
-        cast
-        writer
-        director
         description
         allowedPlans {
           id
