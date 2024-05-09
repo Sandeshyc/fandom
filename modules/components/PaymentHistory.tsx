@@ -45,16 +45,17 @@ const PaymentHistory = () => {
                 <table className='w-full text-left paymentHistoryTable'>
                     <thead className='hidden lg:table-header-group text-gray-900/70'>
                         <tr className='px-4'>
-                            <th className="p-2 whitespace-nowrap font-normal min-w-[120px] pl-4">Date</th>
-                            <th className="p-2 whitespace-nowrap font-normal min-w-[150px]">Order Number</th>
-                            <th className="p-2 whitespace-nowrap font-normal min-w-[280px]">Product Name</th>
-                            <th className="p-2 whitespace-nowrap font-normal min-w-[150px]">Payment Method</th>
-                            <th className="p-2 whitespace-nowrap font-normal min-w-[100px]">Transaction Type</th>
-                            <th className="p-2 whitespace-nowrap font-normal min-w-[80px]">Amount</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[120px] pl-4">Date</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[200px]">Content title</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">Product Name</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">Order Number</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[150px]">Payment Method</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">Transaction Type</th>
+                            <th className="p-2 whitespace-nowrap font-semibold min-w-[80px]">Amount</th>
                         </tr>
                     </thead>
                     {(!isLoading && isReady && data)?
-                    <tbody>
+                    <tbody className='text-sm'>
                         {
                         (Array.isArray(data) && data.length > 0) ? (
                             <>
@@ -63,6 +64,14 @@ const PaymentHistory = () => {
                             <tr key={stableKeys[index]} className={`text-gray-900/70 block lg:table-row ${(index % 2 === 0) ? 'bg-white/20' : ''}`}>
                                 <td className={cellClass} data-label={'Date'}>
                                     {getDateFormat(payment?.date)}
+                                </td>
+                                <td className={cellClass} data-label={'Content title'}>
+                                    <span className='font-semibold'>
+                                        {payment?.contentTitle}
+                                    </span>
+                                </td>
+                                <td className={cellClass} data-label={'Product Name'}>
+                                    {payment?.productName}
                                 </td>
                                 <td className={cellClass} data-label={'Order Number'}>
                                     <span>
@@ -84,7 +93,6 @@ const PaymentHistory = () => {
                                         )}
                                     </span>    
                                 </td>
-                                <td className={cellClass} data-label={'Product Name'}>{payment?.productName}</td>
                                 <td className={cellClass} data-label={'Payment Method'}>
                                     <div className='flex items-center'>
                                         {/* {(payment.paymentIcon) && (
@@ -117,117 +125,45 @@ const PaymentHistory = () => {
                     </tbody>
                     :
                     <tbody>
-                        <tr className={`text-gray-900/70 block lg:table-row`}>
-                            <td className={cellClass} data-label={'Date'}>
-                                <div className="w-[100px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Order Number'}>
-                                <div className="w-[120px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Product Name'}>
-                                <div className="w-[140px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Payment Method'}>
-                                <div className="w-[120px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Transaction Type'}>
-                                <div className="w-[130px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Amount'}>
-                                <div className="w-[70px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Receipt'}>
-                                <div className="w-[30px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr className={`text-gray-900/70 block lg:table-row bg-white/20`}>
-                            <td className={cellClass} data-label={'Date'}>
-                                <div className="w-[100px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Order Number'}>
-                                <div className="w-[120px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Product Name'}>
-                                <div className="w-[140px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Payment Method'}>
-                                <div className="w-[120px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Transaction Type'}>
-                                <div className="w-[130px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Amount'}>
-                                <div className="w-[70px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Receipt'}>
-                                <div className="w-[30px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr className={`text-gray-900/70 block lg:table-row`}>
-                            <td className={cellClass} data-label={'Date'}>
-                                <div className="w-[100px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Order Number'}>
-                                <div className="w-[120px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Product Name'}>
-                                <div className="w-[140px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Payment Method'}>
-                                <div className="w-[120px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Transaction Type'}>
-                                <div className="w-[130px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Amount'}>
-                                <div className="w-[70px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                            <td className={cellClass} data-label={'Receipt'}>
-                                <div className="w-[30px]">
-                                    <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
-                                </div>
-                            </td>
-                        </tr>
+                        {Array(4).fill(0).map((_, index) => (
+                            <tr className={`text-gray-900/70 block lg:table-row`} key={index}>
+                                <td className={cellClass} data-label={'Date'}>
+                                    <div className="w-[100px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>
+                                <td className={cellClass} data-label={'Content Title'}>
+                                    <div className="w-[140px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>
+                                <td className={cellClass} data-label={'Product Name'}>
+                                    <div className="w-[140px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>
+                                <td className={cellClass} data-label={'Order Number'}>
+                                    <div className="w-[120px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>                            
+                                <td className={cellClass} data-label={'Payment Method'}>
+                                    <div className="w-[120px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>
+                                <td className={cellClass} data-label={'Transaction Type'}>
+                                    <div className="w-[130px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>
+                                <td className={cellClass} data-label={'Amount'}>
+                                    <div className="w-[70px]">
+                                        <Skeleton baseColor='#999' highlightColor='#222' className='h-[18px]'/>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                     }
                 </table>
