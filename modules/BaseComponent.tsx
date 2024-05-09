@@ -34,7 +34,7 @@ const BaseComponent = (props:any) => {
           <GetComponent displayType={module?.displayType as string} />
         </>
       );
-      if (error && 0) return (
+      if (error && 1) return (
         <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>
       );
 
@@ -42,7 +42,7 @@ const BaseComponent = (props:any) => {
           data,
           items: data,
         });
-      return <>{newChild}<GetComponent displayType={module?.displayType as string} /></>
+      // return <>{newChild}<GetComponent displayType={module?.displayType as string} /></>
       return <>{newChild}</>
     } else {
       return <>{props.children}</>
