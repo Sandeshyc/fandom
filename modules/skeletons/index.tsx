@@ -15,6 +15,7 @@ import MovieDetails from "@/modules/skeletons/components/MovieDetails";
 import PackageDetailsHeroImage from "@/modules/skeletons/components/PackageDetailsHeroImage";
 import PackageDetailsHeroImageMobile from "@/modules/skeletons/components/PackageDetailsHeroImageMobile";
 import PackageMovielist from "@/modules/skeletons/components/PackageMovielist";
+import PackageMovielistMobile from "@/modules/skeletons/components/PackageMovielistMobile";
 import Carousel from "@/modules/skeletons/components/Carousel";
 import MultiRawRoll from "@/modules/skeletons/components/MultiRawRoll";
 import MultiRawRollUpcoming from "@/modules/skeletons/components/MultiRawRollUpcoming";
@@ -45,6 +46,7 @@ const GetComponent = ({displayType}:Props) => {
         packageDetailsHeroImage : PackageDetailsHeroImage,
         packageDetailsHeroImageMobile : PackageDetailsHeroImageMobile,
         packageMovielist : PackageMovielist,
+        packageMovielistMobile : PackageMovielistMobile,
         multirawroll : MultiRawRoll,
         multirawrollupcoming : MultiRawRollUpcoming,
         ChannelPlayer : ChannelPlayer,

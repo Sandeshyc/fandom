@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { useRouter } from "next/router";
 import ReactVideoPlayer from "@/components/ReactPlayer";
 import { stableKeys } from "@/utils/stableKeys";
 import { capFirstLetter } from "@/utils/capFirstLetter";
-import PublishDate from "@/modules/Identities/PublishDate";
-import PlayButton from "@/components/PlayButton";
-import WatchTrailerBtn from "@/components/WatchTrailerBtn";
-import ViewDetailsButton from '@/modules/Identities/ViewDetailsButton';
-import Buttons from '@/modules/Identities/Buttons';
 import FavoriteButton from '@/components/FavoriteButton';
 import { ShareIcon } from '@heroicons/react/24/solid';
 import SocialShare from '@/modules/elements/SocialShare';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import Title from '@/modules/Identities/Title';
 import { yearFromDate } from '@/utils/yearFromDate';
 import LinkRoute from "@/modules/Identities/LinkRoute";
@@ -21,14 +15,14 @@ import { getThumbnailLandscape, getThumbnailPortrait } from "@/utils/getData";
 import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import ShareBtnGroup from '@/modules/components/ShareBtnGroup';
 type Props = {
   data: any;
   isComplited: any;
 };
 const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
-  const router = useRouter();
   const [open, setOpen] = React.useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isLoginUser = useCheckAuthentication();
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
   let releaseYear = data?.releaseDate;
@@ -45,14 +39,8 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const handleToggle = () => {
     setOpen(!open);
   }
-  useEffect(() => {
-    const _checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthentication();
-      setIsAuthenticated(isAuthenticated);
-    }
-    _checkAuthentication();
-  }, []);
   return (
+    <>
     <div className={`relative billboardSec`}>
       <div
         className={`relative w-full overflow-hidden object-cover transition duration-500 jk_player min-h-[400px] h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[100vh]`}
@@ -65,8 +53,8 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
         </div>
         <div className="preview"></div>
       </div>
-      <div className={`absolute bottom-0 pl-4 pr-2 md:pl-16 transition w-full`}>
-        <div className='flex flex-wrap items-end lg:pb-2'>
+      <div className={`absolute bottom-0 transition w-full`}>
+        <div className='flex flex-wrap items-end lg:pb-2 container mx-auto px-4'>
           <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
             <div className="flex flex-wrap items-end w-full">
               <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
@@ -97,32 +85,26 @@ const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
             </div>                
           </div>
         </div>
-        <RentPlayNotice data={data?.allowed} />               
-        <div className="flex flex-row flex-wrap items-center mt-3 md:mt-4 gap-3">
-          <div className="mr-2">
-            <TrailerPlayButton data={data?.allowed} itemId={data?._id}/>
-          </div>
-          <LinkRoute href={`${detailUrl}`} type="hoverOutline">
-              Know More
-              <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />
-          </LinkRoute>
-          {(isAuthenticated)&&<FavoriteButton movieId={data?._id} isInWatchList={data?.isInWatchList}/>}
-          {(data?._id)?<>
-              <button 
-                  onClick={handleToggle}
-                  className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition">
-                  <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
-              </button>
-              <SocialShare 
-                  open={open}
-                  setOpen={setOpen}
-                  url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
-                  title={data?.title}
-              />
-          </>:null}
-        </div>
-      </div>
+      </div>      
     </div>
+    <div className="container mx-auto px-4">
+    <RentPlayNotice data={data?.allowed} />
+    <div className="flex flex-row items-center lg:mb-5 flex-wrap justify-between mx-[-7px]">
+      <div className="w-1/2 px-[7px]">
+        <TrailerPlayButton data={data?.allowed} itemId={data?._id} size="full"/>
+      </div>
+      <div className="w-1/2 px-[7px]">
+        <LinkRoute href={`${detailUrl}`} type="outline" size="full">
+            Know More
+            <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />
+        </LinkRoute>
+      </div>
+    </div> 
+  </div>
+  <div className="mb-[-32px]">
+    <ShareBtnGroup data={data} />
+  </div>
+  </>
   );
 };
 export default MovieListHeroBannerMobile;
