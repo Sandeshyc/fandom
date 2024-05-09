@@ -8,6 +8,7 @@ import DetailsHeroImage from "@/modules/skeletons/components/DetailsHeroImage";
 import ReelHeading from "@/modules/skeletons/elements/ReelHeading";
 import useIsMobile from "@/hooks/useIsMobile";
 import MovieListHeroBanner from "@/modules/skeletons/components/MovieListHeroBanner";
+import MovieListHeroBannerItems from "@/modules/skeletons/components/MovieListHeroBannerItems";
 let settings = {
     dots: false,
     infinite: false,
@@ -71,28 +72,10 @@ const PackageMovielist = () => {
           <div className='relative'>
             <MovieListHeroBanner />
             <div className="absolute left-0 right-0 bottom-0 pl-4 md:pl-16">
-              <div className='relative mt-[-20px] z-20 bg-black'>
-                  <div className='block lg:hidden'>
-                      <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-                          <div className='aspect-[6/9] min-w-[150px] mr-2'>
-                          <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[6/9] w-full' /> 
-                          </div>
-                      </div>
-                  </div>
-                  <div className='hidden lg:block'>
-                  <Slider
-                  {...settings}>
-                      {Array(10).fill(0).map((_,i) => (
-                        <div>
-                        <Skeleton baseColor='#333' highlightColor='#666' className='aspect-video w-full' /> 
-                        </div>
-                        ))} 
-                  </Slider>
-                  </div>
-              </div>
+              <MovieListHeroBannerItems />              
             </div>
           </div>
-          <div className='bg-black text-white pt-12'>      
+          <div className='bg-black text-white pt-8'>      
               <div className="container mx-auto px-4">
                   <MovieDetails />
               </div>

@@ -18,7 +18,6 @@ const CONTENT_QUERY = gql`
         contentType
         quality
         genre
-        canBuy
         description
         allowedPlans {
           id
@@ -40,8 +39,7 @@ const CONTENT_QUERY = gql`
           transactionId
           message
           validityPeriod
-        }
-        isPackage
+        }        
         isInWatchList
         currentTime
         videoDuration
@@ -50,6 +48,39 @@ const CONTENT_QUERY = gql`
         videoUrl
         trailerVideo
         onAirDate
+        cast {
+          _id
+          celebrityId
+          fullname
+          imageBackground
+          imageThumbnailMedium
+          imageThumbnailSmall
+          imageUrl
+          imageUrlMobile
+          isIndividual
+        }
+        director {
+          _id
+          celebrityId
+          fullname
+          imageBackground
+          imageThumbnailMedium
+          imageThumbnailSmall
+          imageUrl
+          imageUrlMobile
+          isIndividual
+        }
+        writer {
+          _id
+          celebrityId
+          fullname
+          imageBackground
+          imageThumbnailMedium
+          imageThumbnailSmall
+          imageUrl
+          imageUrlMobile
+          isIndividual
+        }
       }
   }
 `;
