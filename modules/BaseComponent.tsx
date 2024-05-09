@@ -11,7 +11,7 @@ const BaseComponent = (props:any) => {
     if (queryMap[module.sourceType]) {
       // console.log('BC ',{id: module.itemCode ?? module.source ?? "", userId: module.userId})
       const { loading, error, data: gqData } = useQuery(queryMap[module.sourceType], 
-        {variables: {input: {id: module.itemCode ?? module.source ?? "", 
+        {fetchPolicy: "no-cache", variables: {input: {id: module.itemCode ?? module.source ?? "", 
           userId: module.userId,
           countryCode: module.countryCode
         }}});
@@ -34,7 +34,7 @@ const BaseComponent = (props:any) => {
           <GetComponent displayType={module?.displayType as string} />
         </>
       );
-      if (error && 1) return (
+      if (error) return (
         <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>
       );
 
