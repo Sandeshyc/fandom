@@ -1,22 +1,22 @@
 import MovieDetails from "@/components/Skeleton/MovieDetails";
 import ReelHeading from "@/modules/skeletons/elements/ReelHeading";
 import useIsMobile from "@/hooks/useIsMobile";
-import MovieListHeroBanner from "@/modules/skeletons/components/MovieListHeroBanner";
-import MovieListHeroBannerItems from "@/modules/skeletons/components/MovieListHeroBannerItems";
-import PackageMovielistMobile from "@/modules/skeletons/components/PackageMovielistMobile";
-const PackageMovielist = () => {
+import MovieListHeroBannerMobile from "@/modules/skeletons/components/MovieListHeroBannerMobile";
+import MovieListHeroBannerItemsMobile from "@/modules/skeletons/components/MovieListHeroBannerItemsMobile";
+import PackageMovielist from "@/modules/skeletons/components/PackageMovielist";
+const PackageMovielistMobile = () => {
     const isMobile = useIsMobile();
     return (
         <>
-        {(isMobile) ? <PackageMovielistMobile /> : 
+        {(!isMobile) ? <PackageMovielist /> :
         <div className={`my-[5vw] movieListHeroBanner`}>
           <div className="px-4 max-w-[1600px] mx-auto">
             <ReelHeading />
           </div>
-          <div className='relative'>
-            <MovieListHeroBanner />
-            <div className="absolute left-0 right-0 bottom-0 pl-4 md:pl-16">
-              <MovieListHeroBannerItems />              
+          <div className='relative bg-black'>
+            <MovieListHeroBannerMobile />
+            <div className="pl-4 mt-[-30px]">
+              <MovieListHeroBannerItemsMobile />              
             </div>
           </div>
           <div className='bg-black text-white pt-8'>      
@@ -29,4 +29,4 @@ const PackageMovielist = () => {
         </>
     )
 }
-export default PackageMovielist;
+export default PackageMovielistMobile;

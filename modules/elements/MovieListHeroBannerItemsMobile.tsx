@@ -27,7 +27,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
   const [current, setCurrent] = React.useState(0);
   const sliderRef = useRef(null);
 
-  const hendleSlideChange = (e, movie) => {
+  const hendleSlideChange = (e:any, movie:any) => {
     // console.log('e', e.currentTarget.dataset.index, current);
     setCurrentMovie(movie);
     setCurrent(parseInt(e.currentTarget.dataset.index));
@@ -36,7 +36,7 @@ const MovieListHeroBannerItemsMobile = ({ data, title, portrait, setCurrentMovie
   const hendleNext = () => {
     const index = ((current < data?.length - 1)  ? current  + 1 : data?.length - 1);
     // console.log('index - ', index)
-    setCurrent(parseInt(index));
+    setCurrent(parseInt(index as any));
     setCurrentMovie(data[index]);
     sliderRef?.current.slickGoTo(index);
   }

@@ -9,7 +9,7 @@ import WatchTrailerBtn from "@/components/WatchTrailerBtn";
 import FavoriteButton from "@/components/FavoriteButton";
 import { ShareIcon } from "@heroicons/react/24/solid";
 import SocialShare from "@/modules/elements/SocialShare";
-import checkAuthentication from "@/utils/checkAuth";
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import Title from "@/modules/Identities/Title";
 import { yearFromDate } from "@/utils/yearFromDate";
 import LinkRoute from "@/modules/Identities/LinkRoute";
@@ -26,10 +26,11 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   const router = useRouter();
   // console.log('data Package Movie', data);
   const [open, setOpen] = React.useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isLoginUser = useCheckAuthentication();
   const [inView, setInView] = React.useState(false);
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
+  const [isInLish, setIsInLish] = React.useState(data?.isInWatchList);
   const detailUrl = `/details/${data?._id}`;
   let releaseYear = data?.releaseDate;
   let trailerUrl = "";
@@ -56,12 +57,8 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   };
 
   useEffect(() => {
-    const _checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthentication();
-      setIsAuthenticated(isAuthenticated);
-    };
-    _checkAuthentication();
-  }, []);
+    setIsInLish(data?.isInWatchList);
+  }, [data]);
   return (
     <div className={`relative billboardSec`}>
       <div
@@ -154,10 +151,10 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
               Know More
               <ArrowForwardIosOutlined className="w-5 h-5 ml-2 text-contentColor/80" />
             </LinkRoute>
-            {isAuthenticated && (
+            {isLoginUser && (
               <FavoriteButton
                 movieId={data?._id}
-                isInWatchList={data?.isInWatchList}
+                isInWatchList={isInLish}
               />
             )}
             {data?._id ? (

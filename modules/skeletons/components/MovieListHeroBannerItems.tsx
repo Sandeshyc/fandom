@@ -37,7 +37,7 @@ let settings = {
     },
   ],
 };
-const MovieListHeroBannerItems = () => {
+const MovieListHeroBannerItemsMobile = () => {
   return (
     <div className={`group movieSlider`}>
       <div className="relative z-10">
@@ -63,4 +63,4 @@ const MovieListHeroBannerItems = () => {
     </div>
   );
 };
-export default MovieListHeroBannerItems;
+export default MovieListHeroBannerItemsMobile;
