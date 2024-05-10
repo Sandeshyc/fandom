@@ -5,39 +5,43 @@ import DisabledButton from "@/modules/elements/Purchase/DisabledButton";
 import { isOnAir } from "@/utils/dataTimeChecking";
 type Props = {
     data: any;
+    allowedData: any;
     itemId: string;
-    size?: 'sm' | 'md' | 'lg';
-    onAirDate?: string; 
+    size?: 'sm' | 'md' | 'lg'; 
 };
 const RentPlayButtonLink = (inputProps: Props) => {
-    const { data, itemId, size, onAirDate } = inputProps;
+    const { data, itemId, size, allowedData } = inputProps;
     const detailUrl = `/details/${itemId}`;
     const watchUrl = `/watch/${itemId}`;
     let rentBtnTxt = "Rent";
-    if(onAirDate && !isOnAir(onAirDate)){
+    let playNowTxt = "Play Now";
+    if(data?.onAirDate && !isOnAir(data?.onAirDate)){
         rentBtnTxt = "Pre-book";
+    }
+    if(data?.currentTime && data?.currentTime > 0){
+        playNowTxt = "Resume";
     }
     return (
         <>
-        {(data?.allowed) ? (
+        {(allowedData?.allowed) ? (
             <>
-            {(data?.canPlay)?(
+            {(allowedData?.canPlay)?(
                 <LinkRoute href={watchUrl} type="white" size={size}>
                     {((size !== 'sm') && (size !== 'md')) && (<PlayIcon className="w-5 text-black mr-2" />)}
-                    Play Now
+                    {playNowTxt}
                 </LinkRoute>
             )
             :
             (
                 <DisabledButton stage="play" size={size}>
                     {((size !== 'sm') && (size !== 'md')) && (<PlayIcon className="w-5 text-black mr-2" />)}                    
-                    Play Now
+                    {playNowTxt}
                 </DisabledButton>
             )}
             </>
         ) : (
             <>
-            {(data?.canBuy)?(
+            {(allowedData?.canBuy)?(
                 <LinkRoute href={`${detailUrl}/?viewPlan=true`} type="primary" size={size}>
                     {rentBtnTxt}
                 </LinkRoute>

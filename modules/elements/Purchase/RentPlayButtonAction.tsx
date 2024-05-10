@@ -15,9 +15,13 @@ const RentPlayButtonAction = (inputProps: Props) => {
     const [isPackagePopupOpen, setIsPackagePopupOpen] = useState(false);
     const watchUrl = `/watch/${data?._id}`;
     let rentBtnTxt = "Rent";
+    let playNowTxt = "Play Now";
     const onAirDate = data?.onAirDate;
     if(onAirDate && !isOnAir(onAirDate)){
         rentBtnTxt = "Pre-book";
+    }
+    if(data?.currentTime && data?.currentTime > 0){
+        playNowTxt = "Resume";
     }
     useEffect(() => {
         // URLSearchParams perchasePlan 
@@ -44,14 +48,14 @@ const RentPlayButtonAction = (inputProps: Props) => {
             {(allowedData?.canPlay)?(
                 <LinkRoute href={watchUrl} type="white" size={size}>
                     {((size !== 'sm') && (size !== 'md')) && (<PlayIcon className="w-5 text-black mr-2" />)}
-                    Play Now
+                    {playNowTxt}
                 </LinkRoute>
             )
             :
             (
                 <DisabledButton stage="play" size={size}>
                     {((size !== 'sm') && (size !== 'md')) && (<PlayIcon className="w-5 text-black mr-2" />)}                    
-                    Play Now
+                    {playNowTxt}
                 </DisabledButton>
             )}
             </>

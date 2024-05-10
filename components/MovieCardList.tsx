@@ -79,9 +79,9 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
             <div className="mb-2 mt-4">
               <RentPlayButtonLink
                 itemId={data?._id}
-                data={data?.allowed}
+                data={data}
+                allowedData={data?.allowed}
                 size="sm"
-                onAirDate={data?.onAirDate}
               />
             </div>
           )}

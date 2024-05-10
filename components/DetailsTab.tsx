@@ -61,6 +61,11 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
                     content:data?.genre
                 },
                 {
+                    label:'Subtitles',
+                    type:'array',
+                    content:data?.closeCaptions
+                },
+                {
                     label:'Release year',
                     type:'text',
                     content: (data?.releaseDate)?yearFromDate(data?.releaseDate as string):'' as string

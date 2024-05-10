@@ -1,26 +1,33 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
 import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import useIsMobile from '@/hooks/useIsMobile';
-import checkAuthentication from '@/utils/checkAuth';
+import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import {
   DataUsage
 } from '@mui/icons-material';
-const bgImage = 'url("/images/new-bg.png")';
 const MyProfile = () => {
+  const iframeRef = useRef( null as any );
   const router = useRouter();
   const isMobile = useIsMobile();
-  const { productId, userid, transactionId, env } = router.query;
+  const isLoginUser = useCheckAuthentication();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [itemCode, setItemCode] = useState('');
+  const [heightx, setHeightx] = useState("0px");
+  const { productId, userid, transactionId, env } = router.query;
   const iframeParams = `${process.env.NEXT_PUBLIC_PAYMENT_URI}?userid=${userid}&productId=${productId}&transactionId=${transactionId}&env=${env}`;
+
 
   const handleIframeLoad = () => {
     setIframeLoaded(true);
+    const iframeRefComp = iframeRef.current;
+    // iframe.style.height = iframe.contentWindow.document.body.scrollHeight + "px";
+    // const temp = iframe.contentWindow.document.body.scrollHeight + "px";
+    // setHeight(temp);
   };
 
   const handleBackBtn = () => {
@@ -31,18 +38,17 @@ const MyProfile = () => {
       router.replace('/');
     }
   };
+
   useEffect(() => {
     if(iframeLoaded){
-      const _checkAuthentication = async () => {
-        const isAuthenticated = await checkAuthentication();
-        console.log('isAuthenticated:', isAuthenticated);
-        if(!isAuthenticated){
-          handleBackBtn();
-        }
-      }
-      _checkAuthentication();
+      const iframeRefComp = iframeRef.current;
+      // console.log('window.self', window.self);
+      // console.log('window.top', window.top);
+      // const tempHeight = iframeRefComp.contentWindow.document.body.scrollHeight + "px";
+      // setHeightx(tempHeight);
+      // console.log('iframeRefComp', iframeRefComp?.querySelector('body'));
     }
-  },[iframeLoaded]);
+  }, [iframeLoaded]);
 
   useEffect(() => {    
     const tempItemCode = window.localStorage.getItem('itemCode');
@@ -66,11 +72,11 @@ const MyProfile = () => {
                 <span className="font-light">Back</span>
               </p>
               <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold">
-                Payment 
+                Payment
             </p>
             </div> 
             <div className="lg:px-6 pb-6 flex flex-wrap">
-              {(!iframeLoaded)?(<div className='text-white w-full h-screen flex justify-center p-8'>
+              {(!iframeLoaded)&&(<div className='text-white w-full h-screen flex justify-center p-8'>
                 <div className='flex flex-col items-center'>
                   <DataUsage className='animate-spin w-24 h-24' 
                     sx={{
@@ -79,13 +85,19 @@ const MyProfile = () => {
                   />
                   <h1 className='text-4xl text-center mt-4'>Loading...</h1>
                 </div>
-              </div>):null}
-              <iframe 
-                className='w-full h-[100vh]'
-                src={iframeParams}  
-                onLoad={handleIframeLoad}     
-                >                
-              </iframe>
+              </div>)}
+
+              {(isLoginUser)&&(
+                <iframe 
+                  ref={iframeRef}
+                  className='w-full h-[100vh]'
+                  // height={height}
+                  src={iframeParams}  
+                  onLoad={handleIframeLoad}    
+                  // scrolling="no" 
+                  >                
+                </iframe>
+              )}
             </div>
           </div>
         </div>

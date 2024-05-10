@@ -18,6 +18,7 @@ const CONTENT_QUERY = gql`
         contentType
         quality
         genre
+        closeCaptions
         description
         allowedPlans {
           id

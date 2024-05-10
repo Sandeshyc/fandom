@@ -228,7 +228,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             player?.on('ready', function() {
                 console.log('Video Ready');
                 setIsReady(true);
-                if(isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
+                if(!isRestart && data?.currentTime && data?.videoDuration && data?.currentTime < data?.videoDuration){
                     player.seek(data?.currentTime);
                 }
             });
