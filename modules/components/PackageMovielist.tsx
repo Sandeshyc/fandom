@@ -4,7 +4,6 @@ import MovieListHeroBannerItems from "@/modules/elements/MovieListHeroBannerItem
 import ReelHeading from "@/modules/elements/ReelHeading";
 import useIsMobile from "@/hooks/useIsMobile";
 import PackageMovielistMobile from "@/modules/components/PackageMovielistMobile";
-import MovieDetailsTab from "@/modules/elements/MovieDetailsTab";
 import DetailsTab from "@/components/DetailsTab";
 import { usePackageMovielist } from "@/stores/UserStore";
 

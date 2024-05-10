@@ -1,6 +1,5 @@
 import React from 'react';
 import DetailsTab from '@/components/DetailsTab';
-import MovieDetailsTab from '@/modules/elements/MovieDetailsTab';
 
 
 type dataProps = {

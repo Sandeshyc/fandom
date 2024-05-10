@@ -14,7 +14,8 @@ const PURCHASES_QUERY = gql`
         thumbnailPortrait
         trailerUrl
         onAirDate
-        
+        sourcePlatform
+        planDescription
         allowed {
           allowed
           canBuy
@@ -26,7 +27,9 @@ const PURCHASES_QUERY = gql`
         contentRating
         duration
         genre
-        endTime  
+        endTime 
+        currentTime 
+        videoDuration
         isInWatchList      
         header {
           text

@@ -288,8 +288,8 @@ const EventCardReel: React.FC<MovieCardProps> = ({
                   <RentPlayButtonLink
                   itemId={data?._id} 
                   size="md"
-                  data={data?.allowed}
-                  onAirDate={data?.onAirDate}
+                  data={data}
+                  allowedData={data?.allowed}
                   />
               )}
             </div>

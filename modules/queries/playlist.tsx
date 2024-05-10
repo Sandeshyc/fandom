@@ -30,6 +30,8 @@ const PLAYLIST_QUERY = gql`
         publishSchedule
         releaseDate
         duration
+        currentTime
+        videoDuration
         genre
         isInWatchList
         header {
