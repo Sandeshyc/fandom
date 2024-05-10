@@ -15,7 +15,7 @@ const BaseComponent = (props:any) => {
           userId: module.userId,
           countryCode: module.countryCode
         }}});
-      // console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
+      console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
       let data = gqData?.[module.sourceType]?.items;
       // console.log('GQL DATA: ', module, 'gqData: ',gqData, 'data:',data);
       if (module.sourceType === 'content' 
