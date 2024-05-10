@@ -1,12 +1,12 @@
-import { type } from 'os';
 import React, {useEffect, useState} from 'react';
 import { MovieInterface } from '@/types';
 import { NoMovies } from '@/modules/Identities/NoFound';
 import ReelHeading from '@/modules/elements/ReelHeading';
 import MovieCardPurchase from '@/components/MovieCardPurchase';
-import useAllTickets from '@/hooks/useAllTickets';
-import SkeletonListCard from '@/components/Skeleton/ListCard';
 import { stableKeys } from '@/utils/stableKeys';
+import PurchasesAll from '@/modules/elements/PurchasesAll';
+import useClientLocaion from "@/hooks/useClientLocaion";
+
 type Props = {
     data:MovieInterface[];
     title?: string;
@@ -15,49 +15,14 @@ type Props = {
     linkText?: string;
 };
 const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false }:Props) => {
-    // console.log('data ddds', data);
-    // if(Array.isArray(data) && data?.length > 0 ) {
-    //     data = data.filter((item: any) => item && item.itemCode);
-    // }
-    // console.log('data ddd', data);
     const [openTab, setOpenTab] = useState(0);
     const [userId, setUserId] = useState('');
-    const [allTicketsItems, setAllTicketsItems] = useState([]);
-    const [allTicketsLoaded, setAllTicketsLoaded] = useState(false);
-    const {
-        getAllTickets
-    } = useAllTickets();
+    const {data: clientLocation, error: locationError}:any = useClientLocaion();
+    const region = clientLocation?.country?.isoCode;
     
     const handelTabChange = (tab:number) => {
         setOpenTab(tab);
-        if(tab === 1) {
-            setAllTickets();
-        }
     };
-
-    const setAllTickets = () => {
-        const _getAllTickets = async (userId:string) => {
-            let allTickets = await getAllTickets(userId);
-            if(Array.isArray(allTickets) && allTickets?.length > 0 ) {
-                allTickets = allTickets.filter((item: any) => item && item.itemCode);
-            }
-            setAllTicketsItems(allTickets);
-            setAllTicketsLoaded(true);
-            console.log('allTickets: ', allTickets);
-        };
-        if(userId) {
-            _getAllTickets(userId);
-        }else {
-            const userInfo = window.localStorage.getItem('userInfo');
-            if (userInfo) {
-                const userInfoObj = JSON.parse(userInfo);
-                if(userInfoObj.sub) {
-                  setUserId(userInfoObj.sub);
-                  _getAllTickets(userInfoObj.sub);
-                }
-            }
-        }
-    }
 
     useEffect(() => {
         const userInfo = window.localStorage.getItem('userInfo'); 
@@ -66,17 +31,9 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
           if(userInfoObj.sub) {
             setUserId(userInfoObj.sub);
           }
-        }        
+        }   
     }, []);
-
-    const ExpairedItems = data.filter((item:MovieInterface) => {
-        return item.endTime < new Date().toISOString();
-    });
-    // const ActiveItems = data.filter((item:MovieInterface) => {
-    //     return item.endTime > new Date().toISOString();
-    // });
     const ActiveItems = data;
-    // check data?_id is available
 
     const ReelContent = () => (<div className={` z-10 relative mb-[3vw]`}>
         <div className='px-2'>
@@ -92,7 +49,7 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
               >Active</li>
             <li className={`text-white border-2 flex justify-center items-center ${(openTab === 1)?'border-white bg-blue-500':'border-gray-500'} rounded-full h-[40px] py-2 px-4 mr-2 min-w-[100px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
               onClick={() => handelTabChange(1)}
-              >All</li>
+              >Expire</li>
         </ul>
         <div className={`${(openTab === 0)?'flex flex-wrap w-full':'hidden'}`}>            
             {(Array.isArray(ActiveItems) && ActiveItems?.length > 0)?
@@ -106,19 +63,13 @@ const MovieListVertical = ({ data, title, link, linkText, isBoxesLayout = false 
             <NoMovies/>}
         </div>
         <div className={`${(openTab === 1)?'flex flex-wrap w-full':'hidden'}`}>
-            {(allTicketsLoaded)?
-                <>{(Array.isArray(allTicketsItems) && allTicketsItems?.length > 0)?allTicketsItems.map((item:MovieInterface, index:number) => (
-                <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4' key={stableKeys[index]}>
-                    <MovieCardPurchase
-                    data={item}
-                    />
-                </div>
-                )):<NoMovies/>}
-                </>:
-            <div className="flex flex-wrap w-full">
-                <SkeletonListCard count={5}/>
-            </div>
-            }
+            {(openTab === 1)&&(
+                <PurchasesAll 
+                data={{
+                    userId: userId,
+                    countryCode: region
+                }}/>
+            )}
         </div>
   </div>);
 

@@ -1,18 +1,21 @@
 import { gql } from "@apollo/client";
 
-const PLAYLIST_QUERY = gql`
+const PURCHASES_QUERY = gql`
   query ($input: QueryInput) {
-    playlist(input: $input) {
+    purchasesAll (input: $input) {
       assetId
-
       items {
         _id
         assetId
         title
         description
         offAirDate
+        thumbnailBannerUrl
+        thumbnailPortrait
+        trailerUrl
         onAirDate
-        contentType
+        sourcePlatform
+        planDescription
         allowed {
           allowed
           canBuy
@@ -20,20 +23,14 @@ const PLAYLIST_QUERY = gql`
           message
           bought
         }
-        trailerUrl
-        thumbnailBannerUrl
-        thumbnailPortrait
-        thumbnailUrl
-        thumbnailPortraitUrl
         thumbnailLandscapeUrl
         contentRating
-        publishSchedule
-        releaseDate
         duration
-        currentTime
-        videoDuration
         genre
-        isInWatchList
+        endTime 
+        currentTime 
+        videoDuration
+        isInWatchList      
         header {
           text
           type
@@ -48,4 +45,4 @@ const PLAYLIST_QUERY = gql`
   }
 `;
 
-export default PLAYLIST_QUERY;
+export default PURCHASES_QUERY;
