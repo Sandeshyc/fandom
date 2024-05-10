@@ -27,8 +27,16 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
 
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
+  const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
     const errors = []
+    const userInfo = window.localStorage.getItem("userInfo");
+    let userId = ""
+    if (userInfo) {
+      const userInfoObj = JSON.parse(userInfo);
+      if (userInfoObj.sub) {
+        userId = userInfoObj.sub;
+      }
+    }
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, locations, path }) => {
         errors.push({type: 'gqlError', message, locations, path});
@@ -40,20 +48,19 @@ export default function App({
     if (networkError) {
       errors.push({type: 'network', message: networkError});
       console.error(`[Network error]: ${networkError}`);
+      // return forward(operation)
     }
-    console.log(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`)
-    const userInfo = window.localStorage.getItem("userInfo");
-    let userId = ""
-    if (userInfo) {
-      const userInfoObj = JSON.parse(userInfo);
-      if (userInfoObj.sub) {
-        userId = userInfoObj.sub;
-      }
-    }
+    
     try {
-      axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, {dste: new Date(), userId, errors})
+      
+      axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, 
+        {date: new Date(), userId, errors, operation, operationStr: JSON.stringify(operation) })
     } catch (e) {
       console.log(e)
+    }
+    if (networkError) {
+      console.log('RETRY :::::: ')
+      return forward(operation)
     }
   });
   
@@ -73,7 +80,7 @@ export default function App({
 
   const client = new ApolloClient({
     // uri: "http://localhost:4000/graphql",
-    link: from([errorLink, retryLink, httpLink]),
+    link: from([errorLink, httpLink]),
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
