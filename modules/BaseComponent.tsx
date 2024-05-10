@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import queryMap from './queries'
 import GetComponent from '@/modules/skeletons';
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
+import axios from 'axios'
 
 const BaseComponent = (props:any) => {
   // console.log('BaseComponent ', props);
@@ -15,7 +16,7 @@ const BaseComponent = (props:any) => {
           userId: module.userId,
           countryCode: module.countryCode
         }}});
-      console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
+      // console.log('GQL DATA ', module, gqData, 'Loading', loading, error)
       let data = gqData?.[module.sourceType]?.items;
       // console.log('GQL DATA: ', module, 'gqData: ',gqData, 'data:',data);
       if (module.sourceType === 'content' 
@@ -34,9 +35,19 @@ const BaseComponent = (props:any) => {
           <GetComponent displayType={module?.displayType as string} />
         </>
       );
-      if (error) return (
-        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>
-      );
+      if (error) {
+        console.log('ERROR ::::')
+        try {
+      
+          axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, 
+            {date: new Date(), userId: module?.user, errorType: 'Retry Failed', sourceType: module?.sourceType })
+        } catch (e) {
+          console.log(e)
+        }
+        return (
+          <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>
+        );
+      }
 
       const newChild = React.cloneElement(props.children, {
           data,
