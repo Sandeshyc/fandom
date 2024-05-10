@@ -3,9 +3,8 @@ import { auth } from '@/utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const useCheckAuthentication = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(window?.sessionStorage?.getItem('isUserLoggin') === 'true' ? true : false);
     const [isLoading, setIsLoading] = useState(true);
-
     useEffect(() => {
         const provider = localStorage.getItem('provider');
         if (provider === 'firebase') {
@@ -25,8 +24,8 @@ const useCheckAuthentication = () => {
             setIsAuthenticated(!!userInfo);
             setIsLoading(false);
         }
+        window?.sessionStorage?.setItem('isUserLoggin', isAuthenticated ? 'true' : 'false');
     }, []);
-
     return isAuthenticated;
 };
 

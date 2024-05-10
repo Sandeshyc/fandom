@@ -11,7 +11,13 @@ type Props = {
 };
 const RentPlayButtonLink = (inputProps: Props) => {
     const { data, itemId, size, allowedData } = inputProps;
-    const detailUrl = `/details/${itemId}`;
+    let detailUrl = `/details/${itemId}`;
+    if(data?.__typename === 'Series'){
+        detailUrl = `/tvshow/${itemId}`;
+    }else if(data?.__typename === 'Channel'){
+        detailUrl = `/channel/${itemId}`;
+    }
+    
     const watchUrl = `/watch/${itemId}`;
     let rentBtnTxt = "Rent";
     let playNowTxt = "Play Now";

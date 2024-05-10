@@ -1,17 +1,24 @@
-import axios from 'axios';
+import { useQuery } from '@apollo/client';
+import queryMap from '@/modules/queries';
 
 const useAllTickets = () => {
-    const getAllTickets = async (userid: string) => {
-      const headers = {
-          'Content-Type' : 'application/json',
-      };  
+    const getAllTickets = async (userid: string, countryCode:string) => {
+      console.log('saim allTickets: ', userid, countryCode);
       try{
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/content/user/${userid}`, { headers });
-        if(response.status === 200) {
-          return response.data;
-        }else{
-          return response.data;
-        }
+        const { loading, error, data: gqData } = useQuery(queryMap['purchasesAll'], 
+          {variables: 
+              {input: 
+                  { 
+                      userId: '6B4223FA-EBD3-4C8E-813D-CCFC7AEF3BE4',
+                      countryCode: 'BD'
+                  }
+              }
+          }
+      );
+      console.log('saim gqData: ', gqData);
+      let purchasesAll = gqData?.purchasesAll?.items;
+      console.log('saim allTickets: ', purchasesAll);
+      return purchasesAll;
       }catch(e){
         return e;
       }
