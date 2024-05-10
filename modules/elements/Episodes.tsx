@@ -9,9 +9,6 @@ type Props = {
 const itemPerPage = 10;
 const Episodes = ({episodes}:Props) => {    
     const [episodeLists, setEpisodeLists] = React.useState(episodes || []);
-    console.log('episodes', episodes);
-    console.log('episodeLists', episodeLists);
-    const [displayedEpisodes, setDisplayedEpisodes] = useState( [] as any);
     const [searchKey, setSearchKey] = useState('');
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +26,7 @@ const Episodes = ({episodes}:Props) => {
             tempEpisodes = episodes.filter((item: any) => item && item._id);
             setEpisodeLists(tempEpisodes);
         }
+        setSearchKey('');
     }, [episodes]);
 
     useEffect(() => {
