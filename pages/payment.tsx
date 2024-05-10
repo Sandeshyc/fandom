@@ -86,7 +86,6 @@ const MyProfile = () => {
                   <h1 className='text-4xl text-center mt-4'>Loading...</h1>
                 </div>
               </div>)}
-
               {(isLoginUser)&&(
                 <iframe 
                   ref={iframeRef}
