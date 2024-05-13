@@ -34,74 +34,75 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
                 content:data?.description
             });
         }
-        
-        tempTabArgs.push({
-            id: 'section2',
-            label:'Cast & Crew',
-            type:'arrays',
-            content: [
-                {
-                    label:'Cast',
-                    type:'castCarousel',
-                    director: data?.director,
-                    writer: data?.writer,
-                    cast: data?.cast
-                }
-            ]
-        });
-        tempTabArgs.push({
-            id: 'section3',
-            label:'More Info', 
-            type:'arrays',
-            title: 'More Info',
-            content:[
-                {
-                    label:'Genres',
-                    type:'array',
-                    content:data?.genre
-                },
-                {
-                    label:'Subtitles',
-                    type:'array',
-                    content:data?.closeCaptions
-                },
-                {
-                    label:'Release year',
-                    type:'text',
-                    content: (data?.releaseDate)?yearFromDate(data?.releaseDate as string):'' as string
-                },
-                {
-                    label:'Duration',
-                    type:'text',
-                    content:data?.duration
-                },
-                {
-                    label:'Quality',
-                    type:'text',
-                    content:data?.quality
-                },
-                {
-                    label:'Rating',
-                    type:'text',
-                    content:data?.contentRating
-                },
-                {
-                    label:'Production Studio',
-                    type:'text',
-                    content:data?.contentProvider
-                },                
-                {
-                    label:'Language',
-                    type:'text',
-                    content:data?.language
-                },
-                {
-                    label:'Tags',
-                    type:'array',
-                    content:data?.tags
-                },
-            ]
-        });
+        if(!isShow){
+            tempTabArgs.push({
+                id: 'section2',
+                label:'Cast & Crew',
+                type:'arrays',
+                content: [
+                    {
+                        label:'Cast',
+                        type:'castCarousel',
+                        director: data?.director,
+                        writer: data?.writer,
+                        cast: data?.cast
+                    }
+                ]
+            });
+            tempTabArgs.push({
+                id: 'section3',
+                label:'More Info', 
+                type:'arrays',
+                title: 'More Info',
+                content:[
+                    {
+                        label:'Genres',
+                        type:'array',
+                        content:data?.genre
+                    },
+                    {
+                        label:'Subtitles',
+                        type:'array',
+                        content:data?.closeCaptions
+                    },
+                    {
+                        label:'Release year',
+                        type:'text',
+                        content: (data?.releaseDate)?yearFromDate(data?.releaseDate as string):'' as string
+                    },
+                    {
+                        label:'Duration',
+                        type:'text',
+                        content:data?.duration
+                    },
+                    {
+                        label:'Quality',
+                        type:'text',
+                        content:data?.quality
+                    },
+                    {
+                        label:'Rating',
+                        type:'text',
+                        content:data?.contentRating
+                    },
+                    {
+                        label:'Production Studio',
+                        type:'text',
+                        content:data?.contentProvider
+                    },                
+                    {
+                        label:'Language',
+                        type:'text',
+                        content:data?.language
+                    },
+                    {
+                        label:'Tags',
+                        type:'array',
+                        content:data?.tags
+                    },
+                ]
+            });
+        }        
         setTabArgs(tempTabArgs as any);
     }, [data]);
   return (
