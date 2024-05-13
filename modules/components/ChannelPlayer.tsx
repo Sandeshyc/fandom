@@ -13,6 +13,7 @@ const ChannelPlayer = (inputProps:dataProps) => {
     const router = useRouter();
     const [backBtnActive, setBackBtnActive] = React.useState(false);
     const [mouseActive, setMouseActive] = React.useState(true);
+    const [backMouseActive, setBackMouseActive] = useState(true);
     const thumb = getThumbnailLandscape(data);
     const [videoURL, setVideoURL] = React.useState(
         {
@@ -29,6 +30,12 @@ const ChannelPlayer = (inputProps:dataProps) => {
             setMouseActive(false);
         }, 3000);
     }
+    const backMouseEnter = () => {
+        setBackMouseActive(true);
+      }
+      const backMouseLeave = () => {
+        setBackMouseActive(false);
+      }
     const handleBack = () => {
         if(!backBtnActive){
           router.back();
@@ -43,7 +50,9 @@ const ChannelPlayer = (inputProps:dataProps) => {
     }, [data]);
     return (
         <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
-            {mouseActive && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}>
+            {(mouseActive || backMouseActive) && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`} 
+            onMouseEnter={backMouseEnter}
+            onMouseLeave={backMouseLeave}>
                 <ArrowLeftIcon 
                     onClick={handleBack} 
                     className={`w-8 md:w-12 text-white ${(backBtnActive)?'cursor-wait':'cursor-pointer'} hover:opacity-80 transition border-2 border-blue-500 rounded-full p-1`} 

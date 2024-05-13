@@ -31,8 +31,9 @@ const Episodes = ({episodes}:Props) => {
 
     useEffect(() => {
         if(searchKey !== '' && searchKey !== null && searchKey !== undefined && searchKey.length > 0){
-            const filteredData = episodes.filter((episode:any) => {
-                return episode.title.toLowerCase().includes(searchKey.toLowerCase());
+            const filteredData = episodeLists.filter((episode:any) => {
+                if(episode === null || episode === undefined) return false;
+                return episode?.title.toLowerCase().includes(searchKey.toLowerCase());
             });
             setEpisodeLists(filteredData);
         }else{
