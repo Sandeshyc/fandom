@@ -29,19 +29,12 @@ const RollBorderedMulti = ({
     return null;
   }
   const ReelContent = () => (
-    <div className={`mt-[2vw] mb-[3vw] movieSlider portrait`}>
+    <div className={`min-h-[70vh] z-10 relative my-8 lg:mt-[2vw] lg:mb-[3vw] movieSlider ${(isMobile) ? 'portrait': ""}`}>
       <div className="movieSliderInner">
         <ReelHeading title={title}/>
-        <div className="flex flex-wrap mx-[-10px] lg:hidden">
+        <div className="flex flex-wrap mx-[-7px] lg:mx-[-15px]"> 
             {data?.map((movie, index) => (
-              <div className="w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/5 p-[10px] pt-0" key={stableKeys[index]}>
-                <MovieCardReelBorderd data={movie} />
-              </div>
-            ))}
-        </div>
-        <div className="hidden lg:flex flex-wrap mx-[-20px]">
-            {data?.map((movie, index) => (
-              <div className="w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/5 p-[7px] lg:p-[15px] pt-0" key={stableKeys[index]}>
+              <div className="w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-[7px] lg:p-[15px] pt-0" key={stableKeys[index]}>
                 <MovieCardReelBorderd data={movie} />
               </div>
             ))}
@@ -66,7 +59,7 @@ const RollBorderedMulti = ({
             </div>
           </>
         ) : (
-          <div className="pl-4 md:pl-16 mt-2 pr-2"
+          <div className="px-4 max-w-[2400px] mx-auto"
           style={{
             marginTop: marginTop ? ((isMobile)?'70px': '120px') : '0px',
           }}

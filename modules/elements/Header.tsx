@@ -14,8 +14,7 @@ const Header = () => {
     <div 
       className={`mainHeader mainNavbar fixed top-0 left-0 z-40 w-full pt-2 bg-gradient-to-b from-black/80 from-50% via-black/50 via-70% to-black/10 to-100%`}>
         <div className='px-4 flex items-center justify-between relative'>
-          <div className='flex items-center absolute top-0 h-full w-full left-0 justify-center z-10
-          '>
+          <div className='flex items-center absolute top-0 h-full w-full left-0 justify-center z-10'>
             <p
               className='text-white font-medium text-[20px]'>Tickets</p>
           </div>

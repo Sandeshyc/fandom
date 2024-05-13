@@ -49,7 +49,7 @@ const ChannelPlayer = (inputProps:dataProps) => {
         });
     }, [data]);
     return (
-        <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}
+        <div className="h-[80vh] lg:h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}
             style={{
                 backgroundImage: `url(${thumb})`,
                 backgroundSize: "cover",
@@ -67,20 +67,20 @@ const ChannelPlayer = (inputProps:dataProps) => {
                     <span className="font-light">Watching:</span> {data?.title}
                 </p>
             </nav>)}
-            <div className="jk_jwp_full h-screen w-screen">
                 {(data.allowed.allowed && data.allowed.canPlay)?
-                    <VideoPlayer 
-                    image={thumb}
-                    video={videoURL} 
-                    caption={captionURL}
-                    control={true}
-                    autoplay={true}
-                    isComplited={() => {}}
-                    data={data}
-                    isRestart={false}
-                    pictureInPicture={true}/>
+                    <div className="channel_jwp_full h-[80vh] lg:h-screen w-screen">
+                        <VideoPlayer 
+                        image={thumb}
+                        video={videoURL} 
+                        caption={captionURL}
+                        control={true}
+                        autoplay={true}
+                        isComplited={() => {}}
+                        data={data}
+                        isRestart={false}
+                        pictureInPicture={true}/>
+                    </div>
                 :null}
-            </div>
         </div>
     );
 }

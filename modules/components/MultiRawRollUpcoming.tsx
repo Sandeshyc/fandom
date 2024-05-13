@@ -23,9 +23,9 @@ const MultiRawRollUpcoming: React.FC<MovieListProps> = ({ data, title, source, p
             <ReelHeading 
                 title={title} 
                 />
-            <div className='flex flex-wrap py-4 md:mx-[-10px] pr-4'>
+            <div className='flex flex-wrap mx-[-7px] lg:mx-[-15px] mt-2'>
                 {data?.map((movie, index) => (
-                    <div className="w-full md:w-1/2 xl:w-1/3 3xl:w-1/4 md:p-[10px] mb-6">
+                    <div className="w-full md:w-1/2 xl:w-1/3 3xl:w-1/4 p-[7px] lg:p-[15px] pt-0 mb-6">
                         <EventCardReel key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient}/>
                     </div>
                 ))}

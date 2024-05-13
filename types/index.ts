@@ -48,4 +48,5 @@ export interface MovieInterface {
   handelRemoveWatchingList?:any;
   footer?:{};
   __typename?: string;
+  contentType?: string;
 }

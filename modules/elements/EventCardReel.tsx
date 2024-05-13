@@ -61,7 +61,7 @@ const EventCardReel: React.FC<MovieCardProps> = ({
     : "";
   // console.log('publishDate', publishDate);
   const date = new Date();
-  let timeZoneOffset = date.getTimezoneOffset();
+  let timeZoneOffset = date.getTimezoneOffset() as any;
   timeZoneOffset = -(timeZoneOffset / 60);
   if (timeZoneOffset > 0) {
     timeZoneOffset = "GMT +" + timeZoneOffset;

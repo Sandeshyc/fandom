@@ -55,7 +55,7 @@ const PlanItem = ({
           "contentType" : itemData?.contentType
         };
         console.log('data s', data);
-        const res = await auditEntitlement(data);
+        let res = await auditEntitlement(data);
         console.log('res', res);
         if(res.status === 'success' || res.status === 'process'){
           if(res.status === 'process'){
@@ -80,6 +80,12 @@ const PlanItem = ({
     const userInfor = localStorage.getItem('userInfo');
     const transactionId = uuidv4();
     setIsLoading(true);
+    let itemUrl = '/details/'+movieId;
+    if(itemData?.contentType === 'TVShow'){
+      itemUrl = '/tvshow/'+movieId;
+    }else if(itemData?.contentType === 'TvChannel'){
+      itemUrl = '/channel/'+movieId;
+    }
     if(userInfor){
       const userInfo = JSON.parse(userInfor);
       const {sub} = userInfo;
@@ -103,6 +109,7 @@ const PlanItem = ({
               setRentTransactionId(res.transitionId);
             }
             window.localStorage.setItem('itemCode', movieId);
+            window.localStorage.setItem('itemUrl', itemUrl);
             let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${sub}&productId=${productId}&transactionId=${(res.status === 'process')?res.transitionId:transactionId}`;
             if(process.env.NODE_ENV === 'development'){
               forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
@@ -127,8 +134,8 @@ const PlanItem = ({
             }
           }else{
             window.location.reload();
+            setIsLoading(false); 
           }
-          setIsLoading(false); 
         }
         _getProfile();
         // _auditEntitlementCall(); 
@@ -140,7 +147,8 @@ const PlanItem = ({
       const callbackParams = {
         "itemCode": movieId,
         "priceSKU": productId,
-        "transactionId": transactionId
+        "transactionId": transactionId,
+        "itemUrl": itemUrl
     };
       localStorage.setItem('callbackParams', JSON.stringify(callbackParams));
       router.push('/auth');    

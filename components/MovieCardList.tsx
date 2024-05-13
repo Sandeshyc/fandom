@@ -18,10 +18,16 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
   const [isRemove, setIsRemove] = React.useState(false);
 
-  const redirectToDetails = useCallback(
-    () => router.push(`/details/${data._id}`),
-    [router, data._id]
-  );
+  
+  const redirectToDetails = useCallback(() => {
+    if(data?.contentType === 'TVShow'){
+      router.push(`/tvshow/${data?._id}`);
+    }else if(data?.contentType === 'TvChannel'){
+      router.push(`/channel/${data?._id}`);
+    }else{
+      router.push(`/details/${data?._id}`);      
+    }
+  }, [router, data._id]);
   const isRemoveHandler = (isRemove: boolean) => {
     setIsRemove(isRemove);
   };
