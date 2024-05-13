@@ -62,7 +62,7 @@ const NavigationHome = () => {
                       <div className='mr-3 xl:mr-6 relative'>
                         <SearchBox/>
                       </div>
-                      {(isLoginUser)?<Notification />:null}                      
+                      {/* {(isLoginUser)?<Notification />:null}                       */}
                       <ProfileDropDown/>
                     </div>
                   </div>

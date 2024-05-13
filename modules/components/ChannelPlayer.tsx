@@ -49,7 +49,13 @@ const ChannelPlayer = (inputProps:dataProps) => {
         });
     }, [data]);
     return (
-        <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
+        <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}
+            style={{
+                backgroundImage: `url(${thumb})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+            }}>
             {(mouseActive || backMouseActive) && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`} 
             onMouseEnter={backMouseEnter}
             onMouseLeave={backMouseLeave}>
@@ -61,12 +67,7 @@ const ChannelPlayer = (inputProps:dataProps) => {
                     <span className="font-light">Watching:</span> {data?.title}
                 </p>
             </nav>)}
-            <div className="jk_jwp_full h-screen w-screen" style={{
-                backgroundImage: `url(${thumb})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                }}>
+            <div className="jk_jwp_full h-screen w-screen">
                 {(data.allowed.allowed && data.allowed.canPlay)?
                     <VideoPlayer 
                     image={thumb}

@@ -28,10 +28,10 @@ const Header = () => {
             </div>
           </div>
           <div className='flex flex-row items-center relative z-20'>
-            <div className='mr-3 sm:mr-6 relative'>
+            <div className='relative'>
               <SearchBox/>
             </div>
-            {(isLoginUser)&&<Notification/>}            
+            {/* {(isLoginUser)&&<Notification/>}*/}
           </div>
         </div>
     </div>

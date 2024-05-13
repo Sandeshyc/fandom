@@ -22,6 +22,16 @@ const CHANNEL_QUERY = gql`
           message
           bought
         }
+        allowedPlans {
+          id
+          name
+          priceSKU
+          googlePriceSKU
+          description
+          price
+          currency
+          promoText
+        }
         isInWatchList
         contentRating
         header {

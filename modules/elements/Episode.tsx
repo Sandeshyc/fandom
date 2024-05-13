@@ -2,9 +2,9 @@ import React, {useCallback} from 'react';
 import { useRouter } from 'next/router';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 import {convertESTtoLocalTime } from '@/utils/yearFromDate';
-import LinkRoute from '@/modules/Identities/LinkRoute';
 import { getThumbnailLandscape } from '@/utils/getData';
 import RentPlayButtonAction from '@/modules/elements/Purchase/RentPlayButtonAction';
+import RentPlayNotice from '@/modules/elements/Purchase/RentPlayNotice';
 type Props = {
     episode:any
     slNo:number | string
@@ -15,9 +15,9 @@ const Episode = ({episode, slNo}:Props) => {
     const title = episode?.title;
     const thumbnail = getThumbnailLandscape(episode);
     const description = episode?.description;
-    let onAirDate = episode?.onAirDate;
-    if(onAirDate){
-        onAirDate = convertESTtoLocalTime(onAirDate);
+    let releaseDate = episode?.releaseDate;
+    if(releaseDate){
+        releaseDate = convertESTtoLocalTime(releaseDate);
     }      
     if(!slNo){
         slNo = '';
@@ -45,7 +45,7 @@ const Episode = ({episode, slNo}:Props) => {
                 {(episode?.contentRating)?(<span className="border-white/80 border px-1 mr-1 mb-1 text-xs rounded-sm">{episode?.contentRating}</span>):null}
                 <span className='text-xs mb-1'>
                     {(episode?.duration)&&episode?.duration + ' . '}
-                    {onAirDate}
+                    {releaseDate}
                 </span>
             </p>
             <div className='text-sm mt-4 text-white/70'>
@@ -54,12 +54,15 @@ const Episode = ({episode, slNo}:Props) => {
             />
             </div>
         </div>
-        <div className='w-full lg:w-1/3 md:text-center md:pl-2'>
+        <div className='w-full lg:w-1/3 md:text-center md:pl-2 mt-2 lg:mt-0'>
             <RentPlayButtonAction 
                 data={episode}
                 allowedData={episode?.allowed}
                 size='lg'
             />
+            <div className='mt-2 text-left'>
+                <RentPlayNotice data={episode?.allowed} />
+            </div>
         </div>
     </div>);
 }

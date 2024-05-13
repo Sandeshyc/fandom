@@ -1,24 +1,18 @@
-import React, { useRef, useCallback, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { round, set } from 'lodash';
+import React, { useRef, useCallback, useEffect } from "react";
+import { useRouter } from "next/router";
+import { round, set } from "lodash";
 import {
   addToMyList,
   removeFromMyList,
   removeFromWatchingLists,
-} from '@/services/api';
-import { MovieInterface } from '@/types';
-import useMoviePopupStore from '@/hooks/useMoviePopupStore';
-import EnititlementEndDate from '@/components/Expair';
-import PublishDate from '@/modules/Identities/PublishDate';
-import PublishDateDetails from '@/modules/Identities/PublishDateDetails';
-import ProgressBar from '@/components/elements/ProgressBar';
-import BadgeMobile from '@/modules/Identities/BadgeMobile';
-import RollImage from '@/modules/Identities/RollImage';
-import {Cancel} from '@mui/icons-material';
-import CardHeaderMobile from '@/modules/elements/CardHeaderMobile';
-import CardFooterMobile from '@/modules/elements/CardFooterMobile';
-import { getThumbnailPortrait } from '@/utils/getData';
+} from "@/services/api";
+import { MovieInterface } from "@/types";
+import useMoviePopupStore from "@/hooks/useMoviePopupStore";
+import ProgressBar from "@/components/elements/ProgressBar";
+import { Cancel } from "@mui/icons-material";
+import CardHeaderMobile from "@/modules/elements/CardHeaderMobile";
+import CardFooterMobile from "@/modules/elements/CardFooterMobile";
+import { getThumbnailPortrait } from "@/utils/getData";
 interface MovieCardProps {
   data: MovieInterface;
   portrait?: boolean;
@@ -27,11 +21,19 @@ interface MovieCardProps {
   setRemovedItem?: any;
 }
 
-const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrait, gradient, sliderRef, setRemovedItem }) => {
+const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({
+  data,
+  portrait,
+  gradient,
+  sliderRef,
+  setRemovedItem,
+}) => {
   const router = useRouter();
-  const { openModal, updateModal} = useMoviePopupStore();
-  const [userId, setUserId] = React.useState('');
-  const [isInWatchListTemp, setIsInWatchListTemp] = React.useState(data?.isInWatchList || false);
+  const { openModal, updateModal } = useMoviePopupStore();
+  const [userId, setUserId] = React.useState("");
+  const [isInWatchListTemp, setIsInWatchListTemp] = React.useState(
+    data?.isInWatchList || false
+  );
   const [removeRequest, setRemoveRequest] = React.useState(false);
   const [watchListRequest, setWatchListRequest] = React.useState(false);
   const [popupIsLoading, setPopupIsLoading] = React.useState(false);
@@ -59,13 +61,14 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrai
     const widthUnit = 30;
     let thumbW = thumbOuter?.getBoundingClientRect()?.width;
     let thumbH = thumbOuter?.getBoundingClientRect()?.height;
-    let top = thumbOuter?.getBoundingClientRect()?.top + window.scrollY + (thumbH / 2);
-    let left = thumbOuter?.getBoundingClientRect()?.left + (thumbW / 2);
+    let top =
+      thumbOuter?.getBoundingClientRect()?.top + window.scrollY + thumbH / 2;
+    let left = thumbOuter?.getBoundingClientRect()?.left + thumbW / 2;
     // console.log('thumbW', thumbW, thumbH, top, left);
     let popWidth = unit * widthUnit;
-    popWidth = (popWidth < 400)? 400 : popWidth;
+    popWidth = popWidth < 400 ? 400 : popWidth;
     const itemWidth = thumbOuter?.getBoundingClientRect()?.width;
-    if(itemWidth){
+    if (itemWidth) {
       popWidth = itemWidth * 1.5;
     }
     const popWidthHalf = popWidth / 2;
@@ -73,10 +76,12 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrai
     top = round(top - popWidthHalf);
 
     left = round(left - popWidthHalf);
-    left = (left < 0)? 20 : left;
-    left = (left > (window.innerWidth - popWidth - 20))? (window.innerWidth - popWidth - 40) : left;
+    left = left < 0 ? 20 : left;
+    left =
+      left > window.innerWidth - popWidth - 20
+        ? window.innerWidth - popWidth - 40
+        : left;
 
-    
     dataExtend.xy = {
       x: left,
       y: round(top),
@@ -89,131 +94,145 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({ data, portrai
     x.current = true;
     timer = setTimeout(() => {
       // console.log('timer', timer, x.current);
-      if(x.current && openModal){
+      if (x.current && openModal) {
         openModal(dataExtend);
       }
     }, 400);
-  }
+  };
 
   const onMouseLeave = () => {
     x.current = false;
     clearTimeout(timer);
-  }
-  const title = data?.title || '';
+  };
+  const title = data?.title || "";
   let thumbURl = getThumbnailPortrait(data);
-  let aspectRatio = '6/9';
+  let aspectRatio = "6/9";
   let progress = 0;
-  if(data?.currentTime && data?.videoDuration){
-    const duration:number = data?.videoDuration || 1;
-    const current:number = data?.currentTime || 1;
-    if(current !== 0 && duration !== 0){
-      progress =  (current / duration) * 100;
+  if (data?.currentTime && data?.videoDuration) {
+    const duration: number = data?.videoDuration || 1;
+    const current: number = data?.currentTime || 1;
+    if (current !== 0 && duration !== 0) {
+      progress = (current / duration) * 100;
     }
   }
   const redirectToWatch = useCallback(() => {
-    router.push(`/details/${data?._id}`)
-  }, [router, data?._id]);  
-  const noGradientClass = gradient ? '' : ' bg-black py-1 ';
+    router.push(`/details/${data?._id}`);
+  }, [router, data?._id]);
+  const noGradientClass = gradient ? "" : " bg-black py-1 ";
 
-  const handelAddMyList = async (isInLish : boolean) => {
-      console.log('handelAddMyList', isInWatchListTemp, userId, data?._id);      
-      dataExtend.popupIsLoading = true;
-      updateModal(dataExtend);
-      let response;
-      if(!isInLish) {
-        response = await removeFromMyList(userId, data?._id);
-      }else{
-        response = await addToMyList(userId, data?._id);
-      }
-      console.log('response List: ', response);
-      if(response.status === 'success') {
-        dataExtend.isInWatchListTemp = isInLish;
-        setIsInWatchListTemp(isInLish);
-        console.log('isInWatchListTemp: 2 ', isInWatchListTemp);
-      }else{
-        console.log('Error: ', response);
-      }
-      dataExtend.popupIsLoading = false;
-      updateModal(dataExtend);
-      console.log('isInWatchListTemp: 3 ', isInWatchListTemp);
+  const handelAddMyList = async (isInLish: boolean) => {
+    console.log("handelAddMyList", isInWatchListTemp, userId, data?._id);
+    dataExtend.popupIsLoading = true;
+    updateModal(dataExtend);
+    let response;
+    if (!isInLish) {
+      response = await removeFromMyList(userId, data?._id);
+    } else {
+      response = await addToMyList(userId, data?._id);
+    }
+    console.log("response List: ", response);
+    if (response.status === "success") {
+      dataExtend.isInWatchListTemp = isInLish;
+      setIsInWatchListTemp(isInLish);
+      console.log("isInWatchListTemp: 2 ", isInWatchListTemp);
+    } else {
+      console.log("Error: ", response);
+    }
+    dataExtend.popupIsLoading = false;
+    updateModal(dataExtend);
+    console.log("isInWatchListTemp: 3 ", isInWatchListTemp);
   };
 
   const handelRemoveWatchingList = async () => {
-    console.log('handelRemoveWatchingList');
+    console.log("handelRemoveWatchingList");
     dataExtend.popupIsLoading = true;
     updateModal(dataExtend);
     let response;
     response = await removeFromWatchingLists(userId, data?._id);
-    console.log('response List: ', response);
-    if(response.status === 'success') {
+    console.log("response List: ", response);
+    if (response.status === "success") {
       dataExtend.isInWatchListTemp = false;
       setIsInWatchListTemp(false);
-      console.log('isInWatchListTemp: 2 ', isInWatchListTemp);
+      console.log("isInWatchListTemp: 2 ", isInWatchListTemp);
       dataExtend.popupIsLoading = false;
       dataExtend.itemRemoved = true;
       setTimeout(() => {
-        setRemovedItem(data?._id); 
+        setRemovedItem(data?._id);
       }, 100);
-    }else{
-      console.log('Error: ', response);
+    } else {
+      console.log("Error: ", response);
     }
-    updateModal(dataExtend);     
+    updateModal(dataExtend);
     dataExtend.popupIsLoading = false;
   };
 
   useEffect(() => {
-    const userInfo = window.localStorage.getItem('userInfo');
-    if(userInfo) {
+    const userInfo = window.localStorage.getItem("userInfo");
+    if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
-      if(userInfoObj.sub) {
+      if (userInfoObj.sub) {
         setUserId(userInfoObj.sub);
       }
     }
   }, []);
-  const className = ' flex justify-center items-center text-center text-transparent cursor-pointer object-contain shadow-xl rounded-md z-10';
+  const className =
+    "flex justify-center items-center text-center text-transparent cursor-pointer object-contain shadow-xl rounded-md z-10";
   return (
-    <div className='p-[10px] flex flex-col justify-end relative movieCard w-1/2 sm:w-1/3  md:w-1/4'>
-      <div className='mb-0'>
-      <CardHeaderMobile header={data?.header} />
+    <div className="p-[10px] flex flex-col justify-end relative movieCard w-1/2 sm:w-1/3  md:w-1/4">
+      <div className="mb-0">
+        <CardHeaderMobile header={data?.header} />
       </div>
-      <div 
-      ref={thumbOuterRef}
-      className={` w-full group bg-zinc-700 rounded-md col-span relative cursor-pointer aspect-[${aspectRatio}]`} 
-      onMouseEnter={onHoverHandler} 
-      onMouseLeave={onMouseLeave}
-      onClick={redirectToWatch}
-      > 
-        <div className='relative w-full'>        
-          <div className='absolute z-30 bottom-0 left-0 w-full '>
+      <div
+        ref={thumbOuterRef}
+        className={` w-full group bg-zinc-700 rounded-md col-span relative cursor-pointer aspect-[${aspectRatio}]`}
+        onMouseEnter={onHoverHandler}
+        onMouseLeave={onMouseLeave}
+        onClick={redirectToWatch}
+      >
+        <div className="relative w-full">
+          <div className="absolute z-30 bottom-0 left-0 w-full ">
             <CardFooterMobile footer={data?.footer} />
-            {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
-              <ProgressBar done={progress} />
-              <div onClick={(e) => {
-              e.stopPropagation();
-              handelRemoveWatchingList();
-            }} className={`cursor-pointer lg:hidden`}>
+            {data?.currentTime || data?.currentTime === 0 ? (
+              <div className="m-2 mt-0 flex items-center">
+                <ProgressBar done={progress} />
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handelRemoveWatchingList();
+                  }}
+                  className={`cursor-pointer lg:hidden`}
+                >
                   <Cancel className={`text-white w-4`} />
                 </div>
-              </div> : null}
-          </div> 
+              </div>
+            ) : null}
+          </div>
           {/* <RollImage thumbURl={thumbURl} title={title} /> */}
           <>
-          {(thumbURl)?
-            <img src={thumbURl}
-            alt={title}
-            draggable={false}
-            className={`w-full aspect-[6/9] ${className} `}
-            />:<p
-            className={`imgPlaceholder p-2 text-sm lg:text-lg flex justify-center items-center text-center text-gray-500 cursor-pointer  shadow-xl rounded-md aspect-[6/9]`} >
+            {thumbURl ? (
+              <img
+                src={thumbURl}
+                alt={title}
+                draggable={false}
+                className={`w-full aspect-[6/9] ${className} `}
+              />
+            ) : (
+              <p
+                className={`imgPlaceholder p-2 text-sm lg:text-lg flex justify-center items-center text-center text-gray-500 cursor-pointer  shadow-xl rounded-md aspect-[6/9]`}
+              >
                 {title}
-            </p>
-          }
+              </p>
+            )}
           </>
-          {gradient? <div className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}/> : null}
+          {gradient ? (
+            <div
+              className={`jkGradient absolute z-20 bottom-0 left-0 w-full h-full cursor-pointer`}
+            />
+          ) : null}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default MovieCardReelPortraitMultiRaw;
