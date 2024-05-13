@@ -96,6 +96,7 @@ const TVSHOW_QUERY = gql`
           currentTime
           videoDuration
           onAirDate
+          releaseDate
         }
       }
     }

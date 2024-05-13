@@ -247,7 +247,7 @@ const Auth = () => {
             {(isSubmit && isSuccess)?<p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>
               Success! Please wait a moment.
               </p>:null}
-            <LoginWithIwantTFC isLoading={tfcLoading}/>
+            {/* <LoginWithIwantTFC isLoading={tfcLoading}/> */}
             <button 
             className="h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#222] rounded-[50px] w-full transition bg-[#fff] hover:bg-[#fff]/90 active:opacity-65"
             onClick={() => LoginPage()}>

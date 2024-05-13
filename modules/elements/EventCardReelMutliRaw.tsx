@@ -99,11 +99,11 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     clearTimeout(timer);
   }
   let thumbURl = '';
-  let aspectRatio = '384/216';
+  let aspectRatio = '16/9';
   const title = data?.title || '';
   if(portrait){
     thumbURl = getThumbnailPortrait(data);
-    aspectRatio = '240/360';
+    aspectRatio = '6/9';
   }else{
     thumbURl = getThumbnailLandscape(data);
   }
@@ -181,7 +181,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
   }, []);
 
   return (
-    <div className='w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/6 p-[7px] lg:p-[15px] pt-0'>    
+    <div className='w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-[7px] lg:p-[15px] pt-0'>    
         <div 
         ref={thumbOuterRef}
         className={`group bg-zinc-800 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 
@@ -190,7 +190,7 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
         onClick={redirectToWatch}>
         <CardHeader header={data?.header} />
         <div className='img relative h-full w-full'>        
-            <div className='absolute z-30 bottom-0 left-0 w-full '>
+            <div className='absolute z-30 bottom-0 left-0 w-full'>
             <CardFooter footer={data?.footer} />
             {(data?.currentTime || data?.currentTime === 0) ? <div className='m-2 mt-0 flex items-center'>
                 <ProgressBar done={progress} />

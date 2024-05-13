@@ -57,7 +57,7 @@ const MovieListReelMultiRaw: React.FC<MovieListProps> = ({ data, title, source, 
           ))}
         </div>
       </div>
-      <div className="hidden lg:flex flex-wrap mx-[-20px]">
+      <div className="hidden lg:flex flex-wrap mx-[-7px] lg:mx-[-15px]">
           {newData?.map((movie, index) => (
             <EventCardReelMutliRaw key={stableKeys[index]} data={movie} portrait={portrait} gradient={gradient} sliderRef={sliderRef} setRemovedItem={setRemovedItem}/>
           ))}
