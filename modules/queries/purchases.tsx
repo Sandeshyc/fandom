@@ -31,11 +31,7 @@ const PURCHASES_QUERY = gql`
         endTime 
         currentTime 
         videoDuration
-        isInWatchList      
-        header {
-          text
-          type
-        }
+        isInWatchList
         footer {
           text
           iconType

@@ -1,8 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, use} from 'react';
 import Episode from '@/modules/elements/Episode';
 import SearchIcon from '@mui/icons-material/Search';
 import Pagination from '@/modules/elements/Pagination';
 import { stableKeys } from '@/utils/stableKeys';
+import {
+    SwapVert
+} from '@mui/icons-material';
 type Props = {
     episodes:any
 }
@@ -10,6 +13,7 @@ const itemPerPage = 10;
 const Episodes = ({episodes}:Props) => {    
     const [episodeLists, setEpisodeLists] = React.useState(episodes || []);
     const [searchKey, setSearchKey] = useState('');
+    const [isSorted, setIsSorted] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
     const handlePageChange = (pageNumber: number) => {
@@ -19,6 +23,9 @@ const Episodes = ({episodes}:Props) => {
     const handleSearch = (e:any) => {
         setSearchKey(e.target.value);        
     };
+    const handleSort = () => {
+        setIsSorted(!isSorted);
+    }
 
     useEffect(() => {
         let tempEpisodes = episodes;
@@ -42,6 +49,10 @@ const Episodes = ({episodes}:Props) => {
             }
         }
     }, [searchKey]);
+    useEffect(() => {
+        setEpisodeLists([...episodeLists].reverse());
+    }, [isSorted]);
+
     // need to Update Search Filter for Pagination
 
 
@@ -53,22 +64,34 @@ const Episodes = ({episodes}:Props) => {
     // }, [currentPage]);
     return (
         <div className='min-h-[160px]'>
-            <div className={`bg-gray-700 text-white rounded-md flex w-full max-w-full mb-8`}>
-                <input 
-                type="text" 
-                className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px] h-[44px]" 
-                placeholder="Search episodes"
-                value={searchKey}
-                onChange={handleSearch}
-                />
-                <button
-                type='submit'
-                className="w-[40px]">
-                    <SearchIcon className="text-gray-400 w-6 h-6" />
+            <div className='mb-8 flex flex-wrap'>
+                <div className={`bg-gray-700 text-white rounded-md flex max-w-full w-[120px] grow`}>
+                    <input 
+                    type="text" 
+                    className="w-full bg-transparent text-white rounded-md px-4 py-2 focus:outline-none focus:border-transparent pr-[55px] h-[44px]" 
+                    placeholder="Search episodes"
+                    value={searchKey}
+                    onChange={handleSearch}
+                    />
+                    <button
+                    type='submit'
+                    className="w-[40px]">
+                        <SearchIcon className="text-gray-400 w-6 h-6" />
+                    </button>
+                </div>
+                <button className={`h-[44px] border border-white/${(isSorted)?'80':'50'} rounded-md ml-2 w-[44px]`}
+                    onClick={handleSort}    
+                >
+                    <SwapVert 
+                        sx={{ 
+                            color: (isSorted) ? 'white' : 'gray', 
+                            fontSize: 25
+                        }}
+                    />
                 </button>
             </div>
             {episodeLists?.map((episode:any, index:number) => (
-                <Episode key={stableKeys[index]} episode={episode} slNo={index+1} />
+                <Episode key={stableKeys[index]} episode={episode} slNo={(isSorted)?(episodeLists.length - index) : index + 1} />
             ))}
             {(itemPerPage < episodes?.length) &&
             <div className='my-4'>

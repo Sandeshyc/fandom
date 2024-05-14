@@ -62,8 +62,8 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
                     },
                     {
                         label:'Subtitles',
-                        type:'array',
-                        content:data?.closeCaptions
+                        type: (Array.isArray(data?.closeCaptions) && data?.closeCaptions.length > 0)?'array':'text',
+                        content: (Array.isArray(data?.closeCaptions) && data?.closeCaptions.length > 0)?data?.closeCaptions:'Not Available'
                     },
                     {
                         label:'Release year',

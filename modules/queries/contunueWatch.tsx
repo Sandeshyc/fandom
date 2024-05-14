@@ -29,11 +29,7 @@ const CONTINUE_WATCH_QUERY = gql`
         genre
         currentTime
         videoDuration
-        isInWatchList
-        header {
-          text
-          type
-        }
+        isInWatchList        
         footer {
           text
           iconType

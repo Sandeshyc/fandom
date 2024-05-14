@@ -11,16 +11,19 @@ const SkeletonListCard = ({
     return (
         <>
         {(Array.from(Array(count).keys()))?.map((item, index) => (
-            <div className='w-full lg:w-1/2 2xl:w-1/3 px-2 mb-4'
+            <div className='w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:px-[7px] xl:px-[14px] mb-[14px] xl:mb-[28px]'
             key={stableKeys[index]}>
-                <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white w-full rounded-sm sm:mr-4 justify-between" key={stableKeys[index]}>
-                    <div className="w-[40%] relative">
-                        <Skeleton baseColor='#333' highlightColor='#666' className='aspect-[16/9] w-full rounded-md' />
+                <div className="group bg-gray-800 relative flex flex-wrap text-white rounded-md justify-between w-full">
+                    <div className="w-[110px] sm:w-[130px] 2xl:w-[160px] bg-gray-600 rounded-md aspect-[6/9] relative">
                     </div>
-                    <div className="w-[58%] pt-0 pr-4 pb-1">
-                        <Skeleton baseColor='#333' highlightColor='#666' className='w-[80%] h-[30px] mb-2'/>
-                        <Skeleton baseColor='#333' highlightColor='#666' className='w-[80%] h-[18px]' count={2}/>
-                        <div className="w-[120px]">
+                    <div className="w-[150px] pr-2 pl-4 py-1 grow">
+                        <div className='w-[75%]'>
+                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[30px] mb-2'/>
+                        </div>
+                        <div className='mb-4 w-[50%]'>
+                            <Skeleton baseColor='#333' highlightColor='#666' className='h-[16px]'/>
+                        </div>
+                        <div className="w-[100px]">
                             <Skeleton baseColor='#333' highlightColor='#666' className='h-[34px]' borderRadius={50}/>
                         </div>
                     </div>
