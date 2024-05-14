@@ -35,6 +35,7 @@ const CHANNEL_QUERY = gql`
         }
         isInWatchList
         contentRating
+        contentType
         header {
           text
           type

@@ -12,9 +12,9 @@ type Props = {
 const RentPlayButtonLink = (inputProps: Props) => {
     const { data, itemId, size, allowedData } = inputProps;
     let detailUrl = `/details/${itemId}`;
-    if(data?.__typename === 'Series'){
+    if(data?.contentType === 'TVShow'){
         detailUrl = `/tvshow/${itemId}`;
-    }else if(data?.__typename === 'Channel'){
+    }else if(data?.contentType === 'TvChannel'){
         detailUrl = `/channel/${itemId}`;
     }
     

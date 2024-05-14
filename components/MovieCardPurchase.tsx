@@ -11,10 +11,18 @@ interface MovieCardProps {
   portrait?: boolean;
 }
 
-const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
+const MovieCardPurchase: React.FC<MovieCardProps> = ({ data, portrait }) => {
   const router = useRouter();
   const thumb = getThumbnailLandscape(data);
-  const redirectToWatch = useCallback(() => router.push(`/details/${data._id}`), [router, data._id]);
+  const redirectToWatch = useCallback(() => {
+    if(data?.contentType === 'TVShow'){
+      router.push(`/tvshow/${data?._id}`);
+    }else if(data?.contentType === 'TvChannel'){
+      router.push(`/channel/${data?._id}`);
+    }else{
+      router.push(`/details/${data?._id}`);      
+    }
+  }, [router, data._id]);
   return (
     <div className="group bg-gray-800 relative mb-4 flex flex-wrap text-white w-full rounded-md sm:mr-4 justify-between h-full">
       <div className="w-[40%] relative bg-gray-600 rounded-md">
@@ -66,4 +74,4 @@ const MovieCardUpcoming: React.FC<MovieCardProps> = ({ data, portrait }) => {
   )
 }
 
-export default MovieCardUpcoming;
+export default MovieCardPurchase;

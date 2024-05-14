@@ -26,6 +26,7 @@ const MyProfile = () => {
   const { productId, userid, transactionId, paymentStatus, paymentId } = router.query;
   useEffect(() => {
     const itemCode = window.localStorage.getItem('itemCode');
+    const itemUrl = window.localStorage.getItem('itemUrl');
     if(paymentStatus){
         if(paymentStatus === 'success'){
             const entitleCall = async () => {
@@ -55,7 +56,11 @@ const MyProfile = () => {
 
                                 // router.push(`/details/${itemCode}`);
                                 // router.replace(`/details/${itemCode}`);
-                                router.replace(`/details/${itemCode}`);
+                                if(itemUrl){
+                                    router.replace(itemUrl);
+                                }else{
+                                    router.replace(`/`);
+                                }
                             }, 2000);
                         }else{
                             setIsError(true);
@@ -79,7 +84,11 @@ const MyProfile = () => {
         }else{
             setIsError(true);
             setErrorMessage('Something went wrong. Please try again later.');
-            router.replace(`/details/${itemCode}`);
+            if(itemUrl){
+                router.replace(itemUrl);
+            }else{
+                router.replace(`/`);
+            }
         }
         // setTimeout(() => {
         //     router.push(`/details/${transactionId}`);        

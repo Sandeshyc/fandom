@@ -29,6 +29,7 @@ const WATCHLIST_QUERY = gql`
         contentRating
         duration
         genre
+        contentType
         header {
           text
           type

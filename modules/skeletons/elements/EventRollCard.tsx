@@ -31,7 +31,17 @@ const EventRollCard = () => {
               count={3}
             />
           </div>
-          <div className="flex flex-row items-center sm:justify-end gap-2 mt-2">
+          <div className="my-4">
+            <div className="w-[70%]">
+              <Skeleton
+                baseColor="#333"
+                highlightColor="#666"
+                className="h-[14px] w-full"
+                count={2}
+              />
+            </div>
+          </div>
+          <div className="flex flex-row items-center gap-2 mt-2">
             <div className="w-[100px]">
               <Skeleton
                 baseColor="#333"

@@ -8,7 +8,7 @@ import Mapper from '@/modules/ModuleMapper';
 import {getComponent} from '@/modules';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
 const bgImage = 'url("/images/new-bg.png")';
-const Home = (props:any) => {
+const MyTicket = (props:any) => {
   const [isReady, setIsReady] = React.useState(false);
   const [userId, setUserId] = React.useState("");
   const router = useRouter();
@@ -37,23 +37,24 @@ const Home = (props:any) => {
   
   return (
     <>
-      {(!isLoading && isReady ) ? (<>
-      <div className="pt-16 lg:pt-28 min-h-[80vh] bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]" style={{
-        // backgroundImage: bgImage,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '100% auto',
-        backgroundPosition: 'right '+ 30 + '%',
-      }}>
-        {/* <div className='container mx-auto max-w-[2400px]'> */}
+      {(!isLoading && isReady) ? (<>
+      <div className={cssBoxBg}
+        style={styleBoxBg}>
           <Mapper
             modules={movies}
             getComponent = {getComponent}
             isLoading = {isLoading}/>
-          {/* </div>      */}
-      </div></>) : (<div className='container mx-auto max-w-[2400px]'><Preloader/></div>)}
+      </div></>) : (<Preloader/>)}
       {(error)?<><ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/></>:null}
     </>
   )
 }
 
-export default Home;
+export default MyTicket;
+const cssBoxBg = `bg-[#050505] text-white overflow-hidden relative bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]`;
+const styleBoxBg = {
+  // backgroundImage: bgImage,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "100% auto",
+  backgroundPosition: "right " + 30 + "%",
+}

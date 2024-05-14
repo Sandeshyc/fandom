@@ -140,6 +140,9 @@ const MovieListReelFive: React.FC<MovieListProps> = ({ data, title, source, port
     if(source === 'Packages'){
       setViewAllUrl( '/categories/bundle' );
     }
+    if(source === 'Channels' || source === 'TV Shows'){
+      setViewAllUrl( '' );
+    }
   }, [data]);
   useEffect(() => {    
     if(isMobile){
