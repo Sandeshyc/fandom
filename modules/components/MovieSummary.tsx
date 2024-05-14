@@ -46,6 +46,7 @@ const MovieSummary = (inputProps:dataProps) => {
                   <p className='mb-1 flex items-center flex-wrap my-2 text-white/70 text-xs'>
                     {(data?.quality)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.quality}</span>):null}
                     {(data?.contentRating)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">{data?.contentRating}</span>):null}
+                    {(Array.isArray(data?.closeCaptions) && data?.closeCaptions.length > 0)?(<span className="border-gray-500 border px-1 mr-1 mb-1 rounded-sm">CC</span>):null}
                     {(data?.duration)?(<span className='mb-1'>{data?.duration}</span>):null}
                   </p>
                   {(Array.isArray(data?.genre) && data?.genre?.length > 0)&&

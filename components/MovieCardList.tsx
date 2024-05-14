@@ -33,7 +33,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
   };
   const thumb = getThumbnailPortrait(data);
   return !isRemove ? (
-    <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:px-[7px] mb-[14px]">
+    <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:px-[7px] xl:px-[14px] mb-[14px] xl:mb-[28px]">
       <div className="group bg-gray-800 relative flex flex-wrap text-white rounded-md justify-between w-full">
         <div className="w-[110px] sm:w-[130px] 2xl:w-[160px] bg-gray-600 rounded-md aspect-[6/9] relative">
           {thumb ? (
@@ -44,7 +44,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
               draggable={false}
               className="
           cursor-pointer
-          object-contain
+          object-cover
           rounded-md
           w-full
           h-full
@@ -65,7 +65,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
             <CardFooterMobile footer={data?.footer} />
           </div>
         </div>
-        <div className="w-[150px] px-2 py-1 grow">
+        <div className="w-[150px] pr-2 pl-4 py-1 grow">
           <p
             onClick={redirectToDetails}
             className="text-white text-base xl:text-lg mb-2 cursor-pointer line-clamp-2 leading-7">

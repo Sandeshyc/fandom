@@ -144,7 +144,6 @@ const WatchDetails = (inputProps:dataProps) => {
         }else{
           setPinMode(false);
         }
-
       }, [pcEnable, pcPinEnable, pcPin, pcRoles, movieContentRating]);
 
       useEffect(() => {
@@ -224,9 +223,7 @@ const WatchDetails = (inputProps:dataProps) => {
                         <span className="font-light">Watching:</span> {data?.title}
                     </p>
                 </nav>)}
-                <div className="jk_jwp_full"  style={{
-                    width: "100vw",
-                    height: "100vh",
+                <div className="channel_jwp_full h-[80vh] lg:h-screen w-screen"  style={{
                     backgroundImage: `url(${thumb})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",

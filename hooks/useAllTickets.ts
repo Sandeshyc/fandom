@@ -9,8 +9,8 @@ const useAllTickets = () => {
           {variables: 
               {input: 
                   { 
-                      userId: '6B4223FA-EBD3-4C8E-813D-CCFC7AEF3BE4',
-                      countryCode: 'BD'
+                      userId: userid,
+                      countryCode: countryCode
                   }
               }
           }

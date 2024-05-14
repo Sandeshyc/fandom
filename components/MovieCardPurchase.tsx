@@ -28,7 +28,7 @@ const MovieCardPurchase: React.FC<MovieCardProps> = ({ data, portrait }) => {
       <div className="w-[40%] relative bg-gray-600 rounded-md">
         <img onClick={redirectToWatch} src={ thumb } alt={data?.title || ' '} draggable={false} 
           className="cursor-pointer
-          object-contain
+          object-cover
           rounded-md
           w-full
           h-full

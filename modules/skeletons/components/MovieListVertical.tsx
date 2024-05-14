@@ -24,10 +24,10 @@ const MovieListVertical = () => {
                   borderRadius={50}/>
                 </div>
               </div>
-              <div className="sm:flex flex-wrap w-full hidden">
-                <PurchaseCard count={8}/>
+              <div className="sm:flex flex-wrap w-full hidden sm:mx-[-px]">
+                <PurchaseCardPortrait count={8}/>
               </div>
-              <div className="w-full sm:hidden">
+              <div className="w-full sm:hidden sm:mx-[-px]">
                 <PurchaseCardPortrait count={8}/>
               </div>
             </div>

@@ -64,24 +64,13 @@ const MovieListVertical = ({
           } rounded-full h-[34px] lg:h-[40px] py-2 px-4 mr-2 min-w-[100px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
           onClick={() => handelTabChange(1)}
         >
-          Expire
+          Expired
         </li>
       </ul>
-      <div className={`${openTab === 0 ? "flex flex-wrap w-full" : "hidden"}`}>
+      <div className={`${openTab === 0 ? "flex flex-wrap w-full  mx-[-14px]" : "hidden"}`}>
         {Array.isArray(ActiveItems) && ActiveItems?.length > 0 ? (
           ActiveItems.map((item: MovieInterface, index: number) => (
-            <div
-            className="hidden sm:block w-full sm:w-1/2 xl:w-1/3 2xl:w-1/4 px-2 mb-4"
-            key={stableKeys[index]}>
-                <MovieCardPurchase data={item} />
-            </div>
-          ))
-        ) : (
-          <NoMovies />
-        )}
-        {Array.isArray(ActiveItems) && ActiveItems?.length > 0 ? (
-          ActiveItems.map((item: MovieInterface, index: number) => (
-            <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:hidden px-2 mb-4" key={stableKeys[index]}>
+            <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 px-[14px] mb-[14px]" key={stableKeys[index]}>
                 <MovieCardPurchasePortrait data={item} />
             </div>
           ))
@@ -89,7 +78,7 @@ const MovieListVertical = ({
           <NoMovies />
         )}
       </div>
-      <div className={`${openTab === 1 ? "flex flex-wrap w-full" : "hidden"}`}>
+      <div className={`${openTab === 1 ? "flex flex-wrap w-full mx-[-14px]" : "hidden"}`}>
         {openTab === 1 && (
           <PurchasesAll
             data={{
