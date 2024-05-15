@@ -83,6 +83,7 @@ const CarouselItem = ({ item }: CarouselItemProps) => {
           {isLoginUser && (
             <FavoriteButton
               movieId={item?._id}
+              isInWatchList={item?.isInWatchList}
               classes="mr-4 bg-white/40 hover:bg-white/50"
               style={{
                 borderWidth: 0,

@@ -75,9 +75,9 @@ const Offers = () => {
                     <ul className="text-white flex flex-wrap text-center mt-0 mb-4 lg:mb-8 w-full text-sm lg:text-base">
                         {offerLists.map((item: any, index: number) => (
                             <li
-                                className={`text-white border-2 mb-2 flex justify-center items-center ${
+                                className={`text-xs lg:text-sm border lg:border-2 mb-2 flex justify-center items-center ${
                                     (item?.promoId === currentTab) ? "border-white bg-blue-500" : "border-gray-500"
-                                } rounded-full h-[34px] lg:h-[40px] py-2 px-4 mr-2 md:mr-4 lg:mr-8 min-w-[100px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
+                                } rounded-full h-[34px] lg:h-[40px] py-1 px-2 lg:py-2 lg:px-4 mr-2 md:mr-2 lg:mr-4 min-w-[60px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
                                 key={index}
                                 onClick={() => handlePromoTab(item?.promoId, item?.items)}
                             >

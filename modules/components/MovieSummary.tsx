@@ -66,7 +66,7 @@ const MovieSummary = (inputProps:dataProps) => {
       )
       :
       (
-        <ErrorPopUp message={"Sorry, Something went wrong!"}/>
+        <ErrorPopUp message={"Sorry, This content is not available now."}/>
       )}
       </>
     );

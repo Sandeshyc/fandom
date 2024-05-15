@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { PlusIcon, CheckIcon, MinusIcon } from '@heroicons/react/24/outline';
-import useCurrentUser from '@/hooks/useCurrentUser';
-import useFavorites from '@/hooks/useFavorites';
 import {
   addToMyList,
   removeFromMyList,

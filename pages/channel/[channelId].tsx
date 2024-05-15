@@ -75,7 +75,7 @@ const Channel = () => {
             isLoading = {isLoading}/>
         </div>
         </>:<Preloader/>}
-        {(error || isError || locationError) && <ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error}/>}
+        {(error || isError || locationError) && <ErrorPopUp message={'Sorry, This content is not available now.'} errorMsg={error}/>}
     </>
     )
 }

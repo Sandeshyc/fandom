@@ -176,7 +176,7 @@ const MovieCardReelPortraitMultiRaw: React.FC<MovieCardProps> = ({
     }
   }, []);
   const className =
-    "flex justify-center items-center text-center text-transparent cursor-pointer object-contain shadow-xl rounded-md z-10";
+    "flex justify-center items-center text-center text-transparent cursor-pointer object-cover shadow-xl rounded-md z-10";
   return (
     <div className="p-[10px] flex flex-col justify-end relative movieCard w-1/2 sm:w-1/3  md:w-1/4">
       <div className="mb-0">

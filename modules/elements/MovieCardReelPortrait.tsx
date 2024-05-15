@@ -195,7 +195,7 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
                   sx={{
                     fontSize: '1rem',
                   }}
-                  className={`text-red-600 h-2`} />
+                  className={`text-white h-2`} />
                 </div>
               </div> : null}
           </div> 

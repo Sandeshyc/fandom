@@ -10,9 +10,7 @@ import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import { getThumbnailLandscape } from "@/utils/getData";
 import RentPlayNotice from "@/modules/elements/Purchase/RentPlayNotice";
 import PackageRentPlayButtonAction from "@/modules/elements/Purchase/PackageRentPlayButtonAction";
-import {
-  usePackageMovielist
-} from '@/stores/UserStore';
+import { usePackageMovielist } from "@/stores/UserStore";
 type Props = {
   data: any;
 };
@@ -56,11 +54,11 @@ const PackageDetailsHeroImage = ({ data }: Props) => {
             {data?._id ? (
               <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
                 <div className="mr-2">
-                    <PackageRentPlayButtonAction 
-                        data={data} 
-                        allowedData={data?.allowed}
-                        size="lg"
-                        />
+                  <PackageRentPlayButtonAction
+                    data={data}
+                    allowedData={data?.allowed}
+                    size="lg"
+                  />
                 </div>
                 {hasMovieList ? (
                   <>
@@ -105,7 +103,7 @@ const PackageDetailsHeroImage = ({ data }: Props) => {
               </div>
             ) : (
               <ErrorPopUp
-                message="Sorry, Something went wrong!"
+                message="This content is not available now."
                 isRetry={false}
               />
             )}
