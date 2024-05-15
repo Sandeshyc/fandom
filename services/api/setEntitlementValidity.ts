@@ -10,7 +10,7 @@ const setEntitlementValidity = async (userId:string, data:object) => {
     };
     try {
         const response = await client.post(url, data);
-        if (response?.status === 200) {
+        if (response?.status === 200 || response?.status === 204) {
             console.log("Success case: ", response);
             returnResponse = {
                 status: 'success',

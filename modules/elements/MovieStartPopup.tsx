@@ -23,20 +23,26 @@ const MovieStartPopup = ({
     contentId,
     transactionId
 }:Props) => {
+    const [isError, setIsError] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
     const route = useRouter();
     const handleStart = async () => {
+        setIsLoading(true);
         const data = {
             "contentId": contentId,
             "transactionId": transactionId
         };
         const res = await setEntitlementValidity(userId, data);
-        // console.log('res', res);
+        console.log('res', res);
         if(res.status === 'success'){
             setIsMovieStartPopUp(false);
+            setIsError(false);
             // route.push(backUrl);
         }else{
+            setIsError(true);
             // console.log('Error: ', res.message);        
         }
+        setIsLoading(false);
     }
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-black/60 z-50 flex justify-center items-center'>
@@ -52,15 +58,25 @@ const MovieStartPopup = ({
                     <Text size='lg'>Once you start, you will have {validityPeriod} {(validityPeriod as number > 1)?'hours':'hour'} to finish this content!</Text>
                 </div>                
                 <div className='flex justify-end mt-4'>
-                    <button 
-                    onClick={handleStart}
-                    className='bg-red-500 text-white text-sm px-3 py-1 rounded-md mr-2'>Start now</button>
+                    {(isLoading)?(
+                        <button 
+                        className='bg-gray-700 text-white text-sm px-3 py-1 rounded-md mr-2 cursor-wait'>Loading...</button>
+                    ):(
+                        <button 
+                        onClick={handleStart}
+                        className='bg-red-500 text-white text-sm px-3 py-1 rounded-md mr-2'>Start now</button>
+                    )}
                     <button 
                     onClick={() => {
                         route.push(backUrl);
                     }}
                     className='bg-gray-500 text-white text-sm px-3 py-1 rounded-md'>Later</button>
                 </div>
+                {(isError)&&(
+                    <div className='text-red-500 text-sm mt-2'>
+                        <Text size='sm'>Oops! Something went wrong. Please try again.</Text>
+                    </div>                    
+                )}
             </div>
         </div>
     )

@@ -1,11 +1,16 @@
 import React from 'react';
+import Link from 'next/link';
 import PublishDate from '@/modules/Identities/PublishDate';
 import Title from '@/modules/Identities/Title';
+import Text from '@/modules/Identities/Text';
 import {capFirstLetter} from '@/utils/capFirstLetter';
 import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
 import { getThumbnailPortrait } from '@/utils/getData';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import {
+  NavigateNext
+} from '@mui/icons-material';
 
 type dataProps = {
     data: any,
@@ -34,6 +39,33 @@ const MovieSummary = (inputProps:dataProps) => {
                   <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
                 </div>
                 <div className='grow w-[100px]'>
+                  {(data?.contentType === 'Episode' || data?.contentType === 'episode') && (
+                    <div className='flex flex-wrap text-white/90 justify-start items-center'>
+                    {(data?.tvShowTitle)&&(
+                      <Text size='md' className='mb-1'>
+                        <Link href={`/tvshow/${data?.tvShowId}`} className='hover:text-white hover:underline'>
+                          {data?.tvShowTitle}
+                        </Link>
+                      </Text>
+                    )}
+                    {(parseInt(data?.seasonNumber) > 0 && data?.seasonDisplayText)&&(
+                      <span className='flex items-center mb-1'>
+                        <NavigateNext 
+                        className='text-white/50 mr-1'
+                        />
+                        <Text size='md'>{data?.seasonDisplayText}</Text>
+                      </span>
+                    )}
+                    {(data?.episodeLabel)&&(
+                      <span className='flex items-center mb-1'>
+                        <NavigateNext 
+                        className='text-white/50 mr-1'
+                        />
+                        <Text size='md'>{data?.episodeLabel}</Text>
+                      </span>
+                    )}
+                    </div>
+                  )}
                   <div className='block lg:hidden h-full mb-2 lg:mb-3'>
                     <Title tag='h1' size='xl'>{data?.title}</Title>
                   </div>
