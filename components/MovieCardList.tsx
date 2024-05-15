@@ -36,7 +36,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
     <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 sm:px-[7px] xl:px-[14px] mb-[14px] xl:mb-[28px]">
       <div className="group bg-gray-800 relative flex flex-wrap text-white rounded-md justify-between w-full">
         <div className="w-[110px] sm:w-[130px] 2xl:w-[160px] bg-gray-600 rounded-md aspect-[6/9] relative">
-          {thumb ? (
+          {(thumb) ? (
             <img
               onClick={redirectToDetails}
               src={thumb}
@@ -56,7 +56,7 @@ const MovieCardList: React.FC<MovieCardProps> = ({ data, portrait }) => {
           ) : (
             <div
               onClick={redirectToDetails}
-              className="w-full h-full text-white text-center flex justify-center items-center cursor-pointer p-1">
+              className="w-full text-xs h-full text-white text-center flex justify-center items-center cursor-pointer p-1">
               {data?.title}
             </div>
           )}

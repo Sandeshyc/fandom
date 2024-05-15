@@ -50,7 +50,7 @@ const WatchAndBuy = ({ data }: Props) => {
             </div>
           </div>
         ) : (
-          <ErrorPopUp message="Sorry, Something went wrong!" />
+          <ErrorPopUp message="This content is not available now." />
         )}
       </div>
     </div>

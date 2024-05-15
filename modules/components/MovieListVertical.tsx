@@ -67,7 +67,7 @@ const MovieListVertical = ({
           Expired
         </li>
       </ul>
-      <div className={`${openTab === 0 ? "flex flex-wrap w-full  mx-[-14px]" : "hidden"}`}>
+      <div className={`${openTab === 0 ? "flex flex-wrap mx-[-14px]" : "hidden"}`}>
         {Array.isArray(ActiveItems) && ActiveItems?.length > 0 ? (
           ActiveItems.map((item: MovieInterface, index: number) => (
             <div className="w-full sm:w-1/2 lg:w-1/3 2xl:w-1/4 px-[14px] mb-[14px]" key={stableKeys[index]}>
@@ -78,7 +78,7 @@ const MovieListVertical = ({
           <NoMovies />
         )}
       </div>
-      <div className={`${openTab === 1 ? "flex flex-wrap w-full mx-[-14px]" : "hidden"}`}>
+      <div className={`${openTab === 1 ? "flex flex-wrap mx-[-14px]" : "hidden"}`}>
         {openTab === 1 && (
           <PurchasesAll
             data={{

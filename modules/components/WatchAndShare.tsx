@@ -86,7 +86,7 @@ const WatchAndShare = (inputProps:dataProps) => {
             </div>
         )
         :
-        <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={'Movie ID Not Found!'}/>
+        <ErrorPopUp message={"This content is not available now."}/>
         }
     </>);
     

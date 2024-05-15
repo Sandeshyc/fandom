@@ -52,7 +52,7 @@ const PackageDetailsHeroImageMobile = ({data}:Props) => {
                     </div>
                 </div>:
                 <ErrorPopUp
-                message='Sorry, Something went wrong!'
+                message='This content is not available now.'
                 isRetry={false}
                 />}
             </div>

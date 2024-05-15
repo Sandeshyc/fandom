@@ -40,7 +40,7 @@ const Watch = () => {
           isLoading = {isLoading}/>
         </div>
       </>:<SkeletonWatch/>}
-      {(error || locationError) && <ErrorPopUp message={'Sorry, Something went wrong!'} errorMsg={error || locationError}/>}
+      {(error || locationError) && <ErrorPopUp message={'Sorry, This content is not available now.'} errorMsg={error || locationError}/>}
     </>
   )
 }

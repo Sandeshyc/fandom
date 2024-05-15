@@ -13,15 +13,15 @@ const OffersList = () => {
         <div className="min-h-[70vh] z-10 relative text-white">
           <ReelHeading />
           <div className="flex flex-wrap mb-4 lg:mb-8">
-                <div className='w-[110px] lg:w-[150px] mr-4'>
+                <div className='w-[90px] lg:w-[150px] mr-4'>
                   <Skeleton baseColor='#333' highlightColor='#666' className='h-[34px] lg:h-[40px]' 
                   borderRadius={50}/>
                 </div>
-                <div className='w-[110px] lg:w-[150px] mr-4'>
+                <div className='w-[100px] lg:w-[150px] mr-4'>
                   <Skeleton baseColor='#333' highlightColor='#666' className='h-[34px] lg:h-[40px]' 
                   borderRadius={50}/>
                 </div>
-                <div className='w-[110px] lg:w-[150px]'>
+                <div className='w-[80px] lg:w-[150px]'>
                   <Skeleton baseColor='#333' highlightColor='#666' className='h-[34px] lg:h-[40px]' 
                   borderRadius={50}/>
                 </div>
