@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useMovieList from "@/hooks/useMovieList";
-import SkeletonHome from "@/components/Skeleton/SkeletonHome";
+import Preloader from '@/modules/skeletons/Preloader';
 import useIsMobile from "@/hooks/useIsMobile";
 // import getLocation from "@/services/api/location";
 import useClientLocaion from "@/hooks/useClientLocaion";
@@ -68,7 +68,7 @@ const Section = (props: any) => {
             />
           </>
         ) : (
-          <SkeletonHome />
+          <Preloader />
         )}
         {(error || locationError) ? <ErrorPopUp message={"Sorry, Something went wrong!"} /> : null}
       </div>
