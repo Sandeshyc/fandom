@@ -15,7 +15,7 @@ const CastCarouselItem = ({
                     <img
                         src={thumb}
                         alt={cast?.fullname}
-                        className="object-cover w-full h-full object-top transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover w-full h-full object-top"
                     />
                 )}
             </div>

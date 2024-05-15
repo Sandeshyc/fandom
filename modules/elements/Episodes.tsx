@@ -64,7 +64,7 @@ const Episodes = ({episodes}:Props) => {
     // }, [currentPage]);
     return (
         <div className='min-h-[160px]'>
-            <div className='mb-8 flex flex-wrap'>
+            <div className={`${(Array.isArray(episodeLists) && episodeLists.length > 1)?'mb-8 flex-wrap flex':'hidden'}`}>
                 <div className={`bg-gray-700 text-white rounded-md flex max-w-full w-[120px] grow`}>
                     <input 
                     type="text" 
@@ -79,9 +79,7 @@ const Episodes = ({episodes}:Props) => {
                         <SearchIcon className="text-gray-400 w-6 h-6" />
                     </button>
                 </div>
-                <button className={`h-[44px] border border-white/${(isSorted)?'80':'50'} rounded-md ml-2 w-[44px]`}
-                    onClick={handleSort}    
-                >
+                <button className={`h-[44px] border border-blue-600 rounded-md ml-2 w-[44px]`} onClick={handleSort}>
                     <SwapVert 
                         sx={{ 
                             color: (isSorted) ? 'white' : 'gray', 

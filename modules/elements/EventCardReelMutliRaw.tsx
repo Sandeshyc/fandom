@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, use } from 'react';
 import { useRouter } from 'next/router';
 import { round, set } from 'lodash';
 import RollImage from '@/modules/Identities/RollImage';
@@ -179,9 +179,12 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
       }
     }
   }, []);
+  useEffect(() => {
+    setIsInWatchListTemp(data?.isInWatchList || false);
+  }, [data]);
 
   return (
-    <div className='w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-[7px] lg:p-[15px] pt-0'>    
+    <div className='w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-[7px] lg:p-[15px] pt-0'>
         <div 
         ref={thumbOuterRef}
         className={`group bg-zinc-800 rounded-md col-span relative movieCard cursor-pointer aspect-[${aspectRatio}]`} 

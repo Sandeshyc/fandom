@@ -59,8 +59,10 @@ const ShowSummary = (inputProps:dataProps) => {
           <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
               <div className="flex flex-wrap items-end w-full mb-4">
-                <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>
-                  <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
+                <div className='w-[100px] sm:w-[120px] mr-3 bg-zinc-700 aspect-[6/9] rounded-md overflow-hidden'>                  
+                  {(postar)&&(
+                    <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
+                  )}
                 </div>
                 <div className='grow w-[100px]'>
                   <div className=' h-full mb-2 lg:mb-3'>
@@ -91,7 +93,7 @@ const ShowSummary = (inputProps:dataProps) => {
                     className="h-[34px] lg:h-[40px] rounded-full bg-black/90 bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px] w-[125px] text-white/70 px-2 sm:px-4 py-1 focus:outline-none focus:border-transparent appearance-none outline-none pr-[20px]">
                         {allSeasons?.map((season:any, index:number) => {
                             return <option key={stableKeys[index]} value={season?._id}
-                            >Season {index + 1}</option>
+                            >{(season?.displayText)?season?.displayText:'Season ' + (index + 1)}</option>
                         })} 
                     </select>
                   </div>

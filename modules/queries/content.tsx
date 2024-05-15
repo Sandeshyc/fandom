@@ -20,6 +20,8 @@ const CONTENT_QUERY = gql`
         genre
         closeCaptions
         description
+        episodeNumber
+        episodeLabel
         allowedPlans {
           id
           name
