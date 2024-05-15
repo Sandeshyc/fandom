@@ -23,6 +23,10 @@ const OFFERS_QUERY = gql`
           transactionId
           message
         }
+        header {
+          text
+          type
+        }
         isInWatchList
         contentType
         genre
