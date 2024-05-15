@@ -35,6 +35,9 @@ const TVSHOW_QUERY = gql`
         _id
         name
         title
+        displayText
+        seasonLabel
+        seasonNumber
         allowed {
           allowed
           canBuy
@@ -74,6 +77,8 @@ const TVSHOW_QUERY = gql`
           genre
           contentType
           description
+          episodeNumber
+          episodeLabel
           allowedPlans {
             id
             name

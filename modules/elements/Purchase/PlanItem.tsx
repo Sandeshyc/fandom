@@ -154,6 +154,10 @@ const PlanItem = ({
       router.push('/auth');    
     }
   }
+  const handlePinClose = () => {
+    setIsRentPinPopup(false);
+    setIsLoading(false);
+  };
   return (<>
     {(isRentPinPopup)&&(
       <div className='!fixed top-0 left-0 w-full h-full bg-black/80 z-50 py-[150px] px-8 flex justify-center items-center'>
@@ -174,7 +178,7 @@ const PlanItem = ({
             href='/myprofile'
             className='text-[#fff]/90 text-[14px] py-1'>Forgot PIN?</LinkRoute>
           <button 
-            onClick={() => setIsRentPinPopup(false)}
+            onClick={handlePinClose}
             className='text-[#fff]/70 text-[14px] py-1'>
             Cancel
           </button>

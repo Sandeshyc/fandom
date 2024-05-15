@@ -22,7 +22,7 @@ const CardFooter = ({footer}:Props) => {
     if(textType === 'badge'){
         return (
             <div className='flex flex-wrap justify-center w-full'>
-                <p className={`mx-auto text-center min-w-[100px] text-[12px] py-1 px-3 w-auto rounded-tl-lg rounded-tr-lg shadow-lg bg-gradient-to-l from-red-700 to-red-500 text-white shadow-indigo-500/40`}>
+                <p className={`mx-auto text-center min-w-[100px] text-[12px] py-1 px-3 w-auto rounded-tl-lg rounded-tr-lg shadow-lg bg-gradient-to-l from-red-700 to-red-500 text-white`}>
                     {text}
                 </p>
             </div>

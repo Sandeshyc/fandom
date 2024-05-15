@@ -18,7 +18,7 @@
         "label": "Offers",
         "route": "/offers",
         "activeRoute": "/offers",
-        "auth": true
+        "auth": false
     },
     {
         "id": 7,
