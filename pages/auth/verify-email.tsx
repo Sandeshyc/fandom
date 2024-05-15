@@ -2,15 +2,10 @@ import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   onAuthStateChanged,
-  signInWithEmailAndPassword,
-  sendSignInLinkToEmail,
   sendEmailVerification,
   getAuth,
 } from "firebase/auth";
-import SkeletonHome from "@/components/Skeleton/SkeletonHome";
 import { MaskEmail } from "@/utils/maskEmail";
-import { Route } from "@mui/icons-material";
-import { useRouter } from "next/router";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_IDENTITY_CLIENT_ID,
@@ -83,7 +78,6 @@ const EmailVerifyModal = (auth: any) => {
           className="h-full w-full object-cover object-right-top"
           alt="all Movies"
         />
-        {/* <SkeletonHome /> */}
       </div>
       <div className="flex flex-col items-center justify-center text-gray-300 fixed w-full h-full z-50 p-8 bg-black bg-opacity-60">
         <div className="w-[80%] max-w-[1200px] rounded-md bg-gradient-to-tl to-[#000000] to-[75%] from-[#4E0558] p-4  py-16 text-center border-2 border-[#fff]">

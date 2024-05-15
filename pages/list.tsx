@@ -1,7 +1,6 @@
 import React, { use, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useListMovies from '@/hooks/useListMovies';
-import { Info } from '@mui/icons-material';
 import useIsMobile from "@/hooks/useIsMobile";
 import useClientLocaion from "@/hooks/useClientLocaion";
 import Preloader from '@/modules/skeletons/Preloader';
