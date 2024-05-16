@@ -1,13 +1,17 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {SearchIcon} from '@/utils/CustomSVGs';
+import {
+  Refresh
+} from '@mui/icons-material';
 type Props = {
   isOpened: boolean;
 }
 const SearchBoxMobile = ({isOpened}:Props) => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const searchInputRef = useRef(null);
     const schema = Yup.object().shape({
       title: Yup.string().required("Movie, Event is required")
@@ -24,6 +28,7 @@ const SearchBoxMobile = ({isOpened}:Props) => {
       onSubmit: async ({
         title,
         }) => {
+          setIsLoading(true);
           router.push(`/search?title=${title}`);
       },
       enableReinitialize: true,
@@ -54,7 +59,9 @@ const SearchBoxMobile = ({isOpened}:Props) => {
               type='submit'
               className="h-full flex justify-center items-center w-[50px] absolute
                top-0 right-0">
-                <SearchIcon />
+                {(isLoading)?<Refresh 
+                className='animate-spin'
+                />:<SearchIcon />}                
               </button>
           </form>
           {(errors.title && touched.title)?<p className='text-[#FF3636] text-[14px] py-1'>{errors.title}</p>:null}
