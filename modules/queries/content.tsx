@@ -62,6 +62,10 @@ const CONTENT_QUERY = gql`
           imageUrlMobile
           isIndividual
         }
+        header {
+          text
+          type
+        }
         director {
           _id
           celebrityId

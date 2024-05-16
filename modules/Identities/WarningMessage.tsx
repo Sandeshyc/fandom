@@ -16,8 +16,9 @@ const WarningMessage = ({
 }: Props) => {
     iconColor = iconColor || '#EAB307';
     textColor = textColor || '#fff';
+    if(!className) className = '';
     return (
-        <div className={`border border-yellow-500/70 p-2 py-1 flex flex-wrap items-center mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px] ${className} `} style={styles}>
+        <div className={`border border-blue-600 p-2 py-1 flex flex-wrap items-center mb-2 rounded-md bg-black bg-opacity-40 max-w-[410px] ${className} `} style={styles}>
             <div className='w-[25px]'>
                 <ReportProblem
                 sx={{ 

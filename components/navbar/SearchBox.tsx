@@ -27,7 +27,7 @@ const SearchBox = () => {
       onSubmit: async ({
         title,
         }) => {
-          router.push(`/search?title=${title}&page=1&limit=24&pageSize=24&offset=0`);
+          router.push(`/search?title=${title}`);
       },
       enableReinitialize: true,
     });

@@ -8,6 +8,7 @@ import { stableKeys } from '@/utils/stableKeys';
 import { yearFromDate, getTimeDifference } from '@/utils/yearFromDate';
 import { getThumbnailPortrait } from '@/utils/getData';
 import ErrorPopUp from '@/modules/elements/ErrorPopUp';
+import CardHeaderMobile from '@/modules/elements/CardHeaderMobile';
 import {
   NavigateNext
 } from '@mui/icons-material';
@@ -30,7 +31,7 @@ const MovieSummary = (inputProps:dataProps) => {
     // console.log('publishRemaining : ', data?.publishSchedule, publishRemaining)
     return (<>
       {(data?._id)?(
-      <div className='text-white z-10 relative mt-[-80px] md:mt-[-150px] bg-gradient-to-t from-black/90 from-30% to-transparent to-75%'>
+      <div className='text-white z-10 relative mt-[-80px] md:mt-[-150px] bg-gradient-to-t from-black from-50% lg:from-30% to-transparent to-75%'>
         <div className='container mx-auto px-4'>
           <div className='flex flex-wrap items-end pb-4 lg:pb-8'>
             <div className='w-full lg:w-2/3 mb-4 lg:mb-0'>
@@ -39,6 +40,9 @@ const MovieSummary = (inputProps:dataProps) => {
                   <img src={postar} alt={data?.title} className='w-full text-zinc-500 object-cover h-full flex justify-center items-center' />
                 </div>
                 <div className='grow w-[100px]'>
+                  <div className='max-w-[150px] w-full mb-2'>
+                    <CardHeaderMobile header={data?.header} />
+                  </div>
                   {(data?.contentType === 'Episode' || data?.contentType === 'episode') && (
                     <div className='flex flex-wrap text-white/90 justify-start items-center'>
                     {(data?.tvShowTitle)&&(

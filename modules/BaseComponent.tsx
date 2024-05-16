@@ -53,6 +53,7 @@ const BaseComponent = (props:any) => {
           data,
           items: data,
         });
+      // return <><GetComponent displayType={module?.displayType as string} /></>
       // return <>{newChild}<GetComponent displayType={module?.displayType as string} /></>
       return <>{newChild}</>
     } else {

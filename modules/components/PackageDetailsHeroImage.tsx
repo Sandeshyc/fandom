@@ -36,77 +36,81 @@ const PackageDetailsHeroImage = ({ data }: Props) => {
         <PackageDetailsHeroImageMobile data={data} />
       ) : (
         <>
-          <DetailsHeroBanner thumb={thumb} videoURL={trailerUrl} />
-          <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
-            <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">
-              {data?.title ? data.title : ""}
-            </h1>
-            {data?.packageShortDetails ? (
-              <p className="mb-1 flex items-center flex-wrap my-2">
-                <span className="text-gray-300 mr-2 text-xl">
-                  {data?.packageShortDetails}
-                </span>
-              </p>
-            ) : null}
+          <div className='relative z-10'>
+            <DetailsHeroBanner thumb={thumb} videoURL={trailerUrl} />
           </div>
-          <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
-            <RentPlayNotice data={data?.allowed} />
-            {data?._id ? (
-              <div className="flex flex-row gap-4 items-center lg:mb-5 flex-wrap">
-                <div className="mr-2">
-                  <PackageRentPlayButtonAction
-                    data={data}
-                    allowedData={data?.allowed}
-                    size="lg"
-                  />
-                </div>
-                {hasMovieList ? (
-                  <>
-                    <button
-                      onClick={() => {
-                        if (hasMovieList) {
-                          window.scrollTo({
-                            top: movieListOfset - 100,
-                            behavior: "smooth",
-                          });
-                        }
-                      }}
-                      className="text-white py-1 text-base flex flex-row items-center justify-center transition min-w-[160px] h-[44px] border border-transparent rounded-full hover:border-white/40"
-                    >
-                      Movie List{" "}
-                      <ChevronRightIcon className="w-5 h-5 ml-2 text-white/80" />
-                    </button>
-                  </>
-                ) : null}
-                <div className="flex flex-row gap-8 items-center mb-0 flex-wrap">
-                  <FavoriteButton
-                    movieId={movieId}
-                    isInWatchList={data?.isInWatchList}
-                  />
-                  {data?._id ? (
+          <div className='z-20 relative bg-gradient-to-t from-black from-[20%] to-transparent'>
+            <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">
+              <h1 className="text-2xl md:text-4xl h-full lg:text-5xl mb-2 lg:mb-3">
+                {data?.title ? data.title : ""}
+              </h1>
+              {data?.packageShortDetails ? (
+                <p className="mb-1 flex items-center flex-wrap my-2">
+                  <span className="text-gray-300 mr-2 text-xl">
+                    {data?.packageShortDetails}
+                  </span>
+                </p>
+              ) : null}
+            </div>
+            <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative mt-4 pb-4">
+              <RentPlayNotice data={data?.allowed} />
+              {data?._id ? (
+                <div className="flex flex-row items-center flex-wrap">
+                  <div className="mr-2">
+                    <PackageRentPlayButtonAction
+                      data={data}
+                      allowedData={data?.allowed}
+                      size="lg"
+                    />
+                  </div>
+                  {hasMovieList ? (
                     <>
                       <button
-                        onClick={handleToggle}
-                        className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition"
+                        onClick={() => {
+                          if (hasMovieList) {
+                            window.scrollTo({
+                              top: movieListOfset - 100,
+                              behavior: "smooth",
+                            });
+                          }
+                        }}
+                        className="text-white py-1 text-base flex flex-row items-center justify-center transition min-w-[160px] h-[44px] border border-transparent rounded-full hover:border-white/40"
                       >
-                        <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
+                        Movie List{" "}
+                        <ChevronRightIcon className="w-5 h-5 ml-2 text-white/80" />
                       </button>
-                      <SocialShare
-                        open={open}
-                        setOpen={setOpen}
-                        url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
-                        title={data?.title}
-                      />
                     </>
                   ) : null}
+                  <div className="flex flex-row gap-8 items-center mb-0 flex-wrap">
+                    <FavoriteButton
+                      movieId={movieId}
+                      isInWatchList={data?.isInWatchList}
+                    />
+                    {data?._id ? (
+                      <>
+                        <button
+                          onClick={handleToggle}
+                          className="cursor-pointer group/item w-9 h-9 flex justify-center items-center transition"
+                        >
+                          <ShareIcon className="text-white group-hover/item:text-neutral-300 w-6" />
+                        </button>
+                        <SocialShare
+                          open={open}
+                          setOpen={setOpen}
+                          url={`${process.env.NEXT_PUBLIC_SSO_DOMAIN}/details/${data?._id}`}
+                          title={data?.title}
+                        />
+                      </>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <ErrorPopUp
-                message="This content is not available now."
-                isRetry={false}
-              />
-            )}
+              ) : (
+                <ErrorPopUp
+                  message="This content is not available now."
+                  isRetry={false}
+                />
+              )}
+            </div>
           </div>
         </>
       )}
