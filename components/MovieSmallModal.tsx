@@ -190,7 +190,7 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
         
         <div className={cssTextPart}>
           <div className='mb'>
-            <p className="text-xl xl:text-2xl xxl:text-3xl mb-1">{data?.title || ""}</p>
+            <p className="text-lg xl:text-xl 2xl:text-2xl mb-1">{data?.title || ""}</p>
             {(Array.isArray(data?.genre) && data?.genre?.length > 0)?<div className='popUpGenre flex flex-wrap items-center'>{data?.genre?.map((itemTxt, index) => <span key={stableKeys[index]} className="inline-flex items-center text-sm mr-2 last:mr-0 text-white/80">
                 {capFirstLetter(itemTxt)}
               </span>)}</div>:null}

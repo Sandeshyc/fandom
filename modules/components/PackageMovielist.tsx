@@ -41,7 +41,7 @@ const PackageMovielist = ({ data, title }: Props) => {
           <PackageMovielistMobile data={data} title={titleMobile} />
         ) : (
           <>
-            <div className={`my-[5vw] movieListHeroBanner`}>
+            <div className={`py-[5vw] movieListHeroBanner bg-black`}>
               <div className="px-4 max-w-[1600px] mx-auto">
                 <ReelHeading title={title} />
               </div>

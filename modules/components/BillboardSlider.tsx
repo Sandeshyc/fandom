@@ -104,7 +104,7 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
     <div className={`relative billboardSec billboardSliderItem`}>
       <BillboardBanner thumbnailUrl={thumbnailUrl} trailerUrl={trailerUrl} isActive={activeIndex === slideIndex}/>
       <div
-        className={`absolute bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25 pl-4 md:pl-16 transition`}
+        className={`absolute bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25 pl-4 md:pl-16 transition z-50`}
       >
         <div className="mb-4 lg:mb-8 w-[90%] md:w-[80%] lg:w-[50%] xl:w-[40%] text-contentColor">
           <div className="hidden md:block">

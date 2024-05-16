@@ -3,20 +3,50 @@ import { gql } from "@apollo/client";
 const SEARCH_CONTENT = gql`
   query ($input: QueryInput) {
     searchContent(input: $input) {
-      totalRecords
+      currentPage
       pageNumber
-      pageNumber
+      pageSize
+      totalItems
       totalPages
+      totalRecords
       items {
-        trailerUrl
-        thumbnailBannerUrl
-        thumbnailUrl
-        thumbnailPortraitUrl
-        thumbnailPortrait
-        thumbnailLandscapeUrl
-        publishSchedule
+        _id
+        assetId
         title
         description
+        offAirDate
+        onAirDate
+        contentType
+        allowed {
+          allowed
+          canBuy
+          canPlay
+          message
+          bought
+        }
+        trailerUrl
+        thumbnailBannerUrl
+        thumbnailPortrait
+        thumbnailUrl
+        thumbnailPortraitUrl
+        thumbnailLandscapeUrl
+        contentRating
+        publishSchedule
+        releaseDate
+        duration
+        currentTime
+        videoDuration
+        genre
+        isInWatchList
+        header {
+          text
+          type
+        }
+        footer {
+          text
+          iconType
+          textType
+        }
       }
     }
   }

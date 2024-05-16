@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import PaymentHistory from '@/modules/components/PaymentHistory';
 import useIsMobile from '@/hooks/useIsMobile';
-
+import Text from '@/modules/Identities/Text';
 const bgImage = 'url("/images/new-bg.png")';
 
 const BillingDetails = () => {
@@ -24,6 +24,11 @@ const BillingDetails = () => {
             <div className='pt-24 lg:pt-40'>
                 <div className="container mx-auto max-w-[1400px] py-4 bg-white/90 rounded-md">
                     <PaymentHistory />
+                </div>
+                <div className='container mx-auto max-w-[1400px]'>                          
+                    <Text size='md' className='mt-4 text-white/70'>
+                        <span className='text-white'>NOTE</span>: We only show up to 6 months of payment history.
+                    </Text>              
                 </div>
             </div>
         </div>

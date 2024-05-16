@@ -40,13 +40,13 @@ const SearchBox = (
   const [limit, setLimit] = React.useState(24);
   const [pageSize, setPageSize] = React.useState(24);
   const [offset, setOffset] = React.useState(0);  
-  const submitSearch = (e) => {
+  const submitSearch = (e:any) => {
     e.preventDefault();
     if(title === '' || title === undefined || title === null) {
       setIsInvalid(true);    
     }else{
       setIsInvalid(false);
-      router.push(`/search?title=${title}&page=${page}&limit=${limit}&pageSize=${pageSize}&offset=${offset}`);
+      router.push(`/search?title=${title}`);
     }
   }
   return(<>

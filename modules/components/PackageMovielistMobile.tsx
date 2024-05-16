@@ -31,7 +31,7 @@ const PackageMovielistMobile = ({ data, title }: Props) => {
   }, [data]);
   return item?._id ? (
     <>
-      <div className={`my-[5vw] movieListHeroBanner`}>
+      <div className={`py-[5vw] movieListHeroBanner bg-black`}>
         <div className="px-4 max-w-[1600px] mx-auto">
           <ReelHeading title={title} />
         </div>

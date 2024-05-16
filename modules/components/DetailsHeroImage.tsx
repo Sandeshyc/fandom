@@ -46,7 +46,7 @@ export const DetailsHeroBanner = ({thumb, videoURL}:Props) => {
         onLeave={handleWaypointLeave}
         topOffset= {300}
         >
-            <div className="relative z-0 mb-[-100px] md:mb-[-180px]">
+            <div className="relative z-0 mb-[-100px] lg:mb-[-140px]">
                 <div className="shadow-md rounded-t-lg jk_player h-[350px] md:h-[90vh] max-h-[100%] min-h-[400px] md:min-h-[700px] bg-gray-700"  style={{backgroundImage: `url(${thumb})`, backgroundSize: 'cover', backgroundPosition: 'center top'}}>
                     {(videoURL)?
                         (<ReactVideoPlayer videoURL={videoURL} control={false} poster={thumb} play={inView}/>)
