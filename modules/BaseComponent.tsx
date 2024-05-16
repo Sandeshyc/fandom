@@ -36,13 +36,14 @@ const BaseComponent = (props:any) => {
         </>
       );
       if (error) {
-        console.log('ERROR ::::')
-        try {
-      
-          axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, 
-            {date: new Date(), userId: module?.user, errorType: 'Retry Failed', sourceType: module?.sourceType })
-        } catch (e) {
-          console.log(e)
+        console.log('ERROR :::: Retry Failed');
+        if (process.env.NEXT_PUBLIC_ENV !== 'DEV') {
+          try {
+            axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, 
+              {date: new Date(), userId: module?.user, errorType: 'Retry Failed', sourceType: module?.sourceType })
+          } catch (e) {
+            console.log(e)
+          }
         }
         return (
           <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={`GQL Error :${module?.sourceType as string} => ${module?.displayType as string} => ${module?.title as string} => ${error}`}/>

@@ -50,13 +50,14 @@ export default function App({
       console.error(`[Network error]: ${networkError}`);
       // return forward(operation)
     }
-    
-    try {
-      
-      axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, 
-        {date: new Date(), userId, errors, operation, operationStr: JSON.stringify(operation) })
-    } catch (e) {
-      console.log(e)
+    if (process.env.NEXT_PUBLIC_ENV !== 'DEV') {
+      try {
+        
+        axios.post(`${process.env.NEXT_PUBLIC_DATA_API}/logevent`, 
+          {date: new Date(), userId, errors, operation, operationStr: JSON.stringify(operation) })
+      } catch (e) {
+        console.log(e)
+      }
     }
     if (networkError) {
       console.log('RETRY :::::: ')
