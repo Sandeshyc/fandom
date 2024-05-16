@@ -116,7 +116,7 @@ const WatchDetails = (inputProps:dataProps) => {
       }, [data]);
     
       // const captionURL = data?.closedCaptionUrl  ? data?.closedCaptionUrl : null;
-      const captionURL = Array.isArray(data?.closedCaptionUrl) && data.closedCaptionUrl.length > 0 ? data?.closedCaptionUrl : null;
+      const captionURL = Array.isArray(data?.cc) && data.cc.length > 0 ? data?.cc : null;
         
       useEffect(() => {
         // console.log('History: ', window.history.state);

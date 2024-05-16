@@ -84,6 +84,14 @@ const CONTENT_QUERY = gql`
           imageUrlMobile
           isIndividual
         }
+        episodeLabel
+        episodeNumber
+        tvShowTitle
+        tvShowId
+        tvShowGenre
+        tvShowDescription
+        seasonNumber
+        seasonDisplayText
       }
   }
 `;
