@@ -12,11 +12,14 @@ import EventCardReelMutliRaw from '@/modules/elements/EventCardReelMutliRaw';
 import MovieCardReelPortraitMultiRaw from '@/modules/elements/MovieCardReelPortraitMultiRaw';
 import { stableKeys } from '@/utils/stableKeys';
 import OffersList from '@/modules/skeletons/components/OffersList';
+import Text from '@/modules/Identities/Text';
+import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
 const Offers = () => {
     const [userId, setUserId] = useState("");
     const isMobile = useIsMobile();
     const [currentTab, setCurrentTab] = useState('');
     const [currentTabData, setCurrentTabData] = useState([]);
+    const [promoDescription, setPromoDescription] = useState('');
     const sliderRef = useRef(null);
     const [removedItem, setRemovedItem] = React.useState(null);
     const { data: clientLocation, error: locationError }: any =
@@ -42,17 +45,29 @@ const Offers = () => {
         error
     );
     const offerLists = gqData?.offers;
-    const handlePromoTab = (tab: string, tabItems:any) => {
+    const handlePromoTab = (tab: string, tabItems:any, description:string) => {
         if(tab){
             setCurrentTab(tab);
-            setCurrentTabData(tabItems);
+            const newData = tabItems.map((item:any) => {
+                const { header, ...rest } = item;
+                return rest;
+            });
+            setCurrentTabData(newData);
+            setPromoDescription(description);
         }else{
             setCurrentTab('');
+            setPromoDescription('');
             if(Array.isArray(offerLists) && offerLists?.length > 0){
                 let allItems = [] as any;
                 offerLists.map((item) => {
                     allItems = [...allItems, ...item.items];
                 });
+                // Uqnique items 
+                allItems = allItems.filter((item:any, index:number, self:any) =>
+                    index === self.findIndex((t:any) => (
+                        t._id === item._id
+                    ))
+                );
                 setCurrentTabData(allItems);
             }else{
                 setCurrentTabData([]);
@@ -73,11 +88,17 @@ const Offers = () => {
             // setCurrentTab(offerLists[0]?.promoId);
             // setCurrentTabData(offerLists[0]?.items);
             setCurrentTab('');
+            setPromoDescription('');
             if(Array.isArray(offerLists) && offerLists?.length > 0){
                 let allItems = [] as any;
                 offerLists.map((item) => {
                     allItems = [...allItems, ...item.items];
                 });
+                allItems = allItems.filter((item:any, index:number, self:any) =>
+                    index === self.findIndex((t:any) => (
+                        t._id === item._id
+                    ))
+                );
                 setCurrentTabData(allItems);
             }else{
                 setCurrentTabData([]);            
@@ -101,7 +122,7 @@ const Offers = () => {
                             className={`text-xs lg:text-sm border lg:border-2 mb-2 flex justify-center items-center ${
                                 (!currentTab) ? "border-white bg-blue-500" : "border-gray-500"
                             } rounded-full h-[34px] lg:h-[40px] py-1 px-2 lg:py-2 lg:px-4 mr-2 md:mr-2 lg:mr-4 min-w-[60px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
-                            onClick={() => handlePromoTab('', [])}>
+                            onClick={() => handlePromoTab('', [], '')}>
                             All
                         </li>
                         {offerLists.map((item: any, index: number) => (
@@ -110,11 +131,18 @@ const Offers = () => {
                                 (item?.promoId === currentTab) ? "border-white bg-blue-500" : "border-gray-500"
                             } rounded-full h-[34px] lg:h-[40px] py-1 px-2 lg:py-2 lg:px-4 mr-2 md:mr-2 lg:mr-4 min-w-[60px] lg:min-w-[160px] cursor-pointer hover:border-white/80`}
                             key={index}
-                            onClick={() => handlePromoTab(item?.promoId, item?.items)}>
+                            onClick={() => handlePromoTab(item?.promoId, item?.items, item?.description)}>
                             {item.title}
                         </li>
                         ))}                        
                     </ul>
+                )}
+                {(promoDescription) && (
+                    <div className='my-4 w-full'>
+                        <ReadMoreDescription
+                            text={promoDescription}
+                        />
+                    </div>
                 )}
                 <div className='flex lg:hidden flex-wrap mx-[-10px]'>
                     {currentTabData?.map((movie, index) => (
