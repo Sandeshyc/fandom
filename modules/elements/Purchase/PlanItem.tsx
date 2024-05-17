@@ -46,7 +46,13 @@ const PlanItem = ({
   const handleOtpChange = (otp:string) => {
     if(rentPin === otp){
       setIsPinSuccess(true);
-      const _auditEntitlementCall = async () => {          
+      const _auditEntitlementCall = async () => {    
+        let itemUrl = '/details/'+movieId;
+        if(itemData?.contentType === 'TVShow'){
+          itemUrl = '/tvshow/'+movieId;
+        }else if(itemData?.contentType === 'TvChannel'){
+          itemUrl = '/channel/'+movieId;
+        }      
         const data = {
           "userID": userId,
           "contentId": movieId,
@@ -62,6 +68,7 @@ const PlanItem = ({
             setRentTransactionId(res.transitionId);
           }
           window.localStorage.setItem('itemCode', movieId);
+          window.localStorage.setItem('itemUrl', itemUrl);
           let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}/payment/?userid=${userId}&productId=${rentProductId}&transactionId=${(res.status === 'process')?res.transitionId:rentTransactionId}`;
           if(process.env.NODE_ENV === 'development'){
             forwordPurchaseUrl = forwordPurchaseUrl+'&env=dev';
