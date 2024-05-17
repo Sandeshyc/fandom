@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
+import React, { FunctionComponent, useState, useCallback, useEffect } from "react";
 
 //  Need to Update code
 type ReadMoreDescriptionProps = {
@@ -7,6 +7,7 @@ type ReadMoreDescriptionProps = {
 const ReadMoreDescription: FunctionComponent<ReadMoreDescriptionProps> = ({
     text,
   }) => {
+    const [fullText, setFullText] = useState(text);
     const [shouldTruncate, setShouldTruncate] = useState<boolean>(false);
     const [readMore, setReadMore] = useState<boolean>(false);
   
@@ -47,13 +48,18 @@ const ReadMoreDescription: FunctionComponent<ReadMoreDescriptionProps> = ({
         </span>
       );
     }
-  
+    
+    useEffect(() => {
+      setFullText( text );
+      setReadMore(true);
+    }, [text]);
+
     return (
       <div>
         <p
           ref={measuredRef}
           className={`${shouldClamp ? 'line-clamp-4' : 'line-clamp-none'}`}>
-          {text}
+          {fullText}
         </p>
         {shouldTruncate && toggle}
       </div>

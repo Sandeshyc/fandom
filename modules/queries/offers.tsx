@@ -7,6 +7,7 @@ const OFFERS_QUERY = gql`
       promoId
       title
       thumbnailUrl
+      description
       items {
         _id
         title

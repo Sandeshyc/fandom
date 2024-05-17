@@ -96,6 +96,10 @@ const CONTENT_QUERY = gql`
         tvShowDescription
         seasonNumber
         seasonDisplayText
+        cc {
+          caption
+          url
+        }
       }
   }
 `;

@@ -187,13 +187,15 @@ const ParentControlPin = (
                     <p className='text-sm text-red-600 mb-6'>{validateError}</p>
                     }               
                 </div>
-                <div>
-                    <button 
-                    onClick={storeRoles}
-                    className='bg-blue-500 text-white px-4 py-2 rounded-md'>
-                        Save
-                    </button>                    
-                </div>
+                {(pinRequire || pinRequireRent)&&(
+                    <div>
+                        <button 
+                        onClick={storeRoles}
+                        className='bg-blue-500 text-white px-4 py-2 rounded-md'>
+                            Save
+                        </button>                    
+                    </div>
+                )}
             </div> 
         </div>
     );

@@ -1,14 +1,16 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {SearchIcon} from '@/utils/CustomSVGs';
 import {
-  CloseOutlined
+  CloseOutlined, 
+  Refresh
 } from '@mui/icons-material';
 
 const SearchBox = () => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const [isOpened, setIsOpened] = React.useState(false);
     const searchInputRef = useRef(null);
     const searchInput = searchInputRef.current as unknown as HTMLElement;
@@ -27,6 +29,7 @@ const SearchBox = () => {
       onSubmit: async ({
         title,
         }) => {
+          setIsLoading(true);
           router.push(`/search?title=${title}`);
       },
       enableReinitialize: true,
@@ -39,6 +42,10 @@ const SearchBox = () => {
         searchInput.focus();
       }
     }, [isOpened]);
+    useEffect(() => {
+      setIsOpened(false);
+      setIsLoading(false);
+    }, [router.query]);
 
     return(<>
         <div
@@ -58,7 +65,7 @@ const SearchBox = () => {
               type='submit'
               className="h-full flex justify-center items-center w-[50px] absolute
                top-0 right-0">
-                <SearchIcon />
+                {(isLoading)?<Refresh className='animate-spin' />:<SearchIcon />}
               </button>
           </form>
           {(errors.title && touched.title)?<p className='text-red-500 text-sm py-1'>{errors.title}</p>:null}
