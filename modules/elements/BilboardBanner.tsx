@@ -4,7 +4,7 @@ import { Waypoint } from 'react-waypoint';
 
 interface Props {
     thumbnailUrl: string;
-    trailerUrl?: string;
+    trailerUrl?: any;
     isActive?: boolean;
 }
 const BillboardBanner = ({thumbnailUrl, trailerUrl, isActive}:Props) => {
@@ -35,8 +35,8 @@ const BillboardBanner = ({thumbnailUrl, trailerUrl, isActive}:Props) => {
       }}
       >
         <div className='brightness-[60%] h-full'>
-          {(isActive && 0) &&
-            <ReactVideoPlayer videoURL={trailerUrl || ''} poster={thumbnailUrl} play={isActive && inView}/>
+          {(isActive) &&
+            <ReactVideoPlayer videoURL={trailerUrl} poster={thumbnailUrl} play={isActive && inView}/>
           }
         </div>
         <div className='preview'></div>

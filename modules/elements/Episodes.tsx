@@ -32,6 +32,8 @@ const Episodes = ({episodes}:Props) => {
         if(Array.isArray(episodes) && episodes.length > 0 ) {
             tempEpisodes = episodes.filter((item: any) => item && item._id);
             setEpisodeLists(tempEpisodes);
+        }else{
+            setEpisodeLists([]);        
         }
         setSearchKey('');
     }, [episodes]);

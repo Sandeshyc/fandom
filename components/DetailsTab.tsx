@@ -24,7 +24,7 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
                 id: 'section1',
                 label:'Episodes (' + tempEpisodes?.length + ')',
                 type:'episodes',
-                content: data?.episodes
+                content: tempEpisodes
             });
         }else{
             tempTabArgs.push({
