@@ -14,24 +14,29 @@ import useIsMobile from "@/hooks/useIsMobile";
 import ReelHeading from "@/modules/elements/ReelHeading";
 import SearchResults from "@/modules/components/SearchResults";
 const GenreList = [
-  'Romance',
-  'Drama',
-  'Comedy',
-  'Action',
-  'Horror',
-  'Science fiction',
-  'Thriller',
-  'Adventure',
-  'Fantasy',
-  'Historical',
-  'Crime',
-  'Musicals',
-  'Mystery',
-  'Sports',
-  'Western',
-  'Adult',
+  {value: "Romance", label: "Romance"},
+  {value: "Drama", label: "Drama"},
+  {value: "Comedy", label: "Comedy"},
+  {value: "Action", label: "Action"},
+  {value: "Horror", label: "Horror"},
+  {value: "Science fiction", label: "Science fiction"},
+  {value: "Thriller", label: "Thriller"},
+  {value: "Adventure", label: "Adventure"},
+  {value: "Fantasy", label: "Fantasy"},
+  {value: "Historical", label: "Historical"},
+  {value: "Crime", label: "Crime"},
+  {value: "Musicals", label: "Musicals"},
+  {value: "Mystery", label: "Mystery"},
+  {value: "Sports", label: "Sports"},
+  {value: "Western", label: "Western"},
+  {value: "Adult", label: "Adult"}
 ];
-const ContentTypeList = ["Movie", "Event", "Episode", "TvShow"];
+const ContentTypeList = [
+  {value: "Movie", label: "Movie"},
+  {value: "Event", label: "Event"},
+  {value: "Episode", label: "Episode"},
+  {value: "TvShow", label: "TV Show"}
+];
 const Search = (props: any) => {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -49,7 +54,7 @@ const Search = (props: any) => {
 
   // start Formik
   const schema = Yup.object().shape({
-    searchTitle: Yup.string().required("Title is required"),   
+    searchTitle: Yup.string(),   
     searchGenre: Yup.string(),
     searchContentType: Yup.string(),
   });
@@ -78,7 +83,7 @@ const Search = (props: any) => {
             shallow: true,
           }
         );
-        console.log('searchTitle: ', searchTitle, 'searchGenre: ', searchGenre, 'searchContentType: ', searchContentType);  
+        // console.log('searchTitle: ', searchTitle, 'searchGenre: ', searchGenre, 'searchContentType: ', searchContentType);  
     },
     enableReinitialize: true,
   });
@@ -96,16 +101,6 @@ const Search = (props: any) => {
     error,
     data: gqData,
   } = useQuery(queryMap["searchContent"], { variables: { input: datax } });
-  console.log(
-    "userData:",
-    datax,
-    "gqData: ",
-    gqData,
-    "loading: ",
-    loading,
-    "error: ",
-    error
-  );
   const movies = gqData?.searchContent;
 
   useEffect(() => {
@@ -181,12 +176,11 @@ const Search = (props: any) => {
                       name="searchGenre"
                       value={values.searchGenre}
                       onChange={handleChange}
-                      className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px] bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]"
-                    >
+                      className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent appearance-none outline-none pr-[20px] bg-[url(/images/arrow_drop_down_white.svg)] bg-no-repeat bg-right bg-[length:25px_20px]">
                       <option value="">Genre</option>
                       {(Array.isArray(GenreList) && GenreList?.length > 0) &&(
                         GenreList.map((item, index) => (
-                          <option key={index} value={item}>{item}</option>
+                          <option key={index} value={item.value}>{item.label}</option>
                         ))                      
                       )}
                     </select>
@@ -203,7 +197,7 @@ const Search = (props: any) => {
                       <option value="">Content Type</option>
                       {(Array.isArray(ContentTypeList) && ContentTypeList?.length > 0) &&(
                         ContentTypeList.map((item, index) => (
-                          <option key={index} value={item}>{item}</option>
+                          <option key={index} value={item.value}>{item.label}</option>
                         ))                      
                       )}
                     </select>
