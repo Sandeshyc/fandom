@@ -43,6 +43,10 @@ const PLAYLIST_QUERY = gql`
           iconType
           textType
         }
+        previewVideo {
+          dash
+          hls
+        }
       }
     }
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactPlayer from 'react-player'
 
 type Props = {
-    videoURL: string, 
+    videoURL?: any, 
     control?: boolean,   
     poster?: string, 
     isMute?: boolean,
@@ -32,7 +32,7 @@ const ReactVideoPlayer = (
                         backgroundRepeat: "no-repeat",
                     }}>
                     {(videoURL && (innerWidth > 1200))?(<ReactPlayer 
-                    url={videoURL} 
+                    url= {videoURL}
                     width='100%'
                     height='100%'
                     playing={play}

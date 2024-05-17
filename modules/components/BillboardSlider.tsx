@@ -99,10 +99,14 @@ const BillboardItem = ({ data, activeIndex, slideIndex }: ItemProps) => {
   const thumbnailUrl = getThumbnailLandscape(data);
   const detailUrl = `/details/${itemId}`;
   const watchUrl = `/watch/${itemId}`;
-
+  const previewVideo = data?.previewVideo;
+  const videoUrls = {
+    'hls': previewVideo?.hls,
+    'dash': previewVideo?.dash,
+  }
   return (
     <div className={`relative billboardSec billboardSliderItem`}>
-      <BillboardBanner thumbnailUrl={thumbnailUrl} trailerUrl={trailerUrl} isActive={activeIndex === slideIndex}/>
+      <BillboardBanner thumbnailUrl={thumbnailUrl} trailerUrl={videoUrls} isActive={activeIndex === slideIndex}/>
       <div
         className={`absolute bottom-[0%] pb-6 sm:pb-10 lg:pb-16 xl:pb-25 pl-4 md:pl-16 transition z-50`}
       >
