@@ -14,6 +14,8 @@ import { stableKeys } from '@/utils/stableKeys';
 import OffersList from '@/modules/skeletons/components/OffersList';
 import Text from '@/modules/Identities/Text';
 import ReadMoreDescription from '@/modules/Identities/ReadMoreDescription';
+import ReadMoreDescriptionV2 from '@/modules/Identities/ReadMoreDescriptionV2';
+
 const Offers = () => {
     const [userId, setUserId] = useState("");
     const isMobile = useIsMobile();
@@ -34,16 +36,16 @@ const Offers = () => {
         error,
         data: gqData,
     } = useQuery(queryMap["offers"], { variables: { input: data } });
-    console.log(
-        "userData:",
-        data,
-        "gqData: ",
-        gqData,
-        "loading: ",
-        loading,
-        "error: ",
-        error
-    );
+    // console.log(
+    //     "userData:",
+    //     data,
+    //     "gqData: ",
+    //     gqData,
+    //     "loading: ",
+    //     loading,
+    //     "error: ",
+    //     error
+    // );
     const offerLists = gqData?.offers;
     const handlePromoTab = (tab: string, tabItems:any, description:string) => {
         if(tab){
@@ -138,9 +140,10 @@ const Offers = () => {
                     </ul>
                 )}
                 {(promoDescription) && (
-                    <div className='my-4 w-full'>
-                        <ReadMoreDescription
+                    <div className='my-4 w-full text-sm lg:text-lg'>
+                        <ReadMoreDescriptionV2
                             text={promoDescription}
+                            activeTab={currentTab}
                         />
                     </div>
                 )}
