@@ -116,10 +116,12 @@ const MovieCardReel: React.FC<MovieCardProps> = ({ data, portrait, gradient, sli
     }
   }
   const redirectToWatch = useCallback(() => {
-    if(data?.__typename === 'Series'){
+    if(data?.contentType === 'TVShow'){
       router.push(`/tvshow/${data?._id}`);
+    }else if(data?.contentType === 'TvChannel'){
+      router.push(`/channel/${data?._id}`);
     }else{
-      router.push(`/details/${data?._id}`);      
+      router.push(`/details/${data?._id}`);   
     }
   }, [router, data?._id]);  
   const noGradientClass = gradient ? '' : ' bg-black py-1 ';
