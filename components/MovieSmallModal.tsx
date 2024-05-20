@@ -29,33 +29,15 @@ const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, ree
   const [isDeleting, setIsDeleting] = React.useState(false);  
   const { data } = useMoviePopupStore();
   const [isHover, setIsHover] = React.useState(false);
-  // console.log('data zoom', data);
-  // const [isInLish, setIsInLish] = React.useState(data?.isInWatchListTemp);
-  const redirectToRent = useCallback(() => {
-    if(data?.__typename === 'Series'){
-      router.push(`/tvshow/${data?._id}?viewPlan=true`);
-    }else if(data?.__typename === 'Channel'){
-      router.push(`/channel/${data?._id}?viewPlan=true`);
-    }else{
-      router.push(`/details/${data?._id}?viewPlan=true`);      
-    }
-    handleClose(null);
-  }, [router, data?._id]);
 
   const redirectToDetails = useCallback(() => {
-    // handleClose(null);
-    if(data?.__typename === 'Series'){
+    if(data?.contentType === 'TVShow'){
       router.push(`/tvshow/${data?._id}`);
-    }else if(data?.__typename === 'Channel'){
+    }else if(data?.contentType === 'TvChannel'){
       router.push(`/channel/${data?._id}`);
     }else{
       router.push(`/details/${data?._id}`);      
     }
-  }, [router, data?._id]);
-
-  const redirectToWatch = useCallback(() => {
-    router.push(`/watch/${data?._id}`);
-    handleClose(null);
   }, [router, data?._id]);
 
   useEffect(() => {
