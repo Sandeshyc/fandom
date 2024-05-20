@@ -104,9 +104,9 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
     }
   }
   const redirectToWatch = useCallback(() => {
-    if(data?.__typename === 'Series'){
+    if(data?.contentType === 'TVShow'){
       router.push(`/tvshow/${data?._id}`);
-    }else if(data?.__typename === 'Channel'){
+    }else if(data?.contentType === 'TvChannel'){
       router.push(`/channel/${data?._id}`);
     }else{
       router.push(`/details/${data?._id}`);      
