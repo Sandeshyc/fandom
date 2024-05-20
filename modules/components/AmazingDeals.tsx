@@ -30,7 +30,7 @@ const AmazingDeals: React.FC<MovieListProps> = () => {
                         Get Amazing Deals & Offers
                     </h3>
                     <p className='text-base font-light'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
+                        Access exclusive savings and special offers with our unbeatable deals – don’t miss out on incredible discounts and promotions! 
                     </p>
                 </div>
                 <div className='w-[100%] lg:w-[30%] lg:pl-4 lg:flex lg:justify-end'>
