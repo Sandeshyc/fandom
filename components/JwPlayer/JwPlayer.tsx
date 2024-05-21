@@ -5,6 +5,11 @@ import usePlayerEvent from "@/hooks/usePlayerEvent";
 import axios from "axios";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import { getCookie } from "@/utils";
+import 
+{
+    getFingerPrintId,
+    setEventRecord
+} from "@/services/api";
 
 
 interface VideoPlayerProps {
@@ -33,6 +38,8 @@ if(kid){
 
 
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data, isRestart }) => {
+    const [fingerPrintId, setFingerPrintId] = useState('');
+    const [userId, setUserId] = useState('');
     const [isPlaying, setIsPlaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [isBuffering, setIsBuffering] = useState(false);
@@ -89,6 +96,22 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                 console.error(e); 
             }
         })();
+
+        const _getFingerPrintId = async () => {
+            const response = await getFingerPrintId();
+            if(response.status === 'success'){
+                setFingerPrintId(response.fingerPrintId);
+            }
+        }
+        _getFingerPrintId();
+
+        const userInfo = window.localStorage.getItem('userInfo');
+        if(userInfo) {
+            const userInfoObj = JSON.parse(userInfo);
+            if(userInfoObj.sub) {
+                setUserId(userInfoObj.sub);
+            }
+        }
     }, [data?._id]);
     
     useEffect(() => {
@@ -266,6 +289,16 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                         x.current = 1;
                     }, 500);
                 }
+                const eventData = {
+                    "eventType": "play",
+                    "data": {
+                        "deviveId": fingerPrintId,
+                        "sessionId": userId,
+                        "assetId": data?._id,
+                        "time": new Date().toISOString(),
+                    }
+                };
+                setEventRecord(eventData);
             });
 
             // on pause video
