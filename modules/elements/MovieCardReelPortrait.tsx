@@ -185,17 +185,18 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
         <div className='img relative h-full w-full'>        
           <div className='absolute z-30 bottom-0 left-0 w-full '>
             <CardFooterMobile footer={data?.footer} />
-            {(data?.currentTime || data?.currentTime === 0) ? <div className='m-1 lg:m-2 mt-0 lg:mt-0 flex items-center'>
+            {(data?.currentTime || data?.currentTime === 0) ? <div className='m-1 pb-1 lg:m-2 mt-0 lg:mt-0 flex items-center relative pr-[16px] lg:pr-0'>
               <ProgressBar done={progress} />
               <div onClick={(e) => {
               e.stopPropagation();
               handelRemoveWatchingList();
-            }} className={`cursor-pointer lg:hidden`}>
+            }} className={`cursor-pointer lg:hidden absolute bottom-0 right-0 w-[16px] flex justify-center items-center`}>
                   <Cancel 
                   sx={{
                     fontSize: '1rem',
-                  }}
-                  className={`text-white h-2`} />
+                    color: '#fff',
+                    lineHeight: '1rem',
+                  }}/>
                 </div>
               </div> : null}
           </div> 

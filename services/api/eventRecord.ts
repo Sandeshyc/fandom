@@ -21,7 +21,7 @@ const setEventRecord = async (eventData:any) => {
     };
     console.log("Event Record Body: ", body);
     try { 
-        const response = await axios.get(url, { headers });
+        const response = await axios.post(url, body, { headers });
         console.log("Event Record Response: ", response);
         if (response?.status === 200) {
             returnResponse = {

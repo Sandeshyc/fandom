@@ -22,7 +22,7 @@ const Channel = () => {
     const region = clientLocation?.country?.isoCode;
 
     const { data: movieDetails, isLoading, error} = useMovieDetails(channelId as string, userIdToken, (isMobile)?'mobile':'web', region); // Need to upate
-    console.log('isLoading', isLoading, 'movieDetails', movieDetails, 'error', error);
+    // console.log('isLoading', isLoading, 'movieDetails', movieDetails, 'error', error);
     // console.log('movieDetails', movieDetails);
     // console.log('isLoading', isLoading);
     // console.log('error', error);

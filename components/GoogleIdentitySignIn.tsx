@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+  cookies
+} from 'next/headers';
 import { initializeApp } from 'firebase/app';
 import {
   onAuthStateChanged,
@@ -75,6 +78,8 @@ const GoogleIdentitySignIn = ({setAuthLoading}:Props) => {
             userEmail,
             password
           );
+          // console.log('userCredential', userCredential);
+          // return false;
           const user = userCredential?.user as any;
           console.log('user', user);
           if(user !== null && user !== undefined) {

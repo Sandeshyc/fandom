@@ -1,9 +1,15 @@
+import { useState } from 'react';
 import axios from 'axios';
+import setUserCookieSession from '@/services/api/setUserCookieSession';
 import {
-  auditEntitlement
+  auditEntitlement,
+  getFingerPrintId,
+  setEventRecord
 } from '@/services/api'
 
+
 const useUserInfo = () => {
+  const [fingerPrintId, setFingerPrintId] = useState('');
     const checkUser = async (
         userid: string,
         providerId: string,
@@ -41,6 +47,38 @@ const useUserInfo = () => {
               providerName: userInfoData?.providerName,
               emailVerified: emailVerified,
             }
+            const userSession = {
+              userId: userInfoData?.userId,
+              email: userInfoData?.email,
+              providerName: userInfoData?.providerName,
+              emailVerified: emailVerified,
+              accessToken: userInfoData?.accessToken || googleIndentityAccessToken || oneLogInAccessToken,
+            }
+            const _getFingerPrintId = async () => {
+              const response = await getFingerPrintId();
+              if(response.status === 'success'){
+                  setFingerPrintId(response.fingerPrintId);
+              }
+            }
+            _getFingerPrintId();
+            const _setUserEventRecord = async () => {
+              const eventData = {
+                "eventType": "Login",
+                  "data": {
+                      "deviveId": fingerPrintId,
+                      "sessionId": userInfoData?.accessToken || googleIndentityAccessToken || oneLogInAccessToken,
+                      "userId": userInfoData?.userId,
+                      "time": new Date().toISOString(),
+                  }
+              };
+              await setEventRecord(eventData);
+            }
+            _setUserEventRecord();
+            // const _setUserCookieSession = async () => {
+            //   "use server";
+            //   await setUserCookieSession(userSession);
+            // }
+            // _setUserCookieSession();
             window.localStorage.setItem('provider', providerName || userInfoData?.providerName);
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
             if(oneLogInAccessToken){

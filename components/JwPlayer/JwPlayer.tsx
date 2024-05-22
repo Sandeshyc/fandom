@@ -5,8 +5,7 @@ import usePlayerEvent from "@/hooks/usePlayerEvent";
 import axios from "axios";
 import ErrorPopUp from "@/modules/elements/ErrorPopUp";
 import { getCookie } from "@/utils";
-import 
-{
+import {
     getFingerPrintId,
     setEventRecord
 } from "@/services/api";
@@ -40,6 +39,7 @@ if(kid){
 const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autoplay, isComplited, caption, pictureInPicture, data, isRestart }) => {
     const [fingerPrintId, setFingerPrintId] = useState('');
     const [userId, setUserId] = useState('');
+    const [accessToken, setAccessToken] = useState('');
     const [isPlaying, setIsPlaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [isBuffering, setIsBuffering] = useState(false);
@@ -110,6 +110,18 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             const userInfoObj = JSON.parse(userInfo);
             if(userInfoObj.sub) {
                 setUserId(userInfoObj.sub);
+            }            
+        }
+        const provider = window.localStorage.getItem('provider');
+        if(provider === 'firebase'){
+            const accessToken = window.localStorage.getItem('googleIndentityAccessToken');
+            if(accessToken){
+                setAccessToken(accessToken);
+            }
+        }else{
+            const accessToken = window.localStorage.getItem('oneLogInAccessToken');
+            if(accessToken){
+                setAccessToken(accessToken);
             }
         }
     }, [data?._id]);
@@ -293,9 +305,11 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                     "eventType": "play",
                     "data": {
                         "deviveId": fingerPrintId,
-                        "sessionId": userId,
+                        "sessionId": accessToken,
+                        "userId": userId,
                         "assetId": data?._id,
-                        "time": new Date().toISOString(),
+                        "contentTitle": data?.title,
+                        "time": player.getPosition(),
                     }
                 };
                 setEventRecord(eventData);
@@ -317,6 +331,19 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
                         "duration": duration,
                     }
                 });
+
+                const eventData = {
+                    "eventType": "pause",
+                    "data": {
+                        "deviveId": fingerPrintId,
+                        "sessionId": accessToken,
+                        "userId": userId,
+                        "assetId": data?._id,
+                        "contentTitle": data?.title,
+                        "time": player.getPosition(),
+                    }
+                };
+                setEventRecord(eventData);
             });
 
             // on before play video

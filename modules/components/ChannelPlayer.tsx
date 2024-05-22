@@ -49,14 +49,14 @@ const ChannelPlayer = (inputProps:dataProps) => {
         });
     }, [data]);
     return (
-        <div className="h-[80vh] lg:h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}
+        <div className="aspect-[16/9] max-h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}
             style={{
                 backgroundImage: `url(${thumb})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
             }}>
-            {(mouseActive || backMouseActive) && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`} 
+            {(mouseActive || backMouseActive) && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-4 lg:gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`} 
             onMouseEnter={backMouseEnter}
             onMouseLeave={backMouseLeave}>
                 <ArrowLeftIcon 
@@ -67,8 +67,8 @@ const ChannelPlayer = (inputProps:dataProps) => {
                     <span className="font-light">Watching:</span> {data?.title}
                 </p>
             </nav>)}
-                {(data.allowed.allowed && data.allowed.canPlay)?
-                    <div className="channel_jwp_full h-[80vh] lg:h-screen w-screen">
+                {(data.allowed.allowed && data.allowed.canPlay)&&
+                    <div className="channel_jwp_full aspect-[16/9] lg:h-screen w-screen">
                         <VideoPlayer 
                         image={thumb}
                         video={videoURL} 
@@ -80,7 +80,7 @@ const ChannelPlayer = (inputProps:dataProps) => {
                         isRestart={false}
                         pictureInPicture={true}/>
                     </div>
-                :null}
+                }
         </div>
     );
 }

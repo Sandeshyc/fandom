@@ -90,6 +90,16 @@ const CastCarousels = ({
         <div className="text-white">
             <div className="lg:hidden flex justify-start overflow-y-hidden pb-1 overflow-x-auto
             ">
+              {(Array.isArray(casts) && casts.length > 0) && (
+                casts.map((cast:any, index:number) => {
+                  return (
+                      <CastCarouselItemMobile 
+                      key={cast?._id || stableKeys[index]} 
+                      cast={cast}
+                      designation="Actor"/>
+                  )                        
+                }
+              ))}
               {(Array.isArray(directors) && directors.length > 0) && (
                 directors.map((director:any, index:number) => {
                   return (
@@ -110,21 +120,21 @@ const CastCarousels = ({
                   )                        
                 }
               ))}
-              {(Array.isArray(casts) && casts.length > 0) && (
-                casts.map((cast:any, index:number) => {
-                  return (
-                      <CastCarouselItemMobile 
-                      key={cast?._id || stableKeys[index]} 
-                      cast={cast}
-                      designation="Actor"/>
-                  )                        
-                }
-              ))}
             </div>
             <div className="hidden lg:block castCarousel overflow-hidden">
                 <Slider
                 ref={sliderRef}
                 {...settings}>
+                  {(Array.isArray(casts) && casts.length > 0) && (
+                    casts.map((cast:any, index:number) => {
+                      return (
+                          <CastCarouselItem 
+                          key={cast?._id || stableKeys[index]} 
+                          cast={cast}
+                          designation="Actor"/>
+                      )                        
+                    }
+                  ))}
                   {(Array.isArray(directors) && directors.length > 0) && (
                     directors.map((director:any, index:number) => {
                       return (
@@ -142,16 +152,6 @@ const CastCarousels = ({
                           key={writer?._id || stableKeys[index]} 
                           cast={writer}
                           designation="Writer"/>
-                      )                        
-                    }
-                  ))}
-                  {(Array.isArray(casts) && casts.length > 0) && (
-                    casts.map((cast:any, index:number) => {
-                      return (
-                          <CastCarouselItem 
-                          key={cast?._id || stableKeys[index]} 
-                          cast={cast}
-                          designation="Actor"/>
                       )                        
                     }
                   ))}

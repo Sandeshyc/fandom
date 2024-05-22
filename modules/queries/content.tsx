@@ -100,6 +100,48 @@ const CONTENT_QUERY = gql`
           caption
           url
         }
+        relatedContent {
+          _id
+          assetId
+          title
+          description
+          offAirDate
+          onAirDate
+          contentType
+          allowed {
+            allowed
+            canBuy
+            canPlay
+            message
+            bought
+          }
+          trailerUrl
+          thumbnailBannerUrl
+          thumbnailPortrait
+          thumbnailUrl
+          thumbnailPortraitUrl
+          thumbnailLandscapeUrl
+          contentRating
+          publishSchedule
+          releaseDate
+          duration          
+          videoDuration
+          genre
+          isInWatchList
+          header {
+            text
+            type
+          }
+          footer {
+            text
+            iconType
+            textType
+          }
+          previewVideo {
+            dash
+            hls
+          }
+        }
       }
   }
 `;
