@@ -21,7 +21,9 @@ const sizes = {
 };
 const Title = ({ tag, size, children, className, ...restProps }:TitleProps) => {
     const Tag = tag;
-    
+    if(className === undefined){
+        className = '';
+    }
     return (<Tag 
         className={`${sizes[size]} ${className}`} {...restProps}>
             {children}

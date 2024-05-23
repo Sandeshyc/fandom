@@ -80,7 +80,7 @@ const RelatedMovies = ({data}:{data:any}) => {
                     ))}
                 </div>
             </div>
-            <div className="hidden lg:block overflow-hidden movieSliderReel movieBoxsInside movieSliderInner mt-4">
+            <div className="hidden lg:block overflow-hidden movieSliderReel movieBoxsInside movieSliderInner">
                 <div className="movieSlider">
                     <Slider {...settings}>
                         {Array.isArray(movieList) && movieList?.length > 0 && movieList.map((item: any, index: number) => (
