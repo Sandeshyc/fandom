@@ -49,7 +49,7 @@ const CarouselItem = ({ item }: CarouselItemProps) => {
   const thumb = getThumbnailPortrait(item);
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const handleToggle = () => {
     setOpen(!open);
   };

@@ -29,8 +29,7 @@ const PLAYLIST_QUERY = gql`
         contentRating
         publishSchedule
         releaseDate
-        duration
-        currentTime
+        duration        
         videoDuration
         genre
         isInWatchList

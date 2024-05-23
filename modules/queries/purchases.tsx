@@ -28,8 +28,7 @@ const PURCHASES_QUERY = gql`
         contentRating
         duration
         genre
-        endTime 
-        currentTime 
+        endTime          
         videoDuration
         isInWatchList
         footer {

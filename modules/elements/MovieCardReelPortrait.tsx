@@ -10,7 +10,7 @@ import { MovieInterface } from '@/types';
 import useMoviePopupStore from '@/hooks/useMoviePopupStore';
 import ProgressBar from '@/components/elements/ProgressBar';
 import RollImage from '@/modules/Identities/RollImage';
-import {Cancel} from '@mui/icons-material';
+import {Close} from '@mui/icons-material';
 import CardHeaderMobile from '@/modules/elements/CardHeaderMobile';
 import CardFooterMobile from '@/modules/elements/CardFooterMobile';
 import {
@@ -190,12 +190,12 @@ const MovieCardReelPortrait: React.FC<MovieCardProps> = ({ data, portrait, gradi
               <div onClick={(e) => {
               e.stopPropagation();
               handelRemoveWatchingList();
-            }} className={`cursor-pointer lg:hidden absolute bottom-0 right-0 w-[16px] flex justify-center items-center`}>
-                  <Cancel 
+            }} className={`cursor-pointer lg:hidden absolute bottom-0 right-0 w-[16px] h-[16px] flex justify-center items-center bg-white rounded-full text-center`}>
+                  <Close 
                   sx={{
-                    fontSize: '1rem',
-                    color: '#fff',
-                    lineHeight: '1rem',
+                    fontSize: '0.8rem',
+                    color: '#222',
+                    lineHeight: '0.8rem',
                   }}/>
                 </div>
               </div> : null}

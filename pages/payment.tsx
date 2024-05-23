@@ -14,9 +14,10 @@ const MyProfile = () => {
   const iframeRef = useRef( null as any );
   const router = useRouter();
   const isMobile = useIsMobile();
-  const isLoginUser = useCheckAuthentication();
+  const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [itemCode, setItemCode] = useState('');
+  const [itemUrl, setItemUrl] = useState('');
   const [heightx, setHeightx] = useState("0px");
   const { productId, userid, transactionId, env } = router.query;
   const iframeParams = `${process.env.NEXT_PUBLIC_PAYMENT_URI}?userid=${userid}&productId=${productId}&transactionId=${transactionId}&env=${env}`;
@@ -31,8 +32,9 @@ const MyProfile = () => {
   };
 
   const handleBackBtn = () => {
-    // router.back();
-    if(itemCode){
+    if(itemUrl){
+      router.replace(itemUrl);
+    }else if(itemCode){
       router.replace(`/details/${itemCode}`);
     }else{
       router.replace('/');
@@ -53,6 +55,8 @@ const MyProfile = () => {
   useEffect(() => {    
     const tempItemCode = window.localStorage.getItem('itemCode');
     setItemCode(tempItemCode ? tempItemCode : '');
+    const tempItemUrl = window.localStorage.getItem('itemUrl');
+    setItemUrl(tempItemUrl ? tempItemUrl : '');
   },[]);
 
   return (<>

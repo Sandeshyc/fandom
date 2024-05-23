@@ -21,7 +21,7 @@ interface movieSmallModalProps {
 
 const MovieSmallModal: React.FC<movieSmallModalProps> = ({ visible, onClose, reelItem}) => {
   const router = useRouter();
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const [isVisible, setIsVisible] = useState<boolean>(!!visible);
   const [isMute, setIsMute] = React.useState(true);
   const thumbRef = React.useRef<HTMLDivElement>(null);

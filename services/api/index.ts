@@ -7,6 +7,7 @@ import getProfile from './getProfile';
 import setEntitlementValidity from './setEntitlementValidity';
 import getFingerPrintId from './fingerPrintId';
 import setEventRecord from './eventRecord';
+import getOrderReceipt from './orderReceipt';
 
 export {
     addToMyList,
@@ -17,5 +18,6 @@ export {
     getProfile,
     setEntitlementValidity,
     getFingerPrintId,
-    setEventRecord
+    setEventRecord,
+    getOrderReceipt
 };

@@ -33,7 +33,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
     const profileRef = useRef(null as any);
     const [userid, setUserid] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
-    const isLoginUser = useCheckAuthentication();
+    const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
     const [isLogoutPopUp, setIsLogoutPopUp] = useState(false);
     const [screenHeight, setScreenHeight] = useState(0);
     const [profileHeadHeight, setProfileHeadHeight] = useState(0);

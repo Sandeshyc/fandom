@@ -35,6 +35,7 @@ const PlanItem = ({
   const [isRentPinPopup, setIsRentPinPopup] = useState(false);
   const [userId, setUserId] = useState('');
   const [isPinSuccess, setIsPinSuccess] = useState(false);
+  const [isPinFail, setIsPinFail] = useState(false);
   const [rentProductId, setRentProductId] = useState('');
   const [rentTransactionId, setRentTransactionId] = useState('');
   let descriptions = [] as any;
@@ -44,8 +45,14 @@ const PlanItem = ({
   }
   const router = useRouter();
   const handleOtpChange = (otp:string) => {
+    if(otp.length !== 4){
+      setIsPinFail(false);
+      setIsPinSuccess(false);
+      return;
+    }
     if(rentPin === otp){
       setIsPinSuccess(true);
+      setIsPinFail(false);
       const _auditEntitlementCall = async () => {    
         let itemUrl = '/details/'+movieId;
         if(itemData?.contentType === 'TVShow'){
@@ -80,7 +87,8 @@ const PlanItem = ({
       }
       _auditEntitlementCall();
     }else{
-      setIsPinSuccess(false);    
+      setIsPinSuccess(false); 
+      setIsPinFail(true);   
     }
   }
   const goPurchase = (productId:string) => {
@@ -179,6 +187,9 @@ const PlanItem = ({
         <div className='mt-4 justify-center flex flex-col items-center'>
           {(isPinSuccess)&&(
             <p className='text-green-500 text-[14px]'>PIN Success, Please wait a moment...</p>
+          )}
+          {(isPinFail)&&(
+            <p className='text-red-500 text-[14px]'>Incorrect PIN. Try again.</p>
           )}
           <LinkRoute 
             type='unset'
