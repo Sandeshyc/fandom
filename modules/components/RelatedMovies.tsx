@@ -58,17 +58,24 @@ let settings = {
         },
       },
     ]
-  }; 
+};
 const RelatedMovies = ({data}:{data:any}) => {    
   const isMobile = useIsMobile();
+  const [movieList, setMovieList] = useState([]);
+  useEffect(() => {
+    if (Array.isArray(data) && data?.length > 0) {
+      data = data.filter((item: any) => item && item._id);
+    }
+    setMovieList(data);
+  }, [data]); 
     return (
         <div className={`mt-8 lg:mt-16 ${(isMobile)?'portrait':''}`}>
           <ReelHeading 
-            title='Related Movies'
+            title='More Like This'
             />
             <div className="block lg:hidden ">
                 <div className='flex overflow-y-hidden overflow-x-auto mobileCardsSlide'>
-                    {data?.map((movie:any, index:number) => (
+                    {Array.isArray(movieList) && movieList?.length > 0 && movieList?.map((movie:any, index:number) => (
                         <MovieCardReelPortrait key={stableKeys[index]} data={movie} portrait={isMobile}/>
                     ))}
                 </div>
@@ -76,7 +83,7 @@ const RelatedMovies = ({data}:{data:any}) => {
             <div className="hidden lg:block overflow-hidden movieSliderReel movieBoxsInside movieSliderInner mt-4">
                 <div className="movieSlider">
                     <Slider {...settings}>
-                        {Array.isArray(data) && data?.length > 0 && data.map((item: any, index: number) => (
+                        {Array.isArray(movieList) && movieList?.length > 0 && movieList.map((item: any, index: number) => (
                             <div key={stableKeys[index]} className="related-movie">
                                 <MovieCardReel data={item} />
                             </div>

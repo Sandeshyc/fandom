@@ -28,6 +28,7 @@ const imgLogBG = '/images/loginbgnew.png';
 const ResetPassword = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoginFail, setIsLoginFail] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
     const [onSubmit, setOnSubmit] = useState(false);
@@ -119,6 +120,7 @@ const ResetPassword = () => {
                 console.log('email verification sent');
                 setOnSubmit(false);
                 setIsLoginFail(false);
+                setIsSuccess(true);
                 setErrorMessage('Success!');
                 router.push('/auth');
             })
@@ -126,6 +128,7 @@ const ResetPassword = () => {
                 console.log('error: ', error);
                 setOnSubmit(false);
                 setIsLoginFail(true);
+                setIsSuccess(false);
                 setErrorMessage('oops! something went wrong');
                 if(error.code === 'auth/expired-action-code') {
                     setErrorMessage('The link has expired. ');
@@ -235,7 +238,7 @@ const ResetPassword = () => {
                                     {errors.confirmPassword && touched.confirmPassword && <span className='text-red-500 w-full text-xs'>{errors.confirmPassword}</span>}
                                 </div>
                                 {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
-                                {(isSubmitting && !isLoginFail) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
+                                {(isSubmitting && isSuccess) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
                                 <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC]'>{(onSubmit)?'Loading...':'Continue'}</button>
                             </form>
                             <p className="flex flex-wrap justify-center text-white mt-8">

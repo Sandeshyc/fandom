@@ -67,27 +67,31 @@ const MovieCardPurchasePortrait: React.FC<MovieCardProps> = ({
           ) : null}
 
           {data?.planDescription ? (
-            <p className="text-[12px] sm:text-sm md:text-base mb-0 md:mb-1 flex items-center">
-              <Check
-                className="mr-1"
-                sx={{
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              />
-              {data?.planDescription}
+            <p className="text-[12px] sm:text-sm md:text-base flex items-center mb-1">
+              <span className="w-[26px]">
+                <Check
+                  className="mr-1"
+                  sx={{
+                    color: "white",
+                    fontSize: "20px",
+                  }}
+                />
+              </span>
+              <span>{data?.planDescription}</span>
             </p>
           ) : null}
 
           {data?.sourcePlatform ? (
-            <p className="text-[12px] sm:text-sm md:text-base mb-0 md:mb-1 flex items-center">
-              <ShoppingBagOutlined
-                className="mr-1"
-                sx={{
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              />
+            <p className="text-[12px] sm:text-sm md:text-base mb-1 flex items-center">
+              <span className="w-[26px]">
+                <ShoppingBagOutlined
+                  className="mr-1"
+                  sx={{
+                    color: "white",
+                    fontSize: "20px",
+                  }}
+                />
+              </span>
               {capFirstLetter(data?.sourcePlatform)}
             </p>
           ) : null}

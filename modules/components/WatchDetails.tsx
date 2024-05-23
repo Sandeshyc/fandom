@@ -211,7 +211,7 @@ const WatchDetails = (inputProps:dataProps) => {
         )}
         {(!pinMode && !isMovieStartPopUp)&&(
             <div className="h-screen w-screen bg-black flex items-center" onMouseMove={onMouseMove}>
-                {(mouseActive || backMouseActive) && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}
+                {(mouseActive || backMouseActive) && (<nav className={`fixed w-full p-4 z-50 top-1 flex flex-row items-center gap-4 lg:gap-8 bg-opacity-70 transition-opacity ease-in duration-700 ${(backBtnActive)?'opacity-50':'opacity-100'} videoPageNav`}
                 onMouseEnter={backMouseEnter}
                 onMouseLeave={backMouseLeave}
                 >

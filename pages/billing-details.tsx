@@ -21,7 +21,7 @@ const BillingDetails = () => {
             backgroundSize: '100% auto',
             backgroundPosition: 'right '+ 30 + '%',
         }}>
-            <div className='pt-24 lg:pt-40'>
+            <div className='pt-24 lg:pt-40  px-4 '>
                 <div className="container mx-auto max-w-[1400px] py-4 bg-white/90 rounded-md">
                     <PaymentHistory />
                 </div>

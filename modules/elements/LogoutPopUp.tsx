@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
+import {
+    getFingerPrintId,
+    setEventRecord
+} from "@/services/api";
 import * as oidcApi from 'pages/api/auth/oidcApi';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from "firebase/auth";
@@ -18,10 +22,26 @@ const LogoutPopUp = ({
     setIsLogoutPopUp
 }:Props) => {
     const router = useRouter();
+    const [fingerPrintId, setFingerPrintId] = useState('');
+    const [userId, setUserId] = useState('');
     const logoutFnc = () => {
         const provider = localStorage.getItem('provider');
         const oneLogInAccessToken = localStorage.getItem('oneLogInAccessToken');
         const googleIndentityAccessToken = localStorage.getItem('googleIndentityAccessToken');
+        const eventData = {
+            "eventType": "Logout",
+            "data": {
+                "deviveId": fingerPrintId,
+                "sessionId": (provider === 'firebase') ? googleIndentityAccessToken : oneLogInAccessToken,
+                "userId": userId,
+                "time": new Date().toISOString(),
+            }
+        };
+        const _testxxx = async () => {
+            const response = await setEventRecord(eventData);
+            console.log('response', response);
+        }
+        _testxxx();
         localStorage.removeItem('userInfo');        
         localStorage.removeItem('provider');
         if(provider === 'oneLogin'){
@@ -49,6 +69,23 @@ const LogoutPopUp = ({
             _signOut();
         }    
     }
+    useEffect(() => {
+        const _getFingerPrintId = async () => {
+            const response = await getFingerPrintId();
+            if(response.status === 'success'){
+                setFingerPrintId(response.fingerPrintId);
+            }
+        }
+        _getFingerPrintId();
+
+        const userInfo = window.localStorage.getItem('userInfo');
+        if(userInfo) {
+            const userInfoObj = JSON.parse(userInfo);
+            if(userInfoObj.sub) {
+                setUserId(userInfoObj.sub);
+            }            
+        }
+    }, [])
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-black/60 z-50 flex justify-center items-center'>
             <div className='bg-gray-900 w-[380px] max-w-[90%] relative text-white border border-white/70 rounded-lg p-4'>

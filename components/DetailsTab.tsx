@@ -109,8 +109,8 @@ const DetailsTab = ({data, isPackage=false, isShow=false}:Props) => {
     <>
         <TabTitles tabArgs={tabArgs} openTab={openTab} setOpenTab={setOpenTab} />
         <TabContents tabArgs={tabArgs} openTab={openTab}/>
-        {(!isPackage && !isShow && Array.isArray(data?.relatedMovies) && data?.relatedMovies?.length > 0) && (
-            <RelatedMovies data={data?.relatedMovies} />
+        {(!isPackage && !isShow && Array.isArray(data?.relatedContent) && data?.relatedContent?.length > 0) && (
+            <RelatedMovies data={data?.relatedContent} />
         )}
     </>);
 }
