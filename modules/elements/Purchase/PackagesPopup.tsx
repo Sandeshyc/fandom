@@ -26,7 +26,7 @@ const PackagesPopup = ({
     if(onAirDate && !isOnAir(onAirDate)){
         rentBtnTxt = "Pre-book";
     }
-    const isLoginUser = useCheckAuthentication();
+    const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
     const handleClose = () => {
         setIsPackagePopupOpen && setIsPackagePopupOpen();
     };

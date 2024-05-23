@@ -18,7 +18,7 @@ type Props = {
     currentSeason: any
 }
 const ShowSummaryDesktop = ({data, setCurrentSeason, currentSeason}:Props) => {
-    const isLoginUser = useCheckAuthentication();
+    const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
     const allSeasons = data?.seasons;
     const [noOfSeasons, setNoOfSeasons] = useState(0);
     // console.log('Show Summary: ', data, 'allSeasons: ', allSeasons, 'currentSeason: ', currentSeason);

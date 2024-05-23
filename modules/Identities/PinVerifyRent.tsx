@@ -45,8 +45,7 @@ const PinVerifyRent: React.FC<Props> = ({
     }else if(index === length - 1 && value !== ''){
         inputRefs.current[index]?.blur();
         if(myPin === joinedOtp){
-            setBorderColorClass('border-green-500');
-            
+            setBorderColorClass('border-green-500');            
         }else{
             setBorderColorClass('border-red-500/80');
         }

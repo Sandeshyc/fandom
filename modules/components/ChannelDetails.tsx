@@ -19,7 +19,7 @@ type dataProps = {
 const ChannelDetails = (inputProps: dataProps) => {
   const { data } = inputProps;
   const isMobile = useIsMobile();
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const postar = getThumbnailPortrait(data);
   const [open, setOpen] = useState(false);
   const handleToggle = () => {

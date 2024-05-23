@@ -14,7 +14,7 @@ const PlanItemsList = ({
     isPackage,
     movieId
 }:Props) => {
-    const isLoginUser = useCheckAuthentication();
+    const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
     // console.log('allowPlans',allowedPlans);
     return (<>
         {(Array.isArray(allowedPlans) && allowedPlans.length > 0)?<>

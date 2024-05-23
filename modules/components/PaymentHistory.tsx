@@ -3,8 +3,12 @@ import usePaymentHistory from '@/hooks/usePaymentHistory';
 import {
     PictureAsPdfOutlined,
     ContentCopyOutlined,
-    ContentCopyTwoTone
+    ContentCopyTwoTone,
+    RefreshOutlined
 } from '@mui/icons-material';
+import {
+    getOrderReceipt
+} from '@/services/api';
 import { stableKeys } from '@/utils/stableKeys';
 import Title from '@/modules/Identities/Title';
 import {
@@ -17,7 +21,8 @@ const PaymentHistory = () => {
     const [isReady, setIsReady] = useState(false);
     const [userId, setUserId] = useState('');
     const [copyText, setCopyText] = useState('');
-
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
+    const [loadingItem, setLoadingItem] = useState('');
     // const { data, isLoading, error } = usePaymentHistory('7B6E23C8-6B77-4294-A7A3-66B4748D8D05');
     const { data, isLoading, error } = usePaymentHistory(userId);
     // console.log('data: ', data, isLoading, error);
@@ -25,6 +30,34 @@ const PaymentHistory = () => {
     const copyTextFunc = (text: string) => {
         navigator?.clipboard?.writeText(text);
         setCopyText(text);
+    }
+    const handlePDFDownload = async (transactionId:string) => {
+        setIsPdfLoading(true);
+        setLoadingItem(transactionId);
+        const response = await getOrderReceipt(userId, transactionId);
+        if(response.status === 'success'){
+            const ddd = URL.createObjectURL(response?.data as Blob);
+            // set file name 
+            const fileName = transactionId+'.pdf';
+            // create an anchor tag
+            const a = document.createElement('a');
+            // set the href attribute
+            a.href = ddd;
+            // new tab open
+            a.target = '_blank';
+            a.download = fileName;
+            // trigger the click event
+            a.click();
+            // remove the anchor tag
+            a.remove();
+            URL.revokeObjectURL(ddd);
+            setIsPdfLoading(false);
+            setLoadingItem('');
+        }else{
+            console.log('Error: ', response);
+            setIsPdfLoading(false);
+            setLoadingItem('');       
+        }
     }
     useEffect(() => {
         const userInfo = window.localStorage.getItem('userInfo');
@@ -37,7 +70,11 @@ const PaymentHistory = () => {
         setIsReady(true);
     }, []);
     return (
-        <div className='py-4'>
+        <div className='py-6 relative'>
+            {(isPdfLoading)&&(
+                <div className='absolute top-0 left-0 w-full h-full bg-black/60 z-50 cursor-wait'> 
+                </div>
+            )}
             <div className='text-center mb-4 font-medium text-black/80'>
                 <Title tag='h2' size='2xl'>Payment History</Title>
             </div>
@@ -104,11 +141,22 @@ const PaymentHistory = () => {
                                 <td className={cellClass} data-label={'Transaction Type'}>{payment?.transactionType}</td>
                                 <td className={cellClass} data-label={'Amount'}>{payment?.totalAmount?.currency} {payment?.totalAmount?.amount}</td>
                                 <td className={cellClass} data-label={'Receipt'}>
-                                    <button className='text-blue-500' title='Download'>
-                                        <PictureAsPdfOutlined
-                                            sx={{ fontSize: 30, color: 'blue' }}
-                                        />
-                                    </button>
+                                    
+                                    {(loadingItem === payment?.transactionId)? (
+                                        <button className='text-blue-500' title='Loading'>
+                                            <RefreshOutlined
+                                                sx={{ fontSize: 30, color: 'blue' }}
+                                                className='animate-spin'
+                                            />
+                                        </button>
+                                    ):(
+                                        <button className='text-blue-500' title='Download'
+                                            onClick={() => handlePDFDownload(payment?.transactionId)}>
+                                            <PictureAsPdfOutlined
+                                                sx={{ fontSize: 30, color: 'blue' }}
+                                            />
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                             ))

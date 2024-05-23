@@ -19,7 +19,7 @@ const ShareBtnGroup = ({ data }: dataProps) => {
   const [isInLish, setIsInLish] = React.useState(data?.isInWatchList);
   const movieId = data?._id;
   const [open, setOpen] = React.useState(false);
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const handleToggle = () => {
     setOpen(!open);
   };

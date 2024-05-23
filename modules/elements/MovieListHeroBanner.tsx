@@ -26,7 +26,7 @@ const MovieListHeroBanner = ({ data, isComplited }: Props) => {
   const router = useRouter();
   // console.log('data Package Movie', data);
   const [open, setOpen] = React.useState(false);
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const [inView, setInView] = React.useState(false);
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);

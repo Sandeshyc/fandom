@@ -176,7 +176,7 @@ const VideoPlayer: React.FC<VideoPlayerProps>  = ({image, video, control, autopl
             if(!player || !playerRef.current.firstChild) return;
             player.setup({
                 playlist:  [{ 
-                    image: image,
+                    image: '',
                     sources:  [{
                         "type": "hls",
                         file: video?.HLS,

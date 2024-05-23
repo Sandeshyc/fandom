@@ -37,7 +37,7 @@ const PackageDetailsHeroImage = ({ data }: Props) => {
       ) : (
         <>
           <div className='relative z-10'>
-            <DetailsHeroBanner thumb={thumb} videoURL={trailerUrl} />
+            <DetailsHeroBanner thumb={thumb} />
           </div>
           <div className='z-20 relative bg-gradient-to-t from-black from-[20%] to-transparent'>
             <div className="text-white max-w-[1600px] mx-auto px-[15px] z-10 relative my-4">

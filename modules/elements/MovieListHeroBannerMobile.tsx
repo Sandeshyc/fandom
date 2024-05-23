@@ -22,7 +22,7 @@ type Props = {
 };
 const MovieListHeroBannerMobile = ({ data, isComplited }: Props) => {
   const [open, setOpen] = React.useState(false);
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const postar = getThumbnailPortrait(data);
   const bannerThumb = getThumbnailLandscape(data);
   let releaseYear = data?.releaseDate;

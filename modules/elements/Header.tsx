@@ -7,7 +7,7 @@ import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 const logoSrc = '/images/logonew.png';
 const Header = () => {
   const router = useRouter();
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
 
   return (
     <>

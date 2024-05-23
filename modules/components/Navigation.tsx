@@ -17,7 +17,7 @@ const NavigationHome = () => {
   const router = useRouter();  
   const [scrollPosition, setScrollPosition] = useState(0);
   const isMobile = useIsMobile();
-  const isLoginUser = useCheckAuthentication();
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   // console.log('isLoginUser', isLoginUser);
   // get scroll position in px
   const getScrollPosition = () => {
