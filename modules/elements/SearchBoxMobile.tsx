@@ -14,7 +14,7 @@ const SearchBoxMobile = ({isOpened}:Props) => {
     const [isLoading, setIsLoading] = useState(false);
     const searchInputRef = useRef(null);
     const schema = Yup.object().shape({
-      title: Yup.string().required("Movie, Event is required")
+      title: Yup.string().required("Type something...")
     });
     const formiks = useFormik({
       initialValues: {

@@ -72,6 +72,8 @@ const Search = (props: any) => {
       searchGenre,
       searchContentType
       }) => {  
+        // trim searchTitle
+        searchTitle = searchTitle.trim();
         setSearchKeyWord(searchTitle);
         setSearchTitle(searchTitle);
         setSearchGenre(searchGenre);
@@ -83,7 +85,7 @@ const Search = (props: any) => {
             shallow: true,
           }
         );
-        // console.log('searchTitle: ', searchTitle, 'searchGenre: ', searchGenre, 'searchContentType: ', searchContentType);  
+        // console.log('searchTitle:', searchTitle, 'searchGenre: ', searchGenre, 'searchContentType: ', searchContentType);  
     },
     enableReinitialize: true,
   });

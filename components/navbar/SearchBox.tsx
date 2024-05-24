@@ -15,7 +15,7 @@ const SearchBox = () => {
     const searchInputRef = useRef(null);
     const searchInput = searchInputRef.current as unknown as HTMLElement;
     const schema = Yup.object().shape({
-      title: Yup.string().required("Movie, Event is required")
+      title: Yup.string().required("Type something...")
     });
     const formiks = useFormik({
       initialValues: {
