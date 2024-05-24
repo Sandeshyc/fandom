@@ -17,7 +17,7 @@ const ReactMainVideoPlayer = (
     return (
         <>
         <div 
-            className={`w-screen h-screen`} 
+            className={`h-[80vh] lg:h-screen w-screen`} 
             style={{
                 backgroundImage: `url(${poster})`,
                 backgroundSize: "cover",
