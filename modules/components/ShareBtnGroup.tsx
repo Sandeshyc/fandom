@@ -8,6 +8,7 @@ import {
   Download,
   Share,
   Celebration,
+  RefreshOutlined
 } from "@mui/icons-material";
 import SocialShare from "@/modules/elements/SocialShare";
 
@@ -15,15 +16,17 @@ type dataProps = {
   data: any;
 };
 const ShareBtnGroup = ({ data }: dataProps) => {
-  const [userId, setUserId] = React.useState("");
-  const [isInLish, setIsInLish] = React.useState(data?.isInWatchList);
+  const [isListLoading, setIsListLoading] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [isInLish, setIsInLish] = useState(data?.isInWatchList);
   const movieId = data?._id;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const handleToggle = () => {
     setOpen(!open);
   };
   const toggleFavorites = async () => {
+    setIsListLoading(true);
     const checkUserID = async () => {
       if (!userId) {
         const userInfo = window.localStorage.getItem("userInfo");
@@ -48,6 +51,7 @@ const ShareBtnGroup = ({ data }: dataProps) => {
         setIsInLish(true);
       }
     }
+    setIsListLoading(false);
   };
 
   useEffect(() => {
@@ -61,6 +65,7 @@ const ShareBtnGroup = ({ data }: dataProps) => {
   }, []);
   useEffect(() => {
     setIsInLish(data?.isInWatchList);
+    setIsListLoading(false);
   }, [data]);
 
   return (
@@ -70,25 +75,36 @@ const ShareBtnGroup = ({ data }: dataProps) => {
           {isLoginUser && (
             <ShareItem
               icon={
-                isInLish ? (
-                  <Remove
-                    sx={{
-                      fontSize: 28,
-                      color: "#ccc",
-                      border: "2px solid #ddd",
-                      borderRadius: "50%",
-                    }}
-                  />
-                ) : (
-                  <Add
-                    sx={{
-                      fontSize: 28,
-                      color: "#ccc",
-                      border: "2px solid #ddd",
-                      borderRadius: "50%",
-                    }}
-                  />
+                (isListLoading)?(
+                    <RefreshOutlined
+                      sx={{
+                        fontSize: 28,
+                        color: "#ccc",
+                      }}
+                      className="animate-spin"
+                    />
+                ):(
+                  isInLish ? (
+                    <Remove
+                      sx={{
+                        fontSize: 28,
+                        color: "#ccc",
+                        border: "2px solid #ddd",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <Add
+                      sx={{
+                        fontSize: 28,
+                        color: "#ccc",
+                        border: "2px solid #ddd",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )
                 )
+                
               }
               label="Watchlist"
               handelClick={() => {
