@@ -1,138 +1,84 @@
-import React, { use, useEffect } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import Navigation from "@/modules/components/Navigation";
-import Header from '@/modules/elements/Header';
-import Footer from '@/components/Footer';
-import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
-import useIsMobile from '@/hooks/useIsMobile';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import useIsMobile from "@/hooks/useIsMobile";
+import Text from "@/modules/Identities/Text";
+import Preloader from "@/modules/skeletons/Preloader";
 import {
-    Loop
-} from '@mui/icons-material';
+    createEntitlement
+} from "@/services/api";
 
-
-
-const MyProfile = () => {
+const PaymentResponse = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
-  const [isReady, setIsReady] = React.useState(false);
-  const [isError, setIsError] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
-  const [isSuccess, setIsSuccess] = React.useState(false);
-  const [successMessage, setSuccessMessage] = React.useState('');
-  const { productId, userid, transactionId, paymentStatus, paymentId } = router.query;
+  const [massage, setMassage] = useState("");
+  const [isReady, setIsReady] = useState(false);
+  const { productId, userid, transactionId, paymentStatus, paymentId } =
+    router.query;
   useEffect(() => {
-    const itemCode = window.localStorage.getItem('itemCode');
-    const itemUrl = window.localStorage.getItem('itemUrl');
-    if(paymentStatus){
-        if(paymentStatus === 'success'){
-            const entitleCall = async () => {
-                const headers = {
-                    'Content-Type': 'application/json',
-                };      
-                const data = {
-                    "userID": userid,
-                    "receipt": paymentId,
-                    "sourcePlatform": "web",
-                    "transactionId": transactionId,
-                };
-                // console.log('Data:', data);
-                // console.log('URL:', `${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`)
-                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/entitlement/user/${userid}`, data, { headers })
-                    .then(response => {
-                        // console.log('Response:', response);
-                        if(response.status === 200 || response.status === 201 || response.status === 204) {
-                            setIsSuccess(true);
-                            setSuccessMessage('Payment successful.');
-
-                            // console.log('Success:', response?.data?.createRes?.itemCode);
-                            const movieID = response?.data?.createRes?.itemCode;
-                            setTimeout(() => {
-                                // remove browser history /payment/
-                                // window.history.pushState(null, '', `/details/${itemCode}`);                            
-
-                                // router.push(`/details/${itemCode}`);
-                                // router.replace(`/details/${itemCode}`);
-                                if(itemUrl){
-                                    router.replace(itemUrl);
-                                }else{
-                                    router.replace(`/`);
-                                }
-                            }, 2000);
-                        }else{
-                            setIsError(true);
-                            setErrorMessage('Something went wrong. Please try again later.');
-                            setTimeout(() => {
-                                router.replace(`/`);
-                            }, 4000);
-                        }
-                    }
-                )
-                .catch(error => {
-                    console.error('Error:', error);
-                    setIsError(true);
-                    setErrorMessage('Something went wrong. Please try again later.');
-                    setTimeout(() => {
-                        router.replace(`/`);
-                    }, 4000);
-                }); 
+    const itemCode = window.localStorage.getItem("itemCode");
+    const itemUrl = window.localStorage.getItem("itemUrl");
+    if (paymentStatus) {
+      if (paymentStatus === "success") {
+        const _createEntitlement = async () => {
+            const data = {
+                userID: userid,
+                receipt: paymentId,
+                sourcePlatform: "web",
+                transactionId: transactionId,
+            };
+            const response = await createEntitlement( userid as string, data );
+            console.log('Response:', response);
+            if(response.status === 'success') {
+                setMassage("Entitlement created successfully. Please wait...");
+            }else {
+                setMassage("Got an error while creating entitlement.");               
             }
-            entitleCall();
-        }else{
-            setIsError(true);
-            setErrorMessage('Something went wrong. Please try again later.');
-            if(itemUrl){
+            if(itemUrl) {
                 router.replace(itemUrl);
-            }else{
+            }else if(itemCode) {
+                router.replace(`/details/${itemCode}`);                
+            }else {
                 router.replace(`/`);
             }
+        };
+        _createEntitlement();
+      } else {
+        if (itemUrl) {
+          router.replace(itemUrl);
+        } else {
+          router.replace(`/`);
         }
-        // setTimeout(() => {
-        //     router.push(`/details/${transactionId}`);        
-        // }, 3000);
+      }
+    }else{
+        router.replace(`/`);
     }
   }, [paymentStatus]);
 
   useEffect(() => {
     // is not parent window
     if (window.self !== window.top) {
-        window.parent.location.replace(window.location.href);       
-        // return; 
+      window.parent.location.replace(window.location.href);
     }
     setIsReady(true);
+    setMassage("Checking entitlement...")
   }, []);
 
-  return (<>
-      {(isReady) && (<>
-        {isMobile?<Header/>:<Navigation/>}
-      <div className="py-16  min-h-[80vh]">
-        <div className={`px-4 md:px-12 mb-[3vw]`}>
-          <div className="movieSliderInner max-w-[1200px] mx-auto mt-16">
-            <h1 className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold mb-4 lg:pl-6">
-            <Loop className='animate-spin'
-            /> Redirecting... 
-            </h1>
-            <div className="lg:px-6 pb-6 text-white">
-                <h3 className='text-xl mb-4'>
-                    Please wait for a while...
-                </h3>
-                {(isError)?<>
-                    <h2 className='text-xl mb-4 text-red-800 bg-red-100 py-2 px-4 rounded-md'>
-                        {errorMessage}
-                </h2></>:null
-                }
-                {(isSuccess)?<>
-                    <h2 className='text-xl mb-4 text-green-800 bg-green-100 py-2 px-4 rounded-md'>
-                        {successMessage}
-                </h2></>:null
-                }
+  return (
+    <>
+      {isReady? (
+        <div className="h-screen w-screen relative text-white/80">
+            <Preloader/>
+            <div className={`absolute ${(isMobile)?'bottom-[60px]':'bottom-0'} left-0 px-4 pb-4 text-center w-full`}>
+                <Text size="base">
+                    {massage}
+                </Text>
             </div>
-          </div>
         </div>
-      </div>
-      {isMobile?<BottomNavigation/>:<Footer/>}
-      </>)}
-  </>)
-}
+      ):(
+        <Preloader/>
+      )}
+    </>
+  );
+};
 
-export default MyProfile;
+export default PaymentResponse;

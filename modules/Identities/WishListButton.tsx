@@ -78,7 +78,7 @@ const WishListButton: React.FC<FavoriteButtonProps> = ({
     {(isLoading) ? (
       <button 
       title="Watchlist" 
-      className='h-[36px] lg:h-[44px] border border-blue-600 rounded-full w-[150px] mr-4 flex items-center justify-center text-sm text-white/80 cursor-wait' style={style}>
+      className='h-[36px] lg:h-[44px] border border-blue-600 rounded-full w-[150px] mr-4 flex items-center justify-center text-white/80 cursor-wait' style={style}>
         <RefreshOutlined 
           className='animate-spin'
           sx={{fontSize: '24px', marginRight: '5px'}}
@@ -90,7 +90,7 @@ const WishListButton: React.FC<FavoriteButtonProps> = ({
     (<button 
       onClick={toggleFavorites}
       title="Watchlist" 
-      className='h-[36px] lg:h-[44px] border border-blue-600 rounded-full w-[150px] mr-4 flex items-center justify-center text-sm text-white/80 cursor-pointer hover:text-white' style={style}>
+      className='h-[36px] lg:h-[44px] border border-blue-600 rounded-full w-[150px] mr-4 flex items-center justify-center text-white/80 cursor-pointer hover:text-white' style={style}>
         <Icon 
             sx={{fontSize: '24px', marginRight: '5px'}}
         />
