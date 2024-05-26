@@ -44,6 +44,14 @@ export default function App({
         strategy="beforeInteractive"
         src="https://cdn.jwplayer.com/libraries/kLxY4wBD.js"
       />
+      <Script 
+        id="bitmovin-player"
+        strategy="beforeInteractive"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"
+        />
+           <script src='//cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js' type='text/javascript'></script>
+    <link href='//cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css' rel='stylesheet'></link>
+
       <main className={poppins.className}>
 
         <ErrorBoundary>
