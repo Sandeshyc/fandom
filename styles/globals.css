@@ -52,6 +52,15 @@ html {
 .channel_jwp_full .jwplayer.jw-flag-aspect-mode{
   height: 100% !important;
 }
+#bitmovinPlayer video{
+  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100vh !important;
+}
+#bitmovinPlayer .bmpui-ui-watermark{
+  display: none !important;
+}
 
 /* Need to Update */
 .jwplayer.jw-stretch-fill .jw-media video{
@@ -831,3 +840,7 @@ html {
 .castCarousel .slick-disabled{
   display: none !important;
 }
+
+/* .remove-all * {
+  all: unset;
+} */

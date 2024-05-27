@@ -139,7 +139,7 @@ const ParentalControls = ({pcData}:Props) => {
                         formiks.setErrors({userPassword: 'Invalid Password'});
                     }
                 }else{
-                    formiks.setErrors({userPassword: 'Only Firebase Auth is allowed'});
+                    formiks.setErrors({userPassword: 'Not available for Employee Login'});
                 }
             } catch (err:any) {
                 formiks.setErrors({userPassword: 'Invalid Password'});                

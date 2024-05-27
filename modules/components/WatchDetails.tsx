@@ -2,6 +2,7 @@ import React, { use, useEffect, useRef, useState } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import VideoPlayer from "@/components/JwPlayer/JwPlayer";
+import BitMovinPlayer from "@/modules/components/BitMovinPlayer";
 import useProfile from "@/hooks/useProfile";
 import ReactMainVideoPlayer from "@/components/ReactMainPlayer";
 import { getThumbnailLandscape } from "@/utils/getData";
@@ -320,7 +321,7 @@ const WatchDetails = (inputProps: dataProps) => {
                   <NotFount />
                 )
               ) : videoURL ? (
-                <VideoPlayer
+                <BitMovinPlayer
                   image={thumb}
                   video={videoURL}
                   caption={captionURL}
