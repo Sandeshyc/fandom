@@ -11,7 +11,7 @@ import Notification from '@/modules/elements/Notification';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import { stableKeys } from '@/utils/stableKeys';
 import navItemLists from '@/services/json/navItemLists.json';
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 
 const NavigationHome = () => {
   const router = useRouter();  
@@ -35,34 +35,20 @@ const NavigationHome = () => {
 
   return (<>
     {(isMobile)?(<Header/>):
-    <div className={`mainHeader mainNavbar w-full py-4 border-b border-white/40 fixed z-50 top-0 left-0 bg-gradient-to-b ${(scrollPosition>60)?'from-black from-100%':'from-black/40 from-70%'} to-transparent to-100%`}>
-        <div className='px-4'>
+    <div className={`mainHeader mainNavbar w-full py-4 border-b border-[#E79FAD]/70 fixed z-50 top-0 left-0 bg-white`}>
+        <div className='px-4 max-w-[2400px] mx-auto'>
             <div className='flex items-center justify-between flex-wrap'>
               <div className='flex items-center justify-between'>
                 <div className='mr-4 xl:mr-8'>
                   <img 
                   src={logoSrc} 
                   className="h-[60px] cursor-pointer" 
-                  alt="iWantTFC Ticket" onClick={() => router.push('/')} />
-                </div>
-                <div className='ml-4 xl:ml-8'>
-                  <div className='flex flex-row items-center gap-4 xl:gap-8'>
-                    {/* {isLoginUser.toString()} */}
-                    {(Array.isArray(navItemLists)) && navItemLists.map((item, index) => (
-                        (!item?.auth || (item?.auth && isLoginUser))?
-                        <NavItem key={stableKeys[index]} label={item?.label} route={item?.route} activeRoute={item?.activeRoute} />
-                        :null
-                    ))}
-                  </div>
+                  alt="Bini" onClick={() => router.push('/discover')} />
                 </div>
               </div>
               <div className='flex items-center justify-end'>
                   <div className='pl-4'>
                     <div className='flex flex-row items-center'>
-                      <div className='mr-3 xl:mr-6 relative'>
-                        <SearchBox/>
-                      </div>
-                      {/* {(isLoginUser)?<Notification />:null}                       */}
                       <ProfileDropDown/>
                     </div>
                   </div>

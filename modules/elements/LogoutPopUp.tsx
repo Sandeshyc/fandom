@@ -57,13 +57,13 @@ const LogoutPopUp = ({
                 await signOut(getAuth()).then(() => {
                     console.log('signout');
                     localStorage.removeItem('googleIndentityAccessToken');
-                    // router.push('/');
-                    window.location.replace(window.location.href);
+                    router.push('/login');
+                    // window.location.replace(window.location.href);
                 }
                 ).catch((error) => {
                     console.log('signout error', error);
                     localStorage.removeItem('googleIndentityAccessToken');
-                    router.push('/auth');
+                    router.push('/login');
                 });
             }
             _signOut();
@@ -88,7 +88,7 @@ const LogoutPopUp = ({
     }, [])
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-black/60 z-50 flex justify-center items-center'>
-            <div className='bg-gray-900 w-[380px] max-w-[90%] relative text-white border border-white/70 rounded-lg p-4'>
+            <div className='bg-gray-300 w-[380px] max-w-[90%] relative text-black/80 border border-white/70 rounded-lg p-4'>
                 <Title tag='h3' size='xl' className='mb-2'>Are you sure?</Title>
                 <Text size='md'>Are you sure you want to log out?</Text>
                 <div className='flex justify-end mt-4'>

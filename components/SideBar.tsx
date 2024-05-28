@@ -19,7 +19,7 @@ import {
   AccountCircle
 } from '@mui/icons-material';
 
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 interface FlexContainerProps {
   isActive: boolean;
   isHovered: boolean;
@@ -289,7 +289,7 @@ const SideBar: React.FC = () => {
           justify-start
           w-full">
           <img 
-          src="/images/logonew.png" 
+          src="/images/logoofbini.png" 
           className="h-[50px]" 
           alt="Logo" onClick={() => router.push('/')} />
           <p
@@ -324,7 +324,7 @@ const SideBar: React.FC = () => {
             justify-start
             w-full">
             <img 
-            src="/images/logonew.png" 
+            src="/images/logoofbini.png" 
             className="h-[50px]" 
             alt="Logo" onClick={() => router.push('/')} />
             <p
@@ -443,9 +443,9 @@ const SideBar: React.FC = () => {
       group pl-1 pr-4 fixed w-auto h-screen hover:pl-7 hover:pr-7 z-40 hidden lg:block
       bg-gradient-to-r from-black from-80% to-transparent to-95% pt-[80px] hover:pt-[110px] transition-all`}
       >
-      {/* <Logo src={"/images/logonew.png"} /> */}
+      {/* <Logo src={"/images/logoofbini.png"} /> */}
       <img 
-      src={"/images/logonew.png"} 
+      src={"/images/logoofbini.png"} 
       className="fixed left-0 top-2 h-[50px] group-hover:h-[90px] mt-3 cursor-pointer group-hover:left-5 transition-all duration-200" 
       alt="Logo" 
       onClick={() => router.push('/')} />

@@ -21,7 +21,7 @@ import {
 import MobileHeader from './sidebar/MobileHeader';
 import { type } from 'os';
 
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 
 const SideBar: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);

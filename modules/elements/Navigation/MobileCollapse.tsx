@@ -74,7 +74,7 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 {(isLoginUser)&&
                     <div className='flex items-center w-[150px] grow'>
                         <div className='transition w-[64px] h-[64px] mr-[10px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
-                            <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
+                            <img src="/images/pp.png" alt="Name" className='w-full h-full rounded-full'/>
                         </div>
                         <div>
                             <h3

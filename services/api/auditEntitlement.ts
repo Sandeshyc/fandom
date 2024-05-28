@@ -8,6 +8,7 @@ const auditEntitlement = async (data:object) => {
     };
     try {
         const response = await client.post(url, data);
+        console.log("response: ", response);
         if(response.status === 200) {
             console.log("Success case: ", response);
             returnResponse = {

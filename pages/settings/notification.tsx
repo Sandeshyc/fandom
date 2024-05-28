@@ -30,7 +30,7 @@ const NotificationSettings = (props:any) => {
                     </p>
                 </div>
                 <div className='transition w-[50px] h-[50px] rounded-full p-[3px] bg-gradient-to-tl from-[#3600FF] to-[#72AAFF]'>
-                    <img src="/images/pp.jpeg" alt="Name" className='w-full h-full rounded-full'/>
+                    <img src="/images/pp.png" alt="Name" className='w-full h-full rounded-full'/>
                 </div>
             </div>
             <div className='bg-gray-800 ring-2 text-white p-4 py-8 rounded-md mt-8 lg:mt-12'>

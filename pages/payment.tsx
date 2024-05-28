@@ -10,6 +10,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import {
   DataUsage
 } from '@mui/icons-material';
+
 const MyProfile = () => {
   const iframeRef = useRef( null as any );
   const router = useRouter();
@@ -61,26 +62,24 @@ const MyProfile = () => {
 
   return (<>
       {isMobile?<Header/>:<Navigation/>}
-      <div className="pt-28 min-h-full bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]"
-      style={{
-        // backgroundImage: bgImage,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '100% auto',
-        backgroundPosition: 'right '+ 30 + '%',
-      }}>
+      <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
+        style={{
+            paddingTop: isMobile ? "90px" : "140px",
+            paddingBottom: isMobile ? "70px" : "90px",
+        }}>
         <div className={`px-4 md:px-12 mb-[3vw]`}>
           <div className="movieSliderInner">
             <div className="flex flex-row items-center gap-3 lg:gap-8 mb-6">
-              <ArrowLeftIcon onClick={handleBackBtn} className="w-4 md:w-10 text-white cursor-pointer hover:opacity-80 transition" />
-              <p className="text-white/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={handleBackBtn}>
+              <ArrowLeftIcon onClick={handleBackBtn} className="w-4 md:w-10 cursor-pointer hover:opacity-80 transition" />
+              <p className="text-[#93767A]/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={handleBackBtn}>
                 <span className="font-light">Back</span>
               </p>
-              <p className="text-white text-xl md:text-2xl lg:text-[2rem] font-semibold">
+              <p className=" text-xl md:text-2xl lg:text-[2rem] font-semibold">
                 Payment
             </p>
             </div> 
             <div className="lg:px-6 pb-6 flex flex-wrap">
-              {(!iframeLoaded)&&(<div className='text-white w-full h-screen flex justify-center p-8'>
+              {(!iframeLoaded)&&(<div className='text-[#93767A] w-full h-screen flex justify-center p-8'>
                 <div className='flex flex-col items-center'>
                   <DataUsage className='animate-spin w-24 h-24' 
                     sx={{

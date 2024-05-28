@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
 
 @tailwind base;
 @tailwind components;
@@ -35,8 +35,8 @@
 body {
   @apply bg-zinc-900 h-full overflow-x-hidden;
   max-width: 100%;
-  background-color: #000;
-  /* font-family: 'Poppins', sans-serif; */
+  background-color: #fff;
+  /* font-family: 'Roboto', sans-serif; */
 }
 /* 
 #__next {
@@ -844,3 +844,12 @@ html {
 /* .remove-all * {
   all: unset;
 } */
+
+.fullWidthDatePicker .react-datepicker-wrapper{
+  width: 100%;
+}
+.fullWidthDatePicker .react-datepicker-wrapper input{
+  padding-right: 50px;
+  background-color: transparent;
+  font-size: 0px;
+}

@@ -63,9 +63,9 @@ const ProfileDropDown = () => {
         <>
           <Menu as="div" className="relative text-left flex">
             <Menu.Button className="inline-flex items-center">
-              <div className="transition w-[40px] h-[40px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/80">
+              <div className="transition w-[40px] h-[40px] rounded-full p-[3px] bg-white border-2 border-[#E79FAD]">
                 <img
-                  src="/images/pp.jpeg"
+                  src="/images/pp.png"
                   alt={displayName}
                   className="w-full h-full rounded-full text-[0px]"
                 />
@@ -73,7 +73,7 @@ const ProfileDropDown = () => {
               <ArrowDropDown
                 sx={{
                   fontSize: 30,
-                  color: "#fff",
+                  color: "#E79FAD",
                 }}
               />
             </Menu.Button>
@@ -89,11 +89,11 @@ const ProfileDropDown = () => {
               <Menu.Items className="absolute text-[16px] right-0 z-20 mt-2 w-[360px] origin-top-right rounded-md bg-white text-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="p-4">
                   <div className="flex items-center">
-                    <div className="transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-gradient-to-tl from-primary to-primaryLight/70 mr-3">
+                    <div className="transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-white mr-3 border-2 border-[#E79FAD]/70 flex justify-center items-center">
                       <img
-                        src="/images/pp.jpeg"
+                        src="/images/pp.png"
                         alt={displayName}
-                        className="w-full h-full rounded-full text-[0px]"
+                        className="w-[85%] h-[85%] text-[0px]"
                       />
                     </div>
                     <div>
@@ -150,45 +150,6 @@ const ProfileDropDown = () => {
                       <p>Billing Details</p>
                     </button>
                   </div>
-                  <div className="mb-2">
-                    <button
-                      className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
-                        router.pathname === "/device-details" && "bg-gray-100"
-                      }`}
-                      onClick={() => router.push("/device-details")}
-                    >
-                      <span className="mr-2">
-                        <DevicesOtherOutlined />
-                      </span>
-                      <p>Device Details</p>
-                    </button>
-                  </div>
-                  <div className="mb-1">
-                    <button
-                      className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
-                        router.pathname === "/mytickets" && "bg-gray-100"
-                      }`}
-                      onClick={() => router.push("/mytickets")}
-                    >
-                      <span className="mr-2">
-                        <MyTicketsIcon />
-                      </span>
-                      <p>My Tickets</p>
-                    </button>
-                  </div>
-                  <div className="mb-2">
-                    <button
-                      className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
-                        router.pathname === "/list" && "bg-gray-100"
-                      }`}
-                      onClick={() => router.push("/list")}
-                    >
-                      <span className="mr-2">
-                        <MyListIcon />
-                      </span>
-                      <p>My List</p>
-                    </button>
-                  </div>
                   <div className="my-[15px] asDivider"></div>
                   <div className="mb-2">
                     <button
@@ -206,7 +167,6 @@ const ProfileDropDown = () => {
                       <p>Help Centre</p>
                     </button>
                   </div>
-                  <div className="my-[3] asDivider"></div>
                   <div>
                     <button
                       className="flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1"
@@ -226,11 +186,11 @@ const ProfileDropDown = () => {
         </>
       ) : (
         <Link
-          href="/auth"
+          href="/login"
           onClick={() => {
             localStorage.setItem("callbackAction", "redirect");
           }}
-          className="text-contentColor/80 rounded-full px-3 py-1 flex justify-center items-center border-2 border-contentColor/50"
+          className="text-white rounded-full min-w-[100px] px-3 py-1 flex justify-center items-center bg-[#E79FAD]"
         >
           Login
         </Link>

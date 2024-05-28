@@ -285,11 +285,6 @@ const MyProfile = () => {
             />
           </div>
         </div>
-        <div className='px-4 md:px-12'>
-          <div className='container mx-auto max-w-[996px]'>
-            <ParentalControls pcData={profile?.parentalControl}/>            
-          </div>
-        </div>
       </div>
     {isMobile?<BottomNavigation/>:<Footer/>}
   </>:<SkeletonMyProfile/>}

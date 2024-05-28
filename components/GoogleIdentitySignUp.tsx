@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { CalendarIcon } from "@/utils/CustomSVGs";
+import { isDate, isEmpty } from "lodash";
 import {
   getAuth, 
   createUserWithEmailAndPassword,
@@ -10,10 +13,10 @@ import {
 import useUserInfo from '@/hooks/useUserInfo';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { EmailIcon, LockIcon, EyeSlashIcon } from "@/utils/CustomSVGs";
 import {
   Visibility,
-  VisibilityOff
+  VisibilityOff,
+  CalendarMonth
 } from '@mui/icons-material';
 import VerifyMail from '@/modules/elements/VerifyMail';
 
@@ -24,12 +27,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const auth = getAuth(app);
-
-const GoogleIdentitySignUp = () => {
+type Props = {
+  setAuthLoading: any;
+}
+const GoogleIdentitySignUp = ({setAuthLoading}:Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false); 
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
+  const [birthday, setBirthday] = React.useState<Date | null>(null);
   const [isAgree, setIsAgree] = useState(false);
   const [isMarketing, setIsMarketing] = useState(false);
   const [onSubmit, setOnSubmit] = useState(false);
@@ -37,6 +43,33 @@ const GoogleIdentitySignUp = () => {
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
   const router = useRouter();
   const {checkUser} = useUserInfo();
+
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 13);
+  // set min date is today - 100 years
+  const minDate = new Date();
+  minDate.setFullYear(minDate.getFullYear() - 100);
+  const birthday2 = new Date(maxDate);
+  let setSelectDate = new Date();
+  if(birthday2 && isItDate(birthday2)){
+      setSelectDate = birthday2;
+  }
+  const handelDataChange = (date: Date) => {
+      setBirthday(date);
+      setSelectDate = date;  
+      // set select date to values.userBirthday
+      // newDate format is YYYY-MM-DD
+      let newDate = '';
+      if(date){
+        newDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+      }
+      handleChange({
+          target: {
+            name: 'userBirthday',
+            value: newDate || '',
+          },
+      });      
+  }
   const schema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(
@@ -47,6 +80,9 @@ const GoogleIdentitySignUp = () => {
       [Yup.ref('password'), ''], 
       'Passwords are not matched'
     ).required('Confirm Password is required'),
+    fullName: Yup.string().required('Full Name is required'),
+    userBirthday: Yup.date().required('Birthday is required'),
+    mobileNumber: Yup.string(),
     tnc: Yup.boolean().oneOf([true], 'Accept Terms & Conditions is required'),
     marketing: Yup.boolean(),
   });
@@ -63,6 +99,9 @@ const GoogleIdentitySignUp = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      fullName: "",
+      userBirthday: "",
+      mobileNumber: "",
       tnc: false,
       marketing: false,
     },
@@ -71,10 +110,13 @@ const GoogleIdentitySignUp = () => {
     validationSchema: schema,
 
     // Handle form submission
-    onSubmit: async ({ email, password, confirmPassword, tnc, marketing }) => {
+    onSubmit: async ({ email, password, confirmPassword, fullName, userBirthday, mobileNumber, tnc, marketing }) => {
+      // console.log('userBirthday', userBirthday);
+      // return false;
       // Make a request to your backend to store the data
+      setAuthLoading(true);
       setIsSubmitting(true);
-      setOnSubmit(true);
+      setOnSubmit(true);      
       try {
         const userCredential = await createUserWithEmailAndPassword(
           getAuth(),
@@ -94,7 +136,10 @@ const GoogleIdentitySignUp = () => {
             'testData',
             false,
             tnc,
-            marketing
+            marketing,
+            fullName,
+            userBirthday,
+            mobileNumber,
           );           
           const isEmailVerified = user?.emailVerified;
           if(isEmailVerified){ 
@@ -138,6 +183,7 @@ const GoogleIdentitySignUp = () => {
           setErrorMessage('Unknown error');
         }
       }
+      setAuthLoading(false);
     },
     
   });
@@ -160,33 +206,27 @@ const GoogleIdentitySignUp = () => {
             autoFocus={true}
             value={values.email}
             onChange={handleChange}
-            className='w-full text-white text-[14px] lg:text-[16px] px-2 py-1 pl-10 border rounded-md border-[#767680] h-[42px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%]'/>
-          <div className="absolute top-0 left-2 flex justify-center items-center h-full">
-          <EmailIcon/>
-          </div>
+            className='w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 rounded-md h-[36px] xl:h-[40px] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]'/>
         </div>
         {errors.email && touched.email && <span className='text-red-500 w-full text-xs'>{errors.email}</span>}
       </div>
       <div className='mb-4'>
         <div className="relative">
-          <div className="absolute top-0 left-2 flex justify-center items-center h-full">
-            <LockIcon/>
-          </div>
           <input 
             type={(!isShowPassword)?'password' : 'text'}
             placeholder="Password"
             name='password'
             value={values.password}
             onChange={handleChange}
-            className='w-full text-white text-[14px] lg:text-[16px] py-1 px-10 border rounded-md border-[#767680] h-[42px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%]'
+            className='w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 pr-10 rounded-md h-[36px] xl:h-[40px] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]'
           />
-          <div className="absolute top-[8px] sm:top-[11px] xl:top-[14px] right-0 px-2 flex justify-center items-center h-[24px] border-l border-[#5F576F] text-[10px]">
+          <div className="absolute top-[8px] right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">
             {(!isShowPassword)?<><span 
               onClick={togglePassword}>
               <VisibilityOff
                 sx={{
                   fontSize: 18,
-                  color: '#fff',
+                  color: '#5F576F',
                 }}
               />
             </span></>:<><span
@@ -194,7 +234,7 @@ const GoogleIdentitySignUp = () => {
             <Visibility
               sx={{
                 fontSize: 18,
-                color: '#fff',
+                color: '#5F576F',
               }}
             />
             </span></>}
@@ -204,24 +244,21 @@ const GoogleIdentitySignUp = () => {
       </div>
       <div className='mb-4'>
         <div className="relative">
-          <div className="absolute top-0 left-2 flex justify-center items-center h-full">
-            <LockIcon/>
-          </div>
           <input 
             type={(!isShowConfirmPassword)?'password' : 'text'}
             placeholder="Confirm Password"
             name='confirmPassword'
             value={values.confirmPassword}
             onChange={handleChange}
-            className='w-full text-white text-[14px] lg:text-[16px] py-1 px-10 border rounded-md border-[#767680] h-[42px] sm:h-[46px] xl:h-[52px] bg-[#767680] bg-opacity-[22%]'
+            className='w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 pr-10 rounded-md h-[36px] xl:h-[40px] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]'
           />
-          <div className="absolute top-[8px] sm:top-[11px] xl:top-[14px] right-0 px-2 flex justify-center items-center h-[24px] border-l border-[#5F576F] text-[10px]">
+          <div className="absolute top-[8px] right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">
             {(!isShowConfirmPassword)?<><span 
               onClick={toggleConfirmPassword}>
               <VisibilityOff
                 sx={{
                   fontSize: 18,
-                  color: '#fff',
+                  color: '#5F576F',
                 }}
               />
             </span></>:<><span
@@ -229,13 +266,68 @@ const GoogleIdentitySignUp = () => {
             <Visibility
               sx={{
                 fontSize: 18,
-                color: '#fff',
+                color: '#5F576F',
               }}
             />
             </span></>}
           </div>
         </div>
         {errors.confirmPassword && touched.confirmPassword && <span className='text-red-500 w-full text-xs'>{errors.confirmPassword}</span>}
+      </div>
+      <div className='mb-4'>
+        <div className="relative">
+          <input
+            placeholder="Full Name"
+            type="text"
+            name='fullName'
+            autoFocus={true}
+            value={values.fullName}
+            onChange={handleChange}
+            className='w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 rounded-md h-[36px] xl:h-[40px] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]'/>
+        </div>
+        {errors.fullName && touched.fullName && <span className='text-red-500 w-full text-xs'>{errors.fullName}</span>}
+      </div>
+      <div className="mb-4 w-full fullWidthDatePicker">
+        <div className="relative w-full bg-[#fff] rounded-md">
+          <DatePicker
+            name="userBirthday"
+            showYearDropdown
+            showMonthDropdown
+            dropdownMode="select"
+            maxDate={maxDate}
+            minDate={minDate}
+            selected={setSelectDate}
+            onChange={handelDataChange}
+            placeholderText={(isEmpty(values.userBirthday))?'Birthday':''}
+            className="w-full text-[14px] placeholder-[#C1C0C0] lg:text-[16px] px-4 py-1  h-[36px] xl:h-[40px] bg-traparent focus:bg-[#fff] active:bg-[#fff] relative z-20"/>
+            <p className={`absolute top-0 left-0 ${(values.userBirthday && isDate(birthday))?'text-[#5F576F]':'text-[#C1C0C0]'} text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center`}>
+              {(values.userBirthday && isDate(birthday))?`${getDayWithSuffix(birthday.getDate())} ${birthday.toLocaleString('default', { month: 'long' })} ${birthday.getFullYear()}`:'Birth Date'}
+            </p>
+            <div className="absolute top-[8px] z-10 right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">
+              <span>
+                <CalendarMonth
+                  sx={{
+                    fontSize: 18,
+                    color: '#5F576F',
+                  }}
+                />
+              </span>
+            </div>
+        </div>
+        {(errors.userBirthday && touched.userBirthday)&&<p className='text-[#FF3636] text-[14px] py-1'>{errors.userBirthday}</p>}
+      </div>
+      <div className='mb-4'>
+        <div className="relative">
+          <input
+            placeholder="Mobile Number (Optional)"
+            type="text"
+            name='mobileNumber'
+            autoFocus={true}
+            value={values.mobileNumber}
+            onChange={handleChange}
+            className='w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 rounded-md h-[36px] xl:h-[40px] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]'/>
+        </div>
+        {errors.mobileNumber && touched.mobileNumber && <span className='text-red-500 w-full text-xs'>{errors.mobileNumber}</span>}
       </div>
       <div className='mb-4'>
         <div className='flex justify-between items-center'>
@@ -246,7 +338,7 @@ const GoogleIdentitySignUp = () => {
               checked={values.tnc}
               onChange={handleChange}
             />
-            <label htmlFor="agree" className='text-white/90 text-[14px]'>By clicking on this you agree to the <a href='/terms-condition' className='underline' target='_blank'>Terms and Condition</a> and <a href='/privacy' className='underline' target='_blank'>Privacy Policy</a>
+            <label htmlFor="agree" className='text-[#93767A] text-[14px]'>By clicking on this you agree to the <a href='/terms-condition' className='underline' target='_blank'>Terms and Condition</a> and <a href='/privacy' className='underline' target='_blank'>Privacy Policy</a>
             </label>
           </div>
         </div>
@@ -259,18 +351,38 @@ const GoogleIdentitySignUp = () => {
               checked={values.marketing}
               onChange={handleChange}
             />
-            <label htmlFor="isMarketing" className='text-white/90 text-[14px]'>I agree to receive marketing communications (until I unsubscribe).</label>
+            <label htmlFor="isMarketing" className='text-[#93767A] text-[14px]'>I agree to receive marketing communications (until I membership).</label>
           </div>
         </div>
       </div>
       {(isSubmitting && isLoginFail) && <p className='text-red-900 bg-red-200 rounded-md my-2 p-1 w-full text-center'>{errorMessage}</p>}
       {(isSubmitting && !isLoginFail && isVerifingEmail) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Registration Successfully, Please verify email</p>} 
       {(values.tnc)?<>     
-      <button type='submit' className='h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#fff] rounded-[50px] w-full transition bg-gradient-to-l to-[#1D82FC] from-[#2D45F2] hover:from-[#1D82FC] hover:to-[#1D82FC] active:opacity-65'>{(onSubmit)?'Loading...':'Continue'}</button></>:
-      <><button className='bg-transparent h-[42px] sm:h-[46px] xl:h-[52px] py-2 text-[#F6F6F6]/50 border-2 border-[#F6F6F6]/40 rounded-[50px] w-full cursor-not-allowed' disabled>Continue</button></>}
+      <button type='submit' className='h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#E79FAD]'>{(onSubmit)?'Loading...':'Continue'}</button></>:
+      <><button className='h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#E79FAD] cursor-not-allowed' disabled>Continue</button></>}
     </form>
     </>
   );
 };
 
 export default GoogleIdentitySignUp;
+
+const isItDate = (date: any) => {
+  return date instanceof Date && !isNaN(date.valueOf());
+}
+
+function getDayWithSuffix(day: number) {
+  if (day >= 11 && day <= 13) {
+    return `${day}th`;
+  }
+  switch (day % 10) {
+    case 1:
+      return `${day}st`;
+    case 2:
+      return `${day}nd`;
+    case 3:
+      return `${day}rd`;
+    default:
+      return `${day}th`;
+  }
+}

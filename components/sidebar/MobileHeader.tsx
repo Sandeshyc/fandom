@@ -4,7 +4,7 @@ import {
     Close,
     Menu,
 } from '@mui/icons-material';
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 type  MobileHeaderProps = {
     showMenu: boolean,
     setShowMenu: (showMenu: boolean) => void,

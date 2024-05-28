@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from '@mui/material/Modal';
 import { useRouter } from 'next/router';
-import { Poppins } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import {
     ReportProblemOutlined,
 } from '@mui/icons-material';
 
 
-const poppins = Poppins({
-    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+const roboto = Roboto({
+    weight: ['100', '300', '400', '500', '700', '900'],  
     subsets: ['latin']
   });
 type Props = {
@@ -34,7 +34,7 @@ const ErrorPopUp = ({message, isRetry=true, errorMsg}:Props) => {
             backdropFilter: 'blur(15px)',
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}
-        className={`flex justify-center items-center ${poppins.className}`}>
+        className={`flex justify-center items-center ${roboto.className}`}>
           <div className='rounded-md w-[90%] max-w-[540px] bg-gray-900 relative text-white border border-white/70'>
             <div className="p-4 py-8 text-center">
                 <ReportProblemOutlined 
