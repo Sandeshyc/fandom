@@ -101,9 +101,9 @@ const useUserInfo = () => {
                 const {itemCode, priceSKU, isPackage, transactionId, itemUrl} = callbackParamsObj;
                 let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}`;
                 if(itemUrl){
-                  forwordPurchaseUrl += itemUrl +`?viewPlan=true`;
+                  forwordPurchaseUrl += itemUrl;
                 }else if(itemCode){
-                  forwordPurchaseUrl += `/details/`+ itemCode +`?viewPlan=true`;
+                  forwordPurchaseUrl += `/details/`+ itemCode;
                 }
                 localStorage.removeItem('callbackAction');
                 localStorage.removeItem('callbackParams');
