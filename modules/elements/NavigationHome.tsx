@@ -7,7 +7,7 @@ import {Notifications, Search} from '@mui/icons-material';
 import useIsMobile from '@/hooks/useIsMobile';
 import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
 import Notification from '@/modules/elements/Notification';
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 const NavigationHome = () => {
   const router = useRouter();
   const [isScrolling, setIsScrolling] = useState(false);
@@ -71,7 +71,7 @@ const NavigationHome = () => {
                   </div>
                   <div className={`${(!userid)?'flex':'hidden'} flex-row items-center gap-7`}>
                     <NavItem label="Login" route="/auth" activeRoute={'/auth'} />
-                    <NavItem label="Registration" route="/registration" activeRoute={'/registration'} />
+                    <NavItem label="Registration" route="/register" activeRoute={'/register'} />
                   </div>
                 </div>
               </div>

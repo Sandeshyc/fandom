@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
 import MobileBottomNav from '@/modules/elements/Navigation/BottomNavigation';
 
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 const NavigationHomeMobile = () => {  
   const [userid, setUserid] = useState('');
   const router = useRouter();

@@ -1,73 +1,65 @@
-import React, { useEffect, useState } from "react";
-import useMovieList from "@/hooks/useMovieList";
-import Preloader from "@/modules/skeletons/Preloader";
-import useIsMobile from "@/hooks/useIsMobile";
+import React, { useState, useEffect } from 'react';
+import usePlans from '@/hooks/usePlans';
+import Navigation from "@/modules/components/Navigation";
+import Header from '@/modules/elements/Header';
+import Footer from '@/components/Footer';
 import useClientLocaion from "@/hooks/useClientLocaion";
-import ErrorPopUp from "@/modules/elements/ErrorPopUp";
-import getRandomNumber from "@/utils/randomNumber";
-
-import Mapper from "@/modules/ModuleMapper";
-import { getComponent } from "@/modules";
-
-const bgImage = 'url("/images/new-bg.png")';
-const randomNumber = getRandomNumber(100000, 900000);
-// Main Component of Home page
-const Home = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [userId, setUserId] = useState("");
-  // const [myRegion, setRegion] = useState("PH");
-  const isMobile = useIsMobile();
-
-  const {data: clientLocation, error: locationError}:any = useClientLocaion();
-  const region = clientLocation?.country?.isoCode;
-
-  const {
-    data: movies = [],
-    isLoading,
-    error,
-  } = useMovieList(
-    region,
-    isMobile ? "mobile" : "web",
-    "home",
-    userId,
-    randomNumber.toString()
-  );
-
-  useEffect(() => {
-    const userInfo = window.localStorage.getItem("userInfo");
-    if (userInfo) {
-      const userInfoObj = JSON.parse(userInfo);
-      if (userInfoObj.sub) {
-        setUserId(userInfoObj.sub);
-      }
-    }
-    setIsReady(true);
-  }, []);
-
-  return (
-    <div
-      className={cssBoxBg}
-      style={styleBoxBg}>
-      {(!isLoading && isReady && movies) ? (
-        <Mapper
-          modules={movies}
-          getComponent={getComponent}
-          isLoading={isLoading}
-        />
-      ) : (
-        <Preloader/>
-      )}
-      {(error || locationError) ? <ErrorPopUp message={"Sorry, Something went wrong!"} errorMsg={error}/> : null}
-    </div>
-  );
-};
-
-export default Home;
-
-const cssBoxBg = `bg-[#050505] text-white overflow-hidden relative bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]`;
-const styleBoxBg = {
-  // backgroundImage: bgImage,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "100% auto",
-  backgroundPosition: "right " + 30 + "%",
+import PlanItem from '@/modules/elements/Purchase/PlanItem';
+import { stableKeys } from '@/utils/stableKeys';
+import useIsMobile from '@/hooks/useIsMobile';
+const contentId = '6641a3eba9e8e0ae2a7786b8';
+const Discover = () => {
+    const isMobile = useIsMobile();
+    const [userId, setUserId] = useState("");
+    const [planLists, setPlanLists] = useState([] as any[]);
+    const {data: clientLocation, error: locationError}:any = useClientLocaion();
+    const region = clientLocation?.country?.isoCode;
+    const {data, isLoading, error} = usePlans(
+        region,
+        "web",
+        userId,
+        contentId
+    );
+    // console.log('data', data, 'isLoading', isLoading, 'error', error, 'region', region, 'userId', userId, 'contentId', contentId);
+    useEffect(() => {
+        if (data) {
+            // has object allowedPlansDetails
+            if (data?.allowedPlansDetails) {
+                let tempObject = [];
+                if (Array.isArray(data?.allowedPlansDetails) && data?.allowedPlansDetails?.length > 0) {
+                    tempObject = data?.allowedPlansDetails.filter((item: any) => item && item.id);
+                }
+                setPlanLists(tempObject);
+            }
+        }
+    }, [data]);
+    return (
+        <>
+        {isMobile?<Header/>:<Navigation/>}        
+        <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
+        style={{
+            paddingTop: isMobile ? "90px" : "140px",
+            paddingBottom: isMobile ? "70px" : "90px",
+        }}>
+            {(Array.isArray(planLists) && planLists.length > 0)&&(
+                <div className='flex flex-wrap justify-center gap-4'>
+                    {planLists.map((item: any, index: number) => {
+                        return (
+                            <PlanItem
+                                key={stableKeys[index]}
+                                item={item}
+                                movieId={contentId}
+                                rentText={'Join Annual Membership'}
+                                itemData={item}
+                            />
+                        );
+                    }
+                    )}
+                </div>
+            )}
+        </div>
+        <Footer/>
+        </>
+    );
 }
+export default Discover;

@@ -13,7 +13,7 @@ module.exports = {
 				modak: ["Modak", "cursive"],
 				moonrocks: ["Rubik Moonrocks", "cursive"],
 				monoton: ["Monoton", "cursive"],
-				poppins: ["Poppins", "sans-serif"],
+				roboto: ["Roboto", "sans-serif"],
 			},
 			screens: {
 				'lg': '960px',

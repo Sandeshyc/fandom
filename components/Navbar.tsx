@@ -6,7 +6,7 @@ import SearchBox from '@/components/navbar/SearchBox';
 import {Notifications, Search} from '@mui/icons-material';
 import Notification from '@/modules/elements/Notification';
 
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 const Navbar = () => {
   const router = useRouter();
   const [isScrolling, setIsScrolling] = useState(false);

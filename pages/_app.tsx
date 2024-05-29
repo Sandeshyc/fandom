@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import type { AppProps } from "next/app";
-import { Poppins } from "next/font/google";
+import { Roboto } from "@next/font/google";
 import ErrorBoundary from "@/modules/elements/ErrorBoundary";
 import axios from 'axios';
 import {
@@ -17,8 +17,8 @@ import { RetryLink } from "@apollo/client/link/retry";
 
 import "../styles/globals.css";
 
-const poppins = Poppins({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+const roboto = Roboto({
+  weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ["latin"],
 });
 
@@ -98,29 +98,13 @@ export default function App({
   return (
     <>
       <Head>
-        <title>iWantTFC Tickets</title>
+        <title>Bini</title>
         <meta name="description" content="iWantTFC Tickets" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         <meta name="robots" content="noindex, nofollow" />
-        <meta name="googlebot" content="noindex" />
-        
+        <meta name="googlebot" content="noindex" />        
       </Head>
-      <Script
-        id="jw-player"
-        strategy="beforeInteractive"
-        src="https://cdn.jwplayer.com/libraries/kLxY4wBD.js"
-      />
-      <Script 
-        id="bitmovin-player"
-        strategy="beforeInteractive"
-        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"
-        />
-           <script src='//cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js' type='text/javascript'></script>
-    <link href='//cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css' rel='stylesheet'></link>
-
-      <main className={poppins.className}>
-
+      <main className={roboto.className}>
         <ErrorBoundary>
           <ApolloProvider client={client}>
             <Component {...pageProps} />

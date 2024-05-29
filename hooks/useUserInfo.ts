@@ -21,6 +21,9 @@ const useUserInfo = () => {
         isLogin: boolean = true,
         tnc: boolean = true,
         marketing: boolean = false,
+        fullName?: string,
+        birthDate?: string,
+        phoneNumber?: string,        
     ) => {
         const headers = {
             'Content-Type' : 'application/json',
@@ -32,8 +35,12 @@ const useUserInfo = () => {
             "emailVerified": emailVerified,
             "tnc": tnc,
             "marketing": marketing,
+            "firstName": fullName,
+            "birthday": birthDate,
+            "phone": phoneNumber,
         };
-        // console.log('data', data);
+        console.log('data', data);
+        // return false;
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, data, { headers })
         .then(response => {
         // console.log('response', response);
@@ -94,20 +101,20 @@ const useUserInfo = () => {
                 const {itemCode, priceSKU, isPackage, transactionId, itemUrl} = callbackParamsObj;
                 let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}`;
                 if(itemUrl){
-                  forwordPurchaseUrl += itemUrl +`?viewPlan=true`;
+                  forwordPurchaseUrl += itemUrl;
                 }else if(itemCode){
-                  forwordPurchaseUrl += `/details/`+ itemCode +`?viewPlan=true`;
+                  forwordPurchaseUrl += `/details/`+ itemCode;
                 }
                 localStorage.removeItem('callbackAction');
                 localStorage.removeItem('callbackParams');
                 window.location.replace(forwordPurchaseUrl);
               }else{
-                window.location.href = '/';
+                window.location.href = '/discover';
               }
             }else{
               let redirectUrl = localStorage.getItem('redirectUrl');
               if(!redirectUrl){
-                  redirectUrl = '/';
+                  redirectUrl = '/discover';
               }
               localStorage.removeItem('redirectUrl');
               window.location.replace(redirectUrl);

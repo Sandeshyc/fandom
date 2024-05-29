@@ -4,7 +4,7 @@ import Notification from '@/modules/elements/Notification';
 import SearchBox from '@/components/navbar/SearchBox';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 const Header = () => {
   const router = useRouter();
   const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();

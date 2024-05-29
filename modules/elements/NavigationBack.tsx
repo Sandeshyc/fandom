@@ -2,7 +2,7 @@ import React, { useEffect, } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 
-const logoSrc = '/images/logonew.png';
+const logoSrc = '/images/logoofbini.png';
 const NavigationBack = () => {
   const [backBtnActive, setBackBtnActive] = React.useState(false);
   const router = useRouter();
