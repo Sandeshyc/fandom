@@ -138,8 +138,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
             <button
             onClick={() => router.push("/login")}
             className="mt-4 h-[36px] py-1 text-[#E79FAD] rounded-[50px] w-full transition border-2 border-[#E79FAD] bg-transparent hover:bg-[#E79FAD]/10">
-            {!isLoginUser && "Login and "}
-            {rentText}
+            Member Login
           </button>
           )}
         </div>

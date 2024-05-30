@@ -12,3 +12,27 @@ export const getThumbnailBanner = (data:any) => {
     const url = data?.thumbnailBannerUrl || data?.thumbnailLandscapeUrl || data?.thumbnailUrl || data?.thumbnailPortrait || data?.thumbnailPortraitUrl || '';
     return url;
 }
+
+export const getAllowedItems = (entitlementInfo:any) => {
+    let fullAllowedItems = {} as any;
+    const entitleInfo = entitlementInfo?.entitlementInfo;
+    if(entitleInfo){
+        entitleInfo.forEach((info:any) => {
+            fullAllowedItems[info?.content?.contentId || info.itemCode] = info
+        })
+    }
+    return fullAllowedItems;
+};
+export const getAllowedItemsId = (entitlementInfo:any) => {
+    let fullAllowedItemsId = [] as any;
+    const entitleInfo = entitlementInfo?.entitlementInfo;
+    if(entitleInfo){
+        entitleInfo.forEach((info:any) => {
+            const tempId = info?.content?.contentId;
+            if(tempId){
+                fullAllowedItemsId.push(tempId);
+            }
+        })
+    }
+    return fullAllowedItemsId;
+};

@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import NavItem from '@/components/navbar/NavItem';
 import ProfileDropDown from '@/components/navbar/ProfileDropDown';
-import SearchBox from '@/components/navbar/SearchBox';
 import useIsMobile from '@/hooks/useIsMobile';
-// import {useUserStore} from '@/stores/UserStore';
-import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
 import Header from '@/modules/elements/Header';
-import Notification from '@/modules/elements/Notification';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
-import { stableKeys } from '@/utils/stableKeys';
-import navItemLists from '@/services/json/navItemLists.json';
 const logoSrc = '/images/logoofbini.png';
 
 const NavigationHome = () => {
   const router = useRouter();  
+  const [userId, setUserId] = useState('');
   const [scrollPosition, setScrollPosition] = useState(0);
   const isMobile = useIsMobile();
   const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
@@ -31,6 +25,15 @@ const NavigationHome = () => {
     }
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  useEffect(() => {
+    const userInfo = window.localStorage.getItem('userInfo');
+    if (userInfo) {
+        const userInfoObj = JSON.parse(userInfo);
+        if(userInfoObj.sub) {
+            setUserId(userInfoObj.sub);
+        }
+    }
   }, []);
 
   return (<>
