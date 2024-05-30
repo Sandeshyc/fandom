@@ -14,6 +14,7 @@ module.exports = {
 				moonrocks: ["Rubik Moonrocks", "cursive"],
 				monoton: ["Monoton", "cursive"],
 				roboto: ["Roboto", "sans-serif"],
+				inter: ["Inter", "sans-serif"],
 			},
 			screens: {
 				'lg': '960px',
