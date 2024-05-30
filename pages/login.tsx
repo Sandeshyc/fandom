@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import GoogleIdentitySignIn from "components/GoogleIdentitySignIn";
+import CognitoSignIn from "@/modules/components/CognitoSignIn";
 import AuthFrame from "@/modules/Identities/AuthFrame";
-import GoogleIdentitySignIn from "@/components/GoogleIdentitySignIn";
 
 const Auth = () => {
   const router = useRouter();
@@ -31,15 +32,13 @@ const Auth = () => {
   }, []);
   return (
     <AuthFrame authLoading={authLoading} pageHeading="Login Account">
-      <GoogleIdentitySignIn setAuthLoading={setAuthLoading} />
-      <div className="w-full flex justify-center text-white mt-6 mb-2">
-        <p className="m-0">
-          <span className="text-[#454545] mr-2">New here?</span>
-          <Link
-            href="/register"
-            className="text-[#1B82F2] font-semibold  cursor-pointer underline"
-          >
-            Create Account
+      {/* <GoogleIdentitySignIn setAuthLoading={setAuthLoading} /> */}
+      <CognitoSignIn setAuthLoading={setAuthLoading} />
+      <div className="w-full flex justify-center text-white mt-4 mb-2">
+        <p className="text-sm m-0">
+          <span className="text-[#93767A] text-sm mr-2">New here?</span>
+          <Link href="/register" className="text-[#93767A] text-sm cursor-pointer underline">
+              Create Account
           </Link>
         </p>
       </div>

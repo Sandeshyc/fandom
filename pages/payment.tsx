@@ -104,7 +104,6 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      {isMobile?<BottomNavigation/>:<Footer/>}
   </>)
 }
 

@@ -15,18 +15,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
       return res.status(405).end();
     }
-    let userid = getValue(req?.query?.userid as string);
+    let userId = getValue(req.query.userId as string);
     
-    
-    let url = `${process.env.API_URL}/user/${userid}/profile/`;
-    
-    // console.log('Home', region, product, sectionName, url)
-    if( userid === 'NA' ){
-      return res.status(200).json({});
+    if(userId === 'NA'){
+      return res.status(204).end();
     }
-    const profileRes = await axios.get(url);
-    const profile = profileRes?.data;
-    return res.status(200).json(profile);
+    let url = `${process.env.NEXT_PUBLIC_DATA_API}/entitlement/user/${userId}?childs=true`;
+    const entitlementRes = await axios.get(url, { timeout: 10000 })
+    const entitlements = entitlementRes.data;
+    return res.status(200).json(entitlements);
   } catch (error) {
     console.log({ error })
     return res.status(500).end();

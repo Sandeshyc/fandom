@@ -16,8 +16,7 @@ const useUserInfo = () => {
         email: string,
         providerName: string,
         emailVerified?: boolean,
-        oneLogInAccessToken?: string,
-        googleIndentityAccessToken?: string,
+        accessToken?: string,
         isLogin: boolean = true,
         tnc: boolean = true,
         marketing: boolean = false,
@@ -59,7 +58,7 @@ const useUserInfo = () => {
               email: userInfoData?.email,
               providerName: userInfoData?.providerName,
               emailVerified: emailVerified,
-              accessToken: userInfoData?.accessToken || googleIndentityAccessToken || oneLogInAccessToken,
+              accessToken: userInfoData?.accessToken,
             }
             const _getFingerPrintId = async () => {
               const response = await getFingerPrintId();
@@ -73,7 +72,7 @@ const useUserInfo = () => {
                 "eventType": "Login",
                   "data": {
                       "deviveId": fingerPrintId,
-                      "sessionId": userInfoData?.accessToken || googleIndentityAccessToken || oneLogInAccessToken,
+                      "sessionId": userInfoData?.accessToken,
                       "userId": userInfoData?.userId,
                       "time": new Date().toISOString(),
                   }
@@ -81,18 +80,9 @@ const useUserInfo = () => {
               await setEventRecord(eventData);
             }
             _setUserEventRecord();
-            // const _setUserCookieSession = async () => {
-            //   "use server";
-            //   await setUserCookieSession(userSession);
-            // }
-            // _setUserCookieSession();
             window.localStorage.setItem('provider', providerName || userInfoData?.providerName);
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-            if(oneLogInAccessToken){
-              window.localStorage.setItem('oneLogInAccessToken', oneLogInAccessToken);
-            }else{
-              window.localStorage.setItem('googleIndentityAccessToken', googleIndentityAccessToken || 'testData');// Need to Update
-            }
+            window.localStorage.setItem('accessToken', accessToken || '');
             let callbackAction = localStorage.getItem('callbackAction');
             if(callbackAction === 'rent'){
               let callbackParams = localStorage.getItem('callbackParams');

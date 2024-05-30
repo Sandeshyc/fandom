@@ -142,15 +142,15 @@ const GoogleIdentitySignUp = ({ setAuthLoading }: Props) => {
             user?.email || "",
             user?.providerId,
             user?.emailVerified,
-            "",
-            "testData",
+            'testData',
             false,
             tnc,
             marketing,
             fullName,
             userBirthday,
-            mobileNumber
-          );
+            mobileNumber,
+          );     
+          // return false;      
           const isEmailVerified = user?.emailVerified;
           if (isEmailVerified) {
             const userInfo = {
