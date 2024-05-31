@@ -25,7 +25,7 @@ const ProfileDropDown = () => {
   const [userid, setUserid] = React.useState("");
   const [displayName, setDisplayName] = React.useState("");
   const { data: profile, isLoading } = useProfile(userid);
-  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
+  const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLogoutPopUp, setIsLogoutPopUp] = useState(false);
   // console.log('profile', profile, isLoading);
 
@@ -57,144 +57,152 @@ const ProfileDropDown = () => {
   }, []);
   return (
     <>
-      {(!isLoadingUserCheck) && (
+      {!isLoadingUserCheck && (
         <>
-        {isLoginUser ? (
-        <>
-          <Menu as="div" className="relative text-left flex">
-            <Menu.Button className="inline-flex items-center">
-              <div className="transition w-[40px] h-[40px] rounded-full p-[3px] bg-white border-2 border-[#E79FAD]">
-                <img
-                  src="/images/pp.png"
-                  alt={displayName}
-                  className="w-full h-full rounded-full text-[0px]"
-                />
-              </div>
-              <ArrowDropDown
-                sx={{
-                  fontSize: 30,
-                  color: "#E79FAD",
-                }}
-              />
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
+          {/* isLoginUser */}
+          {true ? (
+            <>
+              <Menu as="div" className="relative text-left flex">
+                <Menu.Button className="inline-flex items-center">
+                  <div className="transition w-[40px] h-[40px] rounded-full p-[3px] bg-white border-2 border-[#E79FAD]">
+                    <img
+                      src="/images/pp.png"
+                      alt={displayName}
+                      className="w-full h-full rounded-full text-[0px]"
+                    />
+                  </div>
+                  <ArrowDropDown
+                    sx={{
+                      fontSize: 30,
+                      color: "#E79FAD",
+                    }}
+                  />
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="fixed sm:absolute text-[16px] top-11 sm:top-2 right-0 sm:right-2 z-20 mt-2 w-full sm:w-[360px] origin-top-right bg-transparent text-[#454545] focus:outline-none">
+                    <div className="w-full h-screen relative">
+                      <div className="p-4 relative z-20 bg-white shadow rounded-none sm:rounded-md">
+                        <div className="flex items-center">
+                          <div className="transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-white mr-3 border-2 border-[#F7BC39]/70 flex justify-center items-center overflow-hidden">
+                            <img
+                              src="/images/pp.png"
+                              alt={displayName}
+                              className="w-[85%] h-[85%] text-[0px]"
+                            />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-2xl leading-normal m-0">
+                              {displayName ?? displayName}
+                            </h3>
+                            <p className="text-[14px] ">
+                              <button
+                                className="cursor-pointer hover:underline"
+                                onClick={() => router.push("/myprofile")}
+                              >
+                                Edit Profile
+                              </button>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="my-[20px] asDivider"></div>
+                        <div className="mb-2">
+                          <button
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
+                              router.pathname === "/myprofile" && "bg-gray-100"
+                            }`}
+                            onClick={() => router.push("/myprofile")}
+                          >
+                            <span className="mr-2">
+                              <MyAccountIcon />
+                            </span>
+                            <p>Manage Account</p>
+                          </button>
+                        </div>
+                        <div className="mb-2">
+                          <button
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
+                              router.pathname === "/mycard" && "bg-gray-100"
+                            }`}
+                            onClick={() => router.push("/mycard")}
+                          >
+                            <span className="mr-2">
+                              <CreditCard />
+                            </span>
+                            <p>Manage Card</p>
+                          </button>
+                        </div>
+                        <div className="mb-2">
+                          <button
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
+                              router.pathname === "/billing-details" &&
+                              "bg-gray-100"
+                            }`}
+                            onClick={() => router.push("/billing-details")}
+                          >
+                            <span className="mr-2">
+                              <PaymentsOutlined />
+                            </span>
+                            <p>Billing Details</p>
+                          </button>
+                        </div>
+                        <div className="my-[15px] asDivider"></div>
+                        <div className="mb-2">
+                          <button
+                            className="flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1"
+                            onClick={() => {
+                              window.open(
+                                "https://iconnconvergence-support.freshdesk.com/support/home",
+                                "_blank"
+                              );
+                            }}
+                          >
+                            <span className="mr-2">
+                              <HelpCenterIcon />
+                            </span>
+                            <p>Help Centre</p>
+                          </button>
+                        </div>
+                        <div>
+                          <button
+                            className="flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1"
+                            onClick={() => setIsLogoutPopUp(true)}
+                          >
+                            <span className="mr-2">
+                              <LogoutIcon />
+                            </span>
+                            <p>Logout</p>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="block sm:hidden relative w-full h-full bg-black/50 z-10"></div>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+              {isLogoutPopUp && (
+                <LogoutPopUp setIsLogoutPopUp={setIsLogoutPopUp} />
+              )}
+            </>
+          ) : (
+            <Link
+              href="/login"
+              onClick={() => {
+                localStorage.setItem("callbackAction", "redirect");
+              }}
+              className="rounded-full min-w-[96px] sm:min-w-[120px] px-3 py-1 flex justify-center items-center bg-white"
             >
-              <Menu.Items className="absolute text-[16px] right-0 z-20 mt-2 w-[360px] origin-top-right rounded-md bg-white text-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="p-4">
-                  <div className="flex items-center">
-                    <div className="transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-white mr-3 border-2 border-[#E79FAD]/70 flex justify-center items-center">
-                      <img
-                        src="/images/pp.png"
-                        alt={displayName}
-                        className="w-[85%] h-[85%] text-[0px]"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[18px] m-0">
-                        {displayName ?? displayName}
-                      </h3>
-                      <p className="text-[14px] text-primary/90">
-                        <button
-                          className="cursor-pointer hover:underline"
-                          onClick={() => router.push("/myprofile")}
-                        >
-                          Edit Profile
-                        </button>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="my-[20px] asDivider"></div>
-                  <div className="mb-2">
-                    <button
-                      className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
-                        router.pathname === "/myprofile" && "bg-gray-100"
-                      }`}
-                      onClick={() => router.push("/myprofile")}
-                    >
-                      <span className="mr-2">
-                        <MyAccountIcon />
-                      </span>
-                      <p>Manage Account</p>
-                    </button>
-                  </div>
-                  <div className="mb-2">
-                    <button
-                      className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
-                        router.pathname === "/mycard" && "bg-gray-100"
-                      }`}
-                      onClick={() => router.push("/mycard")}
-                    >
-                      <span className="mr-2">
-                        <CreditCard />
-                      </span>
-                      <p>Manage Card</p>
-                    </button>
-                  </div>
-                  <div className="mb-2">
-                    <button
-                      className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
-                        router.pathname === "/billing-details" && "bg-gray-100"
-                      }`}
-                      onClick={() => router.push("/billing-details")}
-                    >
-                      <span className="mr-2">
-                        <PaymentsOutlined />
-                      </span>
-                      <p>Billing Details</p>
-                    </button>
-                  </div>
-                  <div className="my-[15px] asDivider"></div>
-                  <div className="mb-2">
-                    <button
-                      className="flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1"
-                      onClick={() => {
-                        window.open(
-                          "https://iconnconvergence-support.freshdesk.com/support/home",
-                          "_blank"
-                        );
-                      }}
-                    >
-                      <span className="mr-2">
-                        <HelpCenterIcon />
-                      </span>
-                      <p>Help Centre</p>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      className="flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1"
-                      onClick={() => setIsLogoutPopUp(true)}
-                    >
-                      <span className="mr-2">
-                        <LogoutIcon />
-                      </span>
-                      <p>Logout</p>
-                    </button>
-                  </div>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-          {isLogoutPopUp && <LogoutPopUp setIsLogoutPopUp={setIsLogoutPopUp} />}
-        </>
-      ) : (
-        <Link
-          href="/login"
-          onClick={() => {
-            localStorage.setItem("callbackAction", "redirect");
-          }}
-          className="text-white rounded-full min-w-[100px] px-3 py-1 flex justify-center items-center bg-[#E79FAD]"
-        >
-          Login
-        </Link>
-      )}
+              Login
+            </Link>
+          )}
         </>
       )}
     </>

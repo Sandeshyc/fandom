@@ -8,10 +8,10 @@ const Footer = () => {
 
   return (
     <>
-      <div className="mainFooter py-4 px-10 bg-[#11355E] text-white fixed bottom-0 left-0 w-full">
+      <div className="mainFooter p-4 sm:px-10 bg-[#11355E] text-white w-full">
         <div className="px-4 max-w-[2400px] mx-auto">
-          <div className="flex flex-wrap justify-between">
-            <div className="flex flex-wrap">
+          <div className="flex flex-wrap justify-between text-center">
+            <div className="w-full sm:w-fit flex flex-wrap flex-col gap-4 items-center sm:flex-row">
               <NavItem
                 label="Terms & Conditions"
                 route="/discover"
@@ -28,7 +28,7 @@ const Footer = () => {
                 activeRoute={""}
               />
             </div>
-            <div className="flex flex-wrap">
+            <div className="w-full text-wrap sm:w-fit flex flex-wrap flex-col mt-4 sm:mt-0 items-center sm:flex-row">
               <NavItem
                 label="© 2024 ABS-CBN Corporation. All Rights Reserved."
                 route=""
@@ -55,14 +55,12 @@ const NavItem = ({ label, route, activeRoute }: NavItemProps) => {
       {route ? (
         <Link
           href={route}
-          className={`flex items-center text-sm mr-4 cursor-pointer whitespace-nowrap`}
+          className={`flex items-center text-sm cursor-pointer `}
         >
           {label}
         </Link>
       ) : (
-        <span className={`flex items-center text-sm mr-4 whitespace-nowrap`}>
-          {label}
-        </span>
+        <span className={`flex items-center text-sm `}>{label}</span>
       )}
     </>
   );
