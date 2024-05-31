@@ -59,8 +59,7 @@ const ProfileDropDown = () => {
     <>
       {!isLoadingUserCheck && (
         <>
-          {/* isLoginUser */}
-          {true ? (
+          {isLoginUser ? (
             <>
               <Menu as="div" className="relative text-left flex">
                 <Menu.Button className="inline-flex items-center">
