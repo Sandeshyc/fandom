@@ -42,7 +42,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
                 <Link href="#">Terms & Conditions</Link>
                 <Link href="#">Privacy Policy</Link>
                 <p>Do Not Sell My Personal Information</p>
-                <p>© 2022 ABS-CBN Corporation. All Rights Reserved.</p>
+                <p>© 2024 ABS-CBN Corporation. All Rights Reserved.</p>
               </div>
             </div>
           </div>
