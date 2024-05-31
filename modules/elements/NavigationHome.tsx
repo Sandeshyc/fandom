@@ -3,10 +3,8 @@ import { useRouter } from 'next/router';
 import NavItem from '@/components/navbar/NavItem';
 import ProfileDropDown from '@/components/navbar/ProfileDropDown';
 import SearchBox from '@/components/navbar/SearchBox';
-import {Notifications, Search} from '@mui/icons-material';
 import useIsMobile from '@/hooks/useIsMobile';
 import NavigationHomeMobile from '@/modules/elements/NavigationHomeMobile';
-import Notification from '@/modules/elements/Notification';
 const logoSrc = '/images/logoofbini.png';
 const NavigationHome = () => {
   const router = useRouter();
@@ -70,7 +68,7 @@ const NavigationHome = () => {
                     <NavItem label="My List" route="/list" activeRoute={'/list'} />
                   </div>
                   <div className={`${(!userid)?'flex':'hidden'} flex-row items-center gap-7`}>
-                    <NavItem label="Login" route="/auth" activeRoute={'/auth'} />
+                    <NavItem label="Login" route="/login" activeRoute={'/login'} />
                     <NavItem label="Registration" route="/register" activeRoute={'/register'} />
                   </div>
                 </div>
@@ -81,7 +79,6 @@ const NavigationHome = () => {
                       <div className='mr-6 relative'>
                         <SearchBox/>
                       </div>
-                      <Notification/>
                       <ProfileDropDown/>
                     </div>
                   </div>

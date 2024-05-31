@@ -1,5 +1,9 @@
 import React, {use, useEffect, useState} from 'react';
 import Modal from '@mui/material/Modal';
+import {
+    getSession,
+    deleteAccount
+} from '@/utils/cognitoAuth';
 import axios from 'axios';
 import {
     CloseOutlined, 
@@ -12,6 +16,7 @@ type Props = {
 };
 const DeleteAccount = ({open, setOpen}:Props) => {
     const [userId, setUserId] = useState('');
+    const [cognitoUserId, setCognitoUserId] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -19,6 +24,11 @@ const DeleteAccount = ({open, setOpen}:Props) => {
     const handleDeleteAccount = (tempUserId:string) => {  
         setIsDeleting(true);      
         const deleteAccountAllData = async (tempUserId:string) => {
+            try {
+                await deleteAccount();
+            } catch (error) {
+                console.error('Error:', error);
+            }
             const headers = {
                 'Content-Type': 'application/json',
             };      
@@ -34,13 +44,13 @@ const DeleteAccount = ({open, setOpen}:Props) => {
                     window.localStorage.removeItem('oneLogInAccessToken');
                     window.localStorage.removeItem('googleIndentityAccessToken');
                     window.localStorage.removeItem('provider');
-                    window.location.replace('/auth');
+                    window.location.replace('/login');
                     handleClose();
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-            });
+                console.error('Error::', error);
+            });            
         }
         if(!tempUserId){
             const userInfo = window.localStorage.getItem('userInfo');
@@ -60,14 +70,18 @@ const DeleteAccount = ({open, setOpen}:Props) => {
         if(userInfo) {
             const userInfoObj = JSON.parse(userInfo);
             const tempUserId = userInfoObj?.sub;
-            // console.log('tempUserId', tempUserId);
             if(tempUserId) {
-                // console.log('tempUserId if', tempUserId);
                 setUserId(tempUserId);
-                // console.log('userId', userId);
             }
         }
-        // console.log('userId', userId);
+        const _getSession = async () => {
+            const session = await getSession() as any;
+            console.log('session', session);
+            if(session?.idToken?.payload?.email) {
+                setCognitoUserId(session?.idToken?.payload?.email);
+            }
+        }
+        _getSession();
     }, []);
 
     return (        

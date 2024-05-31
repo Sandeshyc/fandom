@@ -11,6 +11,7 @@ import {
 } from "@mui/icons-material";
 import useCheckAuthentication from "@/hooks/useCheckAuthentication";
 import LogoutPopUp from "@/modules/elements/LogoutPopUp";
+import { getSession } from "@/utils/cognitoAuth";
 import {
   MyTicketsIcon,
   MyListIcon,
@@ -22,6 +23,7 @@ import {
 const ProfileDropDown = () => {
   const router = useRouter();
   const [isLogedIn, setIsLogedIn] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [userid, setUserid] = React.useState("");
   const [displayName, setDisplayName] = React.useState("");
   const { data: profile, isLoading } = useProfile(userid);
@@ -54,12 +56,24 @@ const ProfileDropDown = () => {
         setUserid(userInfoObj?.sub);
       }
     }
+    const _getSession = async () => {
+      try{
+        const session = await getSession();
+        if (session) {
+          setIsReady(true);
+          setIsLogedIn(true);
+        }
+      }catch(error){
+        console.error('Error:', error);
+      }
+    };
+    _getSession();
   }, []);
   return (
     <>
       {!isLoadingUserCheck && (
         <>
-          {isLoginUser ? (
+          {isLogedIn ? (
             <>
               <Menu as="div" className="relative text-left flex">
                 <Menu.Button className="inline-flex items-center">
@@ -201,7 +215,7 @@ const ProfileDropDown = () => {
             >
               Login
             </Link>
-          )}
+          )}        
         </>
       )}
     </>

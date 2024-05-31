@@ -21,6 +21,9 @@ import useIsMobile from '@/hooks/useIsMobile';
 import ParentalControls from '@/modules/components/ParentalControls';
 import CommunicationDetails from '@/modules/components/CommunicationDetails';
 import DeleteAccount from '@/modules/elements/DeleteAccount';
+import {
+  getSession,
+} from '@/utils/cognitoAuth';
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -86,15 +89,25 @@ const MyProfile = () => {
         setEmail(userInfoObj.email);
         setUserid(userInfoObj.sub);
       }else{
-        router.push('/auth');
+        router.push('/login');
       }
     }else{
-      router.push('/auth');
+      router.push('/login');
     }
-    setIsReady(true);
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 1000);
+    const _getSession = async () => {
+      try{
+        const session = await getSession();
+        if (session) {
+          setIsReady(true);
+        }else{
+          router.replace(`/login`);
+        }
+      }catch(error){
+        console.error('Error:', error);
+        router.replace(`/login`);
+      }
+    };
+    _getSession();
   }, []);
 
   // start Formik
