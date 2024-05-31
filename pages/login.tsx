@@ -37,8 +37,11 @@ const Auth = () => {
       <div className="w-full flex justify-center text-white mt-6 mb-2">
         <p className="m-0">
           <span className="text-[#454545] mr-2">New here?</span>
-          <Link href="/register" className="text-[#1B82F2] font-semibold cursor-pointer underline">
-              Create Account
+          <Link
+            href="/register"
+            className="text-[#1B82F2] font-semibold cursor-pointer underline"
+          >
+            Create Account
           </Link>
         </p>
       </div>
