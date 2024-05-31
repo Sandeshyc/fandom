@@ -195,7 +195,7 @@ const CognitoSignIn = ({setAuthLoading}:Props) => {
         {(isSuccess) && <p className='text-green-900 bg-green-200 rounded-md my-2 p-1 w-full text-center'>Login Success, {(isVerifingEmail)?'please verify email':'Please wait...'}</p>}
         <button
         type="submit"
-        className='h-[36px] py-2 text-[#fff] rounded-[50px] w-full transition bg-[#E79FAD] active:opacity-65'>{(isSubmitting)?'Loading...':
+        className='h-[36px] py-2 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] active:opacity-65'>{(isSubmitting)?'Loading...':
         'Login'}</button>
       </form>
       </>
