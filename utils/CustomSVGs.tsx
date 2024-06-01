@@ -590,3 +590,23 @@ export const OffersIcon = () => {
     </svg>
   );
 };
+
+export const CheckIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+    >
+      <path
+        d="M5.5 14L9.5 18L19.5 8"
+        stroke="#1B82F2"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
