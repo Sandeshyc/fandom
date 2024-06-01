@@ -32,7 +32,7 @@ const BillingDetails = () => {
       }, []);
     return (
         <>
-        {isMobile?<Header/>:<Navigation/>}
+        <Navigation/> 
         <div
         className='min-h-[85vh] min-w-full text-white bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]'
         style={{

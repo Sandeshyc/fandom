@@ -21,7 +21,7 @@ const Fandom = () => {
             // is in array
             if(!allowedIds.includes(contentId)){
                 // redirect to content page
-                router.push(`/discover`);
+                router.push(`/bini`);
                 // console.log('Not allowed');
             }
         }
@@ -38,7 +38,7 @@ const Fandom = () => {
     }, []);
     return (
         <>
-        {isMobile?<Header/>:<Navigation/>}        
+        <Navigation/>     
         <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
         style={{
             paddingTop: isMobile ? "90px" : "140px",

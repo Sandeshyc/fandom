@@ -9,7 +9,7 @@ import Navigation from "@/modules/components/Navigation";
 import Footer from '@/components/Footer';
 import Preloader from '@/modules/skeletons/Preloader';
 const exclusive = '/images/exclusive.png';
-const contentId = '6641a3eba9e8e0ae2a7786b8';
+const contentId = '6641a3eba9e8e0ae2a7786b8x';
 const Member = () => {
     const router = useRouter();
     const isMobile = useIsMobile();

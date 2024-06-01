@@ -28,7 +28,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
     const userInfor = localStorage.getItem("userInfo");
     const transactionId = uuidv4();
     setIsLoading(true);
-    let itemUrl = "/discover";
+    let itemUrl = "/bini";
     if (userInfor) {
       const userInfo = JSON.parse(userInfor);
       const { sub } = userInfo;
@@ -140,26 +140,32 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
                 Lorem ipsum dolor sit amet consectetur
               </li>
             </ul>
-          </div>
-          <p className="my-6">
-            <span className="text-[#454545] text-[32px] font-semibold">
-              {item?.price} {item?.currency ?? ""} per year
-            </span>
-          </p>
-          <button
-            onClick={() => goPurchase(item?.priceSKU)}
-            className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-          >
-            {!isLoginUser && "Login and "}
-            {rentText}
-          </button>
-          {!isLoadingUserCheck && !isLoginUser && (
-            <button
-              onClick={() => router.push("/login")}
-              className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
-            >
-              Member Login
-            </button>
+          </div> 
+          {(allowedItem?._id)?(
+            <Link href={allowedItem?.content?.pageDirectory || '#'} className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
+              Go to Members Area
+            </Link>
+          ):(
+            <>
+              <p className="my-6">
+                <span className="text-[32px] font-medium">
+                  {item?.price} {item?.currency ?? ""} per year
+                </span>
+              </p>
+              <button
+                onClick={() => goPurchase(item?.priceSKU)}
+                className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
+                {!isLoginUser && "Login and "}
+                {rentText}
+              </button>
+              {(!isLoadingUserCheck && !isLoginUser)&&(
+                <button
+                onClick={() => router.push("/login")}
+                className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10">
+                Member Login
+              </button>
+              )}
+            </>
           )}
         </div>
       </div>

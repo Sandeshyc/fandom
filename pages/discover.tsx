@@ -14,16 +14,18 @@ import { getAllowedItemsId } from "@/utils/getData";
 import Preloader from "@/modules/skeletons/Preloader";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
 const Discover = () => {
-  const isMobile = useIsMobile();
-  const router = useRouter();
-  const [isReady, setIsReady] = useState(false);
-  const [userId, setUserId] = useState("");
-  const [planLists, setPlanLists] = useState([] as any[]);
-  const { data: clientLocation, error: locationError }: any =
-    useClientLocaion();
-  const region = clientLocation?.country?.isoCode;
-  const { data, isLoading, error } = usePlans(region, "web", userId, contentId);
-  // console.log('data', data, 'isLoading', isLoading, 'error', error, 'region', region, 'userId', userId, 'contentId', contentId);
+    const isMobile = useIsMobile();
+    const router = useRouter();
+    const [isReady, setIsReady] = useState(false);
+    const [userId, setUserId] = useState("");
+    const [planLists, setPlanLists] = useState([] as any[]);
+    const {data: clientLocation, error: locationError}:any = useClientLocaion();
+    const region = clientLocation?.country?.isoCode;
+    const {data, isLoading, error} = usePlans(
+        region,
+        contentId
+    );
+    // console.log('data', data, 'isLoading', isLoading, 'error', error, 'region', region, 'userId', userId, 'contentId', contentId);
 
   const {
     data: entitlementData,

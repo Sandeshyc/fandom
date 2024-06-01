@@ -13,7 +13,7 @@ const Registration = () => {
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if (userInfoObj.sub) {
-        router.push("/discover");
+        router.push("/bini");
       }
     }
   }, []);

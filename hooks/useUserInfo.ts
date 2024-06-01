@@ -99,12 +99,12 @@ const useUserInfo = () => {
                 localStorage.removeItem('callbackParams');
                 window.location.replace(forwordPurchaseUrl);
               }else{
-                window.location.href = '/discover';
+                window.location.href = '/bini';
               }
             }else{
               let redirectUrl = localStorage.getItem('redirectUrl');
               if(!redirectUrl){
-                  redirectUrl = '/discover';
+                  redirectUrl = '/bini';
               }
               localStorage.removeItem('redirectUrl');
               window.location.replace(redirectUrl);

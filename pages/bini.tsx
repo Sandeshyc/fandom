@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import usePlans from '@/hooks/usePlans';
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
@@ -12,7 +13,9 @@ import { getAllowedItemsId } from '@/utils/getData';
 import { getAllowedItems } from '@/utils/getData';
 const contentId = '6641a3eba9e8e0ae2a7786b8';
 const Discover = () => {
+    const router = useRouter();
     const isMobile = useIsMobile();
+    // const {section} = router.query;
     const [isReady, setIsReady] = useState(false);
     const [userId, setUserId] = useState("");
     const [planLists, setPlanLists] = useState([] as any[]);
@@ -21,8 +24,6 @@ const Discover = () => {
     const region = clientLocation?.country?.isoCode;
     const {data, isLoading, error} = usePlans(
         region,
-        "web",
-        userId,
         contentId
     );
     // console.log('data', data, 'isLoading', isLoading, 'error', error, 'region', region, 'userId', userId, 'contentId', contentId);
