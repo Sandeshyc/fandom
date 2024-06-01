@@ -1,225 +1,245 @@
 import React, { useEffect, useState } from "react";
-import { 
-    signIn,
-    getCurrentUser,
-    resendSignUp,
-    confirmSignUp
-} from '@/utils/cognitoAuth';
-import useUserInfo from '@/hooks/useUserInfo';
-import { useRouter } from 'next/router';
-import Modal from '@mui/material/Modal';
-import { Roboto } from 'next/font/google';
+import {
+  signIn,
+  getCurrentUser,
+  resendSignUp,
+  confirmSignUp,
+} from "@/utils/cognitoAuth";
+import useUserInfo from "@/hooks/useUserInfo";
+import { useRouter } from "next/router";
+import Modal from "@mui/material/Modal";
+import { Roboto } from "next/font/google";
 import OTPInput from "@/modules/Identities/OTPInput";
 import Text from "@/modules/Identities/Text";
-import {
-    CloseOutlined
-} from '@mui/icons-material';
+import { CloseOutlined } from "@mui/icons-material";
 
 const roboto = Roboto({
-    weight: ['100', '300', '400', '500', '700', '900'],
-    subsets: ['latin']
-  });
+  weight: ["100", "300", "400", "500", "700", "900"],
+  subsets: ["latin"],
+});
 type Props = {
-    email: string;
-    password?: string;
+  email: string;
+  password?: string;
 };
-const VerifyMail = ({email, password}:Props) => {
-    const router = useRouter();
-    const {checkUser} = useUserInfo();  
-    const [isResenting, setIsResenting] = useState(false);
-    const [reSentFail, setReSentFail] = useState(false);
-    const [reSentSuccess, setReSentSuccess] = useState(false);
-    const [count, setCount] = useState(process.env.REACT_APP_OTP_RESEND_TIMEOUT as unknown as number);
-    
-    const [isConfirmingOTP, setIsConfirmingOTP] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [isFail, setIsFail] = useState(false);
-    const [open, setOpen] = useState(true);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [otp, setOtp] = useState('');
+const VerifyMail = ({ email, password }: Props) => {
+  const router = useRouter();
+  const { checkUser } = useUserInfo();
+  const [isResenting, setIsResenting] = useState(false);
+  const [reSentFail, setReSentFail] = useState(false);
+  const [reSentSuccess, setReSentSuccess] = useState(false);
+  const [count, setCount] = useState(
+    process.env.REACT_APP_OTP_RESEND_TIMEOUT as unknown as number
+  );
 
-    const [withLogin, setWithLogin] = useState(false);
+  const [isConfirmingOTP, setIsConfirmingOTP] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isFail, setIsFail] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [otp, setOtp] = useState("");
 
-    const handleClose = () => {
-        setOpen(false);
-        window.location.href = '/login';
-    };
-    const handleOtpChange = (otp:any) => {
-        setOtp(otp);
-        if(otp.length !== 6){
-            setIsFail(false);
-            setIsSuccess(false);
+  const [withLogin, setWithLogin] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+    window.location.href = "/login";
+  };
+  const handleOtpChange = (otp: any) => {
+    setOtp(otp);
+    if (otp.length !== 6) {
+      setIsFail(false);
+      setIsSuccess(false);
+    }
+  };
+  const reSendOTP = async () => {
+    try {
+      setIsResenting(true);
+      const response = await resendSignUp(email);
+      console.log("response", response);
+      if (response) {
+        setIsResenting(false);
+        setReSentSuccess(true);
+        setReSentFail(false);
+      } else {
+        setIsResenting(false);
+        setReSentFail(true);
+        setReSentSuccess(false);
+      }
+    } catch (error) {
+      setIsResenting(false);
+      setReSentFail(true);
+      setReSentSuccess(false);
+    }
+  };
+  const handleVerify = async () => {
+    setIsConfirmingOTP(true);
+    try {
+      console.log("otp", otp);
+      console.log("email", email);
+      const response = await confirmSignUp(email, otp);
+      if (response === "SUCCESS") {
+        setIsSuccess(true);
+        setIsFail(false);
+        if (!password) {
+          setTimeout(() => {
+            handleClose();
+            router.push("/login");
+          }, 1000);
+        } else {
+          setWithLogin(true);
         }
-    };
-    const reSendOTP = async () => {
-        try{
-            setIsResenting(true);
-            const response = await resendSignUp(email);
-            console.log('response', response);
-            if(response){
-                setIsResenting(false);
-                setReSentSuccess(true);
-                setReSentFail(false);
-            }else{
-                setIsResenting(false);
-                setReSentFail(true);
-                setReSentSuccess(false);
-            }
-        } catch (error) {
-            setIsResenting(false);
-            setReSentFail(true);
-            setReSentSuccess(false);
-        }
-    };
-    const handleVerify = async () => {
-        setIsConfirmingOTP(true);
-        try{
-            console.log('otp', otp);
-            console.log('email', email);
-            const response = await confirmSignUp(email, otp);
-            if(response === 'SUCCESS'){
-                setIsSuccess(true);
-                setIsFail(false);
-                if(!password){
-                    setTimeout(() => {
-                        handleClose();
-                        router.push('/login');
-                    }, 1000);
-                }else{
-                    setWithLogin(true);
-                }                
-            }else{
-                setIsFail(true);
-                setIsSuccess(false);
-            }
-        } catch (error) {
-            console.log('error', error);
-            setIsFail(true);
-            setIsSuccess(false);
-        }
-        setIsConfirmingOTP(false);
-    };
-    useEffect(() => {
-        if(withLogin && password){
-            const _signIn = async () => {
-                try {
-                    console.log('Email:', email, 'password', password);
-                    const response = await signIn(email, password) as any;
-                    console.log('response', response);
-                    if(response){
-                        const user = await getCurrentUser() as any;
-                        console.log('user', user);
-                        if(user){
-                            const {email_verified} = user;
-                            if(email_verified){
-                                const userResponse = await checkUser(
-                                    email,
-                                    email,
-                                    email,
-                                    'cognito',
-                                    true,
-                                    response?.accessToken?.jwtToken || '',
-                                );
-                                if(userResponse === 200) {
-                                    let redirectUrl = localStorage.getItem('redirectUrl');
-                                    if(!redirectUrl){
-                                        redirectUrl = '/bini';
-                                    }
-                                    localStorage.removeItem('redirectUrl');
-                                    router.replace(redirectUrl);
-                                }else{
-                                    window.location.replace('/login');
-                                    console.log('failed');
-                                }
-                            }else{
-                                window.location.replace('/login');
-                            }
-                        }else{
-                            window.location.replace('/login');
-                        }
-                    }else{
-                        window.location.replace('/login');
-                    }
-                } catch (err: any) {
-                    console.log('err', err);
-                    window.location.replace('/login');
+      } else {
+        setIsFail(true);
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      console.log("error", error);
+      setIsFail(true);
+      setIsSuccess(false);
+    }
+    setIsConfirmingOTP(false);
+  };
+  useEffect(() => {
+    if (withLogin && password) {
+      const _signIn = async () => {
+        try {
+          console.log("Email:", email, "password", password);
+          const response = (await signIn(email, password)) as any;
+          console.log("response", response);
+          if (response) {
+            const user = (await getCurrentUser()) as any;
+            console.log("user", user);
+            if (user) {
+              const { email_verified } = user;
+              if (email_verified) {
+                const userResponse = await checkUser(
+                  email,
+                  email,
+                  email,
+                  "cognito",
+                  true,
+                  response?.accessToken?.jwtToken || ""
+                );
+                if (userResponse === 200) {
+                  let redirectUrl = localStorage.getItem("redirectUrl");
+                  if (!redirectUrl) {
+                    redirectUrl = "/bini";
+                  }
+                  localStorage.removeItem("redirectUrl");
+                  router.replace(redirectUrl);
+                } else {
+                  window.location.replace("/login");
+                  console.log("failed");
                 }
+              } else {
+                window.location.replace("/login");
+              }
+            } else {
+              window.location.replace("/login");
             }
-            _signIn();
+          } else {
+            window.location.replace("/login");
+          }
+        } catch (err: any) {
+          console.log("err", err);
+          window.location.replace("/login");
         }
-    }, [withLogin]);
-    return (
-        <>
-        <Modal
+      };
+      _signIn();
+    }
+  }, [withLogin]);
+  return (
+    <>
+      <Modal
         open={open}
         aria-labelledby="Email Verify Modal"
         aria-describedby="Email Verify Modal"
         onClose={handleClose}
-        className={`flex justify-center items-center ${roboto.className}`}>
-          <div className='rounded-md w-[90%] max-w-[540px] bg-gray-100 relative text-[#5F576F] border border-white/70'> 
-              <div className="absolute top-2 right-2 cursor-pointer" onClick={handleClose}>
-                    <CloseOutlined 
-                    sx={{fontSize: 28}}
-                    className="text-red-500"/>
-                </div>           
-            <div className="p-4 pt-8 text-center">
-                <h3 className="text-[#5F576F] text-center text-2xl font-semibold mb-2">
-                    Check your email inbox
-                </h3>
-                <p className="text-[#5F576F] text-sm md:text-base mb-4">
-                    A verification OTP was sent to<br />
-                    <span className='italic text-black'> {email}</span> email address.<br />
-                    Input the code below to proceed.
-                </p>
-                <div className="mb-4">
-                    <OTPInput
-                        length={6}
-                        onChange={handleOtpChange}
-                        isReset={isResenting}
-                        isFail={isFail}
-                        isSuccess={isSuccess}
-                    />
-                    {(isSuccess) &&
-                        <div className="flex justify-center items-center mt-2">
-                            <Text size="md" className="text-green-500 ml-2">
-                                OTP Verified, Please wait...
-                            </Text>
-                        </div>
-                    }
-                    {(isFail) &&
-                        <Text size="md" className="text-red-600 mt-2">
-                            Incorrect OTP, please try again
-                        </Text>
-                    }
-                    {(otp?.length < 6 || isConfirmingOTP)?
-                        <button className='h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-gray-400 cursor-not-allowed mt-2' disabled>{(isConfirmingOTP)?'Loading...':'Verify'}</button>
-                        :
-                        <button 
-                        onClick={handleVerify}
-                        className='h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#E79FAD] mt-2'>
-                            Verify
-                        </button>
-                    }
+        className={`flex justify-center items-center ${roboto.className}`}
+      >
+        <div className="rounded-md w-[90%] max-w-[540px] bg-gray-100 relative text-[#5F576F] border border-white/70">
+          <div
+            className="absolute top-2 right-2 cursor-pointer"
+            onClick={handleClose}
+          >
+            <CloseOutlined sx={{ fontSize: 28 }} className="text-red-500" />
+          </div>
+          <div className="p-4 pt-8 text-center">
+            <h3 className="text-[#5F576F] text-center text-2xl font-semibold mb-2">
+              Check your email inbox
+            </h3>
+            <p className="text-[#5F576F] text-sm md:text-base mb-4">
+              A verification OTP was sent to
+              <br />
+              <span className="italic text-black"> {email}</span> email address.
+              <br />
+              Input the code below to proceed.
+            </p>
+            <div className="mb-4">
+              <OTPInput
+                length={6}
+                onChange={handleOtpChange}
+                isReset={isResenting}
+                isFail={isFail}
+                isSuccess={isSuccess}
+              />
+              {isSuccess && (
+                <div className="flex justify-center items-center mt-2">
+                  <Text size="md" className="text-green-500 ml-2">
+                    OTP Verified, Please wait...
+                  </Text>
                 </div>
-                {(isResenting)?<button 
-                disabled={isResenting}
-                className="underline text-blue-500 font-medium cursor-not-allowed disabled">
-                    Resenting OTP
-                </button>:
-                <button className="underline text-blue-500 font-medium"
-                    onClick={reSendOTP}>
-                    Resent OTP
-                </button>}
-                {(reSentFail)&&<p className="text-red-500 text-sm md:text-base">
-                    Failed to resend OTP
-                </p>}
-                {(reSentSuccess)&&<p className="text-green-500 text-sm md:text-base">
-                    OTP resent successfully
-                </p>}
+              )}
+              {isFail && (
+                <Text size="md" className="text-red-600 mt-2">
+                  Incorrect OTP, please try again
+                </Text>
+              )}
+              {otp?.length < 6 || isConfirmingOTP ? (
+                <button
+                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-gray-400 cursor-not-allowed mt-2"
+                  disabled
+                >
+                  {isConfirmingOTP ? "Loading..." : "Verify"}
+                </button>
+              ) : (
+                <button
+                  onClick={handleVerify}
+                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-2"
+                >
+                  Verify
+                </button>
+              )}
             </div>
+            {isResenting ? (
+              <button
+                disabled={isResenting}
+                className="underline text-blue-500 font-medium cursor-not-allowed disabled"
+              >
+                Resenting OTP
+              </button>
+            ) : (
+              <button
+                className="underline text-blue-500 font-medium"
+                onClick={reSendOTP}
+              >
+                Resent OTP
+              </button>
+            )}
+            {reSentFail && (
+              <p className="text-red-500 text-sm md:text-base">
+                Failed to resend OTP
+              </p>
+            )}
+            {reSentSuccess && (
+              <p className="text-green-500 text-sm md:text-base">
+                OTP resent successfully
+              </p>
+            )}
+          </div>
         </div>
       </Modal>
-        </>
-    );
+    </>
+  );
 };
 export default VerifyMail;
