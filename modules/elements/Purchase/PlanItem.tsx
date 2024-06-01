@@ -121,7 +121,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
             {item?.name}
           </Title>
           <Text size="base" className="mb-8 text-[#454545]">{item?.description}</Text>
-          <div className="text-base text-[#686868]">
+          {/* <div className="text-base text-[#686868]">
             <ul className="text-sm sm:text-base flex flex-col items-center justify-center gap-2 min-h-[100px]">
               <li className="flex items-center gap-2">
                 <CheckIcon />
@@ -140,7 +140,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
                 Lorem ipsum dolor sit amet consectetur
               </li>
             </ul>
-          </div> 
+          </div>  */}
           {(allowedItem?._id)?(
             <Link href={allowedItem?.content?.pageDirectory || '#'} className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
               Go to Members Area
