@@ -95,32 +95,32 @@ const Discover = () => {
           <div
             className="w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]"
             style={{
-              paddingTop: isMobile ? "90px" : "140px",
-              paddingBottom: isMobile ? "70px" : "90px",
-            }}
-          >
-            {Array.isArray(planLists) && planLists.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-4">
-                {planLists.map((item: any, index: number) => {
-                  return (
-                    <PlanItem
-                      key={stableKeys[index]}
-                      item={item}
-                      movieId={contentId}
-                      rentText={"Join Annual Membership"}
-                      itemData={item}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </div>
-          <Footer />
+                paddingTop: isMobile ? "90px" : "140px",
+                paddingBottom: isMobile ? "70px" : "90px",
+            }}>
+                {(Array.isArray(planLists) && planLists.length > 0)&&(
+                    <div className='flex flex-wrap justify-center gap-4'>
+                        {planLists.map((item: any, index: number) => {
+                            return (
+                                <PlanItem
+                                    key={stableKeys[index]}
+                                    item={item}
+                                    movieId={contentId}
+                                    rentText={'Join Annual Membership'}
+                                    allowedIems={item}
+                                />
+                            );
+                        }
+                        )}
+                    </div>
+                )}
+            </div>
+            <Footer/>
+            </>
+        ):(
+            <Preloader/>
+        )}
         </>
-      ) : (
-        <Preloader />
-      )}
-    </>
   );
 };
 export default Discover;

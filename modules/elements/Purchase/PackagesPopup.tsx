@@ -59,7 +59,7 @@ const PackagesPopup = ({
                                 item={item}
                                 movieId={movieId}
                                 rentText={rentBtnTxt}
-                                itemData={data}
+                                allowedIems={data}
                             />)
                         })}
                     </div>

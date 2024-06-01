@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     let url = `${process.env.NEXT_PUBLIC_DATA_API}/entitlement/user/${userId}?childs=true`;
     const entitlementRes = await axios.get(url, { timeout: 10000 })
-    const entitlements = entitlementRes.data;
+    const entitlements = entitlementRes.data || {};
     return res.status(200).json(entitlements);
   } catch (error) {
     console.log({ error })

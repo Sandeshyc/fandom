@@ -50,7 +50,7 @@ const Discover = () => {
                                 item={item}
                                 movieId={contentId}
                                 rentText={'Join Annual Membership'}
-                                itemData={item}
+                                allowedIems={item}
                             />
                         );
                     }

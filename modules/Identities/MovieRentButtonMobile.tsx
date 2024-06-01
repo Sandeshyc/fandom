@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import Modal from '@mui/material/Modal';
-import ItemShortInfo from '@/modules/elements/ItemShortInfo';
-import PlanItemsList from '@/modules/components/PlanItemsList';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import Buttons from '@/modules/Identities/Buttons';
 type Props = {
@@ -61,14 +59,7 @@ const MovieRentButtonMobile = ({
                 </button>
                 <div className='text-white mb-2 w-full'>
                     <h3 className='text-xl md:text-2xl font-semibold'>Choose Your Plan</h3>
-                </div>
-                <ItemShortInfo data={data}/>
-                {(data?.canBuy === true)?(<PlanItemsList 
-                    allowedPlans={data?.allowedPlans}
-                    isPackage={false}
-                    movieId={data?._id}
-                />):
-                null}
+                </div>                
             </div>
         </Modal>
         </>
