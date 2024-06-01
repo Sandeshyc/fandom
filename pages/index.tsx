@@ -35,7 +35,7 @@ const Discover = () => {
     }, [data]);
     return (
         <>
-        {isMobile?<Header/>:<Navigation/>}        
+        <Navigation/>
         <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
         style={{
             paddingTop: isMobile ? "90px" : "140px",
