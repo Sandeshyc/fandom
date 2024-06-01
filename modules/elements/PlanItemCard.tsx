@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import useCheckAuthentication from "@/hooks/useCheckAuthentication";
-import { auditEntitlement } from "@/services/api";
 import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
 import { AutorenewOutlined } from "@mui/icons-material";
 import { CheckIcon } from "@/utils/CustomSVGs";
 const biniLogoUrl = "/images/logoofbiniblack.png";
+import {
+  auditEntitlement,
+  getProfile
+} from '@/services/api'
+import LinkRoute from '@/modules/Identities/LinkRoute';
 type Props = {
   item: any;
   movieId: string;
@@ -77,7 +81,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
         };
         _auditEntitlementCall();
       } else {
-        window.location.reload();
+        router.push('/login');
       }
     } else {
       localStorage.setItem("callbackAction", "rent");

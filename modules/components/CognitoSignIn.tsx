@@ -72,9 +72,9 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
               if (userResponse === 200) {
                 setIsSuccess(true);
                 setIsLoginFail(false);
-                let redirectUrl = localStorage.getItem("redirectUrl");
-                if (!redirectUrl) {
-                  redirectUrl = "/discover";
+                let redirectUrl = localStorage.getItem('redirectUrl');
+                if(!redirectUrl){
+                    redirectUrl = '/bini';
                 }
                 localStorage.removeItem("redirectUrl");
                 router.replace(redirectUrl);

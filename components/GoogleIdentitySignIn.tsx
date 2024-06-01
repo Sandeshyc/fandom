@@ -86,7 +86,7 @@ const GoogleIdentitySignIn = ({ setAuthLoading }: Props) => {
               setIsLoginFail(false);
               let redirectUrl = localStorage.getItem("redirectUrl");
               if (!redirectUrl) {
-                redirectUrl = "/discover";
+                redirectUrl = "/bini";
               }
               localStorage.removeItem("redirectUrl");
               router.replace(redirectUrl);

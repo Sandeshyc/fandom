@@ -176,4 +176,21 @@ const userPool = new CognitoUserPool({
       });
     });
   }
+
+  export function deleteAccount() {
+    return new Promise((resolve, reject) => {
+      const cognitoUser = userPool.getCurrentUser();
+      if (!cognitoUser) {
+        reject(new Error("No user found"));
+        return;
+      }
+      cognitoUser.deleteUser((err:any, result:any) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(result);
+      });
+    });
+  }
   

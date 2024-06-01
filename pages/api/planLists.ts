@@ -19,23 +19,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // await serverAuth(req, res);
 
     const region = getValue(req.query.region as string);
-    const product = getValue(req.query.product as string);
     const contentId = getValue(req.query.contentId as string);
-    let userId = getValue(req.query.userId as string);
     
     if(region === 'NA'){
       return res.status(204).end();
     }
-    if (userId === 'NA') userId = '';
     let url = `${process.env.NEXT_PUBLIC_DATA_API}/priceplan/info?countryCode=${region}&contentId=${contentId}`;
-    // if(userId){
-    //   url = `${url}&userId=${userId}`;
-    // }
-    // if(product){
-    //   url = `${url}&product=${product}`;
-    // }
-    
-    // console.log('URL:', url)
     const plansRes = await axios.get(url, { timeout: 10000 })
     const plans = plansRes.data;
     // console.log('plans', plans);

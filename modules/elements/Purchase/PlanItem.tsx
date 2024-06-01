@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
 import useCheckAuthentication from "@/hooks/useCheckAuthentication";
 import { auditEntitlement } from "@/services/api";
@@ -12,31 +13,22 @@ type Props = {
   item: any;
   movieId: string;
   rentText?: string;
-  itemData?: any;
+  allowedIems?: any;
 };
-const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
-  // console.log('item', item);
-  const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
+const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
+  console.log('item', item, allowedIems);
+  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
-  const [isRentPinEnable, setIsRentPinEnable] = useState(false);
-  const [rentPin, setRentPin] = useState("");
-  const [isRentPinPopup, setIsRentPinPopup] = useState(false);
   const [userId, setUserId] = useState("");
-  const [isPinSuccess, setIsPinSuccess] = useState(false);
-  const [isPinFail, setIsPinFail] = useState(false);
   const [rentProductId, setRentProductId] = useState("");
   const [rentTransactionId, setRentTransactionId] = useState("");
-  let descriptions = [] as any;
-  if (item?.description) {
-    // replace all , with <li>
-    descriptions = [...item?.description?.split(",")];
-  }
+  const [allowedItem, setAllowedItem] = useState({} as any);
   const router = useRouter();
   const goPurchase = (productId: string) => {
     const userInfor = localStorage.getItem("userInfo");
     const transactionId = uuidv4();
     setIsLoading(true);
-    let itemUrl = "/discover";
+    let itemUrl = "/bini";
     if (userInfor) {
       const userInfo = JSON.parse(userInfor);
       const { sub } = userInfo;
@@ -91,6 +83,19 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
       router.push("/login");
     }
   };
+  useEffect(() => {
+    if (Array.isArray(allowedIems) && allowedIems.length > 0) {
+      const allowedIds = allowedIems.map((allowItem: any) => {
+        if(allowItem?.content?.contentId === movieId){
+          return allowItem;
+        }
+      });
+      if(Array.isArray(allowedIds) && allowedIds.length > 0){
+        setAllowedItem(allowedIds[0]);
+      }
+    }
+  }, [allowedIems, movieId]);
+  console.log('allowedItem', allowedItem);
   return (
     <>
       <div className="p-6 sm:px-[111px] sm:py-[59px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
@@ -115,12 +120,8 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
           >
             {item?.name}
           </Title>
-          <Text size="base" className="mb-8 text-[#454545]">
-            Lorem ipsum dolor sit amet consectetur. Dolor quis dapibus elit
-            rhoncus. Aenean ipsum euismod augue dolor dolor ipsum. Turpis massa
-            convallis scelerisque euismod.{" "}
-          </Text>
-          <div className="text-base text-[#686868]">
+          <Text size="base" className="mb-8 text-[#454545]">{item?.description}</Text>
+          {/* <div className="text-base text-[#686868]">
             <ul className="text-sm sm:text-base flex flex-col items-center justify-center gap-2 min-h-[100px]">
               <li className="flex items-center gap-2">
                 <CheckIcon />
@@ -139,26 +140,32 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
                 Lorem ipsum dolor sit amet consectetur
               </li>
             </ul>
-          </div>
-          <p className="my-6">
-            <span className="text-[#454545] text-[32px] font-semibold">
-              {item?.price} {item?.currency ?? ""} per year
-            </span>
-          </p>
-          <button
-            onClick={() => goPurchase(item?.priceSKU)}
-            className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-          >
-            {!isLoginUser && "Login and "}
-            {rentText}
-          </button>
-          {!isLoadingUserCheck && !isLoginUser && (
-            <button
-              onClick={() => router.push("/login")}
-              className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
-            >
-              Member Login
-            </button>
+          </div>  */}
+          {(allowedItem?._id)?(
+            <Link href={allowedItem?.content?.pageDirectory || '#'} className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
+              Go to Members Area
+            </Link>
+          ):(
+            <>
+              <p className="my-6">
+                <span className="text-[32px] font-medium">
+                  {item?.price} {item?.currency ?? ""} per year
+                </span>
+              </p>
+              <button
+                onClick={() => goPurchase(item?.priceSKU)}
+                className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
+                {!isLoginUser && "Login and "}
+                {rentText}
+              </button>
+              {(!isLoadingUserCheck && !isLoginUser)&&(
+                <button
+                onClick={() => router.push("/login")}
+                className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10">
+                Member Login
+              </button>
+              )}
+            </>
           )}
         </div>
       </div>

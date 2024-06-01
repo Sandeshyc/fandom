@@ -9,6 +9,7 @@ import getFingerPrintId from './fingerPrintId';
 import setEventRecord from './eventRecord';
 import getOrderReceipt from './orderReceipt';
 import createEntitlement from './createEntitlement';
+import getEntitlementList from './getEntitlementList';
 
 export {
     addToMyList,
@@ -21,5 +22,6 @@ export {
     getFingerPrintId,
     setEventRecord,
     getOrderReceipt,
-    createEntitlement
+    createEntitlement,
+    getEntitlementList
 };

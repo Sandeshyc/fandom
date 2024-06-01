@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { getSession } from '@/utils/cognitoAuth';
+import { useRouter } from 'next/router';
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
 import Footer from '@/components/Footer';
@@ -10,9 +12,27 @@ const bgImage = 'url("/images/new-bg.png")';
 
 const BillingDetails = () => {
     const isMobile = useIsMobile();
+    const router = useRouter();
+    const [isReady, setIsReady] = useState(false);
+    useEffect(() => {
+        const _getSession = async () => {
+          try{
+            const session = await getSession();
+            if (session) {
+              setIsReady(true);
+            }else{
+              router.replace(`/login`);
+            }
+          }catch(error){
+            console.error('Error:', error);
+            router.replace(`/login`);
+          }
+        };
+        _getSession();
+      }, []);
     return (
         <>
-        {isMobile?<Header/>:<Navigation/>}
+        <Navigation/> 
         <div
         className='min-h-[85vh] min-w-full text-white bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]'
         style={{

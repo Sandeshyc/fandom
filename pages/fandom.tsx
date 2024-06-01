@@ -21,10 +21,10 @@ const Fandom = () => {
             if(entitlementData){
                 const allowedIds = getAllowedItemsId(entitlementData);
                 if(!allowedIds.includes(contentId)){
-                    router.push(`/discover`);
+                    router.push(`/bini`);
                 }
             }else{
-                router.push(`/discover`);
+                router.push(`/bini`);
             }
         }
     }, [isReady, entitlementData, entitlementError, entitlementLoading]);
@@ -42,7 +42,7 @@ const Fandom = () => {
         <>
         {(isReady && !entitlementLoading)?(
             <>
-            {isMobile?<Header/>:<Navigation/>}        
+            <Navigation/>        
             <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
             style={{
                 paddingTop: isMobile ? "90px" : "140px",

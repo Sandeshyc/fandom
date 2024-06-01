@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import usePlans from '@/hooks/usePlans';
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
@@ -7,20 +8,36 @@ import useClientLocaion from "@/hooks/useClientLocaion";
 import PlanItem from '@/modules/elements/Purchase/PlanItem';
 import { stableKeys } from '@/utils/stableKeys';
 import useIsMobile from '@/hooks/useIsMobile';
+import useCheckEntitlement from '@/hooks/useCheckEntitlement';
+import { getAllowedItemsId } from '@/utils/getData';
+import { getAllowedItems } from '@/utils/getData';
 const contentId = '6641a3eba9e8e0ae2a7786b8';
 const Discover = () => {
+    const router = useRouter();
     const isMobile = useIsMobile();
+    // const {section} = router.query;
+    const [isReady, setIsReady] = useState(false);
     const [userId, setUserId] = useState("");
     const [planLists, setPlanLists] = useState([] as any[]);
+    const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
     const {data: clientLocation, error: locationError}:any = useClientLocaion();
     const region = clientLocation?.country?.isoCode;
     const {data, isLoading, error} = usePlans(
         region,
-        "web",
-        userId,
         contentId
     );
     // console.log('data', data, 'isLoading', isLoading, 'error', error, 'region', region, 'userId', userId, 'contentId', contentId);
+    const {data: entitlementData, error: entitlementError, isLoading: entitlementLoading} = useCheckEntitlement(userId);
+    console.log('entitlementData', entitlementData, entitlementError, entitlementLoading);
+    console.log('allowedItemLists', allowedItemLists);
+    useEffect(() => {
+        if(isReady && !entitlementLoading && !entitlementError){
+            if(entitlementData){
+                const allowedIds = getAllowedItems(entitlementData); 
+                setAllowedItemLists(allowedIds);               
+            }            
+        }
+    }, [isReady, entitlementData, entitlementError, entitlementLoading]);
     useEffect(() => {
         if (data) {
             // has object allowedPlansDetails
@@ -33,6 +50,16 @@ const Discover = () => {
             }
         }
     }, [data]);
+    useEffect(() => {
+        const userInfo = window.localStorage.getItem('userInfo');
+        if (userInfo) {
+            const userInfoObj = JSON.parse(userInfo);
+            if(userInfoObj.sub) {
+                setUserId(userInfoObj.sub);
+            }
+        }
+        setIsReady(true);
+    }, []);
     return (
         <>
         <Navigation/>       
@@ -50,7 +77,7 @@ const Discover = () => {
                                 item={item}
                                 movieId={contentId}
                                 rentText={'Join Annual Membership'}
-                                itemData={item}
+                                allowedIems={allowedItemLists}
                             />
                         );
                     }

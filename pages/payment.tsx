@@ -2,19 +2,22 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Navigation from "@/modules/components/Navigation";
 import Header from '@/modules/elements/Header';
-import Footer from '@/components/Footer';
-import BottomNavigation from '@/modules/elements/Navigation/BottomNavigation';
 import useIsMobile from '@/hooks/useIsMobile';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import Preloader from '@/modules/skeletons/Preloader';
 import {
   DataUsage
 } from '@mui/icons-material';
+import {
+  getSession,
+} from '@/utils/cognitoAuth';
 
 const MyProfile = () => {
   const iframeRef = useRef( null as any );
   const router = useRouter();
   const isMobile = useIsMobile();
+  const [isReady, setIsReady] = useState(false);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [itemCode, setItemCode] = useState('');
@@ -33,13 +36,7 @@ const MyProfile = () => {
   };
 
   const handleBackBtn = () => {
-    if(itemUrl){
-      router.replace(itemUrl);
-    }else if(itemCode){
-      router.replace(`/details/${itemCode}`);
-    }else{
-      router.replace('/');
-    }
+    router.replace(`/bini`);
   };
 
   useEffect(() => {
@@ -58,52 +55,74 @@ const MyProfile = () => {
     setItemCode(tempItemCode ? tempItemCode : '');
     const tempItemUrl = window.localStorage.getItem('itemUrl');
     setItemUrl(tempItemUrl ? tempItemUrl : '');
+
+    const _getSession = async () => {
+      try{
+        const session = await getSession();
+        if (session) {
+          setIsReady(true);
+        }else{
+          router.replace(`/login`);
+        }
+      }catch(error){
+        console.error('Error:', error);
+        router.replace(`/login`);
+      }
+    };
+    _getSession();
+
   },[]);
 
   return (<>
-      {isMobile?<Header/>:<Navigation/>}
-      <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
-        style={{
-            paddingTop: isMobile ? "90px" : "140px",
-            paddingBottom: isMobile ? "70px" : "90px",
-        }}>
-        <div className={`px-4 md:px-12 mb-[3vw]`}>
-          <div className="movieSliderInner">
-            <div className="flex flex-row items-center gap-3 lg:gap-8 mb-6">
-              <ArrowLeftIcon onClick={handleBackBtn} className="w-4 md:w-10 cursor-pointer hover:opacity-80 transition" />
-              <p className="text-[#93767A]/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={handleBackBtn}>
-                <span className="font-light">Back</span>
+      {(isReady)?(
+      <>
+        <Navigation/> 
+        <div className='w-full h-full min-h-screen bg-gradient-to-t to-[#EFF3F6] to-[75%] from-[#FFE5F1] text-[#93767A]'
+          style={{
+              paddingTop: isMobile ? "90px" : "140px",
+              paddingBottom: isMobile ? "70px" : "90px",
+          }}>
+          <div className={`px-4 md:px-12 mb-[3vw]`}>
+            <div className="movieSliderInner">
+              <div className="flex flex-row items-center gap-3 lg:gap-8 mb-6">
+                <ArrowLeftIcon onClick={handleBackBtn} className="w-4 md:w-10 cursor-pointer hover:opacity-80 transition" />
+                <p className="text-[#93767A]/80 text-1xl md:text-3xl font-bold cursor-pointer" onClick={handleBackBtn}>
+                  <span className="font-light">Back</span>
+                </p>
+                <p className=" text-xl md:text-2xl lg:text-[2rem] font-semibold">
+                  Payment
               </p>
-              <p className=" text-xl md:text-2xl lg:text-[2rem] font-semibold">
-                Payment
-            </p>
-            </div> 
-            <div className="lg:px-6 pb-6 flex flex-wrap">
-              {(!iframeLoaded)&&(<div className='text-[#93767A] w-full h-screen flex justify-center p-8'>
-                <div className='flex flex-col items-center'>
-                  <DataUsage className='animate-spin w-24 h-24' 
-                    sx={{
-                      fontSize: 100,
-                    }}
-                  />
-                  <h1 className='text-4xl text-center mt-4'>Loading...</h1>
-                </div>
-              </div>)}
-              {(isLoginUser)&&(
-                <iframe 
-                  ref={iframeRef}
-                  className='w-full h-[100vh]'
-                  // height={height}
-                  src={iframeParams}  
-                  onLoad={handleIframeLoad}    
-                  // scrolling="no" 
-                  >                
-                </iframe>
-              )}
+              </div> 
+              <div className="lg:px-6 pb-6 flex flex-wrap">
+                {(!iframeLoaded)&&(<div className='text-[#93767A] w-full h-screen flex justify-center p-8'>
+                  <div className='flex flex-col items-center'>
+                    <DataUsage className='animate-spin w-24 h-24' 
+                      sx={{
+                        fontSize: 100,
+                      }}
+                    />
+                    <h1 className='text-4xl text-center mt-4'>Loading...</h1>
+                  </div>
+                </div>)}
+                {(isLoginUser)&&(
+                  <iframe 
+                    ref={iframeRef}
+                    className='w-full h-[100vh]'
+                    // height={height}
+                    src={iframeParams}  
+                    onLoad={handleIframeLoad}    
+                    // scrolling="no" 
+                    >                
+                  </iframe>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
+      ):(
+        <Preloader/>
+      )}
   </>)
 }
 

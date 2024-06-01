@@ -14,11 +14,14 @@ export const getThumbnailBanner = (data:any) => {
 }
 
 export const getAllowedItems = (entitlementInfo:any) => {
-    let fullAllowedItems = {} as any;
+    let fullAllowedItems = [] as any;
     const entitleInfo = entitlementInfo?.entitlementInfo;
     if(entitleInfo){
         entitleInfo.forEach((info:any) => {
-            fullAllowedItems[info?.content?.contentId || info.itemCode] = info
+            const tempItem = info;
+            if(tempItem){
+                fullAllowedItems.push(tempItem);
+            }
         })
     }
     return fullAllowedItems;

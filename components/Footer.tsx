@@ -14,12 +14,12 @@ const Footer = () => {
             <div className="w-full sm:w-fit flex flex-wrap flex-col gap-4 items-center sm:flex-row">
               <NavItem
                 label="Terms & Conditions"
-                route="/discover"
+                route=""
                 activeRoute={""}
               />
               <NavItem
                 label="Privacy Policy"
-                route="/discover"
+                route=""
                 activeRoute={""}
               />
               <NavItem

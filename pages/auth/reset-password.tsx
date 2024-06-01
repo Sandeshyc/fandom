@@ -89,7 +89,7 @@ const ResetPassword = () => {
         setIsVerifingEnd(true);
       };
       _handleVerification();
-      // router.replace('/auth');
+      // router.replace('/login');
     }
   }, [router.query]);
 
