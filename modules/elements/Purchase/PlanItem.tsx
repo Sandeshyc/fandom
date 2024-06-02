@@ -167,15 +167,15 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
               </p>
               <button
                 onClick={() => goPurchase(item?.priceSKU)}
-                className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+                className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
               >
-                {!isLoginUser && "Login and "}
+                {/* {!isLoginUser && "Login and "} */}
                 {rentText}
               </button>
               {!isLoadingUserCheck && !isLoginUser && (
                 <button
                   onClick={() => router.push("/login")}
-                  className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
+                  className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
                 >
                   Member Login
                 </button>

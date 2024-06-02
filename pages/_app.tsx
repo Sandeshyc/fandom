@@ -98,7 +98,7 @@ export default function App({
   return (
     <>
       <Head>
-        <title>Bini</title>
+        <title>BINI</title>
         <meta name="description" content="iWantTFC Tickets" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex, nofollow" />
