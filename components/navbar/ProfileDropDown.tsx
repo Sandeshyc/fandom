@@ -57,14 +57,14 @@ const ProfileDropDown = () => {
       }
     }
     const _getSession = async () => {
-      try{
+      try {
         const session = await getSession();
         if (session) {
           setIsReady(true);
           setIsLogedIn(true);
         }
-      }catch(error){
-        console.error('Error:', error);
+      } catch (error) {
+        console.error("Error:", error);
       }
     };
     _getSession();
@@ -77,9 +77,9 @@ const ProfileDropDown = () => {
             <>
               <Menu as="div" className="relative text-left flex">
                 <Menu.Button className="inline-flex items-center">
-                  <div className="transition w-[40px] h-[40px] rounded-full p-[3px] bg-white border-2 border-[#E79FAD]">
+                  <div className="transition w-[40px] h-[40px] rounded-full p-[3px] bg-white border-2 border-[#F7BC39]">
                     <img
-                      src="/images/pp.png"
+                      src="/images/ph_user-fill.png"
                       alt={displayName}
                       className="w-full h-full rounded-full text-[0px]"
                     />
@@ -87,7 +87,7 @@ const ProfileDropDown = () => {
                   <ArrowDropDown
                     sx={{
                       fontSize: 30,
-                      color: "#E79FAD",
+                      color: "#F7BC39",
                     }}
                   />
                 </Menu.Button>
@@ -106,9 +106,9 @@ const ProfileDropDown = () => {
                         <div className="flex items-center">
                           <div className="transition w-[64px] min-w-[64px] h-[64px] rounded-full p-[3px] bg-white mr-3 border-2 border-[#F7BC39]/70 flex justify-center items-center overflow-hidden">
                             <img
-                              src="/images/pp.png"
+                              src="/images/ph_user-fill.png"
                               alt={displayName}
-                              className="w-[85%] h-[85%] text-[0px]"
+                              className="text-[0px]"
                             />
                           </div>
                           <div>
@@ -215,7 +215,7 @@ const ProfileDropDown = () => {
             >
               Login
             </Link>
-          )}        
+          )}
         </>
       )}
     </>

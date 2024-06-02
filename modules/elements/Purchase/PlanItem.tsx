@@ -16,8 +16,8 @@ type Props = {
   allowedIems?: any;
 };
 const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
-  console.log('item', item, allowedIems);
-  const {isLoginUser, isLoadingUserCheck} = useCheckAuthentication();
+  console.log("item", item, allowedIems);
+  const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [rentProductId, setRentProductId] = useState("");
@@ -86,16 +86,16 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
   useEffect(() => {
     if (Array.isArray(allowedIems) && allowedIems.length > 0) {
       const allowedIds = allowedIems.map((allowItem: any) => {
-        if(allowItem?.content?.contentId === movieId){
+        if (allowItem?.content?.contentId === movieId) {
           return allowItem;
         }
       });
-      if(Array.isArray(allowedIds) && allowedIds.length > 0){
+      if (Array.isArray(allowedIds) && allowedIds.length > 0) {
         setAllowedItem(allowedIds[0]);
       }
     }
   }, [allowedIems, movieId]);
-  console.log('allowedItem', allowedItem);
+  console.log("allowedItem", allowedItem);
   return (
     <>
       <div className="p-6 sm:px-[111px] sm:py-[59px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
@@ -120,32 +120,45 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
           >
             {item?.name}
           </Title>
-          <Text size="base" className="mb-8 text-[#454545]">{item?.description}</Text>
-          {/* <div className="text-base text-[#686868]">
-            <ul className="text-sm sm:text-base flex flex-col items-center justify-center gap-2 min-h-[100px]">
+          <Text size="base" className="mb-8 text-[#454545]">
+            {item?.description}
+          </Text>
+          <div className="text-base text-[#686868]">
+            <ul className="w-max mx-auto text-sm sm:text-base flex flex-col justify-center gap-2 min-h-[100px]">
               <li className="flex items-center gap-2">
                 <CheckIcon />
-                Lorem ipsum dolor sit amet consectetur
+                Join the livestream
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon />
-                Lorem ipsum dolor sit amet consectetur
+                Never before seen footage and photoshoots
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon />
-                Lorem ipsum dolor sit amet consectetur
+                Digital photocards
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon />
-                Lorem ipsum dolor sit amet consectetur
+                Exclusive videos and articles
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckIcon />
+                Limited edition BINI merchandise
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckIcon />
+                More surprises!
               </li>
             </ul>
-          </div>  */}
-          {(allowedItem?._id)?(
-            <Link href={allowedItem?.content?.pageDirectory || '#'} className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
+          </div>
+          {allowedItem?._id ? (
+            <Link
+              href={allowedItem?.content?.pageDirectory || "#"}
+              className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+            >
               Go to Members Area
             </Link>
-          ):(
+          ) : (
             <>
               <p className="my-6">
                 <span className="text-[32px] font-medium">
@@ -154,16 +167,18 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
               </p>
               <button
                 onClick={() => goPurchase(item?.priceSKU)}
-                className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]">
+                className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+              >
                 {!isLoginUser && "Login and "}
                 {rentText}
               </button>
-              {(!isLoadingUserCheck && !isLoginUser)&&(
+              {!isLoadingUserCheck && !isLoginUser && (
                 <button
-                onClick={() => router.push("/login")}
-                className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10">
-                Member Login
-              </button>
+                  onClick={() => router.push("/login")}
+                  className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
+                >
+                  Member Login
+                </button>
               )}
             </>
           )}
