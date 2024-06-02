@@ -53,9 +53,9 @@ const BillingDetails = () => {
             </Text>
           </div>
         </div>
-      </div>
-      {isMobile ? <BottomNavigation /> : <Footer />}
-    </>
-  );
-};
+        </div>
+        <Footer/>
+        </>
+    );
+}
 export default BillingDetails;
