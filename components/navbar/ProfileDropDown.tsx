@@ -138,7 +138,20 @@ const ProfileDropDown = () => {
                             </span>
                             <p>Manage Account</p>
                           </button>
-                        </div>                        
+                        </div>
+                        {/* <div className="mb-2">
+                          <button
+                            className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
+                              router.pathname === "/mycard" && "bg-gray-100"
+                            }`}
+                            onClick={() => router.push("/mycard")}
+                          >
+                            <span className="mr-2">
+                              <CreditCard />
+                            </span>
+                            <p>Manage Card</p>
+                          </button>
+                        </div> */}
                         <div className="mb-2">
                           <button
                             className={`flex w-full items-center cursor-pointer hover:bg-gray-100 rounded-md p-1 ${
