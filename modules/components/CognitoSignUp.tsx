@@ -383,8 +383,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                 onChange={handleChange}
               />
               <label htmlFor="isMarketing" className="text-[#686868] ">
-                I agree to receive marketing communications (until I
-                membership).
+                I agree to receive marketing communications.
               </label>
             </div>
           </div>
