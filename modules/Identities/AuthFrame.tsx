@@ -39,8 +39,12 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
 
             <div className="flex sm:invisible">
               <div className="flex sm:hidden flex-col items-center gap-2 text-center text-sm mx-auto text-[#C1C0C0] mt-8">
-                <Link href="#">Terms & Conditions</Link>
-                <Link href="#">Privacy Policy</Link>
+                <Link href="https://www.abs-cbn.com/terms" target="_blank">
+                  Terms & Conditions
+                </Link>
+                <Link href="https://www.abs-cbn.com/privacy" target="_blank">
+                  Privacy Policy
+                </Link>
                 <p>Do Not Sell My Personal Information</p>
                 <p>© 2024 ABS-CBN Corporation. All Rights Reserved.</p>
               </div>
@@ -49,8 +53,12 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
 
           <div className="hidden lg:flex flex-col items-center gap-2 text-center mx-auto text-white mt-8">
             <div className="flex items-center gap-4 ">
-              <Link href="#">Terms & Conditions</Link>
-              <Link href="#">Privacy Policy</Link>
+              <Link href="https://www.abs-cbn.com/terms" target="_blank">
+                Terms & Conditions
+              </Link>
+              <Link href="https://www.abs-cbn.com/privacy" target="_blank">
+                Privacy Policy
+              </Link>
               <p>Do Not Sell My Personal Information</p>
             </div>
             <p>© 2024 ABS-CBN Corporation. All Rights Reserved.</p>
