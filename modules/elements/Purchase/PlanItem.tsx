@@ -174,7 +174,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems, isBlock=false
               {rentText}
             </button>
             <WarningMessage 
-              message="This feature not available in your region."
+              message="Purchase is not available in your region."
               textColor="#F3A533"
               className="text-left mt-4"
               styles={{
