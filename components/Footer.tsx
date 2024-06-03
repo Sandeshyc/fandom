@@ -14,12 +14,12 @@ const Footer = () => {
             <div className="w-full sm:w-fit flex flex-wrap flex-col gap-4 items-center sm:flex-row">
               <NavItem
                 label="Terms & Conditions"
-                route=""
+                route="https://www.abs-cbn.com/terms"
                 activeRoute={""}
               />
               <NavItem
                 label="Privacy Policy"
-                route=""
+                route="https://www.abs-cbn.com/privacy"
                 activeRoute={""}
               />
               <NavItem
@@ -55,6 +55,7 @@ const NavItem = ({ label, route, activeRoute }: NavItemProps) => {
       {route ? (
         <Link
           href={route}
+          target="_blank"
           className={`flex items-center text-sm cursor-pointer `}
         >
           {label}

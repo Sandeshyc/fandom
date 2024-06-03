@@ -100,7 +100,7 @@ const ProfileDropDown = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="fixed sm:absolute text-[16px] top-11 sm:top-2 right-0 sm:right-2 z-20 mt-2 w-full sm:w-[360px] origin-top-right bg-transparent text-[#454545] focus:outline-none">
+                  <Menu.Items className="fixed sm:absolute text-[16px] top-11 sm:top-9 right-0 sm:right-2 z-20 mt-2 w-full sm:w-[360px] origin-top-right bg-transparent text-[#454545] focus:outline-none">
                     <div className="w-full h-screen relative">
                       <div className="p-4 relative z-20 bg-white shadow rounded-none sm:rounded-md">
                         <div className="flex items-center">
