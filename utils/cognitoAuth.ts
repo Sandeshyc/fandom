@@ -178,18 +178,26 @@ const userPool = new CognitoUserPool({
   }
 
   export function deleteAccount() {
+    const cognitoUser = userPool.getCurrentUser();
+    console.log('cognitoUser: ', cognitoUser);
     return new Promise((resolve, reject) => {
-      const cognitoUser = userPool.getCurrentUser();
       if (!cognitoUser) {
         reject(new Error("No user found"));
         return;
       }
-      cognitoUser.deleteUser((err:any, result:any) => {
+      cognitoUser.getSession((err:any, session:any) => {
         if (err) {
+          console.log('err::::::: ', err);
           reject(err);
           return;
         }
-        resolve(result);
+        cognitoUser.deleteUser((err:any, result:any) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(result);
+        });
       });
     });
   }

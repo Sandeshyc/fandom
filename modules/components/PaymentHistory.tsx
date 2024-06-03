@@ -21,7 +21,7 @@ const PaymentHistory = () => {
   const [loadingItem, setLoadingItem] = useState("");
   // const { data, isLoading, error } = usePaymentHistory('7B6E23C8-6B77-4294-A7A3-66B4748D8D05');
   const { data, isLoading, error } = usePaymentHistory(userId);
-  // console.log('data: ', data, isLoading, error);
+  console.log('data: ', data, isLoading, error);
   const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-4`;
   const copyTextFunc = (text: string) => {
     navigator?.clipboard?.writeText(text);
@@ -31,6 +31,7 @@ const PaymentHistory = () => {
     setIsPdfLoading(true);
     setLoadingItem(transactionId);
     const response = await getOrderReceipt(userId, transactionId);
+    // console.log("response: ", response);
     if (response.status === "success") {
       const ddd = URL.createObjectURL(response?.data as Blob);
       // set file name
@@ -83,7 +84,7 @@ const PaymentHistory = () => {
                 Date
               </th>
               <th className="p-2 whitespace-nowrap font-semibold min-w-[200px]">
-                Content title
+                Title
               </th>
               <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
                 Product Name
@@ -116,7 +117,7 @@ const PaymentHistory = () => {
                       <td className={cellClass} data-label={"Date"}>
                         {getDateFormat(payment?.date)}
                       </td>
-                      <td className={cellClass} data-label={"Content title"}>
+                      <td className={cellClass} data-label={"Title"}>
                         <span className="font-semibold">
                           {payment?.contentTitle}
                         </span>

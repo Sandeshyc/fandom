@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
 import VerifyMail from "@/modules/elements/VerifyMail";
-import { isItDate, getDayWithSuffix } from "@/utils/dataTimeChecking";
+import { isItDate, getDayWithSuffix, showDate } from "@/utils/dataTimeChecking";
 
 type Props = {
   setAuthLoading: any;
@@ -70,7 +70,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       .oneOf([Yup.ref("password"), ""], "Passwords are not matched")
       .required("Confirm Password is required"),
     fullName: Yup.string().required("Full Name is required"),
-    userBirthday: Yup.date().required("Birthday is required"),
+    userBirthday: Yup.string().required("Birthday is required"),
     mobileNumber: Yup.string(),
     tnc: Yup.boolean().oneOf([true], "Accept Terms & Conditions is required"),
     marketing: Yup.boolean(),
@@ -289,19 +289,13 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               placeholderText={isEmpty(values.userBirthday) ? "Birthday" : ""}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
             />
-            <p
-              className={`absolute top-0 left-0 ${
+            <p className={`absolute top-0 left-0 ${
                 values.userBirthday && isDate(birthday)
                   ? "text-[#5F576F]"
                   : "text-[#C1C0C0]"
-              } text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center`}
-            >
+              } text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center`}>
               {values.userBirthday && isDate(birthday)
-                ? `${getDayWithSuffix(
-                    birthday.getDate()
-                  )} ${birthday.toLocaleString("default", {
-                    month: "long",
-                  })} ${birthday.getFullYear()}`
+                ? `${showDate(values.userBirthday)}`
                 : "Birth Date"}
             </p>
             <div className="absolute top-[8px] z-10 right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">

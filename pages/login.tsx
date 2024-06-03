@@ -4,6 +4,7 @@ import Link from "next/link";
 import GoogleIdentitySignIn from "components/GoogleIdentitySignIn";
 import CognitoSignIn from "@/modules/components/CognitoSignIn";
 import AuthFrame from "@/modules/Identities/AuthFrame";
+import { getSession } from "@/utils/cognitoAuth";
 
 const Auth = () => {
   const router = useRouter();
@@ -26,7 +27,17 @@ const Auth = () => {
     if (userInfo) {
       const userInfoObj = JSON.parse(userInfo);
       if (userInfoObj.sub) {
-        router.push("/");
+        const _getSession = async () => {
+          try {
+            const session = await getSession();
+            if (session) {
+              router.push("/");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        };
+        _getSession();
       }
     }
   }, []);

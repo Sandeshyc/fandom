@@ -1,4 +1,6 @@
 import {dateToDay} from 'utils/yearFromDate';
+import { isDate, isEmpty } from "lodash";
+
 export const isOnAir = (onAir:string) => {
     const {day, hour, minute} = dateToDay(onAir);
     if(day === 0 && hour === 0 && minute === 0){
@@ -27,4 +29,22 @@ export const getDayWithSuffix = (day: number) => {
       default:
         return `${day}th`;
     }
+}
+
+export const showDate = (date: any) => {
+  if (!date) return "";
+  // format date 2024-10-12
+  if(isDate(date)){
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
   }
+  if (isDate(date))
+    return (
+      getDayWithSuffix(date.getDate()) +
+      " " +
+      new Intl.DateTimeFormat("en", { month: "short" }).format(date) +
+      " " +
+      date.getFullYear()
+    );
+  if (typeof date === "string") return date.split("T")[0];
+  return "";
+};
