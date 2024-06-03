@@ -24,33 +24,33 @@ const DeleteAccount = ({open, setOpen}:Props) => {
     const handleDeleteAccount = (tempUserId:string) => {  
         setIsDeleting(true);      
         const deleteAccountAllData = async (tempUserId:string) => {
-            try {
-                await deleteAccount();
-            } catch (error) {
-                console.error('Error:', error);
-            }
             const headers = {
                 'Content-Type': 'application/json',
             };      
             const dataBody = {
                 "userId": tempUserId,
             };
-            // console.log('dataBody', dataBody);
+            console.log('dataBody:::', dataBody);
             await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, { headers, data: dataBody })
             .then(response => {
                 // console.log('Delete response: ', response);
                 if(response.status === 200) {
-                    window.localStorage.removeItem('userInfo');
-                    window.localStorage.removeItem('oneLogInAccessToken');
-                    window.localStorage.removeItem('googleIndentityAccessToken');
-                    window.localStorage.removeItem('provider');
-                    window.location.replace('/login');
-                    handleClose();
+                    
                 }
             })
             .catch(error => {
                 console.error('Error::', error);
-            });            
+            }); 
+            try {
+                await deleteAccount();
+                window.localStorage.removeItem('userInfo');
+                window.localStorage.removeItem('accessToken');
+                window.localStorage.removeItem('provider');
+                window.location.replace('/login');
+                handleClose();
+            } catch (error) {
+                console.error('Error:', error);
+            }           
         }
         if(!tempUserId){
             const userInfo = window.localStorage.getItem('userInfo');

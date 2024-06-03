@@ -20,6 +20,7 @@ import ParentalControls from "@/modules/components/ParentalControls";
 import CommunicationDetails from "@/modules/components/CommunicationDetails";
 import DeleteAccount from "@/modules/elements/DeleteAccount";
 import { getSession } from "@/utils/cognitoAuth";
+import MembershipDetails from "@/modules/components/MembershipDetails";
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -359,6 +360,7 @@ const MyProfile = () => {
                 <CommunicationDetails profileData={profile} />
               </div>
             </div>
+            <MembershipDetails />
           </div>
           <Footer />
         </>

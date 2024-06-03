@@ -101,6 +101,10 @@ export default ProfileBirthday;
 
 const showDate = (date: any) => {
   if (!date) return "";
+  // format date 2024-10-12
+  if(isDate(date)){
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+  }
   if (isDate(date))
     return (
       getDayWithSuffix(date.getDate()) +
