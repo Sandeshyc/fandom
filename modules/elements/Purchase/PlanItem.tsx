@@ -154,9 +154,9 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
           {allowedItem?._id ? (
             <Link
               href={allowedItem?.content?.pageDirectory || "#"}
-              className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+              className="mt-6 flex justify-center items-center block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
             >
-              Go to Members Area
+              View Exclusive Page
             </Link>
           ) : (
             <>

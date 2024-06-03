@@ -14,7 +14,7 @@ const ProfileHead = ({ profileExpanded, toggleProfile }: ProfileHeadProps) => {
       </div>
       <button type="button" onClick={toggleProfile} className="w-[25px]">
         <ChevronDownIcon
-          className={`active:opacity-65 h-6 w-6 text-white ${
+          className={`active:opacity-65 h-6 w-6 text-[#11355E] ${
             profileExpanded ? "rotate-180" : null
           }`}
         />

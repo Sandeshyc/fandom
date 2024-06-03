@@ -22,7 +22,7 @@ const PaymentHistory = () => {
   // const { data, isLoading, error } = usePaymentHistory('7B6E23C8-6B77-4294-A7A3-66B4748D8D05');
   const { data, isLoading, error } = usePaymentHistory(userId);
   console.log('data: ', data, isLoading, error);
-  const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-4`;
+  const cellClass = `before:mr-4 before:font-medium before:text-gray-900 text-[#454545] text-base p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-4`;
   const copyTextFunc = (text: string) => {
     navigator?.clipboard?.writeText(text);
     setCopyText(text);
@@ -67,38 +67,38 @@ const PaymentHistory = () => {
     setIsReady(true);
   }, []);
   return (
-    <div className="py-6 relative">
+    <div className="relative">
       {isPdfLoading && (
         <div className="absolute top-0 left-0 w-full h-full bg-black/60 z-50 cursor-wait"></div>
       )}
-      <div className="text-center mb-4 font-semibold text-[#11355E]">
+      <div className="text-center my-4 font-semibold text-[#11355E]">
         <Title tag="h2" size="2xl">
           Payment History
         </Title>
       </div>
       <div className="w-full overflow-y-hidden lg:overflow-x-auto">
         <table className="w-full text-left paymentHistoryTable">
-          <thead className="hidden lg:table-header-group text-[#454545]">
+          <thead className="hidden lg:table-header-group text-[#454545] border-b border-[#C1C0C0]">
             <tr className="px-4">
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[120px] pl-4">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[120px] pl-4">
                 Date
               </th>
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[200px]">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[200px]">
                 Title
               </th>
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[120px]">
                 Product Name
               </th>
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[180px]">
                 Order Number
               </th>
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[150px]">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[150px]">
                 Payment Method
               </th>
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[100px]">
                 Transaction Type
               </th>
-              <th className="p-2 whitespace-nowrap font-semibold min-w-[80px]">
+              <th className="py-4 whitespace-nowrap font-semibold min-w-[80px]">
                 Amount
               </th>
             </tr>
@@ -118,9 +118,7 @@ const PaymentHistory = () => {
                         {getDateFormat(payment?.date)}
                       </td>
                       <td className={cellClass} data-label={"Title"}>
-                        <span className="font-semibold">
-                          {payment?.contentTitle}
-                        </span>
+                        {payment?.contentTitle}
                       </td>
                       <td className={cellClass} data-label={"Product Name"}>
                         {payment?.productName}
@@ -130,7 +128,9 @@ const PaymentHistory = () => {
                           {payment?.orderNumber}
                           {copyText === payment?.orderNumber ? (
                             <span className="text-black ml-2" title="Copied">
-                              <ContentCopyTwoTone sx={{ fontSize: 20 }} />
+                              <ContentCopyTwoTone
+                                sx={{ fontSize: 16, color: "#C1C0C0" }}
+                              />
                             </span>
                           ) : (
                             <span
@@ -138,7 +138,9 @@ const PaymentHistory = () => {
                               title="Copy"
                               onClick={() => copyTextFunc(payment?.orderNumber)}
                             >
-                              <ContentCopyOutlined sx={{ fontSize: 20 }} />
+                              <ContentCopyOutlined
+                                sx={{ fontSize: 16, color: "#C1C0C0" }}
+                              />
                             </span>
                           )}
                         </span>
@@ -179,7 +181,7 @@ const PaymentHistory = () => {
                             }
                           >
                             <PictureAsPdfOutlined
-                              sx={{ fontSize: 30, color: "blue" }}
+                              sx={{ fontSize: 20, color: "#11355E" }}
                             />
                           </button>
                         )}
@@ -189,7 +191,10 @@ const PaymentHistory = () => {
                 </>
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center py-4 text-red-800">
+                  <td
+                    colSpan={12}
+                    className="text-center text-base py-4 text-[#DA312C]"
+                  >
                     No Payment History Found!
                   </td>
                 </tr>
