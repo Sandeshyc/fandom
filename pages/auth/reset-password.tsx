@@ -162,7 +162,7 @@ const ResetPassword = () => {
             );
           }
         });
-        setAuthLoading(false);
+      setAuthLoading(false);
     },
   });
 
@@ -278,7 +278,7 @@ const ResetPassword = () => {
                 )}
                 <button
                   type="submit"
-                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#E79FAD]"
+                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2]"
                 >
                   {onSubmit ? "Loading..." : "Continue"}
                 </button>
