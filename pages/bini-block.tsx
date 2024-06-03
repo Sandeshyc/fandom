@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import usePlans from "@/hooks/usePlans";
 import Navigation from "@/modules/components/Navigation";
-import Header from "@/modules/elements/Header";
 import Footer from "@/components/Footer";
 import useClientLocaion from "@/hooks/useClientLocaion";
 import PlanItem from "@/modules/elements/Purchase/PlanItem";
 import { stableKeys } from "@/utils/stableKeys";
 import useIsMobile from "@/hooks/useIsMobile";
 import useCheckEntitlement from "@/hooks/useCheckEntitlement";
-import { getAllowedItemsId } from "@/utils/getData";
 import { getAllowedItems } from "@/utils/getData";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
 const Discover = () => {
@@ -92,6 +90,7 @@ const Discover = () => {
                   movieId={contentId}
                   rentText={"Join Annual Membership"}
                   allowedIems={allowedItemLists}
+                  isBlock={true}
                 />
               );
             })}

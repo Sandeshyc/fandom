@@ -69,7 +69,8 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), ""], "Passwords are not matched")
       .required("Confirm Password is required"),
-    fullName: Yup.string().required("Full Name is required"),
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
     userBirthday: Yup.string().required("Birthday is required"),
     mobileNumber: Yup.string(),
     tnc: Yup.boolean().oneOf([true], "Accept Terms & Conditions is required"),
@@ -88,7 +89,8 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       email: "",
       password: "",
       confirmPassword: "",
-      fullName: "",
+      firstName: "",
+      lastName: "",
       userBirthday: "",
       mobileNumber: "",
       tnc: false,
@@ -102,7 +104,8 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       email,
       password,
       confirmPassword,
-      fullName,
+      firstName,
+      lastName,
       userBirthday,
       mobileNumber,
       tnc,
@@ -118,20 +121,22 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
         if (response && response?.username && response?.userDataKey) {
           setIsVerifingEmail(true);
           setIsLoginFail(false);
-          const userCheckRes = await checkUser(
-            response?.username,
-            response?.username,
-            response?.username || "",
-            "cognito",
-            false,
-            "none",
-            false,
-            tnc,
-            marketing,
-            fullName,
-            userBirthday,
-            mobileNumber
-          );
+          const userData = {
+            userid: response?.username,
+            providerId: response?.username,
+            email: response?.username,
+            providerName: "cognito",
+            emailVerified: false,
+            accessToken: "",
+            isLogin: false,
+            tnc: tnc,
+            marketing: marketing,
+            firstName: firstName,
+            lastName: lastName,
+            birthDate: userBirthday,
+            phoneNumber: mobileNumber,
+          };
+          const userCheckRes = await checkUser(userData);
           if (userCheckRes === 200) {
             setIsVerifingEmail(true);
           }
@@ -257,23 +262,43 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             </span>
           )}
         </div>
-        <div className="mb-4">
-          <div className="relative">
-            <input
-              placeholder="Full Name"
-              type="text"
-              name="fullName"
-              autoFocus={true}
-              value={values.fullName}
-              onChange={handleChange}
-              className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
-            />
+        <div className="flex flex-wrap mx-[-5px]">
+          <div className="mb-4 w-1/2 px-[5px]">
+            <div className="relative">
+              <input
+                placeholder="First Name"
+                type="text"
+                name="firstName"
+                autoFocus={true}
+                value={values.firstName}
+                onChange={handleChange}
+                className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
+              />
+            </div>
+            {errors.firstName && touched.firstName && (
+              <span className="text-red-500 w-full text-xs">
+                {errors.firstName}
+              </span>
+            )}
           </div>
-          {errors.fullName && touched.fullName && (
-            <span className="text-red-500 w-full text-xs">
-              {errors.fullName}
-            </span>
-          )}
+          <div className="mb-4 w-1/2 px-[5px]">
+            <div className="relative">
+              <input
+                placeholder="Last Name"
+                type="text"
+                name="lastName"
+                autoFocus={true}
+                value={values.lastName}
+                onChange={handleChange}
+                className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
+              />
+            </div>
+            {errors.lastName && touched.lastName && (
+              <span className="text-red-500 w-full text-xs">
+                {errors.lastName}
+              </span>
+            )}
+          </div>
         </div>
         <div className="mb-4 w-full fullWidthDatePicker">
           <div className="relative w-full bg-[#fff] rounded-md">
@@ -284,9 +309,11 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               dropdownMode="select"
               maxDate={maxDate}
               minDate={minDate}
-              selected={setSelectDate}
+              selected={birthday}
               onChange={handelDataChange}
-              placeholderText={isEmpty(values.userBirthday) ? "Birthday" : ""}
+              disabledKeyboardNavigation
+              placeholderText={'Birthday'}
+              dateFormat="yyyy-MM-dd"
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
             />
             <p className={`absolute top-0 left-0 ${

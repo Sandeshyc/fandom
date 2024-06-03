@@ -136,20 +136,22 @@ const GoogleIdentitySignUp = ({ setAuthLoading }: Props) => {
         const user = userCredential.user;
         // console.log('user ', user);
         if (user !== null && user !== undefined) {
-          await checkUser(
-            user?.uid,
-            user?.uid,
-            user?.email || "",
-            user?.providerId,
-            user?.emailVerified,
-            'testData',
-            false,
-            tnc,
-            marketing,
-            fullName,
-            userBirthday,
-            mobileNumber,
-          );     
+          const userData = {
+            userid: user?.uid,
+            providerId: user?.uid,
+            email: user?.email || "",
+            providerName: user?.providerId,
+            emailVerified: user?.emailVerified,
+            accessToken: 'testData',
+            isLogin: false,
+            tnc: tnc,
+            marketing: marketing,
+            firstName: fullName,
+            lastName: '',
+            birthDate: userBirthday,
+            phoneNumber: mobileNumber,
+          };
+          await checkUser(userData);     
           // return false;      
           const isEmailVerified = user?.emailVerified;
           if (isEmailVerified) {

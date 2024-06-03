@@ -112,14 +112,15 @@ const VerifyMail = ({ email, password }: Props) => {
             if (user) {
               const { email_verified } = user;
               if (email_verified) {
-                const userResponse = await checkUser(
-                  email,
-                  email,
-                  email,
-                  "cognito",
-                  true,
-                  response?.accessToken?.jwtToken || ""
-                );
+                const userData = {
+                  userid: email,
+                  providerId: email,
+                  email: email,
+                  providerName: "cognito",
+                  emailVerified: true,
+                  accessToken: response?.accessToken?.jwtToken,
+                };
+                const userResponse = await checkUser(userData);
                 if (userResponse === 200) {
                   let redirectUrl = localStorage.getItem("redirectUrl");
                   if (!redirectUrl) {
