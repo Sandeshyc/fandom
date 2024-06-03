@@ -124,7 +124,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
             {item?.description}
           </Text>
           <div className="text-base text-[#686868]">
-            <ul className="w-max mx-auto text-sm sm:text-base flex flex-col justify-center gap-2 min-h-[100px]">
+            <ul className="mx-auto text-sm sm:text-base text-left flex flex-col justify-center gap-2 min-h-[100px]">
               <li className="flex items-center gap-2">
                 <CheckIcon />
                 Join the livestream
