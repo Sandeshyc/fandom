@@ -109,7 +109,7 @@ const MembershipDetails = () => {
                                                     {convertESTtoLocalTime(item?.header?.expiryDate as string)}
                                                 </td>
                                                 <td className={cellClass} data-label={"Action"}>
-                                                    <Link href={item?.content?.pageDirectory || '#'}>Browse page</Link>
+                                                    <Link href={item?.content?.pageDirectory || '#'} className='underline'>Browse page</Link>
                                                 </td>
                                             </tr>
                                         )}
