@@ -100,7 +100,7 @@ export default function App({
       <Head>
         <title>BINI</title>
         <meta name="description" content="iWantTFC Tickets" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="googlebot" content="noindex" />        
       </Head>

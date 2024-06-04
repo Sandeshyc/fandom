@@ -26,16 +26,11 @@ const DeleteAccount = ({open, setOpen}:Props) => {
         const deleteAccountAllData = async (tempUserId:string) => {
             const headers = {
                 'Content-Type': 'application/json',
-            };      
-            const dataBody = {
-                "userId": tempUserId,
-            };
-            console.log('dataBody:::', dataBody);
-            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, { headers, data: dataBody })
+            };   
+            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/info/${tempUserId}`, { headers})
             .then(response => {
-                // console.log('Delete response: ', response);
                 if(response.status === 200) {
-                    
+                    console.log('Account Deleted Successfully', tempUserId);
                 }
             })
             .catch(error => {
