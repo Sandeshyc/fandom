@@ -75,7 +75,7 @@ const GoogleIdentitySignUp = ({ setAuthLoading }: Props) => {
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()[\]{}\\.,><':;|_~=`=+-])[A-Za-z0-9!@#$%^&*()[\]{}\\.,><':;|_~=`=+-]{8,}$/,
         "Password must contain at least 1 uppercase, 1 lowercase and 1 number"
       ),
     confirmPassword: Yup.string()

@@ -120,7 +120,7 @@ const MyProfile = () => {
     userCountryCode: Yup.string(),
 
     userGender: Yup.string(),
-    userBirthday: Yup.string() || Yup.date(),
+    userBirthday: Yup.string().required("Birthday is required"),
     userEmail: Yup.string()
       .email("Invalid email")
       .required("Email is required"),
