@@ -85,6 +85,7 @@ const Member = () => {
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     className="w-full h-full"
+                    allowFullScreen
                   ></iframe>
                 </div>
               </div>

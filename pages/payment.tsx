@@ -9,6 +9,7 @@ import Preloader from "@/modules/skeletons/Preloader";
 import { DataUsage } from "@mui/icons-material";
 import { getSession } from "@/utils/cognitoAuth";
 import Footer from "@/components/Footer";
+import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
 
 const MyProfile = () => {
   const iframeRef = useRef(null as any);
@@ -99,18 +100,8 @@ const MyProfile = () => {
                 </div> */}
                 <div className="lg:px-6 pb-6 flex flex-wrap">
                   {!iframeLoaded && (
-                    <div className="text-[#93767A] w-full h-screen flex justify-center p-8">
-                      <div className="flex flex-col items-center">
-                        <DataUsage
-                          className="animate-spin w-24 h-24"
-                          sx={{
-                            fontSize: 100,
-                          }}
-                        />
-                        <h1 className="text-4xl text-center mt-4">
-                          Loading...
-                        </h1>
-                      </div>
+                    <div className="absolute top-0 left-0 w-full h-full bg-[#FAFAFA] flex justify-center items-center z-10 cursor-wait">
+                      <FlowerBlackLoader />
                     </div>
                   )}
                   {isLoginUser && (

@@ -169,6 +169,7 @@ const ForgetPassword = () => {
                           sx={{
                             fontSize: 18,
                             color: "#5F576F",
+                            cursor: "pointer",
                           }}
                         />
                       </span>
@@ -180,6 +181,7 @@ const ForgetPassword = () => {
                           sx={{
                             fontSize: 18,
                             color: "#5F576F",
+                            cursor: "pointer",
                           }}
                         />
                       </span>
@@ -211,6 +213,7 @@ const ForgetPassword = () => {
                           sx={{
                             fontSize: 18,
                             color: "#5F576F",
+                            cursor: "pointer",
                           }}
                         />
                       </span>
@@ -222,6 +225,7 @@ const ForgetPassword = () => {
                           sx={{
                             fontSize: 18,
                             color: "#5F576F",
+                            cursor: "pointer",
                           }}
                         />
                       </span>
