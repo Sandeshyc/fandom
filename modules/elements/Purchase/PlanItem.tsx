@@ -8,7 +8,9 @@ import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
 import { AutorenewOutlined } from "@mui/icons-material";
 import { CheckIcon } from "@/utils/CustomSVGs";
-import WarningMessage from '@/modules/Identities/WarningMessage';
+import WarningMessage from "@/modules/Identities/WarningMessage";
+import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
+import Preloader from "@/modules/skeletons/Preloader";
 const biniLogoUrl = "/images/logoofbiniblack.png";
 type Props = {
   item: any;
@@ -17,7 +19,13 @@ type Props = {
   allowedIems?: any;
   isBlock?: boolean;
 };
-const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems, isBlock=false }: Props) => {
+const PlanItem = ({
+  item,
+  movieId,
+  rentText = "Rent",
+  allowedIems,
+  isBlock = false,
+}: Props) => {
   console.log("item", item, allowedIems);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
@@ -100,16 +108,14 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems, isBlock=false
   console.log("allowedItem", allowedItem);
   return (
     <>
+      {isLoading && (
+        <div className="absolute top-0 left-0 w-full h-full bg-[#FAFAFA] flex justify-center items-center z-10 cursor-wait">
+          <FlowerBlackLoader />
+        </div>
+      )}
+
       <div className="p-6 sm:px-[111px] sm:py-[59px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
         <div className="relative w-full max-w-[414px] mx-auto">
-          {isLoading && (
-            <div className="absolute top-0 left-0 w-full h-full bg-black/80 flex justify-center items-center z-10 cursor-wait">
-              <AutorenewOutlined
-                className="animate-spin"
-                sx={{ color: "white", fontSize: 40 }}
-              />
-            </div>
-          )}
           <img
             src={biniLogoUrl}
             className="w-[122px] mx-auto mb-4"
@@ -153,53 +159,52 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems, isBlock=false
               </li>
             </ul>
           </div>
-            {allowedItem?._id ? (
+          {allowedItem?._id ? (
             <Link
               href={allowedItem?.content?.pageDirectory || "#"}
-              className="mt-6 flex justify-center items-center block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+              className="mt-6 flex justify-center items-center h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
             >
               View Exclusive Page
             </Link>
           ) : (
             <>
-            {(isBlock)?(
-            <>
-            <p className="my-6">
-                <span className="text-[32px] font-medium">
-                  {item?.price} {item?.currency ?? ""} per year
-                </span>
-            </p>
-            <button
-              className="h-[40px] py-1 text-white/70 rounded-[50px] font-medium w-full bg-slate-400 cursor-not-allowed">
-              {rentText}
-            </button>
-            <WarningMessage 
-              message="Purchase is not available in your region."
-              textColor="#F3A533"
-              className="text-left mt-4"
-              styles={{
-                backgroundColor: 'transparent',
-              }}
-            />
-            </>
-          ):(
-              <>
-              <button
-                onClick={() => goPurchase(item?.priceSKU)}
-                className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-              >
-                {rentText}
-              </button>
-              {!isLoadingUserCheck && !isLoginUser && (
-                <button
-                  onClick={() => router.push("/login")}
-                  className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
-                >
-                  Member Login
-                </button>
+              {isBlock ? (
+                <>
+                  <p className="my-6">
+                    <span className="text-[32px] font-medium">
+                      {item?.price} {item?.currency ?? ""} per year
+                    </span>
+                  </p>
+                  <button className="h-[40px] py-1 text-white/70 rounded-[50px] font-medium w-full bg-slate-400 cursor-not-allowed">
+                    {rentText}
+                  </button>
+                  <WarningMessage
+                    message="Purchase is not available in your region."
+                    textColor="#F3A533"
+                    className="text-left mt-4"
+                    styles={{
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => goPurchase(item?.priceSKU)}
+                    className="h-[40px] mt-6 py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+                  >
+                    {rentText}
+                  </button>
+                  {!isLoadingUserCheck && !isLoginUser && (
+                    <button
+                      onClick={() => router.push("/login")}
+                      className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
+                    >
+                      Member Login
+                    </button>
+                  )}
+                </>
               )}
-              </>
-            )}
             </>
           )}
         </div>

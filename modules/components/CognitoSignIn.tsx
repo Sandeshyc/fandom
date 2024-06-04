@@ -73,9 +73,9 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
               if (userResponse === 200) {
                 setIsSuccess(true);
                 setIsLoginFail(false);
-                let redirectUrl = localStorage.getItem('redirectUrl');
-                if(!redirectUrl){
-                    redirectUrl = '/bini';
+                let redirectUrl = localStorage.getItem("redirectUrl");
+                if (!redirectUrl) {
+                  redirectUrl = "/bini";
                 }
                 localStorage.removeItem("redirectUrl");
                 router.replace(redirectUrl);
@@ -171,6 +171,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -182,6 +183,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>

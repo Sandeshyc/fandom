@@ -196,6 +196,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -207,6 +208,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -238,6 +240,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -249,6 +252,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -312,15 +316,17 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               selected={birthday}
               onChange={handelDataChange}
               disabledKeyboardNavigation
-              placeholderText={'Birthday'}
+              placeholderText={"Birthday"}
               dateFormat="yyyy-MM-dd"
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
             />
-            <p className={`absolute top-0 left-0 ${
+            <p
+              className={`absolute top-0 left-0 ${
                 values.userBirthday && isDate(birthday)
                   ? "text-[#5F576F]"
                   : "text-[#C1C0C0]"
-              } text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center`}>
+              } text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center`}
+            >
               {values.userBirthday && isDate(birthday)
                 ? `${showDate(values.userBirthday)}`
                 : "Birth Date"}
@@ -365,7 +371,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             <div className="flex items-start">
               <input
                 type="checkbox"
-                className="mr-2 mt-1"
+                className="mr-2 mt-1 cursor-pointer"
                 id="agree"
                 name="tnc"
                 checked={values.tnc}
@@ -397,7 +403,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             <div className="flex items-start">
               <input
                 type="checkbox"
-                className="mr-2 mt-1"
+                className="mr-2 mt-1 cursor-pointer"
                 id="isMarketing"
                 name="marketing"
                 checked={values.marketing}
