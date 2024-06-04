@@ -8,14 +8,16 @@ import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
 import { AutorenewOutlined } from "@mui/icons-material";
 import { CheckIcon } from "@/utils/CustomSVGs";
+import WarningMessage from '@/modules/Identities/WarningMessage';
 const biniLogoUrl = "/images/logoofbiniblack.png";
 type Props = {
   item: any;
   movieId: string;
   rentText?: string;
   allowedIems?: any;
+  isBlock?: boolean;
 };
-const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
+const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems, isBlock=false }: Props) => {
   console.log("item", item, allowedIems);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
@@ -151,7 +153,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
               </li>
             </ul>
           </div>
-          {allowedItem?._id ? (
+            {allowedItem?._id ? (
             <Link
               href={allowedItem?.content?.pageDirectory || "#"}
               className="mt-6 flex justify-center items-center block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
@@ -160,16 +162,32 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
             </Link>
           ) : (
             <>
-              <p className="my-6">
+            {(isBlock)?(
+            <>
+            <p className="my-6">
                 <span className="text-[32px] font-medium">
                   {item?.price} {item?.currency ?? ""} per year
                 </span>
-              </p>
+            </p>
+            <button
+              className="h-[40px] py-1 text-white/70 rounded-[50px] font-medium w-full bg-slate-400 cursor-not-allowed">
+              {rentText}
+            </button>
+            <WarningMessage 
+              message="Purchase is not available in your region."
+              textColor="#F3A533"
+              className="text-left mt-4"
+              styles={{
+                backgroundColor: 'transparent',
+              }}
+            />
+            </>
+          ):(
+              <>
               <button
                 onClick={() => goPurchase(item?.priceSKU)}
                 className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
               >
-                {/* {!isLoginUser && "Login and "} */}
                 {rentText}
               </button>
               {!isLoadingUserCheck && !isLoginUser && (
@@ -180,6 +198,8 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
                   Member Login
                 </button>
               )}
+              </>
+            )}
             </>
           )}
         </div>

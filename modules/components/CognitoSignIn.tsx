@@ -61,14 +61,15 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
             if (email_verified) {
               setIsVerifingEmail(false);
               // return false;
-              const userResponse = await checkUser(
-                userEmail,
-                userEmail,
-                userEmail,
-                "cognito",
-                true,
-                response?.accessToken?.jwtToken || ""
-              );
+              const userData = {
+                userid: userEmail,
+                providerId: userEmail,
+                email: userEmail,
+                providerName: "cognito",
+                emailVerified: true,
+                accessToken: response?.accessToken?.jwtToken,
+              };
+              const userResponse = await checkUser(userData);
               if (userResponse === 200) {
                 setIsSuccess(true);
                 setIsLoginFail(false);
