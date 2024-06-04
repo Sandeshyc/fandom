@@ -11,7 +11,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/bini-blocked',
+        destination: '/bini',
         permanent: true,
       },
     ];
