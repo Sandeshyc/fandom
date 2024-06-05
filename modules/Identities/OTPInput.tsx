@@ -71,7 +71,7 @@ const OTPInput: React.FC<OTPInputProps> = ({
     }
   }, [isSuccess, isFail]);
   return (
-    <div className="mt-6 flex items-center justify-center gap-1 xs:gap-2">
+    <div className="mt-6 flex items-center justify-center gap-1 sm:gap-2">
       {otp.map((digit, index: number) => (
         <input
           key={stableKeys[index]}

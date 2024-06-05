@@ -133,28 +133,28 @@ const PlanItem = ({
             {item?.description}
           </Text>
           <div className="text-base text-[#686868]">
-            <ul className="mx-auto text-sm sm:text-base text-left flex flex-col justify-center gap-2 min-h-[100px]">
-              <li className="flex items-center gap-2">
+            <ul className="mx-auto text-base text-left flex flex-col justify-center gap-2 min-h-[100px]">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Join the livestream
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Never before seen footage and photoshoots
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Digital photocards
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Exclusive videos and articles
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Limited edition BINI merchandise
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 More surprises!
               </li>

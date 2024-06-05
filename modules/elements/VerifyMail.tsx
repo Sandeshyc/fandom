@@ -163,7 +163,7 @@ const VerifyMail = ({ email, password }: Props) => {
             className="absolute top-2 right-2 cursor-pointer"
             onClick={handleClose}
           >
-            <CloseOutlined sx={{ fontSize: 28 }} className="text-red-500" />
+            <CloseOutlined sx={{ fontSize: 28 }} className="text-[#454545]" />
           </div>
           <div className="p-4 pt-8 text-center">
             <h3 className="text-[#5F576F] text-center text-2xl font-semibold mb-2">
@@ -206,7 +206,7 @@ const VerifyMail = ({ email, password }: Props) => {
               ) : (
                 <button
                   onClick={handleVerify}
-                  className="h-[40px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-6"
+                  className="h-[40px] py-1 text-[#fff] rounded-[50px] cursor-pointer w-full transition bg-[#1B82F2] mt-6"
                 >
                   Verify
                 </button>
@@ -221,7 +221,7 @@ const VerifyMail = ({ email, password }: Props) => {
               </button>
             ) : (
               <button
-                className="underline text-blue-500 font-medium"
+                className="underline text-blue-500 font-medium cursor-pointer"
                 onClick={reSendOTP}
               >
                 Resend OTP

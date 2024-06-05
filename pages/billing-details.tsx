@@ -31,10 +31,10 @@ const BillingDetails = () => {
     _getSession();
   }, []);
   return (
-    <>
+    <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
       <Navigation />
       <div
-        className="min-h-[100vh] min-w-full text-white bg-[#FAFAFA]"
+        className="min-w-full text-white bg-[#FAFAFA]"
         style={{
           // backgroundImage: bgImage,
           backgroundRepeat: "no-repeat",
@@ -53,9 +53,9 @@ const BillingDetails = () => {
             </Text>
           </div>
         </div>
-        </div>
-        <Footer/>
-        </>
-    );
-}
+      </div>
+      <Footer />
+    </div>
+  );
+};
 export default BillingDetails;

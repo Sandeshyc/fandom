@@ -378,7 +378,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               <label htmlFor="agree" className="text-[#686868] ">
                 I confirm that I have read and agree to
                 <a
-                  href="/terms-condition"
+                  href="https://www.abs-cbn.com/terms"
                   className="underline text-[#011F4B] "
                   target="_blank"
                 >
@@ -386,7 +386,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                 </a>{" "}
                 and{" "}
                 <a
-                  href="/privacy"
+                  href="https://www.abs-cbn.com/privacyinternational"
                   className="underline text-[#011F4B]"
                   target="_blank"
                 >
