@@ -74,7 +74,7 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
             if (process.env.NODE_ENV === "development") {
               forwordPurchaseUrl = forwordPurchaseUrl + "&env=dev";
             }
-            router.replace(forwordPurchaseUrl);
+            window.location.replace(forwordPurchaseUrl);
           } else {
             window.location.reload();
           }

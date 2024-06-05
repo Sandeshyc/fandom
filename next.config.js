@@ -7,15 +7,15 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/bini',
-        permanent: true,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/bini',
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
   // images: {
   //   remotePatterns: [
   //     {

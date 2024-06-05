@@ -49,7 +49,7 @@ const NavigationHome = () => {
                   src={logoSrc}
                   className="w-[64px] h-[30px] sm:w-[102px] sm:h-[48px] cursor-pointer"
                   alt="Bini"
-                  onClick={() => router.push("/bini")}
+                  onClick={() => window.location.replace("/bini")}
                 />
                 <p className="font-inter font-extrabold sm:text-xl leading-normal italic text-white">
                   Fandom

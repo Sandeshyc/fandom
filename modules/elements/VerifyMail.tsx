@@ -127,7 +127,7 @@ const VerifyMail = ({ email, password }: Props) => {
                     redirectUrl = "/bini";
                   }
                   localStorage.removeItem("redirectUrl");
-                  router.replace(redirectUrl);
+                  window.location.replace(redirectUrl);
                 } else {
                   window.location.replace("/login");
                   console.log("failed");
