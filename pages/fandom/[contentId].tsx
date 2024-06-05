@@ -21,7 +21,7 @@ const Fandom = () => {
             // is in array
             if(!allowedIds.includes(contentId)){
                 // redirect to content page
-                router.push(`/bini`);
+                window.location.replace(`/bini`);
                 // console.log('Not allowed');
             }
         }
