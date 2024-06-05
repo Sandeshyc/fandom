@@ -161,7 +161,11 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   return (
     <>
       {isVerifingEmail ? <VerifyMail email={values.email} /> : null}
-      <form onSubmit={handleSubmit} method="POST" className="text-left">
+      <form
+        onSubmit={handleSubmit}
+        method="POST"
+        className="text-left max-w-[368px] mx-auto"
+      >
         <div className="mb-4">
           <div className="relative">
             <input
@@ -303,26 +307,26 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
           </div>
         </div>
         <div className="mb-4 customDatePicker">
-            <div className="relative w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] text-left">
-              <div className="w-full absolute top-0 left-0 h-full z-20">
-                <DatePicker
-                  name="userBirthday"
-                  dropdownMode="select"
-                  maxDate={maxDate}
-                  minDate={minDate}
-                  onChange={handelDataChange}
-                  // onChange={(date) => setSelectedDate(date)}
-                  placeholderText={isEmpty(values.userBirthday) ? "Birthday" : ""}
-                  dateFormat="yyyy-MM-dd"
-                  selected={birthday}
-                  isClearable
-                  customInput={<ExampleCustomInput />}
-                  showYearDropdown
-                  showMonthDropdown
-                />
-              </div>
-              {(isEmpty(values.userBirthday))&&(
-                <>
+          <div className="relative w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] text-left">
+            <div className="w-full absolute top-0 left-0 h-full z-20">
+              <DatePicker
+                name="userBirthday"
+                dropdownMode="select"
+                maxDate={maxDate}
+                minDate={minDate}
+                onChange={handelDataChange}
+                // onChange={(date) => setSelectedDate(date)}
+                placeholderText={isEmpty(values.userBirthday) ? "Birthday" : ""}
+                dateFormat="yyyy-MM-dd"
+                selected={birthday}
+                isClearable
+                customInput={<ExampleCustomInput />}
+                showYearDropdown
+                showMonthDropdown
+              />
+            </div>
+            {isEmpty(values.userBirthday) && (
+              <>
                 <p className="absolute top-0 left-0 text-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center z-10">
                   Birth Date
                 </p>
@@ -331,16 +335,17 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                     sx={{
                       fontSize: 18,
                       color: "#5F576F",
-                    }}/>
+                    }}
+                  />
                 </div>
-                </>
-              )}
-            </div>
-            {errors.userBirthday && touched.userBirthday && (
-              <p className="text-[#FF3636] text-[14px] py-1">
-                {errors.userBirthday}
-              </p>
+              </>
             )}
+          </div>
+          {errors.userBirthday && touched.userBirthday && (
+            <p className="text-[#FF3636] text-[14px] py-1">
+              {errors.userBirthday}
+            </p>
+          )}
         </div>
         <div className="mb-4">
           <div className="relative">
@@ -430,7 +435,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
         ) : (
           <>
             <button
-              className="h-[40px] py-1 text-[#fff] font-semibold rounded-[50px] w-full transition bg-[#1B82F2] cursor-not-allowed"
+              className="h-[40px] py-1 text-[#fff] font-semibold rounded-[50px] w-full transition bg-[#1B82F2]/50 cursor-not-allowed"
               disabled
             >
               Create Account
@@ -444,7 +449,12 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
 export default CognitoSignUp;
 
 const ExampleCustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
-  <button type="button" className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] text-left" onClick={onClick} ref={ref}>
+  <button
+    type="button"
+    className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] text-left"
+    onClick={onClick}
+    ref={ref}
+  >
     {value}
   </button>
 ));

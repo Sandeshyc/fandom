@@ -115,7 +115,7 @@ const PlanItem = ({
         </div>
       )}
 
-      <div className="p-6 sm:px-[111px] sm:py-[59px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
+      <div className="p-6 sm:px-[111px] sm:py-[37px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
         <div className="relative w-full max-w-[414px] mx-auto">
           <img
             src={biniLogoUrl}
@@ -169,45 +169,44 @@ const PlanItem = ({
             </Link>
           ) : (
             <>
-            {(isBlock)?(
-            <>
-            <button
-              className="mt-6 h-[40px] py-1 text-white/70 rounded-[50px] font-medium w-full bg-slate-400 cursor-not-allowed">
-              {rentText}
-            </button>
-            <WarningMessage 
-              message="Purchase is not available in your region."
-              textColor="#F3A533"
-              className="text-left mt-4"
-              styles={{
-                backgroundColor: 'transparent',
-              }}
-            />
-            </>
-          ):(
-              <>
-              <p className="my-6">
-                <span className="text-[32px] font-medium">
-                  {item?.price} {item?.currency ?? ""} per year
-                </span>
-              </p>
-              <button
-                onClick={() => goPurchase(item?.priceSKU)}
-                className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-              >
-                {rentText}
-              </button>
-              {!isLoadingUserCheck && !isLoginUser && (
-                <button
-                  onClick={() => router.push("/login")}
-                  className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
-                >
-                  Member Login
-                </button>
+              {isBlock ? (
+                <>
+                  <button className="mt-6 h-[40px] py-1 text-white/70 rounded-[50px] font-medium w-full bg-slate-400 cursor-not-allowed">
+                    {rentText}
+                  </button>
+                  <WarningMessage
+                    message="Purchase is not available in your region."
+                    textColor="#F3A533"
+                    className="text-left mt-4"
+                    styles={{
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <p className="my-6">
+                    <span className="text-[32px] font-medium">
+                      {item?.price} {item?.currency ?? ""} per year
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => goPurchase(item?.priceSKU)}
+                    className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+                  >
+                    {rentText}
+                  </button>
+                  {!isLoadingUserCheck && !isLoginUser && (
+                    <button
+                      onClick={() => router.push("/login")}
+                      className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
+                    >
+                      Member Login
+                    </button>
+                  )}
+                </>
               )}
             </>
-          )}
-          </>
           )}
         </div>
       </div>

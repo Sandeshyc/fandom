@@ -137,7 +137,11 @@ const ForgetPassword = () => {
   return (
     <AuthFrame authLoading={authLoading} pageHeading="Forgot Password">
       {isEmailSent ? (
-        <form onSubmit={handleSubmit2} method="POST">
+        <form
+          onSubmit={handleSubmit2}
+          method="POST"
+          className="max-w-[368px] mx-auto"
+        >
           <div className="mb-4">
             <OTPInput
               length={6}
@@ -151,7 +155,7 @@ const ForgetPassword = () => {
                 Incorrect OTP, please try again
               </Text>
             )}
-            <div className="mb-4 text-left mt-3">
+            <div className="mb-6 text-left mt-6">
               <div className="relative">
                 <input
                   type={!isShowPassword ? "password" : "text"}
@@ -167,7 +171,7 @@ const ForgetPassword = () => {
                       <span onClick={togglePassword}>
                         <VisibilityOff
                           sx={{
-                            fontSize: 18,
+                            fontSize: 24,
                             color: "#5F576F",
                             cursor: "pointer",
                           }}
@@ -179,7 +183,7 @@ const ForgetPassword = () => {
                       <span onClick={togglePassword}>
                         <Visibility
                           sx={{
-                            fontSize: 18,
+                            fontSize: 24,
                             color: "#5F576F",
                             cursor: "pointer",
                           }}
@@ -195,7 +199,7 @@ const ForgetPassword = () => {
                 </span>
               )}
             </div>
-            <div className="mb-4 text-left">
+            <div className="mb-6 text-left">
               <div className="relative">
                 <input
                   type={!isShowConfirmPassword ? "password" : "text"}
@@ -211,7 +215,7 @@ const ForgetPassword = () => {
                       <span onClick={toggleConfirmPassword}>
                         <VisibilityOff
                           sx={{
-                            fontSize: 18,
+                            fontSize: 24,
                             color: "#5F576F",
                             cursor: "pointer",
                           }}
@@ -223,7 +227,7 @@ const ForgetPassword = () => {
                       <span onClick={toggleConfirmPassword}>
                         <Visibility
                           sx={{
-                            fontSize: 18,
+                            fontSize: 24,
                             color: "#5F576F",
                             cursor: "pointer",
                           }}
@@ -250,13 +254,13 @@ const ForgetPassword = () => {
               </p>
             )}
             {otp?.length < 6 || isConfirmingOTP ? (
-              <span className="block h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-gray-400 cursor-not-allowed mt-2">
+              <span className=" h-[40px] flex justify-center items-center py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2]/50 cursor-not-allowed mt-2">
                 {isConfirmingOTP ? "Loading..." : "Update Password"}
               </span>
             ) : (
               <button
                 type="submit"
-                className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-2"
+                className="h-[40px] flex justify-center items-center py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-2"
               >
                 Update Password
               </button>
@@ -264,7 +268,11 @@ const ForgetPassword = () => {
           </div>
         </form>
       ) : (
-        <form onSubmit={handleSubmit} method="POST">
+        <form
+          onSubmit={handleSubmit}
+          method="POST"
+          className="max-w-[368px] mx-auto"
+        >
           <div className="mb-4">
             <div className="relative">
               <input
@@ -290,7 +298,7 @@ const ForgetPassword = () => {
           )}
           <button
             type="submit"
-            className="h-[36px] py-2 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] active:opacity-65"
+            className="h-[40px] py-2 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] active:opacity-65"
           >
             {onSubmit ? "Send..." : "Continue"}
           </button>
@@ -303,14 +311,14 @@ const ForgetPassword = () => {
             onClick={() => {
               setIsEmailSent(false);
             }}
-            className="text-[#5F576F] text-[14px] cursor-pointer underline mr-4"
+            className="text-[#454545] cursor-pointer underline mr-8"
           >
             Resend OTP
           </button>
         )}
         <Link
           href={"/login"}
-          className="text-[#5F576F] text-[14px] cursor-pointer underline"
+          className="text-[#1B82F2] font-semibold cursor-pointer underline"
         >
           Back Login
         </Link>
