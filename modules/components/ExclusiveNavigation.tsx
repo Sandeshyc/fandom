@@ -48,7 +48,7 @@ const ExclusiveNavigation = () => {
                 src={logoSrc}
                 className="w-[64px] h-[40px] sm:w-[76px] sm:h-[50px] cursor-pointer"
                 alt="Bini"
-                onClick={() => router.push("/bini")}
+                onClick={() => window.location.replace("/bini")}
               />
             </div>
             <div className="flex items-center justify-end">

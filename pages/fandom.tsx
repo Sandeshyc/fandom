@@ -21,10 +21,10 @@ const Fandom = () => {
             if(entitlementData){
                 const allowedIds = getAllowedItemsId(entitlementData);
                 if(!allowedIds.includes(contentId)){
-                    router.push(`/bini`);
+                    window.location.replace(`/bini`);
                 }
             }else{
-                router.push(`/bini`);
+                window.location.replace(`/bini`);
             }
         }
     }, [isReady, entitlementData, entitlementError, entitlementLoading]);

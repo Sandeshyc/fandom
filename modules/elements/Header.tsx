@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Notification from '@/modules/elements/Notification';
 import SearchBox from '@/components/navbar/SearchBox';
 import useCheckAuthentication from '@/hooks/useCheckAuthentication';
 

@@ -78,13 +78,13 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                   redirectUrl = "/bini";
                 }
                 localStorage.removeItem("redirectUrl");
-                router.replace(redirectUrl);
+                window.location.replace(redirectUrl);
                 console.log("success");
               } else {
                 setAuthLoading(false);
                 setIsSuccess(false);
                 setIsLoginFail(true);
-                router.replace("/login");
+                window.location.replace("/login");
                 console.log("failed");
               }
             } else {

@@ -89,7 +89,7 @@ const GoogleIdentitySignIn = ({ setAuthLoading }: Props) => {
                 redirectUrl = "/bini";
               }
               localStorage.removeItem("redirectUrl");
-              router.replace(redirectUrl);
+              window.location.replace(redirectUrl);
               console.log("success");
             } else {
               setAuthLoading(false);

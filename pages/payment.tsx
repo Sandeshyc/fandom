@@ -33,7 +33,7 @@ const MyProfile = () => {
   };
 
   const handleBackBtn = () => {
-    router.replace(`/bini`);
+    window.location.replace(`/bini`);
   };
 
   useEffect(() => {
