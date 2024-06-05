@@ -12,6 +12,7 @@ import WarningMessage from "@/modules/Identities/WarningMessage";
 import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
 import Preloader from "@/modules/skeletons/Preloader";
 const biniLogoUrl = "/images/logoofbiniblack.png";
+const allowedCountries = ["PH", "US", "CA", "SG", "HK", "FR"];
 type Props = {
   item: any;
   movieId: string;
@@ -185,11 +186,27 @@ const PlanItem = ({
                 </>
               ) : (
                 <>
-                  <p className="my-6">
-                    <span className="text-[32px] font-medium">
-                      {item?.price} {item?.currency ?? ""} per year
-                    </span>
-                  </p>
+                  <div className="my-6">
+                    {(item?.promoText)&&(
+                      <p>
+                        <span className="text-sm text-white bg-[#FFB21F] inline-flex px-2 shadow-lg rounded-sm">
+                          {item?.promoText}
+                        </span>
+                      </p>                    
+                    )}
+                    <p>
+                      <span className="text-[32px] font-medium">
+                        {item?.price} {item?.currency ?? ""} per year
+                      </span>
+                    </p>
+                    {(item?.regularPrice && (item?.price !== item?.regularPrice))&&(
+                      <p>
+                        <span className="text-lg inline-flex text-zinc-500 line-through">
+                          {item?.regularPrice} {item?.currency ?? ""} per year
+                        </span>
+                      </p>                    
+                    )}
+                  </div>
                   <button
                     onClick={() => goPurchase(item?.priceSKU)}
                     className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
