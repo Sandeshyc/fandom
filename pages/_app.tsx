@@ -18,6 +18,7 @@ import { RetryLink } from "@apollo/client/link/retry";
 import "../styles/globals.css";
 import "swiper/css";
 import "swiper/css/bundle";
+import CookieMessage from "@/modules/components/CookieMessage";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -120,6 +121,7 @@ export default function App({
         <ErrorBoundary>
           <ApolloProvider client={client}>
             <Component {...pageProps} />
+            <CookieMessage />
           </ApolloProvider>
         </ErrorBoundary>
       </main>
