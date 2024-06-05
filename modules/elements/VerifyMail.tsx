@@ -233,8 +233,8 @@ const VerifyMail = ({ email, password }: Props) => {
               </p>
             )}
             {reSentSuccess && (
-              <p className="text-green-500 text-sm md:text-base mt-4">
-                OTP resent successfully
+              <p className="text-green-500 text-sm md:text-base">
+                OTP resend successfully
               </p>
             )}
           </div>
