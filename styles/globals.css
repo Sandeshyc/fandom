@@ -8,6 +8,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Corsiva";
+  src: url("../public/assets/Monotype\ Corsiva.ttf");
+}
+
 /* zoom animation */
 @-webkit-keyframes zoom {
   0% {
@@ -352,6 +357,10 @@ body {
       black -12px -12px 0 4px, black 12px -12px 0 4px;
   }
 }
-.customDatePicker .react-datepicker-wrapper{
+.customDatePicker .react-datepicker-wrapper {
   width: 100%;
+}
+
+.bts-video-slide {
+  width: fit-content !important;
 }

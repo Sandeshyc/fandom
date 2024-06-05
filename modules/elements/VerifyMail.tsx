@@ -158,7 +158,7 @@ const VerifyMail = ({ email, password }: Props) => {
         onClose={handleClose}
         className={`flex justify-center items-center ${roboto.className}`}
       >
-        <div className="rounded-md w-[90%] max-w-[540px] bg-gray-100 relative text-[#5F576F] border border-white/70">
+        <div className="rounded-md w-[90%] max-w-[540px] bg-white relative text-[#5F576F] border border-white/70">
           <div
             className="absolute top-2 right-2 cursor-pointer"
             onClick={handleClose}
@@ -198,7 +198,7 @@ const VerifyMail = ({ email, password }: Props) => {
               )}
               {otp?.length < 6 || isConfirmingOTP ? (
                 <button
-                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-gray-400 cursor-not-allowed mt-2"
+                  className="h-[40px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2]/50 cursor-not-allowed mt-6"
                   disabled
                 >
                   {isConfirmingOTP ? "Loading..." : "Verify"}
@@ -206,7 +206,7 @@ const VerifyMail = ({ email, password }: Props) => {
               ) : (
                 <button
                   onClick={handleVerify}
-                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-2"
+                  className="h-[40px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-6"
                 >
                   Verify
                 </button>
@@ -217,23 +217,23 @@ const VerifyMail = ({ email, password }: Props) => {
                 disabled={isResenting}
                 className="underline text-blue-500 font-medium cursor-not-allowed disabled"
               >
-                Resenting OTP
+                Resending OTP
               </button>
             ) : (
               <button
                 className="underline text-blue-500 font-medium"
                 onClick={reSendOTP}
               >
-                Resent OTP
+                Resend OTP
               </button>
             )}
             {reSentFail && (
-              <p className="text-red-500 text-sm md:text-base">
+              <p className="text-red-500 text-sm md:text-base mt-4">
                 Failed to resend OTP
               </p>
             )}
             {reSentSuccess && (
-              <p className="text-green-500 text-sm md:text-base">
+              <p className="text-green-500 text-sm md:text-base mt-4">
                 OTP resent successfully
               </p>
             )}

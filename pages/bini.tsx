@@ -78,7 +78,7 @@ const Discover = () => {
       <div
         className="w-full h-full min-h-screen bg-[#FAFAFA] text-[#93767A]"
         style={{
-          paddingTop: isMobile ? "90px" : "140px",
+          paddingTop: isMobile ? "90px" : "110px",
           paddingBottom: isMobile ? "70px" : "90px",
         }}
       >
