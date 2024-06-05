@@ -19,7 +19,7 @@ const Footer = () => {
               />
               <NavItem
                 label="Privacy Policy"
-                route="https://www.abs-cbn.com/privacy"
+                route="https://www.abs-cbn.com/privacyinternational"
                 activeRoute={""}
               />
               <NavItem

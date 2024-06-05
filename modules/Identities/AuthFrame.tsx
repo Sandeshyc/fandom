@@ -42,7 +42,10 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
                 <Link href="https://www.abs-cbn.com/terms" target="_blank">
                   Terms & Conditions
                 </Link>
-                <Link href="https://www.abs-cbn.com/privacy" target="_blank">
+                <Link
+                  href="https://www.abs-cbn.com/privacyinternational"
+                  target="_blank"
+                >
                   Privacy Policy
                 </Link>
                 <p>Do Not Sell My Personal Information</p>
@@ -56,7 +59,10 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
               <Link href="https://www.abs-cbn.com/terms" target="_blank">
                 Terms & Conditions
               </Link>
-              <Link href="https://www.abs-cbn.com/privacy" target="_blank">
+              <Link
+                href="https://www.abs-cbn.com/privacyinternational"
+                target="_blank"
+              >
                 Privacy Policy
               </Link>
               <p>Do Not Sell My Personal Information</p>

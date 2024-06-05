@@ -21,7 +21,7 @@ const PaymentHistory = () => {
   const [loadingItem, setLoadingItem] = useState("");
   // const { data, isLoading, error } = usePaymentHistory('7B6E23C8-6B77-4294-A7A3-66B4748D8D05');
   const { data, isLoading, error } = usePaymentHistory(userId);
-  console.log('data: ', data, isLoading, error);
+  console.log("data: ", data, isLoading, error);
   const cellClass = `before:mr-4 before:font-medium before:text-gray-900 text-[#454545] text-base p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-4`;
   const copyTextFunc = (text: string) => {
     navigator?.clipboard?.writeText(text);
@@ -212,8 +212,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Date"}>
                       <div className="w-[100px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>
@@ -221,8 +221,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Content Title"}>
                       <div className="w-[140px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>
@@ -230,8 +230,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Product Name"}>
                       <div className="w-[140px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>
@@ -239,8 +239,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Order Number"}>
                       <div className="w-[120px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>
@@ -248,8 +248,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Payment Method"}>
                       <div className="w-[120px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>
@@ -257,8 +257,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Transaction Type"}>
                       <div className="w-[130px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>
@@ -266,8 +266,8 @@ const PaymentHistory = () => {
                     <td className={cellClass} data-label={"Amount"}>
                       <div className="w-[70px]">
                         <Skeleton
-                          baseColor="#999"
-                          highlightColor="#222"
+                          baseColor="#f8f9fa"
+                          highlightColor="#FAFAFA"
                           className="h-[18px]"
                         />
                       </div>

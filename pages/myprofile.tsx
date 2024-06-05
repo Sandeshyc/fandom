@@ -21,6 +21,7 @@ import CommunicationDetails from "@/modules/components/CommunicationDetails";
 import DeleteAccount from "@/modules/elements/DeleteAccount";
 import { getSession } from "@/utils/cognitoAuth";
 import MembershipDetails from "@/modules/components/MembershipDetails";
+import Preloader from "@/modules/skeletons/Preloader";
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -189,10 +190,10 @@ const MyProfile = () => {
   return (
     <>
       {isReady && !isLoading ? (
-        <>
+        <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
           <Navigation />
           <div
-            className="py-16 lg:pt-28 min-h-[100vh] bg-[#FAFAFA]"
+            className="py-20 lg:pt-28 bg-[#FAFAFA]"
             style={{
               // backgroundImage: bgImage,
               backgroundRepeat: "no-repeat",
@@ -206,14 +207,14 @@ const MyProfile = () => {
               className={`px-4 md:px-12 mb-[2vw]`}
             >
               <div className="container mx-auto max-w-[996px]">
-                <p className="text-[#11355E] text-xl md:text-2xl lg:text-[2rem] font-semibold  mb-6">
+                <p className="text-[#11355E] hidden sm:block text-xl md:text-2xl lg:text-[2rem] font-semibold  mb-6">
                   My Account
                 </p>
                 <div>
                   <div className={`max-w-[996px]`}>
                     {/* <h4 className="text-white text-[18px] mb-2">Profile</h4> */}
                     <div
-                      className={`p-4 border border-[#C6BCC6] rounded-md bg-[#FFF] bg-opacity-[22%]`}
+                      className={`p-4 border border-[#C6BCC6] rounded-lg bg-[#FFF] bg-opacity-[22%]`}
                     >
                       <ProfileHead
                         profileExpanded={profileExpanded}
@@ -288,8 +289,8 @@ const MyProfile = () => {
                         </div>
 
                         <div
-                          className={`mt-4 w-full flex flex-wrap ${
-                            isUpdateMode ? "justify-end" : null
+                          className={`mt-4 w-full flex flex-wrap justify-center ${
+                            isUpdateMode ? "sm:justify-end" : null
                           }`}
                         >
                           {isUpdateMode ? (
@@ -315,14 +316,14 @@ const MyProfile = () => {
                               </button>
                             </>
                           ) : (
-                            <div className="flex flex-wrap items-center">
+                            <div className="w-full flex flex-wrap items-center justify-center sm:justify-start">
                               <span
                                 onClick={() => updateProfileHandle(true)}
                                 className={`bg-[#1B82F2] text-white cursor-pointer text-center w-full sm:w-auto sm:min-w-[176px] px-8 py-2 rounded-[50px]`}
                               >
                                 Edit Profile
                               </span>
-                              <div className="sm:ml-8 mt-4 sm:mt-0 w-full sm:w-auto">
+                              <div className="sm:ml-8 text-center mt-4 sm:mt-0 w-full sm:w-auto">
                                 <span
                                   onClick={() => setOpenDeleteAccount(true)}
                                   className="text-red-600 cursor-pointer"
@@ -334,7 +335,7 @@ const MyProfile = () => {
                           )}
                         </div>
                         {isSuccess ? (
-                          <p className="text-green-900 w-full rounded-md text-[14px] mt-2 px-2 py-1 bg-green-100 text-center">
+                          <p className="text-green-900 w-full rounded-lg text-[14px] mt-2 px-2 py-1 bg-green-100 text-center">
                             Profile updated successfully
                           </p>
                         ) : null}
@@ -363,9 +364,9 @@ const MyProfile = () => {
             <MembershipDetails />
           </div>
           <Footer />
-        </>
+        </div>
       ) : (
-        <SkeletonMyProfile />
+        <Preloader />
       )}
     </>
   );
