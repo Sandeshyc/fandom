@@ -6,10 +6,11 @@ import useCheckAuthentication from "@/hooks/useCheckAuthentication";
 import { auditEntitlement } from "@/services/api";
 import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
-import { AutorenewOutlined } from "@mui/icons-material";
+import { AutorenewOutlined, Refresh } from "@mui/icons-material";
 import { CheckIcon } from "@/utils/CustomSVGs";
 import WarningMessage from "@/modules/Identities/WarningMessage";
 import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
+import { recheckEntitlement } from "@/services/api";
 import Preloader from "@/modules/skeletons/Preloader";
 import Image from "next/image";
 const biniLogoUrl = "/images/logoofbiniblack.png";
@@ -20,6 +21,8 @@ type Props = {
   rentText?: string;
   allowedIems?: any;
   isBlock?: boolean;
+  isPending?: boolean;
+  transactionId?: string;
 };
 const PlanItem = ({
   item,
@@ -27,15 +30,28 @@ const PlanItem = ({
   rentText = "Rent",
   allowedIems,
   isBlock = false,
+  isPending = false,
+  transactionId
 }: Props) => {
-  console.log("item", item, allowedIems);
+  console.log("item::::::", item, allowedIems, transactionId);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
+  const [reCheckLoading, setReCheckLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [rentProductId, setRentProductId] = useState("");
   const [rentTransactionId, setRentTransactionId] = useState("");
   const [allowedItem, setAllowedItem] = useState({} as any);
   const router = useRouter();
+  const handleRecheckPayment = async (transactionId:string) => {
+    setReCheckLoading(true);
+    const response = await recheckEntitlement(transactionId);
+    console.log('Recheck Status::', response);
+    if(response.status === 'success'){
+        window.location.reload();
+    }else{
+      setReCheckLoading(false);
+    }        
+  }
   const goPurchase = (productId: string) => {
     const userInfor = localStorage.getItem("userInfo");
     const transactionId = uuidv4();
@@ -162,14 +178,14 @@ const PlanItem = ({
               </li>
             </ul>
           </div>
-          {allowedItem?._id ? (
-            <Link
-              href={allowedItem?.content?.pageDirectory || "#"}
-              className="mt-6 flex justify-center items-center h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-            >
-              View Exclusive Page
-            </Link>
-          ) : (
+          {(isPending)?(
+              <button 
+                onClick={() => handleRecheckPayment(transactionId as string)}
+              className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition hover:bg-gray-100">                
+                <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
+                <span>{reCheckLoading ? 'Rechecking...' : 'Recheck Status'}</span>
+              </button>
+          ):(
             <>
               {isBlock ? (
                 <>
@@ -270,9 +286,9 @@ const PlanItem = ({
                     >
                       Member Login
                     </button>
-                  )}
-                </>
-              )}
+                )}
+              </>
+            )}
             </>
           )}
         </div>
