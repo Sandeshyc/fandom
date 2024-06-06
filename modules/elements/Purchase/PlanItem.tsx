@@ -26,7 +26,7 @@ const PlanItem = ({
   movieId,
   rentText = "Rent",
   allowedIems,
-  isBlock = true,
+  isBlock = false,
 }: Props) => {
   console.log("item", item, allowedIems);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
