@@ -20,8 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json([]);
     }
 
-    // let url = `https://sandbox-payments-api.abs-cbn.com/transactions/history/user/${userId}`;
-    let url = `https://uat-fandom-public-payments-api.abs-cbn.com/transactions/history/user/${userId}`;
+    let url = `${process.env.NEXT_PUBLIC_PAYMENT_BILL_URI}/transactions/history/user/${userId}`;
     const payHistoryRes = await axios.get(url, {timeout: 30000});
     const payHistory = payHistoryRes?.data;
     if(payHistory?.message === 'success'){

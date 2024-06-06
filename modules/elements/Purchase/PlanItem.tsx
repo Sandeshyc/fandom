@@ -6,10 +6,11 @@ import useCheckAuthentication from "@/hooks/useCheckAuthentication";
 import { auditEntitlement } from "@/services/api";
 import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
-import { AutorenewOutlined } from "@mui/icons-material";
+import { AutorenewOutlined, Refresh } from "@mui/icons-material";
 import { CheckIcon } from "@/utils/CustomSVGs";
 import WarningMessage from "@/modules/Identities/WarningMessage";
 import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
+import { recheckEntitlement } from "@/services/api";
 import Preloader from "@/modules/skeletons/Preloader";
 import Image from "next/image";
 const biniLogoUrl = "/images/logoofbiniblack.png";
@@ -20,6 +21,8 @@ type Props = {
   rentText?: string;
   allowedIems?: any;
   isBlock?: boolean;
+  isPending?: boolean;
+  transactionId?: string;
 };
 const PlanItem = ({
   item,
@@ -27,15 +30,28 @@ const PlanItem = ({
   rentText = "Rent",
   allowedIems,
   isBlock = false,
+  isPending = false,
+  transactionId
 }: Props) => {
-  console.log("item", item, allowedIems);
+  console.log("item::::::", item, allowedIems, transactionId);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
+  const [reCheckLoading, setReCheckLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [rentProductId, setRentProductId] = useState("");
   const [rentTransactionId, setRentTransactionId] = useState("");
   const [allowedItem, setAllowedItem] = useState({} as any);
   const router = useRouter();
+  const handleRecheckPayment = async (transactionId:string) => {
+    setReCheckLoading(true);
+    const response = await recheckEntitlement(transactionId);
+    console.log('Recheck Status::', response);
+    if(response.status === 'success'){
+        window.location.reload();
+    }else{
+      setReCheckLoading(false);
+    }        
+  }
   const goPurchase = (productId: string) => {
     const userInfor = localStorage.getItem("userInfo");
     const transactionId = uuidv4();
@@ -175,106 +191,134 @@ const PlanItem = ({
             </Link>
           ) : (
             <>
-              {isBlock ? (
+              {(isPending)?(
                 <>
-                  <button className="mt-8 h-[40px] py-1 text-white rounded-[50px] font-medium w-full bg-[#1B82F2]/50  cursor-not-allowed">
-                    {rentText}
+                {(reCheckLoading)?(
+                  <button className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition cusor-not-allowed">                
+                    <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
+                    <span>Rechecking...</span>
                   </button>
-
-                  <div className="mt-8 w-full flex flex-col items-center">
-                    <p className="sm:w-[448px] sm:text-nowrap text-[#11355E] text-[24px] sm:text-[32px] font-semibold">
-                      We hope to be with you soon!
-                    </p>
-
-                    <div className="w-[80%] sm:w-[110%] flex flex-wrap justify-center items-center gap-6 sm:gap-8 mt-6">
-                      <Image
-                        src={"/images/ph-flag.png"}
-                        width={60}
-                        height={30}
-                        alt="ph-flag"
-                        className="shadow border border-[#C1C0C0]"
-                      />
-                      <Image
-                        src={"/images/us-flag.png"}
-                        width={60}
-                        height={30}
-                        alt="us-flag"
-                        className="shadow border border-[#C1C0C0]"
-                      />
-                      <Image
-                        src={"/images/canada-flag.png"}
-                        width={60}
-                        height={30}
-                        alt="canada-flag"
-                        className="shadow border border-[#C1C0C0]"
-                      />
-                      <Image
-                        src={"/images/hk-flag.png"}
-                        width={60}
-                        height={30}
-                        alt="hk-flag"
-                        className="shadow border border-[#C1C0C0]"
-                      />
-                      <Image
-                        src={"/images/sg-flag.png"}
-                        width={60}
-                        height={30}
-                        alt="sg-flag"
-                        className="shadow border border-[#C1C0C0]"
-                      />
-                    </div>
-
-                    <p className="text-[#454545] mt-4">
-                      Currently available countries
-                    </p>
-                  </div>
-                  {/* <WarningMessage
-                    message="Purchase is not available in your region."
-                    textColor="#F3A533"
-                    className="text-left mt-4"
-                    styles={{
-                      backgroundColor: "transparent",
-                    }}
-                  /> */}
+                ):(
+                  <button 
+                    onClick={() => handleRecheckPayment(transactionId as string)}
+                    className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition hover:bg-gray-100">                
+                    <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
+                    <span>Recheck Purchase Status</span>
+                  </button>
+                )}
+                <WarningMessage
+                      message="You have a pending transaction."
+                      textColor="#F3A533"
+                      className="text-left mt-4"
+                      styles={{
+                        backgroundColor: "transparent",
+                      }}
+                    />
                 </>
-              ) : (
+              ):(
                 <>
-                  <div className="my-6">
-                    {item?.promoText && (
-                      <p>
-                        <span className="text-sm text-white bg-[#FFB21F] inline-flex px-2 shadow-lg rounded-sm">
-                          {item?.promoText}
-                        </span>
-                      </p>
-                    )}
-                    <p>
-                      <span className="text-[32px] font-medium">
-                        {item?.price} {item?.currency ?? ""} per year
-                      </span>
-                    </p>
-                    {item?.regularPrice &&
-                      item?.price !== item?.regularPrice && (
+                  {isBlock ? (
+                    <>
+                      <button className="mt-8 h-[40px] py-1 text-white rounded-[50px] font-medium w-full bg-[#1B82F2]/50  cursor-not-allowed">
+                        {rentText}
+                      </button>
+
+                      <div className="mt-8 w-full flex flex-col items-center">
+                        <p className="sm:w-[448px] sm:text-nowrap text-[#11355E] text-[24px] sm:text-[32px] font-semibold">
+                          We hope to be with you soon!
+                        </p>
+
+                        <div className="w-[80%] sm:w-[110%] flex flex-wrap justify-center items-center gap-6 sm:gap-8 mt-6">
+                          <Image
+                            src={"/images/ph-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="ph-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                          <Image
+                            src={"/images/us-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="us-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                          <Image
+                            src={"/images/canada-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="canada-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                          <Image
+                            src={"/images/hk-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="hk-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                          <Image
+                            src={"/images/sg-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="sg-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                        </div>
+
+                        <p className="text-[#454545] mt-4">
+                          Currently available countries
+                        </p>
+                      </div>
+                      {/* <WarningMessage
+                        message="Purchase is not available in your region."
+                        textColor="#F3A533"
+                        className="text-left mt-4"
+                        styles={{
+                          backgroundColor: "transparent",
+                        }}
+                      /> */}
+                    </>
+                  ) : (
+                    <>
+                      <div className="my-6">
+                        {item?.promoText && (
+                          <p>
+                            <span className="text-sm text-white bg-[#FFB21F] inline-flex px-2 shadow-lg rounded-sm">
+                              {item?.promoText}
+                            </span>
+                          </p>
+                        )}
                         <p>
-                          <span className="text-lg inline-flex text-zinc-500 line-through">
-                            {item?.regularPrice} {item?.currency ?? ""} per year
+                          <span className="text-[32px] font-medium">
+                            {item?.price} {item?.currency ?? ""} per year
                           </span>
                         </p>
-                      )}
-                  </div>
-                  <button
-                    onClick={() => goPurchase(item?.priceSKU)}
-                    className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-                  >
-                    {rentText}
-                  </button>
-                  {!isLoadingUserCheck && !isLoginUser && (
-                    <button
-                      onClick={() => router.push("/login")}
-                      className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
-                    >
-                      Member Login
-                    </button>
-                  )}
+                        {item?.regularPrice &&
+                          item?.price !== item?.regularPrice && (
+                            <p>
+                              <span className="text-lg inline-flex text-zinc-500 line-through">
+                                {item?.regularPrice} {item?.currency ?? ""} per year
+                              </span>
+                            </p>
+                          )}
+                      </div>
+                      <button
+                        onClick={() => goPurchase(item?.priceSKU)}
+                        className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+                      >
+                        {rentText}
+                      </button>
+                      {!isLoadingUserCheck && !isLoginUser && (
+                        <button
+                          onClick={() => router.push("/login")}
+                          className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
+                        >
+                          Member Login
+                        </button>
+                    )}
+                  </>
+                )}
                 </>
               )}
             </>
