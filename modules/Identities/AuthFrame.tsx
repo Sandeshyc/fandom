@@ -18,7 +18,11 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
       <div className="relative min-h-screen lg:p-10 w-full bg-[#11355E] flex flex-wrap items-center justify-center lg:items-stretch">
         <div className="w-full h-full my-auto flex flex-col items-center justify-center">
           <div className="w-full min-h-screen sm:min-h-[624px] sm:h-fit flex flex-col items-center justify-between gap-6 bg-white sm:rounded-lg sm:max-w-[448px] lg:max-w-[526px] p-6 text-center self-center">
-            <Link href="/bini">
+            <button onClick={
+              () => {
+                window.location.href = "/bini";
+              }
+            }>
               <div className="w-full flex items-center justify-center gap-[10px]">
                 <Image
                   src="/images/join-now.png"
@@ -30,7 +34,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
                   Fandom
                 </p>
               </div>
-            </Link>
+            </button>
 
             <div className="w-full">
               <h1 className="text-[#454545] text-[24px] mb-6 font-semibold">
