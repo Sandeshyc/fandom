@@ -40,7 +40,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
             </div>
 
             <div className="flex sm:invisible">
-              <div className="flex sm:hidden flex-col items-center gap-2 text-center text-sm mx-auto text-[#C1C0C0] mt-8">
+              <div className="flex sm:hidden flex-col items-center gap-2 text-center text-sm mx-auto text-[#454545] mt-8">
                 <Link href="https://www.abs-cbn.com/terms" target="_blank">
                   Terms & Conditions
                 </Link>
