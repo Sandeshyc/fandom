@@ -11,6 +11,7 @@ import { CheckIcon } from "@/utils/CustomSVGs";
 import WarningMessage from "@/modules/Identities/WarningMessage";
 import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
 import Preloader from "@/modules/skeletons/Preloader";
+import Image from "next/image";
 const biniLogoUrl = "/images/logoofbiniblack.png";
 const allowedCountries = ["PH", "US", "CA", "SG", "HK", "FR"];
 type Props = {
@@ -172,40 +173,89 @@ const PlanItem = ({
             <>
               {isBlock ? (
                 <>
-                  <button className="mt-6 h-[40px] py-1 text-white/70 rounded-[50px] font-medium w-full bg-slate-400 cursor-not-allowed">
+                  <button className="mt-8 h-[40px] py-1 text-white rounded-[50px] font-medium w-full bg-[#1B82F2]/50  cursor-not-allowed">
                     {rentText}
                   </button>
-                  <WarningMessage
+
+                  <div className="mt-8 w-full flex flex-col items-center">
+                    <p className="w-[448px] text-nowrap text-[#11355E] text-[32px] font-semibold">
+                      We hope to be with you soon!
+                    </p>
+
+                    <div className="flex items-center gap-8 mt-6">
+                      <Image
+                        src={"/images/ph-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="ph-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/us-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="us-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/canada-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="canada-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/hk-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="hk-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/sg-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="sg-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                    </div>
+
+                    <p className="text-[#454545] mt-4">
+                      Currently available countries
+                    </p>
+                  </div>
+                  {/* <WarningMessage
                     message="Purchase is not available in your region."
                     textColor="#F3A533"
                     className="text-left mt-4"
                     styles={{
                       backgroundColor: "transparent",
                     }}
-                  />
+                  /> */}
                 </>
               ) : (
                 <>
                   <div className="my-6">
-                    {(item?.promoText)&&(
+                    {item?.promoText && (
                       <p>
                         <span className="text-sm text-white bg-[#FFB21F] inline-flex px-2 shadow-lg rounded-sm">
                           {item?.promoText}
                         </span>
-                      </p>                    
+                      </p>
                     )}
                     <p>
                       <span className="text-[32px] font-medium">
                         {item?.price} {item?.currency ?? ""} per year
                       </span>
                     </p>
-                    {(item?.regularPrice && (item?.price !== item?.regularPrice))&&(
-                      <p>
-                        <span className="text-lg inline-flex text-zinc-500 line-through">
-                          {item?.regularPrice} {item?.currency ?? ""} per year
-                        </span>
-                      </p>                    
-                    )}
+                    {item?.regularPrice &&
+                      item?.price !== item?.regularPrice && (
+                        <p>
+                          <span className="text-lg inline-flex text-zinc-500 line-through">
+                            {item?.regularPrice} {item?.currency ?? ""} per year
+                          </span>
+                        </p>
+                      )}
                   </div>
                   <button
                     onClick={() => goPurchase(item?.priceSKU)}

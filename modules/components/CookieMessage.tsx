@@ -44,15 +44,12 @@ const CookieMessage: React.FC = () => {
         alignItems: "flex-start",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          width: "100%",
-        }}
-      >
-        <CloseButton color="#454545" onClick={handleClose} />
-      </div>
+      <CloseButton
+        color="#454545"
+        onClick={handleClose}
+        className="absolute right-3 top-3 text-xs"
+      />
+
       <div
         style={{
           display: "flex",
@@ -81,7 +78,7 @@ const CookieMessage: React.FC = () => {
         <Button
           colorScheme="teal"
           onClick={handleAccept}
-          className="bg-[#1B82F2] text-white rounded-full min-w-[96px] sm:min-w-[120px] px-3 py-1 flex justify-center items-center"
+          className="bg-[#1B82F2] hover:bg-[#1B82F2]/90 text-sm text-white rounded-full min-w-[96px] sm:min-w-[120px] px-3 py-1 flex justify-center items-center"
           style={{ margin: "auto", marginTop: isMobile ? "16px" : "0" }}
         >
           I Agree

@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Script from "next/script";
 import type { AppProps } from "next/app";
-import { Roboto } from "@next/font/google";
+import { Roboto } from "next/font/google";
+import LocalFont from "next/font/local";
 import ErrorBoundary from "@/modules/elements/ErrorBoundary";
 import axios from "axios";
 import {
@@ -19,6 +20,11 @@ import "../styles/globals.css";
 import "swiper/css";
 import "swiper/css/bundle";
 import CookieMessage from "@/modules/components/CookieMessage";
+
+export const corsiva = LocalFont({
+  src: "../public/assets/Monotype Corsiva.ttf",
+  variable: "--font-corsiva",
+});
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -117,7 +123,7 @@ export default function App({
         <meta name="robots" content="noindex, nofollow" />
         <meta name="googlebot" content="noindex" />
       </Head>
-      <main className={roboto.className}>
+      <main className={`${roboto.className} ${corsiva.variable}`}>
         <ErrorBoundary>
           <ApolloProvider client={client}>
             <Component {...pageProps} />
