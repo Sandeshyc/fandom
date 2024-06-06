@@ -15,7 +15,7 @@ module.exports = {
 		  monoton: ["Monoton", "cursive"],
 		  roboto: ["Roboto", "sans-serif"],
 		  inter: ["Inter", "sans-serif"],
-		  corsiva: ["Corsiva", "sans-serif"],
+		  corsiva: ["var(--font-corsiva)"],
 		},
 		screens: {
 		  xs: "400px",

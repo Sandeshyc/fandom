@@ -8,11 +8,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Corsiva";
-  src: url("../public/assets/Monotype\ Corsiva.ttf");
-}
-
 /* zoom animation */
 @-webkit-keyframes zoom {
   0% {
