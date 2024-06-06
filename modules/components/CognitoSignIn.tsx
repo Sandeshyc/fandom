@@ -61,29 +61,30 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
             if (email_verified) {
               setIsVerifingEmail(false);
               // return false;
-              const userResponse = await checkUser(
-                userEmail,
-                userEmail,
-                userEmail,
-                "cognito",
-                true,
-                response?.accessToken?.jwtToken || ""
-              );
+              const userData = {
+                userid: userEmail,
+                providerId: userEmail,
+                email: userEmail,
+                providerName: "cognito",
+                emailVerified: true,
+                accessToken: response?.accessToken?.jwtToken,
+              };
+              const userResponse = await checkUser(userData);
               if (userResponse === 200) {
                 setIsSuccess(true);
                 setIsLoginFail(false);
-                let redirectUrl = localStorage.getItem('redirectUrl');
-                if(!redirectUrl){
-                    redirectUrl = '/bini';
+                let redirectUrl = localStorage.getItem("redirectUrl");
+                if (!redirectUrl) {
+                  redirectUrl = "/bini";
                 }
                 localStorage.removeItem("redirectUrl");
-                router.replace(redirectUrl);
+                window.location.replace(redirectUrl);
                 console.log("success");
               } else {
                 setAuthLoading(false);
                 setIsSuccess(false);
                 setIsLoginFail(true);
-                router.replace("/login");
+                window.location.replace("/login");
                 console.log("failed");
               }
             } else {
@@ -170,6 +171,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -181,6 +183,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>

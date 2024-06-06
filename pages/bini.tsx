@@ -73,13 +73,13 @@ const Discover = () => {
     setIsReady(true);
   }, []);
   return (
-    <>
+    <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
       <Navigation />
       <div
-        className="w-full h-full min-h-screen bg-[#FAFAFA] text-[#93767A]"
+        className="w-full h-full text-[#93767A]"
         style={{
-          paddingTop: isMobile ? "90px" : "140px",
-          paddingBottom: isMobile ? "70px" : "90px",
+          paddingTop: isMobile ? "90px" : "110px",
+          paddingBottom: "20px",
         }}
       >
         {Array.isArray(planLists) && planLists.length > 0 && (
@@ -90,7 +90,7 @@ const Discover = () => {
                   key={stableKeys[index]}
                   item={item}
                   movieId={contentId}
-                  rentText={"Join Annual Membership"}
+                  rentText={"Join Annual VIP Membership"}
                   allowedIems={allowedItemLists}
                 />
               );
@@ -99,7 +99,7 @@ const Discover = () => {
         )}
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 export default Discover;

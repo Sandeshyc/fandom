@@ -1,6 +1,6 @@
 import axios from 'axios';
 const getOrderReceipt = async (userId: string, transactionId: string) => {
-    const url = `https://sandbox-payments-api.abs-cbn.com/transactions/pdf/user-id/${userId}/transaction-id/${transactionId}`;
+    const url = `https://uat-fandom-public-payments-api.abs-cbn.com/transactions/pdf/user-id/${userId}/transaction-id/${transactionId}`;
     const responseType = 'blob';
     let returnResponse = {
         status: '',

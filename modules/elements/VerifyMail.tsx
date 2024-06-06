@@ -112,21 +112,22 @@ const VerifyMail = ({ email, password }: Props) => {
             if (user) {
               const { email_verified } = user;
               if (email_verified) {
-                const userResponse = await checkUser(
-                  email,
-                  email,
-                  email,
-                  "cognito",
-                  true,
-                  response?.accessToken?.jwtToken || ""
-                );
+                const userData = {
+                  userid: email,
+                  providerId: email,
+                  email: email,
+                  providerName: "cognito",
+                  emailVerified: true,
+                  accessToken: response?.accessToken?.jwtToken,
+                };
+                const userResponse = await checkUser(userData);
                 if (userResponse === 200) {
                   let redirectUrl = localStorage.getItem("redirectUrl");
                   if (!redirectUrl) {
                     redirectUrl = "/bini";
                   }
                   localStorage.removeItem("redirectUrl");
-                  router.replace(redirectUrl);
+                  window.location.replace(redirectUrl);
                 } else {
                   window.location.replace("/login");
                   console.log("failed");
@@ -157,12 +158,12 @@ const VerifyMail = ({ email, password }: Props) => {
         onClose={handleClose}
         className={`flex justify-center items-center ${roboto.className}`}
       >
-        <div className="rounded-md w-[90%] max-w-[540px] bg-gray-100 relative text-[#5F576F] border border-white/70">
+        <div className="rounded-md w-[90%] max-w-[540px] bg-white relative text-[#5F576F] border border-white/70">
           <div
             className="absolute top-2 right-2 cursor-pointer"
             onClick={handleClose}
           >
-            <CloseOutlined sx={{ fontSize: 28 }} className="text-red-500" />
+            <CloseOutlined sx={{ fontSize: 28 }} className="text-[#454545]" />
           </div>
           <div className="p-4 pt-8 text-center">
             <h3 className="text-[#5F576F] text-center text-2xl font-semibold mb-2">
@@ -197,7 +198,7 @@ const VerifyMail = ({ email, password }: Props) => {
               )}
               {otp?.length < 6 || isConfirmingOTP ? (
                 <button
-                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-gray-400 cursor-not-allowed mt-2"
+                  className="h-[40px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2]/50 cursor-not-allowed mt-6"
                   disabled
                 >
                   {isConfirmingOTP ? "Loading..." : "Verify"}
@@ -205,7 +206,7 @@ const VerifyMail = ({ email, password }: Props) => {
               ) : (
                 <button
                   onClick={handleVerify}
-                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2] mt-2"
+                  className="h-[40px] py-1 text-[#fff] rounded-[50px] cursor-pointer w-full transition bg-[#1B82F2] mt-6"
                 >
                   Verify
                 </button>
@@ -216,24 +217,24 @@ const VerifyMail = ({ email, password }: Props) => {
                 disabled={isResenting}
                 className="underline text-blue-500 font-medium cursor-not-allowed disabled"
               >
-                Resenting OTP
+                Resending OTP
               </button>
             ) : (
               <button
-                className="underline text-blue-500 font-medium"
+                className="underline text-blue-500 font-medium cursor-pointer"
                 onClick={reSendOTP}
               >
-                Resent OTP
+                Resend OTP
               </button>
             )}
             {reSentFail && (
-              <p className="text-red-500 text-sm md:text-base">
+              <p className="text-red-500 text-sm md:text-base mt-4">
                 Failed to resend OTP
               </p>
             )}
             {reSentSuccess && (
               <p className="text-green-500 text-sm md:text-base">
-                OTP resent successfully
+                OTP resend successfully
               </p>
             )}
           </div>

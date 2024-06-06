@@ -105,7 +105,7 @@ const ResetPassword = () => {
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()[\]{}\\.,><':;|_~=`=+-])[A-Za-z0-9!@#$%^&*()[\]{}\\.,><':;|_~=`=+-]{8,}$/,
         "Password must contain at least 1 uppercase, 1 lowercase and 1 number"
       ),
     confirmPassword: Yup.string()
@@ -162,7 +162,7 @@ const ResetPassword = () => {
             );
           }
         });
-        setAuthLoading(false);
+      setAuthLoading(false);
     },
   });
 
@@ -278,7 +278,7 @@ const ResetPassword = () => {
                 )}
                 <button
                   type="submit"
-                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#E79FAD]"
+                  className="h-[36px] py-1 text-[#fff] rounded-[50px] w-full transition bg-[#1B82F2]"
                 >
                   {onSubmit ? "Loading..." : "Continue"}
                 </button>

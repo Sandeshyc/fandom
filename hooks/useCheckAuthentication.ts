@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { auth } from '@/utils/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { getSession } from "@/utils/cognitoAuth";
 
 const useCheckAuthentication = () => {
     let tempAuth = false;
@@ -16,18 +15,25 @@ const useCheckAuthentication = () => {
             setIsLoginUser(tempAuth as boolean);
         } 
         const provider = localStorage.getItem('provider');
-        if (provider === 'firebase') {
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
+        if (provider === 'cognito') {
+            const _getSession = async () => {
+                try {
+                  const session = await getSession();
+                  if (session) {
                     const userInfo = localStorage.getItem('userInfo');
                     setIsLoginUser(!!userInfo);
-                } else {
+                  }else{
+                    localStorage.removeItem('userInfo');
+                    setIsLoginUser(false);
+                  }
+                } catch (error) {
+                    console.error("Error:", error);
                     localStorage.removeItem('userInfo');
                     setIsLoginUser(false);
                 }
-                setIsLoadingUserCheck(false);
-            });
-            return () => unsubscribe();
+                setIsLoadingUserCheck(false);            
+            };
+            _getSession();
         } else {
             const userInfo = localStorage.getItem('userInfo');
             setIsLoginUser(!!userInfo);

@@ -7,23 +7,38 @@ import {
   setEventRecord
 } from '@/services/api'
 
-
+type Props = {
+  userid: string;
+  providerId: string;
+  email: string;
+  providerName: string;
+  emailVerified?: boolean;
+  accessToken?: string;
+  isLogin?: boolean;
+  tnc?: boolean;
+  marketing?: boolean;
+  firstName?: string;
+  lastName?: string;
+  birthDate?: string;
+  phoneNumber?: string;
+};
 const useUserInfo = () => {
   const [fingerPrintId, setFingerPrintId] = useState('');
-    const checkUser = async (
-        userid: string,
-        providerId: string,
-        email: string,
-        providerName: string,
-        emailVerified?: boolean,
-        accessToken?: string,
-        isLogin: boolean = true,
-        tnc: boolean = true,
-        marketing: boolean = false,
-        fullName?: string,
-        birthDate?: string,
-        phoneNumber?: string,        
-    ) => {
+    const checkUser = async ({
+      userid,
+      providerId,
+      email,
+      providerName,
+      emailVerified,
+      accessToken,
+      isLogin = true,
+      tnc = true,
+      marketing = false,
+      firstName,
+      lastName,
+      birthDate,
+      phoneNumber,
+  }:Props) => {
         const headers = {
             'Content-Type' : 'application/json',
         };   
@@ -34,7 +49,8 @@ const useUserInfo = () => {
             "emailVerified": emailVerified,
             "tnc": tnc,
             "marketing": marketing,
-            "firstName": fullName,
+            "firstName": firstName,
+            "lastName": lastName,
             "birthday": birthDate,
             "phone": phoneNumber,
         };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { signUp, getCurrentUser } from "@/utils/cognitoAuth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
 import VerifyMail from "@/modules/elements/VerifyMail";
-import { isItDate, getDayWithSuffix } from "@/utils/dataTimeChecking";
+import { isItDate, getDayWithSuffix, showDate } from "@/utils/dataTimeChecking";
 
 type Props = {
   setAuthLoading: any;
@@ -63,14 +63,15 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/,
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()[\]{}\\.,><':;|_~=`=+-])[A-Za-z0-9!@#$%^&*()[\]{}\\.,><':;|_~=`=+-]{8,}$/,
         "Password must contain at least 1 uppercase, 1 lowercase and 1 number and 1 special character"
       ),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), ""], "Passwords are not matched")
       .required("Confirm Password is required"),
-    fullName: Yup.string().required("Full Name is required"),
-    userBirthday: Yup.date().required("Birthday is required"),
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    userBirthday: Yup.string().required("Birthday is required"),
     mobileNumber: Yup.string(),
     tnc: Yup.boolean().oneOf([true], "Accept Terms & Conditions is required"),
     marketing: Yup.boolean(),
@@ -88,7 +89,8 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       email: "",
       password: "",
       confirmPassword: "",
-      fullName: "",
+      firstName: "",
+      lastName: "",
       userBirthday: "",
       mobileNumber: "",
       tnc: false,
@@ -102,7 +104,8 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       email,
       password,
       confirmPassword,
-      fullName,
+      firstName,
+      lastName,
       userBirthday,
       mobileNumber,
       tnc,
@@ -118,20 +121,22 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
         if (response && response?.username && response?.userDataKey) {
           setIsVerifingEmail(true);
           setIsLoginFail(false);
-          const userCheckRes = await checkUser(
-            response?.username,
-            response?.username,
-            response?.username || "",
-            "cognito",
-            false,
-            "none",
-            false,
-            tnc,
-            marketing,
-            fullName,
-            userBirthday,
-            mobileNumber
-          );
+          const userData = {
+            userid: response?.username,
+            providerId: response?.username,
+            email: response?.username,
+            providerName: "cognito",
+            emailVerified: false,
+            accessToken: "",
+            isLogin: false,
+            tnc: tnc,
+            marketing: marketing,
+            firstName: firstName,
+            lastName: lastName,
+            birthDate: userBirthday,
+            phoneNumber: mobileNumber,
+          };
+          const userCheckRes = await checkUser(userData);
           if (userCheckRes === 200) {
             setIsVerifingEmail(true);
           }
@@ -156,7 +161,11 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   return (
     <>
       {isVerifingEmail ? <VerifyMail email={values.email} /> : null}
-      <form onSubmit={handleSubmit} method="POST" className="text-left">
+      <form
+        onSubmit={handleSubmit}
+        method="POST"
+        className="text-left max-w-[368px] mx-auto"
+      >
         <div className="mb-4">
           <div className="relative">
             <input
@@ -191,6 +200,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -202,6 +212,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -233,6 +244,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -244,6 +256,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                       sx={{
                         fontSize: 18,
                         color: "#5F576F",
+                        cursor: "pointer",
                       }}
                     />
                   </span>
@@ -257,63 +270,76 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             </span>
           )}
         </div>
-        <div className="mb-4">
-          <div className="relative">
-            <input
-              placeholder="Full Name"
-              type="text"
-              name="fullName"
-              autoFocus={true}
-              value={values.fullName}
-              onChange={handleChange}
-              className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
-            />
-          </div>
-          {errors.fullName && touched.fullName && (
-            <span className="text-red-500 w-full text-xs">
-              {errors.fullName}
-            </span>
-          )}
-        </div>
-        <div className="mb-4 w-full fullWidthDatePicker">
-          <div className="relative w-full bg-[#fff] rounded-md">
-            <DatePicker
-              name="userBirthday"
-              showYearDropdown
-              showMonthDropdown
-              dropdownMode="select"
-              maxDate={maxDate}
-              minDate={minDate}
-              selected={setSelectDate}
-              onChange={handelDataChange}
-              placeholderText={isEmpty(values.userBirthday) ? "Birthday" : ""}
-              className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
-            />
-            <p
-              className={`absolute top-0 left-0 ${
-                values.userBirthday && isDate(birthday)
-                  ? "text-[#5F576F]"
-                  : "text-[#C1C0C0]"
-              } text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center`}
-            >
-              {values.userBirthday && isDate(birthday)
-                ? `${getDayWithSuffix(
-                    birthday.getDate()
-                  )} ${birthday.toLocaleString("default", {
-                    month: "long",
-                  })} ${birthday.getFullYear()}`
-                : "Birth Date"}
-            </p>
-            <div className="absolute top-[8px] z-10 right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">
-              <span>
-                <CalendarMonth
-                  sx={{
-                    fontSize: 18,
-                    color: "#5F576F",
-                  }}
-                />
-              </span>
+        <div className="flex flex-wrap mx-[-5px]">
+          <div className="mb-4 w-1/2 px-[5px]">
+            <div className="relative">
+              <input
+                placeholder="First Name"
+                type="text"
+                name="firstName"
+                value={values.firstName}
+                onChange={handleChange}
+                className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
+              />
             </div>
+            {errors.firstName && touched.firstName && (
+              <span className="text-red-500 w-full text-xs">
+                {errors.firstName}
+              </span>
+            )}
+          </div>
+          <div className="mb-4 w-1/2 px-[5px]">
+            <div className="relative">
+              <input
+                placeholder="Last Name"
+                type="text"
+                name="lastName"
+                value={values.lastName}
+                onChange={handleChange}
+                className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
+              />
+            </div>
+            {errors.lastName && touched.lastName && (
+              <span className="text-red-500 w-full text-xs">
+                {errors.lastName}
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="mb-4 customDatePicker">
+          <div className="relative w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] text-left">
+            <div className="w-full absolute top-0 left-0 h-full z-20">
+              <DatePicker
+                name="userBirthday"
+                dropdownMode="select"
+                maxDate={maxDate}
+                minDate={minDate}
+                onChange={handelDataChange}
+                // onChange={(date) => setSelectedDate(date)}
+                placeholderText={isEmpty(values.userBirthday) ? "Birthday" : ""}
+                dateFormat="yyyy-MM-dd"
+                selected={birthday}
+                isClearable
+                customInput={<ExampleCustomInput />}
+                showYearDropdown
+                showMonthDropdown
+              />
+            </div>
+            {isEmpty(values.userBirthday) && (
+              <>
+                <p className="absolute top-0 left-0 text-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-1 h-[36px] xl:h-[40px] flex items-center z-10">
+                  Birth Date
+                </p>
+                <div className="absolute top-[8px] z-10 right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">
+                  <CalendarMonth
+                    sx={{
+                      fontSize: 18,
+                      color: "#5F576F",
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
           {errors.userBirthday && touched.userBirthday && (
             <p className="text-[#FF3636] text-[14px] py-1">
@@ -327,7 +353,6 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               placeholder="Mobile No. (Optional)"
               type="text"
               name="mobileNumber"
-              autoFocus={true}
               value={values.mobileNumber}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -344,7 +369,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             <div className="flex items-start">
               <input
                 type="checkbox"
-                className="mr-2 mt-1"
+                className="mr-2 mt-1 cursor-pointer"
                 id="agree"
                 name="tnc"
                 checked={values.tnc}
@@ -353,7 +378,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               <label htmlFor="agree" className="text-[#686868] ">
                 I confirm that I have read and agree to
                 <a
-                  href="/terms-condition"
+                  href="https://www.abs-cbn.com/terms"
                   className="underline text-[#011F4B] "
                   target="_blank"
                 >
@@ -361,7 +386,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                 </a>{" "}
                 and{" "}
                 <a
-                  href="/privacy"
+                  href="https://www.abs-cbn.com/privacyinternational"
                   className="underline text-[#011F4B]"
                   target="_blank"
                 >
@@ -376,7 +401,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             <div className="flex items-start">
               <input
                 type="checkbox"
-                className="mr-2 mt-1"
+                className="mr-2 mt-1 cursor-pointer"
                 id="isMarketing"
                 name="marketing"
                 checked={values.marketing}
@@ -410,7 +435,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
         ) : (
           <>
             <button
-              className="h-[40px] py-1 text-[#fff] font-semibold rounded-[50px] w-full transition bg-[#1B82F2] cursor-not-allowed"
+              className="h-[40px] py-1 text-[#fff] font-semibold rounded-[50px] w-full transition bg-[#1B82F2]/50 cursor-not-allowed"
               disabled
             >
               Create Account
@@ -422,3 +447,14 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   );
 };
 export default CognitoSignUp;
+
+const ExampleCustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
+  <button
+    type="button"
+    className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] text-left"
+    onClick={onClick}
+    ref={ref}
+  >
+    {value}
+  </button>
+));

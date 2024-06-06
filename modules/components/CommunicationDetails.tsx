@@ -65,7 +65,7 @@ const CommunicationDetails = ({ profileData }: Props) => {
       >
         <InputCheckbox
           id="marketing"
-          label="I agree to receive marketing communications (until I unsubscribe)."
+          label="I agree to receive marketing communications."
           checked={marketing}
           onChange={toggleMarketingHandle}
         />

@@ -8,14 +8,26 @@ import Title from "@/modules/Identities/Title";
 import Text from "@/modules/Identities/Text";
 import { AutorenewOutlined } from "@mui/icons-material";
 import { CheckIcon } from "@/utils/CustomSVGs";
+import WarningMessage from "@/modules/Identities/WarningMessage";
+import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
+import Preloader from "@/modules/skeletons/Preloader";
+import Image from "next/image";
 const biniLogoUrl = "/images/logoofbiniblack.png";
+const allowedCountries = ["PH", "US", "CA", "SG", "HK", "FR"];
 type Props = {
   item: any;
   movieId: string;
   rentText?: string;
   allowedIems?: any;
+  isBlock?: boolean;
 };
-const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
+const PlanItem = ({
+  item,
+  movieId,
+  rentText = "Rent",
+  allowedIems,
+  isBlock = false,
+}: Props) => {
   console.log("item", item, allowedIems);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +74,8 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
             if (process.env.NODE_ENV === "development") {
               forwordPurchaseUrl = forwordPurchaseUrl + "&env=dev";
             }
-            router.replace(forwordPurchaseUrl);
+            // router.replace(forwordPurchaseUrl);
+            window.location.replace(forwordPurchaseUrl);
           } else {
             window.location.reload();
           }
@@ -98,16 +111,14 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
   console.log("allowedItem", allowedItem);
   return (
     <>
-      <div className="p-6 sm:px-[111px] sm:py-[59px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
+      {isLoading && (
+        <div className="absolute top-0 left-0 w-full h-full bg-[#FAFAFA] flex justify-center items-center z-10 cursor-wait">
+          <FlowerBlackLoader />
+        </div>
+      )}
+
+      <div className="p-6 sm:px-[111px] sm:py-[37px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
         <div className="relative w-full max-w-[414px] mx-auto">
-          {isLoading && (
-            <div className="absolute top-0 left-0 w-full h-full bg-black/80 flex justify-center items-center z-10 cursor-wait">
-              <AutorenewOutlined
-                className="animate-spin"
-                sx={{ color: "white", fontSize: 40 }}
-              />
-            </div>
-          )}
           <img
             src={biniLogoUrl}
             className="w-[122px] mx-auto mb-4"
@@ -124,28 +135,28 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
             {item?.description}
           </Text>
           <div className="text-base text-[#686868]">
-            <ul className="w-max mx-auto text-sm sm:text-base flex flex-col justify-center gap-2 min-h-[100px]">
-              <li className="flex items-center gap-2">
+            <ul className="mx-auto text-base text-left flex flex-col justify-center gap-2 min-h-[100px]">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Join the livestream
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Never before seen footage and photoshoots
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Digital photocards
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Exclusive videos and articles
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 Limited edition BINI merchandise
               </li>
-              <li className="flex items-center gap-2">
+              <li className="flex sm:items-center gap-2">
                 <CheckIcon />
                 More surprises!
               </li>
@@ -154,31 +165,113 @@ const PlanItem = ({ item, movieId, rentText = "Rent", allowedIems }: Props) => {
           {allowedItem?._id ? (
             <Link
               href={allowedItem?.content?.pageDirectory || "#"}
-              className="mt-6 block h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+              className="mt-6 flex justify-center items-center h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
             >
-              Go to Members Area
+              View Exclusive Page
             </Link>
           ) : (
             <>
-              <p className="my-6">
-                <span className="text-[32px] font-medium">
-                  {item?.price} {item?.currency ?? ""} per year
-                </span>
-              </p>
-              <button
-                onClick={() => goPurchase(item?.priceSKU)}
-                className="h-fit sm:h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
-              >
-                {!isLoginUser && "Login and "}
-                {rentText}
-              </button>
-              {!isLoadingUserCheck && !isLoginUser && (
-                <button
-                  onClick={() => router.push("/login")}
-                  className="h-fit mt-4 sm:h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
-                >
-                  Member Login
-                </button>
+              {isBlock ? (
+                <>
+                  <button className="mt-8 h-[40px] py-1 text-white rounded-[50px] font-medium w-full bg-[#1B82F2]/50  cursor-not-allowed">
+                    {rentText}
+                  </button>
+
+                  <div className="mt-8 w-full flex flex-col items-center">
+                    <p className="w-[448px] text-nowrap text-[#11355E] text-[32px] font-semibold">
+                      We hope to be with you soon!
+                    </p>
+
+                    <div className="flex items-center gap-8 mt-6">
+                      <Image
+                        src={"/images/ph-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="ph-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/us-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="us-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/canada-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="canada-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/hk-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="hk-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                      <Image
+                        src={"/images/sg-flag.png"}
+                        width={60}
+                        height={30}
+                        alt="sg-flag"
+                        className="shadow border border-[#C1C0C0]"
+                      />
+                    </div>
+
+                    <p className="text-[#454545] mt-4">
+                      Currently available countries
+                    </p>
+                  </div>
+                  {/* <WarningMessage
+                    message="Purchase is not available in your region."
+                    textColor="#F3A533"
+                    className="text-left mt-4"
+                    styles={{
+                      backgroundColor: "transparent",
+                    }}
+                  /> */}
+                </>
+              ) : (
+                <>
+                  <div className="my-6">
+                    {item?.promoText && (
+                      <p>
+                        <span className="text-sm text-white bg-[#FFB21F] inline-flex px-2 shadow-lg rounded-sm">
+                          {item?.promoText}
+                        </span>
+                      </p>
+                    )}
+                    <p>
+                      <span className="text-[32px] font-medium">
+                        {item?.price} {item?.currency ?? ""} per year
+                      </span>
+                    </p>
+                    {item?.regularPrice &&
+                      item?.price !== item?.regularPrice && (
+                        <p>
+                          <span className="text-lg inline-flex text-zinc-500 line-through">
+                            {item?.regularPrice} {item?.currency ?? ""} per year
+                          </span>
+                        </p>
+                      )}
+                  </div>
+                  <button
+                    onClick={() => goPurchase(item?.priceSKU)}
+                    className="h-[40px] py-1 text-[#fff] rounded-[50px] font-medium w-full transition bg-[#1B82F2]"
+                  >
+                    {rentText}
+                  </button>
+                  {!isLoadingUserCheck && !isLoginUser && (
+                    <button
+                      onClick={() => router.push("/login")}
+                      className="mt-4 h-[40px] py-1 text-[#1B82F2] rounded-[50px] font-medium w-full transition border-2 border-[#1B82F2] bg-transparent hover:bg-[#1B82F2]/10"
+                    >
+                      Member Login
+                    </button>
+                  )}
+                </>
               )}
             </>
           )}

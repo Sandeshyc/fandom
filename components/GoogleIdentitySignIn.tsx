@@ -72,15 +72,15 @@ const GoogleIdentitySignIn = ({ setAuthLoading }: Props) => {
         if (user !== null && user !== undefined) {
           const isEmailVerified = user?.emailVerified;
           if (isEmailVerified) {
-            const userResponse = await checkUser(
-              user?.uid,
-              user?.uid,
-              user?.email || "",
-              user?.providerId,
-              user?.emailVerified,
-              "",
-              user?.accessToken || ""
-            );
+            const userData = {
+              userid: user?.uid,
+              providerId: user?.uid,
+              email: user?.email || "",
+              providerName: user?.providerId,
+              emailVerified: user?.emailVerified,
+              accessToken: user?.accessToken || "",
+            };
+            const userResponse = await checkUser(userData);
             if (userResponse === 200) {
               setIsSuccess(true);
               setIsLoginFail(false);
@@ -89,7 +89,7 @@ const GoogleIdentitySignIn = ({ setAuthLoading }: Props) => {
                 redirectUrl = "/bini";
               }
               localStorage.removeItem("redirectUrl");
-              router.replace(redirectUrl);
+              window.location.replace(redirectUrl);
               console.log("success");
             } else {
               setAuthLoading(false);

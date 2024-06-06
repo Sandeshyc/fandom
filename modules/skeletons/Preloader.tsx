@@ -1,10 +1,13 @@
-import React from 'react'
+import React from "react";
+import FlowerWhiteLoader from "./FlowerWhiteLoader";
+
 const Preloader = () => {
-    return (
-        <div className={`relative min-h-screen min-w-screen flex justify-center items-center bg-gradient-to-b from-[#050505] via-[#1E1E1E] to-[#000000]`}>
-            <div className="loader">
-            </div>
-        </div>
-    );
-}
+  return (
+    <div
+      className={`relative min-h-screen min-w-screen flex justify-center items-center bg-gradient-to-b from-[#11355efb] via-[#11355E] to-[#14375ffb]`}
+    >
+      <FlowerWhiteLoader />
+    </div>
+  );
+};
 export default Preloader;
