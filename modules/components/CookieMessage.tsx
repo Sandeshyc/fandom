@@ -60,7 +60,10 @@ const CookieMessage: React.FC = () => {
           marginTop: isMobile ? "16px" : "0",
         }}
       >
-        <Text size="base" className={`text-[#454545] ${!isMobile && "ml-32"}`}>
+        <Text
+          size={isMobile ? "md" : "base"}
+          className={`text-[#454545] ${!isMobile && "ml-32"}`}
+        >
           Welcome, Kapamilya! We use cookies to improve your browsing
           experience. Continuing to use this site means you agree to our use of
           cookies.

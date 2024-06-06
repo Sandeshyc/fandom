@@ -70,21 +70,14 @@ const Member = () => {
   return (
     <>
       {isReady ? (
-        <>
+        <div className="relative w-full h-full min-h-screen bg-[url('/images/bini-bg.png')] bg-fixed flex flex-col items-center justify-between">
           <ExclusiveNavigation />
-          <div
-            className={
-              "w-full h-full min-h-screen bg-[url('/images/bini-bg.png')] bg-fixed text-[#93767A]"
-            }
-            style={{
-              paddingTop: isMobile ? "90px" : "140px",
-              paddingBottom: isMobile ? "70px" : "60px",
-            }}
-          >
+
+          <div className={"w-full h-full py-8 md:py-[60px] text-[#93767A]"}>
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
-              <div className="relative w-full h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
+              <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
                 <div className="z-40 max-w-[516px] text-white text-center flex flex-col items-center">
-                  <p className="text-[46px]  font-corsiva">
+                  <p className="text-[32px] md:text-[46px]  font-corsiva">
                     Thank you for joining our <br />
                     VIP membership!
                   </p>
@@ -107,37 +100,41 @@ const Member = () => {
                 src="https://www.youtube.com/embed/QNV2DmBxChQ?si=4zy0Uv2mY7L30UMz"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="my-[60px] w-full aspect-video"
+                className="my-8 md:my-[60px] w-full aspect-video"
                 allowFullScreen
               ></iframe>
 
-              <div className="my-[60px] w-full flex flex-col gap-4">
-                <p className="font-corsiva text-4xl text-center sm:text-left sm:text-[46px] text-[#324B4E]">
-                  Unseen Moments: Behind-the-Scenes Videos
+              <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
+                <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
+                  Behind the Screen Videos
                 </p>
 
                 <BtsSlider />
               </div>
 
-              <div className="my-[60px] w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
-                <div className="w-fit px-[50px] py-[27px] ">
-                  <img src={exclusive} alt="" className="w-[537px] " />
-                </div>
+              <div className="w-full p-6 sm:p-0">
+                <div className="my-8 md:my-[60px] py-6 w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
+                  <div className="w-fit px-[50px] py-[27px] ">
+                    <img src={exclusive} alt="" className="w-[537px] " />
+                  </div>
 
-                <div className="h-full p-2 sm:p-0 text-[#324B4E] flex flex-col text-center sm:text-left items-center justify-center">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-2xl font-semibold">BINI Official Shop</p>
-                    <p className="max-w-[380px] text-xl">
-                      Lorem ipsum dolor sit amet consectetur. Erat amet mauris
-                      lobortis et orci laoreet. Accumsan egestas elit id lacus
-                      sagittis mattis.
-                    </p>
+                  <div className="h-full px-6 sm:p-0 text-[#324B4E] flex flex-col text-center sm:text-left items-center justify-center">
+                    <div className="flex flex-col gap-2">
+                      <p className="text-2xl font-semibold">
+                        BINI Official Shop
+                      </p>
+                      <p className="max-w-[380px] sm:text-xl">
+                        Lorem ipsum dolor sit amet consectetur. Erat amet mauris
+                        lobortis et orci laoreet. Accumsan egestas elit id lacus
+                        sagittis mattis.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="my-[60px] w-full flex flex-col gap-4 sm:gap-6 ">
-                <p className="font-corsiva text-4xl sm:text-[46px] text-center sm:text-left text-[#324B4E]">
+              <div className="my-8 md:my-[60px] w-full flex flex-col gap-4 sm:gap-6 ">
+                <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] px-6 lg:px-0 text-[#324B4E]">
                   Exclusive Livestream
                 </p>
 
@@ -148,6 +145,7 @@ const Member = () => {
                   className="w-full aspect-video"
                   allowFullScreen
                 ></iframe>
+
                 {/* <div className="relative w-full h-[607px] flex justify-center items-center bg-[url(/images/exclusive-livestream.png)] bg-cover bg-center">
                   <Image
                     src="/images/Pause.svg"
@@ -158,20 +156,54 @@ const Member = () => {
                 </div> */}
               </div>
 
-              <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">
-                <div className="flex flex-col items-center">
-                  <p className="text-[#94B0B3] text-[32px] font-extrabold">
-                    More surprises
-                  </p>
-                  <p className="text-[#58C9D4] text-[46px] font-extrabold">
-                    COMING SOON!
-                  </p>
+              <iframe
+                className="my-[32px] md:my-[60px] megaphone-controller-iframe min-h-[480px] min-w-[300px] w-full border-none"
+                // style="min-height:480px;min-width:340px;max-height:unset;max-width:1000px;width:100%;border:none"
+                src="https://controller.megaphonetv.com?m=dbkqj&iswebpoll=true&poll_id=666167d3cc66980005483636"
+                loading="lazy"
+                title="MegaController"
+                allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
+                allowFullScreen
+              ></iframe>
+              <script
+                src="https://embed.megaphonetv.com/embed.js"
+                data-name="megaphoneembed"
+                type="text/javascript"
+                defer
+              ></script>
+
+              <iframe
+                className="my-[32px] md:my-[60px] megaphone-controller-iframe min-h-[480px] min-w-[300px] w-full border-none"
+                // style="min-height:480px;min-width:340px;max-height:unset;max-width:1000px;width:100%;border:none"
+                src="https://controller.megaphonetv.com?m=dbkqj&iswebpoll=true&poll_id=666170facc6698000e48363d"
+                loading="lazy"
+                title="MegaController"
+                allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
+                allowFullScreen
+              ></iframe>
+              <script
+                src="https://embed.megaphonetv.com/embed.js"
+                data-name="megaphoneembed"
+                type="text/javascript"
+                defer
+              ></script>
+
+              <div className="w-full p-6 sm:p-0">
+                <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">
+                  <div className="flex flex-col items-center">
+                    <p className="text-[#94B0B3] text-[24px] sm:text-[32px] font-extrabold">
+                      More surprises
+                    </p>
+                    <p className="text-[#58C9D4] text-[32px] sm:text-[46px] font-extrabold">
+                      COMING SOON!
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <ExclusiveFooter />
-        </>
+        </div>
       ) : (
         <Preloader />
       )}
