@@ -11,6 +11,7 @@ import {
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import Image from "next/image";
+import useIsMobile from "@/hooks/useIsMobile";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -39,35 +40,24 @@ const BTS_DATA = [
 
 const BtsSlider = () => {
   const swiperRef = useRef<SwiperRef>(null);
+  const isMobile = useIsMobile();
 
   return (
-    <div className="relative w-[85%] sm:w-full mx-auto flex items-center gap-4">
+    <div className="relative w-full xl:w-full mx-auto flex items-center gap-4">
       <FaChevronLeft
         onClick={() => swiperRef?.current?.swiper?.slidePrev()}
-        className="text-xl cursor-pointer text-[#324B4E] z-10 absolute -left-1 xs:-left-5 top-[35%] -translate-x-1/2"
+        className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute -left-1 lg:-left-2 xl:-left-5 top-[35%] -translate-x-1/2"
       />
 
       <Swiper
         ref={swiperRef}
         slidesPerView={"auto"}
-        breakpoints={{
-          500: {
-            slidesPerView: 1,
-            spaceBetween: 0,
-          },
-          640: {
-            slidesPerView: 2,
-          },
-          768: {
-            slidesPerView: "auto",
-          },
-        }}
-        freeMode
+        freeMode={isMobile}
         spaceBetween={24}
       >
         {BTS_DATA.map((bts) => (
           <SwiperSlide key={bts.title} className="bts-video-slide flex">
-            <div className="w-[306px] flex flex-col gap-2 mx-auto">
+            <div className="w-[268px] sm:w-[306px] flex flex-col gap-2 mx-auto">
               <div className={`relative flex items-end`}>
                 <Image
                   src={bts.thumbnail}
@@ -99,7 +89,7 @@ const BtsSlider = () => {
 
       <FaChevronRight
         onClick={() => swiperRef?.current?.swiper?.slideNext()}
-        className=" text-xl cursor-pointer text-white xs:text-[#324B4E] z-10 absolute -right-1 xs:-right-10  top-[35%] -translate-x-1/2"
+        className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute right-0 xs:-right-10  top-[35%] -translate-x-1/2"
       />
     </div>
   );

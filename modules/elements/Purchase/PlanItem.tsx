@@ -26,7 +26,7 @@ const PlanItem = ({
   movieId,
   rentText = "Rent",
   allowedIems,
-  isBlock = false,
+  isBlock = true,
 }: Props) => {
   console.log("item", item, allowedIems);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
@@ -178,11 +178,11 @@ const PlanItem = ({
                   </button>
 
                   <div className="mt-8 w-full flex flex-col items-center">
-                    <p className="w-[448px] text-nowrap text-[#11355E] text-[32px] font-semibold">
+                    <p className="sm:w-[448px] sm:text-nowrap text-[#11355E] text-[24px] sm:text-[32px] font-semibold">
                       We hope to be with you soon!
                     </p>
 
-                    <div className="flex items-center gap-8 mt-6">
+                    <div className="w-[80%] sm:w-[110%] flex flex-wrap justify-center items-center gap-6 sm:gap-8 mt-6">
                       <Image
                         src={"/images/ph-flag.png"}
                         width={60}

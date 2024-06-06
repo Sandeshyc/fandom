@@ -93,7 +93,7 @@ const Discover = () => {
         <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
           <Navigation />
           <div
-            className="w-full h-full text-[#93767A]"
+            className="w-full h-full my-auto text-[#93767A]"
             style={{
               paddingTop: isMobile ? "90px" : "110px",
               paddingBottom: "20px",
