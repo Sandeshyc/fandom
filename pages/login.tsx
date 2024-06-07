@@ -32,7 +32,8 @@ const Auth = () => {
           try {
             const session = await getSession();
             if (session) {
-              router.push("/");
+              // router.push("/");
+              window.location.replace("/");
             }
           } catch (error) {
             console.error("Error:", error);

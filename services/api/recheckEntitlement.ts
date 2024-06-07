@@ -21,6 +21,7 @@ const recheckEntitlement = async (trainsitionId:string) => {
             };
         }
     } catch (error:any) {
+        console.log("Error case: ", error);
         returnResponse = {
             status: 'error'
         };

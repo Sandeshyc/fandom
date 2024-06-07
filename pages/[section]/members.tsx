@@ -39,26 +39,31 @@ const Member = () => {
                     setIsReady(true);
                   } else {
                     console.log("Entitlement Not found!");
-                    router.push(`/` + section);
+                    // router.push(`/` + section);
+                    window.location.replace(`/` + section);
                   }
                 });
               } else {
                 console.log("Entitlement Not found!");
-                router.push(`/` + section);
+                // router.push(`/` + section);
+                window.location.replace(`/` + section);
               }
             } else {
               console.log("Entitlement API found");
-              router.push(`/` + section);
+              // router.push(`/` + section);
+              window.location.replace(`/` + section);
             }
           };
           _getEntitlementList();
         } else {
           console.log("User not found::", userInfoObj);
-          router.push(`/` + section);
+          // router.push(`/` + section);
+          window.location.replace(`/` + section);
         }
       } else {
         console.log("User not found:", userInfo);
-        router.push(`/` + section);
+        // router.push(`/` + section);
+        window.location.replace(`/` + section);
       }
     }
   }, [pageDirectory]);

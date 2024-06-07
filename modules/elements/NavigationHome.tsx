@@ -54,7 +54,9 @@ const NavigationHome = () => {
                   <img 
                   src={logoSrc} 
                   className="h-[60px] cursor-pointer" 
-                  alt="Logo" onClick={() => router.push('/')} />
+                  alt="Logo" onClick={() => {
+                    window.location.replace("/");
+                  }} />
                 </div>
                 <div className='ml-8'>
                   <div className={`${(userid)?'flex':'hidden'} flex-row items-center gap-7`}>

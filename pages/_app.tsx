@@ -115,7 +115,7 @@ export default function App({
     <>
       <Head>
         <title>BINI</title>
-        <meta name="description" content="iWantTFC Tickets" />
+        <meta name="description" content="Join Now Fandom" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
