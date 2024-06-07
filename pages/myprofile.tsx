@@ -121,7 +121,7 @@ const MyProfile = () => {
     userCountryCode: Yup.string(),
 
     userGender: Yup.string(),
-    userBirthday: Yup.string().required("Birthday is required"),
+    // userBirthday: Yup.string().required("Birthday is required"),
     userEmail: Yup.string()
       .email("Invalid email")
       .required("Email is required"),
@@ -134,7 +134,7 @@ const MyProfile = () => {
       userPhone: profile?.phone || "",
       userCountryCode: profile?.countryCode || "",
       userGender: profile?.gender || "",
-      userBirthday: profile?.birthday || "",
+      // userBirthday: profile?.birthday || "",
     },
 
     // Pass the Yup schema to validate the form
@@ -148,7 +148,7 @@ const MyProfile = () => {
       userPhone,
       userCountryCode,
       userGender,
-      userBirthday,
+      // userBirthday,
     }) => {
       setIsUpdating(true);
       const data = {
@@ -159,7 +159,7 @@ const MyProfile = () => {
         gender: userGender,
         phone: userPhone,
         countryCode: userCountryCode || "+1",
-        birthday: userBirthday?.split("T")[0],
+        // birthday: userBirthday?.split("T")[0],
       };
       const _updateProfile = async () => {
         const response = await updateProfile(data);
@@ -270,7 +270,7 @@ const MyProfile = () => {
                             handleChange={handleChange}
                           />
                         </div>
-                        <div
+                        {/* <div
                           className={`mb-3 ${
                             isUpdateMode
                               ? "w-[50%] pl-1 pr-0 md:pr-2 lg:w-[33%] lg:pl-0 lg:pr-0"
@@ -286,7 +286,7 @@ const MyProfile = () => {
                             values={values}
                             handleChange={handleChange}
                           />
-                        </div>
+                        </div> */}
 
                         <div
                           className={`mt-4 w-full flex flex-wrap justify-center ${

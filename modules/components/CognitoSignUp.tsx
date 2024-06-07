@@ -71,7 +71,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       .required("Confirm Password is required"),
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
-    userBirthday: Yup.string().required("Birthday is required"),
+    // userBirthday: Yup.string().required("Birthday is required"),
     mobileNumber: Yup.string(),
     tnc: Yup.boolean().oneOf([true], "Accept Terms & Conditions is required"),
     marketing: Yup.boolean(),
@@ -91,7 +91,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       confirmPassword: "",
       firstName: "",
       lastName: "",
-      userBirthday: "",
+      // userBirthday: "",
       mobileNumber: "",
       tnc: false,
       marketing: false,
@@ -106,7 +106,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       confirmPassword,
       firstName,
       lastName,
-      userBirthday,
+      // userBirthday,
       mobileNumber,
       tnc,
       marketing,
@@ -133,7 +133,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             marketing: marketing,
             firstName: firstName,
             lastName: lastName,
-            birthDate: userBirthday,
+            // birthDate: userBirthday,
             phoneNumber: mobileNumber,
           };
           const userCheckRes = await checkUser(userData);
@@ -312,7 +312,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             )}
           </div>
         </div>
-        <div className="mb-4 customDatePicker">
+        {/* <div className="mb-4 customDatePicker">
           <div className="relative w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] text-left">
             <div className="w-full absolute top-0 left-0 h-full z-20">
               <DatePicker
@@ -352,7 +352,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               {errors.userBirthday}
             </p>
           )}
-        </div>
+        </div> */}
         <div className="mb-4">
           <div className="relative">
             <input
