@@ -6,7 +6,7 @@ const recheckEntitlement = async (trainsitionId:string) => {
         status: ''
     };
     try {
-        const response = await axios.get(process.env.NEXT_PUBLIC_DATA_API + url, { timeout: 10000 });
+        const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + url, { timeout: 10000 });
         if(response.status === 200 || response.status === 201) {
             returnResponse = {
                 status: 'success'
