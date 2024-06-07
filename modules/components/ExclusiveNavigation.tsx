@@ -42,7 +42,7 @@ const ExclusiveNavigation = () => {
       >
         <div className="max-w-[2400px] mx-auto">
           <div className="flex items-center justify-between flex-wrap">
-            <div className="flex sm:px-[61px] pt-[6px] pb-4 items-center justify-between">
+            <div className="flex pt-[6px] pb-4 items-center justify-between">
               <img
                 src={logoSrc}
                 className="w-[64px] h-[40px] sm:w-[76px] sm:h-[50px] cursor-pointer"

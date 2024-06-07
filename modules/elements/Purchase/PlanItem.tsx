@@ -127,41 +127,45 @@ const PlanItem = ({
           <Title
             tag="h3"
             size="xl"
-            className="mb-8 font-semibold text-[#454545]"
+            className="mb-6 font-semibold text-[#454545]"
           >
-            {item?.name}
+            {allowedItem?._id ? "VIP MEMBER PRIVILEGES" : item?.name}
           </Title>
           <Text size="base" className="mb-8 text-[#454545]">
-            {item?.description}
+            {allowedItem?._id
+              ? "Thank you for subscribing to our annual VIP membership! We're absolutely thrilled to have you as part of the BINI VIP Fandom. Get ready to enjoy a world of exclusive perks and amazing experiences!"
+              : item?.description}
           </Text>
-          <div className="text-base text-[#686868]">
-            <ul className="mx-auto text-base text-left flex flex-col justify-center gap-2 min-h-[100px]">
-              <li className="flex sm:items-center gap-2">
-                <CheckIcon />
-                Join the livestream
-              </li>
-              <li className="flex sm:items-center gap-2">
-                <CheckIcon />
-                Never before seen footage and photoshoots
-              </li>
-              <li className="flex sm:items-center gap-2">
-                <CheckIcon />
-                Digital photocards
-              </li>
-              <li className="flex sm:items-center gap-2">
-                <CheckIcon />
-                Exclusive videos and articles
-              </li>
-              <li className="flex sm:items-center gap-2">
-                <CheckIcon />
-                Limited edition BINI merchandise
-              </li>
-              <li className="flex sm:items-center gap-2">
-                <CheckIcon />
-                More surprises!
-              </li>
-            </ul>
-          </div>
+          {!allowedItem?._id && (
+            <div className="text-base text-[#686868]">
+              <ul className="mx-auto text-base text-left flex flex-col justify-center gap-2 min-h-[100px]">
+                <li className="flex sm:items-center gap-2">
+                  <CheckIcon />
+                  Join the livestream
+                </li>
+                <li className="flex sm:items-center gap-2">
+                  <CheckIcon />
+                  Never before seen footage and photoshoots
+                </li>
+                <li className="flex sm:items-center gap-2">
+                  <CheckIcon />
+                  Digital photocards
+                </li>
+                <li className="flex sm:items-center gap-2">
+                  <CheckIcon />
+                  Exclusive videos and articles
+                </li>
+                <li className="flex sm:items-center gap-2">
+                  <CheckIcon />
+                  Limited edition BINI merchandise
+                </li>
+                <li className="flex sm:items-center gap-2">
+                  <CheckIcon />
+                  More surprises!
+                </li>
+              </ul>
+            </div>
+          )}
           {allowedItem?._id ? (
             <Link
               href={allowedItem?.content?.pageDirectory || "#"}

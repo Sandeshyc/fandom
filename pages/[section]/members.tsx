@@ -73,7 +73,9 @@ const Member = () => {
         <div className="relative w-full h-full min-h-screen bg-[url('/images/bini-bg.png')] bg-fixed flex flex-col items-center justify-between">
           <ExclusiveNavigation />
 
-          <div className={"w-full h-full py-8 md:py-[60px] text-[#93767A]"}>
+          <div
+            className={"w-full h-full pb-8 py-0 md:py-[60px] text-[#93767A]"}
+          >
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
               <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
                 <div className="z-40 max-w-[516px] text-white text-center flex flex-col items-center">
@@ -96,14 +98,6 @@ const Member = () => {
                 <div className="absolute z-10 w-full h-full bg-black/50"></div>
               </div>
 
-              <iframe
-                src="https://www.youtube.com/embed/QNV2DmBxChQ?si=4zy0Uv2mY7L30UMz"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="my-8 md:my-[60px] w-full aspect-video"
-                allowFullScreen
-              ></iframe>
-
               <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
                   Behind the Screen Videos
@@ -113,20 +107,30 @@ const Member = () => {
               </div>
 
               <div className="w-full p-6 sm:p-0">
-                <div className="my-8 md:my-[60px] py-6 w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
-                  <div className="w-fit px-[50px] py-[27px] ">
-                    <img src={exclusive} alt="" className="w-[537px] " />
-                  </div>
+                <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
+                  <Image
+                    src="/images/merch-coming-soon.png"
+                    width={636}
+                    height={358}
+                    alt="bini-merch"
+                  />
 
                   <div className="h-full px-6 sm:p-0 text-[#324B4E] flex flex-col text-center sm:text-left items-center justify-center">
                     <div className="flex flex-col gap-2">
                       <p className="text-2xl font-semibold">
-                        BINI Official Shop
+                        BINI Exclusive Shop
                       </p>
-                      <p className="max-w-[380px] sm:text-xl">
-                        Lorem ipsum dolor sit amet consectetur. Erat amet mauris
-                        lobortis et orci laoreet. Accumsan egestas elit id lacus
-                        sagittis mattis.
+                      <p
+                        className="max-w-[380px] sm:text-xl "
+                        style={{
+                          lineHeight: "normal",
+                        }}
+                      >
+                        A collection of exclusive merchandise that you
+                        won&apos;t find anywhere else. From limited-edition
+                        apparel and stylish accessories to one-of-a-kind
+                        collectibles, each item is crafted to embody the vibrant
+                        spirit and unique charm of BINI.
                       </p>
                     </div>
                   </div>
@@ -155,38 +159,6 @@ const Member = () => {
                   />
                 </div> */}
               </div>
-
-              <iframe
-                className="my-[32px] md:my-[60px] megaphone-controller-iframe min-h-[480px] min-w-[300px] w-full border-none"
-                // style="min-height:480px;min-width:340px;max-height:unset;max-width:1000px;width:100%;border:none"
-                src="https://controller.megaphonetv.com?m=dbkqj&iswebpoll=true&poll_id=666167d3cc66980005483636"
-                loading="lazy"
-                title="MegaController"
-                allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
-                allowFullScreen
-              ></iframe>
-              <script
-                src="https://embed.megaphonetv.com/embed.js"
-                data-name="megaphoneembed"
-                type="text/javascript"
-                defer
-              ></script>
-
-              <iframe
-                className="my-[32px] md:my-[60px] megaphone-controller-iframe min-h-[480px] min-w-[300px] w-full border-none"
-                // style="min-height:480px;min-width:340px;max-height:unset;max-width:1000px;width:100%;border:none"
-                src="https://controller.megaphonetv.com?m=dbkqj&iswebpoll=true&poll_id=666170facc6698000e48363d"
-                loading="lazy"
-                title="MegaController"
-                allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
-                allowFullScreen
-              ></iframe>
-              <script
-                src="https://embed.megaphonetv.com/embed.js"
-                data-name="megaphoneembed"
-                type="text/javascript"
-                defer
-              ></script>
 
               <div className="w-full p-6 sm:p-0">
                 <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">

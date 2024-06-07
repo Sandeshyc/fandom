@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {
@@ -41,19 +41,27 @@ const BTS_DATA = [
 const BtsSlider = () => {
   const swiperRef = useRef<SwiperRef>(null);
   const isMobile = useIsMobile();
+  const [isEndOfSlide, setIsEndOfSlide] = useState(false);
+
+  const handleSlideChange = (swiper: any) => {
+    setIsEndOfSlide(swiper.isEnd);
+  };
 
   return (
     <div className="relative w-full xl:w-full mx-auto flex items-center gap-4">
-      <FaChevronLeft
-        onClick={() => swiperRef?.current?.swiper?.slidePrev()}
-        className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute -left-1 lg:-left-2 xl:-left-5 top-[35%] -translate-x-1/2"
-      />
+      <button disabled={!isEndOfSlide} className="disabled:opacity-50">
+        <FaChevronLeft
+          onClick={() => swiperRef?.current?.swiper?.slidePrev()}
+          className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute -left-1 lg:-left-2 xl:-left-5 top-[35%] -translate-x-1/2"
+        />
+      </button>
 
       <Swiper
         ref={swiperRef}
         slidesPerView={"auto"}
         freeMode={isMobile}
         spaceBetween={24}
+        onSlideChange={handleSlideChange}
       >
         {BTS_DATA.map((bts) => (
           <SwiperSlide key={bts.title} className="bts-video-slide flex">
@@ -87,10 +95,12 @@ const BtsSlider = () => {
         ))}
       </Swiper>
 
-      <FaChevronRight
-        onClick={() => swiperRef?.current?.swiper?.slideNext()}
-        className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute right-0 xs:-right-10  top-[35%] -translate-x-1/2"
-      />
+      <button disabled={isEndOfSlide} className="disabled:opacity-50">
+        <FaChevronRight
+          onClick={() => swiperRef?.current?.swiper?.slideNext()}
+          className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute right-0 xs:-right-10  top-[35%] -translate-x-1/2"
+        />
+      </button>
     </div>
   );
 };
