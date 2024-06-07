@@ -13,7 +13,8 @@ const NavigationBack = () => {
       if(window?.history?.length > 2){
         router.back();
       }else{
-        router.push('/');
+        // router.push('/');
+        window.location.replace('/');
       }
       setBackBtnActive(true);
     }

@@ -48,7 +48,9 @@ const BottomNavigation = () => {
         <div className={`flex ${(isLoadingUserCheck)?'justify-around':'justify-between'}`}>
           <button
             className="flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65"
-            onClick={() => router.push("/")}
+            onClick={() => {
+              window.location.replace("/");
+            }}
           >
             <HomeOutlined
               className={`${
@@ -111,17 +113,17 @@ const BottomNavigation = () => {
               className="flex items-center justify-center flex-col px-2 cursor-pointer active:opacity-65"
               onClick={() => {
                 localStorage.setItem("callbackAction", "redirect");
-                router.push("/auth");
+                router.push("/login");
               }}
             >
               <AccountCircleOutlined
                 className={`${
-                  "/auth" === router.asPath ? "text-blue-700" : "text-white"
+                  "/login" === router.asPath ? "text-blue-700" : "text-white"
                 } text-xl`}
               />
               <span
                 className={`${
-                  "/auth" === router.asPath ? "text-blue-500" : "text-white"
+                  "/login" === router.asPath ? "text-blue-500" : "text-white"
                 } font-regular text-xs mt-1`}
               >
                 Login

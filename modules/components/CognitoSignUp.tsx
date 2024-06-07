@@ -31,7 +31,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   );
 
   const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() - 13);
+  maxDate.setFullYear(maxDate.getFullYear() - 18);
   // set min date is today - 100 years
   const minDate = new Date();
   minDate.setFullYear(minDate.getFullYear() - 100);
@@ -71,7 +71,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       .required("Confirm Password is required"),
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
-    userBirthday: Yup.string().required("Birthday is required"),
+    // userBirthday: Yup.string().required("Birthday is required"),
     mobileNumber: Yup.string(),
     tnc: Yup.boolean().oneOf([true], "Accept Terms & Conditions is required"),
     marketing: Yup.boolean(),
@@ -91,7 +91,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       confirmPassword: "",
       firstName: "",
       lastName: "",
-      userBirthday: "",
+      // userBirthday: "",
       mobileNumber: "",
       tnc: false,
       marketing: false,
@@ -106,7 +106,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       confirmPassword,
       firstName,
       lastName,
-      userBirthday,
+      // userBirthday,
       mobileNumber,
       tnc,
       marketing,
@@ -133,7 +133,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             marketing: marketing,
             firstName: firstName,
             lastName: lastName,
-            birthDate: userBirthday,
+            // birthDate: userBirthday,
             phoneNumber: mobileNumber,
           };
           const userCheckRes = await checkUser(userData);
@@ -164,6 +164,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       <form
         onSubmit={handleSubmit}
         method="POST"
+        autoComplete="off"
         className="text-left max-w-[368px] mx-auto"
       >
         <div className="mb-4">
@@ -173,6 +174,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               type="text"
               name="email"
               autoFocus={true}
+              autoComplete="off"
               value={values.email}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -188,6 +190,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               type={!isShowPassword ? "password" : "text"}
               placeholder="Password"
               name="password"
+              autoComplete="off"
               value={values.password}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -232,6 +235,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               type={!isShowConfirmPassword ? "password" : "text"}
               placeholder="Confirm Password"
               name="confirmPassword"
+              autoComplete="off"
               value={values.confirmPassword}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -277,6 +281,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                 placeholder="First Name"
                 type="text"
                 name="firstName"
+                autoComplete="off"
                 value={values.firstName}
                 onChange={handleChange}
                 className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -293,6 +298,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               <input
                 placeholder="Last Name"
                 type="text"
+                autoComplete="off"
                 name="lastName"
                 value={values.lastName}
                 onChange={handleChange}
@@ -306,7 +312,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
             )}
           </div>
         </div>
-        <div className="mb-4 customDatePicker">
+        {/* <div className="mb-4 customDatePicker">
           <div className="relative w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] text-left">
             <div className="w-full absolute top-0 left-0 h-full z-20">
               <DatePicker
@@ -346,13 +352,14 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               {errors.userBirthday}
             </p>
           )}
-        </div>
+        </div> */}
         <div className="mb-4">
           <div className="relative">
             <input
               placeholder="Mobile No. (Optional)"
               type="text"
               name="mobileNumber"
+              autoComplete="off"
               value={values.mobileNumber}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
