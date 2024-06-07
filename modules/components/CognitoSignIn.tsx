@@ -8,6 +8,11 @@ import * as Yup from "yup";
 import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
 import VerifyMail from "@/modules/elements/VerifyMail";
 
+import useRecaptchaV3 from "@/hooks/useRecaptchaV3";
+import {
+  reChapchaTokenVerify
+} from "@/services/api";
+
 type Props = {
   setAuthLoading: any;
 };
@@ -23,6 +28,9 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
 
+  const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
+  console.log('executeRecaptcha', executeRecaptcha);
+
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);
   };
@@ -31,24 +39,35 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
     userEmail: Yup.string()
       .email("Invalid email")
       .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    usesrPassword: Yup.string().required("Password is required"),
   });
 
   const formik = useFormik({
     initialValues: {
       userEmail: "",
-      password: "",
+      usesrPassword: "",
     },
     // Pass the Yup schema to validate the form
     validationSchema: schema,
 
     // Handle form submission
-    onSubmit: async ({ userEmail, password }) => {
+    onSubmit: async ({ userEmail, usesrPassword }) => {
       setAuthLoading(true);
       setIsSubmitting(true);
       try {
-        console.log("Email:", userEmail, "password", password);
-        const response = (await signIn(userEmail, password)) as any;
+        const _testRecaptcha = async () => {
+          try {
+            const token = await executeRecaptcha('login');
+            console.log('token::::', token);
+            const response = await reChapchaTokenVerify(token);
+            console.log('Token:Response::::', response);
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        }
+        _testRecaptcha();
+        console.log("Email:", userEmail, "password", usesrPassword);
+        const response = (await signIn(userEmail, usesrPassword)) as any;
         console.log("response", response);
         if (response) {
           setIsSuccess(true);
@@ -128,7 +147,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
   return (
     <>
       {isVerifingEmail ? (
-        <VerifyMail email={values.userEmail} password={values.password} />
+        <VerifyMail email={values.userEmail} password={values.usesrPassword} />
       ) : null}
       <form
         onSubmit={handleSubmit}
@@ -142,6 +161,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
               type="email"
               name="userEmail"
               autoFocus={true}
+              autoComplete="off"
               value={values.userEmail}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -158,41 +178,38 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
             <input
               type={!isShowPassword ? "password" : "text"}
               placeholder="Password"
-              name="password"
-              value={values.password}
+              name="usesrPassword"
+              value={values.usesrPassword}
+              autoComplete="off"
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
             />
             <div className="absolute top-[8px] right-0 px-2 flex justify-center items-center h-[18px] lg:h-[24px] text-[10px]">
               {!isShowPassword ? (
-                <>
-                  <span onClick={togglePassword}>
-                    <VisibilityOff
-                      sx={{
-                        fontSize: 18,
-                        color: "#5F576F",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </span>
-                </>
+                <span onClick={togglePassword}>
+                  <VisibilityOff
+                    sx={{
+                      fontSize: 18,
+                      color: "#5F576F",
+                      cursor: "pointer",
+                    }}
+                  />
+                </span>
               ) : (
-                <>
-                  <span onClick={togglePassword}>
-                    <Visibility
-                      sx={{
-                        fontSize: 18,
-                        color: "#5F576F",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </span>
-                </>
+                <span onClick={togglePassword}>
+                  <Visibility
+                    sx={{
+                      fontSize: 18,
+                      color: "#5F576F",
+                      cursor: "pointer",
+                    }}
+                  />
+                </span>
               )}
             </div>
           </div>
-          {errors.password && touched.password ? (
-            <p className="text-[#FF3636] text-[14px] py-1">{errors.password}</p>
+          {errors.usesrPassword && touched.usesrPassword ? (
+            <p className="text-[#FF3636] text-[14px] py-1">{errors.usesrPassword}</p>
           ) : null}
           <div className="w-full flex justify-end text-[#93767A] my-4">
             <Link

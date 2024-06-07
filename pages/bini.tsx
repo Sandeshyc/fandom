@@ -11,6 +11,9 @@ import useIsMobile from "@/hooks/useIsMobile";
 import useCheckEntitlement from "@/hooks/useCheckEntitlement";
 import { getAllowedItemsId } from "@/utils/getData";
 import { getAllowedItems } from "@/utils/getData";
+import {
+  getAuditEntitlement
+} from "@/services/api";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
 const Discover = () => {
   const router = useRouter();
@@ -20,6 +23,8 @@ const Discover = () => {
   const [userId, setUserId] = useState("");
   const [planLists, setPlanLists] = useState([] as any[]);
   const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
+  const [isPending, setIsPending] = useState(false);
+  const [pendingTransitionId, setPendingTransitionId] = useState("");
   const { data: clientLocation, error: locationError }: any =
     useClientLocaion();
   const region = clientLocation?.country?.isoCode;
@@ -42,6 +47,28 @@ const Discover = () => {
       if (entitlementData) {
         const allowedIds = getAllowedItems(entitlementData);
         setAllowedItemLists(allowedIds);
+        const _getAuditEntitlement = async () => {
+          try {
+            let auditEntitlement = await getAuditEntitlement(userId);
+            if(auditEntitlement?.status === 'success'){
+              auditEntitlement = auditEntitlement.data;
+              if(Array.isArray(auditEntitlement) && auditEntitlement.length > 0){
+                const myPendingEntitlement = auditEntitlement.filter((item: any) => {
+                  if(item?.status === 'pending' && item?.contentId === contentId){
+                    return item;
+                  }
+                });
+                if(myPendingEntitlement.length > 0){
+                  setPendingTransitionId(myPendingEntitlement[0].transactionId);
+                  setIsPending(true);
+                }
+              }
+            }
+          } catch (error) {
+            console.log("error", error);
+          }
+        }
+        _getAuditEntitlement();
       }
     }
   }, [isReady, entitlementData, entitlementError, entitlementLoading]);
@@ -76,7 +103,7 @@ const Discover = () => {
     <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
       <Navigation />
       <div
-        className="w-full h-full text-[#93767A]"
+        className="w-full h-full my-auto text-[#93767A]"
         style={{
           paddingTop: isMobile ? "90px" : "110px",
           paddingBottom: "20px",
@@ -92,6 +119,8 @@ const Discover = () => {
                   movieId={contentId}
                   rentText={"Join Annual VIP Membership"}
                   allowedIems={allowedItemLists}
+                  isPending={isPending}
+                  transactionId={pendingTransitionId}
                 />
               );
             })}

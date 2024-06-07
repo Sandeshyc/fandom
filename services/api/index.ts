@@ -10,6 +10,9 @@ import setEventRecord from './eventRecord';
 import getOrderReceipt from './orderReceipt';
 import createEntitlement from './createEntitlement';
 import getEntitlementList from './getEntitlementList';
+import getAuditEntitlement from './getAuditEntitlement';
+import recheckEntitlement from './recheckEntitlement';
+import reChapchaTokenVerify from './reChaptchaTokenVerify';
 
 export {
     addToMyList,
@@ -23,5 +26,8 @@ export {
     setEventRecord,
     getOrderReceipt,
     createEntitlement,
-    getEntitlementList
+    getEntitlementList,
+    getAuditEntitlement,
+    recheckEntitlement,
+    reChapchaTokenVerify,
 };

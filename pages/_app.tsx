@@ -122,6 +122,7 @@ export default function App({
         />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="googlebot" content="noindex" />
+        <link rel="icon" href="/joinnowcon.png" />
       </Head>
       <main className={`${roboto.className} ${corsiva.variable}`}>
         <ErrorBoundary>

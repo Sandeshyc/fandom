@@ -164,6 +164,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       <form
         onSubmit={handleSubmit}
         method="POST"
+        autoComplete="off"
         className="text-left max-w-[368px] mx-auto"
       >
         <div className="mb-4">
@@ -173,6 +174,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               type="text"
               name="email"
               autoFocus={true}
+              autoComplete="off"
               value={values.email}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -188,6 +190,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               type={!isShowPassword ? "password" : "text"}
               placeholder="Password"
               name="password"
+              autoComplete="off"
               value={values.password}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -232,6 +235,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               type={!isShowConfirmPassword ? "password" : "text"}
               placeholder="Confirm Password"
               name="confirmPassword"
+              autoComplete="off"
               value={values.confirmPassword}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -277,6 +281,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
                 placeholder="First Name"
                 type="text"
                 name="firstName"
+                autoComplete="off"
                 value={values.firstName}
                 onChange={handleChange}
                 className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"
@@ -293,6 +298,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               <input
                 placeholder="Last Name"
                 type="text"
+                autoComplete="off"
                 name="lastName"
                 value={values.lastName}
                 onChange={handleChange}
@@ -353,6 +359,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               placeholder="Mobile No. (Optional)"
               type="text"
               name="mobileNumber"
+              autoComplete="off"
               value={values.mobileNumber}
               onChange={handleChange}
               className="w-full text-[#5F576F] placeholder-[#C1C0C0] text-[14px] lg:text-[16px] px-4 py-2 rounded-lg h-[36px] xl:h-[40px] border border-[#C1C0C0] bg-[#fff] focus:bg-[#fff] active:bg-[#fff]"

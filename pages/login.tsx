@@ -6,10 +6,11 @@ import CognitoSignIn from "@/modules/components/CognitoSignIn";
 import AuthFrame from "@/modules/Identities/AuthFrame";
 import { getSession } from "@/utils/cognitoAuth";
 
+
 const Auth = () => {
   const router = useRouter();
   const [authLoading, setAuthLoading] = useState(false);
-
+  
   useEffect(() => {
     let redirectUrl = "";
     // query string

@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useIsMobile from "@/hooks/useIsMobile";
+import Image from "next/image";
 const Footer = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -12,6 +13,20 @@ const Footer = () => {
         <div className="px-4 max-w-[2400px] mx-auto">
           <div className="flex flex-wrap justify-between text-center">
             <div className="w-full sm:w-fit flex flex-wrap flex-col gap-4 items-center sm:flex-row">
+              <Link href="https://www.abs-cbn.com/privacy" target="_blank">
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/images/privacy-seal.png"
+                    width={20}
+                    height={38}
+                    alt="NPC Seal"
+                    className="-mt-1"
+                  />
+                  <p className="flex items-center text-sm cursor-pointer">
+                    NPC Seal of Registration
+                  </p>
+                </div>
+              </Link>
               <NavItem
                 label="Terms & Conditions"
                 route="https://www.abs-cbn.com/terms"
