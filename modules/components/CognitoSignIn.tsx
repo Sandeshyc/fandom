@@ -66,6 +66,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
           }
         }
         _testRecaptcha();
+        // return false;
         console.log("Email:", userEmail, "password", usesrPassword);
         const response = (await signIn(userEmail, usesrPassword)) as any;
         console.log("response", response);

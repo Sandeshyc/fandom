@@ -5,11 +5,17 @@ const reChapchaTokenVerify = async (token: string) => {
     let returnResponse = {
         status: ''
     };
+    // cross origin issue
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+    };
     try {
         // const response = await axios.post(url);
-        const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
+        const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, headers, {
             params: {
-                secret: process.env.RECAPTCHA_SECRET_KEY,
+                secret: process.env.NEXT_PUBLIC_RECAPTHA_SECRET_KEY,
                 response: token,
             },
         });
@@ -24,6 +30,7 @@ const reChapchaTokenVerify = async (token: string) => {
             };
         }
     } catch (error) {
+        console.log("error::::::::: ", error);
         returnResponse = {
             status: 'error'
         };

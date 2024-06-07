@@ -49,7 +49,7 @@ const PlanItem = ({
     if(response.status === 'success'){
         window.location.reload();
     }else{
-      setReCheckLoading(false);
+      window.location.reload();
     }        
   }
   const goPurchase = (productId: string) => {
@@ -180,12 +180,19 @@ const PlanItem = ({
           </div>
           {(isPending)?(
               <>
-              <button 
-                onClick={() => handleRecheckPayment(transactionId as string)}
-              className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition hover:bg-gray-100">                
-                <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
-                <span>{reCheckLoading ? 'Rechecking...' : 'Recheck Purchase Status'}</span>
-              </button>
+              {(reCheckLoading)?(
+                <button className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition cusor-not-allowed">                
+                  <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
+                  <span>Rechecking...</span>
+                </button>
+              ):(
+                <button 
+                  onClick={() => handleRecheckPayment(transactionId as string)}
+                  className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition hover:bg-gray-100">                
+                  <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
+                  <span>Recheck Purchase Status</span>
+                </button>
+              )}
               <WarningMessage
                     message="You have a pending transaction."
                     textColor="#F3A533"
