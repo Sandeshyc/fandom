@@ -31,7 +31,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   );
 
   const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() - 13);
+  maxDate.setFullYear(maxDate.getFullYear() - 18);
   // set min date is today - 100 years
   const minDate = new Date();
   minDate.setFullYear(minDate.getFullYear() - 100);
