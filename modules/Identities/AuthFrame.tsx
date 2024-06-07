@@ -36,7 +36,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
 =======
             <button onClick={
               () => {
-                window.location.href = "/bini";
+                window.location.replace("/bini");
               }
             }>
               <div className="w-full flex items-center justify-center gap-[10px]">
