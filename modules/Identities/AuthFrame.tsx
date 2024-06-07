@@ -20,7 +20,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
           <div className="w-full min-h-screen sm:min-h-[624px] sm:h-fit flex flex-col items-center justify-between gap-6 bg-white sm:rounded-lg sm:max-w-[448px] lg:max-w-[526px] p-6 text-center self-center">
             <button onClick={
               () => {
-                window.location.href = "/bini";
+                window.location.replace("/bini");
               }
             }>
               <div className="w-full flex items-center justify-center gap-[10px]">
