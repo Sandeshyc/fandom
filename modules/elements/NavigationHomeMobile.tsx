@@ -25,7 +25,9 @@ const NavigationHomeMobile = () => {
                   <img 
                   src={logoSrc} 
                   className="h-[40px] cursor-pointer" 
-                  alt="Logo" onClick={() => router.push('/')} />
+                  alt="Logo" onClick={() => {
+                    window.location.replace("/");
+                  }} />
               </div>
               <div className='flex items-center'>
                 <p

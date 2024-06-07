@@ -111,7 +111,8 @@ const MobileCollapse = ({isCollapseOpen, setIsCollapseOpen}:Props) => {
                 icon={<Home />}
                 label={'Home'}
                 handleClick={() => {
-                    router.push('/');
+                    // router.push('/');
+                    window.location.replace("/");
                 }}
                 activeRoute='/'
                 />

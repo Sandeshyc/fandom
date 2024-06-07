@@ -22,7 +22,9 @@ const Header = () => {
                 <img 
                 src={logoSrc} 
                 className="h-[35px] sm:h-[40px] cursor-pointer" 
-                alt="Logo" onClick={() => router.push('/')} />
+                alt="Logo" onClick={() => {
+                  window.location.replace("/");
+                }} />
             </div>
           </div>
           <div className='flex flex-row items-center relative z-20'>
