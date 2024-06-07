@@ -9,6 +9,7 @@ import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
 import VerifyMail from "@/modules/elements/VerifyMail";
 
 import useRecaptchaV3 from "@/hooks/useRecaptchaV3";
+import useVerifyReChaptcha from "@/hooks/useVerifyReChaptcha";
 import {
   reChapchaTokenVerify
 } from "@/services/api";
@@ -27,9 +28,12 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
+  const [reChapToken, setReChapToken] = useState("");
 
   const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
   console.log('executeRecaptcha', executeRecaptcha);
+  const { data, error, isLoading } = useVerifyReChaptcha();
+  console.log('Saim::::data', data, 'error', error, 'isLoading', isLoading);
 
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);
@@ -59,8 +63,9 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
           try {
             const token = await executeRecaptcha('login');
             console.log('token::::', token);
-            const response = await reChapchaTokenVerify(token);
-            console.log('Token:Response::::', response);
+            setReChapToken(token);
+            // const response = await reChapchaTokenVerify(token);
+            // console.log('Token:Response::::', response);
           } catch (error) {
             console.error('Error:', error);
           }

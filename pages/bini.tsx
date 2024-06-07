@@ -41,10 +41,12 @@ const Discover = () => {
     entitlementError,
     entitlementLoading
   );
+  console.log("Saim:::::EntitlementData", entitlementData, entitlementLoading, entitlementError);
   console.log("allowedItemLists", allowedItemLists);
   useEffect(() => {
     if (isReady && !entitlementLoading && !entitlementError) {
       if (entitlementData) {
+        console.log('Yes Enttlement', entitlementData);
         const allowedIds = getAllowedItems(entitlementData);
         setAllowedItemLists(allowedIds);
         const _getAuditEntitlement = async () => {

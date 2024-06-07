@@ -1,7 +1,7 @@
 import axios from 'axios';
 const reChapchaTokenVerify = async (token: string) => {
     // Google reCaptcha v3
-    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY}&response=${token}`;
+    // const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY}&response=${token}`;
     let returnResponse = {
         status: ''
     };

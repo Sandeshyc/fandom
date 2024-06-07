@@ -22,8 +22,12 @@ const MyProfile = () => {
   const [itemUrl, setItemUrl] = useState("");
   const [heightx, setHeightx] = useState("0px");
   const { productId, userid, transactionId, env } = router.query;
+  let baseURI = process.env.NEXT_PUBLIC_PAYMENT_URI;
+  if(process.env.NEXT_PUBLIC_ENV === 'PROD') {
+    baseURI += '/payment-gateway';
+  }
   // const iframeParams = `${process.env.NEXT_PUBLIC_PAYMENT_URI}?userid=${userid}&productId=${productId}&transactionId=${transactionId}&env=${env}`;
-  const iframeParams = `${process.env.NEXT_PUBLIC_PAYMENT_URI}/payment-gateway?userid=${userid}&productId=${productId}&transactionId=${transactionId}&env=${env}`;
+  const iframeParams = `${baseURI}?userid=${userid}&productId=${productId}&transactionId=${transactionId}&env=${env}`;
 
   const handleIframeLoad = () => {
     setIframeLoaded(true);

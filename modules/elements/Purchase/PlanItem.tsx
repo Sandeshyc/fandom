@@ -114,11 +114,13 @@ const PlanItem = ({
   };
   useEffect(() => {
     if (Array.isArray(allowedIems) && allowedIems.length > 0) {
+      console.log("allowedIems::::", allowedIems);
       const allowedIds = allowedIems.map((allowItem: any) => {
         if (allowItem?.content?.contentId === movieId) {
           return allowItem;
         }
       });
+      console.log("allowedIds:::::", allowedIds);
       if (Array.isArray(allowedIds) && allowedIds.length > 0) {
         setAllowedItem(allowedIds[0]);
       }
