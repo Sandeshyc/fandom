@@ -49,7 +49,7 @@ const PlanItem = ({
     if(response.status === 'success'){
         window.location.reload();
     }else{
-      setReCheckLoading(false);
+      window.location.reload();
     }        
   }
   const goPurchase = (productId: string) => {
