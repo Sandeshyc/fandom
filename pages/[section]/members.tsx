@@ -112,31 +112,50 @@ const Member = () => {
               </div> */}
 
               <div className="w-full p-6 sm:p-0">
-                <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
-                  <Image
-                    src="/images/merch-coming-soon.png"
-                    width={636}
-                    height={358}
-                    alt="bini-merch"
-                  />
+                <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center bg-white/80 rounded-lg">
+                  <div className="w-full max-w-[600px] h-[290px] sm:h-[452px] relative aspect-auto">
+                    <Image
+                      src="/images/merch-coming-soon.png"
+                      fill
+                      alt="bini-merch"
+                      className="object-cover"
+                    />
+                  </div>
 
-                  <div className="h-full px-6 sm:p-0 text-[#324B4E] flex flex-col text-center sm:text-left items-center justify-center">
+                  <div className="h-full p-6 text-[#454545] flex flex-col text-center sm:text-left items-center justify-center">
                     <div className="flex flex-col gap-2">
-                      <p className="text-2xl font-semibold">
-                        BINI Exclusive Shop
+                      <p className="text-2xl text-[#324B4E] font-semibold">
+                        Save the date on June 11!
                       </p>
-                      <p
-                        className="max-w-[380px] sm:text-xl "
+
+                      <div
+                        className="max-w-[428px] sm:text-xl flex flex-col items-start gap-[10px]"
                         style={{
                           lineHeight: "normal",
                         }}
                       >
-                        A collection of exclusive merchandise that you
-                        won&apos;t find anywhere else. From limited-edition
-                        apparel and stylish accessories to one-of-a-kind
-                        collectibles, each item is crafted to embody the vibrant
-                        spirit and unique charm of BINI.
-                      </p>
+                        <p>
+                          We&apos;re releasing three exclusive items from the first
+                          wave of BINI Merch on BINI Day: the limited-edition
+                          Official BINI Shirt, BINI Iron-on Patches, and BINI
+                          Holographic Stickers. Just present the QR code from
+                          your confirmation email as proof that you are an
+                          exclusive member.If you didn&apos;t get to register
+                          for BINI Day, don&apos;t worry!
+                        </p>
+
+                        <p>
+                          As an exclusive member, you&apos;ll still have a
+                          chance to grab these BINI items on ground! Kapit lang
+                          and don&apos;t miss out!
+                        </p>
+
+                        <p className="font-semibold">
+                          *Only the first 200 of each item will be available on
+                          BINI Day. Exclusive members can only buy one of each
+                          item.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -164,6 +183,21 @@ const Member = () => {
                   />
                 </div> */}
               </div>
+
+              <iframe
+                className="my-8 md:my-[60px] megaphone-controller-iframe min-h-[480px] max-h-none min-w-[340px] w-full border-none"
+                src="https://controller.megaphonetv.com?m=dbkqj&iswebpoll=true&poll_id=6659c451e2563700115fcf85"
+                loading="lazy"
+                title="MegaController"
+                allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
+                allowFullScreen
+              ></iframe>
+              <script
+                src="https://embed.megaphonetv.com/embed.js"
+                data-name="megaphoneembed"
+                type="text/javascript"
+                defer
+              ></script>
 
               <div className="w-full p-6 sm:p-0">
                 <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">
