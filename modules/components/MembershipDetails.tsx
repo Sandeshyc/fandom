@@ -40,7 +40,7 @@ const MembershipDetails = () => {
         Array.isArray(allowedItemLists) &&
         allowedItemLists.length > 0 && (
           <div className="px-4 md:px-12 mb-[2vw]">
-            <div className="container mx-auto max-w-[996px]">
+            <div className="container mx-auto max-w-[996px] w-full">
               <div
                 className={`p-4 border border-[#C1C0C0] rounded-md bg-[#FFF] bg-opacity-[22%]`}
               >
@@ -78,9 +78,6 @@ const MembershipDetails = () => {
                             Member ID
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
-                            Purchase Date
-                          </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                             Start date
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
@@ -111,14 +108,6 @@ const MembershipDetails = () => {
                                 data-label={"Member ID"}
                               >
                                 {item?.membership?.membershipId}
-                              </td>
-                              <td
-                                className={cellClass}
-                                data-label={"Purchase Date"}
-                              >
-                                {convertESTtoLocalTime(
-                                  item?.purchase?.purchaseDate as string
-                                )}
                               </td>
                               <td
                                 className={cellClass}
