@@ -51,16 +51,16 @@ const PlanItem = ({
   const [rentTransactionId, setRentTransactionId] = useState("");
   const [allowedItem, setAllowedItem] = useState({} as any);
   const router = useRouter();
-  const handleRecheckPayment = async (transactionId:string) => {
+  const handleRecheckPayment = async (transactionId: string) => {
     setReCheckLoading(true);
     const response = await recheckEntitlement(transactionId);
-    console.log('Recheck Status::', response);
-    if(response.status === 'success'){
-        window.location.reload();
-    }else{
+    console.log("Recheck Status::", response);
+    if (response.status === "success") {
       window.location.reload();
-    }        
-  }
+    } else {
+      window.location.reload();
+    }
+  };
   const goPurchase = (productId: string) => {
     const userInfor = localStorage.getItem("userInfo");
     const transactionId = uuidv4();
@@ -157,11 +157,11 @@ const PlanItem = ({
             size="xl"
             className="mb-6 font-semibold text-[#454545]"
           >
-            {allowedItem?._id ? "VIP MEMBER PRIVILEGES" : item?.name}
+            {allowedItem?._id ? "BINI Website Exclusive Members" : item?.name}
           </Title>
           <Text size="base" className="mb-8 text-[#454545]">
             {allowedItem?._id
-              ? "Thank you for subscribing to our annual VIP membership! We're absolutely thrilled to have you as part of the BINI VIP Fandom. Get ready to enjoy a world of exclusive perks and amazing experiences!"
+              ? "Thank you for subscribing to our exclusive membership! We're absolutely thrilled to have you as part of the BINI exclusive member. Get ready to enjoy a world of exclusive perks and amazing experiences!"
               : item?.description}
           </Text>
           {!allowedItem?._id && (
@@ -205,29 +205,32 @@ const PlanItem = ({
             <>
                 {(isPending)?(
                 <>
-                {(reCheckLoading)?(
-                  <button className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition cusor-not-allowed">                
-                    <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
-                    <span>Rechecking...</span>
-                  </button>
-                ):(
-                  <button 
-                    onClick={() => handleRecheckPayment(transactionId as string)}
-                    className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition hover:bg-gray-100">                
-                    <Refresh sx={{fontSize: '24px', marginRight:'5px'}}/>
-                    <span>Recheck Purchase Status</span>
-                  </button>
-                )}
-                <WarningMessage
-                      message="You have a pending transaction."
-                      textColor="#F3A533"
-                      className="text-left mt-4"
-                      styles={{
-                        backgroundColor: "transparent",
-                      }}
-                    />
+                  {reCheckLoading ? (
+                    <button className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition cusor-not-allowed">
+                      <Refresh sx={{ fontSize: "24px", marginRight: "5px" }} />
+                      <span>Rechecking...</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        handleRecheckPayment(transactionId as string)
+                      }
+                      className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition hover:bg-gray-100"
+                    >
+                      <Refresh sx={{ fontSize: "24px", marginRight: "5px" }} />
+                      <span>Recheck Purchase Status</span>
+                    </button>
+                  )}
+                  <WarningMessage
+                    message="You have a pending transaction."
+                    textColor="#F3A533"
+                    className="text-left mt-4"
+                    styles={{
+                      backgroundColor: "transparent",
+                    }}
+                  />
                 </>
-              ):(
+              ) : (
                 <>
                   {isBlock ? (
                     <>
@@ -310,7 +313,8 @@ const PlanItem = ({
                           item?.price !== item?.regularPrice && (
                             <p>
                               <span className="text-lg inline-flex text-zinc-500 line-through">
-                                {item?.regularPrice} {item?.currency ?? ""} per year
+                                {item?.regularPrice} {item?.currency ?? ""} per
+                                year
                               </span>
                             </p>
                           )}
@@ -328,9 +332,9 @@ const PlanItem = ({
                         >
                           Member Login
                         </button>
-                    )}
-                  </>
-                )}
+                      )}
+                    </>
+                  )}
                 </>
               )}
             </>
