@@ -11,9 +11,7 @@ import useIsMobile from "@/hooks/useIsMobile";
 import useCheckEntitlement from "@/hooks/useCheckEntitlement";
 import { getAllowedItemsId } from "@/utils/getData";
 import { getAllowedItems } from "@/utils/getData";
-import {
-  getAuditEntitlement
-} from "@/services/api";
+import { getAuditEntitlement } from "@/services/api";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
 const Discover = () => {
   const router = useRouter();
@@ -41,26 +39,39 @@ const Discover = () => {
     entitlementError,
     entitlementLoading
   );
-  console.log("Saim:::::EntitlementData", entitlementData, entitlementLoading, entitlementError);
+  console.log(
+    "Saim:::::EntitlementData",
+    entitlementData,
+    entitlementLoading,
+    entitlementError
+  );
   console.log("allowedItemLists", allowedItemLists);
   useEffect(() => {
     if (isReady && !entitlementLoading && !entitlementError) {
       if (entitlementData) {
-        console.log('Yes Enttlement', entitlementData);
+        console.log("Yes Enttlement", entitlementData);
         const allowedIds = getAllowedItems(entitlementData);
         setAllowedItemLists(allowedIds);
         const _getAuditEntitlement = async () => {
           try {
             let auditEntitlement = await getAuditEntitlement(userId);
-            if(auditEntitlement?.status === 'success'){
+            if (auditEntitlement?.status === "success") {
               auditEntitlement = auditEntitlement.data;
-              if(Array.isArray(auditEntitlement) && auditEntitlement.length > 0){
-                const myPendingEntitlement = auditEntitlement.filter((item: any) => {
-                  if(item?.status === 'pending' && item?.contentId === contentId){
-                    return item;
+              if (
+                Array.isArray(auditEntitlement) &&
+                auditEntitlement.length > 0
+              ) {
+                const myPendingEntitlement = auditEntitlement.filter(
+                  (item: any) => {
+                    if (
+                      item?.status === "pending" &&
+                      item?.contentId === contentId
+                    ) {
+                      return item;
+                    }
                   }
-                });
-                if(myPendingEntitlement.length > 0){
+                );
+                if (myPendingEntitlement.length > 0) {
                   setPendingTransitionId(myPendingEntitlement[0].transactionId);
                   setIsPending(true);
                 }
@@ -69,7 +80,7 @@ const Discover = () => {
           } catch (error) {
             console.log("error", error);
           }
-        }
+        };
         _getAuditEntitlement();
       }
     }
@@ -119,7 +130,7 @@ const Discover = () => {
                   key={stableKeys[index]}
                   item={item}
                   movieId={contentId}
-                  rentText={"Join Annual VIP Membership"}
+                  rentText={"Join Annual Exclusive Membership"}
                   allowedIems={allowedItemLists}
                   isPending={isPending}
                   transactionId={pendingTransitionId}

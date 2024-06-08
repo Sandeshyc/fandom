@@ -103,13 +103,13 @@ const Member = () => {
                 <div className="absolute z-10 w-full h-full bg-black/50"></div>
               </div>
 
-              <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
+              {/* <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
                   Behind the Screen Videos
                 </p>
 
                 <BtsSlider />
-              </div>
+              </div> */}
 
               <div className="w-full p-6 sm:p-0">
                 <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
