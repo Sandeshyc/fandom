@@ -127,6 +127,9 @@ const Discover = () => {
                   allowedIems={allowedItemLists}
                   isPending={isPending}
                   transactionId={pendingTransitionId}
+                  auditLoading={auditLoading}
+                  entitlementLoading={!entitlementLoading}
+                  planLoader={!isLoading}
                 />
               );
             })}
