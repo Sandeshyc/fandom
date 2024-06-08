@@ -107,7 +107,7 @@ const Discover = () => {
                       key={stableKeys[index]}
                       item={item}
                       movieId={contentId}
-                      rentText={"Join Annual VIP Membership"}
+                      rentText={"Join Annual Exclusive Membership"}
                       allowedIems={item}
                     />
                   );
