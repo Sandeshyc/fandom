@@ -193,7 +193,7 @@ const MyProfile = () => {
         <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
           <Navigation />
           <div
-            className="py-20 lg:pt-28 bg-[#FAFAFA]"
+            className="py-20 lg:pt-28 bg-[#FAFAFA] w-full"
             style={{
               // backgroundImage: bgImage,
               backgroundRepeat: "no-repeat",

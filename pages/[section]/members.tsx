@@ -8,6 +8,7 @@ import Image from "next/image";
 import ExclusiveFooter from "@/components/ExclusiveFooter";
 import ExclusiveNavigation from "@/modules/components/ExclusiveNavigation";
 import BtsSlider from "@/components/BtsSlider";
+import ReactVideoPlayer from "@/modules/components/ReactPlayer";
 const exclusive = "/images/exclusive.png";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
 const Member = () => {
@@ -82,6 +83,15 @@ const Member = () => {
             className={"w-full h-full pb-8 py-0 md:py-[60px] text-[#93767A]"}
           >
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
+              {/* <div className="w-full mx-auto max-w-[1067] aspect-video">
+                <ReactVideoPlayer
+                  videoURL="https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4"
+                  control={true}
+                  play={true}
+                  isMute={false}
+                  poster={'https://billboardphilippines.com/wp-content/uploads/2024/06/bini-FTR-IMG-1600x838.jpg'}
+                />
+              </div> */}
               <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
                 <div className="z-40 max-w-[516px] text-white text-center flex flex-col items-center">
                   <p className="text-[32px] md:text-[46px]  font-corsiva">
