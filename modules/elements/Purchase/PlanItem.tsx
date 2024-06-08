@@ -11,6 +11,9 @@ import { CheckIcon } from "@/utils/CustomSVGs";
 import WarningMessage from "@/modules/Identities/WarningMessage";
 import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
 import { recheckEntitlement } from "@/services/api";
+import {
+  DonutLarge
+} from "@mui/icons-material";
 import Preloader from "@/modules/skeletons/Preloader";
 import Image from "next/image";
 const biniLogoUrl = "/images/logoofbiniblack.png";
@@ -23,6 +26,9 @@ type Props = {
   isBlock?: boolean;
   isPending?: boolean;
   transactionId?: string;
+  auditLoading?: boolean;
+  entitlementLoading?: boolean;
+  planLoader?: boolean;
 };
 const PlanItem = ({
   item,
@@ -32,6 +38,9 @@ const PlanItem = ({
   isBlock = false,
   isPending = false,
   transactionId,
+  auditLoading = true,
+  entitlementLoading = true,
+  planLoader = true,
 }: Props) => {
   console.log("item::::::", item, allowedIems, transactionId);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
@@ -128,6 +137,7 @@ const PlanItem = ({
   }, [allowedIems, movieId]);
   console.log("allowedItem", allowedItem);
   return (
+    (auditLoading && entitlementLoading && planLoader)?(
     <>
       {isLoading && (
         <div className="absolute top-0 left-0 w-full h-full bg-[#FAFAFA] flex justify-center items-center z-10 cursor-wait">
@@ -193,7 +203,7 @@ const PlanItem = ({
             </Link>
           ) : (
             <>
-              {isPending ? (
+                {(isPending)?(
                 <>
                   {reCheckLoading ? (
                     <button className="mt-6 h-[40px] py-1 text-black rounded-[50px] font-medium w-full bg-white border-2 border-black flex justify-center items-center  transition cusor-not-allowed">
@@ -332,6 +342,13 @@ const PlanItem = ({
         </div>
       </div>
     </>
+    ):(
+      <div className="p-6 sm:px-[111px] sm:py-[37px] min-h-[400px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center flex items-center justify-center">
+        <div className="relative w-full max-w-[414px] mx-auto">
+          <FlowerBlackLoader />
+        </div>
+      </div>
+    )
   );
 };
 export default PlanItem;
