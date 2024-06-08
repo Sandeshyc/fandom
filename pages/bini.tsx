@@ -17,6 +17,7 @@ const Discover = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
   // const {section} = router.query;
+  const [auditLoading, setAuditLoading] = useState(true);
   const [isReady, setIsReady] = useState(false);
   const [userId, setUserId] = useState("");
   const [planLists, setPlanLists] = useState([] as any[]);
@@ -53,9 +54,11 @@ const Discover = () => {
         const allowedIds = getAllowedItems(entitlementData);
         setAllowedItemLists(allowedIds);
         const _getAuditEntitlement = async () => {
+          setAuditLoading(false);
           try {
             let auditEntitlement = await getAuditEntitlement(userId);
-            if (auditEntitlement?.status === "success") {
+            console.log("auditEntitlement::::", auditEntitlement);
+            if(auditEntitlement?.status === 'success'){
               auditEntitlement = auditEntitlement.data;
               if (
                 Array.isArray(auditEntitlement) &&
@@ -80,7 +83,8 @@ const Discover = () => {
           } catch (error) {
             console.log("error", error);
           }
-        };
+          setAuditLoading(true);
+        }
         _getAuditEntitlement();
       }
     }
