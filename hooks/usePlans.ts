@@ -12,7 +12,8 @@ const usePlans = (region?: string, contentId?:string) => {
   return {
     data,
     error,
-    isLoading
+    isLoading,
+    region
   }
 };
 
