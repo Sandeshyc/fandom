@@ -83,34 +83,14 @@ const Member = () => {
             className={"w-full h-full pb-8 py-0 md:py-[60px] text-[#93767A]"}
           >
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
-              {/* <div className="w-full mx-auto max-w-[1067] aspect-video">
+              <div className="w-full mx-auto aspect-video">
                 <ReactVideoPlayer
-                  videoURL="https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4"
+                  videoURL="https://qa-static3.abs-cbn.com/bini/bini.mp4"
                   control={true}
                   play={true}
                   isMute={false}
-                  poster={'https://billboardphilippines.com/wp-content/uploads/2024/06/bini-FTR-IMG-1600x838.jpg'}
+                  poster={"/images/greetings-thumbnail.png"}
                 />
-              </div> */}
-              <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
-                <div className="z-40 max-w-[516px] text-white text-center flex flex-col items-center">
-                  <p className="text-[32px] md:text-[46px]  font-corsiva">
-                    Thank you for joining our <br />
-                    VIP membership!
-                  </p>
-
-                  <div className="mt-6 flex items-center gap-2">
-                    <Image
-                      src="/images/Pause.svg"
-                      width={32}
-                      height={32}
-                      alt="pause-vid"
-                    />
-                    <p>Watch Video</p>
-                  </div>
-                </div>
-
-                <div className="absolute z-10 w-full h-full bg-black/50"></div>
               </div>
 
               {/* <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
@@ -150,7 +130,7 @@ const Member = () => {
                           limited-edition Official BINI Shirt, BINI Iron-on
                           Patches, and BINI Holographic Stickers. Just present
                           the QR code from your confirmation email as proof that
-                          you are an exclusive member.If you didn&apos;t get to
+                          you are an exclusive member. If you didn&apos;t get to
                           register for BINI Day, don&apos;t worry!
                         </p>
 
@@ -195,7 +175,7 @@ const Member = () => {
               </div>
 
               <iframe
-                className="my-8 md:my-[60px] megaphone-controller-iframe min-h-[480px] max-h-none min-w-[340px] w-full border-none"
+                className="my-8 md:my-[60px] megaphone-controller-iframe min-h-[750px] xs:min-h-[710px] sm:min-h-[647px] md:min-h-[585px] w-full border-none"
                 src="https://controller.megaphonetv.com/?m=0cij6&iswebpoll=true&poll_id=66642015e37f30000506e131"
                 loading="lazy"
                 title="MegaController"
