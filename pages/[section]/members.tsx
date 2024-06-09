@@ -28,7 +28,7 @@ const Member = () => {
           setUserId(userInfoObj.sub);
           const _getEntitlementList = async () => {
             const resEntitlement = await getEntitlementList(userInfoObj.sub);
-            console.log("Response::::", resEntitlement);
+            // console.log("Response::::", resEntitlement);
             if (resEntitlement.status === "success") {
               const allowedIds = getAllowedItems(resEntitlement?.data);
               if (Array.isArray(allowedIds) && allowedIds.length > 0) {
@@ -39,30 +39,30 @@ const Member = () => {
                   ) {
                     setIsReady(true);
                   } else {
-                    console.log("Entitlement Not found!");
+                    // console.log("Entitlement Not found!");
                     // router.push(`/` + section);
                     window.location.replace(`/` + section);
                   }
                 });
               } else {
-                console.log("Entitlement Not found!");
+                // console.log("Entitlement Not found!");
                 // router.push(`/` + section);
                 window.location.replace(`/` + section);
               }
             } else {
-              console.log("Entitlement API found");
+              // console.log("Entitlement API found");
               // router.push(`/` + section);
               window.location.replace(`/` + section);
             }
           };
           _getEntitlementList();
         } else {
-          console.log("User not found::", userInfoObj);
+          // console.log("User not found::", userInfoObj);
           // router.push(`/` + section);
           window.location.replace(`/` + section);
         }
       } else {
-        console.log("User not found:", userInfo);
+        // console.log("User not found:", userInfo);
         // router.push(`/` + section);
         window.location.replace(`/` + section);
       }

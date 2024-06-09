@@ -55,7 +55,7 @@ const VerifyMail = ({ email, password }: Props) => {
     try {
       setIsResenting(true);
       const response = await resendSignUp(email);
-      console.log("response", response);
+      // console.log("response", response);
       if (response) {
         setIsResenting(false);
         setReSentSuccess(true);
@@ -74,8 +74,8 @@ const VerifyMail = ({ email, password }: Props) => {
   const handleVerify = async () => {
     setIsConfirmingOTP(true);
     try {
-      console.log("otp", otp);
-      console.log("email", email);
+      // console.log("otp", otp);
+      // console.log("email", email);
       const response = await confirmSignUp(email, otp);
       if (response === "SUCCESS") {
         setIsSuccess(true);
@@ -103,12 +103,12 @@ const VerifyMail = ({ email, password }: Props) => {
     if (withLogin && password) {
       const _signIn = async () => {
         try {
-          console.log("Email:", email, "password", password);
+          // console.log("Email:", email, "password", password);
           const response = (await signIn(email, password)) as any;
-          console.log("response", response);
+          // console.log("response", response);
           if (response) {
             const user = (await getCurrentUser()) as any;
-            console.log("user", user);
+            // console.log("user", user);
             if (user) {
               const { email_verified } = user;
               if (email_verified) {
@@ -130,7 +130,7 @@ const VerifyMail = ({ email, password }: Props) => {
                   window.location.replace(redirectUrl);
                 } else {
                   window.location.replace("/login");
-                  console.log("failed");
+                  // console.log("failed");
                 }
               } else {
                 window.location.replace("/login");
@@ -142,7 +142,7 @@ const VerifyMail = ({ email, password }: Props) => {
             window.location.replace("/login");
           }
         } catch (err: any) {
-          console.log("err", err);
+          // console.log("err", err);
           window.location.replace("/login");
         }
       };
