@@ -11,6 +11,7 @@ import { CheckIcon } from "@/utils/CustomSVGs";
 import WarningMessage from "@/modules/Identities/WarningMessage";
 import FlowerBlackLoader from "@/modules/skeletons/FlowerBlackLoader";
 import { recheckEntitlement } from "@/services/api";
+import AlreadyPurchased from "@/modules/elements/AlreadyPurchased";
 import {
   DonutLarge
 } from "@mui/icons-material";
@@ -46,6 +47,7 @@ const PlanItem = ({
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
   const [reCheckLoading, setReCheckLoading] = useState(false);
+  const [isPurchasedAlready, setIsPurchasedAlready] = useState(false);
   const [userId, setUserId] = useState("");
   const [rentProductId, setRentProductId] = useState("");
   const [rentTransactionId, setRentTransactionId] = useState("");
@@ -101,7 +103,9 @@ const PlanItem = ({
             }
             // router.replace(forwordPurchaseUrl);
             window.location.replace(forwordPurchaseUrl);
-          } else {
+          }else if(res.status === "purcahsed"){
+            setIsPurchasedAlready(true);
+          }else {
             window.location.reload();
           }
         };
@@ -144,7 +148,9 @@ const PlanItem = ({
           <FlowerBlackLoader />
         </div>
       )}
-
+      {(isPurchasedAlready) && (
+        <AlreadyPurchased />
+      )}
       <div className="p-6 sm:px-[111px] sm:py-[37px] mb-4 text-[#454545] w-full max-w-[90%] sm:max-w-[636px] bg-white rounded-lg shadow text-center">
         <div className="relative w-full max-w-[414px] mx-auto">
           <img

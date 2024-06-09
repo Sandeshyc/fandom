@@ -56,7 +56,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
                     </p>
                   </div>
                 </Link>
-                <Link href="https://www.abs-cbn.com/terms" target="_blank">
+                <Link href={process.env.NEXT_PUBLIC_TERMS_URL!} target="_blank">
                   Terms & Conditions
                 </Link>
                 <Link
@@ -87,7 +87,7 @@ const AuthFrame = ({ pageHeading, authLoading, children }: Props) => {
                   </p>
                 </div>
               </Link>
-              <Link href="https://www.abs-cbn.com/terms" target="_blank">
+              <Link href={process.env.NEXT_PUBLIC_TERMS_URL!} target="_blank">
                 Terms & Conditions
               </Link>
               <Link

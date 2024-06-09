@@ -29,11 +29,18 @@ const auditEntitlement = async (data:object) => {
             transitionId: ''
         };
         if(error?.response?.status === 400) {
-            console.log("trainsitionId: ", error?.response?.data?.data?.transactionId);
-            returnResponse = {
-                status: (error?.response?.data?.data?.transactionId) ? 'process' : 'error',
-                transitionId: error?.response?.data?.data?.transactionId
-            };
+            if(error?.response?.statusCode === '40002') {
+                returnResponse = {
+                    status: 'purcahsed',
+                    transitionId: ''
+                };
+            }else{
+                // console.log("trainsitionId: ", error?.response?.data?.data?.transactionId);
+                returnResponse = {
+                    status: (error?.response?.data?.data?.transactionId) ? 'process' : 'error',
+                    transitionId: error?.response?.data?.data?.transactionId
+                };
+            }            
         }else{
             returnResponse = {
                 status: 'error',

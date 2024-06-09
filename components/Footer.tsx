@@ -29,7 +29,7 @@ const Footer = () => {
               </Link>
               <NavItem
                 label="Terms & Conditions"
-                route="https://www.abs-cbn.com/terms"
+                route={process.env.NEXT_PUBLIC_TERMS_URL!}
                 activeRoute={""}
               />
               <NavItem
