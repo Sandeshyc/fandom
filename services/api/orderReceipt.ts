@@ -1,7 +1,7 @@
 import axios from 'axios';
 const getOrderReceipt = async (userId: string, transactionId: string) => {
     const url = `${process.env.NEXT_PUBLIC_PAYMENT_BILL_URI}/transactions/pdf/user-id/${userId}/transaction-id/${transactionId}`;
-    console.log("url: ", url);
+    // console.log("url: ", url);
     const responseType = 'blob';
     let returnResponse = {
         status: '',

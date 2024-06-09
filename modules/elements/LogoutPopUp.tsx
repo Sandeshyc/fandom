@@ -26,7 +26,7 @@ const LogoutPopUp = ({ setIsLogoutPopUp }: Props) => {
       },
     };
     const response = await setEventRecord(eventData);
-    console.log("response", response);
+    // console.log("response", response);
     localStorage.removeItem("userInfo");
     localStorage.removeItem("provider");
     localStorage.removeItem("accessToken");

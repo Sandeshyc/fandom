@@ -51,7 +51,7 @@ const PaymentHistory = () => {
       setIsPdfLoading(false);
       setLoadingItem("");
     } else {
-      console.log("Error: ", response);
+      // console.log("Error: ", response);
       setIsPdfLoading(false);
       setLoadingItem("");
     }

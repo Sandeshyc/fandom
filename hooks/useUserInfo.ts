@@ -54,7 +54,7 @@ const useUserInfo = () => {
             "birthday": birthDate,
             "phone": phoneNumber,
         };
-        console.log('data', data);
+        // console.log('data', data);
         // return false;
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, data, { headers })
         .then(response => {
