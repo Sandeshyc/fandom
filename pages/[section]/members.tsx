@@ -83,35 +83,15 @@ const Member = () => {
             className={"w-full h-full pb-8 py-0 md:py-[60px] text-[#93767A]"}
           >
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
-              <div className="w-full mx-auto max-w-[1067] aspect-video">
+              <div className="w-full mx-auto aspect-video">
                 <ReactVideoPlayer
                   videoURL="https://qa-static3.abs-cbn.com/bini/bini.mp4"
                   control={true}
                   play={true}
                   isMute={false}
-                  poster={'/images/bini-greetings.png'}
+                  poster={"/images/greetings-thumbnail.png"}
                 />
               </div>
-              {/* <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
-                <div className="z-40 max-w-[516px] text-white text-center flex flex-col items-center">
-                  <p className="text-[32px] md:text-[46px]  font-corsiva">
-                    Thank you for joining our <br />
-                    VIP membership!
-                  </p>
-
-                  <div className="mt-6 flex items-center gap-2">
-                    <Image
-                      src="/images/Pause.svg"
-                      width={32}
-                      height={32}
-                      alt="pause-vid"
-                    />
-                    <p>Watch Video</p>
-                  </div>
-                </div>
-
-                <div className="absolute z-10 w-full h-full bg-black/50"></div>
-              </div> */}
 
               {/* <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
@@ -122,31 +102,50 @@ const Member = () => {
               </div> */}
 
               <div className="w-full p-6 sm:p-0">
-                <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center gap-6 bg-white/80 rounded-lg">
-                  <Image
-                    src="/images/merch-coming-soon.png"
-                    width={636}
-                    height={358}
-                    alt="bini-merch"
-                  />
+                <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
+                  <div className="w-full max-w-[600px] h-[290px] sm:h-[452px] relative aspect-auto">
+                    <Image
+                      src="/images/bini-merch.jpg"
+                      fill
+                      alt="bini-merch"
+                      className="object-cover"
+                    />
+                  </div>
 
-                  <div className="h-full px-6 sm:p-0 text-[#324B4E] flex flex-col text-center sm:text-left items-center justify-center">
+                  <div className="h-full p-6 text-[#454545] flex flex-col text-center sm:text-left items-center justify-center">
                     <div className="flex flex-col gap-2">
-                      <p className="text-2xl font-semibold">
-                        BINI Exclusive Shop
+                      <p className="text-2xl text-[#324B4E] font-semibold">
+                        Save the date on June 11!
                       </p>
-                      <p
-                        className="max-w-[380px] sm:text-xl "
+
+                      <div
+                        className="max-w-[428px] sm:text-xl flex flex-col items-start gap-[10px]"
                         style={{
                           lineHeight: "normal",
                         }}
                       >
-                        A collection of exclusive merchandise that you
-                        won&apos;t find anywhere else. From limited-edition
-                        apparel and stylish accessories to one-of-a-kind
-                        collectibles, each item is crafted to embody the vibrant
-                        spirit and unique charm of BINI.
-                      </p>
+                        <p>
+                          We&apos;re releasing three exclusive items from the
+                          first wave of BINI Merch on BINI Day: the
+                          limited-edition Official BINI Shirt, BINI Iron-on
+                          Patches, and BINI Holographic Stickers. Just present
+                          the QR code from your confirmation email as proof that
+                          you are an exclusive member. If you didn&apos;t get to
+                          register for BINI Day, don&apos;t worry!
+                        </p>
+
+                        <p>
+                          As an exclusive member, you&apos;ll still have a
+                          chance to grab these BINI items on ground! Kapit lang
+                          and don&apos;t miss out!
+                        </p>
+
+                        <p className="font-semibold">
+                          *Only the first 200 of each item will be available on
+                          BINI Day. Exclusive members can only buy one of each
+                          item.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -174,6 +173,21 @@ const Member = () => {
                   />
                 </div> */}
               </div>
+
+              <iframe
+                className="my-8 md:my-[60px] megaphone-controller-iframe min-h-[750px] xs:min-h-[710px] sm:min-h-[647px] md:min-h-[585px] w-full border-none"
+                src="https://controller.megaphonetv.com/?m=0cij6&iswebpoll=true&poll_id=66642015e37f30000506e131"
+                loading="lazy"
+                title="MegaController"
+                allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
+                allowFullScreen
+              ></iframe>
+              <script
+                src="https://embed.megaphonetv.com/embed.js"
+                data-name="megaphoneembed"
+                type="text/javascript"
+                defer
+              ></script>
 
               <div className="w-full p-6 sm:p-0">
                 <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">
