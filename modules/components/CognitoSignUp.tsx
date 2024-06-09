@@ -385,7 +385,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               <label htmlFor="agree" className="text-[#686868] ">
                 I confirm that I have read and agree to
                 <a
-                  href="https://www.abs-cbn.com/terms"
+                  href={process.env.NEXT_PUBLIC_TERMS_URL!}
                   className="underline text-[#011F4B] "
                   target="_blank"
                 >

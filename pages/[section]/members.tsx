@@ -145,13 +145,13 @@ const Member = () => {
                         }}
                       >
                         <p>
-                          We&apos;re releasing three exclusive items from the first
-                          wave of BINI Merch on BINI Day: the limited-edition
-                          Official BINI Shirt, BINI Iron-on Patches, and BINI
-                          Holographic Stickers. Just present the QR code from
-                          your confirmation email as proof that you are an
-                          exclusive member.If you didn&apos;t get to register
-                          for BINI Day, don&apos;t worry!
+                          We&apos;re releasing three exclusive items from the
+                          first wave of BINI Merch on BINI Day: the
+                          limited-edition Official BINI Shirt, BINI Iron-on
+                          Patches, and BINI Holographic Stickers. Just present
+                          the QR code from your confirmation email as proof that
+                          you are an exclusive member.If you didn&apos;t get to
+                          register for BINI Day, don&apos;t worry!
                         </p>
 
                         <p>
@@ -196,7 +196,7 @@ const Member = () => {
 
               <iframe
                 className="my-8 md:my-[60px] megaphone-controller-iframe min-h-[480px] max-h-none min-w-[340px] w-full border-none"
-                src="https://controller.megaphonetv.com?m=dbkqj&iswebpoll=true&poll_id=6659c451e2563700115fcf85"
+                src="https://controller.megaphonetv.com/?m=0cij6&iswebpoll=true&poll_id=66642015e37f30000506e131"
                 loading="lazy"
                 title="MegaController"
                 allow="camera *;microphone *;fullscreen *;autoplay *; clipboard-write *;"
