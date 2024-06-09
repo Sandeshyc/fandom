@@ -15,7 +15,7 @@ const getOrderReceipt = async (userId: string, transactionId: string) => {
                 data: response.data,
             };
         }else {
-            console.log("Error try: ", response);
+            // console.log("Error try: ", response);
             returnResponse = {
                 status: 'error',
                 data: '',
@@ -23,7 +23,7 @@ const getOrderReceipt = async (userId: string, transactionId: string) => {
         }
         
     } catch (error) {
-        console.log("Error case: ", error); 
+        // console.log("Error case: ", error); 
         returnResponse = {
             status: 'error',
             data: '',

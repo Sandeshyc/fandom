@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // console.log('plans', plans);
     return res.status(200).json(plans);
   } catch (error) {
-    console.log({ error })
+    // console.log({ error })
     return res.status(500).end();
   }
 }

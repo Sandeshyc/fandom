@@ -5,8 +5,8 @@ const checkAccessToken = async (accessToken:string) => {
         if(decode){
             const exp = decode.exp;
             const current = Math.floor(Date.now() / 1000);
-            console.log('exp', exp);
-            console.log('current', current);
+            // console.log('exp', exp);
+            // console.log('current', current);
             if(exp < current){
                 return false;
             }

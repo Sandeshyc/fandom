@@ -28,7 +28,7 @@ const PaymentResponse = () => {
                 statusFromAPICall: "Charged"
             };
             const response = await createEntitlement( userid as string, data );
-            console.log('Response:', response);
+            // console.log('Response:', response);
             if(response.status === 'success') {
                 setMassage("Entitlement created successfully. Please wait...");
             }else {

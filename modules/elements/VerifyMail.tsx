@@ -93,7 +93,7 @@ const VerifyMail = ({ email, password }: Props) => {
         setIsSuccess(false);
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       setIsFail(true);
       setIsSuccess(false);
     }
