@@ -15,7 +15,7 @@ const Member = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { section } = router.query;
-  const [isReady, setIsReady] = useState(true);
+  const [isReady, setIsReady] = useState(false);
   const [userId, setUserId] = useState("");
   const [pageDirectory, setPageDirectory] = useState("");
 
