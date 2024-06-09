@@ -9,7 +9,6 @@ import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
 import VerifyMail from "@/modules/elements/VerifyMail";
 
 import useRecaptchaV3 from "@/hooks/useRecaptchaV3";
-import useVerifyReChaptcha from "@/hooks/useVerifyReChaptcha";
 import {
   reChapchaTokenVerify
 } from "@/services/api";
@@ -28,10 +27,10 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
-  const [reChapToken, setReChapToken] = useState("");
+  const [isRechapthaVerified, setIsRechapthaVerified] = useState(false);
 
   const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
-  console.log('executeRecaptcha', executeRecaptcha);
+  // console.log('executeRecaptcha', executeRecaptcha);
   // const { data, error, isLoading } = useVerifyReChaptcha();
   // console.log('Saim::::data', data, 'error', error, 'isLoading', isLoading);
 
@@ -59,68 +58,85 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
       setAuthLoading(true);
       setIsSubmitting(true);
       try {
-        const _testRecaptcha = async () => {
+        const _checkingRecaptcha = async () => {
           try {
-            const token = await executeRecaptcha('login');
-            console.log('token::::', token);
-            setReChapToken(token);
-            // const response = await reChapchaTokenVerify(token);
-            // console.log('Token:Response::::', response);
+            const tokenx = await executeRecaptcha('login');
+            console.log('token::::', tokenx);
+            if(tokenx){
+              const response = await reChapchaTokenVerify(tokenx);
+              console.log('response', response);
+              if(response.status === 'success'){
+                console.log('ReCaptcha Verified');
+                setIsRechapthaVerified(true);
+              }else {
+                console.log('ReCaptcha Failed');
+                setIsRechapthaVerified(false);
+              }
+            }
+            // setIsRechapthaVerified(false);
           } catch (error) {
             console.error('Error:', error);
+            setIsRechapthaVerified(false);
           }
         }
-        _testRecaptcha();
-        // return false;
-        console.log("Email:", userEmail, "password", usesrPassword);
-        const response = (await signIn(userEmail, usesrPassword)) as any;
-        console.log("response", response);
-        if (response) {
-          setIsSuccess(true);
-          setIsLoginFail(false);
-          const user = (await getCurrentUser()) as any;
-          console.log("user", user);
-          if (user) {
-            const { email, email_verified } = user;
-            console.log("email", email, "isVerified", email_verified);
-            if (email_verified) {
-              setIsVerifingEmail(false);
-              // return false;
-              const userData = {
-                userid: userEmail,
-                providerId: userEmail,
-                email: userEmail,
-                providerName: "cognito",
-                emailVerified: true,
-                accessToken: response?.accessToken?.jwtToken,
-              };
-              const userResponse = await checkUser(userData);
-              if (userResponse === 200) {
-                setIsSuccess(true);
-                setIsLoginFail(false);
-                let redirectUrl = localStorage.getItem("redirectUrl");
-                if (!redirectUrl) {
-                  redirectUrl = "/bini";
+        _checkingRecaptcha();
+        if(isRechapthaVerified){
+          // return false;
+          console.log("Email:", userEmail, "password", usesrPassword);
+          const response = (await signIn(userEmail, usesrPassword)) as any;
+          console.log("response", response);
+          if (response) {
+            setIsSuccess(true);
+            setIsLoginFail(false);
+            const user = (await getCurrentUser()) as any;
+            console.log("user", user);
+            if (user) {
+              const { email, email_verified } = user;
+              console.log("email", email, "isVerified", email_verified);
+              if (email_verified) {
+                setIsVerifingEmail(false);
+                // return false;
+                const userData = {
+                  userid: userEmail,
+                  providerId: userEmail,
+                  email: userEmail,
+                  providerName: "cognito",
+                  emailVerified: true,
+                  accessToken: response?.accessToken?.jwtToken,
+                };
+                const userResponse = await checkUser(userData);
+                if (userResponse === 200) {
+                  setIsSuccess(true);
+                  setIsLoginFail(false);
+                  let redirectUrl = localStorage.getItem("redirectUrl");
+                  if (!redirectUrl) {
+                    redirectUrl = "/bini";
+                  }
+                  localStorage.removeItem("redirectUrl");
+                  window.location.replace(redirectUrl);
+                  console.log("success");
+                } else {
+                  setAuthLoading(false);
+                  setIsSuccess(false);
+                  setIsLoginFail(true);
+                  window.location.replace("/login");
+                  console.log("failed");
                 }
-                localStorage.removeItem("redirectUrl");
-                window.location.replace(redirectUrl);
-                console.log("success");
               } else {
                 setAuthLoading(false);
-                setIsSuccess(false);
-                setIsLoginFail(true);
-                window.location.replace("/login");
-                console.log("failed");
+                setIsVerifingEmail(true);
               }
-            } else {
-              setAuthLoading(false);
-              setIsVerifingEmail(true);
             }
+          } else {
+            setIsSuccess(false);
+            setIsLoginFail(true);
+            setMessage("Incorrect Email Or Password");
           }
-        } else {
+        }else{
           setIsSuccess(false);
           setIsLoginFail(true);
-          setMessage("Incorrect Email Or Password");
+          setAuthLoading(false);
+          setMessage("ReCaptcha Verification Failed");
         }
       } catch (err: any) {
         console.log("err", err);

@@ -108,8 +108,6 @@ const useUserInfo = () => {
                 let forwordPurchaseUrl = `${process.env.NEXT_PUBLIC_SSO_DOMAIN}`;
                 if(itemUrl){
                   forwordPurchaseUrl += itemUrl;
-                }else if(itemCode){
-                  forwordPurchaseUrl += `/details/`+ itemCode;
                 }
                 localStorage.removeItem('callbackAction');
                 localStorage.removeItem('callbackParams');

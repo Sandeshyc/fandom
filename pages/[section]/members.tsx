@@ -15,7 +15,7 @@ const Member = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { section } = router.query;
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(true);
   const [userId, setUserId] = useState("");
   const [pageDirectory, setPageDirectory] = useState("");
 
@@ -83,16 +83,16 @@ const Member = () => {
             className={"w-full h-full pb-8 py-0 md:py-[60px] text-[#93767A]"}
           >
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
-              {/* <div className="w-full mx-auto max-w-[1067] aspect-video">
+              <div className="w-full mx-auto max-w-[1067] aspect-video">
                 <ReactVideoPlayer
-                  videoURL="https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4"
+                  videoURL="https://qa-static3.abs-cbn.com/bini/bini.mp4"
                   control={true}
                   play={true}
                   isMute={false}
-                  poster={'https://billboardphilippines.com/wp-content/uploads/2024/06/bini-FTR-IMG-1600x838.jpg'}
+                  poster={'/images/bini-greetings.png'}
                 />
-              </div> */}
-              <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
+              </div>
+              {/* <div className="relative w-full h-[233px] md:h-[607px] flex justify-center items-center bg-[url('/images/bini-greetings.png')] bg-cover bg-center">
                 <div className="z-40 max-w-[516px] text-white text-center flex flex-col items-center">
                   <p className="text-[32px] md:text-[46px]  font-corsiva">
                     Thank you for joining our <br />
@@ -111,7 +111,7 @@ const Member = () => {
                 </div>
 
                 <div className="absolute z-10 w-full h-full bg-black/50"></div>
-              </div>
+              </div> */}
 
               {/* <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
