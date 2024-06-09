@@ -123,6 +123,17 @@ export default function App({
         <meta name="robots" content="noindex, nofollow" />
         <meta name="googlebot" content="noindex" />
         <link rel="icon" href="/joinnowcon.png" />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}');
+          `,
+          }}
+        />
       </Head>
       <main className={`${roboto.className} ${corsiva.variable}`}>
         <ErrorBoundary>

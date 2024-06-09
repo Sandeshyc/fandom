@@ -24,9 +24,8 @@ const Discover = () => {
   const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
   const [isPending, setIsPending] = useState(false);
   const [pendingTransitionId, setPendingTransitionId] = useState("");
-  const { data: clientLocation, error: locationError }: any =
-    useClientLocaion();
-  const region = clientLocation?.country?.isoCode;
+  const { data: clientLocation, error: locationError }: any = useClientLocaion();
+  let region = clientLocation?.country?.isoCode;
   const { data, isLoading, error } = usePlans(region, contentId);
   // console.log('data', data, 'isLoading', isLoading, 'error', error, 'region', region, 'userId', userId, 'contentId', contentId);
   const {

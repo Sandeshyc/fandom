@@ -2,13 +2,17 @@ import React, { useState, forwardRef } from "react";
 import { signUp, getCurrentUser } from "@/utils/cognitoAuth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { isDate, isEmpty } from "lodash";
+import { isDate, isEmpty, set } from "lodash";
 import useUserInfo from "@/hooks/useUserInfo";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
 import VerifyMail from "@/modules/elements/VerifyMail";
 import { isItDate, getDayWithSuffix, showDate } from "@/utils/dataTimeChecking";
+import useRecaptchaV3 from "@/hooks/useRecaptchaV3";
+import {
+  reChapchaTokenVerify
+} from "@/services/api";
 
 type Props = {
   setAuthLoading: any;
@@ -19,6 +23,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   const { checkUser } = useUserInfo();
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
+  const [isRechapthaVerified, setIsRechapthaVerified] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
@@ -29,6 +34,9 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   const [errorMessage, setErrorMessage] = useState(
     "oops! something went wrong"
   );
+
+  const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
+  // console.log('executeRecaptcha', executeRecaptcha);
 
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
@@ -115,35 +123,63 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       setIsSubmitting(true);
       setOnSubmit(true);
       try {
-        let response = {} as any;
-        response = await signUp(email, password, []);
-        console.log("Response::", response);
-        if (response && response?.username && response?.userDataKey) {
-          setIsVerifingEmail(true);
-          setIsLoginFail(false);
-          const userData = {
-            userid: response?.username,
-            providerId: response?.username,
-            email: response?.username,
-            providerName: "cognito",
-            emailVerified: false,
-            accessToken: "",
-            isLogin: false,
-            tnc: tnc,
-            marketing: marketing,
-            firstName: firstName,
-            lastName: lastName,
-            // birthDate: userBirthday,
-            phoneNumber: mobileNumber,
-          };
-          const userCheckRes = await checkUser(userData);
-          if (userCheckRes === 200) {
-            setIsVerifingEmail(true);
+        const _checkingRecaptcha = async () => {
+          try {
+            const token = await executeRecaptcha('register');
+            console.log('token::::', token);
+            if(token){
+              const response = await reChapchaTokenVerify(token);
+              console.log('response', response);
+              if(response.status === 'success'){
+                console.log('ReCaptcha Verified');
+                setIsRechapthaVerified(true);
+              }else {
+                console.log('ReCaptcha Failed');
+                setIsRechapthaVerified(false);
+              }
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            setIsRechapthaVerified(false);
           }
-        } else {
+        }
+        _checkingRecaptcha();
+        if(isRechapthaVerified){
+          let response = {} as any;
+          response = await signUp(email, password, []);
+          console.log("Response::", response);
+          if (response && response?.username && response?.userDataKey) {
+            setIsVerifingEmail(true);
+            setIsLoginFail(false);
+            const userData = {
+              userid: response?.username,
+              providerId: response?.username,
+              email: response?.username,
+              providerName: "cognito",
+              emailVerified: false,
+              accessToken: "",
+              isLogin: false,
+              tnc: tnc,
+              marketing: marketing,
+              firstName: firstName,
+              lastName: lastName,
+              // birthDate: userBirthday,
+              phoneNumber: mobileNumber,
+            };
+            const userCheckRes = await checkUser(userData);
+            if (userCheckRes === 200) {
+              setIsVerifingEmail(true);
+            }
+          } else {
+            setIsLoginFail(true);
+            setOnSubmit(false);
+            console.log("failed");
+          }
+        }else{
           setIsLoginFail(true);
           setOnSubmit(false);
-          console.log("failed");
+          setIsVerifingEmail(false);
+          setErrorMessage("ReCaptcha Verification Failed");
         }
       } catch (err: any) {
         console.log("err", err);
