@@ -29,7 +29,8 @@ const auditEntitlement = async (data:object) => {
             transitionId: ''
         };
         if(error?.response?.status === 400) {
-            if(error?.response?.statusCode === '40002') {
+            console.log("Error 400: ", error.response);
+            if(error?.response?.data?.statusCode === '40002') {
                 returnResponse = {
                     status: 'purcahsed',
                     transitionId: ''
