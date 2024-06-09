@@ -7,7 +7,7 @@ const createEntitlement = async (userId:string, data:object) => {
     };
     try {
         const response = await client.post(url, data);
-        console.log('xxx Response:', response);
+        // console.log('xxx Response:', response);
         if(response.status === 200 || response.status === 201 || response.status === 204) {
             returnResponse = {
                 status: 'success',

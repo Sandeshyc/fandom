@@ -34,7 +34,7 @@ const BillingDetails = () => {
     <div className="w-full h-full min-h-screen flex flex-col items-center justify-between bg-[#FAFAFA]">
       <Navigation />
       <div
-        className="min-w-full text-white bg-[#FAFAFA]"
+        className="min-w-full text-black bg-[#FAFAFA]"
         style={{
           // backgroundImage: bgImage,
           backgroundRepeat: "no-repeat",
@@ -47,8 +47,8 @@ const BillingDetails = () => {
             <PaymentHistory />
           </div>
           <div className="container mx-auto max-w-[1400px]">
-            <Text size="md" className="mt-4 text-white/70">
-              <span className="text-white">NOTE</span>: We only show up to 6
+            <Text size="md" className="mt-4 text-black/70">
+              <span className="text-black">NOTE</span>: We only show up to 6
               months of payment history.
             </Text>
           </div>

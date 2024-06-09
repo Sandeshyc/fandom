@@ -32,8 +32,8 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
 
   const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
   console.log('executeRecaptcha', executeRecaptcha);
-  const { data, error, isLoading } = useVerifyReChaptcha();
-  console.log('Saim::::data', data, 'error', error, 'isLoading', isLoading);
+  // const { data, error, isLoading } = useVerifyReChaptcha();
+  // console.log('Saim::::data', data, 'error', error, 'isLoading', isLoading);
 
   const togglePassword = () => {
     setIsShowPassword(!isShowPassword);

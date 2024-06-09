@@ -25,6 +25,7 @@ const PaymentResponse = () => {
                 receipt: paymentId,
                 sourcePlatform: "web",
                 transactionId: transactionId,
+                statusFromAPICall: "Charged"
             };
             const response = await createEntitlement( userid as string, data );
             console.log('Response:', response);
@@ -35,8 +36,6 @@ const PaymentResponse = () => {
             }
             if(itemUrl) {
                 router.replace(itemUrl);
-            }else if(itemCode) {
-                router.replace(`/details/${itemCode}`);                
             }else {
                 router.replace(`/`);
             }
