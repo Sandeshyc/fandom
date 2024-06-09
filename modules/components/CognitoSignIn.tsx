@@ -27,7 +27,6 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
-  const [isRechapthaVerified, setIsRechapthaVerified] = useState(false);
 
   const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
   // console.log('executeRecaptcha', executeRecaptcha);
@@ -58,6 +57,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
       setAuthLoading(true);
       setIsSubmitting(true);
       try {
+        let isRechapthaVerified = false;
         const _checkingRecaptcha = async () => {
           try {
             const tokenx = await executeRecaptcha('login');
@@ -67,19 +67,19 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
               console.log('response', response);
               if(response.status === 'success'){
                 console.log('ReCaptcha Verified');
-                setIsRechapthaVerified(true);
+                isRechapthaVerified = true;
               }else {
                 console.log('ReCaptcha Failed');
-                setIsRechapthaVerified(false);
+                isRechapthaVerified = false;
               }
             }
             // setIsRechapthaVerified(false);
           } catch (error) {
             console.error('Error:', error);
-            setIsRechapthaVerified(false);
+            isRechapthaVerified = false;
           }
         }
-        _checkingRecaptcha();
+        await _checkingRecaptcha();
         if(isRechapthaVerified){
           // return false;
           console.log("Email:", userEmail, "password", usesrPassword);
@@ -104,7 +104,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                   emailVerified: true,
                   accessToken: response?.accessToken?.jwtToken,
                 };
-                const userResponse = await checkUser(userData);
+                const userResponse = await checkUser(userData) as any;
                 if (userResponse === 200) {
                   setIsSuccess(true);
                   setIsLoginFail(false);

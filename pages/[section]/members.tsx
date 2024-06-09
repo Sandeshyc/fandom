@@ -85,7 +85,7 @@ const Member = () => {
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
               <div className="w-full mx-auto aspect-video">
                 <ReactVideoPlayer
-                  videoURL="https://qa-static3.abs-cbn.com/bini/bini.mp4"
+                  videoURL="https://qa-static3.abs-cbn.com/bini/bini-welcome.mp4"
                   control={true}
                   play={true}
                   isMute={false}
@@ -161,7 +161,7 @@ const Member = () => {
                   title="YouTube video player"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   className="w-full aspect-video"
-                  allowFullScreen
+                  allowFullScreen                  
                 ></iframe>
 
                 {/* <div className="relative w-full h-[607px] flex justify-center items-center bg-[url(/images/exclusive-livestream.png)] bg-cover bg-center">

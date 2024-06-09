@@ -23,7 +23,6 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   const { checkUser } = useUserInfo();
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
-  const [isRechapthaVerified, setIsRechapthaVerified] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
@@ -123,6 +122,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       setIsSubmitting(true);
       setOnSubmit(true);
       try {
+        let isRechapthaVerified = false;
         const _checkingRecaptcha = async () => {
           try {
             const token = await executeRecaptcha('register');
@@ -132,18 +132,18 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
               console.log('response', response);
               if(response.status === 'success'){
                 console.log('ReCaptcha Verified');
-                setIsRechapthaVerified(true);
+                isRechapthaVerified = true;
               }else {
                 console.log('ReCaptcha Failed');
-                setIsRechapthaVerified(false);
+                isRechapthaVerified = false;
               }
             }
           } catch (error) {
             console.error('Error:', error);
-            setIsRechapthaVerified(false);
+            isRechapthaVerified = false;
           }
         }
-        _checkingRecaptcha();
+        await _checkingRecaptcha();
         if(isRechapthaVerified){
           let response = {} as any;
           response = await signUp(email, password, []);
