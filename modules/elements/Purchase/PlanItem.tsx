@@ -86,7 +86,8 @@ const PlanItem = ({
           console.log("data", data);
           // return false;
           const res = await auditEntitlement(data);
-          console.log("res", res);
+          console.log("res:::::::::::", res);
+          // return false;
           if (res.status === "success" || res.status === "process") {
             if (res.status === "process") {
               setRentTransactionId(res.transitionId);

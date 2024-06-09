@@ -157,8 +157,7 @@ const Member = () => {
                 </p>
 
                 <iframe
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8"
-                  title="YouTube video player"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&thumbnail=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&image=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   className="w-full aspect-video"
                   allowFullScreen
