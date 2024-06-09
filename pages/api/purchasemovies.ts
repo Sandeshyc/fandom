@@ -37,12 +37,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if(product){
       url = `${url}&product=${product}`;
     }
-    console.log('url: ',url);
+    // console.log('url: ',url);
     const moviesRes = await axios.get(url, {timeout: 30000})
     const movies = moviesRes.data;
     return res.status(200).json(movies);
   } catch (error) {
-    console.log({ error })
+    // console.log({ error })
     return res.status(500).end();
   }
 }

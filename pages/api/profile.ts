@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const profile = profileRes?.data;
     return res.status(200).json(profile);
   } catch (error) {
-    console.log({ error })
+    // console.log({ error })
     return res.status(500).end();
   }
 }

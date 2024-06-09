@@ -61,7 +61,7 @@ const ForgetPassword = () => {
         setEmail(email);
         // console.log("response", response);
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
         setIsEmailSentError(true);
         setIsEmailSent(false);
       }

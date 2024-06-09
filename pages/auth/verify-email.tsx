@@ -20,10 +20,10 @@ const sendEmailVerificationFunc = async (auth: any) => {
     handleCodeInApp: true,
   })
     .then(() => {
-      console.log("email verification sent");
+      // console.log("email verification sent");
     })
     .catch((error) => {
-      console.log("error: ", error);
+      // console.log("error: ", error);
     });
   // console.log('sendEmailVerificationFunc');
 };

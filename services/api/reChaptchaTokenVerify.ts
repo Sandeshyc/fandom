@@ -9,7 +9,7 @@ const reChapchaTokenVerify = async (token: string) => {
             token: token
         };
         const response = await axios.post(url, body);
-        console.log('response:::', response);
+        // console.log('response:::', response);
         if(response.status === 200) {
             returnResponse = {
                 status: 'success'
@@ -20,7 +20,7 @@ const reChapchaTokenVerify = async (token: string) => {
             };
         }
     } catch (error) {
-        console.log("error::::::::: ", error);
+        // console.log("error::::::::: ", error);
         returnResponse = {
             status: 'error'
         };

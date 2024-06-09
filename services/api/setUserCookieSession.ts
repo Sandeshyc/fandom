@@ -13,7 +13,7 @@ const setUserCookieSession = async (userSession:any) => {
             status: 'success',
         };
     } catch (error) {
-        console.log("Error case: ", error); 
+        // console.log("Error case: ", error); 
         returnResponse = {
             status: 'error',
         };
