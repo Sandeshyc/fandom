@@ -323,14 +323,14 @@ const MyProfile = () => {
                               >
                                 Edit Profile
                               </span>
-                              <div className="sm:ml-8 text-center mt-4 sm:mt-0 w-full sm:w-auto">
+                              {/* <div className="sm:ml-8 text-center mt-4 sm:mt-0 w-full sm:w-auto">
                                 <span
                                   onClick={() => setOpenDeleteAccount(true)}
                                   className="text-red-600 cursor-pointer"
                                 >
                                   Delete My Account
                                 </span>
-                              </div>
+                              </div> */}
                             </div>
                           )}
                         </div>
