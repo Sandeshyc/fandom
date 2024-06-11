@@ -5,7 +5,8 @@ import {
   resendSignUp,
   confirmSignUp,
 } from "@/utils/cognitoAuth";
-import useUserInfo from "@/hooks/useUserInfo";
+// import useUserInfo from "@/hooks/useUserInfo";
+import useUserInfoLoggedIn from "@/hooks/useUserInfoLoggedIn";
 import { useRouter } from "next/router";
 import Modal from "@mui/material/Modal";
 import { Roboto } from "next/font/google";
@@ -23,7 +24,7 @@ type Props = {
 };
 const VerifyMail = ({ email, password }: Props) => {
   const router = useRouter();
-  const { checkUser } = useUserInfo();
+  const { checkUser } = useUserInfoLoggedIn();
   const [isResenting, setIsResenting] = useState(false);
   const [reSentFail, setReSentFail] = useState(false);
   const [reSentSuccess, setReSentSuccess] = useState(false);
