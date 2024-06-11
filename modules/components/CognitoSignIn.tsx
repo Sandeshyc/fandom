@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn, getCurrentUser, resendSignUp } from "@/utils/cognitoAuth";
 import useUserInfo from "@/hooks/useUserInfo";
+import useUserInfoLoggedIn from "@/hooks/useUserInfoLoggedIn";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Visibility, VisibilityOff, CalendarMonth } from "@mui/icons-material";
@@ -20,7 +21,7 @@ type Props = {
 // Main Component
 const CognitoSignIn = ({ setAuthLoading }: Props) => {
   const router = useRouter();
-  const { checkUser } = useUserInfo();
+  const { checkUser } = useUserInfoLoggedIn();
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
@@ -114,7 +115,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                   }
                   localStorage.removeItem("redirectUrl");
                   window.location.replace(redirectUrl);
-                  // console.log("success");
+                  console.log("success");
                 } else {
                   setAuthLoading(false);
                   setIsSuccess(false);
