@@ -43,7 +43,7 @@ const PlanItem = ({
   entitlementLoading = true,
   planLoader = true,
 }: Props) => {
-  console.log("item::::::", item, allowedIems, transactionId);
+  // console.log("item::::::", item, allowedIems, transactionId);
   const { isLoginUser, isLoadingUserCheck } = useCheckAuthentication();
   const [isLoading, setIsLoading] = useState(false);
   const [reCheckLoading, setReCheckLoading] = useState(false);
@@ -56,7 +56,7 @@ const PlanItem = ({
   const handleRecheckPayment = async (transactionId: string) => {
     setReCheckLoading(true);
     const response = await recheckEntitlement(transactionId);
-    console.log("Recheck Status::", response);
+    // console.log("Recheck Status::", response);
     if (response.status === "success") {
       window.location.reload();
     } else {
@@ -83,10 +83,11 @@ const PlanItem = ({
             transactionId: transactionId,
             contentType: "TvChannel",
           };
-          console.log("data", data);
+          // console.log("data", data);
           // return false;
           const res = await auditEntitlement(data);
-          console.log("res", res);
+          // console.log("res:::::::::::", res);
+          // return false;
           if (res.status === "success" || res.status === "process") {
             if (res.status === "process") {
               setRentTransactionId(res.transitionId);
@@ -127,19 +128,19 @@ const PlanItem = ({
   };
   useEffect(() => {
     if (Array.isArray(allowedIems) && allowedIems.length > 0) {
-      console.log("allowedIems::::", allowedIems);
+      // console.log("allowedIems::::", allowedIems);
       const allowedIds = allowedIems.map((allowItem: any) => {
         if (allowItem?.content?.contentId === movieId) {
           return allowItem;
         }
       });
-      console.log("allowedIds:::::", allowedIds);
+      // console.log("allowedIds:::::", allowedIds);
       if (Array.isArray(allowedIds) && allowedIds.length > 0) {
         setAllowedItem(allowedIds[0]);
       }
     }
   }, [allowedIems, movieId]);
-  console.log("allowedItem", allowedItem);
+  // console.log("allowedItem", allowedItem);
   return (
     (auditLoading && entitlementLoading && planLoader)?(
     <>

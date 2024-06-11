@@ -33,30 +33,30 @@ const Discover = () => {
     error: entitlementError,
     isLoading: entitlementLoading,
   } = useCheckEntitlement(userId);
-  console.log(
-    "entitlementData",
-    entitlementData,
-    entitlementError,
-    entitlementLoading
-  );
-  console.log(
-    "Saim:::::EntitlementData",
-    entitlementData,
-    entitlementLoading,
-    entitlementError
-  );
-  console.log("allowedItemLists", allowedItemLists);
+  // console.log(
+  //   "entitlementData",
+  //   entitlementData,
+  //   entitlementError,
+  //   entitlementLoading
+  // );
+  // console.log(
+  //   "Saim:::::EntitlementData",
+  //   entitlementData,
+  //   entitlementLoading,
+  //   entitlementError
+  // );
+  // console.log("allowedItemLists", allowedItemLists);
   useEffect(() => {
     if (isReady && !entitlementLoading && !entitlementError) {
       if (entitlementData) {
-        console.log("Yes Enttlement", entitlementData);
+        // console.log("Yes Enttlement", entitlementData);
         const allowedIds = getAllowedItems(entitlementData);
         setAllowedItemLists(allowedIds);
         const _getAuditEntitlement = async () => {
           setAuditLoading(false);
           try {
             let auditEntitlement = await getAuditEntitlement(userId);
-            console.log("auditEntitlement::::", auditEntitlement);
+            // console.log("auditEntitlement::::", auditEntitlement);
             if(auditEntitlement?.status === 'success'){
               auditEntitlement = auditEntitlement.data;
               if (
@@ -80,7 +80,7 @@ const Discover = () => {
               }
             }
           } catch (error) {
-            console.log("error", error);
+            // console.log("error", error);
           }
           setAuditLoading(true);
         }

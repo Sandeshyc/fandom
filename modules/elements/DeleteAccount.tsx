@@ -30,11 +30,11 @@ const DeleteAccount = ({open, setOpen}:Props) => {
             await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/info/${tempUserId}`, { headers})
             .then(response => {
                 if(response.status === 200) {
-                    console.log('Account Deleted Successfully', tempUserId);
+                    // console.log('Account Deleted Successfully', tempUserId);
                 }
             })
             .catch(error => {
-                console.error('Error::', error);
+                // console.error('Error::', error);
             }); 
             try {
                 await deleteAccount();
@@ -71,7 +71,7 @@ const DeleteAccount = ({open, setOpen}:Props) => {
         }
         const _getSession = async () => {
             const session = await getSession() as any;
-            console.log('session', session);
+            // console.log('session', session);
             if(session?.idToken?.payload?.email) {
                 setCognitoUserId(session?.idToken?.payload?.email);
             }

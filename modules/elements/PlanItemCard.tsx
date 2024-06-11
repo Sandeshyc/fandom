@@ -56,10 +56,10 @@ const PlanItem = ({ item, movieId, rentText = "Rent", itemData }: Props) => {
             transactionId: transactionId,
             contentType: "TvChannel",
           };
-          console.log("data", data);
+          // console.log("data", data);
           // return false;
           const res = await auditEntitlement(data);
-          console.log("res", res);
+          // console.log("res", res);
           if (res.status === "success" || res.status === "process") {
             if (res.status === "process") {
               setRentTransactionId(res.transitionId);

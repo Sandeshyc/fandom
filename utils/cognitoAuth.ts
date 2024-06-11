@@ -179,7 +179,7 @@ const userPool = new CognitoUserPool({
 
   export function deleteAccount() {
     const cognitoUser = userPool.getCurrentUser();
-    console.log('cognitoUser: ', cognitoUser);
+    // console.log('cognitoUser: ', cognitoUser);
     return new Promise((resolve, reject) => {
       if (!cognitoUser) {
         reject(new Error("No user found"));
@@ -187,7 +187,7 @@ const userPool = new CognitoUserPool({
       }
       cognitoUser.getSession((err:any, session:any) => {
         if (err) {
-          console.log('err::::::: ', err);
+          // console.log('err::::::: ', err);
           reject(err);
           return;
         }

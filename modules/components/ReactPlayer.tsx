@@ -28,6 +28,7 @@ const ReactVideoPlayer = ({
       controls={control}
       delay={500}
       volume={0.5}
+      config={{ file: { attributes: { controlsList: 'nodownload' } } }}
       style={{
         backgroundColor: "black",
         backgroundImage: `url(${poster})`,

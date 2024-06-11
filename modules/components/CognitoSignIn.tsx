@@ -27,7 +27,6 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
-  const [isRechapthaVerified, setIsRechapthaVerified] = useState(false);
 
   const executeRecaptcha = useRecaptchaV3(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY as string);
   // console.log('executeRecaptcha', executeRecaptcha);
@@ -58,41 +57,42 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
       setAuthLoading(true);
       setIsSubmitting(true);
       try {
+        let isRechapthaVerified = false;
         const _checkingRecaptcha = async () => {
           try {
             const tokenx = await executeRecaptcha('login');
-            console.log('token::::', tokenx);
+            // console.log('token::::', tokenx);
             if(tokenx){
               const response = await reChapchaTokenVerify(tokenx);
-              console.log('response', response);
+              // console.log('response', response);
               if(response.status === 'success'){
                 console.log('ReCaptcha Verified');
-                setIsRechapthaVerified(true);
+                isRechapthaVerified = true;
               }else {
                 console.log('ReCaptcha Failed');
-                setIsRechapthaVerified(false);
+                isRechapthaVerified = false;
               }
             }
             // setIsRechapthaVerified(false);
           } catch (error) {
             console.error('Error:', error);
-            setIsRechapthaVerified(false);
+            isRechapthaVerified = false;
           }
         }
-        _checkingRecaptcha();
+        await _checkingRecaptcha();
         if(isRechapthaVerified){
           // return false;
-          console.log("Email:", userEmail, "password", usesrPassword);
+          // console.log("Email:", userEmail, "password", usesrPassword);
           const response = (await signIn(userEmail, usesrPassword)) as any;
-          console.log("response", response);
+          // console.log("response", response);
           if (response) {
             setIsSuccess(true);
             setIsLoginFail(false);
             const user = (await getCurrentUser()) as any;
-            console.log("user", user);
+            // console.log("user", user);
             if (user) {
               const { email, email_verified } = user;
-              console.log("email", email, "isVerified", email_verified);
+              // console.log("email", email, "isVerified", email_verified);
               if (email_verified) {
                 setIsVerifingEmail(false);
                 // return false;
@@ -104,7 +104,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                   emailVerified: true,
                   accessToken: response?.accessToken?.jwtToken,
                 };
-                const userResponse = await checkUser(userData);
+                const userResponse = await checkUser(userData) as any;
                 if (userResponse === 200) {
                   setIsSuccess(true);
                   setIsLoginFail(false);
@@ -114,13 +114,13 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
                   }
                   localStorage.removeItem("redirectUrl");
                   window.location.replace(redirectUrl);
-                  console.log("success");
+                  // console.log("success");
                 } else {
                   setAuthLoading(false);
                   setIsSuccess(false);
                   setIsLoginFail(true);
                   window.location.replace("/login");
-                  console.log("failed");
+                  // console.log("failed");
                 }
               } else {
                 setAuthLoading(false);
@@ -139,7 +139,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
           setMessage("ReCaptcha Verification Failed");
         }
       } catch (err: any) {
-        console.log("err", err);
+        // console.log("err", err);
         if (err.code === "UserNotConfirmedException") {
           setIsVerifingEmail(true);
           setIsSuccess(true);
@@ -161,7 +161,7 @@ const CognitoSignIn = ({ setAuthLoading }: Props) => {
     if (isVerifingEmail) {
       const _reSendVerificationCode = async () => {
         const response = await resendSignUp(values.userEmail);
-        console.log("response", response);
+        // console.log("response", response);
       };
       _reSendVerificationCode();
     }

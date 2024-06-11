@@ -28,7 +28,7 @@ const Member = () => {
           setUserId(userInfoObj.sub);
           const _getEntitlementList = async () => {
             const resEntitlement = await getEntitlementList(userInfoObj.sub);
-            console.log("Response::::", resEntitlement);
+            // console.log("Response::::", resEntitlement);
             if (resEntitlement.status === "success") {
               const allowedIds = getAllowedItems(resEntitlement?.data);
               if (Array.isArray(allowedIds) && allowedIds.length > 0) {
@@ -39,30 +39,30 @@ const Member = () => {
                   ) {
                     setIsReady(true);
                   } else {
-                    console.log("Entitlement Not found!");
+                    // console.log("Entitlement Not found!");
                     // router.push(`/` + section);
                     window.location.replace(`/` + section);
                   }
                 });
               } else {
-                console.log("Entitlement Not found!");
+                // console.log("Entitlement Not found!");
                 // router.push(`/` + section);
                 window.location.replace(`/` + section);
               }
             } else {
-              console.log("Entitlement API found");
+              // console.log("Entitlement API found");
               // router.push(`/` + section);
               window.location.replace(`/` + section);
             }
           };
           _getEntitlementList();
         } else {
-          console.log("User not found::", userInfoObj);
+          // console.log("User not found::", userInfoObj);
           // router.push(`/` + section);
           window.location.replace(`/` + section);
         }
       } else {
-        console.log("User not found:", userInfo);
+        // console.log("User not found:", userInfo);
         // router.push(`/` + section);
         window.location.replace(`/` + section);
       }
@@ -85,7 +85,7 @@ const Member = () => {
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
               <div className="w-full mx-auto aspect-video">
                 <ReactVideoPlayer
-                  videoURL="https://qa-static3.abs-cbn.com/bini/bini.mp4"
+                  videoURL="https://qa-static3.abs-cbn.com/bini/bini-welcome.mp4"
                   control={true}
                   play={true}
                   isMute={false}
@@ -157,8 +157,7 @@ const Member = () => {
                 </p>
 
                 <iframe
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8"
-                  title="YouTube video player"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&thumbnail=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&image=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   className="w-full aspect-video"
                   allowFullScreen
@@ -188,6 +187,19 @@ const Member = () => {
                 type="text/javascript"
                 defer
               ></script>
+
+              <div className="my-8 md:my-[60px] w-full flex flex-col gap-4 sm:gap-6 ">
+                <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] px-6 lg:px-0 text-[#324B4E]">
+                  Exclusive Video
+                </p>
+
+                <iframe
+                  className="w-full aspect-video"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/5595b2ce-4d25-4e11-8fe4-4fabccc90c63/bini-exclusive.ism/manifest(format=mpd-time-csf)&wv=f94f8155-4a57-4266-b04f-9f8fd7861c8e&type=symmetric&ctype=groups&cvalue=6be6eb1b-da20-4666-b0cd-3fe499db0056&fp=4d62d6ee-4fd6-473c-aad1-2c5002bae422"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                ></iframe>
+              </div>
 
               <div className="w-full p-6 sm:p-0">
                 <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">

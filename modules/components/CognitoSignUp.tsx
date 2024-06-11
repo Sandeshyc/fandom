@@ -23,7 +23,6 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
   const { checkUser } = useUserInfo();
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifingEmail, setIsVerifingEmail] = useState(false);
-  const [isRechapthaVerified, setIsRechapthaVerified] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
@@ -123,31 +122,32 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
       setIsSubmitting(true);
       setOnSubmit(true);
       try {
+        let isRechapthaVerified = false;
         const _checkingRecaptcha = async () => {
           try {
             const token = await executeRecaptcha('register');
-            console.log('token::::', token);
+            // console.log('token::::', token);
             if(token){
               const response = await reChapchaTokenVerify(token);
-              console.log('response', response);
+              // console.log('response', response);
               if(response.status === 'success'){
                 console.log('ReCaptcha Verified');
-                setIsRechapthaVerified(true);
+                isRechapthaVerified = true;
               }else {
                 console.log('ReCaptcha Failed');
-                setIsRechapthaVerified(false);
+                isRechapthaVerified = false;
               }
             }
           } catch (error) {
-            console.error('Error:', error);
-            setIsRechapthaVerified(false);
+            // console.error('Error:', error);
+            isRechapthaVerified = false;
           }
         }
-        _checkingRecaptcha();
+        await _checkingRecaptcha();
         if(isRechapthaVerified){
           let response = {} as any;
           response = await signUp(email, password, []);
-          console.log("Response::", response);
+          // console.log("Response::", response);
           if (response && response?.username && response?.userDataKey) {
             setIsVerifingEmail(true);
             setIsLoginFail(false);
@@ -173,7 +173,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
           } else {
             setIsLoginFail(true);
             setOnSubmit(false);
-            console.log("failed");
+            // console.log("failed");
           }
         }else{
           setIsLoginFail(true);
@@ -182,7 +182,7 @@ const CognitoSignUp = ({ setAuthLoading }: Props) => {
           setErrorMessage("ReCaptcha Verification Failed");
         }
       } catch (err: any) {
-        console.log("err", err);
+        // console.log("err", err);
         setIsLoginFail(true);
         setOnSubmit(false);
         setErrorMessage(err.message);

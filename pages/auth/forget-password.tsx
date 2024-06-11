@@ -59,9 +59,9 @@ const ForgetPassword = () => {
         setIsEmailSent(true);
         setIsEmailSentError(false);
         setEmail(email);
-        console.log("response", response);
+        // console.log("response", response);
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
         setIsEmailSentError(true);
         setIsEmailSent(false);
       }
@@ -106,7 +106,7 @@ const ForgetPassword = () => {
       setOnSubmit(true);
       try {
         const response = await confirmPassword(email, otp, password);
-        console.log("response", response);
+        // console.log("response", response);
         setIsUpdateSuccess(true);
         setIsUpdateFail(false);
         setTimeout(() => {

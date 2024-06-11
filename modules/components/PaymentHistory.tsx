@@ -22,7 +22,7 @@ const PaymentHistory = () => {
   const [loadingItem, setLoadingItem] = useState("");
   // const { data, isLoading, error } = usePaymentHistory('7B6E23C8-6B77-4294-A7A3-66B4748D8D05');
   const { data, isLoading, error } = usePaymentHistory(userId);
-  console.log("Billing Data: ", data, isLoading, error);
+  // console.log("Billing Data: ", data, isLoading, error);
   const copyTextFunc = (text: string) => {
     navigator?.clipboard?.writeText(text);
     setCopyText(text);
@@ -51,7 +51,7 @@ const PaymentHistory = () => {
       setIsPdfLoading(false);
       setLoadingItem("");
     } else {
-      console.log("Error: ", response);
+      // console.log("Error: ", response);
       setIsPdfLoading(false);
       setLoadingItem("");
     }

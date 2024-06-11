@@ -30,12 +30,12 @@ const Discover = () => {
     error: entitlementError,
     isLoading: entitlementLoading,
   } = useCheckEntitlement(userId);
-  console.log(
-    "entitlementData",
-    entitlementData,
-    entitlementError,
-    entitlementLoading
-  );
+  // console.log(
+  //   "entitlementData",
+  //   entitlementData,
+  //   entitlementError,
+  //   entitlementLoading
+  // );
   useEffect(() => {
     if (isReady && !entitlementLoading && !entitlementError) {
       if (entitlementData) {
@@ -68,9 +68,9 @@ const Discover = () => {
     const _test = async () => {
       try {
         const user = await getCurrentUser();
-        console.log("current user::", user);
+        // console.log("current user::", user);
       } catch (error) {
-        console.log("currrnt data: error::", error);
+        // console.log("currrnt data: error::", error);
       }
     };
     _test();

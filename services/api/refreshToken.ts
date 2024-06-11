@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const reqRefreshToken = async (data:object) => {
-    console.log('data', data);
+    // console.log('data', data);
     const url = `https://phoenix-identity-api-dev.abs-cbn.com/iam/refresh?api-version=1.2`;
     let returnResponse = {
         status: '',
@@ -10,7 +10,7 @@ const reqRefreshToken = async (data:object) => {
     };
     try {
         const response = await axios.post(url, data);
-        console.log('response refresh', response);
+        // console.log('response refresh', response);
         if (response?.status === 200) {
             if(response?.data?.statusCode === "1") {
                 returnResponse = {

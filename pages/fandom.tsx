@@ -15,7 +15,7 @@ const Fandom = () => {
     const [userId, setUserId] = useState("");
     const router = useRouter();
     const {data: entitlementData, error: entitlementError, isLoading: entitlementLoading} = useCheckEntitlement(userId);
-    console.log('entitlementData', entitlementData, entitlementError, entitlementLoading);
+    // console.log('entitlementData', entitlementData, entitlementError, entitlementLoading);
     useEffect(() => {
         if(isReady && !entitlementLoading && !entitlementError){
             if(entitlementData){

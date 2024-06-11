@@ -1,7 +1,7 @@
 import axios from 'axios';
 const getOrderReceipt = async (userId: string, transactionId: string) => {
     const url = `${process.env.NEXT_PUBLIC_PAYMENT_BILL_URI}/transactions/pdf/user-id/${userId}/transaction-id/${transactionId}`;
-    console.log("url: ", url);
+    // console.log("url: ", url);
     const responseType = 'blob';
     let returnResponse = {
         status: '',
@@ -15,7 +15,7 @@ const getOrderReceipt = async (userId: string, transactionId: string) => {
                 data: response.data,
             };
         }else {
-            console.log("Error try: ", response);
+            // console.log("Error try: ", response);
             returnResponse = {
                 status: 'error',
                 data: '',
@@ -23,7 +23,7 @@ const getOrderReceipt = async (userId: string, transactionId: string) => {
         }
         
     } catch (error) {
-        console.log("Error case: ", error); 
+        // console.log("Error case: ", error); 
         returnResponse = {
             status: 'error',
             data: '',

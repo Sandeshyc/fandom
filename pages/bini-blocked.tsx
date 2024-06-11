@@ -28,13 +28,13 @@ const Discover = () => {
     error: entitlementError,
     isLoading: entitlementLoading,
   } = useCheckEntitlement(userId);
-  console.log(
-    "entitlementData",
-    entitlementData,
-    entitlementError,
-    entitlementLoading
-  );
-  console.log("allowedItemLists", allowedItemLists);
+  // console.log(
+  //   "entitlementData",
+  //   entitlementData,
+  //   entitlementError,
+  //   entitlementLoading
+  // );
+  // console.log("allowedItemLists", allowedItemLists);
   useEffect(() => {
     if (isReady && !entitlementLoading && !entitlementError) {
       if (entitlementData) {

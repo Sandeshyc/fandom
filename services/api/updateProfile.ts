@@ -8,18 +8,18 @@ const updateProfile = async (data:object) => {
     try {
         const response = await client.post(url, data);
         if(response.status === 200) {
-            console.log("Success case: ", response);
+            // console.log("Success case: ", response);
             returnResponse = {
                 status: 'success',
             };
         }else {
-            console.log("Error try: ", response);
+            // console.log("Error try: ", response);
             returnResponse = {
                 status: 'error',
             };
         }
     } catch (error) {
-        console.log("Error case: ", error); 
+        // console.log("Error case: ", error); 
         returnResponse = {
             status: 'error',
         };
