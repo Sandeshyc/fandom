@@ -12,6 +12,7 @@ const MembershipDetails = () => {
   const [expanded, setExpanded] = useState(false);
   const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
   const { data, error, isLoading } = useCheckEntitlement(userId);
+  console.log('Data::', data, 'Error::', error, 'isLoading::', isLoading)
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
@@ -72,10 +73,13 @@ const MembershipDetails = () => {
                       <thead className="hidden lg:table-header-group text-[#454545]">
                         <tr className="px-4">
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
-                            Plan Name
+                            Title
                           </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">
-                            Member ID
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
+                            Description
+                          </th>
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
+                            Voucher Code
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                             Start date
@@ -99,15 +103,19 @@ const MembershipDetails = () => {
                             >
                               <td
                                 className={cellClass}
-                                data-label={"Plan Name"}
+                                data-label={"Title"}
                               >
-                                {item?.purchase?.planName}
+                                {item?.content?.contentTitle}
                               </td>
                               <td
                                 className={cellClass}
-                                data-label={"Member ID"}
-                              >
-                                {item?.membership?.membershipId}
+                                data-label={"Description"}>
+                                {item?.voucher?.voucherDiscount} {item?.voucher?.voucherTitle}
+                              </td>
+                              <td
+                                className={cellClass}
+                                data-label={"Voucher Code"}>
+                                {item?.voucher?.voucherCode}
                               </td>
                               <td
                                 className={cellClass}
@@ -124,7 +132,7 @@ const MembershipDetails = () => {
                               </td>
                               <td className={cellClass} data-label={"Action"}>
                                 <Link
-                                  href={item?.content?.pageDirectory || "#"}
+                                  href={item?.voucher?.Browse || "#"}
                                   className="underline"
                                 >
                                   Browse page
