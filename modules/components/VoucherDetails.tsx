@@ -5,41 +5,20 @@ import { getAllowedItems } from "@/utils/getData";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { convertESTtoLocalTime } from "@/utils/yearFromDate";
 import { stableKeys } from "@/utils/stableKeys";
-import VoucherDetails from "@/modules/components/VoucherDetails";
-import VoucherDetailsPopUp from "@/modules/components/VoucherDetailsPopUp";
 const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-0 whitespace-nowrap`;
-const MembershipDetails = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [userId, setUserId] = useState("");
+type Props = {
+    allowedItemLists: any[];
+}
+const VoucherDetails = ({
+    allowedItemLists
+}:Props) => {
   const [expanded, setExpanded] = useState(false);
-  const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
-  const { data, error, isLoading } = useCheckEntitlement(userId);
-  console.log('Data::', data, 'Error::', error, 'isLoading::', isLoading, allowedItemLists);
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
-  useEffect(() => {
-    if (isReady && !isLoading && !error) {
-      if (data) {
-        const allowedIds = getAllowedItems(data);
-        setAllowedItemLists(allowedIds);
-      }
-    }
-  }, [isReady, data, error, isLoading]);
-  useEffect(() => {
-    const userInfo = window.localStorage.getItem("userInfo");
-    if (userInfo) {
-      const userInfoObj = JSON.parse(userInfo);
-      if (userInfoObj.sub) {
-        setUserId(userInfoObj.sub);
-      }
-    }
-    setIsReady(true);
-  }, []);
   return (
     <>
-      {isReady &&
-        !isLoading &&
+      {
         Array.isArray(allowedItemLists) &&
         allowedItemLists.length > 0 && (
           <>
@@ -51,7 +30,7 @@ const MembershipDetails = () => {
                 <div className="flex justify-between">
                   <div className="pr-2">
                     <p className="text-lg lg:text-[22px] text-[#11355E] font-medium">
-                      Exclusive Membership Details
+                      Voucher Details
                     </p>
                   </div>
                   <button
@@ -78,8 +57,14 @@ const MembershipDetails = () => {
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
                             Plan Name
                           </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">
-                            Member ID
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
+                            Title
+                          </th>
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
+                            Description
+                          </th>
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
+                            Voucher Code
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                             Start date
@@ -109,9 +94,19 @@ const MembershipDetails = () => {
                               </td>
                               <td
                                 className={cellClass}
-                                data-label={"Member ID"}
+                                data-label={"Title"}
                               >
-                                {item?.membership?.membershipId}
+                                {item?.content?.contentTitle}
+                              </td>
+                              <td
+                                className={cellClass}
+                                data-label={"Description"}>
+                                {item?.voucher?.voucherDiscount} {item?.voucher?.voucherTitle}
+                              </td>
+                              <td
+                                className={cellClass}
+                                data-label={"Voucher Code"}>
+                                {item?.voucher?.voucherCode}
                               </td>
                               <td
                                 className={cellClass}
@@ -129,11 +124,10 @@ const MembershipDetails = () => {
                               <td className={cellClass} data-label={"Action"}>
                                 <Link
                                   href={item?.content?.pageDirectory || "#"}
-                                  className="underline">
+                                  className="underline"
+                                >
                                   Browse page
-                                </Link> | <VoucherDetailsPopUp 
-                                  planName={item?.purchase?.planName}
-                                  voucher={item?.voucher} />
+                                </Link>
                               </td>
                             </tr>
                           );
@@ -147,10 +141,7 @@ const MembershipDetails = () => {
           </div>
           </>
         )}
-      <VoucherDetails 
-        allowedItemLists={allowedItemLists}
-      />
     </>
   );
 };
-export default MembershipDetails;
+export default VoucherDetails;
