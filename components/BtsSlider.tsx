@@ -17,12 +17,12 @@ SwiperCore.use([Navigation, Pagination]);
 const BTS_DATA = [
   {
     thumbnail: "/images/bini-bloopers.png",
-    title: "Welcome Video Bloopers",
+    title: "BINI funny outtakes",
     link: "https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/5595b2ce-4d25-4e11-8fe4-4fabccc90c63/bini-exclusive.ism/manifest(format=mpd-time-csf)&wv=f94f8155-4a57-4266-b04f-9f8fd7861c8e&type=symmetric&ctype=groups&cvalue=6be6eb1b-da20-4666-b0cd-3fe499db0056&fp=4d62d6ee-4fd6-473c-aad1-2c5002bae422",
   },
   {
-    thumbnail: "/images/bini-bts-thumbnail2.png",
-    title: "TBA",
+    thumbnail: "/images/bini-video2.jpg",
+    title: "BINI LIVESTREAM: BINI-yahe to One Ayala",
     link: "https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/576a9a47-cb6f-4259-9fda-892520a54db2/sheenacam.ism/manifest(format=mpd-time-csf)&wv=c1efb7a8-7b61-464e-97af-7c2539a4eec3&type=symmetric&ctype=groups&cvalue=c3a323df-d989-42fe-bbf3-8279e8c6fd60&fp=717bcd13-c17d-4d9d-97a0-b920f8ecd4ed",
   },
 ];
