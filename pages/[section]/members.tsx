@@ -95,7 +95,7 @@ const Member = () => {
 
               <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
-                  Exclusive Video
+                  Exclusive Videos
                 </p>
 
                 <BtsSlider />
