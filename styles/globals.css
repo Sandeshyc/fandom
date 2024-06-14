@@ -72,7 +72,7 @@ body {
 }
 @media screen and (max-width: 959px) {
   .paymentHistoryTable tr:not(:last-child) {
-    border-bottom: #000 6px solid;
+    border-bottom: #000 1px solid;
   }
 }
 @media screen and (min-width: 960px) {
