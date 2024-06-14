@@ -3,43 +3,32 @@ import Link from "next/link";
 import useCheckEntitlement from "@/hooks/useCheckEntitlement";
 import { getAllowedItems } from "@/utils/getData";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+    ContentCopyOutlined,
+    ContentCopyTwoTone,
+    CloseOutlined,
+} from "@mui/icons-material";
 import { convertESTtoLocalTime } from "@/utils/yearFromDate";
 import { stableKeys } from "@/utils/stableKeys";
-import VoucherDetails from "@/modules/components/VoucherDetails";
-import VoucherDetailsPopUp from "@/modules/components/VoucherDetailsPopUp";
 const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-0 whitespace-nowrap`;
-const MembershipDetails = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [userId, setUserId] = useState("");
+type Props = {
+    allowedItemLists: any[];
+}
+const VoucherDetails = ({
+    allowedItemLists
+}:Props) => {
   const [expanded, setExpanded] = useState(false);
-  const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
-  const { data, error, isLoading } = useCheckEntitlement(userId, true);
-  console.log('Data::', data, 'Error::', error, 'isLoading::', isLoading, allowedItemLists);
+  const [copyText, setCopyText] = useState("");
+  const copyTextFunc = (text: string) => {
+    navigator?.clipboard?.writeText(text);
+    setCopyText(text);
+  };
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
-  useEffect(() => {
-    if (isReady && !isLoading && !error) {
-      if (data) {
-        const allowedIds = getAllowedItems(data);
-        setAllowedItemLists(allowedIds);
-      }
-    }
-  }, [isReady, data, error, isLoading]);
-  useEffect(() => {
-    const userInfo = window.localStorage.getItem("userInfo");
-    if (userInfo) {
-      const userInfoObj = JSON.parse(userInfo);
-      if (userInfoObj.sub) {
-        setUserId(userInfoObj.sub);
-      }
-    }
-    setIsReady(true);
-  }, []);
   return (
     <>
-      {isReady &&
-        !isLoading &&
+      {
         Array.isArray(allowedItemLists) &&
         allowedItemLists.length > 0 && (
           <>
@@ -51,7 +40,7 @@ const MembershipDetails = () => {
                 <div className="flex justify-between">
                   <div className="pr-2">
                     <p className="text-lg lg:text-[22px] text-[#11355E] font-medium">
-                      Exclusive Membership Details
+                        Available Vouchers
                     </p>
                   </div>
                   <button
@@ -75,11 +64,14 @@ const MembershipDetails = () => {
                     <table className="w-full text-left paymentHistoryTable">
                       <thead className="hidden lg:table-header-group text-[#454545]">
                         <tr className="px-4">
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
-                            Plan Name
-                          </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[120px] pl-0">
                             Member ID
+                          </th>
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
+                            Title
+                          </th>
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
+                            Voucher Code
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                             Start date
@@ -87,7 +79,7 @@ const MembershipDetails = () => {
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                             End date
                           </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[80px] text-center">
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[80px]">
                             Action
                           </th>
                         </tr>
@@ -103,15 +95,39 @@ const MembershipDetails = () => {
                             >
                               <td
                                 className={cellClass}
-                                data-label={"Plan Name"}
-                              >
-                                {item?.purchase?.planName}
-                              </td>
-                              <td
-                                className={cellClass}
                                 data-label={"Member ID"}
                               >
                                 {item?.membership?.membershipId}
+                              </td>
+                              <td
+                                className={cellClass}
+                                data-label={"Title"}
+                              >
+                                {item?.content?.contentTitle}
+                              </td>
+                              <td
+                                className={cellClass}
+                                data-label={"Voucher Code"}>
+                                <span>
+                                    {item?.voucher?.voucherCode}
+                                    {copyText === item?.voucher?.voucherCode ? (
+                                    <span className="text-black ml-2" title="Copied">
+                                        <ContentCopyTwoTone
+                                        sx={{ fontSize: 16, color: "#222" }}
+                                        />
+                                    </span>
+                                    ) : (
+                                    <span
+                                        className="text-black/50 ml-2 cursor-copy"
+                                        title="Copy"
+                                        onClick={() => copyTextFunc(item?.voucher?.voucherCode)}
+                                    >
+                                        <ContentCopyOutlined
+                                        sx={{ fontSize: 16, color: "#C1C0C0" }}
+                                        />
+                                    </span>
+                                    )}
+                                </span>
                               </td>
                               <td
                                 className={cellClass}
@@ -126,21 +142,12 @@ const MembershipDetails = () => {
                                   item?.header?.expiryDate as string
                                 )}
                               </td>
-                              <td className={cellClass} data-label={"Action"}
-                                style={{textAlign: 'center'}}>
+                              <td className={cellClass} data-label={"Action"}>
                                 <Link
                                   href={item?.content?.pageDirectory || "#"}
                                   className="underline">
                                   Browse page
                                 </Link>
-                                {(Array.isArray(item?.vouchers) && item?.vouchers.length > 0) &&(
-                                  <>
-                                    <br />
-                                    <VoucherDetailsPopUp 
-                                      planName={item?.purchase?.planName}
-                                      vouchers={item?.vouchers} />
-                                  </>
-                                )}                                
                               </td>
                             </tr>
                           );
@@ -154,10 +161,7 @@ const MembershipDetails = () => {
           </div>
           </>
         )}
-      {/* <VoucherDetails 
-        allowedItemLists={allowedItemLists}
-      /> */}
     </>
   );
 };
-export default MembershipDetails;
+export default VoucherDetails;
