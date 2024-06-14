@@ -93,19 +93,19 @@ const Member = () => {
                 />
               </div>
 
-              {/* <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
+              <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
-                  Behind the Screen Videos
+                  Exclusive Video
                 </p>
 
                 <BtsSlider />
-              </div> */}
+              </div>
 
               <div className="w-full p-6 sm:p-0">
                 <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
                   <div className="w-full max-w-[600px] h-[290px] sm:h-[452px] relative aspect-auto">
                     <Image
-                      src="/images/bini-merch.jpg"
+                      src="/images/bini-run.png"
                       fill
                       alt="bini-merch"
                       className="object-cover"
@@ -115,7 +115,7 @@ const Member = () => {
                   <div className="h-full p-6 text-[#454545] flex flex-col text-center sm:text-left items-center justify-center">
                     <div className="flex flex-col gap-2">
                       <p className="text-2xl text-[#324B4E] font-semibold">
-                        Save the date on June 11!
+                        BINI Run race kits are available for a limited time only so register now!
                       </p>
 
                       <div
@@ -125,16 +125,17 @@ const Member = () => {
                         }}
                       >
                         <p>
-                          We&apos;re releasing three exclusive items from the
-                          first wave of BINI Merch on BINI Day: the
-                          limited-edition Official BINI Shirt, BINI Iron-on
-                          Patches, and BINI Holographic Stickers. Just present
-                          the QR code from your confirmation email as proof that
-                          you are an exclusive member. If you didn&apos;t get to
-                          register for BINI Day, don&apos;t worry!
+                          The first 1,000 exclusive members to redeem their race kits will have the chance to run closer with BINI during the BINI Run. 
+                          Ticket buyers can claim their race kits at ABS-CBN Center Road on June 20, 21, and 22 from 1pm-8pm only. 
+                          Members will have to bring their tickets and membership QR codes for verification. 
+                          BINI Run gates will open at 4am at Quirino Grandstand. 
+                          Enter via South Drive, Roxas Boulevard. 
+                          Come ready wearing your singlets and race bibs. 
+                          Please bring your tickets and exclusive membership details for confirmation. 
+                          See you there! 
                         </p>
 
-                        <p>
+                        {/* <p>
                           As an exclusive member, you&apos;ll still have a
                           chance to grab these BINI items on ground! Kapit lang
                           and don&apos;t miss out!
@@ -144,7 +145,7 @@ const Member = () => {
                           *Only the first 200 of each item will be available on
                           BINI Day. Exclusive members can only buy one of each
                           item.
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </div>
@@ -162,15 +163,6 @@ const Member = () => {
                   className="w-full aspect-video"
                   allowFullScreen
                 ></iframe>
-
-                {/* <div className="relative w-full h-[607px] flex justify-center items-center bg-[url(/images/exclusive-livestream.png)] bg-cover bg-center">
-                  <Image
-                    src="/images/Pause.svg"
-                    width={60}
-                    height={60}
-                    alt="pause-vid"
-                  />
-                </div> */}
               </div>
 
               <iframe
@@ -188,7 +180,7 @@ const Member = () => {
                 defer
               ></script>
 
-              <div className="my-8 md:my-[60px] w-full flex flex-col gap-4 sm:gap-6 ">
+              {/* <div className="my-8 md:my-[60px] w-full flex flex-col gap-4 sm:gap-6 ">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] px-6 lg:px-0 text-[#324B4E]">
                   Exclusive Video
                 </p>
@@ -199,7 +191,7 @@ const Member = () => {
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                 ></iframe>
-              </div>
+              </div> */}
 
               <div className="w-full p-6 sm:p-0">
                 <div className="w-full h-[340px] flex items-center justify-center bg-white/80 rounded-lg">
