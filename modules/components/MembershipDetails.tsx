@@ -128,19 +128,21 @@ const MembershipDetails = () => {
                               </td>
                               <td className={cellClass} data-label={"Action"}
                                 style={{textAlign: 'center'}}>
-                                <Link
-                                  href={item?.content?.pageDirectory || "#"}
-                                  className="underline">
-                                  Browse page
-                                </Link>
-                                {(Array.isArray(item?.vouchers) && item?.vouchers.length > 0) &&(
-                                  <>
-                                    <br />
-                                    <VoucherDetailsPopUp 
-                                      planName={item?.purchase?.planName}
-                                      vouchers={item?.vouchers} />
-                                  </>
-                                )}                                
+                                <span>
+                                  <Link
+                                    href={item?.content?.pageDirectory || "#"}
+                                    className="underline">
+                                    Browse page
+                                  </Link>
+                                  {(Array.isArray(item?.vouchers) && item?.vouchers.length > 0) &&(
+                                    <>
+                                      <br />
+                                      <VoucherDetailsPopUp 
+                                        planName={item?.purchase?.planName}
+                                        vouchers={item?.vouchers} />
+                                    </>
+                                  )}  
+                                </span>                                
                               </td>
                             </tr>
                           );
