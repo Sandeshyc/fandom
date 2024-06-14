@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
-import { CloseOutlined } from "@mui/icons-material";
+import {
+  ContentCopyOutlined,
+  ContentCopyTwoTone,
+  CloseOutlined,
+} from "@mui/icons-material";
 import { Roboto } from "next/font/google";
 import Title from "@/modules/Identities/Title";
 import Link from "next/link";
-import useCheckEntitlement from "@/hooks/useCheckEntitlement";
-import { getAllowedItems } from "@/utils/getData";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { convertESTtoLocalTime } from "@/utils/yearFromDate";
 import { stableKeys } from "@/utils/stableKeys";
 const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-0 whitespace-nowrap`;
@@ -15,15 +16,15 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 type Props = {
-    voucher: any;
+  vouchers: any;
     planName: string;
 }
 const VoucherDetailsPopUp = ({
-    voucher,
+  vouchers,
     planName
 }:Props) => {
-  const [isOpened, setIsOpened] = useState(false);
-  console.log('VoucherDetailsPopUp::voucher', voucher);
+  const [isOpened, setIsOpened] = useState(false);  
+  // console.log('VoucherDetailsPopUp::voucher', vouchers);
   const handleClose = () => {
     setIsOpened(false);
   };
@@ -42,19 +43,19 @@ const VoucherDetailsPopUp = ({
           </div>
           <div className="p-4 pt-8">
             <Title tag="h3" size="2xl" color="text-[#5F576F]" className="mb-8 text-center">
-              Voucher Details of <span className="italic">{planName}</span>
+              Available Vouchers of <span className="font-semibold">{planName}</span>
             </Title>
             <div className="w-full overflow-y-hidden lg:overflow-x-auto">
               <table className="w-full text-left paymentHistoryTable">
                 <thead className="hidden lg:table-header-group text-[#454545]">
                   <tr className="px-4">
-                    <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
+                    <th className="p-2 whitespace-nowrap font-semibold min-w-[130px] pl-0">
                       Title
                     </th>
                     <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                       Description
                     </th>
-                    <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
+                    <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">
                       Voucher Code
                     </th>
                     <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
@@ -63,50 +64,19 @@ const VoucherDetailsPopUp = ({
                     <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                       End date
                     </th>
-                    <th className="p-2 whitespace-nowrap font-semibold min-w-[80px]">
+                    <th className="p-2 whitespace-nowrap font-semibold min-w-[80px] text-center">
                       Action
                     </th>
                   </tr>
                 </thead>
                 <tbody className="text-sm">
-                  <tr
-                    className={`text-gray-900/70 block lg:table-row`}>
-                    <td
-                      className={cellClass}
-                      data-label={"Title"}
-                    >{voucher?.voucherTitle}</td>
-                    <td
-                      className={cellClass}
-                      data-label={"Description"}>
-                      {voucher?.voucherDiscount} {voucher?.voucherTitle}
-                    </td>
-                    <td
-                      className={cellClass}
-                      data-label={"Voucher Code"}>
-                      {voucher?.voucherCode}
-                    </td>
-                    <td
-                      className={cellClass}
-                      data-label={"Start date"}
-                    >
-                      {convertESTtoLocalTime(
-                        voucher?.startDate as string
-                      )}
-                    </td>
-                    <td className={cellClass} data-label={"End date"}>
-                      {convertESTtoLocalTime(
-                        voucher?.expiryDate as string
-                      )}
-                    </td>
-                    <td className={cellClass} data-label={"Action"}>
-                      <Link
-                        href={voucher?.Browse || "#"}
-                        className="underline"
-                      >
-                        Browse page
-                      </Link>
-                    </td>
-                  </tr>
+                  {(Array.isArray(vouchers) && vouchers.length > 0)?(
+                    vouchers.map((voucher: any, index: number) => (
+                      <VoucherDetails key={voucher?._id} voucher={voucher}/>
+                    ))
+                  ):(
+                    <NoVouchertFound/>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -115,11 +85,80 @@ const VoucherDetailsPopUp = ({
       </Modal>
       <button
         type="button"
-        className="bg-[#1B82F2] text-[#fff] px-2 py-1 rounded-md"
+        className="bg-[#1B82F2] text-[#fff] px-2 py-1 rounded-md mt-2"
         onClick={() => setIsOpened(true)}>
-        Voucher Details
+        Available Vouchers
       </button>
     </>
   );
 };
 export default VoucherDetailsPopUp;
+
+const NoVouchertFound = () => {
+  return (
+    <tr>
+      <td
+        colSpan={12}
+        className="text-center text-base py-4 text-[#DA312C]">
+          No vouchers found!
+      </td>
+    </tr>
+  );
+}
+
+const VoucherDetails = ({voucher}:{
+  voucher: any
+}) => {
+  const [copyText, setCopyText] = useState("");
+  const copyTextFunc = (text: string) => {
+    navigator?.clipboard?.writeText(text);
+    setCopyText(text);
+  };
+  return (
+    <tr className={`text-gray-900/70 block lg:table-row`}>
+        <td className={cellClass} data-label={"Title"} >{voucher?.title}</td>
+        <td className={cellClass} data-label={"Description"}>{voucher?.description}</td>
+        <td className={cellClass} data-label={"Voucher Code"}>
+          <span>
+            {voucher?.voucherCode}
+            {copyText === voucher?.voucherCode ? (
+              <span className="text-black ml-2" title="Copied">
+                <ContentCopyTwoTone
+                  sx={{ fontSize: 16, color: "#222" }}
+                />
+              </span>
+            ) : (
+              <span
+                className="text-black/50 ml-2 cursor-copy"
+                title="Copy"
+                onClick={() => copyTextFunc(voucher?.voucherCode)}
+              >
+                <ContentCopyOutlined
+                  sx={{ fontSize: 16, color: "#C1C0C0" }}
+                />
+              </span>
+            )}
+          </span>
+        </td>
+        <td className={cellClass} data-label={"Start date"}>
+          {convertESTtoLocalTime(
+            voucher?.startDate as string
+          )}
+        </td>
+        <td className={cellClass} data-label={"End date"}>
+          {convertESTtoLocalTime(
+            voucher?.endDate as string
+          )}
+        </td>
+        <td className={cellClass} data-label={"Action"} style={{textAlign:'center'}}>
+          {(voucher?.detailsPage)?(
+            <a href={voucher?.detailsPage} target="_blank" className="underline">Details</a>
+          ):(
+            <span>
+              -----
+            </span>
+          )}
+        </td>
+    </tr>
+  );
+}

@@ -157,7 +157,7 @@ const Member = () => {
                 </p>
 
                 <iframe
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&thumbnail=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&image=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=http://assets.iwanttfc.com/images/bini/bini-live-ac.png"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   className="w-full aspect-video"
                   allowFullScreen
@@ -195,7 +195,7 @@ const Member = () => {
 
                 <iframe
                   className="w-full aspect-video"
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/5595b2ce-4d25-4e11-8fe4-4fabccc90c63/bini-exclusive.ism/manifest(format=mpd-time-csf)&wv=f94f8155-4a57-4266-b04f-9f8fd7861c8e&type=symmetric&ctype=groups&cvalue=6be6eb1b-da20-4666-b0cd-3fe499db0056&fp=4d62d6ee-4fd6-473c-aad1-2c5002bae422"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/5595b2ce-4d25-4e11-8fe4-4fabccc90c63/bini-exclusive.ism/manifest(format=mpd-time-csf)&wv=f94f8155-4a57-4266-b04f-9f8fd7861c8e&type=symmetric&ctype=groups&cvalue=6be6eb1b-da20-4666-b0cd-3fe499db0056&fp=4d62d6ee-4fd6-473c-aad1-2c5002bae422&poster=http://assets.iwanttfc.com/images/bini/bini-live-ac.png"
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                 ></iframe>

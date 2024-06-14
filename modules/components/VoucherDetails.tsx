@@ -3,6 +3,11 @@ import Link from "next/link";
 import useCheckEntitlement from "@/hooks/useCheckEntitlement";
 import { getAllowedItems } from "@/utils/getData";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+    ContentCopyOutlined,
+    ContentCopyTwoTone,
+    CloseOutlined,
+} from "@mui/icons-material";
 import { convertESTtoLocalTime } from "@/utils/yearFromDate";
 import { stableKeys } from "@/utils/stableKeys";
 const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-0 whitespace-nowrap`;
@@ -13,6 +18,11 @@ const VoucherDetails = ({
     allowedItemLists
 }:Props) => {
   const [expanded, setExpanded] = useState(false);
+  const [copyText, setCopyText] = useState("");
+  const copyTextFunc = (text: string) => {
+    navigator?.clipboard?.writeText(text);
+    setCopyText(text);
+  };
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
@@ -30,7 +40,7 @@ const VoucherDetails = ({
                 <div className="flex justify-between">
                   <div className="pr-2">
                     <p className="text-lg lg:text-[22px] text-[#11355E] font-medium">
-                      Voucher Details
+                        Available Vouchers
                     </p>
                   </div>
                   <button
@@ -54,14 +64,11 @@ const VoucherDetails = ({
                     <table className="w-full text-left paymentHistoryTable">
                       <thead className="hidden lg:table-header-group text-[#454545]">
                         <tr className="px-4">
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
-                            Plan Name
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[120px] pl-0">
+                            Member ID
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px] pl-0">
                             Title
-                          </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
-                            Description
                           </th>
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[120px]">
                             Voucher Code
@@ -88,9 +95,9 @@ const VoucherDetails = ({
                             >
                               <td
                                 className={cellClass}
-                                data-label={"Plan Name"}
+                                data-label={"Member ID"}
                               >
-                                {item?.purchase?.planName}
+                                {item?.membership?.membershipId}
                               </td>
                               <td
                                 className={cellClass}
@@ -100,13 +107,27 @@ const VoucherDetails = ({
                               </td>
                               <td
                                 className={cellClass}
-                                data-label={"Description"}>
-                                {item?.voucher?.voucherDiscount} {item?.voucher?.voucherTitle}
-                              </td>
-                              <td
-                                className={cellClass}
                                 data-label={"Voucher Code"}>
-                                {item?.voucher?.voucherCode}
+                                <span>
+                                    {item?.voucher?.voucherCode}
+                                    {copyText === item?.voucher?.voucherCode ? (
+                                    <span className="text-black ml-2" title="Copied">
+                                        <ContentCopyTwoTone
+                                        sx={{ fontSize: 16, color: "#222" }}
+                                        />
+                                    </span>
+                                    ) : (
+                                    <span
+                                        className="text-black/50 ml-2 cursor-copy"
+                                        title="Copy"
+                                        onClick={() => copyTextFunc(item?.voucher?.voucherCode)}
+                                    >
+                                        <ContentCopyOutlined
+                                        sx={{ fontSize: 16, color: "#C1C0C0" }}
+                                        />
+                                    </span>
+                                    )}
+                                </span>
                               </td>
                               <td
                                 className={cellClass}
@@ -124,8 +145,7 @@ const VoucherDetails = ({
                               <td className={cellClass} data-label={"Action"}>
                                 <Link
                                   href={item?.content?.pageDirectory || "#"}
-                                  className="underline"
-                                >
+                                  className="underline">
                                   Browse page
                                 </Link>
                               </td>

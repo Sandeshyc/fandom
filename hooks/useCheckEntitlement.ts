@@ -1,9 +1,9 @@
 import useSwr from 'swr'
 import fetcher from '@/libs/fetcher';
 
-const useCheckEntitlement = (userId:string) => {
+const useCheckEntitlement = (userId:string, voucher?:boolean) => {
     const { data, error, isLoading } = 
-    useSwr(`/api/entitlement?&userId=${userId}`, 
+    useSwr(`/api/entitlement?&userId=${userId}&voucher=${voucher}`, 
     fetcher, {
       revalidateIfStale: false,
       revalidateOnFocus: false,

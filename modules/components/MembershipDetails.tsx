@@ -13,7 +13,7 @@ const MembershipDetails = () => {
   const [userId, setUserId] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [allowedItemLists, setAllowedItemLists] = useState([] as any[]);
-  const { data, error, isLoading } = useCheckEntitlement(userId);
+  const { data, error, isLoading } = useCheckEntitlement(userId, true);
   console.log('Data::', data, 'Error::', error, 'isLoading::', isLoading, allowedItemLists);
   const toggleExpanded = () => {
     setExpanded(!expanded);
@@ -87,7 +87,7 @@ const MembershipDetails = () => {
                           <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
                             End date
                           </th>
-                          <th className="p-2 whitespace-nowrap font-semibold min-w-[80px]">
+                          <th className="p-2 whitespace-nowrap font-semibold min-w-[80px] text-center">
                             Action
                           </th>
                         </tr>
@@ -126,14 +126,21 @@ const MembershipDetails = () => {
                                   item?.header?.expiryDate as string
                                 )}
                               </td>
-                              <td className={cellClass} data-label={"Action"}>
+                              <td className={cellClass} data-label={"Action"}
+                                style={{textAlign: 'center'}}>
                                 <Link
                                   href={item?.content?.pageDirectory || "#"}
                                   className="underline">
                                   Browse page
-                                </Link> | <VoucherDetailsPopUp 
-                                  planName={item?.purchase?.planName}
-                                  voucher={item?.voucher} />
+                                </Link>
+                                {(Array.isArray(item?.vouchers) && item?.vouchers.length > 0) &&(
+                                  <>
+                                    <br />
+                                    <VoucherDetailsPopUp 
+                                      planName={item?.purchase?.planName}
+                                      vouchers={item?.vouchers} />
+                                  </>
+                                )}                                
                               </td>
                             </tr>
                           );
@@ -147,9 +154,9 @@ const MembershipDetails = () => {
           </div>
           </>
         )}
-      <VoucherDetails 
+      {/* <VoucherDetails 
         allowedItemLists={allowedItemLists}
-      />
+      /> */}
     </>
   );
 };
