@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -25,27 +25,39 @@ const BTS_DATA = [
     title: "BINI LIVESTREAM: BINI-yahe to One Ayala",
     link: "https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/576a9a47-cb6f-4259-9fda-892520a54db2/sheenacam.ism/manifest(format=mpd-time-csf)&wv=c1efb7a8-7b61-464e-97af-7c2539a4eec3&type=symmetric&ctype=groups&cvalue=c3a323df-d989-42fe-bbf3-8279e8c6fd60&fp=717bcd13-c17d-4d9d-97a0-b920f8ecd4ed",
   },
+  {
+    thumbnail: "/images/bini-video3.png",
+    title: "Bloopers and outtakes from the BINI Land announcement shoot!",
+    link: "https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/829eeb6e-d3a1-4e86-8d61-03ea6233df16/exclusivevideo002_v2.ism/manifest(format=mpd-time-csf)&wv=7c51444e-8aad-4177-baa5-c1355e42f6d8&type=symmetric&ctype=groups&cvalue=9a45bffa-0e76-4b88-9570-3b1eba11d5e0&fp=5060d8ac-10d5-48f8-b35f-2a825c22fadd",
+  },
 ];
 
 const BtsSlider = () => {
   const swiperRef = useRef<SwiperRef>(null);
   const isMobile = useIsMobile();
+  const [isStartOfSlide, setIsStartOfSlide] = useState(true);
   const [isEndOfSlide, setIsEndOfSlide] = useState(false);
   const [playingVid, setPlayingVid] = useState("");
 
   const handleSlideChange = (swiper: any) => {
     setIsEndOfSlide(swiper.isEnd);
+    setIsStartOfSlide(swiper.isBeginning);
   };
+
+  useEffect(() => {
+    setIsEndOfSlide(swiperRef?.current?.swiper?.isEnd!);
+    setIsStartOfSlide(swiperRef?.current?.swiper?.isBeginning!);
+  }, []);
 
   return (
     <>
       <VideoPlayerModal playingVid={playingVid} setPlayingVid={setPlayingVid} />
 
       <div className="relative w-full xl:w-full mx-auto flex items-center">
-        <button disabled={!isEndOfSlide} className="disabled:opacity-50">
+        <button disabled={isStartOfSlide} className="disabled:opacity-50">
           <FaChevronLeft
             onClick={() => swiperRef?.current?.swiper?.slidePrev()}
-            className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute -left-1 lg:-left-2 xl:-left-5 top-[35%] -translate-x-1/2"
+            className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute -left-1 lg:-left-3 xl:-left-9 top-[35%] -translate-x-1/2"
           />
         </button>
 
@@ -55,6 +67,9 @@ const BtsSlider = () => {
           freeMode={isMobile}
           spaceBetween={24}
           onSlideChange={handleSlideChange}
+          style={{
+            margin: 0,
+          }}
         >
           {BTS_DATA.map((bts) => (
             <SwiperSlide
@@ -102,7 +117,7 @@ const BtsSlider = () => {
         <button disabled={isEndOfSlide} className="disabled:opacity-50">
           <FaChevronRight
             onClick={() => swiperRef?.current?.swiper?.slideNext()}
-            className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute right-0 xs:-right-10  top-[35%] -translate-x-1/2"
+            className="hidden lg:block text-xl cursor-pointer text-[#324B4E] z-10 absolute right-0 lg:-right-9 xl:-right-14  top-[35%] -translate-x-1/2"
           />
         </button>
       </div>
