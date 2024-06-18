@@ -47,7 +47,7 @@ const BtsSlider = () => {
   useEffect(() => {
     setIsEndOfSlide(swiperRef?.current?.swiper?.isEnd!);
     setIsStartOfSlide(swiperRef?.current?.swiper?.isBeginning!);
-  }, []);
+  }, [swiperRef?.current?.swiper]);
 
   return (
     <>
