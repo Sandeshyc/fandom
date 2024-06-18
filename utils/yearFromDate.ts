@@ -67,6 +67,11 @@ export const formatDateRange = (startDate: string, endDate: string): string => {
     return `${formattedStartDate} - ${formattedEndDate}`;
 }
 
+export const isExpired = (endDate: string) => {
+    const currentDate = new Date();
+    return new Date(endDate) < currentDate;
+};
+
 export const convertESTtoLocalTime = (estDateTimeString: string) => {
     const date = new Date(estDateTimeString);
 
