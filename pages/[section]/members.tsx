@@ -76,7 +76,7 @@ const Member = () => {
   return (
     <>
       {isReady ? (
-        <div className="relative w-full h-full min-h-screen bg-[url('/images/bini-bg.png')] bg-fixed flex flex-col items-center justify-between">
+        <div className="relative w-full h-full min-h-screen bg-[url('/images/bini-bg-mobile.png')] lg:bg-[url('/images/bini-bg-web.png')] bg-cover bg-fixed flex flex-col items-center justify-between">
           <ExclusiveNavigation />
 
           <div
@@ -101,38 +101,42 @@ const Member = () => {
                 <BtsSlider />
               </div>
 
-              <div className="w-full p-6 sm:p-0">
-                <div className="my-8 md:my-[60px] w-full flex flex-col sm:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
-                  <div className="w-full max-w-[600px] h-[290px] sm:h-[452px] relative aspect-auto">
+              <div className="w-full p-6 lg:p-0">
+                <div className="my-8 md:my-[60px] w-full flex flex-col lg:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
+                  <div className="w-full max-w-[600px] relative aspect-[4/3]">
                     <Image
                       src="/images/bini-run.png"
                       fill
                       alt="bini-merch"
-                      className="object-cover"
+                      className="object-cover "
                     />
                   </div>
 
-                  <div className="h-full p-6 text-[#454545] flex flex-col text-center sm:text-left items-center justify-center">
-                    <div className="flex flex-col gap-2">
+                  <div className="h-full p-6 text-[#454545] flex flex-col text-center lg:text-left items-center justify-center">
+                    <div className="flex flex-col items-center gap-2">
                       <p className="text-2xl text-[#324B4E] font-semibold">
-                        BINI Run race kits are available for a limited time only so register now!
+                        BINI Run race kits are available for a limited time only
+                        so register now!
                       </p>
 
                       <div
-                        className="max-w-[428px] sm:text-xl flex flex-col items-start gap-[10px]"
+                        className="lg:max-w-[428px] sm:text-xl flex flex-col items-start gap-[10px]"
                         style={{
                           lineHeight: "normal",
                         }}
                       >
                         <p>
-                          The first 1,000 exclusive members to redeem their race kits will have the chance to run closer with BINI during the BINI Run. 
-                          Ticket buyers can claim their race kits at ABS-CBN Center Road on June 20, 21, and 22 from 1pm-8pm only. 
-                          Members will have to bring their tickets and membership QR codes for verification. 
-                          BINI Run gates will open at 4am at Quirino Grandstand. 
-                          Enter via South Drive, Roxas Boulevard. 
-                          Come ready wearing your singlets and race bibs. 
-                          Please bring your tickets and exclusive membership details for confirmation. 
-                          See you there! 
+                          The first 1,000 exclusive members to redeem their race
+                          kits will have the chance to run closer with BINI
+                          during the BINI Run. Ticket buyers can claim their
+                          race kits at ABS-CBN Center Road on June 20, 21, and
+                          22 from 1pm-8pm only. Members will have to bring their
+                          tickets and membership QR codes for verification. BINI
+                          Run gates will open at 4am at Quirino Grandstand.
+                          Enter via South Drive, Roxas Boulevard. Come ready
+                          wearing your singlets and race bibs. Please bring your
+                          tickets and exclusive membership details for
+                          confirmation. See you there!
                         </p>
 
                         {/* <p>
@@ -158,7 +162,7 @@ const Member = () => {
                 </p>
 
                 <iframe
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=http://assets.iwanttfc.com/images/bini/bini-live-ac.png"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&thumbnail=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&image=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   className="w-full aspect-video"
                   allowFullScreen
@@ -187,7 +191,7 @@ const Member = () => {
 
                 <iframe
                   className="w-full aspect-video"
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/5595b2ce-4d25-4e11-8fe4-4fabccc90c63/bini-exclusive.ism/manifest(format=mpd-time-csf)&wv=f94f8155-4a57-4266-b04f-9f8fd7861c8e&type=symmetric&ctype=groups&cvalue=6be6eb1b-da20-4666-b0cd-3fe499db0056&fp=4d62d6ee-4fd6-473c-aad1-2c5002bae422&poster=http://assets.iwanttfc.com/images/bini/bini-live-ac.png"
+                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/5595b2ce-4d25-4e11-8fe4-4fabccc90c63/bini-exclusive.ism/manifest(format=mpd-time-csf)&wv=f94f8155-4a57-4266-b04f-9f8fd7861c8e&type=symmetric&ctype=groups&cvalue=6be6eb1b-da20-4666-b0cd-3fe499db0056&fp=4d62d6ee-4fd6-473c-aad1-2c5002bae422"
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                 ></iframe>
