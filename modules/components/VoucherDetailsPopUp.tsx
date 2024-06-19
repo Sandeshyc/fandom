@@ -126,7 +126,7 @@ const VoucherDetails = ({ voucher }: { voucher: any }) => {
   return (
     <tr className={`text-gray-900/70 block lg:table-row`}>
       <td className={cellClass} data-label={"Product"}>
-        {voucher?.product ?? "No Product Name"}
+        {voucher?.productName ?? "No Product Name"}
       </td>
       <td className={`${cellClass} items-center`} data-label={"Title"}>
         <span>
