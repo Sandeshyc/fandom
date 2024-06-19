@@ -128,15 +128,15 @@ const VoucherDetails = ({ voucher }: { voucher: any }) => {
       <td className={cellClass} data-label={"Product"}>
         {voucher?.product ?? "No Product Name"}
       </td>
-      <td className={`${cellClass} items-center`} data-label={"Title"}>
-        <span>
+      <td className={`${cellClass} items-center `} data-label={"Title"}>
+        <div className="whitespace-normal break-words max-w-[60%] md:max-w-[100%]">
           {voucher?.title}
-          <Tooltip title={voucher?.description}>
-            <IconButton>
-              <InfoIcon />
-            </IconButton>
-          </Tooltip>
-        </span>
+          <span>
+            <Tooltip title={voucher?.description}>
+              <InfoIcon className="pl-1" />
+            </Tooltip>
+          </span>
+        </div>
       </td>
       <td className={`${cellClass} text-right`} data-label={"Discount"}>
         <span className="md:pr-16">{voucher?.discount}</span>
