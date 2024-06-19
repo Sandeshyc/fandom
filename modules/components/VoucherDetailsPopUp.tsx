@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Modal from "@mui/material/Modal";
+import { useState } from "react";
+import Title from "@/modules/Identities/Title";
+import { formatDateRange, isExpired } from "@/utils/yearFromDate";
 import {
+  CloseOutlined,
   ContentCopyOutlined,
   ContentCopyTwoTone,
-  CloseOutlined,
 } from "@mui/icons-material";
-import { Roboto } from "next/font/google";
-import Title from "@/modules/Identities/Title";
-import Link from "next/link";
-import { formatDateRange } from "@/utils/yearFromDate";
-import { stableKeys } from "@/utils/stableKeys";
 import InfoIcon from "@mui/icons-material/Info";
 import { IconButton, Tooltip } from "@mui/material";
+import Modal from "@mui/material/Modal";
+import { Roboto } from "next/font/google";
 
 const cellClass = `before:mr-4 before:font-medium before:text-gray-900 p-2 lg:py-4 flex flex-wrap justify-between lg:table-cell border-b border-gray-300/50 lg:first:pl-0 whitespace-nowrap`;
+
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
@@ -28,6 +27,11 @@ const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
   const handleClose = () => {
     setIsOpened(false);
   };
+
+  const validVouchers = Array.isArray(vouchers)
+    ? vouchers.filter((voucher) => !isExpired(voucher.endDate))
+    : [];
+
   return (
     <>
       <Modal
@@ -62,7 +66,7 @@ const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
                     <th className="p-2 whitespace-nowrap font-semibold min-w-[130px] pl-0">
                       Title
                     </th>
-                    <th className="p-2 whitespace-nowrap font-semibold min-w-[180px]">
+                    <th className="p-2 whitespace-nowrap font-semibold min-w-[80px]">
                       Discount
                     </th>
                     <th className="p-2 whitespace-nowrap font-semibold min-w-[100px]">
@@ -77,12 +81,12 @@ const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
                   </tr>
                 </thead>
                 <tbody className="text-sm">
-                  {Array.isArray(vouchers) && vouchers.length > 0 ? (
-                    vouchers.map((voucher: any, index: number) => (
-                      <VoucherDetails key={voucher?._id} voucher={voucher} />
+                  {validVouchers.length > 0 ? (
+                    validVouchers.map((voucher) => (
+                      <VoucherDetails key={voucher._id} voucher={voucher} />
                     ))
                   ) : (
-                    <NoVouchertFound />
+                    <NoVoucherFound />
                   )}
                 </tbody>
               </table>
@@ -102,7 +106,7 @@ const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
 };
 export default VoucherDetailsPopUp;
 
-const NoVouchertFound = () => {
+const NoVoucherFound = () => {
   return (
     <tr>
       <td colSpan={12} className="text-center text-base py-4 text-[#DA312C]">
@@ -119,7 +123,6 @@ const VoucherDetails = ({ voucher }: { voucher: any }) => {
     setCopyText(text);
   };
 
-  console.log("vocher", voucher);
   return (
     <tr className={`text-gray-900/70 block lg:table-row`}>
       <td className={cellClass} data-label={"Product"}>
