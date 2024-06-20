@@ -17,8 +17,22 @@ const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
 });
+
+type VoucherType = {
+  description: string;
+  detailsPage: string;
+  discount: string;
+  endDate: string;
+  membershipId: string;
+  productName: string;
+  startDate: string;
+  status: string;
+  title: string;
+  voucherCode: string;
+};
+
 type Props = {
-  vouchers: any;
+  vouchers: VoucherType[];
   planName: string;
 };
 const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
@@ -27,10 +41,6 @@ const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
   const handleClose = () => {
     setIsOpened(false);
   };
-
-  const validVouchers = Array.isArray(vouchers)
-    ? vouchers.filter((voucher) => !isExpired(voucher.endDate))
-    : [];
 
   return (
     <>
@@ -81,9 +91,12 @@ const VoucherDetailsPopUp = ({ vouchers, planName }: Props) => {
                   </tr>
                 </thead>
                 <tbody className="text-sm">
-                  {validVouchers.length > 0 ? (
-                    validVouchers.map((voucher) => (
-                      <VoucherDetails key={voucher._id} voucher={voucher} />
+                  {Array.isArray(vouchers) && vouchers.length > 0 ? (
+                    vouchers.map((voucher, index) => (
+                      <VoucherDetails
+                        key={`${voucher.membershipId}-${index}`}
+                        voucher={voucher}
+                      />
                     ))
                   ) : (
                     <NoVoucherFound />
