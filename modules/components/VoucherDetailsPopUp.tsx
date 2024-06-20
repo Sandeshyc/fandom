@@ -7,7 +7,7 @@ import {
   ContentCopyTwoTone,
 } from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
-import { IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Roboto } from "next/font/google";
 
@@ -118,6 +118,7 @@ const NoVoucherFound = () => {
 
 const VoucherDetails = ({ voucher }: { voucher: any }) => {
   const [copyText, setCopyText] = useState("");
+  const [showTooltip, setShowTooltip] = useState(false);
   const copyTextFunc = (text: string) => {
     navigator?.clipboard?.writeText(text);
     setCopyText(text);
@@ -132,8 +133,15 @@ const VoucherDetails = ({ voucher }: { voucher: any }) => {
         <div className="whitespace-normal break-words max-w-[60%] md:max-w-[100%]">
           {voucher?.title}
           <span>
-            <Tooltip title={voucher?.description}>
-              <InfoIcon className="pl-1" />
+            <Tooltip
+              title={voucher?.description}
+              open={showTooltip}
+              onOpen={() => setShowTooltip(true)}
+              onClose={() => setShowTooltip(false)}
+            >
+              <IconButton onClick={() => setShowTooltip(!showTooltip)}>
+                <InfoIcon className="pl-1" />
+              </IconButton>
             </Tooltip>
           </span>
         </div>
