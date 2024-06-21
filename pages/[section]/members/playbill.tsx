@@ -51,14 +51,14 @@ const Playbill = () => {
                 //   console.log("User not found::", userInfoObj);
                 // router.push(`/` + section);
                 const itemUrl = `/` + section + `/members/playbill`;
-                window.localStorage.setItem("itemUrl", itemUrl);
+                window.localStorage.setItem("redirectUrl", itemUrl);
                 window.location.replace(`/login`);
             }
           } else {
             // console.log("User not found:", userInfo);
             // router.push(`/` + section);
             const itemUrl = `/` + section + `/members/playbill`;
-            window.localStorage.setItem("itemUrl", itemUrl);
+            window.localStorage.setItem("redirectUrl", itemUrl);
             window.location.replace(`/login`);
           }
         }
