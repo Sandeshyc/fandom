@@ -125,7 +125,7 @@ const Member = () => {
                         }}
                       >
                         <p>
-                          Due to unforeseen circumstances, today's #BINIRun2024
+                          Due to unforeseen circumstances, today&apos;s #BINIRun2024
                           race kit distribution will be rescheduled to tomorrow
                           at 9AM.
                         </p>
