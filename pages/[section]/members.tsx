@@ -105,7 +105,7 @@ const Member = () => {
                 <div className="my-8 md:my-[60px] w-full flex flex-col lg:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
                   <div className="w-full max-w-[600px] relative aspect-[4/3]">
                     <Image
-                      src="/images/race-kit-advisory.png"
+                      src="/images/race-kit-advisory.jpeg"
                       fill
                       alt="bini-merch"
                       className="object-cover "
