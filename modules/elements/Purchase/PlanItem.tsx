@@ -294,6 +294,13 @@ const PlanItem = ({
                             className="shadow border border-[#C1C0C0]"
                           />
                           <Image
+                            src={"/images/au-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="au-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                          <Image
                             src={"/images/nz-flag.png"}
                             width={60}
                             height={30}
