@@ -105,7 +105,7 @@ const Member = () => {
                 <div className="my-8 md:my-[60px] w-full flex flex-col lg:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
                   <div className="w-full max-w-[600px] relative aspect-[4/3]">
                     <Image
-                      src="/images/bini-run.png"
+                      src="/images/race-kit-advisory.jpeg"
                       fill
                       alt="bini-merch"
                       className="object-cover "
@@ -114,30 +114,27 @@ const Member = () => {
 
                   <div className="h-full p-6 text-[#454545] flex flex-col text-center lg:text-left items-center justify-center">
                     <div className="flex flex-col items-center gap-2">
-                      <p className="text-2xl text-[#324B4E] font-semibold">
-                        BINI Run race kits are available for a limited time only
-                        so register now!
+                      <p className="w-full text-2xl text-[#324B4E] font-semibold">
+                        #BINI : 📣ADVISORY📣
                       </p>
 
                       <div
-                        className="lg:max-w-[428px] sm:text-xl flex flex-col items-start gap-[10px]"
+                        className="lg:max-w-[428px] sm:text-xl flex flex-col items-start gap-[12px]"
                         style={{
                           lineHeight: "normal",
                         }}
                       >
                         <p>
-                          The first 1,000 exclusive members to redeem their race
-                          kits will have the chance to run closer with BINI
-                          during the BINI Run. Ticket buyers can claim their
-                          race kits at ABS-CBN Center Road on June 20, 21, and
-                          22 from 1pm-8pm only. Members will have to bring their
-                          tickets and membership QR codes for verification. BINI
-                          Run gates will open at 4am at Quirino Grandstand.
-                          Enter via South Drive, Roxas Boulevard. Come ready
-                          wearing your singlets and race bibs. Please bring your
-                          tickets and exclusive membership details for
-                          confirmation. See you there!
+                          Due to unforeseen circumstances, today's #BINIRun2024
+                          race kit distribution will be rescheduled to tomorrow
+                          at 9AM.
                         </p>
+                        <p>
+                          We apologize for this inconvenience and will post
+                          updates as soon as possible.
+                        </p>
+                        <p>Thank you for your kind understanding.</p>
+                        <p>#BuhayAyDiKarera #BINIyahengJUNEpacked</p>
 
                         {/* <p>
                           As an exclusive member, you&apos;ll still have a
