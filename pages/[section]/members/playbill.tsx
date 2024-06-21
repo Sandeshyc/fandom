@@ -4,9 +4,11 @@ import { getEntitlementList } from "@/services/api";
 import { getAllowedItems } from "@/utils/getData";
 import Preloader from "@/modules/skeletons/Preloader";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
+const currentPageUrl = "/playbill";
 const Playbill = () => {
     const router = useRouter();
     const { section } = router.query;
+    const [itemUrl, setItemUrl] = useState('');
     const [isReady, setIsReady] = useState(false);
     const [userId, setUserId] = useState("");
     const [pageDirectory, setPageDirectory] = useState("");
@@ -50,14 +52,12 @@ const Playbill = () => {
             } else {
                 //   console.log("User not found::", userInfoObj);
                 // router.push(`/` + section);
-                const itemUrl = `/` + section + `/members/playbill`;
                 window.localStorage.setItem("redirectUrl", itemUrl);
                 window.location.replace(`/login`);
             }
           } else {
             // console.log("User not found:", userInfo);
             // router.push(`/` + section);
-            const itemUrl = `/` + section + `/members/playbill`;
             window.localStorage.setItem("redirectUrl", itemUrl);
             window.location.replace(`/login`);
           }
@@ -66,6 +66,7 @@ const Playbill = () => {
     useEffect(() => {
         if (section) {
           setPageDirectory(section + "/members");
+          setItemUrl(`/` + section + `/members/`+currentPageUrl);
         }
     }, [section]);
     return (
