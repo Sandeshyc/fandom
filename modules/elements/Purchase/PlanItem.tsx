@@ -286,6 +286,20 @@ const PlanItem = ({
                             alt="sg-flag"
                             className="shadow border border-[#C1C0C0]"
                           />
+                          <Image
+                            src={"/images/id-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="id-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
+                          <Image
+                            src={"/images/nz-flag.png"}
+                            width={60}
+                            height={30}
+                            alt="nz-flag"
+                            className="shadow border border-[#C1C0C0]"
+                          />
                         </div>
 
                         <p className="text-[#454545] mt-4">
