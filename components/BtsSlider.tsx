@@ -30,6 +30,11 @@ const BTS_DATA = [
     title: "Bloopers and outtakes from the BINI Land announcement shoot!",
     link: "https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/829eeb6e-d3a1-4e86-8d61-03ea6233df16/exclusivevideo002_v2.ism/manifest(format=mpd-time-csf)&wv=7c51444e-8aad-4177-baa5-c1355e42f6d8&type=symmetric&ctype=groups&cvalue=9a45bffa-0e76-4b88-9570-3b1eba11d5e0&fp=5060d8ac-10d5-48f8-b35f-2a825c22fadd",
   },
+  {
+    thumbnail: "/images/bini-video4.png",
+    title: "#BINI_CherryOnTop | The Songwriters 🍒✍🏼 extended version with BINI Maloi and BINI Colet!",
+    link: "https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://ktx.akamaized.net/d9e2efdb-116f-4abe-9891-69611dfdf737/bini-musiccamp-horizontal-extend.ism/manifest(format=mpd-time-csf)&wv=f5d0644a-69af-45e4-a59e-7e88477c3fd4&type=symmetric&ctype=groups&cvalue=b10a1a8a-8539-4b0e-a922-80d620d183e9&fp=4c8b8dcd-56bd-47d8-9866-204f184f4094",
+  },
 ];
 
 const BtsSlider = () => {
