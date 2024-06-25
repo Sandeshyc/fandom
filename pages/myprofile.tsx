@@ -22,6 +22,7 @@ import DeleteAccount from "@/modules/elements/DeleteAccount";
 import { getSession } from "@/utils/cognitoAuth";
 import MembershipDetails from "@/modules/components/MembershipDetails";
 import Preloader from "@/modules/skeletons/Preloader";
+import GenerateQRcode from "@/modules/elements/GenerateQRcode";
 
 const bgImage = 'url("/images/new-bg.png")';
 
@@ -45,6 +46,7 @@ const MyProfile = () => {
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
   const [openDeleteAccount, setOpenDeleteAccount] = React.useState(false);
+  const [openQrCode, setOpenQrCode] = React.useState(false);
 
   const { data: profile, isLoading } = useProfile(userid);
   // console.log('profile: ', profile);
@@ -316,12 +318,18 @@ const MyProfile = () => {
                               </button>
                             </>
                           ) : (
-                            <div className="w-full flex flex-wrap items-center justify-center sm:justify-start">
+                            <div className="w-full flex flex-wrap items-center justify-between">
                               <span
                                 onClick={() => updateProfileHandle(true)}
-                                className={`bg-[#1B82F2] text-white cursor-pointer text-center w-full sm:w-auto sm:min-w-[176px] px-8 py-2 rounded-[50px]`}
+                                className={`bg-[#1B82F2] text-white cursor-pointer text-center sm:w-auto sm:min-w-[176px] px-4 sm:px-8 py-2 rounded-[50px] text-sm sm:text-base`}
                               >
                                 Edit Profile
+                              </span>
+                              <span
+                                onClick={() => setOpenQrCode(true)}
+                                className={`bg-[#1B82F2] text-white cursor-pointer text-center sm:w-auto sm:min-w-[176px] px-4 sm:px-8 py-2 rounded-[50px] text-sm sm:text-base`}
+                              >
+                                Generate QR Code
                               </span>
                               {/* <div className="sm:ml-8 text-center mt-4 sm:mt-0 w-full sm:w-auto">
                                 <span
@@ -352,6 +360,13 @@ const MyProfile = () => {
                   <DeleteAccount
                     open={openDeleteAccount}
                     setOpen={setOpenDeleteAccount}
+                  />
+                )}
+                {openQrCode && (
+                  <GenerateQRcode
+                    open={openQrCode}
+                    setOpen={setOpenQrCode}
+                    email={values.userEmail}
                   />
                 )}
               </div>
