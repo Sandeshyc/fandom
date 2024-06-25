@@ -13,6 +13,7 @@ import getEntitlementList from './getEntitlementList';
 import getAuditEntitlement from './getAuditEntitlement';
 import recheckEntitlement from './recheckEntitlement';
 import reChapchaTokenVerify from './reChaptchaTokenVerify';
+import generateQRcode from './generateQRcode';
 
 export {
     addToMyList,
@@ -30,4 +31,5 @@ export {
     getAuditEntitlement,
     recheckEntitlement,
     reChapchaTokenVerify,
+    generateQRcode,
 };
