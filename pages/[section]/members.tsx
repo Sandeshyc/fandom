@@ -103,9 +103,9 @@ const Member = () => {
 
               <div className="w-full p-6 lg:p-0">
                 <div className="my-8 md:my-[60px] w-full flex flex-col lg:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
-                  <div className="w-full max-w-[600px] relative aspect-[4/3]">
+                  <div className="w-full max-w-[600px] relative aspect-[5/4] lg:aspect-[6/5]">
                     <Image
-                      src="/images/race-kit-advisory.jpeg"
+                      src="/images/bini-fandom-merch.jpg"
                       fill
                       alt="bini-merch"
                       className="object-cover "
@@ -115,7 +115,7 @@ const Member = () => {
                   <div className="h-full p-6 text-[#454545] flex flex-col text-center lg:text-left items-center justify-center">
                     <div className="flex flex-col items-center gap-2">
                       <p className="w-full text-2xl text-[#324B4E] font-semibold">
-                        #BINI : 📣ADVISORY📣
+                        GRAB YOUR OWN BINIVERSE MERCH!
                       </p>
 
                       <div
@@ -125,16 +125,33 @@ const Member = () => {
                         }}
                       >
                         <p>
-                          Due to unforeseen circumstances, today&apos;s #BINIRun2024
-                          race kit distribution will be rescheduled to tomorrow
-                          at 9AM.
+                          Get ready to grab your own BINIverse merchandise! Mark
+                          your calendars because BINI Merch will be available
+                          for exclusive members. As an exclusive member, you can
+                          purchase your BINI Merch on June 27, 2024, at ABS-CBN
+                          Center Road. Here are the Details:
                         </p>
+
+                        <div className="ml-1 flex flex-col text-start gap-1 ">
+                          <p className="">
+                            <b>Date:</b> June 27, 2024
+                          </p>
+                          <p>
+                            <b>Time:</b> 9AM to 6PM or until supplies last.
+                          </p>
+                          <p>
+                            <b>Location:</b> ABS-CBN Center Road (Near ELJ Tower
+                            Entrance), Mother Ignacia St., Diliman, Quezon City
+                          </p>
+                        </div>
+
                         <p>
-                          We apologize for this inconvenience and will post
-                          updates as soon as possible.
+                          The items available are: BINI Shirt, Bracelet,
+                          Photocard Holder, Photocard Album, BINI Wand,
+                          Stickers, Patches, Paper Bags (S,M,L). The supplies
+                          are limited so each member is only allowed to purchase
+                          one (1) item of each kind.
                         </p>
-                        <p>Thank you for your kind understanding.</p>
-                        <p>#BuhayAyDiKarera #BINIyahengJUNEpacked</p>
 
                         {/* <p>
                           As an exclusive member, you&apos;ll still have a
