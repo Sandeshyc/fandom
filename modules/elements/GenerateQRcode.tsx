@@ -41,11 +41,11 @@ const GenerateQRcode = ({open, setOpen, email}:Props) => {
           <div className='rounded-md w-[90%] max-w-[540px] bg-[#11355E] text-white relative min-h-[420px] flex justify-center items-center'>            
             <button
             onClick={handleClose}
-            className='absolute top-0 right-2 first-letter:text-4xl font-semibold'>
+            className='absolute top-0 right-0 first-letter:text-4xl font-semibold'>
               <CloseOutlined 
                 sx={{
                     fontSize: '28px',
-                    color: '#ff0000',
+                    color: '#fff',
                 }}
               />
             </button>
@@ -75,7 +75,7 @@ const GenerateQRcode = ({open, setOpen, email}:Props) => {
                                     marginBottom: '5px',
                                 }}/>
                                 <p className='text-base'>
-                                    Some error occured while generating QR Code.
+                                    Something went wrong. Please try again later.
                                 </p>
                             </div>
                         )}
