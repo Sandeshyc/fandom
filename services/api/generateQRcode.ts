@@ -15,6 +15,12 @@ const generateQRcode = async (email:string) => {
                 status: 'success',
                 data: response.data
             };
+            if(response?.data?.statusCode === 404){
+                returnResponse = {
+                    status: 'error',
+                    data: ''
+                };
+            }
         }else {
             returnResponse = {
                 status: 'error',

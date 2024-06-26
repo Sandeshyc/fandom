@@ -318,10 +318,10 @@ const MyProfile = () => {
                               </button>
                             </>
                           ) : (
-                            <div className="w-full flex flex-wrap items-center justify-between">
+                            <div className="w-full flex flex-wrap items-center">
                               <span
                                 onClick={() => updateProfileHandle(true)}
-                                className={`bg-[#1B82F2] text-white cursor-pointer text-center sm:w-auto sm:min-w-[176px] px-4 sm:px-8 py-2 rounded-[50px] text-sm sm:text-base`}
+                                className={`bg-[#1B82F2] text-white cursor-pointer text-center sm:w-auto sm:min-w-[176px] px-4 sm:px-8 py-2 rounded-[50px] text-sm sm:text-base mr-4`}
                               >
                                 Edit Profile
                               </span>
