@@ -44,7 +44,7 @@ const GenerateQRcode = ({open, setOpen, email}:Props) => {
             className='absolute top-0 right-2 first-letter:text-4xl font-semibold'>
               <CloseOutlined 
                 sx={{
-                    fontSize: '36px',
+                    fontSize: '28px',
                     color: '#fff',
                 }}
               />
