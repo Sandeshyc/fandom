@@ -37,7 +37,8 @@ const BTS_DATA = [
   },
 ];
 
-const BtsSlider = () => {
+const BtsSlider = ({ data }: any) => {
+
   const swiperRef = useRef<SwiperRef>(null);
   const isMobile = useIsMobile();
   const [isStartOfSlide, setIsStartOfSlide] = useState(true);
@@ -76,9 +77,9 @@ const BtsSlider = () => {
             margin: 0,
           }}
         >
-          {BTS_DATA.map((bts) => (
+          {data.map((bts: any) => (
             <SwiperSlide
-              key={bts.title}
+              key={bts.videoTitle}
               style={{
                 width: "fit-content",
               }}
@@ -87,12 +88,12 @@ const BtsSlider = () => {
               <div
                 className="w-[268px] sm:w-[306px] flex flex-col gap-2 mx-auto cursor-pointer"
                 onClick={() => {
-                  setPlayingVid(bts.link);
+                  setPlayingVid(bts.videoEmbed);
                 }}
               >
                 <div className={`relative flex items-end`}>
                   <Image
-                    src={bts.thumbnail}
+                    src={bts.videoThumbnail.sourceUrl}
                     width={306}
                     height={172}
                     alt="pause-vid"
@@ -113,7 +114,7 @@ const BtsSlider = () => {
                   </div>
                 </div>
 
-                <p className="text-[#454545] text-xl">{bts.title}</p>
+                <p className="text-[#454545] text-xl" dangerouslySetInnerHTML={{ __html: bts.shortDescription }}></p>
               </div>
             </SwiperSlide>
           ))}

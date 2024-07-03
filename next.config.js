@@ -7,6 +7,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ["localhost"],
+  },
   // async redirects() {
   //   return [
   //     {
@@ -46,6 +49,6 @@ const nextConfig = {
   // env:{
   //   MY_DOMAIN: process.env.MY_DOMAIN,
   // }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

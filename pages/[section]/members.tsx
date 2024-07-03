@@ -9,15 +9,53 @@ import ExclusiveFooter from "@/components/ExclusiveFooter";
 import ExclusiveNavigation from "@/modules/components/ExclusiveNavigation";
 import BtsSlider from "@/components/BtsSlider";
 import ReactVideoPlayer from "@/modules/components/ReactPlayer";
+import axios from "axios";
+import getWelcomeVideoQuery from "@/queries/getWelcomeVideoQyery";
+import getExclusiveVideosQuery from "@/queries/getExculsiveViedeosQuery";
+import getMerchandiseQuery from "@/queries/getMerchandiseQuery";
+import getExclusiveLivestreamQuery from "@/queries/getExclusiveLivestreamQuery";
 const exclusive = "/images/exclusive.png";
 const contentId = "6641a3eba9e8e0ae2a7786b8";
-const Member = () => {
+
+const queries = [getWelcomeVideoQuery, getExclusiveVideosQuery, getMerchandiseQuery, getExclusiveLivestreamQuery];
+
+export async function getServerSideProps() {
+  let data: any = {};
+
+  if (process.env.NEXT_PUBLIC_GQL_ENDPOINT != "") {
+    for (const item of queries) {
+      await axios({
+        url: process.env.NEXT_PUBLIC_GQL_ENDPOINT,
+        method: "post",
+        data: {
+          query: item.query,
+        },
+      }).then(
+        (result) => {
+          data[item.name] = result.data.data;
+        },
+        (error) => {
+          console.error("GQL for " + item.name + " failed!", error);
+        }
+      );
+    }
+  }
+
+  return { props: { data } };
+}
+
+const Member = ({ data }: any) => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const { section } = router.query;
   const [isReady, setIsReady] = useState(false);
   const [userId, setUserId] = useState("");
   const [pageDirectory, setPageDirectory] = useState("");
+
+  const welcomeVideo = data.welcomeVideo?.page.biniFandompage.welcomeVideoBlock;
+  const exclusiveVideos = data.exclusiveVideos?.page.biniFandompage.exclusiveVideosBlock;
+  const merchandiseData = data.merchandiesData?.page.biniFandompage.merchandiseBlock;
+  const liveStreamData = data.exclusiveLivestream?.page.biniFandompage.liveStreamBlock;
 
   useEffect(() => {
     if (pageDirectory) {
@@ -85,27 +123,27 @@ const Member = () => {
             <div className="container mx-auto max-w-[1076px] flex flex-col items-center">
               <div className="w-full mx-auto aspect-video">
                 <ReactVideoPlayer
-                  videoURL="https://qa-static3.abs-cbn.com/bini/bini-welcome.mp4"
+                  videoURL={welcomeVideo.videoEmbed}
                   control={true}
                   play={true}
                   isMute={false}
-                  poster={"/images/greetings-thumbnail.png"}
+                  poster={welcomeVideo.thumbnailImage.sourceUrl}
                 />
               </div>
 
               <div className="px-6 xl:px-0 my-8 md:my-[60px] w-full flex flex-col gap-4">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] text-[#324B4E]">
-                  Exclusive Videos
+                  {exclusiveVideos.blockTitle}
                 </p>
 
-                <BtsSlider />
+                <BtsSlider data={exclusiveVideos.videosList} />
               </div>
 
               <div className="w-full p-6 lg:p-0">
                 <div className="my-8 md:my-[60px] w-full flex flex-col lg:flex-row items-center overflow-hidden bg-white/80 rounded-lg">
                   <div className="w-full max-w-[600px] relative aspect-[5/4] lg:aspect-[6/5]">
                     <Image
-                      src="/images/bini-fandom-merch.jpg"
+                      src={merchandiseData.marchandiseCover?.sourceUrl}
                       fill
                       alt="bini-merch"
                       className="object-cover "
@@ -115,7 +153,7 @@ const Member = () => {
                   <div className="h-full p-6 text-[#454545] flex flex-col text-center lg:text-left items-center justify-center">
                     <div className="flex flex-col items-center gap-2">
                       <p className="w-full text-2xl text-[#324B4E] font-semibold">
-                        GRAB YOUR OWN BINIVERSE MERCH!
+                        {merchandiseData.merchandiseTitle}
                       </p>
 
                       <div
@@ -123,8 +161,9 @@ const Member = () => {
                         style={{
                           lineHeight: "normal",
                         }}
+                        dangerouslySetInnerHTML={{ __html: merchandiseData.merchandiseDescription }}
                       >
-                        <p>
+                        {/* <p>
                           Get ready to grab your own BINIverse merchandise! Mark
                           your calendars because BINI Merch will be available
                           for exclusive members. As an exclusive member, you can
@@ -151,7 +190,7 @@ const Member = () => {
                           Stickers, Patches, Paper Bags (S,M,L). The supplies
                           are limited so each member is only allowed to purchase
                           one (1) item of each kind.
-                        </p>
+                        </p> */}
 
                         {/* <p>
                           As an exclusive member, you&apos;ll still have a
@@ -172,11 +211,11 @@ const Member = () => {
 
               <div className="my-8 md:my-[60px] w-full flex flex-col gap-4 sm:gap-6 ">
                 <p className="font-corsiva text-[28px] xs:text-[32px] sm:text-[46px] px-6 lg:px-0 text-[#324B4E]">
-                  Exclusive Livestream
+                  {liveStreamData.blockTitle}
                 </p>
 
                 <iframe
-                  src="https://playerv2.kapamilya.com/api/akamai/getplayer?media=https://kapamilyalive.akamaized.net/hls/live/2035536/binidaystream/master.m3u8&poster=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&thumbnail=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png&image=https://fandom-web.abs-cbn.com/images/greetings-thumbnail.png"
+                  src={liveStreamData.liveStreamVideo}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   className="w-full aspect-video"
                   allowFullScreen
